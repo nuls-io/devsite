@@ -1,0 +1,52 @@
+menu:
+  started: Get started
+  modules: Modules
+  contract: Smart Contract
+  multiplechain: Multiple Chains
+  news: News
+
+index:
+  get_started: Get started
+
+page:
+  contents: Contents
+  back_to_top: Back to Top
+  improve: Improve this doc
+  prev: Prev
+  next: Next
+  last_updated: "Last updated: %s"
+
+sidebar:
+  started:
+    start: Get Statred
+    overview: Overview
+    manual: Manual
+
+  modules:
+    modular: Modular
+    introduction: Introduction
+    overview: Overview
+    specification: Specification
+    module_interaction: Module Interaction
+    event_bus: Event Bus
+    service_bus: Service Bus
+    builtin_modules: Built-in Modules
+    network: Network
+    db: Database
+    account: Account
+    message: Message
+    ledger: Ledger
+    protocol: Protocol
+    consensus: Consensus
+    client: Client
+    create_module: How to
+    develop:  develop module
+    release:  release module
+
+  contract:
+    started: Get Statred
+    overview: Overview
+
+  multiplechain:
+    started: Get Statred
+    overview: Overview
