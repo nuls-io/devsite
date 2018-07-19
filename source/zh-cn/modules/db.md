@@ -30,6 +30,7 @@
 
 * DBService
 
+```java
 public interface DBService {
 
     /**
@@ -215,4 +216,4 @@ public interface DBService {
      */
     Result destroyArea(String areaName);
 }
-
+```

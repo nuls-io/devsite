@@ -13,15 +13,16 @@
 ### 配置
 
 ```ini
-  [msg-bus]
-  #Bootstrap class
-  bootstrap=io.nuls.message.bus.module.MessageBusModuleBootstrap
+[msg-bus]
+#Bootstrap class
+bootstrap=io.nuls.message.bus.module.MessageBusModuleBootstrap
 ```
 
 ### 服务
 
 - MessageBusService
 
+```java
 public interface MessageBusService {
 
     /**
@@ -97,4 +98,4 @@ public interface MessageBusService {
      */
     Result<? extends BaseMessage> getMessageInstance(short moduleId, int type);
 }
-
+```

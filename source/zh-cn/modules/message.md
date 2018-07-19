@@ -22,6 +22,7 @@
 
 - MessageBusService
 
+```java
 public interface MessageBusService {
 
     /**
@@ -97,4 +98,5 @@ public interface MessageBusService {
      */
     Result<? extends BaseMessage> getMessageInstance(short moduleId, int type);
 }
+```
 

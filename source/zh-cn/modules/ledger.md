@@ -8,7 +8,7 @@
 * moduleID : 8
 
 
-* description :  
+* description :
 
   Provide ledger services for block chain. 保存全网交易和UTXO，校验交易合法性.
 
@@ -26,6 +26,7 @@
 
 * LedgerService
 
+```java
 public interface LedgerService {
 
     /**
@@ -119,6 +120,6 @@ public interface LedgerService {
      */
     Coin getUtxo(byte[] owner);
 }
-
+```
 
 

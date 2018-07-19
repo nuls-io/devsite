@@ -6,22 +6,23 @@
 
 - 模块ID：3
 
-- 说明： 
+- 说明：
 
   协议模块为区块链提供协议，处理区块，下载，交易，等功能。
 
 ### 配置
 
-
-    [protocol]
-    #Bootstrap class
-    bootstrap=io.nuls.protocol.base.module.BaseProtocolsModuleBootstrap
-
+```ini
+[protocol]
+#Bootstrap class
+bootstrap=io.nuls.protocol.base.module.BaseProtocolsModuleBootstrap
+```
 
 ### 服务
 
 - BlockService
 
+```java
 public interface BlockService {
     /**
      * 获取创世块（从存储中）
@@ -120,7 +121,7 @@ public interface BlockService {
 
 
 
-- DownloadService 
+- DownloadService
 
 ```java
 /**
@@ -226,6 +227,7 @@ public interface TransactionService {
      */
     ValidateResult conflictDetect(List<Transaction> txList);
 }
+```
 
 ### 模块交易
 
@@ -243,4 +245,4 @@ public interface TransactionService {
 | ??   | coinData   | ??       | 代币数据       |
 | ??   | scriptSign | VarByte  | P2PKHScriptSig |
 
-#### 
+####

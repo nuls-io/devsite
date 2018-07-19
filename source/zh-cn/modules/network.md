@@ -9,7 +9,7 @@
 * moduleID : 4
 
 
-* description :  
+* description :
 
   Provide network services for block chain. Network module is responsible for managing P2P nodes, sending and receiving data.
 
@@ -19,25 +19,26 @@
 
 ### configuration
 
-    [network]
-    #Bootstrap class
-    bootstrap=io.nuls.network.module.impl.NettyNetworkModuleBootstrap
-    
-    #port for p2p
-    network.server.port=8003
+```ini
+[network]
+#Bootstrap class
+bootstrap=io.nuls.network.module.impl.NettyNetworkModuleBootstrap
 
-    #magic number
-    network.magic=20180625
+#port for p2p
+network.server.port=8003
 
-    #maximum limitation to passive connections 
-    network.max.in=10
+#magic number
+network.magic=20180625
 
-    #maximum limitation to active connections
-    network.max.out=10
+#maximum limitation to passive connections
+network.max.in=10
 
-    #p2p seeds
-    network.seed.ip=192.168.1.103:8003,192.168.1.201:8003,192.168.1.233:8003
+#maximum limitation to active connections
+network.max.out=10
 
+#p2p seeds
+network.seed.ip=192.168.1.103:8003,192.168.1.201:8003,192.168.1.233:8003
+```
 
 
 
@@ -45,6 +46,7 @@
 
 * NetworkService
 
+```java
 public interface NetworkService {
 
     /**
@@ -165,8 +167,10 @@ public interface NetworkService {
      */
     NetworkParam getNetworkParam();
 }
+```
 
 ### message
+
 * NETWORK_GET_VERSION
 
 | 尺寸   | 字段              | 数据类型      | 说明            |

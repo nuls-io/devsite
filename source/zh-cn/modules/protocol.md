@@ -37,6 +37,7 @@ Remark:
 > ModuleID与MessageType组合起来，就是协议的唯一标识符。
 
 ##### Module ID
+
 ```java
 short MODULE_ID_MICROKERNEL = 0;
 short MODULE_ID_MQ = 1;
@@ -51,11 +52,12 @@ short MODULE_ID_RPC = 9;
 short MODULE_ID_PROTOCOL = 10;
 short MODULE_ID_NOTIFY = 11;
 ```
+
 目前主要有两个模块的消息会跨网络传输:
 1. network = 4
 2. protocol = 10
 
-##### Message types of network module 
+##### Message types of network module
 
 ```java
 short NETWORK_GET_VERSION = 01;
