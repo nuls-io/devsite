@@ -18,7 +18,7 @@ skip_render: README.md
 theme: nuls
 deploy:
   type: git
-  repo: git@github.com:nuls-io/nuls-io.github.io.git
+  repo: git@github.com:nulsio/nulsio.github.io.git
   branch: master
 
 highlight:
