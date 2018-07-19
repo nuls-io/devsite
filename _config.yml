@@ -13,15 +13,28 @@ code_dir: downloads/code
 new_post_name: :year-:month-:day-:title.md # File name of new posts
 post_asset_folder: true
 per_page: 0
+skip_render: README.md
 
 theme: nuls
 deploy:
   type: git
-  repo: git@github.com:nuls-io/nuls-io.git
+  repo: git@github.com:nuls-io/nuls-io.github.io.git
+  branch: master
 
 highlight:
   enable: true
-  line_number: true
+  line_number: false
+
+marked:
+  gfm: true
+  pedantic: false
+  sanitize: false
+  tables: true
+  breaks: true
+  smartLists: true
+  smartypants: true
+  modifyAnchors: ''
+  autolink: true
 
 twitter: nulsservice
 reddit: r/nulsservice/

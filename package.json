@@ -9,7 +9,8 @@
     "build": "rm -rf public && hexo generate",
     "eslint": "eslint .",
     "deploy": "hexo deploy",
-    "dev": "hexo server"
+    "dev": "hexo server",
+    "clean": "hexo clean"
   },
   "dependencies": {
     "cheerio": "^0.22.0",
@@ -27,7 +28,7 @@
   },
   "devDependencies": {
     "del": "^3.0.0",
-    "eslint": "^5.0.1",
+    "eslint": "^5.1.0",
     "eslint-config-hexo": "^3.0.0"
   }
 }
