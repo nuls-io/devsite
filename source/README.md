@@ -7,8 +7,8 @@ The website for NULS Developer. You can see the generated files at [nuls-io/nuls
 Install dependencies:
 
 ```bash
-$ git clone https://github.com/nuls-io/developer.git
-$ cd developer
+$ git clone https://github.com/nuls-io/devsite.git
+$ cd devsite
 $ yarn install
 ```
 
