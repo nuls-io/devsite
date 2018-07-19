@@ -30,7 +30,11 @@ $ yarn run build
 
 ## License
 
-Source released under the [MIT license](http://opensource.org/licenses/MIT).
+Source released under the [MIT license](https://opensource.org/licenses/MIT)
+
 Power by [HEXO](https://hexo.io)
-Documentation released under the [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/)
+
+Documentation released under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+
+
 
