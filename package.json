@@ -8,7 +8,7 @@
   "scripts": {
     "build": "rm -rf public && hexo generate",
     "eslint": "eslint .",
-    "deploy": "hexo deploy",
+    "deploy": "hexo clean && hexo deploy",
     "dev": "hexo server",
     "clean": "hexo clean"
   },
