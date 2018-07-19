@@ -5,7 +5,7 @@ author: NULS
 language: en
 timezone: UTC
 
-url: https://nuls.io
+url: https://nuls-io.github.io
 root: /
 permalink: news/:year/:month/:day/:title/
 archive_dir: news
@@ -18,7 +18,7 @@ skip_render: README.md
 theme: nuls
 deploy:
   type: git
-  repo: git@github.com:nulsio/nulsio.github.io.git
+  repo: git@github.com:nuls-io/nuls-io.github.io.git
   branch: master
 
 highlight:
