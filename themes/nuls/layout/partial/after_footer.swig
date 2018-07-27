@@ -3,4 +3,5 @@
 {{ js('js/lang_select') }}
 {{ js('js/toc') }}
 {{ js('js/mobile_nav') }}
+{{ js('js/common') }}
 <!-- endbuild -->

@@ -1,4 +1,4 @@
-<div class="footer-index">
+<div class="footer-index" id="footer">
    <div class="footer-index-inner">
       <div class="footer-left">
          <div>© 2018 <a href="https://nuls.io" target="_blank">Nuls</a></div>
