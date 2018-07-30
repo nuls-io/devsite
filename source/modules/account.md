@@ -6,7 +6,7 @@
 
 - 模块ID：5
 
-- 说明： 
+- 说明：
 
   为区块链提供账户功能的基础服务，包含账户的创建，信息查询，移除，导入，备份等。
 
@@ -20,11 +20,12 @@
 
 - AccountService
 
+```java
 public interface AccountService {
 
     /**
      * 创建指定个数的账户（包含地址）
-     * 
+     *
      * Create a specified number of accounts,and encrypt the accounts,
      * all the accounts are encrypted by the same password
      * if the password is NULL or "", the accounts will be unencrypted.
@@ -48,7 +49,7 @@ public interface AccountService {
 
     /**
      * 创建指定个数的账户（包含地址）
-     * 
+     *
      * Create an account and encrypt it,
      * if the password is NULL or "", the accounts will be unencrypted.
      *
@@ -59,7 +60,7 @@ public interface AccountService {
 
     /**
      * 创建一个账户
-     * 
+     *
      * Create an unencrypted account
      *
      * @return the account list created(only one account in the list).
@@ -68,7 +69,7 @@ public interface AccountService {
 
     /**
      * 根据账户标识删除对应的账户
-     * 
+     *
      * delete an account by address.
      *
      * @param address  the address of the account you want to delete.
@@ -80,7 +81,7 @@ public interface AccountService {
 
     /**
      * 根据keyStore重置密码
-     * 
+     *
      * Reset password by keyStore.
      *
      * @param keyStore the keyStore of the account.
@@ -95,7 +96,7 @@ public interface AccountService {
      * 3.从数据库搜索此账户的别名,没有搜到则不设置(别名不从keyStore中获取,因为可能被更改)
      * 4.保存账户
      * 5.导入账户账本交易等信息
-     * 
+     *
      * import an account form account key store.
      *
      * @param keyStore the keyStore of the account.
@@ -110,7 +111,7 @@ public interface AccountService {
      * 3.从数据库搜索此账户的别名,没有搜到则不设置(别名不从keyStore中获取,因为可能被更改)
      * 4.保存账户
      * 5.导入账户账本交易等信息
-     * 
+     *
      * import an account form account key store.
      *
      * @param keyStore the keyStore of the account.
@@ -133,7 +134,7 @@ public interface AccountService {
 
     /**
      * 导出账户到keyStore
-     * 
+     *
      * export an account to an account key store.
      *
      * @param address  the address of the account.
@@ -144,7 +145,7 @@ public interface AccountService {
 
     /**
      * 根据账户地址byte[]获取完整的账户信息
-     * 
+     *
      * Query account information by address.
      *
      * @param address the address of the account you want to query.
@@ -154,7 +155,7 @@ public interface AccountService {
 
     /**
      * 根据账户地址字符串获取完整的账户信息
-     * 
+     *
      * Query account by address.
      *
      * @param address the address of the account you want to query.
@@ -370,7 +371,7 @@ public interface AccountService {
     Result<Na> getAliasFee(String address, String aliasName);
 
 }
-
+```
 
 ### 模块交易
 
