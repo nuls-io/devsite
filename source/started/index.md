@@ -23,8 +23,6 @@ $ mvn -v
 Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-18T02:33:14+08:00)
 Maven home: /usr/local/Cellar/maven/3.5.4/libexec
 Java version: 1.8.0_171, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre
-Default locale: zh_CN, platform encoding: UTF-8
-OS name: "mac os x", version: "10.13.6", arch: "x86_64", family: "mac"
 ```
 
 If the Java version is not 1.8, it is recommended to install and set it to version 1.8.
@@ -49,3 +47,7 @@ $ bin/start.sh
 
 ## Use IDEA
 
+Import the project folder into the IDEA and set configurations.
+
+
+![图片](assert/launcher.jpg)

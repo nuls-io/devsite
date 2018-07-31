@@ -23,8 +23,6 @@ $ mvn -v
 Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-18T02:33:14+08:00)
 Maven home: /usr/local/Cellar/maven/3.5.4/libexec
 Java version: 1.8.0_171, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre
-Default locale: zh_CN, platform encoding: UTF-8
-OS name: "mac os x", version: "10.13.6", arch: "x86_64", family: "mac"
 ```
 
 如果你的 JDK 版本不是1.8，建议安装并设置为使用1.8版本。
@@ -48,3 +46,8 @@ $ bin/start.sh
 ```
 
 ## 导入 IDEA
+
+导入工程目录到 IDEA，并设置好启动入口，即可调试运行。
+
+![图片](assert/launcher.jpg)
+
