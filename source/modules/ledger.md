@@ -1,20 +1,20 @@
 ## Ledger module
 
-### introduction
+### Introduction
 
-* module name : ledger
-
-
-* moduleID : 8
+* Module name : ledger
 
 
-* description :  
-
-  Provide ledger services for block chain. 保存全网交易和UTXO，校验交易合法性.
+* ModuleID : 8
 
 
+* Description :  
 
-### configuration
+  Provide ledger services for block chain.
+
+
+
+### Configuration
 
 ```
 [ledger]

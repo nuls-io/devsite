@@ -1,123 +1,116 @@
-## db module
+## DB module
 
-### introduction
+### Introduction
 
-* module name : db
+* Module name : db
 
+* ModuleID : 4
 
-* moduleID : 4
+* Description : Provide key-value db services for block chain. db module is responsible for persistent data.
 
+### Module configuration
 
-* description :  Provide db services for block chain. db module is responsible for persistent data.
-
-
-
-### module configuration
-
-
+```
     [db]
     #Bootstrap class
     bootstrap=io.nuls.db.module.impl.LevelDbModuleBootstrap
-
-### db file path configuration
-
-    # file path
+    
+    # File path
     leveldb.datapath=./data
-    # 能够创建的最大的area数目
+    
+    # The maximum limitation to the number of areas
     leveldb.area.max=20
+```
 
-### service
+### Service
 
 * DBService
 
+```java
 public interface DBService {
 
     /**
-     * 创建一个数据区域
-     * Create a data area
+     * Create a data area.
      *
      * @param areaName
-     * @return
+     
+     * @return The result of the operation.
      */
     Result createArea(String areaName);
 
     /**
-     * 创建一个自定义key比较器的数据区域
      * Create a data area for the custom key comparator.
      *
      * @param areaName
-     * @param comparator 自定义key比较器/Custom key comparator.
-     * @return
+     * @param comparator Customized key comparator.
+     *
+     * @return the result of the operation
      */
     Result createArea(String areaName, Comparator<byte[]> comparator);
 
     /**
-     * 列出当前数据库中所有Area名称
      * Lists all Area names in the current database
      *
-     * @return
+     * @return The result of the operation.
      */
     String[] listArea();
 
     /**
-     * 按字节存储key-value
      * Store key-value in bytes.
      *
      * @param area
      * @param key
      * @param value
-     * @return
+     *
+     * @return The result of the operation.
      */
     Result put(String area, byte[] key, byte[] value);
 
     /**
-     * 存储对象
-     * Store the object
+     * Store a object
      *
      * @param area
      * @param key
-     * @param value 需要存储的对象/Objects that need to be stored.
+     * @param value Object to be stored.
      * @param <T>
      * @return
      */
     <T> Result putModel(String area, byte[] key, T value);
 
     /**
-     * 根据key删除value
-     * Delete value according to key.
+     * Delete value by key.
      *
      * @param area
      * @param key
-     * @return
+     *
+     * @return  The result of the operation.
      */
     Result delete(String area, byte[] key);
 
     /**
-     * 根据key获取value
-     * Get value from the key.
+     * Query value by key.
      *
      * @param area
      * @param key
-     * @return
+     *
+     * @return The result of the operation.
      */
     byte[] get(String area, byte[] key);
 
     /**
-     * 根据key和对象class获取指定对象
-     * 前提是这个key的存储方式是putModel，否则value为null
-     * Gets the specified object from the key and object class.
-     * The premise is that this key is stored in a putModel, otherwise value is null.
+     * Query the specified object by the key and object class.
+     * The precondition is that the key is stored by method putModel, otherwise the value is null.
      *
      * @param area
      * @param key
-     * @param clazz 指定对象的class/Specifies the class of the object.
+     * @param clazz The Specified class of the object.
      * @param <T>
-     * @return
+     * 
+     * @return The object or null.
      */
     <T> T getModel(String area, byte[] key, Class<T> clazz);
 
     /**
-     * 根据key获取Object对象
      * Get the Object of Object from the key.
      *
      * param area
@@ -127,92 +120,91 @@ public interface DBService {
     Object getModel(String area, byte[] key);
 
     /**
-     * 获取数据区域的所有key的无序集合
-     * Gets an unordered collection of all keys in the data area.
+     * Query the unordered set of all keys in the data area.
      *
      * @param area
-     * @return
+     *
+     * @return The set of the keys.
      */
     Set<byte[]> keySet(String area);
 
     /**
-     * 获取数据区域的所有key的有序集合
-     * Gets an ordered collection of all keys in the data area.
+     * Query the ordered list of all keys in the data area.
      *
      * @param area
-     * @return
+     * @return The list of keys.
      */
     List<byte[]> keyList(String area);
 
     /**
-     * 获取数据区域的所有value的有序集合
-     * Gets an ordered collection of all values in the data area.
+     * Query the ordered List of all values in the data area.
      *
      * @param area
-     * @return
+     *
+     * @return The list of values.
      */
     List<byte[]> valueList(String area);
 
     /**
-     * 获取数据区域的所有key-value的无序集合
-     * Gets an unordered collection of all key-value in the data area.
+     * Query the unordered set of all key-value pairs in the data area.
      *
      * @param area
-     * @return
+     *
+     * @return The set of key-value pairs.
      */
     Set<Entry<byte[], byte[]>> entrySet(String area);
 
     /**
-     * 获取数据区域的所有key-value的有序集合
      * Gets an ordered set of all key-values in the data area.
      *
      * @param area
-     * @return
+     *
+     * @return The set of key-value pairs.
      */
     List<Entry<byte[], byte[]>> entryList(String area);
 
 
     /**
-     * 获取数据区域的所有key-value的有序集合，并指定返回的value对象
-     * 前提是这个数据区域的存储方式是putModel，否则value为null
-     * Gets the ordered collection of all key-value in the data area and specifies the returned value object.
-     * The premise is that the storage mode in this data area is the putModel, otherwise value is null.
+     * Query the ordered list of all key-value pairs in the data area.
+     * The precondition is that the objects are stored by the mothod putModel, otherwise value is null.
      *
      * @param area
-     * @param clazz 指定对象的class/Specifies the class of the object.
+     * @param clazz The Specified class of the objects.
      * @param <T>
-     * @return
+     *
+     * @return The list of key-value pairs.
      */
     <T> List<Entry<byte[], T>> entryList(String area, Class<T> clazz);
 
     /**
-     * 获取数据区域的所有value的有序集合，并指定返回的value对象
-     * 前提是这个数据区域的存储方式是putModel，否则value为null
-     * Gets the ordered collection of all values in the data area and specifies the returned value object.
-     * The premise is that the storage mode in this data area is the putModel, otherwise value is null.
+     * Query the ordered list of all values in the data area and specifies the returned value object.
+     * The precondition is that the objects are stored by the mothod putModel, otherwise value is null.
      *
      * @param area
-     * @param clazz 指定对象的class/Specifies the class of the object.
+     * @param clazz The Specified class of the objects.
      * @param <T>
-     * @return
+     *
+     * @return The list of values.
      */
     <T> List<T> values(String area, Class<T> clazz);
 
     /**
-     * 指定数据区域的批量增删改操作
-     * Specifies the batch add, delete, update operations in the data area.
+     * Batch insert, delete, update operations in the data area.
      *
      * @param area
+     *
      * @return
      */
     BatchOperation createWriteBatch(String area);
 
     /**
-     * 清除Area
+     * Destroy an area by areaName.
      *
      * @param areaName
-     * @return
+     *
+     * @return The result of the operation.
      */
     Result destroyArea(String areaName);
 }
+```
 
