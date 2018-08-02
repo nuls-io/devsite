@@ -10,10 +10,10 @@
 
 ### configuration
 
-```
-[ledger]
-  #Bootstrap class
-  bootstrap=io.nuls.ledger.module.impl.UtxoLedgerModuleBootstrap
+```ini
+    [ledger]
+    #Bootstrap class
+    bootstrap=io.nuls.ledger.module.impl.UtxoLedgerModuleBootstrap
 ```
 
 ### service

@@ -10,7 +10,7 @@
 
 ### Module configuration
 
-```
+```ini
     [db]
     #Bootstrap class
     bootstrap=io.nuls.db.module.impl.LevelDbModuleBootstrap

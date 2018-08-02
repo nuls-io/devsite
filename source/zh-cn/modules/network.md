@@ -1,43 +1,35 @@
 ## Network module
 
 
-### introduction
+### 基本信息
 
-* module name : network
+* 模块名称e : network
 
+* 模块编号 : 4
 
-* moduleID : 4
-
-
-* description :
-
-  Provide network services for block chain. Network module is responsible for managing P2P nodes, sending and receiving data.
-
-
-
-
+* 功能简介 :Provides network services for block chain. Network module is responsible for managing P2P nodes, sending and receiving data.
 
 ### configuration
 
 ```ini
-[network]
-#Bootstrap class
-bootstrap=io.nuls.network.module.impl.NettyNetworkModuleBootstrap
+    [network]
+    #Bootstrap class
+    bootstrap=io.nuls.network.module.impl.NettyNetworkModuleBootstrap
 
-#port for p2p
-network.server.port=8003
+    #port for p2p
+    network.server.port=8003
 
-#magic number
-network.magic=20180625
+    #magic number
+    network.magic=20180625
 
-#maximum limitation to passive connections
-network.max.in=10
+    #maximum limitation to passive connections
+    network.max.in=10
 
-#maximum limitation to active connections
-network.max.out=10
+    #maximum limitation to active connections
+    network.max.out=10
 
-#p2p seeds
-network.seed.ip=192.168.1.103:8003,192.168.1.201:8003,192.168.1.233:8003
+    #p2p seeds
+    network.seed.ip=192.168.1.103:8003,192.168.1.201:8003,192.168.1.233:8003
 ```
 
 

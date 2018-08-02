@@ -30,8 +30,8 @@ Remark:
 
 | 字节   | 字段        | 数据类型   | 说明   |
 | ---- | --------- | ------ | ---- |
-| 4    | ModuleID  | uint32 | 模块ID |
-| 4    | EventType | uint32 | 事件ID |
+| 2    | ModuleID  | uint32 | 模块ID |
+| 2    | EventType | uint32 | 事件ID |
 
 Remark:
 > ModuleID与MessageType组合起来，就是协议的唯一标识符。
