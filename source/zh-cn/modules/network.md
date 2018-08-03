@@ -3,11 +3,11 @@
 
 ### 基本信息
 
-* 模块名称e： network
+* 模块名称： network
 
 * 模块编号： 4
 
-* 功能简介：Provides network services for block chain. Network module is responsible for managing P2P nodes, sending and receiving data.
+* 功能简介： 提供网络服务，包含节点发现、节点管理、数据广播等服务。
 
 ### configuration
 

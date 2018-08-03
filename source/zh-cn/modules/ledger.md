@@ -6,7 +6,7 @@
 
 * 模块编号： 8
 
-* 功能描述： Provides ledger services for block chain.
+* 功能描述： 提供账本服务。
 
 ### configuration
 
