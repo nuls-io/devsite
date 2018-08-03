@@ -12,180 +12,164 @@
 
 ### 配置
 
+```ini
     [account]
     #Bootstrap class
     bootstrap=io.nuls.account.module.AccountModuleBootstrap
+```
 
 ### 服务
 
-- AccountService
+* AccountService
 
 public interface AccountService {
 
     /**
-     * 创建指定个数的账户（包含地址）
+     * 创建指定个数的账户
      * 
-     * Create a specified number of accounts,and encrypt the accounts,
-     * all the accounts are encrypted by the same password
-     * if the password is NULL or "", the accounts will be unencrypted.
-     *
-     * @param count    想要创建的账户个数
-     * @param count    the number of account you want to create.
-     * @param password the password of the accounts.
-     * @return the account list created.
+     * @param count    账户数量
+     * @param password 账户密码，如果账户密码null或者"",账户将不被加密
+     * 
+     * @return 新建的账户列表
      */
     Result<List<Account>> createAccount(int count, String password);
 
     /**
-     * 创建指定个数的账户（包含地址）
-     * Create unencrypted accounts.
+     * 创建指定个数的账户
      *
-     * @param count 想要创建的账户个数
-     * @param count the number of account you want to create.
-     * @return the account list created.
+     * @param count 账户数量
+     * 
+     * @return 新建的账户列表.
      */
     Result<List<Account>> createAccount(int count);
 
     /**
-     * 创建指定个数的账户（包含地址）
-     * 
-     * Create an account and encrypt it,
-     * if the password is NULL or "", the accounts will be unencrypted.
+     * 创建一个的账户
      *
-     * @param password the password of the accounts(only one account in the list).
-     * @return the account list created.
+     * @password 账户密码
+     *
+     * @return 新建的账户列表(列表只有一个账户)
      */
     Result<List<Account>> createAccount(String password);
 
     /**
-     * 创建一个账户
-     * 
-     * Create an unencrypted account
+     * 创建一个不加密账户
      *
-     * @return the account list created(only one account in the list).
+     * @return 新建的账户列表(列表只有一个账户)
      */
     Result<List<Account>> createAccount();
 
     /**
-     * 根据账户标识删除对应的账户
-     * 
-     * delete an account by address.
+     * 根据地址删除对应的账户
      *
-     * @param address  the address of the account you want to delete.
-     * @param password the password of the account.
-     * @return the result of the operation.
+     * @param address  账户地址.
+     * @param password 账户密码.
+     *
+     * @return 操作结果
      */
     Result<Boolean> removeAccount(String address, String password);
 
 
     /**
      * 根据keyStore重置密码
-     * 
-     * Reset password by keyStore.
      *
-     * @param keyStore the keyStore of the account.
-     * @return the result of the operation.
+     * @param keyStore 文件
+     *
+     * @return 操作结果
      */
     Result<Account> updatePasswordByAccountKeyStore(AccountKeyStore keyStore, String password);
 
     /**
-     * 从keyStore导入账户(密码用来验证keystore)
-     * 1.从keyStore获取明文私钥(如果没有明文私钥,则通过密码从keyStore中的encryptedPrivateKey解出来)
-     * 2.通过keyStore创建新账户,加密账户
-     * 3.从数据库搜索此账户的别名,没有搜到则不设置(别名不从keyStore中获取,因为可能被更改)
-     * 4.保存账户
-     * 5.导入账户账本交易等信息
-     * 
-     * import an account form account key store.
+     * 从keyStore导入账户
      *
-     * @param keyStore the keyStore of the account.
-     * @return the result of the operation.
+     * @param keyStore keyStore 文件.
+     
+     * @return 操作结果
      */
     Result<Account> importAccountFormKeyStore(AccountKeyStore keyStore, String password);
 
     /**
      * 从keyStore导入账户
-     * 1.从keyStore获取明文私钥
-     * 2.通过keyStore创建新账户,不加密账户
-     * 3.从数据库搜索此账户的别名,没有搜到则不设置(别名不从keyStore中获取,因为可能被更改)
-     * 4.保存账户
-     * 5.导入账户账本交易等信息
-     * 
-     * import an account form account key store.
      *
-     * @param keyStore the keyStore of the account.
-     * @return the result of the operation.
+     * @param keyStore keyStore 文件.
+     *
+     * @return 操作结果
      */
     Result<Account> importAccountFormKeyStore(AccountKeyStore keyStore);
 
 
     /**
      * 根据私钥和密码导入账户
-     * import an account from plant private key and encrypt the account.
+     *
+     * @param prikey  账户私钥
+     * @param password 账户密码
+     *
+     * @return 被导入的账户
      */
     Result<Account> importAccount(String prikey, String password);
 
     /**
-     * 据私钥和密码导入账户
-     * import an unencrypted account by plant private key.
+     * 根据私钥明文导入账户
+     *
+     * @param prikey  账户明文私钥
+     *
+     * @return 被导入的账户
      */
     Result<Account> importAccount(String prikey);
+    
 
     /**
      * 导出账户到keyStore
      * 
-     * export an account to an account key store.
+     * @param address  账户地址
+     * @param password 账户密码
      *
-     * @param address  the address of the account.
-     * @param password the password of the account key store.
-     * @return the account key store object.
+     * @return keyStore文件对象
      */
     Result<AccountKeyStore> exportAccountToKeyStore(String address, String password);
 
     /**
-     * 根据账户地址byte[]获取完整的账户信息
+     * 根据字节格式账户地址查询完整的账户信息
      * 
-     * Query account information by address.
+     * @param address  账户地址
      *
-     * @param address the address of the account you want to query.
-     * @return the account.
+     * @return 账户.
      */
     Result<Account> getAccount(byte[] address);
 
     /**
-     * 根据账户地址字符串获取完整的账户信息
+     * 根据账户地址查询完整的账户信息
      * 
-     * Query account by address.
+     * @param address  账户地址
      *
-     * @param address the address of the account you want to query.
-     * @return the account.
+     * @return 账户.
      */
     Result<Account> getAccount(String address);
 
     /**
-     * 根据账户地址类对象获取完整的账户信息
-     * Query account by account address.
+     * 根据账户地址对象查询完整的账户信息
+     * 
+     * @param address  账户地址对象
      *
-     * @param address the address of the account you want to query;
-     * @return the account.
+     * @return 账户.
      */
     Result<Account> getAccount(Address address);
 
     /**
      * 根据账户公钥获取账户地址对象
-     * Query account address by public key.
+     * 
+     * @param pubKey  账户公钥
      *
-     * @param pubKey public key string.
-     * @return the account address.
+     * @return 账户
      */
     Result<Address> getAddress(String pubKey);
 
     /**
      * 根据账户二进制公钥获取账户地址对象
-     * Gets the account address object from the account binary public key.
      *
-     * @param pubKey public key binary array.
-     * @return the account address.
+     * @param pubKey 账户公钥
+     *
+     * @return 账户
      */
     Result<Address> getAddress(byte[] pubKey);
 

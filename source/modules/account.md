@@ -1,66 +1,60 @@
-### Account 模块
+### Account module
 
-### 介绍
+### Introduction
 
-- 模块名称：account
+* Module name：account
 
-- 模块ID：5
+* Module ID：5
 
-- 说明：
+* Description：Provides account management.You can create,query,remove,backup&restore accounts by using this module.
 
-  为区块链提供账户功能的基础服务，包含账户的创建，信息查询，移除，导入，备份等。
+### Configuration
 
-### 配置
-
+```ini
     [account]
     #Bootstrap class
     bootstrap=io.nuls.account.module.AccountModuleBootstrap
+```
 
-### 服务
+### service
 
-- AccountService
+* AccountService
 
 ```java
 public interface AccountService {
 
     /**
-     * 创建指定个数的账户（包含地址）
-     *
      * Create a specified number of accounts,and encrypt the accounts,
      * all the accounts are encrypted by the same password
      * if the password is NULL or "", the accounts will be unencrypted.
      *
-     * @param count    想要创建的账户个数
      * @param count    the number of account you want to create.
      * @param password the password of the accounts.
+     * 
      * @return the account list created.
      */
     Result<List<Account>> createAccount(int count, String password);
 
     /**
-     * 创建指定个数的账户（包含地址）
      * Create unencrypted accounts.
      *
-     * @param count 想要创建的账户个数
      * @param count the number of account you want to create.
+     * 
      * @return the account list created.
      */
     Result<List<Account>> createAccount(int count);
 
     /**
-     * 创建指定个数的账户（包含地址）
-     *
      * Create an account and encrypt it,
      * if the password is NULL or "", the accounts will be unencrypted.
      *
      * @param password the password of the accounts(only one account in the list).
+     * 
      * @return the account list created.
      */
     Result<List<Account>> createAccount(String password);
 
     /**
-     * 创建一个账户
-     *
      * Create an unencrypted account
      *
      * @return the account list created(only one account in the list).
@@ -68,97 +62,87 @@ public interface AccountService {
     Result<List<Account>> createAccount();
 
     /**
-     * 根据账户标识删除对应的账户
-     *
      * delete an account by address.
      *
      * @param address  the address of the account you want to delete.
      * @param password the password of the account.
+     * 
      * @return the result of the operation.
      */
     Result<Boolean> removeAccount(String address, String password);
 
 
     /**
-     * 根据keyStore重置密码
-     *
      * Reset password by keyStore.
      *
      * @param keyStore the keyStore of the account.
-     * @return the result of the operation.
+     * 
+     * @return the account.
      */
     Result<Account> updatePasswordByAccountKeyStore(AccountKeyStore keyStore, String password);
 
     /**
-     * 从keyStore导入账户(密码用来验证keystore)
-     * 1.从keyStore获取明文私钥(如果没有明文私钥,则通过密码从keyStore中的encryptedPrivateKey解出来)
-     * 2.通过keyStore创建新账户,加密账户
-     * 3.从数据库搜索此账户的别名,没有搜到则不设置(别名不从keyStore中获取,因为可能被更改)
-     * 4.保存账户
-     * 5.导入账户账本交易等信息
-     *
      * import an account form account key store.
      *
      * @param keyStore the keyStore of the account.
-     * @return the result of the operation.
+     * 
+     * @return the account imported.
      */
     Result<Account> importAccountFormKeyStore(AccountKeyStore keyStore, String password);
 
     /**
-     * 从keyStore导入账户
-     * 1.从keyStore获取明文私钥
-     * 2.通过keyStore创建新账户,不加密账户
-     * 3.从数据库搜索此账户的别名,没有搜到则不设置(别名不从keyStore中获取,因为可能被更改)
-     * 4.保存账户
-     * 5.导入账户账本交易等信息
-     *
      * import an account form account key store.
      *
      * @param keyStore the keyStore of the account.
+     * 
      * @return the result of the operation.
      */
     Result<Account> importAccountFormKeyStore(AccountKeyStore keyStore);
 
 
     /**
-     * 根据私钥和密码导入账户
-     * import an account from plant private key and encrypt the account.
+     * import an account from plain private key and encrypt the account.
+     * 
+     * @param prikey plain private key.
+     * @param password password to encrypt the account. 
+     * 
+     * @return the account imported..
      */
     Result<Account> importAccount(String prikey, String password);
 
     /**
-     * 据私钥和密码导入账户
-     * import an unencrypted account by plant private key.
+     * import an unencrypted account by plain private key.
+     * 
+     * @param prikey plain private key.
+     * 
+     * @return the account imported..
      */
     Result<Account> importAccount(String prikey);
 
     /**
-     * 导出账户到keyStore
-     *
      * export an account to an account key store.
      *
      * @param address  the address of the account.
      * @param password the password of the account key store.
+     * 
      * @return the account key store object.
      */
     Result<AccountKeyStore> exportAccountToKeyStore(String address, String password);
 
     /**
-     * 根据账户地址byte[]获取完整的账户信息
-     *
      * Query account information by address.
      *
      * @param address the address of the account you want to query.
+     * 
      * @return the account.
      */
     Result<Account> getAccount(byte[] address);
 
     /**
-     * 根据账户地址字符串获取完整的账户信息
-     *
      * Query account by address.
      *
      * @param address the address of the account you want to query.
+     * 
      * @return the account.
      */
     Result<Account> getAccount(String address);
@@ -167,147 +151,147 @@ public interface AccountService {
      * 根据账户地址类对象获取完整的账户信息
      * Query account by account address.
      *
-     * @param address the address of the account you want to query;
+     * @param address the address of the account you want to query.
+     * 
      * @return the account.
      */
     Result<Account> getAccount(Address address);
 
     /**
-     * 根据账户公钥获取账户地址对象
      * Query account address by public key.
      *
      * @param pubKey public key string.
+     * 
      * @return the account address.
      */
     Result<Address> getAddress(String pubKey);
 
     /**
-     * 根据账户二进制公钥获取账户地址对象
      * Gets the account address object from the account binary public key.
      *
      * @param pubKey public key binary array.
+     * 
      * @return the account address.
      */
     Result<Address> getAddress(byte[] pubKey);
 
     /**
-     * 根据账户验证账户是否加密
-     * Verify weather the account is encrypted according to the account.
+     * Verify whether the account is encrypted.
      *
      * @param account the account to be verified.
+     * 
      * @return the result of the operation.
      */
-    Result isEncrypted(Account account);
+    Result<Boolean> isEncrypted(Account account);
 
     /**
-     * 根据账户的地址对象验证账户是否加密
-     * Verify weather the account is encrypted according to the account's address object.
+     * Verify whether the account is encrypted.
      *
      * @param address The address of the account to be verified.
+     * 
      * @return the result of the operation.
      */
-    Result isEncrypted(Address address);
+    Result<Boolean> isEncrypted(Address address);
 
     /**
-     * 根据账户的地址字符串验证账户是否加密
-     * Verify weather the account is encrypted according to the account's address string.
+     * Verify whether the account is encrypted.
      *
      * @param address The address of the account to be verified.
+     * 
      * @return the result of the operation.
      */
-    Result isEncrypted(String address);
+    Result<Boolean> isEncrypted(String address);
 
     /**
      * Verify the account password.
      *
      * @param account
      * @param password
+     * 
      * @return
      */
-    Result validPassword(Account account, String password);
+    Result<Boolean> validPassword(Account account, String password);
 
     /**
-     * 验证地址字符串的格式
-     * Verify the format of the address string.
+     * Verify whether the address is legal.
      *
-     * @param address To verify the address string.
+     * @param address 
+     * 
      * @return the result of the operation.
      */
-    Result verifyAddressFormat(String address);
+    Result<Boolean> verifyAddressFormat(String address);
 
     /**
-     * 获取所有账户集合
      * Query all account collections.
      *
-     * @return account list of all accounts.
+     * @return account Collection of all accounts.
      */
     Result<Collection<Account>> getAccountList();
 
     /**
-     * 数据签名
      * Sign data.
      *
-     * @param data     Data to be signed.
-     * @param account  Signed account
-     * @param password Account password
+     * @param data     data to be signed.
+     * @param account  account
+     * @param password password
+     * 
      * @return The NulsSignData object.
      */
     NulsSignData signData(byte[] data, Account account, String password) throws NulsException;
 
     /**
-     * 数据签名(无密码)
-     * Sign data.(no password)
+     * Sign data.
      *
-     * @param data    Data to be signed.
-     * @param account Signed account
+     * @param data    data to be signed.
+     * @param account account
+     * 
      * @return The NulsSignData object.
      */
     NulsSignData signData(byte[] data, Account account) throws NulsException;
 
     /**
-     * 数据签名
      * Sign data.
      *
-     * @param data  Data to be signed.
+     * @param data  data to be signed.
      * @param ecKey eckey.
+     * 
      * @return The NulsSignData object.
      */
     NulsSignData signData(byte[] data, ECKey ecKey) throws NulsException;
 
     /**
-     * 数据签名
-     * Sign data.
+     * sign data.
      *
      * @param digest   data digest.
      * @param account  account to sign.
      * @param password password of account.
+     * 
      * @return the NulsSignData object.
      */
     NulsSignData signDigest(byte[] digest, Account account, String password) throws NulsException;
 
     /**
-     * 数据签名
      * Sign data digest
      *
-     * @param digest to be signed.
+     * @param digest digest to be signed.
      * @param ecKey  eckey
+     * 
      * @return The NulsSignData object.
      */
     NulsSignData signDigest(byte[] digest, ECKey ecKey);
 
     /**
-     * 验证签名
      * Verify the signature.
      *
      * @param data     data to be validated.
      * @param signData signature.
      * @param pubKey   dublic key of account.
+     * 
      * @return the result of the opration
      */
-    Result verifySignData(byte[] data, NulsSignData signData, byte[] pubKey);
+    Result<Boolean> verifySignData(byte[] data, NulsSignData signData, byte[] pubKey);
 
     /**
-     * 获取所有的账户的余额
      * Query the balance of all accounts.
      *
      * @return Balance object.
@@ -315,25 +299,24 @@ public interface AccountService {
     Result<Balance> getBalance() throws NulsException;
 
     /**
-     * 根据账户获取账户余额
      * Query the balance of an account.
      *
      * @param account the account.
+     * 
      * @return Balance object.
      */
     Result<Balance> getBalance(Account account) throws NulsException;
 
     /**
-     * 根据账户地址对象获取账户余额
      * Query the balance of an account.
      *
      * @param address the address of the account.
+     * 
      * @return Balance object.
      */
     Result<Balance> getBalance(Address address) throws NulsException;
 
     /**
-     * 根据账户地址字符串获取账户余额
      * Query the balance of an account.
      *
      * @param address the address of the account.
@@ -343,26 +326,24 @@ public interface AccountService {
 
 
     /**
-     * 根据账户地址字节数组获取账户别名
-     * Get an account alias based on the array of account address bytes
+     * Query the alias of an account.
      *
-     * @param address
-     * @return alias string
+     * @param address the address of the account, in bytes format.
+     * @return alias string.
      */
     Result<String> getAlias(byte[] address);
 
     /**
-     * 根据账户地址获取账户别名
-     * Get account alias according to account address
+     * Query account alias by address.
      *
-     * @param address
-     * @return alias string
+     * @param address the address of the account.
+     * 
+     * @return alias string.
      */
     Result<String> getAlias(String address);
 
     /**
-     * 获取设置别名交易手续费
-     * Gets to set the alias transaction fee
+     * Calculate the fee to set the alias transaction.
      *
      * @param address
      * @param aliasName
@@ -373,26 +354,26 @@ public interface AccountService {
 }
 ```
 
-### 模块交易
+### Message
 
-#### 通用交易数据结构
+#### Universal protocal of Transaction
 
-| 尺寸 | 字段       | 数据类型 | 说明           |
+| Size | Name       | Type | Remark           |
 | ---- | ---------- | -------- | -------------- |
-| 2    | type       | uint16   | 交易类型       |
-| 6    | time       | uint48   | 时间戳         |
-| ??   | remark     | VarByte  | 备注           |
-| ??   | txData     | ??       | 交易数据       |
-| ??   | coinData   | ??       | 代币数据       |
+| 2    | type       | uint16   | txType       |
+| 6    | time       | uint48   | timestamp         |
+| ??   | remark     | VarByte  | remark           |
+| ??   | txData     | ??       | txData       |
+| ??   | coinData   | ??       | coinData       |
 | ??   | scriptSign | VarByte  | P2PKHScriptSig |
 
-#### 别名交易
+#### Alias 
 
 - txData：Alias
 
 #### Alias
 
-| 尺寸 | 字段    | 数据类型 | 说明               |
+| Size | Name       | Type | Remark           |
 | ---- | ------- | -------- | ------------------ |
-| 2    | address | VarByte  | 设置别名的账户地址 |
-| ？？ | alias   | String   | 别名名称           |
+| 2    | address | VarByte  | address |
+| ?? | alias   | String   | alias |
