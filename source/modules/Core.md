@@ -1,6 +1,6 @@
 ### Core 模块
 
-#### 介绍
+#### Basic information
 
 - 模块名称：core
 

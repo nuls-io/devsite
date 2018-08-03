@@ -1,13 +1,13 @@
 ## Network module
 
 
-### Introduction
+### Basic information
 
-* Module name : network
+* Module name: network
 
-* ModuleID : 4
+* ModuleID: 4
 
-* Description : Provide network services for block chain. Network module is responsible for managing P2P nodes, sending and receiving data.
+* Description: Provide network services for block chain. Network module is responsible for managing P2P nodes, sending and receiving data.
 
 ### Configuration
 

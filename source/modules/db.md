@@ -1,12 +1,12 @@
 ## DB module
 
-### Introduction
+### Basic information
 
-* Module name : db
+* Module name: db
 
-* ModuleID : 4
+* ModuleID: 4
 
-* Description : Provide key-value db services for block chain. db module is responsible for persistent data.
+* Description: Provide key-value db services for block chain. db module is responsible for persistent data.
 
 ### Module configuration
 

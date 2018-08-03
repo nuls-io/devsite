@@ -1,12 +1,12 @@
 ### Account module
 
-### Introduction
+### Basic information
 
-* Module name：account
+* Module name: account
 
-* Module ID：5
+* Module ID: 5
 
-* Description：Provides account management.You can create,query,remove,backup&restore accounts by using this module.
+* Description: Provides account management.You can create,query,remove,backup&restore accounts by using this module.
 
 ### Configuration
 

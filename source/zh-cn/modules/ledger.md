@@ -2,11 +2,11 @@
 
 ### Introduction
 
-* Module name : ledger
+* 模块名称： ledger
 
-* ModuleID : 8
+* 模块编号： 8
 
-* Description : Provides ledger services for block chain.
+* 功能描述： Provides ledger services for block chain.
 
 ### configuration
 

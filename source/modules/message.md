@@ -1,26 +1,26 @@
 ## Message-bus 模块
 
-### 介绍
+### Basic information
 
-- 模块名称：message-bus
+* Module name: message-bus
 
-- 模块ID：6
+* Module ID: 6
 
-- 说明：
+* Description: 
 
   提供各种消息的接收，发送，订阅，广播等处理。
 
-### 配置
+### Configuration
 
 ```ini
-[msg-bus]
-#Bootstrap class
-bootstrap=io.nuls.message.bus.module.MessageBusModuleBootstrap
+    [msg-bus]
+    #Bootstrap class
+    bootstrap=io.nuls.message.bus.module.MessageBusModuleBootstrap
 ```
 
-### 服务
+### service
 
-- MessageBusService
+* MessageBusService
 
 ```java
 public interface MessageBusService {

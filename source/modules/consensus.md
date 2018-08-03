@@ -1,25 +1,25 @@
-## Consensus  模块
+## Consensus  Module
 
-### 介绍
+### Basic information
 
-- 模块名称：consensus
+* Module name: consensus
 
-- 模块ID：7
+* Module ID: 7
 
-- 说明： 
-
-  为区块链提供处理区块，交易，共识等功能。
+* Description: 为区块链提供处理区块，交易，共识等功能。
 
 ### 配置
 
 ```ini
-  [consensus]
-  #Bootstrap class
-  bootstrap=io.nuls.consensus.poc.module.impl.PocConsensusModuleBootstrap
-  #是否参与出块
-  partake.packing=true
-  #系统默认的出块地址 System default address of Generate blocks
-  seed.nodes=6Hgdk4jM36DuiYUSb9CsZf19w6mUMWWs
+    [consensus]
+    #Bootstrap class
+    bootstrap=io.nuls.consensus.poc.module.impl.PocConsensusModuleBootstrap
+    
+    #是否参与出块
+    partake.packing=true
+    
+    #系统默认的出块地址 System default address of Generate blocks
+    seed.nodes=6Hgdk4jM36DuiYUSb9CsZf19w6mUMWWs
 ```
 
 ### 服务

@@ -1,12 +1,12 @@
 ## Ledger module
 
-### Introduction
+### Basic information
 
-* Module name : ledger
+* Module name: ledger
 
-* ModuleID : 8
+* ModuleID: 8
 
-* Description : Provides ledger services for block chain.
+* Description: Provides ledger services for block chain.
 
 ### Configuration
 

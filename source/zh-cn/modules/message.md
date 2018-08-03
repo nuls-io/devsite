@@ -1,14 +1,12 @@
 ## Message-bus 模块
 
-### 介绍
+### 基本信息
 
-- 模块名称：message-bus
+* 模块名称： message-bus
 
-- 模块ID：6
+* 模块编号： 6
 
-- 说明：
-
-  提供各种消息的接收，发送，订阅，广播等处理。
+* 功能描述： 提供各种消息的接收，发送，订阅，广播等处理。
 
 ### 配置
 
@@ -20,7 +18,7 @@
 
 ### 服务
 
-- MessageBusService
+* MessageBusService
 
 ```java
 public interface MessageBusService {
