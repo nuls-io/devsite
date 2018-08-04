@@ -8,9 +8,11 @@ Please refer to Get Started to prepare your development environment and clone th
 ## Overview
 
 NULS exports modular specifications through the kernel module's io.nuls.kernel.module.BaseModuleBootstrap package.
+
 By inheriting BaseModuleBootstrap and implementing interface methods, it can be managed correctly by the module manager.
 
 The client module is the initiator class for NULS.
+
 Load the module described by the module configuration file through the microkernel manager.
 
 Our custom modules also need to be recognized and dependent by the client project, and module.ini is configured to have our module loaded when the manager starts.

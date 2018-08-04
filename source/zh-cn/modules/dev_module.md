@@ -8,9 +8,11 @@ title: 如何开发一个模块
 ## 概述
 
 NULS 通过 kernel 模块的 io.nuls.kernel.module.BaseModuleBootstrap 包导出了模块化规范。
+
 通过继承 BaseModuleBootstrap 并实现接口方法，即可被模块管理器正确管理。
 
-client 模块是 NULS 的启动器类。
+client 模块是 NULS 的启动器，入口函数在这个工程里。
+
 通过微内核管理器，加载模块配置文件描述的功能模块。
 
 我们的自定义模块也需要被 client 工程识别和依赖，并配置 module.ini 让管理器启动时也要加载我们的模块。
@@ -179,5 +181,5 @@ bootstrap=com.daviyang35.nuls.howto.module.Bootstrap
 ```
 
 现在，可以编译并启动 client 。
-为了方便确认，通过 IDE 下断点，查看模块回调方法是反正确执行。
+为了方便确认，通过 IDE 下断点，查看模块回调方法是否正确执行。
 
