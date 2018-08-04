@@ -14,13 +14,13 @@
 
 #### 服务器硬件配置
 
-* 建立NULS节点的服务器不低于如下配置
+**建立NULS节点的服务器不低于如下配置**
 
-|     CPU   | 内存 |   硬盘   |  宽带   | 
-|:---------:| :----: | :------: | :---:| 
-| 四核 3.0GHz | 16G  | 128G硬盘 | 20M上行 | 
-  
-* 推荐配置
+|     CPU   | 内存 |   硬盘   |  宽带   |
+|:---------:| :----: | :------: | :---:|
+| 四核 3.0GHz | 16G  | 128G硬盘 | 20M上行 |
+
+**推荐配置**
 
 |     CPU     | 内存 |   硬盘   |   宽带   |
 | :---------: | :---: | :------: | :------: |
@@ -95,7 +95,7 @@ Linux内核版本推荐使用 2.6.32及以上
 
   执行`create`命令表示创建单个账户，然后输入密码，以及再次确认输入的密码，创建成功后将会返回账户的地址。
 
-  
+
 
 ### 约定
 
@@ -128,7 +128,7 @@ getaccount <address> --get account information
 	<address> the account address - Required
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> help
@@ -170,7 +170,7 @@ Enter your password:
 
 备份账户，将生成一个名称为账户地址，扩展名为.keystore的文件，该文件为账户的备份文件
 
-- **命令：backup &lt;address&gt; [path]** 
+- **命令：backup &lt;address&gt; [path]**
 
 | 参数            | 说明                                                 |
 | --------------- | ---------------------------------------------------- |
@@ -179,7 +179,7 @@ Enter your password:
 
 注意：备份有密码的账户时需要输入账户当前密码，将来导入此备份文件生成账户时，要验证此密码；备份一个没有密码的账户是允许的，但是是非常不安全的，我们不建议这样做。
 
-返回信息 
+返回信息
 
 ```shell
 The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
@@ -200,19 +200,19 @@ The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keysto
 
 根据账户地址移除本地账户，如果账户已加密，则需要输入密码
 
-- **命令：remove &lt;address&gt; ** 
+- **命令：remove &lt;address&gt; **
 
 | 参数            | 说明             |
 | --------------- | ---------------- |
 | &lt;address&gt; | 账户的地址，必填 |
 
-返回信息 
+返回信息
 
 ```json
 Success
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> remove NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
@@ -227,19 +227,19 @@ Success
 
 根据账户地址对未加密的账户设置密码，不能对已经有密码的账户进行设置密码的操作。
 
-- **命令：setpwd &lt;address&gt; ** 
+- **命令：setpwd &lt;address&gt; **
 
 | 参数            | 说明             |
 | --------------- | ---------------- |
 | &lt;address&gt; | 账户的地址，必填 |
 
-返回信息 
+返回信息
 
 ```json
 Success
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> setpwd Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -255,19 +255,19 @@ Success
 
 根据账户地址对已加密的账户修改密码，不能对未加密的账户进行修改密码的操作；修改密码时将会验证旧密码。
 
-- **命令：resetpwd &lt;address&gt; ** 
+- **命令：resetpwd &lt;address&gt; **
 
 | 参数            | 说明             |
 | --------------- | ---------------- |
 | &lt;address&gt; | 账户的地址，必填 |
 
-返回信息 
+返回信息
 
 ```json
 Success
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> resetpwd Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -284,7 +284,7 @@ Success
 
 给账户设置一个别名，如果用此账户建立节点，别名将作为节点来源显示
 
-- **命令：setalias &lt;address&gt; &lt;alias&gt;** 
+- **命令：setalias &lt;address&gt; &lt;alias&gt;**
 
 | 参数            | 说明             |
 | --------------- | ---------------- |
@@ -297,7 +297,7 @@ Success
 "0020f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> setalias Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT nuls_alias
@@ -310,7 +310,7 @@ nuls>>> setalias Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT nuls_alias
 
 导入账户keystore文件，生成本地账户，如果本地已有该账户将无法导入。
 
-- **命令：importkeystore &lt;path&gt; ** 
+- **命令：importkeystore &lt;path&gt; **
 
 | 参数         | 说明                           |
 | ------------ | ------------------------------ |
@@ -324,7 +324,7 @@ nuls>>> setalias Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT nuls_alias
 "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> importkeystore /home/charlie/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
@@ -339,7 +339,7 @@ Enter your password:**********
 
 导入账户私钥，生成本地账户，如果本地已有该账户将无法导入。
 
-- **命令：import &lt;privatekey&gt; ** 
+- **命令：import &lt;privatekey&gt; **
 
 | 参数               | 说明             |
 | ------------------ | ---------------- |
@@ -353,7 +353,7 @@ Enter your password:**********
 "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> import 00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
@@ -369,7 +369,7 @@ Please confirm new password:**********
 
 导入账户私钥，生成本地账户，如果本地已有该账户将执行覆盖导入。
 
-- **命令：import &lt;privatekey&gt; ** 
+- **命令：import &lt;privatekey&gt; **
 
 | 参数               | 说明             |
 | ------------------ | ---------------- |
@@ -385,7 +385,7 @@ Please confirm new password:**********
 "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> import 00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
@@ -444,7 +444,7 @@ nuls>>> getaccount NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
 
 根据分页参数查询账户列表，所有账户以创建时间倒序输出。
 
-- **命令：getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;** 
+- **命令：getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;**
 
 | 参数               | 说明                             |
 | ------------------ | -------------------------------- |
@@ -508,7 +508,7 @@ nuls>>> getaccounts 1 2
 
 根据账户地址查询账户私钥，如果账户已加密，则需要输入密码
 
-- **命令：getprikey &lt;address&gt; ** 
+- **命令：getprikey &lt;address&gt; **
 
 | 参数            | 说明             |
 | --------------- | ---------------- |
@@ -520,7 +520,7 @@ nuls>>> getaccounts 1 2
 "00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getprikey NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
@@ -535,7 +535,7 @@ Enter your password:**********
 
 根据账户地址查询账户余额
 
-- **命令：getbalance &lt;address&gt; ** 
+- **命令：getbalance &lt;address&gt; **
 
 | 参数            | 说明             |
 | --------------- | ---------------- |
@@ -551,7 +551,7 @@ Enter your password:**********
 }
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -568,7 +568,7 @@ nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 
 根据账户地址将NULS转入另一账户地址中，如果转出账户有密码则需要验证密码，否则直接转出。
 
-- **命令：transfer &lt;address&gt; &lt;toAddress&gt; &lt;amount&gt; [remark] ** 
+- **命令：transfer &lt;address&gt; &lt;toAddress&gt; &lt;amount&gt; [remark] **
 
 | 参数              | 说明                                            |
 | ----------------- | ----------------------------------------------- |
@@ -583,7 +583,7 @@ nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> transfer Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 100 转账
@@ -598,7 +598,7 @@ Enter your password:**********
 
 根据交易hash查询交易详细信息
 
-- **命令：gettx &lt;hash&gt;** 
+- **命令：gettx &lt;hash&gt;**
 
 | 参数         | 说明           |
 | ------------ | -------------- |
@@ -691,7 +691,7 @@ nuls>>> gettx 00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b35
 
 根据账户地址，查询该账户的交易列表
 
-- **命令：gettxlist &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt;** 
+- **命令：gettxlist &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt;**
 
 | 参数               | 说明                             |
 | ------------------ | -------------------------------- |
@@ -719,7 +719,7 @@ nuls>>> gettx 00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b35
 } ]
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> gettxlist NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 1 10
@@ -746,7 +746,7 @@ nuls>>> gettxlist NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 1 10
 
 根据账户地址创建节点，创建节点时需要一个打包账户地址（打包地址不能有密码），同时需要至少20000NULS的保证金。
 
-- **命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt; ** 
+- **命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt; **
 
 | 参数                   | 说明                                                         |
 | ---------------------- | ------------------------------------------------------------ |
@@ -776,7 +776,7 @@ Enter your password:**********
 
 根据账户地址和节点agentHash，加入共识，至少需要2000NULS
 
-- **命令：deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt; ** 
+- **命令：deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt; **
 
 | 参数              | 说明                                   |
 | ----------------- | -------------------------------------- |
@@ -790,7 +790,7 @@ Enter your password:**********
 "0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e 5000
@@ -803,7 +803,7 @@ nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219
 
 根据账户地址和加入共识时的交易hash来退出共识(委托)，单个账户多次委托节点时，每次委托的交易是独立的，所以退出时也要通过单次委托时的交易hash来退出对应的那一次委托，而不会一次退出所有委托。
 
-- **命令：withdraw &lt;address&gt; &lt;txHash&gt; ** 
+- **命令：withdraw &lt;address&gt; &lt;txHash&gt; **
 
 | 参数            | 说明                   |
 | --------------- | ---------------------- |
@@ -816,7 +816,7 @@ nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219
 "00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0
@@ -841,7 +841,7 @@ nuls>>> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d
 "0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f"
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> stopagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -862,7 +862,7 @@ Enter your password:**********
 | ----------------- | --------------------- |
 | &lt;agentHash&gt; | 节点agentHash值，必填 |
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -885,7 +885,7 @@ Enter your password:**********
 }
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6
@@ -922,7 +922,7 @@ nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db575652350
 | &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
 | &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
 
-返回信息 
+返回信息
 
 ```json
 [{
@@ -945,7 +945,7 @@ nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db575652350
 }]
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getagents 1 2
@@ -994,7 +994,7 @@ nuls>>> getagents 1 2
 
 - **命令：getconsensus **
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -1006,7 +1006,7 @@ nuls>>> getagents 1 2
 }
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getconsensus
@@ -1031,7 +1031,7 @@ nuls>>> getconsensus
 | --------------- | -------------- |
 | &lt;address&gt; | 账户地址，必填 |
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -1045,7 +1045,7 @@ nuls>>> getconsensus
 }
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getdepositedinfo Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -1075,7 +1075,7 @@ nuls>>> getdepositedinfo Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 | &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
 | [agentHash]        | 节点Hash，选填                   |
 
-返回信息 
+返回信息
 
 ```json
 [{
@@ -1092,7 +1092,7 @@ nuls>>> getdepositedinfo Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 }]
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getdepositeds Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
@@ -1135,7 +1135,7 @@ nuls>>> getdepositeds Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
 | &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
 | &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
 
-返回信息 
+返回信息
 
 ```json
 [ {
@@ -1207,7 +1207,7 @@ nuls>>> getdepositedagents Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
 
 - **命令：getbestblockheader**
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -1230,7 +1230,7 @@ nuls>>> getdepositedagents Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
 }
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getbestblockheader
@@ -1267,7 +1267,7 @@ nuls>>> getbestblockheader
 | &lt;hash&gt;   | 区块的hash值 |
 | &lt;height&gt; | 区块的高度   |
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -1304,7 +1304,7 @@ nuls>>> getbestblockheader
           "address" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",
           "value" : 100000,
           "lockTime" : 29115
-        } 
+        }
     ]
   }],
   "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf"//签名
@@ -1394,7 +1394,7 @@ nuls>>> getblock 28115
 | &lt;hash&gt;   | 区块的hash值 |
 | &lt;height&gt; | 区块的高度   |
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -1449,7 +1449,7 @@ nuls>>> getblockheader 28115
 
 - **命令：getnetinfo **
 
-返回信息 
+返回信息
 
 ```json
 {
@@ -1461,7 +1461,7 @@ nuls>>> getblockheader 28115
 }
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> getnetinfo
@@ -1482,7 +1482,7 @@ nuls>>> getnetinfo
 
 - **命令：getnetnodes **
 
-返回信息 
+返回信息
 
 ```json
 [ "192.168.1.223" ]
@@ -1503,13 +1503,13 @@ nuls>>> getnetnodes
 
 - **命令：version **
 
-返回信息 
+返回信息
 
 ```json
 [ "192.168.1.223" ]
 ```
 
-示例 
+示例
 
 ```shell
 nuls>>> version
@@ -1529,7 +1529,7 @@ nuls>>> version
 
 - **命令：upgrade &lt;version&gt; **
 
-示例 
+示例
 
 ```shell
 nuls>>> version 1.0.0
@@ -1543,7 +1543,7 @@ nuls>>> version 1.0.0
 
 - **命令：exit**
 
-示例 
+示例
 
 ```shell
 nuls>>> exit
