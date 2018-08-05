@@ -8,7 +8,7 @@ NULS Protocol Package
 
 ```
 *---------------------------------------------------------------*
-|    Message header(10 Byte)    |    Message body(??)       |
+|    Message header(18 Byte)    |    Message body(??)           |
 *---------------------------------------------------------------*
 ```
 
@@ -18,75 +18,67 @@ NULS package 由 Message Header 与 Message Body 组成。
 
 | 字节   | 字段                | 数据类型   | 说明               |
 | ---- | ----------------- | ------ | ---------------- |
+| 8    | Netty             | uint64 | 总体数据长度|
 | 4    | MagicNumber       | uint32 | 魔法参数，划分网络        |
 | 4    | MessageBodyLength | uint32 | MessageBody长度    |
 | 1    | Xor               | uint8  | MessageBody奇偶校验位 |
 | 1    | EncryptType       | uint8  | 加密方式，网络层数据加密扩展   |
+| 2    | Module ID         | uint16 | Payload 源模块 ID|
 
 Remark:
-> Message Header 固定为10字节，DataLength字段指出了 Message Body的长度。
+> Message Header 固定为18字节，DataLength字段指出了 Message Body的长度。
+
+|ModuleID|模块|
+|---|---|
+|3|Protocol Module|
+|4|Network Module|
 
 ##### Message body
 
 | 字节   | 字段        | 数据类型   | 说明   |
 | ---- | --------- | ------ | ---- |
-| 2    | ModuleID  | uint32 | 模块ID |
 | 2    | EventType | uint32 | 事件ID |
 
 Remark:
-> ModuleID与MessageType组合起来，就是协议的唯一标识符。
+> EventType 由模块自己定义
 
-##### Module ID
+##### 网络模块事件表
 
-```java
-short MODULE_ID_MICROKERNEL = 0;
-short MODULE_ID_MQ = 1;
-short MODULE_ID_DB = 2;
-short MODULE_ID_CACHE = 3;
-short MODULE_ID_NETWORK = 4;
-short MODULE_ID_ACCOUNT = 5;
-short MODULE_ID_EVENT_BUS = 6;
-short MODULE_ID_CONSENSUS = 7;
-short MODULE_ID_LEDGER = 8;
-short MODULE_ID_RPC = 9;
-short MODULE_ID_PROTOCOL = 10;
-short MODULE_ID_NOTIFY = 11;
-```
+| EventID | Event |
+|---|---|
+|1|Get Version|
+|2|Version|
+|3|Get Node|
+|4|Node|
+|5|Get NodeIP|
+|6|NodeIP|
+|7|Handshake|
+|8|P2P Node|
 
-目前主要有两个模块的消息会跨网络传输:
-1. network = 4
-2. protocol = 10
+##### 协议模块事件表
 
-##### Message types of network module
-
-```java
-short NETWORK_GET_VERSION = 01;
-short NETWORK_VERSION = 02;
-short NETWORK_NODE = 04;
-short NETWORK_HANDSHAKE = 07;
-short NETWORK_P2P_NODE = 08;
-```
-
-##### Message types of protocol module
-
-```java
-short PROTOCOL_NOT_FOUND = 1;
-short PROTOCOL_NEW_TX = 2;
-short PROTOCOL_GET_BLOCK = 3;
-short PROTOCOL_BLOCK = 4;
-short PROTOCOL_GET_BLOCKS_BY_HASH = 5;
-short PROTOCOL_GET_BLOCKS_BY_HEIGHT = 6;
-short PROTOCOL_GET_BLOCK_HEADER = 7;
-short PROTOCOL_BLOCK_HEADER = 8;
-short PROTOCOL_GET_TX_GROUP = 9;
-short PROTOCOL_TX_GROUP = 10;
-short PROTOCOL_NEW_BLOCK = 11;
-short PROTOCOL_GET_BLOCKS_HASH = 12;
-short PROTOCOL_BLOCKS_HASH = 13;
-short PROTOCOL_STRING = 14;
-short PROTOCOL_COMPLETE = 15;
-short REQUEST_REACT = 16;
-```
+| EventID | Event |
+|---|---|
+|1|Not Found|
+|2|New Transaction|
+|3|Get Block|
+|4|Block|
+|5|Get Block By Hash|
+|6|Get Block By Height|
+|7|Get Block Header|
+|8|Block Header|
+|9|Get Transaction Group|
+|10|Transaction Group|
+|11|New Block|
+|12|Get Blocks Hash|
+|13|Blocks Hash|
+|14|String|
+|15|Complete|
+|16|Request React|
+|17|Forward New Transaction|
+|18|Forward New Block|
+|19|Get Small Block|
+[20|Get Transaction|
 
 具体协议请参考后面的描述。
 
@@ -127,8 +119,8 @@ short REQUEST_REACT = 16;
 
 | 字节   | 字段            | 数据类型      | 说明   |
 | ---- | ------------- | --------- | ---- |
-| 1    | digestAlgType | Byte      | 算法ID |
-| ??   | digest        | VarString | 摘要   |
+| 1    | Digest Algorithm Type | Byte      | 算法ID：0 SHA256，1 SHA160 |
+| ??   | Digest Data        | VarByte | 签名   |
 
 ### NulsSignData
 
@@ -136,9 +128,10 @@ short REQUEST_REACT = 16;
 
 | 字节   | 字段          | 数据类型      | 说明   |
 | ---- | ----------- | --------- | ---- |
-| 1    | signAlgType | Byte      | 算法ID |
-| ??   | signature   | VarString | 签名   |
+| 1    | Algorithm Type | Byte      | 算法ID：目前为0，代表ECC |
+| ??   | Signature Data   | VarByte | 签名数据   |
 
+Algorithm Type
 
 
 ### P2PKHScriptSig
@@ -152,7 +145,9 @@ short REQUEST_REACT = 16;
 
 ### Int48
 
-6字节时间戳。
+| 字节   | 字段           | 数据类型         | 说明   |
+| ---- | ------------ | ------------ | ---- |
+| 6| Time| Timestamp| 时间戳| 
 
 ### Transaction
 
@@ -179,10 +174,11 @@ short REQUEST_REACT = 16;
 ### NotFoundType
 
 ```java
-short BLOCK = 1;
-short BLOCKS = 2
-short TRANSACTION = 3;
-short HASHES = 4;
+short BLOCK			= 1;
+short BLOCKS 			= 2;
+short TRANSACTION 	= 3;
+short HASHES 			= 4;
+short REQUEST 		= 7;
 ```
 
 ## 模块消息
@@ -197,20 +193,20 @@ short HASHES = 4;
 | 2    | ServerPort      | uint16    | 服务监听端口        |
 | 4    | BestBlockHeight | uint32    | 最高高度          |
 | ??   | BestBlockHash   | VarString | 最高块Hash字符串    |
-| 6    | networkTime     | uint48    | 网络时间          |
-| ??   | nodeIp          | VarString | 对方网络地址        |
+| 6    | NetworkTime     | uint48    | 网络时间          |
+| ??   | NodeIp          | VarString | 对方网络地址        |
 | ??   | Version         | VarString | 版本字符串         |
 
 #### NETWORK_VERSION
 
 | 尺寸   | 字段              | 数据类型      | 说明            |
 | ---- | --------------- | --------- | ------------- |
-| 2    | handshakeType   | uint16    | 1. 请求   2. 响应 |
+| 2    | HandshakeType   | uint16    | 1. 请求   2. 响应 |
 | 2    | ServerPort      | uint16    | 服务监听端口        |
 | 4    | BestBlockHeight | uint32    | 最高高度          |
 | ??   | BestBlockHash   | VarString | 最高块Hash字符串    |
-| 6    | networkTime     | uint48    | 网络时间          |
-| ??   | nodeIp          | VarString | 对方网络地址        |
+| 6    | NetworkTime     | uint48    | 网络时间          |
+| ??   | NodeIp          | VarString | 对方网络地址        |
 | ??   | Version         | VarString | 版本字符串         |
 
 #### NETWORK_NODE
@@ -224,11 +220,11 @@ short HASHES = 4;
 
 | 尺寸   | 字段              | 数据类型      | 说明            |
 | ---- | --------------- | --------- | ------------- |
-| 2    | handshakeType   | uint16    | 1. 请求   2. 响应 |
+| 2    | HandshakeType   | uint16    | 1. 请求   2. 响应 |
 | 2    | ServerPort      | uint16    | 服务监听端口        |
 | 4    | BestBlockHeight | uint32    | 最高高度          |
 | ??   | BestBlockHash   | VarString | 最高块Hash字符串    |
-| 6    | networkTime     | uint48    | 网络时间          |
+| 6    | NetworkTime     | uint48    | 网络时间          |
 | ??   | nodeIp          | VarString | 对方网络地址        |
 | ??   | Version         | VarString | 版本字符串         |
 
@@ -250,7 +246,7 @@ p2p节点信息
 | 尺寸   | 字段   | 数据类型         | 说明          |
 | ---- | ---- | ------------ | ----------- |
 | 1    | type | NotFoundType | 未找到的类型      |
-| ??   | Hash | VarString    | 请求但未找到的hash |
+| ??   | hash | VarString    | 请求但未找到的hash |
 
 #### PROTOCOL_NEW_TX
 
