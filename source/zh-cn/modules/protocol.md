@@ -1,14 +1,24 @@
 # 概述：
 此文档描述 NULS P2P 网络字节流协议。
 
-## 总览
-NULS Protocol Package
+## 描述
+
+### 字节序
+网络传输数据使用小端序拼装。
+
+### 节点发现
+
+### 建立连接
+
+### 业务处理
+
+## 网络流
 
 ###  Network Message
 
 ```
 *---------------------------------------------------------------*
-|    Message header(18 Byte)    |    Message body(??)           |
+|    Message header(20 Byte)    |    Message body(??)           |
 *---------------------------------------------------------------*
 ```
 
@@ -16,7 +26,7 @@ NULS package 由 Message Header 与 Message Body 组成。
 
 ##### Message header
 
-| 字节   | 字段                | 数据类型   | 说明               |
+| 字节   | 字段             | 数据类型  | 说明               |
 | ---- | ----------------- | ------ | ---------------- |
 | 8    | Netty             | uint64 | 总体数据长度|
 | 4    | MagicNumber       | uint32 | 魔法参数，划分网络        |
@@ -88,18 +98,18 @@ Remark:
 
 变长整数，可以根据表达的值进行编码以节省空间。
 
-| 值             | 长度   | 格式            |
-| ------------- | ---- | ------------- |
-| < 0xfd        | 1    | uint8         |
-| <= 0xffff     | 3    | 0xfd + uint16 |
-| <= 0xffffffff | 5    | 0xfe + uint32 |
-| > 0xffffffff  | 9    | 0xff + uint64 |
+| 数值           | 长度  | 格式          | 数字| 字节|
+|:--------------|:----:|:------------- |-----|---|
+| < 0xFD        | 1    | UInt8         |252 |0xFC
+| <= 0xFFFFF    | 3    | 0xFD + uint16 |
+| <= 0xFFFFFFFF | 5    | 0xFE + uint32 |
+|  > 0xFFFFFFFF | 9    | 0xFF + uint64 |
 
 ### VarString
 
 变长字节流，由一个变长缓冲区构成。字符串采用UTF8编码。
 
-| 尺寸     | 字段     | 数据类型          | 说明            |
+| 尺寸    | 字段     | 数据类型      | 说明          |
 | ------ | ------ | ------------- | ------------- |
 | ?      | length | VarInt        | 字符串的长度，以字节为单位 |
 | length | value  | uint8[length] | 字符串本身         |
@@ -153,13 +163,26 @@ Algorithm Type
 
 | 尺寸   | 字段         | 数据类型    | 说明             |
 | ---- | ---------- | ------- | -------------- |
-| 2    | type       | uint16  | 交易类型           |
+| 2    | type       | uint16  | 具体交易，见下表           |
 | 6    | time       | uint48  | 时间戳            |
 | ??   | remark     | VarByte | 备注             |
 | ??   | txData     | ??      | 交易数据           |
 | ??   | coinData   | ??      | 代币数据           |
 | ??   | scriptSign | VarByte | P2PKHScriptSig |
 
+**交易类型定义**
+
+|数字|交易类型|说明|
+|---|---|---|
+|1|TX_TYPE_COINBASE| Coinbase |
+|2|TX_TYPE_TRANSFER|转账|
+|3|TX_TYPE_ACCOUNT_ALIAS|设置账户别名|
+|4|TX_TYPE_REGISTER_AGENT|创建共识节点|
+|5|TX_TYPE_JOIN_CONSENSUS|委托|
+|6|TX_TYPE_CANCEL_DEPOSIT|撤销委托|
+|7|TX_TYPE_YELLOW_PUNISH|黄牌警告|
+|8|TX_TYPE_RED_PUNISH|红牌警告|
+|9|TX_TYPE_STOP_AGENT|注销共识节点|
 
 ### Node
 
@@ -183,7 +206,7 @@ short REQUEST 		= 7;
 
 ## 模块消息
 
-### Message body of network nodule
+### 网络
 
 #### NETWORK_GET_VERSION
 
@@ -239,7 +262,7 @@ p2p节点信息
 
 
 
-### Message body of protocol module
+### 协议
 
 #### PROTOCOL_NOT_FOUND
 
@@ -342,7 +365,7 @@ p2p节点信息
 
 | 尺寸   | 字段               | 数据类型           | 说明     |
 | ---- | ---------------- | -------------- | ------ |
-| ??   | requestEventHash | NulsDigestData | 请求Hash |
+| ??   | requestHash      | NulsDigestData | 请求Hash |
 | 1    | success          | boolean        | 结果     |
 
 #### REQUEST_REACT
@@ -351,3 +374,113 @@ p2p节点信息
 | ---- | ---------------- | -------------- | ------ |
 | ??   | requestEventHash | NulsDigestData | 请求Hash |
 
+### 交易
+
+#### TX_TYPE_COINBASE
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 1           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | txData     | byte[]  | 0xFFFFFFFF           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_TRANSFER
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | txData     | byte[]  | 0xFFFFFFFF           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_ACCOUNT_ALIAS
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 3           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | address    | VarByte  | 账户地址           |
+| ??   | alias    | VarString  |  昵称           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_REGISTER_AGENT
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 4           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| 8   | deposit    | uint64  | 抵押金额           |
+| 23   | agentAddress    | Address  |  节点地址           |
+| 23   | packingAddress    | Address  |  打包地址           |
+| 23   | rewardAddress    | Address  |  奖励地址           |
+| 8   | commissionRate    | Double  |  昵称           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_JOIN_CONSENSUS
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| 8   | deposit     | byte[]  | 委托金额           |
+| 23   | address     | byte[23]  | 地址           |
+| 8   | agentHash     | NulsDigestData  | 委托节点地址           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_CANCEL_DEPOSIT
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | agentHash     | NulsDigestData  | 委托节点地址           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_YELLOW_PUNISH
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | count     | VarInt  | 惩罚数量           |
+| ??   | addres		| Address[]| 被黄牌警告的节点地址|
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_RED_PUNISH
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| 23   | address    | byte[23]  | 惩罚数量           |
+| 1   | reasonCode	| byte    | 处罚代码 |
+| ??   | evidence   | VarByte | 证据		   |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+#### TX_TYPE_STOP_AGENT
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | agentHash     | NulsDigestData  | 停止节点地址           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
