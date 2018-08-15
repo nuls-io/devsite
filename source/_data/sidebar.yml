@@ -1,35 +1,32 @@
-started:
-  start:
+docs:
+  started:
     overview: index.html
     manual: manual.html
 
-modules:
-  modular:
-    introduction: index.html
-    overview: modular_overview.html
-    specification: modular_specification.html
-  module_interaction:
-    event_bus: module_interaction_eventbus.html
-    service_bus: module_interaction_servicebus.html
-
-  builtin_modules:
-    network:  network.html
-    db: db.html
-    account: account.html
+protocol:
+  started:
+    overview: index.html
+    network: network.html
     message: message.html
-    ledger: ledger.html
-    protocol: protocol.html
-    consensus: consensus.html
-    client: client.html
-
-  create_module:
-    develop: dev_module.html
-    release: release_module.html
+    transaction: transaction.html
 
 contract:
   started:
     overview: index.html
 
-multiplechain:
+manual:
   started:
-    overview: index.html
+    architecture: index.html
+    modularity: modularity.html                   # 为什么需要模块化
+    structure: structure.html                     # 目录结构
+    modularoverview: modular_overview.html        # 模块说明
+    kernel: micro_kernel.html                     # 微内核
+    message_bus: message_bus.html                 # 消息总线
+
+  module:
+    network: network_overview.html
+    storage: storage.html
+    account: account.html
+    ledger: ledger.html
+    consensus: consensus.html
+    contract: contract.html

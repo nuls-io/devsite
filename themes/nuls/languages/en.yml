@@ -1,8 +1,8 @@
 menu:
-  started: Get started
-  modules: Modules
+  docs: Documents
+  protocol: Protocol
   contract: Smart Contract
-  multiplechain: Multiple Chains
+  manual: Manual
   news: News
 
 index:
@@ -17,36 +17,36 @@ page:
   last_updated: "Last updated: %s"
 
 sidebar:
-  started:
-    start: Get Started
-    overview: Overview
+  docs:
+    started: Getting Started
+    overview: Guide
     manual: Manual
 
-  modules:
-    modular: Modular
-    introduction: Introduction
+  protocol:
+    started: Protocol
     overview: Overview
-    specification: Specification
-    module_interaction: Module Interaction
-    event_bus: Event Bus
-    service_bus: Service Bus
-    builtin_modules: Built-in Modules
     network: Network
-    db: Database
-    account: Account
     message: Message
-    ledger: Ledger
-    protocol: Protocol
-    consensus: Consensus
-    client: Client
-    create_module: How to
-    develop:  develop module
-    release:  release module
+    transaction: Transaction
 
   contract:
-    started: Get Started
+    started: Getting Started
     overview: Overview
 
-  multiplechain:
-    started: Get Started
-    overview: Overview
+  manual:
+    started: Getting Started
+    architecture: Architecture
+    modularity: Modularity
+    structure: Structure
+    modularoverview: Modular Overview
+    kernel: Micro Kernel
+    message_bus: Message Bus
+
+    module: Module Overview
+    network: Network
+    storage: Storage
+    account: Account
+    ledger: Ledger
+    consensus: Consensus
+    contract: Smart Contract
+

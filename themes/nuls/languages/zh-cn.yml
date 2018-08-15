@@ -1,8 +1,8 @@
 menu:
-  started: 开始使用
-  modules: 模块
+  docs: 文档
+  protocol: 协议
   contract: 智能合约
-  multiplechain: 多链
+  manual: 参考手册
   news: 新闻
 
 page:
@@ -14,36 +14,36 @@ page:
   last_updated: 上次更新：%s
 
 sidebar:
-  started:
-    start: 开始使用
+  docs:
+    started: 开始使用
     overview: 预览
     manual: 手册
 
-  modules:
-    modular: 模块
-    introduction: 模块简介
+  protocol:
+    started: 概述
     overview: 模块说明
-    specification: 说明书
-    module_interaction: 模块交互
-    event_bus: 事件总线
-    service_bus: 服务总线
-    builtin_modules: 内置模块
     network: 网络
-    db: 数据库
-    account: 账户
     message: 消息
-    ledger: 账本
-    protocol: 协议
-    consensus: 共识
-    client: 客户端
-    create_module: 如何
-    develop:  开发模块
-    release:  发布模块
+    transaction: 交易
 
   contract:
     started: Get Started
     overview: Overview
 
-  multiplechain:
-    started: Get Started
-    overview: Overview
+  manual:
+    started: 基础
+    architecture: 总体架构
+    modularity: 为什么模块化
+    structure: 源码结构
+    modularoverview: 模块说明
+    kernel: 微内核
+    message_bus: 消息总线
+
+    module: 模块说明
+    network: 网络模块
+    storage: 存储模块
+    account: 账户模块
+    ledger: 账本模块
+    consensus: 共识模块
+    contract: 智能合约
+
