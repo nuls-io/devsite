@@ -23,7 +23,7 @@ sidebar:
     started: 概述
     overview: 模块说明
     network: 网络
-    message: 消息
+    protocol: 协议
     transaction: 交易
 
   contract:

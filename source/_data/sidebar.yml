@@ -7,7 +7,7 @@ protocol:
   started:
     overview: index.html
     network: network.html
-    message: message.html
+    protocol: protocol.html
     transaction: transaction.html
 
 contract:
@@ -16,17 +16,17 @@ contract:
 
 manual:
   started:
-    architecture: index.html
-    modularity: modularity.html                   # 为什么需要模块化
+    architecture: index.html                      # 总体设计
+    modularity: modularity.html                   # 为什么模块化
     structure: structure.html                     # 目录结构
     modularoverview: modular_overview.html        # 模块说明
     kernel: micro_kernel.html                     # 微内核
     message_bus: message_bus.html                 # 消息总线
 
   module:
-    network: network_overview.html
-    storage: storage.html
-    account: account.html
-    ledger: ledger.html
-    consensus: consensus.html
-    contract: contract.html
+    network: network_overview.html                # 网络模块
+    storage: storage.html                         # 存储模块
+    account: account.html                         # 账户模块
+    ledger: ledger.html                           # 账本模块
+    consensus: consensus.html                     # 共识模块
+    contract: contract.html                       # 合约模块
