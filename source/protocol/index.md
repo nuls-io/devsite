@@ -6,15 +6,15 @@ title: Package
 NULS uses custom messaging for communication over the TCP protocol.
 
 - Digital binary stream using little endian。
-- a
+- Floating point numbers convert to integers and transfer by little endian
 
 ## Message Structre
 
-The message consists of a 20-byte header and payload.
+The message consists of a 10-byte header and payload.
 
 ```
 *---------------------------------------------------------------*
-|       Header(20 Byte)         |            Payload            |
+|       Header(10 Byte)         |            Payload            |
 *---------------------------------------------------------------*
 ```
 
