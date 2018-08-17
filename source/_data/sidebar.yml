@@ -28,5 +28,6 @@ manual:
     storage: storage.html                         # 存储模块
     account: account.html                         # 账户模块
     ledger: ledger.html                           # 账本模块
+    protocol: protocol.html                       # 通用协议
     consensus: consensus.html                     # 共识模块
     contract: contract.html                       # 合约模块

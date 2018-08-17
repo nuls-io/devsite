@@ -43,6 +43,7 @@ sidebar:
     network: 网络模块
     storage: 存储模块
     account: 账户模块
+    protocol: 通用协议
     ledger: 账本模块
     consensus: 共识模块
     contract: 智能合约

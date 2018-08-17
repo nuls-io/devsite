@@ -46,6 +46,7 @@ sidebar:
     network: Network
     storage: Storage
     account: Account
+    protocol: Protocol
     ledger: Ledger
     consensus: Consensus
     contract: Smart Contract
