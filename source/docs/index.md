@@ -39,11 +39,18 @@ After the command is successfully executed, you can find the compilation result 
 
 ## Run Node
 
-```
+```shell
+$ mvn clean package
 $ cd client-module/client/target
-$ tar zxvf nuls-node.tar.gz
-$ bin/start.sh
+$ mkdir nuls-node
+$ tar -zxvf nuls-node.tar.gz -C nuls-node
+$ cd nuls-node/bin
 ```
+
+- Using start.sh running the nuls process.  
+- Using stop.sh stop the nuls process.
+- Using cmd.sh running the nuls shell.
+
 
 ## Use IDEA
 

@@ -40,11 +40,18 @@ $ mvn clean package
 
 ## 启动
 
-```sh
+```shell
+$ mvn clean package
 $ cd client-module/client/target
-$ tar zxvf nuls-node.tar.gz
-$ bin/start.sh
+$ mkdir nuls-node
+$ tar -zxvf nuls-node.tar.gz -C nuls-node
+$ cd nuls-node/bin
 ```
+
+- start.sh 启动 NULS 钱包。  
+- stop.sh 停止 NULS 钱包.
+- cmd.sh 启动 NULS Shell.
+
 
 ## 导入 IDEA
 
