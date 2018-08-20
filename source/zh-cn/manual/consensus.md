@@ -326,15 +326,81 @@ NULS 定义了标准共识模块，以提供接口兼容不同的共识机制。
 
 ## 5、模块协议
 
-（直接使用大伟那边的内容）
+### TX_TYPE_REGISTER_AGENT
 
-* 创建代理
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 4           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| 8   | deposit    | uint64  | 抵押金额           |
+| 23   | agentAddress    | Address  |  节点地址           |
+| 23   | packingAddress    | Address  |  打包地址           |
+| 23   | rewardAddress    | Address  |  奖励地址           |
+| 8   | commissionRate    | Double  |  昵称           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
 
-* 委托共识
-* 停止代理
-* 取消委托
-* 黄牌处罚
-* 红牌处罚
+### TX_TYPE_JOIN_CONSENSUS
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| 8   | deposit     | byte[]  | 委托金额           |
+| 23   | address     | byte[23]  | 地址           |
+| 8   | agentHash     | NulsDigestData  | 委托节点地址           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+### TX_TYPE_CANCEL_DEPOSIT
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | agentHash     | NulsDigestData  | 委托节点地址           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+### TX_TYPE_STOP_AGENT
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | agentHash     | NulsDigestData  | 停止节点地址           |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+### TX_TYPE_YELLOW_PUNISH
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| ??   | count     | VarInt  | 惩罚数量           |
+| ??   | addres		| Address[]| 被黄牌警告的节点地址|
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
+### TX_TYPE_RED_PUNISH
+
+| 尺寸   | 字段         | 数据类型    | 说明             |
+| ---- | ---------- | ------- | -------------- |
+| 2    | type       | uint16  | 2           |
+| 6    | time       | uint48  | 时间戳            |
+| ??   | remark     | VarByte |    备注数据          |
+| 23   | address    | byte[23]  | 惩罚数量           |
+| 1   | reasonCode	| byte    | 处罚代码 |
+| ??   | evidence   | VarByte | 证据		   |
+| ??   | coinData   | CoinData| 交易 UTXO           |
+| ??   | scriptSign | VarByte | P2PKHScriptSig |
+
 
 
 ## <a name="core-processer"></a> 6、核心流程
