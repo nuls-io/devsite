@@ -6,7 +6,7 @@ title: NULS Directory Structure
 * Technology Forum：http://nulsforum.org/?cat=17
 
 ## NULS source code directory structure description
-![source project](files/1.png)
+![source project](structure/1.png)
 
 * Nuls : NULS core underlying source code
 * Nuls-explorer : NULS blockchain browser（https://nulscan.io）
@@ -39,7 +39,7 @@ The above describes the top-level directory of each module. The modules in NULS 
 
 ### Network module
 
-![Markdown preferences pane](files/2.png)
+![Markdown preferences pane](structure/2.png)
 
 * network-module ： Is the top level directory of the network module (type is folder)
 * network ： The service interface definition provided for the network module (type is pom project)
@@ -53,7 +53,7 @@ The above describes the top-level directory of each module. The modules in NULS 
 
 ### Consensus module
 
-![Markdown preferences pane](files/3.png)
+![Markdown preferences pane](structure/3.png)
 
 * consensus-module ： The top level directory of the consensus module (type is folder)
 * consensus ： Service interface definition of the consensus module (type is pom project)
