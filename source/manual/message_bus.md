@@ -2,11 +2,11 @@
 
 ## 1、Overview
 
-	The message bus module is a functional module used by NULS to process messages. It manages all network messages and protocol messages, and provides functions such as subscription, reception, and transmission of messages. It is a data relay station for each node of NULS.
+The message bus module is a functional module used by NULS to process messages. It manages all network messages and protocol messages, and provides functions such as subscription, reception, and transmission of messages. It is a data relay station for each node of NULS.
 
-## 2、Feature
+##  2、Feature
 
-	The message bus module manages all the messages in the NULS through the MessageManager, and provides functions such as message subscription, unsubscription, broadcast message, point-to-point sending message, receiving message, and creating message example.
+The message bus module manages all the messages in the NULS through the MessageManager, and provides functions such as message subscription, unsubscription, broadcast message, point-to-point sending message, receiving message, and creating message example.
 
 ## 3、Interface
 

@@ -2,11 +2,11 @@
 
 ## 1、Overview
 
-	The DB module plays the role of a tool module in NULS. It provides the function of storing data locally. Each module can store and retrieve its own data through the interface of the DB module. At present, the database implementation of the NULS DB module is LevelDB, and developers can also use different database implementations according to their own needs.
+The DB module plays the role of a tool module in NULS. It provides the function of storing data locally. Each module can store and retrieve its own data through the interface of the DB module. At present, the database implementation of the NULS DB module is LevelDB, and developers can also use different database implementations according to their own needs.
 
 ## 2、Feature
 
-	The functions of the DB module are mainly divided into saving data, deleting data, and querying data; modifying data is implemented by overwriting or saving and saving first. The implementation of the function is divided into single data operation, batch operation, serialized binary data operation, and operation of model instance data.
+The functions of the DB module are mainly divided into saving data, deleting data, and querying data; modifying data is implemented by overwriting or saving and saving first. The implementation of the function is divided into single data operation, batch operation, serialized binary data operation, and operation of model instance data.
 
 ## 3、Interface
 
