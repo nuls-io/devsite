@@ -14,6 +14,10 @@ contract:
   started:
     overview: index.html
 
+chain:
+  started:
+    overview: index.html
+
 manual:
   started:
     architecture: index.html                      # 总体设计

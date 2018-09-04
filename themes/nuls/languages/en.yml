@@ -2,6 +2,7 @@ menu:
   docs: Documents
   protocol: Protocol
   contract: Smart Contract
+  chain: Cross-Chain
   manual: Manual
   news: News
 
@@ -30,6 +31,10 @@ sidebar:
     transaction: Transaction
 
   contract:
+    started: Getting Started
+    overview: Overview
+
+  chain:
     started: Getting Started
     overview: Overview
 

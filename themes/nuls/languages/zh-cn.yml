@@ -2,6 +2,7 @@ menu:
   docs: 文档
   protocol: 协议
   contract: 智能合约
+  chain: 跨链
   manual: 参考手册
   news: 新闻
 
@@ -29,6 +30,10 @@ sidebar:
   contract:
     started: Get Started
     overview: Overview
+
+  chain:
+    started: 概述
+    overview: 总体设计
 
   manual:
     started: 基础
