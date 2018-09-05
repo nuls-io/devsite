@@ -130,3 +130,4 @@ Temporary Items
 /db.json
 public
 .deploy_git
+package-lock.json

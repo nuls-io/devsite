@@ -12,7 +12,8 @@ protocol:
 
 contract:
   started:
-    overview: index.html
+    Development_manual: index.html
+    NRC_20: NRC-20_Token_Standard.html
 
 chain:
   started:
