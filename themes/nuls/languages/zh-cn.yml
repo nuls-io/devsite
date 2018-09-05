@@ -29,8 +29,9 @@ sidebar:
 
   contract:
     started: Get Started
-    overview: Overview
-
+    Development_manual: 开发者手册
+    NRC_20: NRC-20
+    
   chain:
     started: 概述
     overview: 总体设计

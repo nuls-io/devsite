@@ -32,7 +32,8 @@ sidebar:
 
   contract:
     started: Getting Started
-    overview: Overview
+    Development_manual: Development manual
+    NRC_20: NRC-20
 
   chain:
     started: Getting Started
