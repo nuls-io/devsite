@@ -32,8 +32,10 @@ sidebar:
 
   contract:
     started: Getting Started
-    Development_manual: Development manual
+    Development_manual: Development Manual
     NRC_20: NRC-20
+    IDEA_plugin: Idea Plugin Manual
+    Contract_manual: Smart Contract Manual
 
   chain:
     started: Getting Started

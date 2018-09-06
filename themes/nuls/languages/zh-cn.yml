@@ -31,7 +31,9 @@ sidebar:
     started: Get Started
     Development_manual: 开发者手册
     NRC_20: NRC-20
-    
+    IDEA_plugin: Idea插件操作手册
+    Contract_manual: 钱包智能合约操作手册
+
   chain:
     started: 概述
     overview: 总体设计

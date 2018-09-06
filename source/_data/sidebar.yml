@@ -14,6 +14,8 @@ contract:
   started:
     Development_manual: index.html
     NRC_20: NRC-20_Token_Standard.html
+    IDEA_plugin: IdeaPlugin.html
+    Contract_manual: smartContract.html
 
 chain:
   started:
