@@ -1,47 +1,47 @@
-# Nuls Smart Contract Development Manual
+# Nuls智能合约开发手册
 
-## 1. Introduction
+## 1. 简介
 
-Java is completely ineffective for Nuls Smart Contract development, and the contract runs in a completely invalid virtual machine. Contract development cannot use all of the Java features, and the specific restrictions are listed in Section 3.
+Nuls智能合约使用Java进行开发，合约运行在Nuls虚拟机中。合约开发不能使用所有的Java特性，在第3节列出具体限制。
 
-## 2. Development environment
+## 2. 开发环境
 
-### 2.1 Installing NULS Wallet
+### 2.1 安装NULS钱包
 
-### 2.2 Installing JDK 8
+### 2.2 安装JDK 8
 
-### 2.3 Installing IntelliJ IDEA
+### 2.3 安装IntelliJ IDEA
 
-The development tool used by Nuls Smart Contracts is IntelliJ IDEA.
+Nuls智能合约使用的开发工具为IntelliJ IDEA。
 
-### 2.4 Installing the NULS Smart Contract Plugin
+### 2.4 安装NULS智能合约插件
 
-The main features provided by the completely ineffective smart contract plugin:
+NULS智能合约插件提供的主要功能：
 
-* New Nurs contract project
-* Prompt for unsupported Java features, Java classes, Java methods
-* Compile, package, deploy contract
-* Show, call the contract method.
+* 新建Nuls合约工程
+* 提示不支持的Java特性、Java类、Java方法
+* 编译、打包、部署合约
+* 展示、调用合约方法。
 
-## 3. Nuls Smart Contract Specification and Grammar
+## 3. Nuls智能合约规范与语法
 
-The completely invalid smart contract syntax is a subset of Java's syntax, with some limitations on the syntax of Java.
+Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一些限制。
 
-### 3.1 Nuls Smart Contract Specification
+### 3.1 Nuls智能合约规范
 
-> **_Contract main class must implement the `Contract` interface, a smart contract can only have one class to implement the `Contract` interface, other classes and interfaces are to provide functionality for this contract._**
+> **_合约主类必须实现Contract接口，一个智能合约只能有一个类实现Contract接口，其他类和接口都是为这个合约提供功能的。_**
 
-### 3.2 Keywords
+### 3.2 关键字
 
-The Java keywords listed below, which will be marked as completely invalid keywords that are not supported by Nuls Smart Contracts
+下面列出Java关键字，其中将标注Nuls智能合约不支持的关键字
 
-Access control
+访问控制
 
 * public
 * protected
 * private
 
-Defining classes, interfaces, abstract classes and implementation interfaces, inheriting class keywords, instantiating objects
+定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象
 
 * class
 * interface
@@ -50,12 +50,12 @@ Defining classes, interfaces, abstract classes and implementation interfaces, in
 * extends
 * new
 
-Package keyword
+包的关键字
 
 * import
 * package
 
-Data type keyword
+数据类型的关键字
 
 * byte
 * char
@@ -70,7 +70,7 @@ Data type keyword
 * true
 * false
 
-Conditional loop (flow control)
+条件循环（流程控制）
 
 * if
 * else
@@ -85,7 +85,7 @@ Conditional loop (flow control)
 * return
 * instanceof
 
-Exception handling
+错误处理
 
 * catch
 * try
@@ -93,44 +93,43 @@ Exception handling
 * throw
 * throws
 
-Modify methods, classes, properties, and variables
+修饰方法、类、属性和变量
 
 * static
 * final
 * super
 * this
-* native（not supported）
-* strictfp（not supported）
-* synchronized（not supported）
-* transient（not supported）
-* volatile（not supported）
+* native（不支持）
+* strictfp（不支持）
+* synchronized（不支持）
+* transient（不支持）
+* volatile（不支持）
 
-other
+其他
 
-* enum（not supported）
-* assert（not supported）
+* enum（不支持）
+* assert（不支持）
 
-### 3.3 Basic grammar
+### 3.3 基本语法
 
-The following syntax is the same as that of Java, but it is simply listed. For details, please refer to the relevant documentation of Java.
+下面的语法与Java相同，只是简单列出，具体可参考Java相关文档
 
-* Identifier: consists of characters, underscores, dollar signs or numbers, beginning with characters, underscores, dollar signs
-* Basic data type: byte short int long float double char boolean
-* Reference data type: class, interface, array
-* Arithmetic operators: + - * /%++ -
-* Relational operator: > <> = <= ==! =
-* Logical Operators: ! &| ^ && ||
-* Bit operator: &| ^~>> << >>>
-* Assignment operator: =
-* Extended assignment operator: + = - = * = / =
-* String link operator: +
-* Trinity condition operator: ? :
-* flow control statements (if, switch, for, while, do ... while)
+* 标识符：由字符、下划线、美元符或数字组成，以字符、下划线、美元符开头
+* 基本数据类型：byte short int long float double char boolean
+* 引用数据类型：类、接口、数组
+* 算术运算符：+        -        *        /        %        ++        --
+* 关系运算符：>        <        >=        <=        ==        !=  
+* 逻辑运算符：!        &        |        ^        &&        ||
+* 位运算符：&        |        ^        ~        >>        <<        >>>
+* 赋值运算符：=
+* 拓展赋值运算符：+        =        -=        *=        /=
+* 字符串链接运算符：+
+* 三目条件运算符          ?        :
+* 流程控制语句（if,switch,for,while,do...while）
 
+### 3.4 支持的类
 
-### 3.4 Supported classes
-
-A completely invalid Nuls Smart Contract can only be developed using the following classes
+Nuls智能合约只能使用下面的类进行开发
 
 * io.nuls.contract.sdk.Address
 * io.nuls.contract.sdk.Block
@@ -158,15 +157,15 @@ A completely invalid Nuls Smart Contract can only be developed using the followi
 * java.util.Map
 * java.util.HashMap
 
-### 3.4 Other restrictions
+### 3.4 其他限制
 
-* Contract class can only have one constructor, other classes are not restricted
+* 合约类只能有一个构造方法，其他类不限制
 
-## 4. Nuls Smart Contract Simple Example
+## 4. Nuls智能合约简单示例
 
-a simple contract
+一个简单的合约
 
-> **_contract main class must implement the Contract interface, other classes and interfaces are to provide functionality for this contract._**
+> **_合约主类必须实现Contract接口，其他类和接口都是为这个合约提供功能的。_**
 
 
 ```java
@@ -194,26 +193,25 @@ public class SimpleStorage implements Contract {
 }
 ```
 
-In a contract project, only the imported jar package: contract sdk.jar, which provides classes for obtaining block information and transaction information.
-There can be multiple classes and interfaces in a project.
+在一个合约项目中，只需要引入jar包：contract-sdk.jar，这个包提供了获取区块信息和交易信息的类。
+项目中可以有多个类和接口。
 
-After the contract is written, compiled and packaged, and deployed to the completely invalid chain, the constructor of the virgin execution contract initializes the contract and saves the contract state on the chain. The contract state is all member variables of the contract class.
-After the contract is deployed, all public methods of the contract class can be called, by calling these methods to read or modify the contract state.
+合约写好后，编译打包，部署到Nuls链上时候，虚拟机会执行合约的构造方法初始化这个合约，并把这个合约状态保存在链上，合约状态是合约类的所有成员变量。
+合约部署好以后，合约类的所有public方法都是能调用的，通过调用这些方法读取或修改合约状态。
 
+注解说明
 
-Description of the annotation
+@View 标记@View的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态。
 
-@View tag @View method, the state of the contract will not change after the call, you can query the contract status in this way.
+@Payable 标记@Payable的方法，才能在调用时候传入金额
 
-@Payable tag @Payable method to pass the amount when calling
+@Required 标记@Required的参数，调用时候必须传入值
 
-@Required marks the @Required parameter, the value must be passed when calling
+去github下载nuls源码，里面有一些合约示例。
 
-Go to github to download completely invalid source code, there are some contract examples.
+## 5. Nuls Contract SDK
 
-## 5. Nuls Smart Contract SDK
-
-The Contract SDK provides several classes to facilitate contract development:
+合约SDK提供了几个类，方便合约开发：
 
 ### io.nuls.contract.sdk.Address
 
@@ -228,31 +226,31 @@ public class Address {
     }
 
     /**
-     * Get the balance of the address (only the contract address balance can be obtained)
+     * 获取该地址的余额（只能获取合约地址余额）
      *
      * @return
      */
     public native BigInteger balance();
 
     /**
-     * Contract transfers to this address
+     * 合约向该地址转账
      *
-     * @param value  transfer amount (how many Na)
+     * @param value 转账金额（多少Na）
      */
     public native void transfer(BigInteger value);
 
     /**
-     * The contract method to call this address
+     * 调用该地址的合约方法
      *
-     * @param methodName 
-     * @param methodDesc 
-     * @param args       
-     * @param value  The amount of money attached (how many Na)
+     * @param methodName 方法名
+     * @param methodDesc 方法签名
+     * @param args       参数
+     * @param value      附带的货币量（多少Na）
      */
     public native void call(String methodName, String methodDesc, String[][] args, BigInteger value);
 
     /**
-     * Verify address
+     * 验证地址
      *
      * @param address
      * @see io.nuls.kernel.utils.AddressTool#validAddress(String)
@@ -290,7 +288,7 @@ public class Address {
 public class Block {
 
     /**
-     * Specify the block header of the block
+     * 给定块的区块头
      *
      * @param blockNumber
      * @return
@@ -298,14 +296,15 @@ public class Block {
     public static native BlockHeader getBlockHeader(long blockNumber);
 
     /**
-     * Block header of the current block
+     * 当前块的区块头
      *
      * @return
      */
     public static native BlockHeader currentBlockHeader();
 
     /**
-     * Specify the hash value of the block
+     * 给定块的哈希值
+     * hash of the given block
      *
      * @param blockNumber
      * @return
@@ -315,7 +314,7 @@ public class Block {
     }
 
     /**
-     * 
+     * 当前块矿工地址
      * current block miner’s address
      *
      * @return
@@ -325,7 +324,7 @@ public class Block {
     }
 
     /**
-     * 
+     * 当前块编号
      * current block number
      *
      * @return
@@ -335,7 +334,7 @@ public class Block {
     }
 
     /**
-     * 
+     * 当前块时间戳
      * current block timestamp
      *
      * @return
@@ -421,12 +420,12 @@ public class BlockHeader {
 
 ```java
 /**
- * Contract interface, contract class implements this interface
+ * 合约接口，合约类实现这个接口
  */
 public interface Contract {
 
     /**
-     * Directly transfer to the contract, this method will be triggered, the default is to do nothing, you can override this method.
+     * 直接向合约转账，会触发这个方法，默认不做任何操作，可以重载这个方法。
      */
     default void _payable() {
     }
@@ -438,7 +437,7 @@ public interface Contract {
 
 ```java
 /**
-* Event interface, event class implements this interface
+* 事件接口，事件类实现这个接口
 */
 public interface Event {
 }
@@ -450,6 +449,7 @@ public interface Event {
 public class Msg {
 
     /**
+     * 剩余Gas
      * remaining gas
      *
      * @return
@@ -457,6 +457,7 @@ public class Msg {
     public static native long gasleft();
 
     /**
+     * 消息发送者地址
      * sender of the message
      *
      * @return
@@ -464,6 +465,7 @@ public class Msg {
     public static native Address sender();
 
     /**
+     * 随消息发送的Na数
      * number of na sent with the message
      *
      * @return
@@ -471,6 +473,7 @@ public class Msg {
     public static native BigInteger value();
 
     /**
+     * Gas价格
      * gas price
      *
      * @return
@@ -478,6 +481,7 @@ public class Msg {
     public static native long gasprice();
 
     /**
+     * 合约地址
      * contract address
      *
      * @return
@@ -496,7 +500,7 @@ public class Utils {
     }
 
     /**
-     * Check the condition and roll back if the condition is not met
+     * 检查条件，如果条件不满足则回滚
      *
      * @param expression
      */
@@ -507,7 +511,7 @@ public class Utils {
     }
 
     /**
-     * Check the condition and roll back if the condition is not met
+     * 检查条件，如果条件不满足则回滚
      *
      * @param expression
      * @param errorMessage
@@ -519,21 +523,21 @@ public class Utils {
     }
 
     /**
-     * Terminate execution and restore changed status
+     * 终止执行并还原改变的状态
      */
     public static void revert() {
         revert(null);
     }
 
     /**
-     * Terminate execution and restore changed status
+     * 终止执行并还原改变的状态
      *
      * @param errorMessage
      */
     public static native void revert(String errorMessage);
 
     /**
-     * Send event
+     * 发送事件
      *
      * @param event
      */
@@ -544,7 +548,7 @@ public class Utils {
 
 ### io.nuls.contract.sdk.annotation.Payable
 
-`@Payable tag @Payable method to pass the amount when calling.`
+`@Payable 标记@Payable的方法，才能在调用时候传入金额`
 
 ```java
 @Target({ElementType.METHOD})
@@ -556,7 +560,7 @@ public @interface Payable {
 
 ### io.nuls.contract.sdk.annotation.Required
 
-`@Required flags the parameters of @Required, the value must be passed when calling.`
+`@Required 标记@Required的参数，调用时候必须传入值`
 
 ```java
 @Target({ElementType.PARAMETER})
@@ -568,7 +572,7 @@ public @interface Required {
 
 ### io.nuls.contract.sdk.annotation.View
 
-`@View Marks the @View method. After the call, the contract status does not change. You can query the contract status in this way.`
+`@View 标记@View的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态。`
 
 ```java
 @Target({ElementType.METHOD})
@@ -578,24 +582,24 @@ public @interface View {
 }
 ```
 
-## 6. The main RPC interface of the smart contract
+## 6. 智能合约主要的RPC接口
 
-Here are the parameter structures and simple examples of several interfaces. For other interfaces, please refer to[Swagger UI](http://127.0.0.1:8001/docs#/)
-> The default port of the test network's `Swagger UI` is 8001, and the default network port is 6001 by default.
+这里列举几个接口的参数结构及简单实例，其他接口请参见[Swagger UI](http://127.0.0.1:8001/docs#/)
+> 测试网的`Swagger UI`的端口默认是8001，正式网的端口默认是6001
 
-### 6.1 Creating a smart contract
+### 6.1 创建智能合约
 
 - POST `/api/contract/create` 
 
-|Parameter|Type|Description|
+|参数|类型|说明|
 |:-:|:-:|:-:|
-|sender* |string |Trade Creator |
-|password* |string| Transaction Creator Account Password|
-|gasLimit*| long| maximum gas consumption|
-|price* | long| Execution contract unit price|
-|contractCode* |string| Smart Contract Code (Hex encoded string of bytecode)|
-|remark |string |Remarks|
-|args |string[][]|Parameter list|
+|sender* |string |交易创建者|
+|password*	|string| 交易创建者账户密码|
+|gasLimit*| long| 最大gas消耗|
+|price*	| long| 执行合约单价|
+|contractCode*	|string| 智能合约代码(字节码的Hex编码字符串)|
+|remark	|string |备注|
+|args	|string[][]|参数列表|
 
 - Example Value
 
@@ -613,17 +617,17 @@ Here are the parameter structures and simple examples of several interfaces. For
 
 
 
-### 6.2 Estimating the Gas Consumption of Creating Smart Contracts
+### 6.2 估算创建智能合约的Gas消耗
 
 - POST `/api/contract/imputedgas/create` 
 
-|Parameter|Type|Description|
+|参数|类型|说明|
 |:-:|:-:|:-:|
-|sender* |string |Trade Creator |
-|password* |string| Transaction Creator Account Password|
-|price* | long| Execution contract unit price|
-|contractCode* |string| Smart Contract Code (Hex encoded string of bytecode)|
-|args |string[][]|Parameter list|
+|sender* |string |交易创建者|
+|password*	|string| 交易创建者账户密码|
+|price*	| long| 执行合约单价|
+|contractCode*	|string| 智能合约代码(字节码的Hex编码字符串)|
+|args	|string[][]|参数列表|
 
 - Example Value
 
@@ -643,18 +647,18 @@ Here are the parameter structures and simple examples of several interfaces. For
 
 - POST `/api/contract/call` 
 
-|Parameter|Type|Description|
+|参数|类型|说明|
 |:-:|:-:|:-:|
-|sender* |string |Trade Creator |
-|password* |string| Transaction Creator Account Password|
-|contractAddress* |string| Smart Contract Address|
-|gasLimit* | long| Maximum Gas Consumption|
-|price* | long| Execution contract unit price|
-|value |long| The amount the transaction creator transfers to the contract address (Na - 100000000Na=1NULS)|
-|methodName* |string| method name|
-|methodDesc |string| method signature, if the method name is not repeated, you can not pass |
-|remark |string| Notes |
-|args |string[][]|Parameter list|
+|sender* |string |交易创建者|
+|password*	|string| 交易创建者账户密码|
+|contractAddress*	|string| 智能合约地址|
+|gasLimit*	| long| 最大Gas消耗|
+|price*	| long| 执行合约单价|
+|value	|long| 交易创建者向合约地址转账的金额(Na - 100000000Na=1NULS)|
+|methodName*	|string| 方法名|
+|methodDesc	|string| 方法签名，如果方法名不重复，可以不传|
+|remark |string| 备注|
+|args	|string[][]|参数列表|
 
 
 - Example Value
@@ -675,86 +679,86 @@ Here are the parameter structures and simple examples of several interfaces. For
 ```
 
 
-### 6.4 Estimating the Gas Consumption of Calling Smart Contracts (see`Swagger UI`)
+### 6.4 估算调用智能合约的Gas消耗(参见`Swagger UI`)
 
 - POST `/api/contract/imputedgas/call` 
 
 
 
-### 6.5 Estimate the price of a smart contract (see`Swagger UI`)
+### 6.5 估算智能合约的price(参见`Swagger UI`)
 - POST `/api/contract/imputedprice`
 
 
 
-### 6.6 Terminating smart contracts (see`Swagger UI`)
+### 6.6 终止智能合约(参见`Swagger UI`)
 
 - POST `/api/contract/delete` 
 
 
 
-### 6.7 Calling smart contract functions that are view (see`Swagger UI`)
+### 6.7 调用不上链的智能合约函数(参见`Swagger UI`)
 
 - POST `/api/contract/view` 
 
 
 
-### 6.8 Get smart contract execution results (see`Swagger UI`)
+### 6.8 获取智能合约执行结果(参见`Swagger UI`)
 
 - GET `/api/contract/result/{hash}` 
 
 
 
-### 6.9 Get common information about smart contracts (see`Swagger UI`)
+### 6.9 获取智能合约基本信息(参见`Swagger UI`)
 
 - GET `/api/contract/info/{address}` 
 
 
 
-### 6.10 Verify that it is a contract address (see`Swagger UI`)
+### 6.10 验证是否为合约地址(参见`Swagger UI`)
 
 - GET `/api/contract/{address}` 
 
 
 
-### 6.11 Get the NULS balance of the smart contract address (see`Swagger UI`)
+### 6.11 获取智能合约地址的NULS余额(参见`Swagger UI`)
 
 - GET `/api/contract/balance/{address}` 
 
 
 
-### 6.12 Get details of smart contract transaction (see`Swagger UI`)
+### 6.12 获取智能合约交易详情(参见`Swagger UI`)
 
 - GET `/api/contract/tx/{hash}` 
 
 
 
-### 6.13 Get the list of transactions for smart contracts (see`Swagger UI`)
+### 6.13 获取智能合约的交易列表(参见`Swagger UI`)
 
 - GET `/api/contract/tx/list/{address}` 
 
 
-### 6.14 Query the contract UTXO according to address and limit (see`Swagger UI`)
+### 6.14 根据address和limit查询合约UTXO(参见`Swagger UI`)
 
 - GET `/api/contract/limit/{address}/{limit}` 
 
 
 
-### 6.15 Query the contract UTXO according to address and amount (see`Swagger UI`)
+### 6.15 根据address和amount查询合约UTXO(参见`Swagger UI`)
 
 - GET `/api/contract/amount/{address}/{amount}` 
 
 
-### 6.16 Transferring to a smart contract (see `Swagger UI`)
+### 6.16 向智能合约转账(参见`Swagger UI`)
 
 - POST `/api/contract/transfer` 
 
 
 
-## 7. Example
+## 7. 示例
 
-### 7.1 Vote smart contract code snippet, as follows
+### 7.1 投票智能合约代码片段, 如下
 
-> Complete code: `https://github.com/nuls-io/nuls-vote`
+> 完整代码: `https://github.com/nuls-io/nuls-vote`
 
 ```java
 package io.nuls.vote.contract;
@@ -824,8 +828,8 @@ public class VoteContract implements Contract {
 
 ```
 
-If there is a parameter of `array type` in the method of smart contract, please pass the parameter as follows
-> Refer to the `create` method in the above voting contract code
+智能合约的方法中如果有`数组类型`的参数，请使用如下方式传递参数
+> 参考以上投票合约代码中的`create`方法
 
 ```javascript
 {
@@ -839,22 +843,22 @@ If there is a parameter of `array type` in the method of smart contract, please 
   "methodDesc": "",
   "remark": "",
   "args": [
-     "Test Vote 1",
-     "The first voting contract",
-     [
-       "First option",
-       "The second option",
-       "The third option"
-     ],
-     1536044066056, 1536184066056, false, 300, false
-   ]
+    "测试投票1",
+    "第一个投票合约",
+    [
+      "第一个选项",
+      "第二个选项",
+      "第三个选项"
+    ],
+    1536044066056, 1536184066056, false, 300, false
+  ]
 }
 ```
 
 
-### 7.2 Standard Token Smart contract code
+### 7.2 Standard Token 智能合约代码
 
-> Complete code: `https://github.com/nuls-io/nuls-nrc20`
+> 完整代码: `https://github.com/nuls-io/nuls-nrc20`
 
 ```java
 package io.nuls.contract.token;
