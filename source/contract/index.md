@@ -2,38 +2,38 @@
 
 ## 1. Introduction
 
-Java is completely ineffective for Nuls Smart Contract development, and the contract runs in a completely invalid virtual machine. Contract development cannot use all of the Java features, and the specific restrictions are listed in Section 3.
+Nuls smart contract is developed with Java, and it operates in Nuls virtual machine. Not all Java features are applicable to contract development and the relevant restrictions are specified in section 3.
 
 ## 2. Development environment
 
-### 2.1 Installing NULS Wallet
+### 2.1 Setup of NULS wallet
 
-### 2.2 Installing JDK 8
+### 2.2 Setup of JDK 8
 
-### 2.3 Installing IntelliJ IDEA
+### 2.3 Setup of IntelliJ IDEA
 
-The development tool used by Nuls Smart Contracts is IntelliJ IDEA.
+Nuls smart contract adopts IntelliJ IDEA as development tool
 
-### 2.4 Installing the NULS Smart Contract Plugin
+### 2.4 Setup of NULS smart contract plug-ins
 
-The main features provided by the completely ineffective smart contract plugin:
+NULS smart contract plug-ins provide the following main functions:
 
-* New Nurs contract project
-* Prompt for unsupported Java features, Java classes, Java methods
-* Compile, package, deploy contract
-* Show, call the contract method.
+* Newly create Nuls contract project
+* Provide the unavailable Java properties, classes ad methods
+* Compile, package and deploy contracts
+* Display and call contract methods
 
-## 3. Nuls Smart Contract Specification and Grammar
+## 3. Nuls smart contract specifications and syntax
 
-The completely invalid smart contract syntax is a subset of Java's syntax, with some limitations on the syntax of Java.
+Nuls smart contract syntax is a subset of Java syntax, with some restrictions
 
-### 3.1 Nuls Smart Contract Specification
+### 3.1 Nuls smart contract specifications
 
-> **_Contract main class must implement the `Contract` interface, a smart contract can only have one class to implement the `Contract` interface, other classes and interfaces are to provide functionality for this contract._**
+> **_Main classes of contracts must implement contract interfaces. A smart contract can have a class implementing contract interface only; and other classes and interfaces provide functions for such contract._**
 
 ### 3.2 Keywords
 
-The Java keywords listed below, which will be marked as completely invalid keywords that are not supported by Nuls Smart Contracts
+Java key words are listed as follows and those not applicable for Nuls smart contract will be marked
 
 Access control
 
@@ -41,7 +41,7 @@ Access control
 * protected
 * private
 
-Defining classes, interfaces, abstract classes and implementation interfaces, inheriting class keywords, instantiating objects
+Key words and instantiated object of definition class, interface, abstract class, implementation interface and derivative class
 
 * class
 * interface
@@ -50,12 +50,12 @@ Defining classes, interfaces, abstract classes and implementation interfaces, in
 * extends
 * new
 
-Package keyword
+Key words of package
 
 * import
 * package
 
-Data type keyword
+Key words of data type
 
 * byte
 * char
@@ -70,7 +70,7 @@ Data type keyword
 * true
 * false
 
-Conditional loop (flow control)
+Conditional loops (process control)
 
 * if
 * else
@@ -85,7 +85,7 @@ Conditional loop (flow control)
 * return
 * instanceof
 
-Exception handling
+Error processing
 
 * catch
 * try
@@ -93,7 +93,7 @@ Exception handling
 * throw
 * throws
 
-Modify methods, classes, properties, and variables
+Modification method, class, property and variables
 
 * static
 * final
@@ -110,11 +110,11 @@ other
 * enum（not supported）
 * assert（not supported）
 
-### 3.3 Basic grammar
+### 3.3 Basic syntax
 
-The following syntax is the same as that of Java, but it is simply listed. For details, please refer to the relevant documentation of Java.
+The following syntax is the same with Java and simply listed here under, with specific details referred to the relevant documents of Java
 
-* Identifier: consists of characters, underscores, dollar signs or numbers, beginning with characters, underscores, dollar signs
+* Identifiers are consisted of character, underline, dollar sign or figure, beginning with character, underline or dollar sign
 * Basic data type: byte short int long float double char boolean
 * Reference data type: class, interface, array
 * Arithmetic operators: + - * /%++ -
@@ -122,15 +122,15 @@ The following syntax is the same as that of Java, but it is simply listed. For d
 * Logical Operators: ! &| ^ && ||
 * Bit operator: &| ^~>> << >>>
 * Assignment operator: =
-* Extended assignment operator: + = - = * = / =
+* Extension assignment operators: + = - = * = / =
 * String link operator: +
-* Trinity condition operator: ? :
-* flow control statements (if, switch, for, while, do ... while)
+* Conditional operators: ? :
+* Process control sentence (if, switch, for, while, do...while)
 
 
-### 3.4 Supported classes
+### 3.4 Available class
 
-A completely invalid Nuls Smart Contract can only be developed using the following classes
+Nuls smart contract can be developed with the following class
 
 * io.nuls.contract.sdk.Address
 * io.nuls.contract.sdk.Block
@@ -160,16 +160,17 @@ A completely invalid Nuls Smart Contract can only be developed using the followi
 
 ### 3.4 Other restrictions
 
-* Contract class can only have one constructor, other classes are not restricted
+* Contract class can have one construction method. No restriction for other classes
 
-## 4. Nuls Smart Contract Simple Example
+## 4. Nuls smart contract example
 
 a simple contract
 
-> **_contract main class must implement the Contract interface, other classes and interfaces are to provide functionality for this contract._**
+> **_Main classes of contract must implement contract interface, and other classes and interfaces provide functions for this contract_**
 
 
 ```java
+
 package contracts.examples;
 
 import io.nuls.contract.sdk.Contract;
@@ -194,26 +195,27 @@ public class SimpleStorage implements Contract {
 }
 ```
 
-In a contract project, only the imported jar package: contract sdk.jar, which provides classes for obtaining block information and transaction information.
-There can be multiple classes and interfaces in a project.
+In one contract project, it requires to introduce a jar package “contract-sdk.jar” which provides the class to get block and transaction details
+The project has several classes and interfaces
 
-After the contract is written, compiled and packaged, and deployed to the completely invalid chain, the constructor of the virgin execution contract initializes the contract and saves the contract state on the chain. The contract state is all member variables of the contract class.
-After the contract is deployed, all public methods of the contract class can be called, by calling these methods to read or modify the contract state.
+When compiling, packaging and deploying the prepared contract onto the Nuls chain, the virtual machine will implement the construction method of this contract to initialize it, and save the contract status onto the chain. The contract status is the member variables of contract class
+
+After the contract is deployed, all public methods of contract class can be called so as to read or modify the contract status
 
 
-Description of the annotation
+Explanatory comments
 
-@View tag @View method, the state of the contract will not change after the call, you can query the contract status in this way.
+@View labels the method of @View. After it is called, the contract status will remain and it can be researched by such means
 
-@Payable tag @Payable method to pass the amount when calling
+@Payable labels the method of @Payable. Only when it is called, the amount can be transferred in
 
-@Required marks the @Required parameter, the value must be passed when calling
+@Required labels the parameter of @Required. When it is called, there must be transfer-in value
 
-Go to github to download completely invalid source code, there are some contract examples.
+Go to download nuls source code on github, and get some contract examples
 
-## 5. Nuls Smart Contract SDK
+## 5. Nuls Contract SDK
 
-The Contract SDK provides several classes to facilitate contract development:
+Contract SDK provides several classes to be convenient for contract development:
 
 ### io.nuls.contract.sdk.Address
 
@@ -228,31 +230,31 @@ public class Address {
     }
 
     /**
-     * Get the balance of the address (only the contract address balance can be obtained)
+     * Get the balance of the address (only the balance of contract address)
      *
      * @return
      */
     public native BigInteger balance();
 
     /**
-     * Contract transfers to this address
+     * Transfer amount to the address from contract 
      *
-     * @param value  transfer amount (how many Na)
+     * @param value transfer amount (in Na)
      */
     public native void transfer(BigInteger value);
 
     /**
-     * The contract method to call this address
+     * Contract method to call the address
      *
-     * @param methodName 
-     * @param methodDesc 
-     * @param args       
-     * @param value  The amount of money attached (how many Na)
+     * @param Method name
+     * @param Method signature
+     * @param Parameters       
+     * @param value  Incidental currency (in Na)
      */
     public native void call(String methodName, String methodDesc, String[][] args, BigInteger value);
 
     /**
-     * Verify address
+     * Verify the address 
      *
      * @param address
      * @see io.nuls.kernel.utils.AddressTool#validAddress(String)
@@ -290,7 +292,7 @@ public class Address {
 public class Block {
 
     /**
-     * Specify the block header of the block
+     * Given block’s head
      *
      * @param blockNumber
      * @return
@@ -298,14 +300,14 @@ public class Block {
     public static native BlockHeader getBlockHeader(long blockNumber);
 
     /**
-     * Block header of the current block
+     * Current block’s head
      *
      * @return
      */
     public static native BlockHeader currentBlockHeader();
 
     /**
-     * Specify the hash value of the block
+     * Given block’s hash
      *
      * @param blockNumber
      * @return
@@ -316,7 +318,7 @@ public class Block {
 
     /**
      * 
-     * current block miner’s address
+     * CCurrent block’s miner address
      *
      * @return
      */
@@ -326,7 +328,7 @@ public class Block {
 
     /**
      * 
-     * current block number
+     * Current block’s No.
      *
      * @return
      */
@@ -336,7 +338,7 @@ public class Block {
 
     /**
      * 
-     * current block timestamp
+     * Current block’s time stamp
      *
      * @return
      */
@@ -421,12 +423,12 @@ public class BlockHeader {
 
 ```java
 /**
- * Contract interface, contract class implements this interface
+ *  Contract interface, implemented by contract class
  */
 public interface Contract {
 
     /**
-     * Directly transfer to the contract, this method will be triggered, the default is to do nothing, you can override this method.
+     * Directly transferring amount to the contract will trigger this method, and this method can be reloaded if nothing is done by default
      */
     default void _payable() {
     }
@@ -438,7 +440,7 @@ public interface Contract {
 
 ```java
 /**
-* Event interface, event class implements this interface
+* Event interface, implemented by event class
 */
 public interface Event {
 }
@@ -450,35 +452,35 @@ public interface Event {
 public class Msg {
 
     /**
-     * remaining gas
+     * Remaining gas
      *
      * @return
      */
     public static native long gasleft();
 
     /**
-     * sender of the message
+     * Message sender address
      *
      * @return
      */
     public static native Address sender();
 
     /**
-     * number of na sent with the message
+     * Amount of currency sent with message (in Na)
      *
      * @return
      */
     public static native BigInteger value();
 
     /**
-     * gas price
+     * Gas price
      *
      * @return
      */
     public static native long gasprice();
 
     /**
-     * contract address
+     * Contract address
      *
      * @return
      */
@@ -496,7 +498,7 @@ public class Utils {
     }
 
     /**
-     * Check the condition and roll back if the condition is not met
+     *  Check conditions; if conditions are not met, it will roll back.
      *
      * @param expression
      */
@@ -507,7 +509,7 @@ public class Utils {
     }
 
     /**
-     * Check the condition and roll back if the condition is not met
+     * Check conditions; if conditions are not met, it will roll back
      *
      * @param expression
      * @param errorMessage
@@ -519,21 +521,21 @@ public class Utils {
     }
 
     /**
-     * Terminate execution and restore changed status
+     * Terminate implementation and restore status
      */
     public static void revert() {
         revert(null);
     }
 
     /**
-     * Terminate execution and restore changed status
+     * Terminate implementation and restore status
      *
      * @param errorMessage
      */
     public static native void revert(String errorMessage);
 
     /**
-     * Send event
+     * Send events
      *
      * @param event
      */
@@ -544,7 +546,7 @@ public class Utils {
 
 ### io.nuls.contract.sdk.annotation.Payable
 
-`@Payable tag @Payable method to pass the amount when calling.`
+`@Payable labels the method of @Payable. Only when it is called, the amount can be transferred in`
 
 ```java
 @Target({ElementType.METHOD})
@@ -556,7 +558,7 @@ public @interface Payable {
 
 ### io.nuls.contract.sdk.annotation.Required
 
-`@Required flags the parameters of @Required, the value must be passed when calling.`
+`@Required labels the parameter of @Required. When it is called, there must be transfer-in value.`
 
 ```java
 @Target({ElementType.PARAMETER})
@@ -568,7 +570,7 @@ public @interface Required {
 
 ### io.nuls.contract.sdk.annotation.View
 
-`@View Marks the @View method. After the call, the contract status does not change. You can query the contract status in this way.`
+`@Viewlabels the method of @View. After it is called, the contract status will remain and it can be researched by such means`
 
 ```java
 @Target({ElementType.METHOD})
@@ -578,23 +580,23 @@ public @interface View {
 }
 ```
 
-## 6. The main RPC interface of the smart contract
+## 6. Main RPC interface of smart contract
 
-Here are the parameter structures and simple examples of several interfaces. For other interfaces, please refer to[Swagger UI](http://127.0.0.1:8001/docs#/)
-> The default port of the test network's `Swagger UI` is 8001, and the default network port is 6001 by default.
+See parameter structure and simple examples hereafter. See details of other interfaces at [Swagger UI] (http://127.0.0.1:8001/docs#/)
+> The default port of test network’s “Swagger UI” is 8001, and that of official network is 6001
 
-### 6.1 Creating a smart contract
+### 6.1 Create smart contract
 
 - POST `/api/contract/create` 
 
 |Parameter|Type|Description|
 |:-:|:-:|:-:|
-|sender* |string |Trade Creator |
-|password* |string| Transaction Creator Account Password|
-|gasLimit*| long| maximum gas consumption|
-|price* | long| Execution contract unit price|
-|contractCode* |string| Smart Contract Code (Hex encoded string of bytecode)|
-|remark |string |Remarks|
+|sender* |string |transaction creator |
+|password* |string|  password of transaction creator|
+|gasLimit*| long|  max. gas consumption|
+|price* | long| unit price of implementation contract|
+|contractCode* |string| smart contract code (byte code’s Hex coded string)|
+|remark |string |remark|
 |args |string[][]|Parameter list|
 
 - Example Value
@@ -613,16 +615,16 @@ Here are the parameter structures and simple examples of several interfaces. For
 
 
 
-### 6.2 Estimating the Gas Consumption of Creating Smart Contracts
+### 6.2 Estimate the gas consumption for creating smart contract
 
 - POST `/api/contract/imputedgas/create` 
 
 |Parameter|Type|Description|
 |:-:|:-:|:-:|
-|sender* |string |Trade Creator |
-|password* |string| Transaction Creator Account Password|
-|price* | long| Execution contract unit price|
-|contractCode* |string| Smart Contract Code (Hex encoded string of bytecode)|
+|sender* |string |transaction creator |
+|password* |string|  password of transaction creator|
+|price* | long| unit price of implementation contract|
+|contractCode* |string| smart contract code (byte code’s Hex coded string)|
 |args |string[][]|Parameter list|
 
 - Example Value
@@ -639,21 +641,21 @@ Here are the parameter structures and simple examples of several interfaces. For
 
 
 
-### 6.3 调用智能合约
+### 6.3 Call smart contract
 
 - POST `/api/contract/call` 
 
 |Parameter|Type|Description|
 |:-:|:-:|:-:|
-|sender* |string |Trade Creator |
-|password* |string| Transaction Creator Account Password|
-|contractAddress* |string| Smart Contract Address|
-|gasLimit* | long| Maximum Gas Consumption|
-|price* | long| Execution contract unit price|
-|value |long| The amount the transaction creator transfers to the contract address (Na - 100000000Na=1NULS)|
+|sender* |string |transaction creator |
+|password* |string| password of transaction creator|
+|contractAddress* |string| address of smart contract|
+|gasLimit* | long| max. gas consumption|
+|price* | long|unit price of implementation contract|
+|value |long| amount transferred by transaction creator to contract address (Na - 100000000Na=1NULS)|
 |methodName* |string| method name|
-|methodDesc |string| method signature, if the method name is not repeated, you can not pass |
-|remark |string| Notes |
+|methodDesc |string|method signature which may be not transferred if the method name is not repeated|
+|remark |string| remark |
 |args |string[][]|Parameter list|
 
 
@@ -675,76 +677,76 @@ Here are the parameter structures and simple examples of several interfaces. For
 ```
 
 
-### 6.4 Estimating the Gas Consumption of Calling Smart Contracts (see`Swagger UI`)
+### 6.4 Estimate the gas consumption for calling smart contract (see `Swagger UI`)
 
 - POST `/api/contract/imputedgas/call` 
 
 
 
-### 6.5 Estimate the price of a smart contract (see`Swagger UI`)
+### 6.5 Estimate the price for calling smart contract (see `Swagger UI`)
 - POST `/api/contract/imputedprice`
 
 
 
-### 6.6 Terminating smart contracts (see`Swagger UI`)
+### 6.6 Terminate smart contract (see `Swagger UI`)
 
 - POST `/api/contract/delete` 
 
 
 
-### 6.7 Calling smart contract functions that are view (see`Swagger UI`)
+### 6.7 Call the smart contract function which is not linked to blockchain (see `Swagger UI`)
 
 - POST `/api/contract/view` 
 
 
 
-### 6.8 Get smart contract execution results (see`Swagger UI`)
+### 6.8 Get the implementation results of smart contract (see `Swagger UI`)
 
 - GET `/api/contract/result/{hash}` 
 
 
 
-### 6.9 Get common information about smart contracts (see`Swagger UI`)
+### 6.9 Get the basic information of smart contract (see `Swagger UI`)
 
 - GET `/api/contract/info/{address}` 
 
 
 
-### 6.10 Verify that it is a contract address (see`Swagger UI`)
+### 6.10 Verify if it is contract address (see `Swagger UI`)
 
 - GET `/api/contract/{address}` 
 
 
 
-### 6.11 Get the NULS balance of the smart contract address (see`Swagger UI`)
+### 6.11 Get the NULS balance of smart contract address (see `Swagger UI`)
 
 - GET `/api/contract/balance/{address}` 
 
 
 
-### 6.12 Get details of smart contract transaction (see`Swagger UI`)
+### 6.12 Get the transaction details of smart contract (see `Swagger UI`)
 
 - GET `/api/contract/tx/{hash}` 
 
 
 
-### 6.13 Get the list of transactions for smart contracts (see`Swagger UI`)
+### 6.13 Get the transaction list of smart contract (see `Swagger UI`)
 
 - GET `/api/contract/tx/list/{address}` 
 
 
-### 6.14 Query the contract UTXO according to address and limit (see`Swagger UI`)
+### 6.14 Inquire contract UTXO as per address and limit (see `Swagger UI`)
 
 - GET `/api/contract/limit/{address}/{limit}` 
 
 
 
-### 6.15 Query the contract UTXO according to address and amount (see`Swagger UI`)
+### 6.15 Inquire contract UTXO as per address and amount (see `Swagger UI`)
 
 - GET `/api/contract/amount/{address}/{amount}` 
 
 
-### 6.16 Transferring to a smart contract (see `Swagger UI`)
+### 6.16 Transfer amount to smart contract (see `Swagger UI`)
 
 - POST `/api/contract/transfer` 
 
@@ -752,9 +754,9 @@ Here are the parameter structures and simple examples of several interfaces. For
 
 ## 7. Example
 
-### 7.1 Vote smart contract code snippet, as follows
+### 7.1 Voting smart contract code segments are as follows
 
-> Complete code: `https://github.com/nuls-io/nuls-vote`
+> Full code: `https://github.com/nuls-io/nuls-vote`
 
 ```java
 package io.nuls.vote.contract;
@@ -824,8 +826,8 @@ public class VoteContract implements Contract {
 
 ```
 
-If there is a parameter of `array type` in the method of smart contract, please pass the parameter as follows
-> Refer to the `create` method in the above voting contract code
+If the methods of smart contract include the parameter of  `array type`, please use the following method to transfer parameters
+> Refer to the `create` method in the aforesaid voting contract code
 
 ```javascript
 {
@@ -839,12 +841,12 @@ If there is a parameter of `array type` in the method of smart contract, please 
   "methodDesc": "",
   "remark": "",
   "args": [
-     "Test Vote 1",
-     "The first voting contract",
+     "Test voting 1",
+     "Voting contract 1",
      [
-       "First option",
-       "The second option",
-       "The third option"
+       "Option 1",
+       "Option 2",
+       "Option 3"
      ],
      1536044066056, 1536184066056, false, 300, false
    ]
@@ -854,7 +856,7 @@ If there is a parameter of `array type` in the method of smart contract, please 
 
 ### 7.2 Standard Token Smart contract code
 
-> Complete code: `https://github.com/nuls-io/nuls-nrc20`
+> Full code: `https://github.com/nuls-io/nuls-nrc20`
 
 ```java
 package io.nuls.contract.token;
