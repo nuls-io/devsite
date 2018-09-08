@@ -1,8 +1,8 @@
-# Nuls Smart Contract Development Manual
+# NULS Smart Contract Development Manual
 
 ## 1. Introduction
 
-Nuls smart contract is developed with Java, and it operates in Nuls virtual machine. Not all Java features are applicable to contract development and the relevant restrictions are specified in section 3.
+NULS smart contract is developed with Java, and it operates in NULS virtual machine. Not all Java features are applicable to contract development and the relevant restrictions are specified in section 3.
 
 ## 2. Development environment
 
@@ -12,28 +12,28 @@ Nuls smart contract is developed with Java, and it operates in Nuls virtual mach
 
 ### 2.3 Setup of IntelliJ IDEA
 
-Nuls smart contract adopts IntelliJ IDEA as development tool
+NULS smart contract adopts IntelliJ IDEA as development tool
 
 ### 2.4 Setup of NULS smart contract plug-ins
 
 NULS smart contract plug-ins provide the following main functions:
 
-* Newly create Nuls contract project
+* Newly create NULS contract project
 * Provide the unavailable Java properties, classes ad methods
 * Compile, package and deploy contracts
 * Display and call contract methods
 
-## 3. Nuls smart contract specifications and syntax
+## 3. NULS smart contract specifications and syntax
 
-Nuls smart contract syntax is a subset of Java syntax, with some restrictions
+NULS smart contract syntax is a subset of Java syntax, with some restrictions
 
-### 3.1 Nuls smart contract specifications
+### 3.1 NULS smart contract specifications
 
 > **_Main classes of contracts must implement contract interfaces. A smart contract can have a class implementing contract interface only; and other classes and interfaces provide functions for such contract._**
 
 ### 3.2 Keywords
 
-Java key words are listed as follows and those not applicable for Nuls smart contract will be marked
+Java key words are listed as follows and those not applicable for NULS smart contract will be marked
 
 Access control
 
@@ -130,7 +130,7 @@ The following syntax is the same with Java and simply listed here under, with sp
 
 ### 3.4 Available class
 
-Nuls smart contract can be developed with the following class
+NULS smart contract can be developed with the following class
 
 * io.nuls.contract.sdk.Address
 * io.nuls.contract.sdk.Block
@@ -198,7 +198,7 @@ public class SimpleStorage implements Contract {
 In one contract project, it requires to introduce a jar package “contract-sdk.jar” which provides the class to get block and transaction details
 The project has several classes and interfaces
 
-When compiling, packaging and deploying the prepared contract onto the Nuls chain, the virtual machine will implement the construction method of this contract to initialize it, and save the contract status onto the chain. The contract status is the member variables of contract class
+When compiling, packaging and deploying the prepared contract onto the NULS chain, the virtual machine will implement the construction method of this contract to initialize it, and save the contract status onto the chain. The contract status is the member variables of contract class
 
 After the contract is deployed, all public methods of contract class can be called so as to read or modify the contract status
 
@@ -211,9 +211,9 @@ Explanatory comments
 
 @Required labels the parameter of @Required. When it is called, there must be transfer-in value
 
-Go to download nuls source code on github, and get some contract examples
+Go to download NULS source code on github, and get some contract examples
 
-## 5. Nuls Contract SDK
+## 5. NULS Contract SDK
 
 Contract SDK provides several classes to be convenient for contract development:
 
