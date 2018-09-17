@@ -20,7 +20,7 @@ page:
 sidebar:
   docs:
     started: Getting Started
-    overview: Guide
+    overview: Running a node
     manual: Manual
 
   protocol:
