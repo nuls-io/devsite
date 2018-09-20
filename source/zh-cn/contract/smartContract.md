@@ -58,6 +58,8 @@
 
 - 方法为可写方法（需上链），可点击高级选项，更改GasLimit和GasPrice的默认值，点击【调用】后，该操作会发起一个交易，需要消耗nuls，因此若设置了账户密码，则需要输入密码。交易确认后，返回调用结果。
 
+	[查看智能合约手续费详情](http://dev.nuls.io/zh-cn/contract/SmartContractFee.html)
+
 	调用合约交易确认中
 
 	![access](./smartContractImages/access4.jpg)

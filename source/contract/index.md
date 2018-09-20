@@ -16,6 +16,8 @@ NULS smart contract adopts IntelliJ IDEA as development tool
 
 ### 2.4 Setup of NULS smart contract plug-ins
 
+[Click to download the plugin](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip)
+
 NULS smart contract plug-ins provide the following main functions:
 
 * Newly create NULS contract project

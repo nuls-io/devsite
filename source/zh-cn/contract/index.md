@@ -16,6 +16,8 @@ Nuls智能合约使用的开发工具为IntelliJ IDEA。
 
 ### 2.4 安装NULS智能合约插件
 
+[点击下载插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip)
+
 NULS智能合约插件提供的主要功能：
 
 * 新建NULS合约工程

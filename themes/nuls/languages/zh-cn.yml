@@ -33,6 +33,7 @@ sidebar:
     NRC_20: NRC-20
     IDEA_plugin: Idea插件操作手册
     Contract_manual: 钱包智能合约操作手册
+    Smart_contract_fee: 智能合约手续费
 
   chain:
     started: 概述

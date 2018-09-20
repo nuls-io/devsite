@@ -1,7 +1,7 @@
 # NULS IDEA Plugin User Manual
 
 #### 1 Install NULS Plugin on IDEA
-- Get NULS plugin ZIP, and save in disk
+- [Get NULS plugin](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip) ZIP, and save in disk
 Click File->Settings->Plugin->Install plugin from disk
 
 ![Install](./pluginImages/Install.jpg)

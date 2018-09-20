@@ -56,6 +56,8 @@ Review the confirmation progress of deployed contract.
 
 - If readable method (to be linked), click advanced option to alter default value of GasLimit and GasPrice. After clicking [call], generate a transaction, which will consume nuls. Therefore, in case of account password, insert your password. After transaction confirmation, feedback the results.
 
+	[View smart contract fee details](http://dev.nuls.io/zh-cn/contract/SmartContractFee.html)
+
 	Transaction on calling contract under confirmation
 
 	![access](./smartContractImages/access4.jpg)

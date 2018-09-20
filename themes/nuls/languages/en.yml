@@ -36,6 +36,7 @@ sidebar:
     NRC_20: NRC-20
     IDEA_plugin: Idea Plugin Manual
     Contract_manual: Smart Contract Manual
+    Smart_contract_fee: Smart Contract Fee
 
   chain:
     started: Getting Started
