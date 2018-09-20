@@ -1,84 +1,84 @@
-title: 跨链方案总体设计
+title: Cross-chain Overall Design
 ---
 
-## 一、行业背景
+## 1 Industrial Background
 
-区块链是去中心化应用的操作系统。需要跨链技术把一个个运行的操作系统连接起来，才能大力发展生态，形成区块链的互联网。
+Blockchain is a decentralized application operating system. Cross-chain technology is in need for linking multiple operating systems together, thus substantially developing the ecosystem to form the internet of blockchain. 
 
-## 二、设计目标
+## 2 Design Objectives
 
-* 定义跨链标准，实现不同区块链间的通信。
-* 搭建“卫星链”，实现不同区块链间的资产流转。
+* To define cross-chain standards and realize cross-chain communication. 
+* To build Satellite Chain to realize cross-chain asset transfer
 
-## 三、总体方案
+## 3 Overall Plan
 
-### 3.1总体架构
+### 3.1 Overall Architecture
 
 ![design](./image/3.1.png)
 
-说明：
+Clarification:
 
-​	一条独立的卫星链，负责和所有链对接。以开放的方式实现链间通信。
+​	An independent Satellite Chain is responsible for communication among all chains and realizing cross-chain communication in an open way. 
 
-​	基于NULS模块仓库实现的区块链（生态内的区块链），可以通过模块选择的方式添加跨链模块，使其在底层上可以和卫星链互通。
+​	Blockchains (in the ecology) based on NULS module warehouse can communicate with Satellite Chain in the underlying level by adding cross-chain modules via selecting modules. 
 
-​	以太坊和比特币等不受NULS影响的公有链，需要通过特殊的机制实现协议的转换，将公有链的协议和NULS跨链协议做适配，达到统一协议通讯的目的。
+​	 For Ethereum and Bitcoin and other public chains free from influence by NULS, protocol conversion should be achieved by a special mechanism, in which the public chain protocol and NULS cross-chain protocol will be adapted to realize communication with a unified protocol.
 
-​	所有区块链都只和卫星链通信，交易的验证由卫星链负责，各平行链信任卫星链的验证结果。
+​	 All blockchains can only communicate with the Satellite Chain, which is responsible for verifying transactions and all parallel chains trust the verification results. 
 
-* 链间连接方式
+* Linking Methods Between Chains 
 
-  区块链上的每个节点都运行跨链模块，每个节点都连接卫星链上的部分节点。通过随机算法决定连接哪些节点，尽可能地确保节点连接的分散，保证网络的安全性。
+  All nodes in the blockchain will operate cross-chain modules and are connected to some nodes of the Satellite Chain. Corresponding random algorithm will decide specific nodes to be connected and try to guarantee diversion of the connection so as to safeguard the network security. 
 
-* 跨链交易是如何实现的
+* How to realize cross-chain transaction
 
-  假设A链的账户a1要转移其持有的资产a到b链的账户b1中，则处理流程如下：
+  Suppose Account a1 of Chain A transfers its Asset a to Account b1 of Chain b, the procedures are as follows: 
 
-  * 先在A链上发起跨链交易，由A链先行确认；
-  * 当达到一定数量的区块确认后，交易被跨链模块推送到卫星链的节点中；
-  * 卫星链接收到交易后进行确认，确认的方式分为两步：
-    * 1、通过询问A链上的节点，确认该交易是否已被确认，并且以跨链协议发送到卫星链中的交易是正确、真实的；
-    * 2、在卫星链中以拜占庭容错算法对交易进行确认，若不能获得大部分节点的认同，则该交易视为无效。
-  * 交易打包到卫星链的区块中；
-  * 节点将该跨链交易推送到B链中；
-  * B链节点通过连接的所有卫星链的节点，对该交易进行确认，若确认不通过则丢弃该交易；
-  * 若通过确认，则创建对应的资产到目标地址中；
-  * 在B链共识中确认该交易。
-  * 完成，该资产可以在B链使用。
+  * Cross-chain transaction will be initiated in Chain A and is subject to the verification of Chain A first;
+  * When certain blocks are accumulated, cross-chain modules will push the transaction to nodes in Satellite Chain;
+  * After receipt, Satellite Chain will verify the transaction in the following two steps:
+    * 1 Inquire nodes in Chain A if the transaction is verified and if the transaction sent to Satellite Chain by cross-chain protocol is correct and authentic; 
+    * 2 Verify the transaction by Byzantine fault tolerant algorithm in Satellite Chain. The transaction will be regarded as invalid if a majority of nodes cannot agree.
+  * The transaction will be packaged in blocks of Satellite Chain; 
+  * Nodes will push this cross-chain transaction to Chain B;
+  * Nodes of Chain B will verify the transaction via nodes connected to Satellite Chain. If it cannot pass the verification, this transaction will be discarded;
+  * If it passes the verification, corresponding asset will be placed in target address;
+  * This transaction will be verified in Chain B consensus. 
+  * The transaction is complete and corresponding asset is available in Chain B. 
 
-* 多算法适配
+* Adaptation of Multiple Algorithms 
 
-  卫星链支持市面上大部分数学算法，包括摘要算法、对称加密、非对称加密等，可以通过算法库提供的统一的接口进行使用。
+  Satellite Chain supports most of mathematical algorithms used at present, including digest algorithm, symmetric encryption and asymmetric encryption among others. These algorithms can be used via a unified interface provided by the algorithm library. 
 
-* 社区化治理
+* Community-based Governance 
 
-  卫星链会内置社区治理机制，包括系统运行参数修改、协议升级、恶意链处理、社区资金使用等功能。
+  Community governance mechanism is built in Satellite Chain. Its functions include modifying system operation parameters, upgrading protocols, handling malicious chains, using community asset among others.   
 
 
 
-## 四、 卫星链设计
+## 4 Satellite Chain Design 
 
-###  4.1 卫星链架构
+###  4.1 Satellite Chain Architecture
 
  ![layer](./image/4.1.jpg)
 
-* 卫星链使用POC共识机制，结合拜占庭容错机制实现跨链交易的确认和打包，做到去中心化与性能、安全性的兼顾。
-* 卫星链上的协议是统一定义的NULS跨链协议，每个节点都会连接多个区块链的多个节点。
-* 卫星链提供链管理机制，用来管理所有在卫星链上登记的对等区块链。登记的内容包括链信息、资产信息、跨链抵押金等。
-* 当一条区块链上收到其他链的资产时，需要在本链产生对应的资产。不同区块链上的token，都以资产的方式在其他链上存储。
-* 一条区块链中转入其他链资产的明细会在卫星链中存储。该资产转出这条区块链时会进行验证，不允许非法的资产从该区块链中产生。对有恶意的区块链，会通过社区机制进行处理，如：暂停跨链、中止跨链、没收保证金等。
-* 卫星链将提供api使用手册，任何开发者都可以根据手册开发自己的钱包、浏览器、轻钱包等工具。
-* 为了降低卫星链的业务复杂度，将不在卫星链中运行智能合约。
-* 卫星链中提供协议供应用扩展，可以使用该协议进行DApp的开发和跨链协议的优化。
+* Satellite Chain verifies and packages cross-chain transaction by POC consensus mechanism and Byzantine fault tolerant algorithm, which strikes a balance between decentralization and performance and security. 
 
-### 4.2 卫星链的运行
+* Protocols in Satellite Chain are NULS cross-chain protocols with unified definition. Every node will connect multiple nodes in multiple blockchains.  
+* Satellite Chain provides chain management mechanism to supervise all corresponding blockchains registered on it. Registration contents include chain information, asset information and cross-chain pledge among others. 
+* When one blockchain receives assets from other blockchains, corresponding assets will be in place in this chain. Tokens in different blockchains will be stored as assets in other blockchains. 
+* Details for asset transfer to one blockchain from other chains will be stored in Satellite Chain. It should be verified if the asset is to transfer out of this blockchain and illegal asset transfer from this chain is not allowed. Malicious blockchains will be dealt with by community mechanism, including cross-chain pausing, cross-chain suspending and forfeiture of deposit. 
+* Blockchain will provide an api user manual. Any developer can develop his/her own wallet, browser, light wallet among other tools. 
+* Smart contract will not be operated in Satellite Chain so as to reduce operation complexity of Satellite Chain. 
+* Satellite Chain provides protocol application extension. Developers can use this protocol to develop DApp and optimize cross-chain protocols.
+### 4.2 Satellite Chain Operation 
 
 ![](./image/4.2.png)
 
-* 卫星链以模块化的方式架构。
-* 每个模块都是一个可以独立运行的微服务。
-* 微服务之间直接通过http协议通信。
-* 模块不限制开发语言。
-* 提供微内核模块负责服务管理、配置管理和数据共享功能。
-* 卫星链的模块在一定程度上将可以与NULS主网共用，所以卫星链的模块也会和NULS的模块一样加入到NULS模块仓库中，供“链工厂”等应用直接使用。
-* 每个模块在使用的同时都支持扩展。即如果模块仓库中的模块只能满足部分业务需求时，可以对该模块进行扩展以避免重新开发。
+* Satellite Chain has a modular architecture.
+* Every module can be an independently operating micro service. 
+* Micro services are directly linked by http protocol communication. 
+* Module development languages are not restrained. 
+* Satellite Chain provides micro kernel module to manage service, configuration and data sharing function. 
+* Modules of Satellite Chain can also be used by NULS main network to some extent, so modules in Satellite Chain will also be included in NULS module library as NULS modules do. There modules are available for direct use of Chain Factory. 
+* Every in-use module is subject to extension. If a module in the library can only meet partial operation needs, this module can be extended instead of re-developing. 
