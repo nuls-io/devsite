@@ -1,88 +1,88 @@
-## NULS-Wallet-Linux64 使用指南
+## NULS-Wallet-Linux64 User Manual
 
-### 介绍
+### Introduction
 
-​	本文档为NULS主网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。
+​	The User Manual (hereinafter referred to as Manual) is for the full-node wallet of NULS (Linux). Before reading this Manual, please know about the basic operation and usage of Linux system. The Manual includes operations for creating account, importing account, transferring, building nodes, agency and others with NULS wallet. It is recommended to build stable NULS nodes with Linux system server.
 
-### 版本更新记录
+### Version Update Records
 
-|  版本  |  更新日期  |        内容        |
+|  Version  |  Date updated  |        Contents        |
 | :----: | :--------: | :----------------: |
-| V1.0.0 | 2018-07-12 | 主网正式版全部功能 |
+| V1.0.0 | 2018-07-12 | All functions of official version |
 
-### 准备
+### Preparation
 
-#### 服务器硬件配置
+#### Server hardware
 
-**建立NULS节点的服务器不低于如下配置**
+**Server for creating NULS nodes shall be with configurations not lower than the following**
 
-|     CPU   | 内存 |   硬盘   |  宽带   |
+|     CPU   | Memory  |   Hard Disk   |  Broadband   |
 |:---------:| :----: | :------: | :---:|
-| 四核 3.0GHz | 16G  | 128G硬盘 | 20M上行 |
+|Quad-core 3.0GHz | 16G  | 128G Hard Disk | 20M Uplink |
 
-**推荐配置**
+**Recommendation**
 
-|     CPU     | 内存 |   硬盘   |   宽带   |
+|     CPU     | Memory  |   Hard Disk   |   Broadband   |
 | :---------: | :---: | :------: | :------: |
-| 八核 3.0GHz | 32G  | 256G硬盘 | 100M上行 |
+| 8-core 3.0GHz | 32G  | 256G Hard Disk  | 100M Uplink |
 
-#### 系统及内核版本
+#### Version of system and core
 
-**Linux系统**
+**Linux system**
 
-- CentOS (推荐)
+- CentOS (recommended)
 
-Linux内核版本推荐使用 2.6.32及以上
+It is recommended to use core of version 2.6.32 or higher.
 
-### 开始
+### Start
 
-#### 下载
+#### Download
 
-* 最新版本的全节点钱包NULS官网下载地址：http://nuls.io/wallet
-* GitHub地址：https://github.com/nuls-io/nuls-wallet-release
+* NULS official website for downloading the latest full-node wallet:http://nuls.io/wallet
+* GitHub：https://github.com/nuls-io/nuls-wallet-release
 
-* 进入[NULS官网钱包下载](http://nuls.io/wallet)界面后，选择Linux download，我们提供了MEGA和百度云盘两种下载方式，用户可自行选择。
+* Enter [wallet download on NULS website](http://nuls.io/wallet),and select Linux download. MEGA and Baidu Cloud Disk are available and optional for users. 
 
-  Linux系统中下载v1.0.0版的钱包可以使用如下命令：
+  The following is for downloading wallet (v1.0.0) in Linux system:
 
   ```shell
   $ wget https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-1.0.0.tar.gz
   ```
 
-  注：如果后续有其他版本，下载地址可能会不同。
+  Note: the downloading link for the subsequent versions is subject to change.
 
-#### 安装
+#### Install
 
-- 在Linux中解压已下载的文件
+- Extract downloaded files in Linux system
 
   ```shell
   $ tar -zxf NULS-Wallet-linux64-1.0.0.tar.gz
   ```
 
-#### 运行
+#### Operate
 
-- 进入解压后的bin目录，并运行启动脚本，启动全节点钱包
+- Enter bin catalogue and run startup script to start full-node wallet
 
   ```shell
   $ cd bin
   $ ./start.sh
   ```
 
-### 使用钱包
+### Use wallet
 
-#### 快速入门
+#### Quick-start
 
-- 在确定钱包已经启动后，启动钱包的命令行程序，可对钱包进行操作。
+- Upon confirming the wallet is started, start the command line of wallet to run it.
 
-  进入bin目录，执行如下命令：
+  Enter bin catalogue to execute the following commands:
 
   ```shell
   $ ./cmd.sh
   ```
 
-  将会出现NULS命名输入提示符`nuls>>>  ` ，然后可直接输入NULS钱包操作命令，来进行操作。
+  Display NULS naming prompt `nuls>>>  `, and then directly input NULS wallet operation command to run it.
 
-  例如，创建账户的示例如下：
+  The following gives an example of account creating:
 
   ```shell
   nuls>>> create
@@ -93,34 +93,34 @@ Linux内核版本推荐使用 2.6.32及以上
   nuls>>>
   ```
 
-  执行`create`命令表示创建单个账户，然后输入密码，以及再次确认输入的密码，创建成功后将会返回账户的地址。
+  Command `create` is to create a single account, insert password, confirm the inserted password, and receive the account address if the account is created successfully.
 
 
 
-### 约定
+### Conventions
 
-- 设置密码规则：密码长度在8至20位，必须同时包含字母和数字。
-- 命令参数说明： &lt;parameter&gt; 表示必填参数；[parameter] 表示选填参数。"|" 在参数中表示或者，表示前后参数只能选其一。
+- For password: it must be 8 to 20 digits, including letters and figures.
+- Command parameter description means the required parameter; [parameter] means optional parameter. "|" means alternative parameter, that is, the front or later parameter is required.
 
-### 钱包命令
+### Wallet command
 
-#### 帮助命令
+#### Help command
 
-输出打印所有的命令，
+All commands for output and printing
 
-- **命令： help [-a] **
+- **Command: help [-a] **
 
-| 参数 | 说明                 |
+| Parameter | Description             |
 | :--- | :------------------- |
-| -a   | 格式化打印命令，选填 |
+| -a   | Formatting printing command, optional |
 
-返回信息 help
+Return message help 
 
 ```json
 getaccount <address> --get account information
 ```
 
-返回信息 help -a
+Return message help -a
 
 ```json
 getaccount <address> --get account information
@@ -128,7 +128,7 @@ getaccount <address> --get account information
 	<address> the account address - Required
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> help
@@ -137,25 +137,25 @@ nuls>>> help -a
 
 
 
-#### 创建账户
+#### Create account
 
-创建账户，返回账户地址集合
+Create account and return to account addresses collection
 
-- **命令： create [number] **
+- **Command: create [number] **
 
-| 参数     | 说明                 |
+| Parameter    | Description                 |
 | :------- | :------------------- |
-| [number] | 创建账户的数量，选填 |
+| [number] | Quantity of accounts created, optional |
 
-创建账户时，将会提示输入密码，如果账户不需要密码可以不用输入，直接enter；
+Upon creating account, receive prompt of password inserting; if the account is not to have a password, ignore it and directly enter;
 
-返回账户集合
+Return accounts collection
 
 ```json
 [ "NsdwsD8n3GrW9Sx43eLZ3xv8C858ovE2", "Nse6iqzBZsBtL5c46xaHhAhAqVDv3zQQ" ]
 ```
 
-示例 创建2个没有密码的账户
+Example, to create 2 accounts without password
 
 ```shell
 nuls>>> create 2
@@ -166,26 +166,26 @@ Enter your password:
 
 
 
-#### 备份账户
+#### Backup account
 
-备份账户，将生成一个名称为账户地址，扩展名为.keystore的文件，该文件为账户的备份文件
+For backup of account, generate a backup file, titled as account address, with .keystore file extension as and file as account
 
-- **命令：backup &lt;address&gt; [path]**
+- **Command: backup &lt;address&gt; [path]**
 
-| 参数            | 说明                                                 |
+| Parameter       | Description                                          |
 | --------------- | ---------------------------------------------------- |
-| &lt;address&gt; | 账户地址，必填                                       |
-| [path]          | 文件生成备份文件的目标文件夹，默认为当前文件夹，选填 |
+| &lt;address&gt; | Account address, required                                       |
+| [path]          | The target folder of backup files, defaults to be the current folder, optional  |
 
-注意：备份有密码的账户时需要输入账户当前密码，将来导入此备份文件生成账户时，要验证此密码；备份一个没有密码的账户是允许的，但是是非常不安全的，我们不建议这样做。
+Note: insert current password when backup the encrypted account, and use such password when importing the backup files to generate account. It is permitted but not recommended to backup an unencrypted account, because it is not safe.
 
-返回信息
+Return message
 
 ```shell
 The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
 ```
 
-示例 备份一个有密码的账户
+Example: backup of an account with password
 
 ```shell
 nuls>>> backup NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
@@ -196,23 +196,23 @@ The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keysto
 
 
 
-#### 移除账户
+#### Remove account
 
-根据账户地址移除本地账户，如果账户已加密，则需要输入密码
+Remove local account according to account address; if the account is encrypted, insert password.
 
-- **命令：remove &lt;address&gt; **
+- **Command: remove &lt;address&gt; **
 
-| 参数            | 说明             |
+| Parameter           | Description            |
 | --------------- | ---------------- |
-| &lt;address&gt; | 账户的地址，必填 |
+| &lt;address&gt; | Account address, required |
 
-返回信息
+Return message
 
 ```json
 Success
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> remove NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
@@ -223,23 +223,23 @@ Success
 
 
 
-#### 设置账户密码
+#### Set account password
 
-根据账户地址对未加密的账户设置密码，不能对已经有密码的账户进行设置密码的操作。
+Set password for the unencrypted accounts based on account address. No password setting for the encrypted accounts.
 
-- **命令：setpwd &lt;address&gt; **
+- **Command: setpwd &lt;address&gt; **
 
-| 参数            | 说明             |
+| Parameter           | Description             |
 | --------------- | ---------------- |
-| &lt;address&gt; | 账户的地址，必填 |
+| &lt;address&gt; | Account address, required |
 
-返回信息
+Return message
 
 ```json
 Success
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> setpwd Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -251,23 +251,23 @@ Success
 
 
 
-#### 修改账户密码
+#### Change account password
 
-根据账户地址对已加密的账户修改密码，不能对未加密的账户进行修改密码的操作；修改密码时将会验证旧密码。
+Change password of the encrypted accounts based on account address. No password changing for the unencrypted accounts. Require original password when replacing it with a new one.
 
-- **命令：resetpwd &lt;address&gt; **
+- **Command: resetpwd &lt;address&gt; **
 
-| 参数            | 说明             |
+| Parameter             | Description             |
 | --------------- | ---------------- |
-| &lt;address&gt; | 账户的地址，必填 |
+| &lt;address&gt; | Account address, required |
 
-返回信息
+Return message
 
 ```json
 Success
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> resetpwd Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -280,24 +280,24 @@ Success
 
 
 
-#### 设置别名
+#### Set nickname
 
-给账户设置一个别名，如果用此账户建立节点，别名将作为节点来源显示
+Set a nickname for account. If the account is used to create nodes, the nickname will be displayed as node source.
 
-- **命令：setalias &lt;address&gt; &lt;alias&gt;**
+- **Command：setalias &lt;address&gt; &lt;alias&gt;**
 
-| 参数            | 说明             |
+| Parameter         | Description             |
 | --------------- | ---------------- |
-| &lt;address&gt; | 账户的地址，必填 |
-| &lt;alias&gt;   | 别名名称，必填   |
+| &lt;address&gt; | Account address, required |
+| &lt;alias&gt;   | Nickname, required   |
 
-返回信息 交易hash
+Return message, transaction hash
 
 ```json
 "0020f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> setalias Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT nuls_alias
@@ -306,25 +306,25 @@ nuls>>> setalias Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT nuls_alias
 
 
 
-#### 导入账户keystore
+#### Imported account keystore
 
-导入账户keystore文件，生成本地账户，如果本地已有该账户将无法导入。
+Imported account keystore files, and create a local account. Receive failure to import if there is an existing local account.
 
-- **命令：importkeystore &lt;path&gt; **
+- **Command: import keystore &lt;path&gt; **
 
-| 参数         | 说明                           |
+| Parameter         | Description                        |
 | ------------ | ------------------------------ |
-| &lt;path&gt; | 待导入的keystore文件地址，必填 |
+| &lt;path&gt; | Address of keystore files to be imported, required |
 
-注意：导入keystore文件生成账户时，如果该keystore是加密的要验证备份keystore时的密码。
+Note: when importing keystore files to create an account, if they are encrypted, the password for backup of keystore files is required.
 
-返回信息 导入的账户地址
+Return message, imported account address
 
 ```json
 "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> importkeystore /home/charlie/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
@@ -335,25 +335,25 @@ Enter your password:**********
 
 
 
-#### 导入账户私钥
+#### Imported account’s private key
 
-导入账户私钥，生成本地账户，如果本地已有该账户将无法导入。
+Import account’s private key and create a local account. Receive failure to import if there is an existing local account.
 
-- **命令：import &lt;privatekey&gt; **
+- **Command：import &lt;privatekey&gt; **
 
-| 参数               | 说明             |
+| Parameter                | Description             |
 | ------------------ | ---------------- |
-| &lt;privatekey&gt; | 账户的私钥，必填 |
+| &lt;privatekey&gt; | Account’s private key, required |
 
-注意：导入私钥时，可以设置新的密码，如果账户不需要加密则不用输入新密码。
+注意：Note: when importing such private key, set a new password. If the account does not need to be encrypted, users do not need to insert a new password.
 
-返回信息 导入的账户地址
+Return message, imported account address
 
 ```json
 "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> import 00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
@@ -365,27 +365,27 @@ Please confirm new password:**********
 
 
 
-#### 导入账户私钥(覆盖导入)
+#### Imported account’s private key (overwritten)
 
-导入账户私钥，生成本地账户，如果本地已有该账户将执行覆盖导入。
+Import account’s private key and create a local account. Receive failure to realize overwritten import if there is an existing local account.
 
-- **命令：import &lt;privatekey&gt; **
+- **Command：import &lt;privatekey&gt; **
 
-| 参数               | 说明             |
+| Parameter               | Description             |
 | ------------------ | ---------------- |
-| &lt;privatekey&gt; | 账户的私钥，必填 |
+| &lt;privatekey&gt; | Account’s private key, required |
 
-注意：导入私钥时，可以设置新的密码，如果账户不需要加密则不用输入新密码。
+Note: when importing account’s private key, set a new password. If the account does not need to be encrypted, users do not need to insert a new password.
 
-覆盖导入：如果本地已存在该账户，执行覆盖导入后，导入前账户的密码将会被改为新设置的密码，如果本次导入未给账户设置密码，那账户将变成未加密账户(即使导入之前的账户是加密的)。
+Overwritten import: if the account exists locally, the password before importing will be replaced with a new password after performing overwritten import; if the account is not encrypted after this import, the account will be unencrypted account (even though the account is encrypted before such import).
 
-返回信息 导入的账户地址
+Return message, imported account address
 
 ```json
 "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> import 00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
@@ -397,32 +397,32 @@ Please confirm new password:**********
 
 
 
-#### 查询账户信息
+#### Inquire account information
 
-根据账户地址查询账户信息
+Inquire account information based on account address
 
-- **命令：getaccount &lt;address&gt;**
+- **Command：getaccount &lt;address&gt;**
 
-| 参数            | 说明           |
+| Parameter            | Description           |
 | --------------- | :------------- |
-| &lt;address&gt; | 账户地址，必填 |
+| &lt;address&gt; | Account address, required |
 
-返回信息
+Return message
 
 ```json
 {
-  "address" : "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy",//账户地址
-  "alias" : null,//别名
-  "pubKey" : "03f364bae9bb632a9b957522f150cb501dbc950e3700cff7a3679ed8820c486875",//公钥
-  "priKey" : "",//私钥(如果账户设置了密码，该项为空)
-  "encryptedPriKey" : "712149fad00350cdfee4d20850a9e5c1e9d7e9c1562dabc593cbc9b5ac57e99f1549748ff2421b3f6830f34bff7c69d8",//加密后的私钥(如果账户没有设置了密码，该项为空)
+  "address" : "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy",//Account address
+  "alias" : null,//Nickname
+  "pubKey" : "03f364bae9bb632a9b957522f150cb501dbc950e3700cff7a3679ed8820c486875",//Public key
+  "priKey" : "",//Private key (unavailable if the account is encrypted)
+  "encryptedPriKey" : "712149fad00350cdfee4d20850a9e5c1e9d7e9c1562dabc593cbc9b5ac57e99f1549748ff2421b3f6830f34bff7c69d8",//Private key after encryption (unavailable if the account is encrypted)
   "extend" : null,
-  "createTime" : "2018-07-13 11:39:14",//创建时间
-  "encrypted" : true//是否加密(是否设置了密码)
+  "createTime" : "2018-07-13 11:39:14",//Creation time
+  "encrypted" : true//Encrypted or not (set password or not)
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getaccount NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
@@ -440,29 +440,29 @@ nuls>>> getaccount NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
 
 
 
-#### 查询账户列表
+#### Inquire list of accounts
 
-根据分页参数查询账户列表，所有账户以创建时间倒序输出。
+Inquire list of accounts as per paging parameter, and output all accounts in reverse sequence of creation time
 
-- **命令：getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;**
+- **Command：getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;**
 
-| 参数               | 说明                             |
+| Parameter               | Description                          |
 | ------------------ | -------------------------------- |
-| &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
-| &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
+| &lt;pageNumber&gt; | Page, to get the data on which page, required|
+| &lt;pageSize&gt;   | Number of data displayed on each page, required      |
 
-返回信息，将输出账户集合
+Return message, output accounts collection
 
 ```json
 [ {
-  "address" : "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy",//账户地址
-  "alias" : null,//别名
-  "pubKey" : "03f364bae9bb632a9b957522f150cb501dbc950e3700cff7a3679ed8820c486875",//公钥
-  "priKey" : "",//私钥(如果账户设置了密码，该项为空)
-  "encryptedPriKey" : "712149fad00350cdfee4d20850a9e5c1e9d7e9c1562dabc593cbc9b5ac57e99f1549748ff2421b3f6830f34bff7c69d8",//加密后的私钥(如果账户没有设置了密码，该项为空)
+  "address" : "NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy",//Account address
+  "alias" : null,//Nickname
+  "pubKey" : "03f364bae9bb632a9b957522f150cb501dbc950e3700cff7a3679ed8820c486875",// Public key
+  "priKey" : "",//Private key (unavailable if the account is encrypted)
+  "encryptedPriKey" : "712149fad00350cdfee4d20850a9e5c1e9d7e9c1562dabc593cbc9b5ac57e99f1549748ff2421b3f6830f34bff7c69d8",// Private key after encryption (unavailable if the account is encrypted)
   "extend" : null,
-  "createTime" : "2018-07-13 11:39:14",//创建时间
-  "encrypted" : true//是否加密(是否设置了密码)
+  "createTime" : "2018-07-13 11:39:14",//Creation time
+  "encrypted" : true//Encrypted or not (set password or not)
 }, {
   "address" : "NsdwsD8n3GrW9Sx43eLZ3xv8C858ovE2",
   "alias" : null,
@@ -477,7 +477,7 @@ nuls>>> getaccount NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
 
 
 
-示例 获取账户列表 显示第一页，每页显示2条
+Example: to get list of accounts, showing page 1, 2 items per page
 
 ```shell
 nuls>>> getaccounts 1 2
@@ -504,23 +504,23 @@ nuls>>> getaccounts 1 2
 
 
 
-#### 查询账户私钥
+#### Inquire account’s private key
 
-根据账户地址查询账户私钥，如果账户已加密，则需要输入密码
+Inquire account’s private key based on account address; if the account is encrypted, insert password.
 
-- **命令：getprikey &lt;address&gt; **
+- **Command：getprikey &lt;address&gt; **
 
-| 参数            | 说明             |
+| Parameter            | Description             |
 | --------------- | ---------------- |
-| &lt;address&gt; | 账户的地址，必填 |
+| &lt;address&gt; | Account address, required |
 
-返回信息 导入的账户地址
+Return message, imported account address
 
 ```json
 "00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getprikey NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy
@@ -531,27 +531,27 @@ Enter your password:**********
 
 
 
-#### 查询账户余额
+#### Inquire account balance
 
-根据账户地址查询账户余额
+Inquire account balance based on account address
 
-- **命令：getbalance &lt;address&gt; **
+- **Command：getbalance &lt;address&gt; **
 
-| 参数            | 说明             |
+| Parameter            | Description             |
 | --------------- | ---------------- |
-| &lt;address&gt; | 账户的地址，必填 |
+| &lt;address&gt; |Account address, required |
 
-返回信息 导入的账户地址
+Return message, imported account address
 
 ```json
 {
-  "balance" : "9999998.99",//余额
-  "locked" : "0",//已锁定余额
-  "usable" : "9999998.99"//可用余额
+  "balance" : "9999998.99",//Balance
+  "locked" : "0",//Locked balance
+  "usable" : "9999998.99"//Available balance
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -564,29 +564,28 @@ nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 
 
 
-#### 转账
+#### Transfer
 
-根据账户地址将NULS转入另一账户地址中，如果转出账户有密码则需要验证密码，否则直接转出。
+Transfer NULS into another account address based on account address. If such account has password, insert password; if it has no password, transfer out directly.
 
-- **命令：transfer &lt;address&gt; &lt;toAddress&gt; &lt;amount&gt; [remark] **
+- **Command: transfer &lt;address&gt; &lt;toAddress&gt; &lt;amount&gt; [remark] **
 
-| 参数              | 说明                                            |
+| Parameter            | Description                                           |
 | ----------------- | ----------------------------------------------- |
-| &lt;address&gt;   | 转出地址，必填                                  |
-| &lt;toAddress&gt; | 接收地址，必填                                  |
-| &lt;amount&gt;    | 转账数量，最多可以有8位小数（单位：NULS），必填 |
-| [remark]          | 备注信息，选填                                  |
+| &lt;address&gt;   | transferring address, required                                  |
+| &lt;toAddress&gt; | receiving address, required                                |
+| &lt;amount&gt;    | transferred amount, round to 8 decimals in total (in NULS), required |
+| [remark]          | Remarks, required                               |
 
-返回信息 转账交易hash
+Return message, transfer transaction hash
 
 ```json
 "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596"
 ```
-
-示例
+Example
 
 ```shell
-nuls>>> transfer Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 100 转账
+nuls>>> transfer Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 100 Transfer
 Please enter the password.
 Enter your password:**********
 "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596"
@@ -594,49 +593,49 @@ Enter your password:**********
 
 
 
-#### 查询交易详情
+#### Inquire transaction details
 
-根据交易hash查询交易详细信息
+Inquire transaction details as per transaction hash
 
-- **命令：gettx &lt;hash&gt;**
+- **Command：gettx &lt;hash&gt;**
 
-| 参数         | 说明           |
+| Parameter         | Description          |
 | ------------ | -------------- |
-| &lt;hash&gt; | 交易hash，必填 |
+| &lt;hash&gt; | Transaction hash, required |
 
-返回信息 交易详细信息
+Return message, transaction details
 
 ```json
 {
-  "hash" : "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596",//交易hash
-  "type" : "transfer",//交易类型（此示例为转账交易）
-  "time" : "2018-07-16 11:21:46",//交易时间
-  "blockHeight" : 26269,//打包交易的区块高度
-  "fee" : "0.001",//交易手续费
-  "value" : "100",//（转账）交易数量
-  "remark" : "转账",//备注
-  "scriptSig" : "2103f68aeb83f3a4fdf9b49259a6e8eae97cf73c7a0a1c52da8a1f9c09312a6d3c530046304402202932ea77976a603b832861c64f868a34e9ad59b728d3a8eeba27269f05b4267c0220217a6e1b97fb3f65e6711434e17e399f43e168f3699edb2aba8618bdd3f410e1",//签名
-  "status" : "confirm",//交易确认状态(已确认或者未确认)
-  "confirmCount" : 46,//确认次数
-  "size" : 254,//交易大小
-  "inputs" : [ {//交易的输入
+  "hash" : "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596",//Transaction hash
+  "type" : "transfer",//Transaction type (transfer transaction as an example)
+  "time" : "2018-07-16 11:21:46",//Transaction time
+  "blockHeight" : 26269,//Block height of package transaction
+  "fee" : "0.001",//Transaction service charge
+  "value" : "100",//(Transfer) transaction amount
+  "remark" : "Transfer",//remarks
+  "scriptSig" : "2103f68aeb83f3a4fdf9b49259a6e8eae97cf73c7a0a1c52da8a1f9c09312a6d3c530046304402202932ea77976a603b832861c64f868a34e9ad59b728d3a8eeba27269f05b4267c0220217a6e1b97fb3f65e6711434e17e399f43e168f3699edb2aba8618bdd3f410e1",//Signature
+  "status" : "confirm",//Status of transaction confirmation (confirmed or unconfirmed)
+  "confirmCount" : 46,//Times of confirmation
+  "size" : 254,//Size of transaction
+  "inputs" : [ {//Input of transaction
     "fromHash" : "002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e",
     "fromIndex" : 1,
     "address" : "Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT",
     "value" : "9979998.98",
     "lockTime" : 0
   } ],
-  "outputs" : [ {//交易的输出
+  "outputs" : [ {//Output of transaction
     "txHash" : "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596",
     "index" : 0,
-    "address" : "NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T"//交易输出的目标地址(此数据相当于转出100给目标地址)
+    "address" : "NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T"// Target address of transaction output (means to transfer 100 to the target address)
     "value" : "100",
     "lockTime" : 0,
     "status" : "usable"
   }, {
-    "txHash" : "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596",//交易hash
+    "txHash" : "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596",//Transaction hash
     "index" : 1,
-    "address" : "Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT",//交易输出的目标地址(此数据相当于找零给自己)
+    "address" : "Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT",//Target address of transaction output (means to give users changes)
     "value" : "9979898.979",
     "lockTime" : 0,
     "status" : "usable"
@@ -644,7 +643,7 @@ Enter your password:**********
 }
 ```
 
-示例 查询转账交易
+Example, to inquire transfer transaction
 
 ```shell
 nuls>>> gettx 00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596
@@ -655,7 +654,7 @@ nuls>>> gettx 00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b35
   "blockHeight" : 26269,
   "fee" : "0.001",
   "value" : "100",
-  "remark" : "转账",
+  "remark" : "Transfer",
   "scriptSig" : "2103f68aeb83f3a4fdf9b49259a6e8eae97cf73c7a0a1c52da8a1f9c09312a6d3c530046304402202932ea77976a603b832861c64f868a34e9ad59b728d3a8eeba27269f05b4267c0220217a6e1b97fb3f65e6711434e17e399f43e168f3699edb2aba8618bdd3f410e1",
   "status" : "confirm",
   "confirmCount" : 46,
@@ -687,28 +686,28 @@ nuls>>> gettx 00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b35
 
 
 
-#### 查询交易列表
+#### Inquire list of transactions
 
-根据账户地址，查询该账户的交易列表
+Inquire list of transactions in this account based on account address
 
-- **命令：gettxlist &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt;**
+- **Command：gettxlist &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt;**
 
-| 参数               | 说明                             |
+| Parameter                | Description                             |
 | ------------------ | -------------------------------- |
-| &lt;address&gt;    | 账户地址，必填                   |
-| &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
-| &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
+| &lt;address&gt;    |Account address, required                |
+| &lt;pageNumber&gt; | Page, to get the data on which page, required |
+| &lt;pageSize&gt;   | Number of data displayed on each page, required       |
 
-返回信息 交易详细信息
+Return message, transaction details
 
 ```json
 [ {
-  "txHash" : "0020153f76bec3433676a96ef343d7e432b7de16b3175a9c5f4579338f604989996e",//交易hash
-  "blockHeight" : 26473,//交易的区块高度
-  "time" : "2018-07-16 11:55:43",//交易时间
-  "txType" : "transfer",//交易类型
-  "status" : 1,//确认状态
-  "info" : "+100"//信息
+  "txHash" : "0020153f76bec3433676a96ef343d7e432b7de16b3175a9c5f4579338f604989996e",//Transaction hash
+  "blockHeight" : 26473,//Block height of transaction
+  "time" : "2018-07-16 11:55:43",//Transaction time
+  "txType" : "transfer",//Transaction type
+  "status" : 1,//Status of confirmation
+  "info" : "+100"//Message
 },{
   "txHash" : "00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596",
   "blockHeight" : 26269,
@@ -719,7 +718,7 @@ nuls>>> gettx 00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b35
 } ]
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> gettxlist NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 1 10
@@ -742,26 +741,26 @@ nuls>>> gettxlist NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 1 10
 
 
 
-#### 创建节点
+#### Create node
 
-根据账户地址创建节点，创建节点时需要一个打包账户地址（打包地址不能有密码），同时需要至少20000NULS的保证金。
+Create node based on account address. Need an account package address when creating node (package address shall have no password), and deposit of 2 at least.
 
-- **命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt; **
+- **Command：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt; **
 
-| 参数                   | 说明                                                         |
+| Parameter                   | Description                                                        |
 | ---------------------- | ------------------------------------------------------------ |
-| &lt;agentAddress&gt;   | 创建节点的账户地址，必填                                     |
-| &lt;packingAddress&gt; | 节点打包账户地址，必填（注：该账户不能设置密码，否则节点不能打包出块） |
-| &lt;commissionRate&gt; | 代理佣金比例，范围：10~100，必填                             |
-| &lt;deposit&gt;        | 创建节点的保证金，不能低于20000NULS，必填                    |
+| &lt;agentAddress&gt;   | Account address of nodes created, required                                    |
+| &lt;packingAddress&gt; | Node account package address, required (note: the account shall have no password, otherwise the node cannot package) |
+| &lt;commissionRate&gt; | Agent commission proportion, with a range of 10~100, required                           |
+| &lt;deposit&gt;        | Node creating deposit of 2 at least, required                    |
 
-返回信息 返回节点的agent hash
+Return message, agent hash of return node
 
 ```json
 "002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e"
 ```
 
-示例 创建一个节点，佣金比例为10%，押金20000NULS。
+Example: to create a node, commission proportion of 10%, and deposit of 20000 NULS
 
 ```shell
 nuls>>> createagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdvAnqc8oEiNiGgcp6pEusfiRFZi4vt 10 20000
@@ -772,25 +771,25 @@ Enter your password:**********
 
 
 
-#### 加入共识（委托节点）
+#### Include consensus (agency node)
 
-根据账户地址和节点agentHash，加入共识，至少需要2000NULS
+Include consensus of 2000NULS at least based on account address and node agent hash
 
-- **命令：deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt; **
+- **Command：deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt; **
 
-| 参数              | 说明                                   |
+| Parameter               | Description                                   |
 | ----------------- | -------------------------------------- |
-| &lt;address&gt;   | 账户地址，必填                         |
-| &lt;agentHash&gt; | 节点的agentHash，必填                  |
-| &lt;deposit&gt;   | 加入共识保证金，不能低于2000NULS，必填 |
+| &lt;address&gt;   | Account address, required                        |
+| &lt;agentHash&gt; | Node agent hash, required                 |
+| &lt;deposit&gt;   | Include consensus deposit, not less than 2000NULS, required |
 
-返回信息 加入共识的交易hash，如果要退出这笔共识，则需要该hash。
+Return message, transaction hash for including consensus; to exit the consensus, require such hash.
 
 ```json
 "0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e 5000
@@ -799,24 +798,24 @@ nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219
 
 
 
-#### 退出共识（退出委托）
+#### Exit the consensus (agency)
 
-根据账户地址和加入共识时的交易hash来退出共识(委托)，单个账户多次委托节点时，每次委托的交易是独立的，所以退出时也要通过单次委托时的交易hash来退出对应的那一次委托，而不会一次退出所有委托。
+Exit the consensus (agency) based on account address and transaction hash for including consensus. When an account agents several nodes, each agent transaction is independent, so users shall exit the corresponding agent rather than all agents as per the transaction hash of an agent.
 
-- **命令：withdraw &lt;address&gt; &lt;txHash&gt; **
+- **Command: withdraw &lt;address&gt; &lt;txHash&gt; **
 
-| 参数            | 说明                   |
+| Parameter            | Description                  |
 | --------------- | ---------------------- |
-| &lt;address&gt; | 账户地址，必填         |
-| &lt;txHash&gt;  | 委托时的交易hash，必填 |
+| &lt;address&gt; | Account address, required         |
+| &lt;txHash&gt;  | Transaction hash upon agency, required |
 
-返回信息 退出共识交易hash
+Return message, transaction hash upon exiting the consensus
 
 ```json
 "00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0
@@ -825,23 +824,23 @@ nuls>>> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d
 
 
 
-#### 停止节点
+#### Stop node
 
-停止节点，所有委托给节点的NULS将被退回，节点创建者账户的保证金将会被锁定72小时。
+Stop node, all NULS agented to node will be returned, and the deposit in account of node creator will be locked for 72 hours.
 
-- **命令：stopagent &lt;address&gt; **
+- **Command：stopagent &lt;address&gt; **
 
-| 参数            | 说明           |
+| Parameter            | Description          |
 | --------------- | -------------- |
-| &lt;address&gt; | 账户地址，必填 |
+| &lt;address&gt; | Account address, required |
 
-返回信息 停止节点交易hash
+Return message, transaction hash of stop node
 
 ```json
 "0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f"
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> stopagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -852,40 +851,40 @@ Enter your password:**********
 
 
 
-#### 获取节点详情
+#### Get node details
 
-根据节点agentHash获取节点详情
+Get node details as per agent hash of node
 
-- **命令：getagent &lt;agentHash&gt; **
+- **Command: getagent &lt;agentHash&gt; **
 
-| 参数              | 说明                  |
+| Parameter               | Description                  |
 | ----------------- | --------------------- |
-| &lt;agentHash&gt; | 节点agentHash值，必填 |
+| &lt;agentHash&gt; | Node agent hash, required |
 
-返回信息
+Return message
 
 ```json
 {
   "agentHash" : "0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6",
-  "agentAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//创建节点的账户地址
-  "packingAddress" : "NsdwvEJuPC3hA5ws7VQGwXN77vqsM1PA",//节点打包(出块)地址
-  "rewardAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//奖励地址(默认为创建节点地址)
-  "deposit" : "20000",//创建节点的保证金
-  "commissionRate" : 60.0,//代理佣金比例
-  "agentName" : null,//节点名称(来源)
-  "agentId" : "35024DE6",//节点ID
-  "time" : "2018-07-16 16:33:38",//创建节点时间
-  "blockHeight" : 28141,//创建节点交易的块高度
+  "agentAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//Account address for creating node
+  "packingAddress" : "NsdwvEJuPC3hA5ws7VQGwXN77vqsM1PA",//Node package (block) address
+  "rewardAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//Bonus address (default to be address for creating node)
+  "deposit" : "20000",//Deposit for creating node
+  "commissionRate" : 60.0,//Agent commission proportion
+  "agentName" : null,//Node name (source)
+  "agentId" : "35024DE6",//Node ID
+  "time" : "2018-07-16 16:33:38",//Time for creating node
+  "blockHeight" : 28141,// Block height of node creating transaction
   "delHeight" : -1,
-  "status" : "consensus",//状态
-  "creditVal" : 0.05,//信用值
-  "totalDeposit" : "208000",//节点当前委托总额
+  "status" : "consensus",// Status
+  "creditVal" : 0.05,//Credit value
+  "totalDeposit" : "208000",//Current total agency amount of node
   "txHash" : "0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6",
-  "memberCount" : 5//参与数
+  "memberCount" : 5//Quantity of participants
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6
@@ -911,41 +910,41 @@ nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db575652350
 
 
 
-#### 获取节点列表
+#### Get list of nodes
 
-根据共识节点列表
+As per list of consensus nodes
 
-- **命令：getagent &lt;pageNumber&gt; &lt;pageSize&gt; **
+- **Command：getagent &lt;pageNumber&gt; &lt;pageSize&gt; **
 
-| 参数               | 说明                             |
+| Parameter               | Description                             |
 | ------------------ | -------------------------------- |
-| &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
-| &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
+| &lt;pageNumber&gt; | Page, to get the data on which page, required |
+| &lt;pageSize&gt;   |  Number of data displayed on each page, required      |
 
-返回信息
+Return message
 
 ```json
 [{
   "agentHash" : "0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6",
-  "agentAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//创建节点的账户地址
-  "packingAddress" : "NsdwvEJuPC3hA5ws7VQGwXN77vqsM1PA",//节点打包(出块)地址
-  "rewardAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//奖励地址(默认为创建节点地址)
-  "deposit" : "20000",//创建节点的保证金
-  "commissionRate" : 60.0,//代理佣金比例
-  "agentName" : null,//节点名称(来源)
-  "agentId" : "35024DE6",//节点ID
-  "time" : "2018-07-16 16:33:38",//创建节点时间
-  "blockHeight" : 28141,//创建节点交易的块高度
+  "agentAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//Account address for creating node
+  "packingAddress" : "NsdwvEJuPC3hA5ws7VQGwXN77vqsM1PA",//Node package (block) address
+  "rewardAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh",//Bonus address (default to be address for creating node)
+  "deposit" : "20000",//Deposit for creating node
+  "commissionRate" : 60.0,//Agent commission proportion
+  "agentName" : null,//Node name (source)
+  "agentId" : "35024DE6",//Node ID
+  "time" : "2018-07-16 16:33:38",//Time for creating node
+  "blockHeight" : 28141,//Block height of node creating transaction
   "delHeight" : -1,
-  "status" : "consensus",//状态
-  "creditVal" : 0.05,//信用值
-  "totalDeposit" : "208000",//节点当前委托总额
+  "status" : "consensus",//Status
+  "creditVal" : 0.05,//Credit value
+  "totalDeposit" : "208000",//Current total agent amount of node
   "txHash" : "0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6",
-  "memberCount" : 5//参与数
+  "memberCount" : 5//Quantity of participants
 }]
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getagents 1 2
@@ -988,25 +987,25 @@ nuls>>> getagents 1 2
 
 
 
-#### 获取全网共识总体信息
+#### Get total information of network consensuses
 
-查询全网共识总体信息
+Inquire total information of network consensuses
 
-- **命令：getconsensus **
+- **Command：getconsensus **
 
-返回信息
+Return message
 
 ```json
 {
-  "agentCount" : 6,//节点数
-  "totalDeposit" : "1758000",//总委托数
-  "rewardOfDay" : "0",//奖励
-  "consensusAccountNumber" : 6,//共识账户数量
-  "packingAgentCount" : 6//打包地址数量
+  "agentCount" : 6,//Quantity of nodes
+  "totalDeposit" : "1758000",//Total quantity of agents
+  "rewardOfDay" : "0",//Bonus
+  "consensusAccountNumber" : 6,//Quantity of consensus accounts
+  "packingAgentCount" : 6//Quantity of package addresses
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getconsensus
@@ -1021,31 +1020,31 @@ nuls>>> getconsensus
 
 
 
-#### 获取单个账户的委托总览
+####  Get general of agents in single account
 
-根据账户地址获取该账户参与的所有委托(共识)信息的总览
+Get the general of all agents (consensuses) information of the account based on account address
 
-- **命令：getdepositedinfo &lt;address&gt; **
+- **Command：getdepositedinfo &lt;address&gt; **
 
-| 参数            | 说明           |
+| Parameter           | Description           |
 | --------------- | -------------- |
-| &lt;address&gt; | 账户地址，必填 |
+| &lt;address&gt; |Account address, required |
 
-返回信息
+Return message
 
 ```json
 {
-  "agentCount" : 1,//创建的节点数
-  "totalDeposit" : "1600000",//总共委托的数量
-  "joinAgentCount" : 6,//加入委托的节点数
-  "usableBalance" : "8048998.869",//可用余额
-  "reward" : "219.65910271",//得到的奖励总数
-  "rewardOfDay" : "219.65910271",//一天得到的奖励数
-  "agentHash" : "00202794351e662e53f16fe04dd9217731463c3b24a6ee6cf80c9ba2d3e5e09eb7fd"//节点hash
+  "agentCount" : 1,//Quantity of nodes created
+  "totalDeposit" : "1600000",// Quantity of total agents
+  "joinAgentCount" : 6,//Quantity of nodes in agency
+  "usableBalance" : "8048998.869",//Available balance
+  "reward" : "219.65910271",//Total bonuses gained
+  "rewardOfDay" : "219.65910271",//Bonuses gained a day
+  "agentHash" : "00202794351e662e53f16fe04dd9217731463c3b24a6ee6cf80c9ba2d3e5e09eb7fd"//Node hash
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getdepositedinfo Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
@@ -1062,37 +1061,37 @@ nuls>>> getdepositedinfo Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 
 
 
-#### 获取单个账户的委托信息列表
+#### Get list of agent information of single account
 
-根据地址获取该账户参与的委托信息列表(返回共识信息列表)，当入参中跟上agentHash可以查看账户在某一个节点下的委托信息列表
+Get list of agent information of the account as per address (return consensus information list), and review the list of agency information of the account under a node when following the agent hash.
 
-- **命令：getdepositeds &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt; [agentHash] **
+- **Command：getdepositeds &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt; [agentHash] **
 
-| 参数               | 说明                             |
+| Parameter              | Description                             |
 | ------------------ | -------------------------------- |
-| &lt;address&gt;    | 账户地址，必填                   |
-| &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
-| &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
-| [agentHash]        | 节点Hash，选填                   |
+| &lt;address&gt;    | Account address, required                   |
+| &lt;pageNumber&gt; | Page, to get the data on which page, required |
+| &lt;pageSize&gt;   | Number of data displayed on each page, required      |
+| [agentHash]        | Node hash, optional                   |
 
-返回信息
+Return message
 
 ```json
 [{
-  "deposit" : "2000",//委托金额
+  "deposit" : "2000",//Agency amount
   "agentHash" : "0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db57565235024de6",
-  "address" : "Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto",//委托者地址
-  "time" : "2018-07-16 16:38:25",//时间
-  "txHash" : "0020c93d039b57361a141470b3630c3cf6fa304b1acaeabb7a26a772f434d24de221",//委托交易hash
-  "blockHeight" : 28148,//交易的块高度
+  "address" : "Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto",//Address of agent
+  "time" : "2018-07-16 16:38:25",//Time
+  "txHash" : "0020c93d039b57361a141470b3630c3cf6fa304b1acaeabb7a26a772f434d24de221",//Agency transaction hash
+  "blockHeight" : 28148,//Block height of transaction
   "delHeight" : -1,
-  "status" : "consensus",//节点状态
-  "agentName" : "35024DE6",//节点名
-  "agentAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh"//节点地址
+  "status" : "consensus",//Node status
+  "agentName" : "35024DE6",//Node name
+  "agentAddress" : "Nsdy5AZmMkYQzQvfuEgVzwdmndnMYNmh"//Node address
 }]
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getdepositeds Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
@@ -1123,42 +1122,42 @@ nuls>>> getdepositeds Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
 
 
 
-#### 获取单个账户的委托节点列表
+#### Get list of agency nodes of single account
 
-根据地址查询该账户委托的节点列表(返回节点信息列表)
+Inquire list of agency nodes asper address (return list of node information)
 
-- **命令：getdepositedagents &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt; **
+- **Command：getdepositedagents &lt;address&gt; &lt;pageNumber&gt; &lt;pageSize&gt; **
 
-| 参数               | 说明                             |
+| Parameter               | Description                            |
 | ------------------ | -------------------------------- |
-| &lt;address&gt;    | 账户地址，必填                   |
-| &lt;pageNumber&gt; | 页数，需要获取第几页的数据，必填 |
-| &lt;pageSize&gt;   | 每一页显示的数据条数，必填       |
+| &lt;address&gt;    |Account address, required                  |
+| &lt;pageNumber&gt; | Page, to get the data on which page, required |
+| &lt;pageSize&gt;   | Number of data displayed on each page, required      |
 
-返回信息
+Return message
 
 ```json
 [ {
-  "agentHash" : "0020617f9be18306fcdf95917fad80f4d15c51426667825ad5a6968ec0ee0198acaf",//节点hash
-  "agentAddress" : "Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto",//创建节点的账户地址
-  "packingAddress" : "Nse77VDHtiQ6WnkEhgCA7TbfNkoH9iyr",//节点打包(出块)地址
-  "rewardAddress" : "Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto",//奖励地址(默认为创建节点地址)
-  "deposit" : "20000",//创建节点的保证金
-  "commissionRate" : 40.0,//代理佣金比例
-  "agentName" : null,//节点名称(来源)
-  "agentId" : "0198ACAF",//节点ID
-  "time" : "2018-07-16 16:32:52",//创建节点时间
-  "blockHeight" : 28136,//创建节点交易的块高度
+  "agentHash" : "0020617f9be18306fcdf95917fad80f4d15c51426667825ad5a6968ec0ee0198acaf",//Node hash
+  "agentAddress" : "Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto",//Account address for creating node
+  "packingAddress" : "Nse77VDHtiQ6WnkEhgCA7TbfNkoH9iyr",//Node package (block) address
+  "rewardAddress" : "Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto",//Bonus address (default to be address for creating node)
+  "deposit" : "20000",//Deposit for creating node
+  "commissionRate" : 40.0,//Agent commission proportion
+  "agentName" : null,//Node name (source)
+  "agentId" : "0198ACAF",// Node ID
+  "time" : "2018-07-16 16:32:52",//Time for creating node
+  "blockHeight" : 28136,//Block height of node creating transaction
   "delHeight" : -1,
-  "status" : "consensus",//状态
-  "creditVal" : -0.91,//信用值
-  "totalDeposit" : "204000",//节点当前委托总额
+  "status" : "consensus",//Status
+  "creditVal" : -0.91,//Credit value
+  "totalDeposit" : "204000",//Current total agent amount of node
   "txHash" : "0020617f9be18306fcdf95917fad80f4d15c51426667825ad5a6968ec0ee0198acaf",
-  "memberCount" : 3//参与数
+  "memberCount" : 3// Quantity of participants
 }]
 ```
 
-示例 获取第一页，每页显示两条
+Example, to get page 1, display 2 items per page
 
 ```shell
 nuls>>> getdepositedagents Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
@@ -1201,36 +1200,36 @@ nuls>>> getdepositedagents Nse6UxwHXNEDsySTnZr4hNfGwFZwkDto 1 2
 
 
 
-#### 获取最新的区块头信息
+#### Get the latest block head information
 
-获取最新的区块头信息
+Get the latest block head information
 
-- **命令：getbestblockheader**
+- **Command：getbestblockheader**
 
-返回信息
+Return message
 
 ```json
 {
-  "hash" : "00206c4ae1d90fdfd875ee3bf84e72615db8bc628f015db089f8a6304ed46a47db5e",//区块hash
-  "preHash" : "00207ec8c85a6844899806f55cd9223efa091b548e5cc093ee7833f1c0208254957d",//前一区块hash
-  "merkleHash" : "002019aff9431c5b409df7af48a64a50e4e9a0af24cc309d6eefa84deada2a438877",//梅克尔hash
-  "time" : "2018-07-17 10:25:40",//区块生成时间
-  "height" : 33950,//区块高度
-  "txCount" : 1,//区块打包交易数量
-  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//打包地址
-  "roundIndex" : 668413,//共识轮次
-  "consensusMemberCount" : 1,//参与共识成员数量
-  "roundStartTime" : "2018-07-17 10:25:30",//当前轮次开始时间
-  "packingIndexOfRound" : 1,//当前轮次打包出块的名次
-  "reward" : "0",//共识奖励
-  "fee" : "0",//区块的打包手续费
-  "confirmCount" : 0,//确认次数
-  "size" : 204,//区块大小
-  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100ece231eec6765c3d3cd7a4b74ef227eea05c3511e04ea46bc1b518a51a624e48022022208161b3064f261233bfa0c00308bf5b56421401ba7dd02232bac5077935b9"//签名
+  "hash" : "00206c4ae1d90fdfd875ee3bf84e72615db8bc628f015db089f8a6304ed46a47db5e",//Block hash
+  "preHash" : "00207ec8c85a6844899806f55cd9223efa091b548e5cc093ee7833f1c0208254957d",//Former block hash
+  "merkleHash" : "002019aff9431c5b409df7af48a64a50e4e9a0af24cc309d6eefa84deada2a438877",//Merkle hash
+  "time" : "2018-07-17 10:25:40",//Block generation time
+  "height" : 33950,//Block height
+  "txCount" : 1,//Quantity of block package transactions
+  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//Package address
+  "roundIndex" : 668413,//Rounds of consensuses 
+  "consensusMemberCount" : 1,//Quantity of participants in consensus
+  "roundStartTime" : "2018-07-17 10:25:30",//Start time of current round
+  "packingIndexOfRound" : 1,//Rank of package and block in current round
+  "reward" : "0",//Consensus bonus 
+  "fee" : "0",//Package service charge of block
+  "confirmCount" : 0,//Times of confirmation
+  "size" : 204,//Size of block
+  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100ece231eec6765c3d3cd7a4b74ef227eea05c3511e04ea46bc1b518a51a624e48022022208161b3064f261233bfa0c00308bf5b56421401ba7dd02232bac5077935b9"// Signature
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getbestblockheader
@@ -1256,50 +1255,50 @@ nuls>>> getbestblockheader
 
 
 
-#### 查询区块信息
+#### Inquire block information
 
-根据区块高度或者区块hash，查询区块信息，必须并且只能选择一种参数作为查询条件。
+Inquire block head information as per block height or block hash. Do and only choose one parameter as inquiry condition.
 
-- **命令：getblock &lt;hash&gt; | &lt;height&gt; **
+- **Command：getblock &lt;hash&gt; | &lt;height&gt; **
 
-| 参数           | 说明         |
+| Parameter            | Description         |
 | -------------- | ------------ |
-| &lt;hash&gt;   | 区块的hash值 |
-| &lt;height&gt; | 区块的高度   |
+| &lt;hash&gt;   | Block hash |
+| &lt;height&gt; | Height of block   |
 
-返回信息
+Return message
 
 ```json
 {
-  "hash" : "0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817",//区块hash
-  "preHash" : "0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954",//前一区块hash
-  "merkleHash" : "0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158",//梅克尔hash
-  "time" : "2018-07-16 16:29:30",//区块生成时间
-  "height" : 28115,//区块高度
-  "txCount" : 2,//区块打包交易数量
-  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//打包地址
-  "roundIndex" : 662578,//共识轮次
-  "consensusMemberCount" : 1,//参与共识成员数量
-  "roundStartTime" : "2018-07-16 16:29:20",//当前轮次开始时间
-  "packingIndexOfRound" : 1,//当前轮次打包出块的名次
-  "reward" : "0.001",//共识奖励
-  "fee" : "0.001",//区块的打包手续费
-  "confirmCount" : 6174,//确认次数
-  "size" : 507,//区块大小
-  "txList" : [ {//交易集合
-    "hash" : "0020648f1d25237ba3614237a52c2121e51608f3822ac57a0e67d6a53e84c867e841",//交易hash
-    "type" : "coinbase",//交易类型
-    "time" : "2018-07-16 16:29:30",//交易时间
-    "blockHeight" : 28115,//交易所在区块高度
-    "fee" : "0",//交易手续费
+  "hash" : "0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817",//Block hash
+  "preHash" : "0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954",//Former block hash
+  "merkleHash" : "0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158",//Merkle hash
+  "time" : "2018-07-16 16:29:30",//Block generation time
+  "height" : 28115,//Block height
+  "txCount" : 2,//Quantity of block package transactions
+  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//Package address
+  "roundIndex" : 662578,//Rounds of consensuses 
+  "consensusMemberCount" : 1,//Quantity of participants in consensus
+  "roundStartTime" : "2018-07-16 16:29:20",//Start time of current round
+  "packingIndexOfRound" : 1,//Rank of package and block in current round
+  "reward" : "0.001",//Consensus bonus 
+  "fee" : "0.001",//Package service charge of block
+  "confirmCount" : 6174,//Times of confirmation
+  "size" : 507,//Size of block
+  "txList" : [ {//Transaction collection
+    "hash" : "0020648f1d25237ba3614237a52c2121e51608f3822ac57a0e67d6a53e84c867e841",//Transaction hash
+    "type" : "coinbase",//Transaction type
+    "time" : "2018-07-16 16:29:30",//Transaction time
+    "blockHeight" : 28115,//Block height of transaction
+    "fee" : "0",//Transaction service charge
     "value" : null,
     "remark" : null,
     "scriptSig" : null,
     "status" : "confirm",
     "confirmCount" : 6174,
     "size" : 54,
-    "inputs" : [ ],//交易的输入
-    "outputs" : [ //交易的输出
+    "inputs" : [ ],//Transaction input
+    "outputs" : [ //Transaction output
         {
           "address" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",
           "value" : 100000,
@@ -1307,11 +1306,11 @@ nuls>>> getbestblockheader
         }
     ]
   }],
-  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf"//签名
+  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf"//Signature
 }
 ```
 
-示例 根据高度获取区块
+Example: to get block as per height
 
 ```shell
 nuls>>> getblock 28115
@@ -1383,41 +1382,41 @@ nuls>>> getblock 28115
 
 
 
-#### 查询区块头信息
+#### Inquire block head information
 
-根据区块高度或者区块hash，查询区块头信息，必须并且只能选择一种参数作为查询条件。
+Inquire block head information as per block height or block hash. Do and only choose one parameter as inquiry condition.
 
-- **命令：getblockheader &lt;hash&gt; | &lt;height&gt; **
+- **Command：getblockheader &lt;hash&gt; | &lt;height&gt; **
 
-| 参数           | 说明         |
+| Parameter           | Description      |
 | -------------- | ------------ |
-| &lt;hash&gt;   | 区块的hash值 |
-| &lt;height&gt; | 区块的高度   |
+| &lt;hash&gt;   | Block hash |
+| &lt;height&gt; | Block height   |
 
-返回信息
+Return message
 
 ```json
 {
-  "hash" : "0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817",//区块hash
-  "preHash" : "0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954",//前一区块hash
-  "merkleHash" : "0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158",//梅克尔hash
-  "time" : "2018-07-16 16:29:30",//区块生成时间
-  "height" : 28115,//区块高度
-  "txCount" : 2,//区块打包交易数量
-  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//打包地址
-  "roundIndex" : 662578,//共识轮次
-  "consensusMemberCount" : 1,//参与共识成员数量
-  "roundStartTime" : "2018-07-16 16:29:20",//当前轮次开始时间
-  "packingIndexOfRound" : 1,//当前轮次打包出块的名次
-  "reward" : "0.001",//共识奖励
-  "fee" : "0.001",//区块的打包手续费
-  "confirmCount" : 6174,//确认次数
-  "size" : 507,//区块大小
-  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf"//签名
+  "hash" : "0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817",//Block hash
+  "preHash" : "0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954",//Former block hash
+  "merkleHash" : "0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158",//Merkle hash
+  "time" : "2018-07-16 16:29:30",//Block generation time
+  "height" : 28115,//Block height
+  "txCount" : 2,//Quantity of block package transactions
+  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//Package address
+  "roundIndex" : 662578,//Rounds of consensuses
+  "consensusMemberCount" : 1,//Quantity of participants in consensus
+  "roundStartTime" : "2018-07-16 16:29:20",//Start time of current round
+  "packingIndexOfRound" : 1,//Rank of package and block in current round
+  "reward" : "0.001",//Consensus bonus 
+  "fee" : "0.001",//Package service charge of block
+  "confirmCount" : 6174,//Times of confirmation
+  "size" : 507,//Size of block
+  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf"//Signature
 }
 ```
 
-示例 根据高度获取区块头
+Example: to get block as per height
 
 ```shell
 nuls>>> getblockheader 28115
@@ -1443,25 +1442,25 @@ nuls>>> getblockheader 28115
 
 
 
-#### 查询网络信息
+####  Inquire network information
 
-查询网络基本信息
+Inquire network basic information
 
-- **命令：getnetinfo **
+- **Command：getnetinfo **
 
-返回信息
+Return message
 
 ```json
 {
-  "localBestHeight" : 35317,//本地最新区块高度
-  "netBestHeight" : 35317,//网络最新区块高度
-  "timeOffset" : "0ms",//网络时间偏移值
-  "inCount" : 0,//被动连接节点数量
-  "outCount" : 1//主动连接节点数量
+  "localBestHeight" : 35317,//Height of local latest block
+  "netBestHeight" : 35317,//Height of latest block online
+  "timeOffset" : "0ms",//Offset of network time
+  "inCount" : 0,//Quantity of passive connecting nodes
+  "outCount" : 1//Quantity of active connecting nodes
 }
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> getnetinfo
@@ -1476,19 +1475,19 @@ nuls>>> getnetinfo
 
 
 
-#### 查询网络节点IP
+#### Inquire network node IP
 
-查询网络节点IP
+Inquire network node IP
 
-- **命令：getnetnodes **
+- **Command: getnetnodes **
 
-返回信息
+Return message
 
 ```json
 [ "192.168.1.223" ]
 ```
 
-示例 根据高度获取区块
+Example: get block as per height
 
 ```shell
 nuls>>> getnetnodes
@@ -1497,19 +1496,19 @@ nuls>>> getnetnodes
 
 
 
-#### 查询当前版本信息
+#### Inquire current version information
 
-查询当前版本号
+Inquire current version number
 
-- **命令：version **
+- **Command：version **
 
-返回信息
+Return message
 
 ```json
 [ "192.168.1.223" ]
 ```
 
-示例
+Example
 
 ```shell
 nuls>>> version
@@ -1517,19 +1516,19 @@ nuls>>> version
   "myVersion" : "1.0.0",
   "newestVersion" : "0.9.11",
   "upgradable" : false,
-  "infromation" : "地址格式修改,Change the format of address,节点发现逻辑优化,Peer discovery logic optimization,区块下载逻辑优化,Block download logic optimization,性能、稳定性优化,Performance and stability optimization"
+  "infromation" : " Address format modification, node finding logic optimizing, block downloading logic optimizing, property and stability optimizing"
 }
 ```
 
 
 
-#### 版本更新
+#### Version update
 
-查询当前版本号
+Inquire current version number
 
-- **命令：upgrade &lt;version&gt; **
+- **Command：upgrade &lt;version&gt; **
 
-示例
+Example
 
 ```shell
 nuls>>> version 1.0.0
@@ -1537,13 +1536,13 @@ nuls>>> version 1.0.0
 
 
 
-#### 退出钱包命令程序
+#### Exit wallet command program
 
-退出操作钱包的命令行程序，不会退出已启动的钱包节点。
+Exiting from wallet command line program does not mean exiting from wallet node started.
 
-- **命令：exit**
+- **Command：exit**
 
-示例
+Example
 
 ```shell
 nuls>>> exit
