@@ -347,6 +347,16 @@ public class Block {
     public static long timestamp() {
         return currentBlockHeader().getTime();
     }
+    
+    /**
+     * 
+     * current block's txCount
+     *
+     * @return txCount
+     */
+    public static long txCount() {
+        return currentBlockHeader().getTxCount();
+    }
 
 }
 ```
@@ -359,6 +369,7 @@ public class BlockHeader {
     private String hash;
     private long time;
     private long height;
+    private long txCount;
     private Address packingAddress;
     private String stateRoot;
 
@@ -372,6 +383,10 @@ public class BlockHeader {
 
     public long getHeight() {
         return height;
+    }
+
+    public long getTxCount() {
+        return txCount;
     }
 
     public Address getPackingAddress() {
@@ -391,6 +406,7 @@ public class BlockHeader {
 
         if (time != that.time) return false;
         if (height != that.height) return false;
+        if (txCount != that.txCount) return false;
         if (hash != null ? !hash.equals(that.hash) : that.hash != null) return false;
         if (packingAddress != null ? !packingAddress.equals(that.packingAddress) : that.packingAddress != null)
             return false;
@@ -402,6 +418,7 @@ public class BlockHeader {
         int result = hash != null ? hash.hashCode() : 0;
         result = 31 * result + (int) (time ^ (time >>> 32));
         result = 31 * result + (int) (height ^ (height >>> 32));
+        result = 31 * result + (int) (txCount ^ (txCount >>> 32));
         result = 31 * result + (packingAddress != null ? packingAddress.hashCode() : 0);
         result = 31 * result + (stateRoot != null ? stateRoot.hashCode() : 0);
         return result;
@@ -413,6 +430,7 @@ public class BlockHeader {
                 "hash='" + hash + '\'' +
                 ", time=" + time +
                 ", height=" + height +
+                ", txCount=" + txCount +
                 ", packingAddress=" + packingAddress +
                 ", stateRoot='" + stateRoot + '\'' +
                 '}';
@@ -430,7 +448,7 @@ public class BlockHeader {
 public interface Contract {
 
     /**
-     * Directly transferring amount to the contract will trigger this method, and this method can be reloaded if nothing is done by default
+     * Directly transfer to the contract, this method will be called, no action is done by default. If the contract address is to accept direct transfer, you can override this method and mark the `@Payable` annotation.
      */
     default void _payable() {
     }
@@ -543,6 +561,83 @@ public class Utils {
      */
     public static native void emit(Event event);
 
+	/**
+     * Returns a power of two size for the given target capacity.
+     *
+     * @param cap capacity
+     */
+    private static int powerSizeFor(int cap) {
+        int n = cap - 1;
+        n |= n >>> 1;
+        n |= n >>> 2;
+        n |= n >>> 4;
+        n |= n >>> 8;
+        n |= n >>> 16;
+        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
+    }
+
+    /**
+     * @param seed a private seed
+     * @return pseudo random number (0 ~ 1073741823)
+     */
+    public static int pseudoRandom(int seed) {
+        return pseudoRandom(seed, null, null);
+    }
+
+    /**
+     * @param seed  a private seed
+     * @return pseudo random number (0 ~ 1073741823)
+     */
+    public static int pseudoRandom(String seed) {
+        return pseudoRandom(null, seed, null);
+    }
+
+    /**
+     * @param seed a private seed
+     * @param initialCapacity initial capacity, it will be assigned a power of two size for the given target capacity.
+     * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
+     */
+    public static int pseudoRandom(int seed, Integer initialCapacity) {
+        return pseudoRandom(seed, null, initialCapacity);
+    }
+
+    /**
+     * @param seed a private seed
+     * @param initialCapacity initial capacity, it will be assigned a power of two size for the given target capacity.
+     * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
+     */
+    public static int pseudoRandom(String seed, Integer initialCapacity) {
+        return pseudoRandom(null, seed, initialCapacity);
+    }
+
+    /**
+     * @param seed a private seed
+     * @param strSeed a private seed
+     * @param initialCapacity initial capacity, it will be assigned a power of two size for the given target capacity.
+     * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
+     */
+    private static int pseudoRandom(Integer seed, String strSeed, Integer initialCapacity) {
+        BlockHeader blockHeader = Block.currentBlockHeader();
+        if(initialCapacity != null) {
+            initialCapacity = powerSizeFor(initialCapacity);
+        } else {
+            initialCapacity = MAXIMUM_CAPACITY;
+        }
+        long time = blockHeader.getTime();
+        long txCount = blockHeader.getTxCount();
+        String contractAddress = Msg.address().toString();
+        int result = contractAddress != null ? contractAddress.hashCode() : 0;
+        result = strSeed != null ? strSeed.hashCode() : 0;
+        if(seed != null) {
+            result = 31 * result + (int) (seed ^ (seed >>> 32));
+        }
+        result = 31 * result + (int) (time ^ (time >>> 32));
+        result = 31 * result + (int) (txCount ^ (txCount >>> 32));
+        result = result ^ (result >>> 16);
+        result = (initialCapacity - 1) & result;
+        return result;
+    }
+    
 }
 ```
 
@@ -756,7 +851,7 @@ See parameter structure and simple examples hereafter. See details of other inte
 
 ## 7. Example
 
-### 7.1 Voting smart contract code segments are as follows
+### 7.1 Voting smart contract code `segments` are as follows
 
 > Full code: `https://github.com/nuls-io/nuls-vote`
 
@@ -856,7 +951,7 @@ If the methods of smart contract include the parameter of  `array type`, please 
 ```
 
 
-### 7.2 Standard Token Smart contract code
+### 7.2 Standard Token Smart contract code `segments`
 
 > Full code: `https://github.com/nuls-io/nuls-nrc20`
 
