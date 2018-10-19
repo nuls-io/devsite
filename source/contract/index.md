@@ -168,7 +168,7 @@ NULS smart contract can be developed with the following class
 ### 3.5 Other restrictions
 
 * Contract class can have one construction method. No restriction for other classes
-* The maximum gas consumption for executing a contract method is 10 million. Make sure to optimize the contract code as much as possible.
+* The maximum gas consumption for executing a contract method once is 10 million, including the method of the `@View` type,  Make sure to optimize the contract code as much as possible.
 
 ## 4. Nuls smart contract example
 
