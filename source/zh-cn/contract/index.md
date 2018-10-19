@@ -16,7 +16,7 @@ Nuls智能合约使用的开发工具为IntelliJ IDEA。
 
 ### 2.4 安装NULS智能合约插件
 
-[点击下载插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip)
+[点击下载插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin_20181019.zip)
 
 NULS智能合约插件提供的主要功能：
 
@@ -154,14 +154,20 @@ Nuls智能合约只能使用下面的类进行开发
 * java.lang.String
 * java.lang.StringBuilder
 * java.math.BigInteger
+* java.math.BigDecimal
 * java.util.List
 * java.util.ArrayList
+* java.util.LinkedList
 * java.util.Map
 * java.util.HashMap
+* java.util.LinkedHashMap
+* java.util.Set
+* java.util.HashSet
 
 ### 3.4 其他限制
 
 * 合约类只能有一个构造方法，其他类不限制
+* 一个合约运行最大的Gas消耗是1000万，包括`@View`类型的方法调用，请保证尽可能的优化合约代码
 
 ## 4. NULS智能合约简单示例
 
@@ -251,6 +257,17 @@ public class Address {
      */
     public native void call(String methodName, String methodDesc, String[][] args, BigInteger value);
 
+	/**
+     * 调用该地址的合约方法并带有返回值(String)
+     *
+     * @param methodName 方法名
+     * @param methodDesc 方法签名
+     * @param args       参数
+     * @param value      附带的货币量（多少Na）
+     * @return 调用合约后的返回值
+     */
+    public native String callWithReturnValue(String methodName, String methodDesc, String[][] args, BigInteger value);
+    
     /**
      * 验证地址
      *
@@ -303,6 +320,13 @@ public class Block {
      * @return
      */
     public static native BlockHeader currentBlockHeader();
+    
+    /**
+     * 最新块的区块头
+     *
+     * @return 最新块的区块头
+     */
+    public static native BlockHeader newestBlockHeader();
 
     /**
      * 给定块的哈希值
@@ -345,16 +369,6 @@ public class Block {
         return currentBlockHeader().getTime();
     }
     
-    /**
-     * 当前块交易数量
-     * current block's txCount
-     *
-     * @return txCount
-     */
-    public static long txCount() {
-        return currentBlockHeader().getTxCount();
-    }
-
 }
 ```
 
@@ -477,16 +491,16 @@ public class Msg {
     public static native long gasleft();
 
     /**
-     * 消息发送者地址
-     * sender of the message
+     * 合约发送者地址
+     * sender of the contract
      *
      * @return
      */
     public static native Address sender();
 
     /**
-     * 随消息发送的Na数
-     * number of na sent with the message
+     * 合约发送者转入合约地址的Nuls数量，单位是Na，1Nuls=1亿Na
+     * The number of Nuls transferred by the contract sender to the contract address, the unit is Na, 1Nuls = 1 billion Na
      *
      * @return
      */
@@ -619,7 +633,7 @@ public class Utils {
      * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
      */
     private static int pseudoRandom(Integer seed, String strSeed, Integer initialCapacity) {
-        BlockHeader blockHeader = Block.currentBlockHeader();
+        BlockHeader blockHeader = Block.newestBlockHeader();
         if(initialCapacity != null) {
             initialCapacity = powerSizeFor(initialCapacity);
         } else {

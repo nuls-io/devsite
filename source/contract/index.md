@@ -16,7 +16,7 @@ NULS smart contract adopts IntelliJ IDEA as development tool
 
 ### 2.4 Setup of NULS smart contract plug-ins
 
-[Click to download the plugin](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip)
+[Click to download the plugin](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin_20181019.zip)
 
 NULS smart contract plug-ins provide the following main functions:
 
@@ -155,14 +155,20 @@ NULS smart contract can be developed with the following class
 * java.lang.String
 * java.lang.StringBuilder
 * java.math.BigInteger
+* java.math.BigDecimal
 * java.util.List
 * java.util.ArrayList
+* java.util.LinkedList
 * java.util.Map
 * java.util.HashMap
+* java.util.LinkedHashMap
+* java.util.Set
+* java.util.HashSet
 
 ### 3.4 Other restrictions
 
 * Contract class can have one construction method. No restriction for other classes
+* The maximum Gas consumption for a contract is 10 million, including the method call of the `@View` type, Please ensure that the contract code is optimized as much as possible.
 
 ## 4. Nuls smart contract example
 
@@ -255,6 +261,17 @@ public class Address {
      */
     public native void call(String methodName, String methodDesc, String[][] args, BigInteger value);
 
+	/**
+     * Call the contract method of this address with a return value(String)
+     *
+     * @param Method name
+     * @param Method signature
+     * @param Parameters       
+     * @param value  Incidental currency (in Na)
+     * @return return value after calling the contract
+     */
+    public native String callWithReturnValue(String methodName, String methodDesc, String[][] args, BigInteger value);
+    
     /**
      * Verify the address 
      *
@@ -307,6 +324,13 @@ public class Block {
      * @return
      */
     public static native BlockHeader currentBlockHeader();
+    
+    /**
+     * Newest block’s head
+     *
+     * @return 
+     */
+    public static native BlockHeader newestBlockHeader();
 
     /**
      * Given block’s hash
@@ -348,16 +372,6 @@ public class Block {
         return currentBlockHeader().getTime();
     }
     
-    /**
-     * 
-     * current block's txCount
-     *
-     * @return txCount
-     */
-    public static long txCount() {
-        return currentBlockHeader().getTxCount();
-    }
-
 }
 ```
 
@@ -479,14 +493,14 @@ public class Msg {
     public static native long gasleft();
 
     /**
-     * Message sender address
+     * sender of the contract
      *
      * @return
      */
     public static native Address sender();
 
     /**
-     * Amount of currency sent with message (in Na)
+     * The number of Nuls transferred by the contract sender to the contract address, the unit is Na, 1Nuls = 1 billion Na
      *
      * @return
      */
@@ -617,7 +631,7 @@ public class Utils {
      * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
      */
     private static int pseudoRandom(Integer seed, String strSeed, Integer initialCapacity) {
-        BlockHeader blockHeader = Block.currentBlockHeader();
+        BlockHeader blockHeader = Block.newestBlockHeader();
         if(initialCapacity != null) {
             initialCapacity = powerSizeFor(initialCapacity);
         } else {
