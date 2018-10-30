@@ -22,6 +22,7 @@ sidebar:
     started: Getting Started
     overview: Guide
     manual: Manual
+    sdk: SDK
 
   protocol:
     started: Protocol

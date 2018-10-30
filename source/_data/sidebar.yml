@@ -2,6 +2,7 @@ docs:
   started:
     overview: index.html
     manual: manual.html
+    sdk: sdk.html
 
 protocol:
   started:
