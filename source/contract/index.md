@@ -16,7 +16,7 @@ NULS smart contract adopts IntelliJ IDEA as development tool
 
 ### 2.4 Setup of NULS smart contract plug-ins
 
-[Click to download the plugin](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin_20181019.zip)
+[Click to download the plugin](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin.zip)
 
 NULS smart contract plug-ins provide the following main functions:
 
@@ -156,6 +156,7 @@ NULS smart contract can be developed with the following class
 * java.lang.StringBuilder
 * java.math.BigInteger
 * java.math.BigDecimal
+* java.util.Collection
 * java.util.List
 * java.util.ArrayList
 * java.util.LinkedList
