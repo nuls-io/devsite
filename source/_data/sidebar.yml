@@ -16,6 +16,7 @@ contract:
     Development_manual: index.html
     NRC_20: NRC-20_Token_Standard.html
     IDEA_plugin: IdeaPlugin.html
+    Community_vote: CommunityVote.html
     Contract_manual: smartContract.html
     Smart_contract_fee: SmartContractFee.html
 
