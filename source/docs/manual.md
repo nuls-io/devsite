@@ -914,7 +914,7 @@ nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db575652350
 
 As per list of consensus nodes
 
-- **Command：getagent &lt;pageNumber&gt; &lt;pageSize&gt; **
+- **Command：getagents &lt;pageNumber&gt; &lt;pageSize&gt; **
 
 | Parameter               | Description                             |
 | ------------------ | -------------------------------- |

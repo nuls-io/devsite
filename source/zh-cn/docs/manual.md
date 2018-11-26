@@ -919,7 +919,7 @@ nuls>>> getagent 0020d349117a35c3b9c1e64f442d7750aae941162018f9d8d4c1db575652350
 
 根据共识节点列表
 
-- **命令：getagent &lt;pageNumber&gt; &lt;pageSize&gt; **
+- **命令：getagents &lt;pageNumber&gt; &lt;pageSize&gt; **
 
 | 参数               | 说明                             |
 | ------------------ | -------------------------------- |
