@@ -39,14 +39,65 @@ module.exports = {
                 sidebar: {
                     '/': [
                         {
-                            title: '1.总览',
+                            title: '1.Overview',
                             children: [
                                 '/overview/1-1introduction',
                                 '/overview/1-2structure',
                             ]
                         },
                         {
-                            title: '2.如何做贡献',
+                            title: '2.How to contribute',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '3.How to start NULS',
+                            children: [
+                                '/startNULS/3-1sourceCodeStartNULS'
+                            ]
+                        },
+                        {
+                            title: '4.Build a private chain',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '5.NULS infrastructure',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '6.Smart Contract',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '7.Developer tools',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '8.NULS navigation',
                             children: [
                                 '/contribution/2-1mainNetworkDevelopment',
                                 '/contribution/2-2reportError',
@@ -82,6 +133,57 @@ module.exports = {
                         },
                         {
                             title: '2.如何做贡献',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '3.如何启动NULS',
+                            children: [
+                                '/startNULS/3-1sourceCodeStartNULS'
+                            ]
+                        },
+                        {
+                            title: '4.搭建私链',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '5.NULS底层',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '6.智能合约',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '7.开发者工具',
+                            children: [
+                                '/contribution/2-1mainNetworkDevelopment',
+                                '/contribution/2-2reportError',
+                                '/contribution/2-3translateDocuments',
+                                '/contribution/2-4writingDocument'
+                            ]
+                        },
+                        {
+                            title: '8.NULS 导航',
                             children: [
                                 '/contribution/2-1mainNetworkDevelopment',
                                 '/contribution/2-2reportError',
