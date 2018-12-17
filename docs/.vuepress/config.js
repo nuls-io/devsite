@@ -20,7 +20,7 @@ module.exports = {
     themeConfig : {
         repo: 'nuls-io/devsite',
         editLinks: true,
-        docsDir: '/docs',
+        docsDir: 'docs',
         docsBranch: 'dev',
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
@@ -127,68 +127,68 @@ module.exports = {
                         {
                             title: '1.总览',
                             children: [
-                                '/overview/1-1introduction',
-                                '/overview/1-2structure',
+                                '/zh/overview/1-1introduction',
+                                '/zh/overview/1-2structure',
                             ]
                         },
                         {
                             title: '2.如何做贡献',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1mainNetworkDevelopment',
+                                '/zh/contribution/2-2reportError',
+                                '/zh/contribution/2-3translateDocuments',
+                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
                             title: '3.如何启动NULS',
                             children: [
-                                '/startNULS/3-1sourceCodeStartNULS'
+                                '/zh/startNULS/3-1sourceCodeStartNULS'
                             ]
                         },
                         {
                             title: '4.搭建私链',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1mainNetworkDevelopment',
+                                '/zh/contribution/2-2reportError',
+                                '/zh/contribution/2-3translateDocuments',
+                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
                             title: '5.NULS底层',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1mainNetworkDevelopment',
+                                '/zh/contribution/2-2reportError',
+                                '/zh/contribution/2-3translateDocuments',
+                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
                             title: '6.智能合约',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1mainNetworkDevelopment',
+                                '/zh/contribution/2-2reportError',
+                                '/zh/contribution/2-3translateDocuments',
+                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
                             title: '7.开发者工具',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1mainNetworkDevelopment',
+                                '/zh/contribution/2-2reportError',
+                                '/zh/contribution/2-3translateDocuments',
+                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
                             title: '8.NULS 导航',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1mainNetworkDevelopment',
+                                '/zh/contribution/2-2reportError',
+                                '/zh/contribution/2-3translateDocuments',
+                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                     ]
