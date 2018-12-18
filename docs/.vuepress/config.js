@@ -57,7 +57,11 @@ module.exports = {
                         {
                             title: '3.How to start NULS',
                             children: [
-                                '/startNULS/3-1sourceCodeStartNULS'
+                                '/startNULS/3-1sourceCodeStartNULS',
+                                '/startNULS/3-2howToConnectMainnet',
+                                '/startNULS/3-3howToConnectTestnet',
+                                '/startNULS/3-4clientGUI',
+                                '/startNULS/3-5clientCLI',
                             ]
                         },
                         {
@@ -81,19 +85,15 @@ module.exports = {
                         {
                             title: '6.Smart Contract',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/smartContract/6-1developerManual',
+                                '/smartContract/6-2GUIForSmartContract',
+                                
                             ]
                         },
                         {
                             title: '7.Developer tools',
                             children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
+                                '/developerTools/7-1sdk',
                             ]
                         },
                         {
@@ -143,7 +143,11 @@ module.exports = {
                         {
                             title: '3.如何启动NULS',
                             children: [
-                                '/zh/startNULS/3-1sourceCodeStartNULS'
+                                '/zh/startNULS/3-1sourceCodeStartNULS',
+                                '/zh/startNULS/3-2howToConnectMainnet',
+                                '/zh/startNULS/3-3howToConnectTestnet',
+                                '/zh/startNULS/3-4clientGUI',
+                                '/zh/startNULS/3-5clientCLI',
                             ]
                         },
                         {
@@ -158,28 +162,41 @@ module.exports = {
                         {
                             title: '5.NULS底层',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
+                                '/zh/NULSInfrastructure/5-1NULS2.0Introduction',
+                                '/zh/NULSInfrastructure/5-2generalProtocolDesign',
+                                '/zh/NULSInfrastructure/5-3coreDesign',
+                                '/zh/NULSInfrastructure/5-4networkModuleDesign',
+                                '/zh/NULSInfrastructure/5-5eventBusModuleDesign',
+                                '/zh/NULSInfrastructure/5-6generalProtocol',
+                                '/zh/NULSInfrastructure/5-7accountModuleDesign',
+                                '/zh/NULSInfrastructure/5-8ledgerModuleDesign',
+                                '/zh/NULSInfrastructure/5-9blockManagement',
+                                '/zh/NULSInfrastructure/5-10transactionModuleDesign',
+                                '/zh/NULSInfrastructure/5-11chainManagementDesign',
+                                '/zh/NULSInfrastructure/5-12consensusModuleDesign',
+                                '/zh/NULSInfrastructure/5-13rpcToolWebsocketDesign',
+                                '/zh/NULSInfrastructure/5-14interfaceStandard',
+                                
                             ]
                         },
                         {
                             title: '6.智能合约',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
+                                '/zh/smartContract/6-1developerManual',
+                                '/zh/smartContract/6-2GUIForSmartContract',
+                                '/zh/smartContract/6-3ideaPlugin',
+                                '/zh/smartContract/6-4NRC-20TokenStandard',
+                                '/zh/smartContract/6-5communityVote',
+                                '/zh/smartContract/6-6smartContractFee'
+                               
                             ]
                         },
                         {
                             title: '7.开发者工具',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
+                                '/zh/developerTools/7-1sdk',
+                                '/zh/developerTools/7-2APIManual',
+                                '/zh/developerTools/7-3smartContractIDEAPlugin',
                             ]
                         },
                         {
