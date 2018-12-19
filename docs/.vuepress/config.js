@@ -125,14 +125,14 @@ module.exports = {
                 sidebar: {
                     '/zh/': [
                         {
-                            title: '1.总览',
+                            title: '总览',
                             children: [
                                 '/zh/overview/1-1introduction',
                                 '/zh/overview/1-2structure',
                             ]
                         },
                         {
-                            title: '2.如何做贡献',
+                            title: '如何做贡献',
                             children: [
                                 '/zh/contribution/2-1mainNetworkDevelopment',
                                 '/zh/contribution/2-2reportError',
@@ -141,7 +141,7 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '3.如何启动NULS',
+                            title: '如何启动NULS',
                             children: [
                                 '/zh/startNULS/3-1sourceCodeStartNULS',
                                 '/zh/startNULS/3-2howToConnectMainnet',
@@ -151,16 +151,12 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '4.搭建私链',
+                            title: '搭建私链',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
-                            title: '5.NULS底层',
+                            title: 'NULS底层',
                             children: [
                                 '/zh/NULSInfrastructure/5-1NULS2.0Introduction',
                                 '/zh/NULSInfrastructure/5-2generalProtocolDesign',
@@ -180,19 +176,20 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '6.智能合约',
+                            title: '智能合约',
                             children: [
                                 '/zh/smartContract/6-1developerManual',
                                 '/zh/smartContract/6-2GUIForSmartContract',
                                 '/zh/smartContract/6-3ideaPlugin',
                                 '/zh/smartContract/6-4NRC-20TokenStandard',
-                                '/zh/smartContract/6-5communityVote',
-                                '/zh/smartContract/6-6smartContractFee'
+                                '/zh/smartContract/6-5smartContractDemo',
+                                '/zh/smartContract/6-6communityVote',
+                                '/zh/smartContract/6-7smartContractFee',
                                
                             ]
                         },
                         {
-                            title: '7.开发者工具',
+                            title: '开发者工具',
                             children: [
                                 '/zh/developerTools/7-1sdk',
                                 '/zh/developerTools/7-2APIManual',
@@ -200,12 +197,9 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '8.NULS 导航',
+                            title: 'NULS 导航',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
+                                
                             ]
                         },
                     ]
