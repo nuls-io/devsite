@@ -166,13 +166,12 @@ module.exports = {
                                 '/zh/NULSInfrastructure/5-6generalProtocol',
                                 '/zh/NULSInfrastructure/5-7accountModuleDesign',
                                 '/zh/NULSInfrastructure/5-8ledgerModuleDesign',
-                                '/zh/NULSInfrastructure/5-9blockManagement',
+                                // '/zh/NULSInfrastructure/5-9blockManagement',
                                 '/zh/NULSInfrastructure/5-10transactionModuleDesign',
                                 '/zh/NULSInfrastructure/5-11chainManagementDesign',
                                 '/zh/NULSInfrastructure/5-12consensusModuleDesign',
                                 '/zh/NULSInfrastructure/5-13rpcToolWebsocketDesign',
                                 '/zh/NULSInfrastructure/5-14interfaceStandard',
-                                
                             ]
                         },
                         {
