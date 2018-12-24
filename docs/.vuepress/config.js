@@ -159,8 +159,6 @@ module.exports = {
                             title: 'NULS底层',
                             children: [
                                 '/zh/NULSInfrastructure/5-1NULS2.0Introduction',
-                                '/zh/NULSInfrastructure/5-2generalProtocolDesign',
-                                '/zh/NULSInfrastructure/5-3coreDesign',
                                 '/zh/NULSInfrastructure/5-4networkModuleDesign',
                                 '/zh/NULSInfrastructure/5-5eventBusModuleDesign',
                                 '/zh/NULSInfrastructure/5-6generalProtocol',
@@ -172,18 +170,21 @@ module.exports = {
                                 '/zh/NULSInfrastructure/5-12consensusModuleDesign',
                                 '/zh/NULSInfrastructure/5-13rpcToolWebsocketDesign',
                                 '/zh/NULSInfrastructure/5-14interfaceStandard',
+                                '/zh/NULSInfrastructure/5-15randomImplementations',
+                                '/zh/NULSInfrastructure/5-16buildNewChainBasedOnInfrastructure',
                             ]
                         },
                         {
                             title: '智能合约',
                             children: [
+                                '/zh/smartContract/6-8startSmartContract',
                                 '/zh/smartContract/6-1developerManual',
                                 '/zh/smartContract/6-2GUIForSmartContract',
                                 '/zh/smartContract/6-3ideaPlugin',
                                 '/zh/smartContract/6-4NRC-20TokenStandard',
                                 '/zh/smartContract/6-5smartContractDemo',
                                 '/zh/smartContract/6-6communityVote',
-                                '/zh/smartContract/6-7smartContractFee',
+                                '/zh/smartContract/6-7smartContractFee'
                                
                             ]
                         },
