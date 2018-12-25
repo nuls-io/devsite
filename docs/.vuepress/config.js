@@ -134,10 +134,10 @@ module.exports = {
                         {
                             title: '如何做贡献',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1howToContribute',
+                                // '/zh/contribution/2-2reportError',
+                                // '/zh/contribution/2-3translateDocuments',
+                                // '/zh/contribution/2-4writingDocument'
                             ]
                         },
                         {
