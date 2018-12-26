@@ -132,16 +132,19 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '如何做贡献',
+                            title: '用户操作指南',
                             children: [
-                                '/zh/contribution/2-1howToContribute',
-                                // '/zh/contribution/2-2reportError',
-                                // '/zh/contribution/2-3translateDocuments',
-                                // '/zh/contribution/2-4writingDocument'
+                                '/zh/contribution/2-1howToContribute'
                             ]
                         },
                         {
-                            title: '如何启动NULS',
+                            title: '社区',
+                            children: [
+                                '/zh/contribution/2-1howToContribute',
+                            ]
+                        },
+                        {
+                            title: '启动NULS',
                             children: [
                                 '/zh/startNULS/3-1sourceCodeStartNULS',
                                 '/zh/startNULS/3-2howToConnectMainnet',
@@ -151,8 +154,10 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '搭建私链',
+                            title: '快速搭链',
                             children: [
+                                '/zh/buildChain/allianceChain',
+                                '/zh/buildChain/privateChain',
                             ]
                         },
                         {
@@ -208,6 +213,9 @@ module.exports = {
         },
     }
 }
+
+
+
 function getGuideSidebar (groupA, groupB) {
     return [
         {
