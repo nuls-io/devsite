@@ -202,6 +202,15 @@ module.exports = {
                             ]
                         },
                         {
+                            title: 'NIPs',
+                            children: [
+                                '/zh/nips/NIPIntroduction',
+                                '/zh/nips/NIP-1',
+                                '/zh/nips/NIP-2',
+                                '/zh/nips/NIP-3',
+                            ]
+                        },
+                        {
                             title: 'NULS 导航',
                             children: [
                                 
