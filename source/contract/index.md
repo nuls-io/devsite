@@ -577,81 +577,39 @@ public class Utils {
     public static native void emit(Event event);
 
 	/**
-     * Returns a power of two size for the given target capacity.
-     *
-     * @param cap capacity
-     */
-    private static int powerSizeFor(int cap) {
-        int n = cap - 1;
-        n |= n >>> 1;
-        n |= n >>> 2;
-        n |= n >>> 4;
-        n |= n >>> 8;
-        n |= n >>> 16;
-        return (n < 0) ? 1 : (n >= MAXIMUM_CAPACITY) ? MAXIMUM_CAPACITY : n + 1;
-    }
-
-    /**
      * @param seed a private seed
-     * @return pseudo random number (0 ~ 1073741823)
+     * @return pseudo random number (0 ~ 1)
      */
-    public static int pseudoRandom(int seed) {
-        return pseudoRandom(seed, null, null);
+    public static float pseudoRandom(long seed) {
+        int hash1 = Block.currentBlockHeader().getPackingAddress().toString().substring(2).hashCode();
+        int hash2 = Msg.address().toString().substring(2).hashCode();
+        int hash3 = Msg.sender() != null ? Msg.sender().toString().substring(2).hashCode() : 0;
+        int hash4 = Long.valueOf(Block.timestamp()).toString().hashCode();
+
+        long hash = seed ^ hash1 ^ hash2 ^ hash3 ^ hash4;
+
+        seed = (hash * 0x5DEECE66DL + 0xBL) & ((1L << 48) - 1);
+        return ((int) (seed >>> 24) / (float) (1 << 24));
     }
 
     /**
-     * @param seed  a private seed
-     * @return pseudo random number (0 ~ 1073741823)
+     * @return pseudo random number (0 ~ 1)
      */
-    public static int pseudoRandom(String seed) {
-        return pseudoRandom(null, seed, null);
+    public static float pseudoRandom() {
+        return pseudoRandom(0x5DEECE66DL);
     }
 
     /**
-     * @param seed a private seed
-     * @param initialCapacity initial capacity, it will be assigned a power of two size for the given target capacity.
-     * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
+     * @param src source string
+     * @return sha3-256 hash (utf-8 encode)
      */
-    public static int pseudoRandom(int seed, Integer initialCapacity) {
-        return pseudoRandom(seed, null, initialCapacity);
-    }
+    public static native String sha3(String src);
 
     /**
-     * @param seed a private seed
-     * @param initialCapacity initial capacity, it will be assigned a power of two size for the given target capacity.
-     * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
+     * @param bytes source byte array
+     * @return sha3-256 hash
      */
-    public static int pseudoRandom(String seed, Integer initialCapacity) {
-        return pseudoRandom(null, seed, initialCapacity);
-    }
-
-    /**
-     * @param seed a private seed
-     * @param strSeed a private seed
-     * @param initialCapacity initial capacity, it will be assigned a power of two size for the given target capacity.
-     * @return pseudo random number (0 ~ (powerSizeFor(initialCapacity) - 1))
-     */
-    private static int pseudoRandom(Integer seed, String strSeed, Integer initialCapacity) {
-        BlockHeader blockHeader = Block.newestBlockHeader();
-        if(initialCapacity != null) {
-            initialCapacity = powerSizeFor(initialCapacity);
-        } else {
-            initialCapacity = MAXIMUM_CAPACITY;
-        }
-        long time = blockHeader.getTime();
-        long txCount = blockHeader.getTxCount();
-        String contractAddress = Msg.address().toString();
-        int result = contractAddress != null ? contractAddress.hashCode() : 0;
-        result = strSeed != null ? strSeed.hashCode() : 0;
-        if(seed != null) {
-            result = 31 * result + (int) (seed ^ (seed >>> 32));
-        }
-        result = 31 * result + (int) (time ^ (time >>> 32));
-        result = 31 * result + (int) (txCount ^ (txCount >>> 32));
-        result = result ^ (result >>> 16);
-        result = (initialCapacity - 1) & result;
-        return result;
-    }
+    public static native String sha3(byte[] bytes);
     
 }
 ```
