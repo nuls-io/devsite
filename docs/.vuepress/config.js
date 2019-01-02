@@ -134,13 +134,18 @@ module.exports = {
                         {
                             title: '用户操作指南',
                             children: [
-                                '/zh/contribution/2-1howToContribute'
+                                '/zh/guide/GUIGuide',
+                                '/zh/guide/webGuide',
+                                '/zh/guide/NULSTransaction',
                             ]
                         },
                         {
                             title: '社区',
                             children: [
-                                '/zh/contribution/2-1howToContribute',
+                                '/zh/community/toolsGuide',
+                                '/zh/community/ambassadorRules',
+                                '/zh/community/communityConstitution',
+                                '/zh/community/communityFund',
                             ]
                         },
                         {
@@ -188,7 +193,7 @@ module.exports = {
                                 '/zh/smartContract/6-3ideaPlugin',
                                 '/zh/smartContract/6-4NRC-20TokenStandard',
                                 '/zh/smartContract/6-5smartContractDemo',
-                                '/zh/smartContract/6-6communityVote',
+                                // '/zh/smartContract/6-6communityVote',
                                 '/zh/smartContract/6-7smartContractFee'
                                
                             ]
@@ -208,6 +213,7 @@ module.exports = {
                                 '/zh/nips/NIP-1',
                                 '/zh/nips/NIP-2',
                                 '/zh/nips/NIP-3',
+                                '/zh/nips/NIP-4',
                             ]
                         },
                         {
