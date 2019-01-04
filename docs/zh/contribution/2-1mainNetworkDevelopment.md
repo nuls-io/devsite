@@ -1,2 +1,2 @@
-# 加入主网开发
+<NavBar></NavBar>
 
