@@ -132,16 +132,24 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '如何做贡献',
+                            title: '用户操作指南',
                             children: [
-                                '/zh/contribution/2-1mainNetworkDevelopment',
-                                '/zh/contribution/2-2reportError',
-                                '/zh/contribution/2-3translateDocuments',
-                                '/zh/contribution/2-4writingDocument'
+                                '/zh/guide/GUIGuide',
+                                '/zh/guide/webGuide',
+                                '/zh/guide/NULSTransaction',
                             ]
                         },
                         {
-                            title: '如何启动NULS',
+                            title: '社区',
+                            children: [
+                                '/zh/community/toolsGuide',
+                                '/zh/community/ambassadorRules',
+                                '/zh/community/communityConstitution',
+                                '/zh/community/communityFund',
+                            ]
+                        },
+                        {
+                            title: '启动NULS',
                             children: [
                                 '/zh/startNULS/3-1sourceCodeStartNULS',
                                 '/zh/startNULS/3-2howToConnectMainnet',
@@ -151,16 +159,16 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '搭建私链',
+                            title: '快速搭链',
                             children: [
+                                '/zh/buildChain/allianceChain',
+                                '/zh/buildChain/privateChain',
                             ]
                         },
                         {
                             title: 'NULS底层',
                             children: [
                                 '/zh/NULSInfrastructure/5-1NULS2.0Introduction',
-                                '/zh/NULSInfrastructure/5-2generalProtocolDesign',
-                                '/zh/NULSInfrastructure/5-3coreDesign',
                                 '/zh/NULSInfrastructure/5-4networkModuleDesign',
                                 '/zh/NULSInfrastructure/5-5eventBusModuleDesign',
                                 '/zh/NULSInfrastructure/5-6generalProtocol',
@@ -172,18 +180,21 @@ module.exports = {
                                 '/zh/NULSInfrastructure/5-12consensusModuleDesign',
                                 '/zh/NULSInfrastructure/5-13rpcToolWebsocketDesign',
                                 '/zh/NULSInfrastructure/5-14interfaceStandard',
+                                '/zh/NULSInfrastructure/5-15randomImplementations',
+                                '/zh/NULSInfrastructure/5-16buildNewChainBasedOnInfrastructure',
                             ]
                         },
                         {
                             title: '智能合约',
                             children: [
+                                '/zh/smartContract/6-8startSmartContract',
                                 '/zh/smartContract/6-1developerManual',
                                 '/zh/smartContract/6-2GUIForSmartContract',
                                 '/zh/smartContract/6-3ideaPlugin',
                                 '/zh/smartContract/6-4NRC-20TokenStandard',
                                 '/zh/smartContract/6-5smartContractDemo',
-                                '/zh/smartContract/6-6communityVote',
-                                '/zh/smartContract/6-7smartContractFee',
+                                // '/zh/smartContract/6-6communityVote',
+                                '/zh/smartContract/6-7smartContractFee'
                                
                             ]
                         },
@@ -193,6 +204,16 @@ module.exports = {
                                 '/zh/developerTools/7-1sdk',
                                 '/zh/developerTools/7-2APIManual',
                                 '/zh/developerTools/7-3smartContractIDEAPlugin',
+                            ]
+                        },
+                        {
+                            title: 'NIPs',
+                            children: [
+                                '/zh/nips/NIPIntroduction',
+                                '/zh/nips/NIP-1',
+                                '/zh/nips/NIP-2',
+                                '/zh/nips/NIP-3',
+                                '/zh/nips/NIP-4',
                             ]
                         },
                         {
@@ -207,6 +228,9 @@ module.exports = {
         },
     }
 }
+
+
+
 function getGuideSidebar (groupA, groupB) {
     return [
         {
