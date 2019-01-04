@@ -219,7 +219,7 @@ module.exports = {
                         {
                             title: 'NULS 导航',
                             children: [
-                                
+                                '/zh/nulsNav/NULSNav',
                             ]
                         },
                     ]
