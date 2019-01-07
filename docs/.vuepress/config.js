@@ -127,8 +127,8 @@ module.exports = {
                         {
                             title: '总览',
                             children: [
-                                '/zh/overview/1-1introduction',
-                                '/zh/overview/1-2structure',
+                                '/zh/overview/introduction',
+                                '/zh/overview/structure',
                             ]
                         },
                         {
@@ -151,59 +151,56 @@ module.exports = {
                         {
                             title: '启动NULS',
                             children: [
-                                '/zh/startNULS/3-1sourceCodeStartNULS',
-                                '/zh/startNULS/3-2howToConnectMainnet',
-                                '/zh/startNULS/3-3howToConnectTestnet',
-                                '/zh/startNULS/3-4clientGUI',
-                                '/zh/startNULS/3-5clientCLI',
+                                '/zh/startNULS/sourceCodeStartNULS',
+                                '/zh/startNULS/connectMainnet',
+                                '/zh/startNULS/connectTestnet',
                             ]
                         },
                         {
                             title: '快速搭链',
                             children: [
-                                '/zh/buildChain/allianceChain',
-                                '/zh/buildChain/privateChain',
+                                '/zh/buildChain/buildPrivateChain',
                             ]
                         },
                         {
                             title: 'NULS底层',
                             children: [
-                                '/zh/NULSInfrastructure/5-1NULS2.0Introduction',
-                                '/zh/NULSInfrastructure/5-4networkModuleDesign',
-                                '/zh/NULSInfrastructure/5-5eventBusModuleDesign',
-                                '/zh/NULSInfrastructure/5-6generalProtocol',
-                                '/zh/NULSInfrastructure/5-7accountModuleDesign',
-                                '/zh/NULSInfrastructure/5-8ledgerModuleDesign',
-                                // '/zh/NULSInfrastructure/5-9blockManagement',
-                                '/zh/NULSInfrastructure/5-10transactionModuleDesign',
-                                '/zh/NULSInfrastructure/5-11chainManagementDesign',
-                                '/zh/NULSInfrastructure/5-12consensusModuleDesign',
-                                '/zh/NULSInfrastructure/5-13rpcToolWebsocketDesign',
-                                '/zh/NULSInfrastructure/5-14interfaceStandard',
-                                '/zh/NULSInfrastructure/5-15randomImplementations',
-                                '/zh/NULSInfrastructure/5-16buildNewChainBasedOnInfrastructure',
+                                '/zh/NULSInfrastructure/NULS2.0Introduction',
+                                '/zh/NULSInfrastructure/networkModuleDesign',
+                                '/zh/NULSInfrastructure/eventBusModuleDesign',
+                                '/zh/NULSInfrastructure/generalProtocol',
+                                '/zh/NULSInfrastructure/accountModuleDesign',
+                                '/zh/NULSInfrastructure/ledgerModuleDesign',
+                                '/zh/NULSInfrastructure/blockModuleDesign',
+                                '/zh/NULSInfrastructure/transactionModuleDesign',
+                                '/zh/NULSInfrastructure/chainModuleDesign',
+                                '/zh/NULSInfrastructure/consensusModuleDesign',
+                                '/zh/NULSInfrastructure/rpcToolWebsocketDesign',
+                                '/zh/NULSInfrastructure/interfaceStandard',
+                                '/zh/NULSInfrastructure/randomImplementations',
+                                '/zh/NULSInfrastructure/buildNewChainBasedOnInfrastructure',
                             ]
                         },
                         {
                             title: '智能合约',
                             children: [
-                                '/zh/smartContract/6-8startSmartContract',
-                                '/zh/smartContract/6-1developerManual',
-                                '/zh/smartContract/6-2GUIForSmartContract',
-                                '/zh/smartContract/6-3ideaPlugin',
-                                '/zh/smartContract/6-4NRC-20TokenStandard',
-                                '/zh/smartContract/6-5smartContractDemo',
+                                '/zh/smartContract/startSmartContract',
+                                '/zh/smartContract/developerManual',
+                                '/zh/smartContract/GUIForSmartContract',
+                                '/zh/smartContract/ideaPlugin',
+                                '/zh/smartContract/NRC-20TokenStandard',
+                                '/zh/smartContract/smartContractDemo',
                                 // '/zh/smartContract/6-6communityVote',
-                                '/zh/smartContract/6-7smartContractFee'
+                                '/zh/smartContract/smartContractFee'
                                
                             ]
                         },
                         {
                             title: '开发者工具',
                             children: [
-                                '/zh/developerTools/7-1sdk',
-                                '/zh/developerTools/7-2APIManual',
-                                '/zh/developerTools/7-3smartContractIDEAPlugin',
+                                '/zh/developerTools/sdk',
+                                '/zh/developerTools/APIManual',
+                                '/zh/developerTools/smartContractIDEAPlugin',
                             ]
                         },
                         {

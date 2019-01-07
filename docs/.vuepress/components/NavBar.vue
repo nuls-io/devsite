@@ -5,7 +5,7 @@
             <ul>
                 <li class="li"><a href="https://nuls.io/" target="_blank">官网</a></li>
                 <li class="li"><a href="https://wallet.nuls.io/" target="_blank">网页轻钱包</a></li>
-                <li class="li"><a href="https://nuls.io/newWallet" target="_blank">客服端钱包</a></li>
+                <li class="li"><a href="https://nuls.io/newWallet" target="_blank">客户端钱包</a></li>
                 <li class="li"><a href="https://nulscan.io/" target="_blank">区块链浏览器</a></li>
                 <li class="li"><a href="https://github.com/nuls-io" target="_blank">Github</a></li>
                 <li class="li"><a href="https://nuls.io/api/v1/download/files/papers/white/NULS_whitepaper_zh_V1.0.pdf" target="_blank">白皮书</a></li>
