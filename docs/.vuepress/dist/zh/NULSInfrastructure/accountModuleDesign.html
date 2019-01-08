@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>账户模块设计 | NULS</title>
+    <meta name="description" content="Vue 驱动的静态网站生成器">
+    
+    
+    <link rel="preload" href="/assets/css/0.styles.e4f4c31f.css" as="style"><link rel="preload" href="/assets/js/app.84b68317.js" as="script"><link rel="preload" href="/assets/js/9.d5f64971.js" as="script"><link rel="prefetch" href="/assets/js/10.3953a0ee.js"><link rel="prefetch" href="/assets/js/11.42396562.js"><link rel="prefetch" href="/assets/js/12.58a69176.js"><link rel="prefetch" href="/assets/js/13.9a8c8b70.js"><link rel="prefetch" href="/assets/js/14.61ddc1fc.js"><link rel="prefetch" href="/assets/js/15.8a25de48.js"><link rel="prefetch" href="/assets/js/16.4c21fb83.js"><link rel="prefetch" href="/assets/js/17.3789d5ed.js"><link rel="prefetch" href="/assets/js/18.7768e64f.js"><link rel="prefetch" href="/assets/js/19.4b915680.js"><link rel="prefetch" href="/assets/js/20.fa016373.js"><link rel="prefetch" href="/assets/js/21.50aa8bac.js"><link rel="prefetch" href="/assets/js/22.b8633701.js"><link rel="prefetch" href="/assets/js/23.badd8da3.js"><link rel="prefetch" href="/assets/js/24.225cfab5.js"><link rel="prefetch" href="/assets/js/25.27be9594.js"><link rel="prefetch" href="/assets/js/26.e96b1a2f.js"><link rel="prefetch" href="/assets/js/27.228a6e47.js"><link rel="prefetch" href="/assets/js/28.934f59b9.js"><link rel="prefetch" href="/assets/js/29.d0199ab2.js"><link rel="prefetch" href="/assets/js/3.2e2fab3d.js"><link rel="prefetch" href="/assets/js/30.14a313dc.js"><link rel="prefetch" href="/assets/js/31.efec561a.js"><link rel="prefetch" href="/assets/js/32.50aa1613.js"><link rel="prefetch" href="/assets/js/33.03ce8cf7.js"><link rel="prefetch" href="/assets/js/34.0128bf73.js"><link rel="prefetch" href="/assets/js/35.d64be248.js"><link rel="prefetch" href="/assets/js/36.94601acd.js"><link rel="prefetch" href="/assets/js/37.b8e6dd26.js"><link rel="prefetch" href="/assets/js/38.31fe6180.js"><link rel="prefetch" href="/assets/js/39.923386fd.js"><link rel="prefetch" href="/assets/js/4.fffb7a40.js"><link rel="prefetch" href="/assets/js/40.7c1e3c1f.js"><link rel="prefetch" href="/assets/js/41.513bd7bf.js"><link rel="prefetch" href="/assets/js/42.5fcd4c5b.js"><link rel="prefetch" href="/assets/js/43.f7d2f42d.js"><link rel="prefetch" href="/assets/js/44.c7073df4.js"><link rel="prefetch" href="/assets/js/45.7368e2d2.js"><link rel="prefetch" href="/assets/js/46.6e88fb2b.js"><link rel="prefetch" href="/assets/js/47.7b0fdd64.js"><link rel="prefetch" href="/assets/js/48.b5334ab7.js"><link rel="prefetch" href="/assets/js/49.52adc4ac.js"><link rel="prefetch" href="/assets/js/5.341f9b9a.js"><link rel="prefetch" href="/assets/js/50.9d594423.js"><link rel="prefetch" href="/assets/js/51.13396f60.js"><link rel="prefetch" href="/assets/js/52.9f50aa26.js"><link rel="prefetch" href="/assets/js/53.fd58746d.js"><link rel="prefetch" href="/assets/js/54.bcf2acd2.js"><link rel="prefetch" href="/assets/js/55.e9612497.js"><link rel="prefetch" href="/assets/js/56.87e89c25.js"><link rel="prefetch" href="/assets/js/57.b595a86c.js"><link rel="prefetch" href="/assets/js/58.323d2081.js"><link rel="prefetch" href="/assets/js/59.b23170f7.js"><link rel="prefetch" href="/assets/js/6.ae823dea.js"><link rel="prefetch" href="/assets/js/60.d9838585.js"><link rel="prefetch" href="/assets/js/61.71a44c5c.js"><link rel="prefetch" href="/assets/js/62.3790a25d.js"><link rel="prefetch" href="/assets/js/63.ddd062e5.js"><link rel="prefetch" href="/assets/js/64.26dd4319.js"><link rel="prefetch" href="/assets/js/65.61fdbf10.js"><link rel="prefetch" href="/assets/js/66.24cc292a.js"><link rel="prefetch" href="/assets/js/67.f99559d4.js"><link rel="prefetch" href="/assets/js/68.114b46dc.js"><link rel="prefetch" href="/assets/js/69.aed2f2a3.js"><link rel="prefetch" href="/assets/js/7.5e6e4e57.js"><link rel="prefetch" href="/assets/js/70.fa96f0ac.js"><link rel="prefetch" href="/assets/js/8.b7f5155c.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.6bd2fb4e.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.e4f4c31f.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><!----> <span class="site-name">NULS</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link">English</a></li><li class="dropdown-item"><!----> <a href="/zh/NULSInfrastructure/accountModuleDesign.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link">English</a></li><li class="dropdown-item"><!----> <a href="/zh/NULSInfrastructure/accountModuleDesign.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first collapsable"><p class="sidebar-heading"><span>总览</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>用户操作指南</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>社区</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>启动NULS</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>快速搭链</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading open"><span>NULS底层</span> <span class="arrow down"></span></p> <ul class="sidebar-group-items"><li><a href="/zh/NULSInfrastructure/NULS2.0Introduction.html" class="sidebar-link">NULS 2.0 介绍</a></li><li><a href="/zh/NULSInfrastructure/networkModuleDesign.html" class="sidebar-link">网络模块设计文档</a></li><li><a href="/zh/NULSInfrastructure/eventBusModuleDesign.html" class="sidebar-link">事件总线模块设计</a></li><li><a href="/zh/NULSInfrastructure/generalProtocol.html" class="sidebar-link">通用协议设计</a></li><li><a href="/zh/NULSInfrastructure/accountModuleDesign.html" class="active sidebar-link">账户模块设计</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#一、总体描述" class="sidebar-link">一、总体描述</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_1-1-模块概述" class="sidebar-link">1.1 模块概述</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_1-2-架构图" class="sidebar-link">1.2 架构图</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#二、功能设计" class="sidebar-link">二、功能设计</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_2-1-功能架构图" class="sidebar-link">2.1 功能架构图</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_2-2-模块服务" class="sidebar-link">2.2 模块服务</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_2-3-模块内部功能" class="sidebar-link">2.3 模块内部功能</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#四、事件说明" class="sidebar-link">四、事件说明</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_4-1-发布的事件" class="sidebar-link">4.1 发布的事件</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_4-2-订阅的事件" class="sidebar-link">4.2 订阅的事件</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#五、协议" class="sidebar-link">五、协议</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_5-1-网络通讯协议" class="sidebar-link">5.1 网络通讯协议</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#_5-2-交易协议" class="sidebar-link">5.2 交易协议</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#六、模块配置项" class="sidebar-link">六、模块配置项</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#七、java特有的设计" class="sidebar-link">七、Java特有的设计</a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#" class="sidebar-link"></a></li><li class="sidebar-sub-header"><a href="/zh/NULSInfrastructure/accountModuleDesign.html#八、补充内容" class="sidebar-link">八、补充内容</a></li></ul></li><li><a href="/zh/NULSInfrastructure/ledgerModuleDesign.html" class="sidebar-link">账本模块设计文档</a></li><li><a href="/zh/NULSInfrastructure/blockModuleDesign.html" class="sidebar-link">区块管理模块设计文档</a></li><li><a href="/zh/NULSInfrastructure/transactionModuleDesign.html" class="sidebar-link">交易管理模块设计文档</a></li><li><a href="/zh/NULSInfrastructure/chainModuleDesign.html" class="sidebar-link">链管理模块设计文档</a></li><li><a href="/zh/NULSInfrastructure/consensusModuleDesign.html" class="sidebar-link">共识模块设计文档</a></li><li><a href="/zh/NULSInfrastructure/rpcToolWebsocketDesign.html" class="sidebar-link">RPC-Tool-WebSocket设计</a></li><li><a href="/zh/NULSInfrastructure/interfaceStandard.html" class="sidebar-link">接口交互格式与规范</a></li><li><a href="/zh/NULSInfrastructure/randomImplementations.html" class="sidebar-link">NULS区块链随机数的几种实现方式</a></li></ul></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>智能合约</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>开发者工具</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>NIPs</span> <span class="arrow right"></span></p> <!----></div></li><li><div class="sidebar-group collapsable"><p class="sidebar-heading"><span>NULS 导航</span> <span class="arrow right"></span></p> <!----></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="账户模块设计"><a href="#账户模块设计" aria-hidden="true" class="header-anchor">#</a> 账户模块设计</h1> <h1 id="账户模块设计文档"><a href="#账户模块设计文档" aria-hidden="true" class="header-anchor">#</a> 账户模块设计文档</h1> <p>[TOC]</p> <h2 id="一、总体描述"><a href="#一、总体描述" aria-hidden="true" class="header-anchor">#</a> 一、总体描述</h2> <h3 id="_1-1-模块概述"><a href="#_1-1-模块概述" aria-hidden="true" class="header-anchor">#</a> 1.1 模块概述</h3> <h4 id="_1-1-1-为什么要有《账户》模块"><a href="#_1-1-1-为什么要有《账户》模块" aria-hidden="true" class="header-anchor">#</a> 1.1.1 为什么要有《账户》模块</h4> <ul><li>用于管理账户的生成、安全和保管、信息的获取</li> <li>用户保存账户的地址、公私钥对、以及验证数据签名</li></ul> <h4 id="_1-1-2-《账户》要做什么"><a href="#_1-1-2-《账户》要做什么" aria-hidden="true" class="header-anchor">#</a> 1.1.2 《账户》要做什么</h4> <p>账户模块是提供关于账户各项功能的基础性模块。主要对账户的生成、安全和保管、信息的获取等几个方面的功能提供支持，其他模块可以根据账户模块提供的接口来使用账户的各种功能以及获取账户信息，用户或者其他应用可以根据RPC接口对账户进行更加实用性和个性化的操作。账户是基础模块，也是用户数据的载体 。</p> <ul><li><p>账户的生成</p> <p>创建账户、导入账户</p></li> <li><p>账户的安全和保管</p> <p>账户的备份、设置账户密码、修改账户密码、移除账户</p></li> <li><p>账户信息的获取</p> <p>查询单个账户信息、获取多个账户信息、获取账户地址、查询账户余额、查询账户别名</p></li> <li><p>其他实用性和个性化功能</p> <p>设置账户别名、设置账户备注、验证账户是否加密、签名、验证账户地址格式、验证账户密码是否正确等功能</p></li></ul> <h4 id="_1-1-3-《账户》在系统中的定位"><a href="#_1-1-3-《账户》在系统中的定位" aria-hidden="true" class="header-anchor">#</a> 1.1.3 《账户》在系统中的定位</h4> <p><img src="/assets/img/account-context.aaa5f026.png" alt></p> <p>账户是底层模块，与账本、共识、交易、内核、事件总线、社区治理模块有依赖关系。</p> <p>1、账户模块依赖账本模块</p> <pre><code>ledger模块需要处理本地交易，依赖于账户信息。
+
+账户模块需要发起设置别名交易，需要ledger模块支付费用
+
+账户余额查询，需要依赖ledger模块
+</code></pre> <p>2、账户模块依赖内核模块</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>上报模块信息、共享数据操作
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>3、账户模块依赖网络模块</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>通过网络模块来接收和发送数据
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>4、账户模块依赖事件总线模块</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>创建账户、删除账户、修改密码事件通过事件总线模块发送消息
+账户模块并非强依赖事件总线模块，因为即使事件发送失败也不影响业务正常流程
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><p>5、共识模块依赖账户模块</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>共识需要账户信息进行打包出块
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>6、交易管理模块依赖账户模块</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>交易管理模块要对交易进行验证，依赖账户中address功能，验证地址是否合法
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><p>7、社区治理模块依赖账户模块</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>社区治理需要账户签名
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div><h3 id="_1-2-架构图"><a href="#_1-2-架构图" aria-hidden="true" class="header-anchor">#</a> 1.2 架构图</h3> <p><img src="/assets/img/account-module.ab4c1b38.png" alt></p> <p>1、API：对外提供接口层，提供账户的创建、备份、设置别名等操作；</p> <p>2、业务逻辑层：定义账户、账户地址、别名的功能；</p> <p>3、数据持久化层：保存账户、别名数据；</p> <h2 id="二、功能设计"><a href="#二、功能设计" aria-hidden="true" class="header-anchor">#</a> 二、功能设计</h2> <h3 id="_2-1-功能架构图"><a href="#_2-1-功能架构图" aria-hidden="true" class="header-anchor">#</a> 2.1 功能架构图</h3> <p><img src="data:image/png;base64,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" alt></p> <h3 id="_2-2-模块服务"><a href="#_2-2-模块服务" aria-hidden="true" class="header-anchor">#</a> 2.2 模块服务</h3> <h4 id="_2-2-1-创建账户"><a href="#_2-2-1-创建账户" aria-hidden="true" class="header-anchor">#</a> 2.2.1 创建账户</h4> <ul><li><p>功能说明：</p> <p>创建用户的账户，包括账户的地址、公匙、私匙的创建，账户信息保存到数据库，并将创建账户通过事件通知其他节点</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-create-address.23098bf5.png" alt></p> <p>创建地址：创建卫星链标准账户地址</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、生成随机公私钥对
+2、获取chainId和账户类型
+3、根据公钥计算hash160
+4、拼接字节数组组成地址：
+4.1、如果是NULS体系地址：address=type+hash160
+4.2、如果非NULS体系地址(比特币)：address=原始地址长度+原始地址
+5、生成地址字符串：地址字节[]+校验位，然后执行Base58计算生成字符串
+5.1、如果是NULS体系校验位：xor=XOR(addressType+pkh)
+5.1、如果非NULS体系校验位：xor=XOR(length+address)
+6、base58计算生成地址字符串：
+   NULS体系地址：Base58(type+hash160+xor)+Hex(chainId)
+   非NULS体系地址：Base58(length+address+xor)+Hex(chainId)
+7、根据密码对私钥进行加密，并将私钥的明文删除
+8、存储账户信息
+9、将账户加入缓存
+10、发送创建账户事件
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br></div></div></li> <li><p>ac_createAccount接口</p> <ul><li><p>接口说明</p> <p>该接口创建一个或多个账户。</p></li> <li><p>请求示例</p></li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;cmd&quot;:&quot;ac_createAccount&quot;,
+    &quot;minVersion&quot;:1.0,
+    &quot;params&quot;:[
+        1234,
+        10,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div><ul><li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID，说明该账户属于哪个链</td></tr> <tr><td>1</td> <td>count</td> <td>false</td> <td>Integer</td> <td>要创建账户数量，约束条件：1-100.</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户初始密码，可为空</td></tr></tbody></table></li> <li><p>返回示例</p></li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	[&quot;address&quot;,&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div><ul><li>返回字段说明</li></ul> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">账户地址列表</td></tr></tbody></table></li> <li><p>依赖服务</p> <p>事件总线：发送创建账户事件</p></li></ul> <h4 id="_2-2-2-创建离线账户"><a href="#_2-2-2-创建离线账户" aria-hidden="true" class="header-anchor">#</a> 2.2.2 创建离线账户</h4> <ul><li><p>功能说明：</p> <p>创建用户的离线账户，包括账户的地址、公匙、私匙的创建，账户信息并不会保存到数据库</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-create-offline.71a206b9.png" alt></p> <p>创建地址：创建卫星链标准账户地址</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、生成随机公私钥对
+2、获取chainId和账户类型
+3、根据公钥计算hash160
+4、拼接字节数组组成地址：
+4.1、如果是NULS体系地址：address=type+hash160
+4.2、如果非NULS体系地址(比特币)：address=原始地址长度+原始地址
+5、生成地址字符串：地址字节[]+校验位，然后执行Base58计算生成字符串
+5.1、如果是NULS体系校验位：xor=XOR(addressType+pkh)
+5.1、如果非NULS体系校验位：xor=XOR(length+address)
+6、base58计算生成地址字符串：
+   NULS体系地址：Base58(type+hash160+xor)+Hex(chainId)
+   非NULS体系地址：Base58(length+address+xor)+Hex(chainId)
+7、根据密码对私钥进行加密，并将私钥的明文删除
+8、返回账户信息，并不保存到数据库
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div></li> <li><p>ac_createOfflineAccount接口</p> <ul><li><p>接口说明</p> <p>该接口创建一个或多个离线账户。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;cmd&quot;:&quot;ac_createOfflineAccount&quot;,
+    &quot;minVersion&quot;:1.0,
+    &quot;params&quot;:[
+        1234,
+        10,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID，说明该账户属于哪个链</td></tr> <tr><td>1</td> <td>count</td> <td>false</td> <td>Integer</td> <td>要创建账户数量，约束条件：1-100.</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户初始密码，可为空</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	[
+    	{
+    	&quot;address&quot;:&quot;LgkSxjwficqMwnMVXpdA3kntVjXDm3930&quot;,
+    	&quot;pubKey&quot;:&quot;0253aa17b27482261cc9e91d5ff6f4820130055ad092629e6981bff78c545c6289&quot;,
+    	&quot;priKey&quot;:&quot;0253aa17b27482261cc9e91d5ff6f4820130055ad092629e6981bff78c545c6111&quot;,	
+   		&quot;encryptedPriKey&quot;:&quot;e447b8427ce96b49e0fcf167f31635b93c8e8acf15e48c01e6753e23a&quot;,
+  		&quot;extend&quot;:null,
+  		&quot;createTime&quot;:1542003713441,
+  		&quot;encrypted&quot;:true,
+  		&quot;remark&quot;:null
+  		},{}
+    	]
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">账户地址列表</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">账户地址</td></tr> <tr><td style="text-align:left">pubKey</td> <td style="text-align:left">String</td> <td style="text-align:left">公匙16进制编码</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">String</td> <td style="text-align:left">私匙16进制编码</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">String</td> <td style="text-align:left">加密私匙16进制编码，与priKey不会同时为空</td></tr> <tr><td style="text-align:left">extend</td> <td style="text-align:left">String</td> <td style="text-align:left">扩展字段16进制编码</td></tr> <tr><td style="text-align:left">createTime</td> <td style="text-align:left">long</td> <td style="text-align:left">账户创建时间</td></tr> <tr><td style="text-align:left">encrypted</td> <td style="text-align:left">boolean</td> <td style="text-align:left">账户是否加密</td></tr> <tr><td style="text-align:left">remark</td> <td style="text-align:left">String</td> <td style="text-align:left">备注</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>无</p></li></ul> <h4 id="_2-2-3-创建多签账户"><a href="#_2-2-3-创建多签账户" aria-hidden="true" class="header-anchor">#</a> 2.2.3 创建多签账户</h4> <ul><li><p>功能说明：</p> <p>创建多重签名账户，包括账户的地址、脚本的创建，多签账户信息保存到数据库</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证签名公匙列表，最少验证签名数是否正确
+2、创建多重签名脚本
+3、根据多签脚本创建多重签名类型的账户地址
+4、保存多重签名账户
+5、返回多签账户信息
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_createMultiSigAccount接口</p> <ul><li><p>接口说明</p> <p>该接口创建多重签名账户。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;createMultiAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        [&quot;pubKey1&quot;,&quot;pubKey2&quot;],
+        2
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID，说明该账户属于哪个链</td></tr> <tr><td>1</td> <td>pubKeys</td> <td>true</td> <td>jsonArray</td> <td>需要签名的公钥列表</td></tr> <tr><td>2</td> <td>minSigns</td> <td>true</td> <td>String</td> <td>最少签名数，最少需要几个公钥验证通过</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;address&quot;:&quot;&quot;,
+        &quot;minSigns&quot;:&quot;&quot;,
+        &quot;pubKeys&quot;:[{
+            &quot;pubKey&quot;:&quot;&quot;,
+            &quot;address&quot;:&quot;&quot;
+            },{}
+        ]
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">多签账户地址</td></tr> <tr><td style="text-align:left">minSigns</td> <td style="text-align:left">Integer</td> <td style="text-align:left">最小签名数</td></tr> <tr><td style="text-align:left">pubKeys</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">公钥列表</td></tr> <tr><td style="text-align:left">--pubKey</td> <td style="text-align:left">String</td> <td style="text-align:left">公钥</td></tr> <tr><td style="text-align:left">--address</td> <td style="text-align:left">String</td> <td style="text-align:left">地址</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>无</p></li></ul> <h4 id="_2-2-4-移除账户"><a href="#_2-2-4-移除账户" aria-hidden="true" class="header-anchor">#</a> 2.2.4 移除账户</h4> <ul><li><p>功能说明：</p> <p>移除用户的本地账户，包括删除本地账户的地址，并将删除账户通过事件通知其他节点</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-remove-address.e8b7a30d.png" alt></p> <p>删除账户</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户地址格式是否正确
+2、验证账户存在
+3、验证账户是否加密，如果加密，则需要验证密码
+3.1、根据账户已加密私匙+密码得到未加密私匙
+3.2、根据未加密私匙得到公匙
+3.3、将解密出的公匙与查询出的账户公匙比较是否相等
+4、删除数据
+4.1、删除本地账户信息
+4.2、删除账户缓存信息
+5、发送删除账户事件
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>ac_removeAccount接口</p> <ul><li><p>接口说明</p> <p>该接口用于移除账户</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_removeAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;AAax8wqxALqjyhrL8Wv1tQiqswAshAnX&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>Integer</td> <td>要删除的账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码，可为空</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;value&quot;:true
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">删除是否成功</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>事件总线模块：发送删除账户事件</p></li></ul> <h4 id="_2-2-5-导入账户-私匙"><a href="#_2-2-5-导入账户-私匙" aria-hidden="true" class="header-anchor">#</a> 2.2.5 导入账户-私匙</h4> <ul><li><p>功能说明：</p> <p>根据私匙导入账户，根据私匙生成账户，并导入账户账本数据</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-import-prikey.e1a987ac.png" alt></p> <p>根据私匙导入账户信息</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、根据私钥生成公私钥对
+2、获取chainId和账户类型
+3、根据公钥计算hash160
+4、拼接字节数组组成地址：
+4.1、如果是NULS体系地址：address=type+hash160
+4.2、如果非NULS体系地址(比特币)：address=原始地址长度+原始地址
+5.1、如果是NULS体系校验位：xor=XOR(addressType+pkh)
+5.1、如果非NULS体系校验位：xor=XOR(length+address)
+6、base58计算生成地址字符串：
+   NULS体系地址：Base58(type+hash160+xor)+Base58(chainId)
+   非NULS体系地址：Base58(length+address+xor)+Base58(chainId)
+7、根据密码对私钥进行加密，并将私钥的明文删除
+8、存储账户信息
+9、将账户加入缓存
+10、若发送导入账户事件：账户已存在的情况不发布新事件，只做覆盖更新
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br></div></div></li> <li><p>ac_importAccountByPriKey接口</p> <ul><li><p>接口说明</p> <p>该接口根据账户私匙导入账户</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importAccountByPriKey&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;00c22ad91a170fc49df53b79791f702879eb0604235787eee2c303463bf6e41111&quot;,
+        &quot;123456&quot;,
+        true
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>priKey</td> <td>true</td> <td>String</td> <td>账户私匙</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr> <tr><td>3</td> <td>overwrite</td> <td>true</td> <td>Boolean</td> <td>账户存在时是否覆盖</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">账户地址</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>事件总线模块：账户不存在时，发送导入账户事件</p> <p>账本模块：导入账户账本（已确认交易）</p></li></ul> <h4 id="_2-2-6-导入账户-keystore"><a href="#_2-2-6-导入账户-keystore" aria-hidden="true" class="header-anchor">#</a> 2.2.6 导入账户-keystore</h4> <ul><li><p>功能说明：</p> <p>根据keystore导入账户，根据keystore解析解密得到私匙并生成账户，并导入账户账本数据</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-import-keystore.5886df1e.png" alt></p> <p>导入账户keystore</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证keystore和密码是否匹配
+2、根据密码解密keystore中的私钥,keyStore包括json格式(address,encryptedPrivateKey,pubKey,prikey)
+3、根据私钥生成公私
+4、获取chainId和账户类型
+5、拼接字节数组组成地址
+6、生成地址字符串
+7、验证地址字符串和keystore中的地址是否一致
+8、存储账户信息
+9、发送导入账户事件：账户已存在的情况不发布新事件，只做覆盖更新
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>ac_importAccountByKeystore接口</p> <ul><li><p>接口说明</p> <p>该接口用于导入账户keystore</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importAccountByKeystore&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;HEX&quot;,
+        &quot;123456&quot;,
+        true
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>keyStore</td> <td>true</td> <td>String</td> <td>keyStore HEX编码</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr> <tr><td>3</td> <td>overwrite</td> <td>true</td> <td>Boolean</td> <td>账户存在时是否覆盖</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">账户地址</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>事件总线模块：账户不存在时，发送导入账户事件</p> <p>账本模块：导入账户账本（已确认交易）</p></li></ul> <h4 id="_2-2-7-导入多签账户"><a href="#_2-2-7-导入多签账户" aria-hidden="true" class="header-anchor">#</a> 2.2.7 导入多签账户</h4> <ul><li><p>功能说明：</p> <p>导入一个跟本地地址相关的多签账户，包括账户的地址、脚本的创建，多签账户信息保存到数据库</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证多签地址、签名公匙列表、最少验证签名数是否正确
+2、创建多重签名脚本
+3、根据多签脚本创建多重签名类型的账户地址
+4、判断导入的多签地址与脚本生成的地址是否相同，不相同则提示导入错误
+5、保存多签账户信息，包括：地址、公匙列表、最少验证签名数
+6、返回多签地址
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>ac_importMultiSigAccount接口</p> <ul><li><p>接口说明</p> <p>该接口用于导入多重签名账户。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importMultiSigAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        [&quot;pubKey1&quot;,&quot;pubKey2&quot;],
+        2
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>多签账户地址</td></tr> <tr><td>2</td> <td>pubkeys</td> <td>true</td> <td>jsonArray</td> <td>需要签名的公钥列表</td></tr> <tr><td>3</td> <td>minSigns</td> <td>true</td> <td>Integer</td> <td>最小签名数，最少需要几个公钥验证通过</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">多签地址</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-8-导出账户私匙"><a href="#_2-2-8-导出账户私匙" aria-hidden="true" class="header-anchor">#</a> 2.2.8 导出账户私匙</h4> <ul><li><p>功能说明：</p> <p>导出账户私匙十六进制编码，与查询账户私钥功能重叠，作废</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-export-prikey.49b3d4d1.png" alt></p> <p>导出账户私匙</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在，验证密码是否正确
+2、解密私钥，生成Hex字符串
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_exportAccountPriKey接口</p> <ul><li><p>接口说明</p> <p>该接口用于导出账户私匙。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_exportAccountPriKey&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>账户密码</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+    	&quot;priKey&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">地址</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">String</td> <td style="text-align:left">私匙十六进制</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-9-导出账户keystore"><a href="#_2-2-9-导出账户keystore" aria-hidden="true" class="header-anchor">#</a> 2.2.9 导出账户KeyStore</h4> <ul><li><p>功能说明：</p> <p>导出账户keystore</p></li> <li><p>流程描述</p> <p><img src="/assets/img/account-export-keystore.a0ab3ab5.png" alt></p> <p>导出账户keystore</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在，验证密码是否正确
+2、生成keystore文件
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_exportAccountKeyStore接口</p> <ul><li><p>接口说明</p> <p>该接口用于导出账户keystore。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_exportAccountKeyStore&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+        &quot;backup&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr> <tr><td>3</td> <td>path</td> <td>false</td> <td>String</td> <td>文件备份地址</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;path&quot;:&quot;backup/TTax8wqxALqjyhrL8Wv1tQiqswAshAnX.keystore&quot;
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">path</td> <td style="text-align:left">String</td> <td style="text-align:left">文件备份地址</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-10-查询全部账户"><a href="#_2-2-10-查询全部账户" aria-hidden="true" class="header-anchor">#</a> 2.2.10 查询全部账户</h4> <ul><li><p>功能说明：</p> <p>查询全部账户</p></li> <li><p>流程描述</p> <p>查询账户信息</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、查询全部账户信息
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div></li> <li><p>ac_getAccountList接口</p> <ul><li><p>接口说明</p> <p>接口说明：该接口用于查询全部账户。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;cmd&quot;:&quot;ac_getAccountList&quot;,
+    &quot;minVersion&quot;:1.0,
+    &quot;params&quot;:[
+        1234
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	[{
+         	&quot;address&quot;:&quot;&quot;,
+            &quot;alias&quot;:&quot;&quot;,
+            &quot;pubkeyHex&quot;:&quot;&quot;,
+            &quot;encryptedPrikeyHex&quot;:&quot;&quot;
+            },{}]
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">List</td> <td style="text-align:left">账户列表集合</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">账户地址</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">别名</td></tr> <tr><td style="text-align:left">pubkeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">公匙16进制编码</td></tr> <tr><td style="text-align:left">encryptedPrikeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">加密私匙16进制编码</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-11-根据地址获取账户"><a href="#_2-2-11-根据地址获取账户" aria-hidden="true" class="header-anchor">#</a> 2.2.11 根据地址获取账户</h4> <ul><li><p>功能说明：</p> <p>根据地址获取账户</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证地址是否存在
+2、根据地址获取账户
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_getAccountByAddress接口</p> <ul><li><p>接口说明</p> <p>该接口用于根据地址获取账户。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAccountByAddress&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+      &quot;address&quot;:&quot;&quot;,
+      &quot;alias&quot;:&quot;&quot;,
+      &quot;pubkeyHex&quot;:&quot;&quot;,
+      &quot;encryptedPrikeyHex&quot;:&quot;&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">账户地址</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">别名</td></tr> <tr><td style="text-align:left">pubkeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">公匙16进制编码</td></tr> <tr><td style="text-align:left">encryptedPrikeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">加密私匙16进制编码</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-12-查询账户地址列表"><a href="#_2-2-12-查询账户地址列表" aria-hidden="true" class="header-anchor">#</a> 2.2.12 查询账户地址列表</h4> <ul><li><p>功能说明：</p> <p>查询账户地址列表</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、校验分页参数是否合法，分页数、分页大小不能小于0，必须为整数；
+2、查询所有账户；
+3、过滤符合分页条件的账户；
+4、只返回账户的地址列表；
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></li> <li><p>ac_getAddressList接口</p> <ul><li><p>接口说明</p> <p>该接口用于查询账户地址列表。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAddressList&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        1,
+        10
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>pageNumber</td> <td>true</td> <td>Integer</td> <td>页码</td></tr> <tr><td>2</td> <td>pageSize</td> <td>true</td> <td>Integer</td> <td>每页显示数量</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	[&quot;&quot;,&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">地址列表集合</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-13-根据别名获取地址"><a href="#_2-2-13-根据别名获取地址" aria-hidden="true" class="header-anchor">#</a> 2.2.13 根据别名获取地址</h4> <ul><li><p>功能说明：</p> <p>根据别名获取地址</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、查询别名是否存在
+2、返回设置别名时使用的账户地址，并使用Base58对账户地址进行编码
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_getAddressByAlias接口</p> <ul><li><p>接口说明</p> <p>该接口用于根据别名获取地址。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAddressByAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;abc&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>alias</td> <td>true</td> <td>String</td> <td>别名</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">地址,Base58编码</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-14-查询账户私匙"><a href="#_2-2-14-查询账户私匙" aria-hidden="true" class="header-anchor">#</a> 2.2.14 查询账户私匙</h4> <ul><li><p>功能说明：</p> <p>查询账户私匙</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、校验地址是否正确，使用Base58解码，分别校验链ID、地址类型、校验位
+2、验证账户是否存在
+3、如果账户加过密(有密码), 就通过AES解密并验证密码是否正确，获得未加密私匙
+4、如果账户未加密，则不返回私钥，账户如果存在则返回账户有效标识
+5、使用十六进制编码，并返回账户私匙
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_getPriKeyByAddress接口</p> <ul><li><p>接口说明</p> <p>该接口用于查询账户私匙。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getPriKeyByAddress&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>address</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;priKey&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;,
+       &quot;valid&quot;:true
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">String</td> <td style="text-align:left">私匙十六进制</td></tr> <tr><td style="text-align:left">valid</td> <td style="text-align:left">Boolean</td> <td style="text-align:left">账户是否存在</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-15-查询所有账户私匙"><a href="#_2-2-15-查询所有账户私匙" aria-hidden="true" class="header-anchor">#</a> 2.2.15 查询所有账户私匙</h4> <ul><li><p>功能说明：</p> <p>查询所有账户私匙</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证密码格式是否正确，密码可为空
+2、获取所有本地账户
+3、本地账户的加密信息必须一致，如果参数密码不为空，所有账户的密码都必须与之相同，如果参数密码为空，所有账户都不能设置密码，否则提示错误
+4、如果账户加密则通过密码反解出未加密私匙，否则未加密直接获得私匙
+5、将所有私匙添加到集合并返回
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_getAllPriKey接口</p> <ul><li><p>接口说明</p> <p>该接口用于查询所有账户私匙。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAllPriKey&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>false</td> <td>Short</td> <td>链ID，默认为0查询所有链账户</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+      [&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">String</td> <td style="text-align:left">私匙集合</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-16-设置密码"><a href="#_2-2-16-设置密码" aria-hidden="true" class="header-anchor">#</a> 2.2.16 设置密码</h4> <ul><li><p>功能说明：</p> <p>设置密码</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在
+2、验证密码是否已经设置
+3、设置账户密码
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><p>ac_setPassword接口定义</p> <ul><li><p>接口说明</p> <p>该接口用于设置账户密码。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>账户密码</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">业务数据，密码设置是否成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-17-设置离线账户密码"><a href="#_2-2-17-设置离线账户密码" aria-hidden="true" class="header-anchor">#</a> 2.2.17 设置离线账户密码</h4> <ul><li><p>功能说明：</p> <p>设置离线账户密码</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证地址是否正确
+2、验证私匙是否正确
+3、根据私匙创建
+4、设置离线账户密码
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></li> <li><p>ac_setOfflineAccountPassword接口</p> <ul><li><p>接口说明</p> <p>该接口用于设置离线账户密码。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setOfflineAccountPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;00c22ad91a170fc49df53b79791f702879eb0604235787eee2c303463bf6e41111&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>priKey</td> <td>true</td> <td>String</td> <td>账户私匙</td></tr> <tr><td>3</td> <td>password</td> <td>true</td> <td>String</td> <td>账户密码</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;encryptedPriKey&quot;:&quot;&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">String</td> <td style="text-align:left">加密私匙</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-18-修改密码"><a href="#_2-2-18-修改密码" aria-hidden="true" class="header-anchor">#</a> 2.2.18 修改密码</h4> <ul><li><p>Request Body</p></li> <li><p>功能说明：</p> <p>修改密码</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证旧密码正确性
+2、更新私钥密文
+3、发送修改密码事件
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><p>ac_updatePassword接口</p> <ul><li><p>接口说明</p> <p>该接口用于修改账户密码。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_updatePassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;,
+        &quot;111111&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>账户密码</td></tr> <tr><td>3</td> <td>newPassword</td> <td>true</td> <td>String</td> <td>账户新密码</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">密码修改是否成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-19-修改离线账户密码"><a href="#_2-2-19-修改离线账户密码" aria-hidden="true" class="header-anchor">#</a> 2.2.19 修改离线账户密码</h4> <ul><li><p>功能说明：</p> <p>修改离线账户密码</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证地址是否正确
+2、根据地址、私匙、新密码生成离线账户
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_updateOfflineAccountPassword接口</p> <ul><li><p>接口说明</p> <p>该接口用于修改离线账户密码。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_updateOfflineAccountPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;00c22ad91a170fc49df53b79791f702879eb0604235787eee2c303463bf6e41111&quot;,
+        &quot;123456&quot;,
+        &quot;111111&quot;
+    ]
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>priKey</td> <td>true</td> <td>String</td> <td>私匙</td></tr> <tr><td>3</td> <td>password</td> <td>true</td> <td>String</td> <td>账户密码</td></tr> <tr><td>4</td> <td>newPassword</td> <td>true</td> <td>String</td> <td>账户新密码</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;encryptedPriKey&quot;:&quot;&quot;
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">String</td> <td style="text-align:left">加密私匙</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-20-验证密码"><a href="#_2-2-20-验证密码" aria-hidden="true" class="header-anchor">#</a> 2.2.20 验证密码</h4> <ul><li><p>功能说明：</p> <p>验证密码</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证密码是否正确
+2、返回验证结果
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_validationPassword接口</p> <ul><li><p>接口说明</p> <p>该接口用于验证密码。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_validationPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>账户密码</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">密码是否正确</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-21-验证账户是否加密"><a href="#_2-2-21-验证账户是否加密" aria-hidden="true" class="header-anchor">#</a> 2.2.21 验证账户是否加密</h4> <ul><li><p>功能说明：</p> <p>验证账户是否加密</p></li> <li><p>流程描述</p> <p>1、验证账户是否存在
+2、验证账户是否加密
+3、返回验证结果</p></li> <li><p>ac_isEncrypted接口</p> <ul><li><p>接口说明</p> <p>该接口用于验证账户是否加密。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_isEncrypted&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;value&quot;:true
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">账户是否加密</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-22-设置账户别名"><a href="#_2-2-22-设置账户别名" aria-hidden="true" class="header-anchor">#</a> 2.2.22 设置账户别名</h4> <ul><li><p>功能说明：</p> <p>设置账户别名</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证别名是否合法
+2、生成设置别名交易
+3、调用ledger填充交易费用信息
+4、广播交易
+5、交易确认后，会保存别名到数据库，将address和alias分别作为key存储，也就是别名数据会存两条数据，主要是为了便于根据address和alias分别查询
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_setAlias接口定义</p> <ul><li><p>接口说明</p> <p>该接口用于设置账户别名。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;,
+        &quot;abc&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr> <tr><td>3</td> <td>alias</td> <td>true</td> <td>String</td> <td>别名</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+      &quot;txHash&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">txHash</td> <td style="text-align:left">String</td> <td style="text-align:left">别名交易hash</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>账本模块：设置别名需要花费手续费</p></li></ul> <h4 id="_2-2-23-获取设置别名手续费"><a href="#_2-2-23-获取设置别名手续费" aria-hidden="true" class="header-anchor">#</a> 2.2.23 获取设置别名手续费</h4> <ul><li><p>功能说明：</p> <p>获取设置别名手续费</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在，验证别名是否正确
+2、计算别名设置所需手续费
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_getAliasFee接口</p> <ul><li><p>接口说明</p> <p>该接口用于获取设置别名手续费。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAliasFee&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;abc&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>alias</td> <td>true</td> <td>String</td> <td>别名</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;fee&quot;:&quot;100&quot;,
+        &quot;maxAmount&quot;:&quot;10000&quot;
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">fee</td> <td style="text-align:left">String</td> <td style="text-align:left">别名交易手续费</td></tr> <tr><td style="text-align:left">maxAmount</td> <td style="text-align:left">String</td> <td style="text-align:left">交易最大手续费</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-3-24-根据地址查询别名"><a href="#_2-3-24-根据地址查询别名" aria-hidden="true" class="header-anchor">#</a> 2.3.24 根据地址查询别名</h4> <ul><li><p>功能说明：</p> <p>根据地址查询别名</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在
+2、从数据库中查询账户对应的别名
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_getAliasByAddress接口</p> <ul><li><p>接口说明</p> <p>该接口用于根据地址查询别名。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAliasByAddress&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;alias&quot;:&quot;&quot;
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">账户别名</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-25-验证别名是否可用"><a href="#_2-2-25-验证别名是否可用" aria-hidden="true" class="header-anchor">#</a> 2.2.25 验证别名是否可用</h4> <ul><li><p>功能说明：</p> <p>验证别名是否可用</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、查询别名是否已存在，如果存在则不可用，反之则可用
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br></div></div></li> <li><p>ac_isAliasUsable接口</p> <ul><li><p>接口说明</p> <p>该接口用于验证别名是否可用。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_isAliasUsable&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;abc&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>alias</td> <td>true</td> <td>String</td> <td>账户别名</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">别名是否可用</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-26-设置账户备注"><a href="#_2-2-26-设置账户备注" aria-hidden="true" class="header-anchor">#</a> 2.2.26 设置账户备注</h4> <ul><li><p>功能说明：</p> <p>设置账户备注</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在
+2、修改备注信息并保存
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div></li> <li><p>ac_setRemark接口</p> <ul><li><p>接口说明</p> <p>该接口用于设置账户备注。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setRemark&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+        &quot;remark1&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>remark</td> <td>true</td> <td>String</td> <td>账户备注</td></tr></tbody></table></li> <li><p>返回示例</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">设置是否成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-27-设置多签账户别名"><a href="#_2-2-27-设置多签账户别名" aria-hidden="true" class="header-anchor">#</a> 2.2.27 设置多签账户别名</h4> <ul><li><p>功能说明：</p> <p>设置多签账户别名</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户地址、别名、账户密码、签名地址参数是否合法
+2、查询账户地址、签名地址是否存在
+3、生成设置多签账户别名交易
+4、调用ledger填充交易费用信息
+5、使用签名账户对交易进行签名
+6、当已签名数等于最少签名数则保存未确认交易到本地账户
+7、广播该交易
+8、返回交易hash
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>ac_setMultiSigAlias接口</p> <ul><li><p>接口说明</p> <p>该接口用于设置多签账户别名。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setMultiSigAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;DCQMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;,
+        &quot;abc&quot;
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>多签账户地址</td></tr> <tr><td>2</td> <td>signAddress</td> <td>true</td> <td>String</td> <td>签名地址</td></tr> <tr><td>3</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr> <tr><td>4</td> <td>alias</td> <td>true</td> <td>String</td> <td>别名</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;txHash&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">txHash</td> <td style="text-align:left">String</td> <td style="text-align:left">多签别名交易hash</td></tr></tbody></table></li></ul></li> <li><p>依赖服务</p> <p>账本模块：设置多签别名需要花费手续费</p></li></ul> <h4 id="_2-2-28-移除多签账户"><a href="#_2-2-28-移除多签账户" aria-hidden="true" class="header-anchor">#</a> 2.2.28 移除多签账户</h4> <ul><li><p>功能说明：</p> <p>移除多签账户</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户地址是否正确
+2、数据库中删除多签账户
+3、返回删除是否成功
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><p>ac_removeMultiSigAccount接口</p> <ul><li><p>接口说明</p> <p>该接口用于移除多签账户。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setMutilSigAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;DCQMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+    ]
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>多签账户地址</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">是否移除成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-29-交易统一验证"><a href="#_2-2-29-交易统一验证" aria-hidden="true" class="header-anchor">#</a> 2.2.29 交易统一验证</h4> <ul><li><p>功能说明：</p> <p>账户模块所有交易统一验证接口，目前只有别名交易</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、交易列表是否为空
+2、循环所有交易列表，针对别名交易进行处理
+3、检测当前交易列表中，是否存在设置相同的别名
+4、检测当前交易列表中，是否存在账户重复设置别名
+5、如果交易列表中没有冲突，则验证通过
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_accountTxValidate接口</p> <ul><li><p>接口说明</p> <p>该接口用于批量验证账户模块所有交易。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_accountTxValidate&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chianId, [&quot;txHex&quot;,&quot;txHex&quot;,&quot;txHex&quot;, ...]]
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>array</td> <td>别名交易序列化数据数组</td></tr></tbody></table> <p>txHex说明</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;10000&quot;,
+            &quot;nonce&quot;:&quot;123&quot;
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;1&quot;
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:12345,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;list&quot;:[&quot;txHex&quot;, &quot;txHex&quot;, &quot;txHex&quot;, ...]
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">不合法交易序列化数据数组</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-30-别名交易验证"><a href="#_2-2-30-别名交易验证" aria-hidden="true" class="header-anchor">#</a> 2.2.30 别名交易验证</h4> <ul><li><p>功能说明：</p> <p>别名交易验证接口</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、反序列化txHex别名交易数据
+2、验证别名格式
+3、验证别名是否已被占用
+4、验证该账户是否已设置别名
+5、验证coinData输入输出
+6、验证脚本签名格式
+7、验证签名中是否包含设置别名的地址，如果不包含则属于恶意犯规，否则验证通过
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br></div></div></li> <li><p>ac_aliasTxValidate接口</p> <ul><li><p>接口说明</p> <p>该接口用于单个别名交易。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_aliasTxValidate&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chainId,&quot;txHex&quot;]
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>String</td> <td>别名交易序列化数据</td></tr></tbody></table> <p>txHex说明</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;10000&quot;,
+            &quot;nonce&quot;:&quot;123&quot;
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;1&quot;
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:12345,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">是否验证成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-31-别名交易提交"><a href="#_2-2-31-别名交易提交" aria-hidden="true" class="header-anchor">#</a> 2.2.31 别名交易提交</h4> <ul><li><p>功能说明：</p> <p>别名交易提交，保存别名</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、反序列化txHex别名交易数据
+2、保存别名alias至数据库
+3、将别名设置到account然后保存至数据库
+4、将修改后的account重新进行缓存
+5、返回别名保存是否成功
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_aliasTxCommit接口</p> <ul><li><p>接口说明</p> <p>该接口用于保存别名。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_aliasTxCommit&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chainId,&quot;txHex&quot;,&quot;secondaryDataHex&quot;]
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>String</td> <td>别名交易序列化数据</td></tr> <tr><td>2</td> <td>secondaryDataHex</td> <td>true</td> <td>String</td> <td>区块头序列化数据</td></tr></tbody></table> <p>txHex说明</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;10000&quot;,
+            &quot;nonce&quot;:&quot;123&quot;
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;1&quot;
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:12345,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div><p>secondaryDataHex说明</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;txData&quot;:
+    {
+        &quot;hash&quot;:&quot;&quot;,
+        &quot;height&quot;:1,
+        &quot;time&quot;:13369748564
+    }
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">别名交易保存是否成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-32-别名交易回滚"><a href="#_2-2-32-别名交易回滚" aria-hidden="true" class="header-anchor">#</a> 2.2.32 别名交易回滚</h4> <ul><li><p>功能说明：</p> <p>别名交易回滚接口</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、反序列化txHex别名交易数据
+2、从数据库删除别名对象数据
+3、取出对应的account将别名清除,重新存入数据库
+4、重新缓存account
+5、返回别名回滚是否成功
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div></li> <li><p>ac_aliasTxRollback接口</p> <ul><li><p>接口说明</p> <p>该接口用于回滚别名。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_aliasTxRollback&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chainId,&quot;txHex&quot;,&quot;secondaryDataHex&quot;]
+}
+
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>String</td> <td>别名交易序列化数据</td></tr> <tr><td>2</td> <td>secondaryDataHex</td> <td>true</td> <td>String</td> <td>区块头序列化数据</td></tr></tbody></table> <p>txHex说明</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;10000&quot;,
+            &quot;nonce&quot;:&quot;123&quot;
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:&quot;1&quot;
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:12345,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br><span class="line-number">12</span><br><span class="line-number">13</span><br><span class="line-number">14</span><br><span class="line-number">15</span><br><span class="line-number">16</span><br><span class="line-number">17</span><br><span class="line-number">18</span><br><span class="line-number">19</span><br><span class="line-number">20</span><br><span class="line-number">21</span><br><span class="line-number">22</span><br><span class="line-number">23</span><br><span class="line-number">24</span><br><span class="line-number">25</span><br><span class="line-number">26</span><br></div></div><p>secondaryDataHex说明</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>&quot;txData&quot;:
+    {
+        &quot;hash&quot;:&quot;&quot;,
+        &quot;height&quot;:1,
+        &quot;time&quot;:13369748564
+    }
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br></div></div></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">别名交易回滚是否成功</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-33-数据签名"><a href="#_2-2-33-数据签名" aria-hidden="true" class="header-anchor">#</a> 2.2.33 数据签名</h4> <ul><li><p>功能说明：</p> <p>根据私钥将数据进行加密签名</p></li> <li><p>流程描述</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、验证账户是否存在，验证密码是否正确
+2、根据椭圆曲线算法对数据签名
+3、返回十六进制签名后数据
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><p>ac_signDigest接口</p> <ul><li><p>接口说明</p> <p>该接口用于数据签名。</p></li> <li><p>请求示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_signDigest&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: 
+    {
+        &quot;chainId&quot;:&quot;12345&quot;,
+        &quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;password&quot;:&quot;&quot;,
+        &quot;dataHex&quot;:&quot;&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br><span class="line-number">9</span><br><span class="line-number">10</span><br><span class="line-number">11</span><br></div></div></li> <li><p>请求参数说明</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>链ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>账户地址</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>账户密码</td></tr> <tr><td>3</td> <td>dataHex</td> <td>true</td> <td>String</td> <td>待签名数据HEX编码，如交易hash摘要</td></tr></tbody></table></li> <li><p>返回示例</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;signatureHex&quot;:&quot;&quot;
+    }
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br><span class="line-number">6</span><br><span class="line-number">7</span><br><span class="line-number">8</span><br></div></div></li> <li><p>返回字段说明</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">返回结果状态</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">失败时的信息</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">业务数据</td></tr> <tr><td style="text-align:left">signatureHex</td> <td style="text-align:left">string</td> <td style="text-align:left">签名后的数据</td></tr></tbody></table></li></ul></li></ul> <h3 id="_2-3-模块内部功能"><a href="#_2-3-模块内部功能" aria-hidden="true" class="header-anchor">#</a> 2.3 模块内部功能</h3> <h2 id="四、事件说明"><a href="#四、事件说明" aria-hidden="true" class="header-anchor">#</a> 四、事件说明</h2> <h3 id="_4-1-发布的事件"><a href="#_4-1-发布的事件" aria-hidden="true" class="header-anchor">#</a> 4.1 发布的事件</h3> <ul><li><p>创建账户</p> <p>event_topic : &quot;evt_ac_createAccount&quot;</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>data:{
+    address:''
+    isEncrypted：true   //是否设置了密码
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br></div></div></li> <li><p>删除账户</p> <p>event_topic : &quot;evt_ac_removeAccount&quot;</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>data:{
+	address:''
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li> <li><p>修改密码</p> <p>event_topic : &quot;evt_ac_updatePassword&quot;</p> <div class="language- line-numbers-mode"><pre class="language-text"><code>data:{
+	address:''
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li></ul> <h3 id="_4-2-订阅的事件"><a href="#_4-2-订阅的事件" aria-hidden="true" class="header-anchor">#</a> 4.2 订阅的事件</h3> <p>无</p> <h2 id="五、协议"><a href="#五、协议" aria-hidden="true" class="header-anchor">#</a> 五、协议</h2> <h3 id="_5-1-网络通讯协议"><a href="#_5-1-网络通讯协议" aria-hidden="true" class="header-anchor">#</a> 5.1 网络通讯协议</h3> <ul><li>无</li></ul> <h3 id="_5-2-交易协议"><a href="#_5-2-交易协议" aria-hidden="true" class="header-anchor">#</a> 5.2 交易协议</h3> <ul><li><p>设置别名</p> <ul><li><p>协议</p> <p>与通用交易相比，只有类型和txData有区别，具体区别如下</p></li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>type: n //设置别名交易的类型
+txData:{
+    address:  //VarByte 设置别名的地址
+    alias：   //VarByte 别名字符串转成的字节数组，用UTF-8解码
+}
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>别名交易参数</li></ul> <table><thead><tr><th>Len</th> <th>Fields</th> <th>Data Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>24</td> <td>address</td> <td>byte[]</td> <td>设置别名的地址</td></tr> <tr><td>32</td> <td>alias</td> <td>byte[]</td> <td>别名字符串转成的字节数组，用UTF-8解码</td></tr></tbody></table> <ul><li>验证器</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、别名格式合法性验证
+2、地址必须是卫星链地址，且一个地址只能设置一个别名
+3、烧毁一个token单位
+4、交易手续费
+5、签名：设置的地址、input、签名三者验证
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br><span class="line-number">4</span><br><span class="line-number">5</span><br></div></div><ul><li>处理器</li></ul> <div class="language- line-numbers-mode"><pre class="language-text"><code>1、资产处理器
+2、存储alias数据
+3、更新本地账户信息
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br><span class="line-number">3</span><br></div></div></li></ul> <h2 id="六、模块配置项"><a href="#六、模块配置项" aria-hidden="true" class="header-anchor">#</a> 六、模块配置项</h2> <div class="language- line-numbers-mode"><pre class="language-text"><code>server.ip:0.0.0.0   //本机ip，用于提供服务给其他模块
+server.port:8080    //提供服务的端口
+</code></pre> <div class="line-numbers-wrapper"><span class="line-number">1</span><br><span class="line-number">2</span><br></div></div><h2 id="七、java特有的设计"><a href="#七、java特有的设计" aria-hidden="true" class="header-anchor">#</a> 七、Java特有的设计</h2> <ul><li><p>Account对象设计</p> <p>该表存储时使用的key：</p> <p>NULS体系：chainId+type+hash160</p> <p>非NULS体系：chainId+length+address</p></li></ul> <table><thead><tr><th style="text-align:left"><code>字段名称</code></th> <th style="text-align:left"><code>type</code></th> <th style="text-align:left"><code>说明</code></th></tr></thead> <tbody><tr><td style="text-align:left">chainId</td> <td style="text-align:left">short</td> <td style="text-align:left">链ID</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">账户地址（Base58(address)+Base58(chainId)）</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">账户别名</td></tr> <tr><td style="text-align:left">status</td> <td style="text-align:left">Integer</td> <td style="text-align:left">是否默认账户（不保存）</td></tr> <tr><td style="text-align:left">pubKey</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">公匙</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">私匙-未加密</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">已加密私匙</td></tr> <tr><td style="text-align:left">extend</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">扩展数据</td></tr> <tr><td style="text-align:left">remark</td> <td style="text-align:left">String</td> <td style="text-align:left">备注</td></tr> <tr><td style="text-align:left">createTime</td> <td style="text-align:left">long</td> <td style="text-align:left">创建时间</td></tr></tbody></table> <ul><li>Address对象设计（不持久化存储）</li></ul> <table><thead><tr><th><code>字段名称</code></th> <th><code>type</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>chainId</td> <td>short</td> <td>链ID</td></tr> <tr><td>addressType</td> <td>byte</td> <td>地址类型</td></tr> <tr><td>hash160</td> <td>byte[]</td> <td>公匙hash</td></tr> <tr><td>addressBytes</td> <td>byte[]</td> <td>地址字节数组</td></tr></tbody></table> <ul><li><p>Alias对象设计</p> <p>该表存储时使用的key：</p> <p>address和alias分别作为key存储,别名数据存储两份</p> <p>需要按照不同的链分别创建不同的别名表</p></li></ul> <table><thead><tr><th><code>字段名称</code></th> <th><code>type</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>address</td> <td>byte[]</td> <td>账户地址</td></tr> <tr><td>alias</td> <td>String</td> <td>账户别名</td></tr></tbody></table> <ul><li>MultiSigAccount对象设计</li></ul> <table><thead><tr><th><code>字段名称</code></th> <th><code>type</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>address</td> <td>String</td> <td>账户地址</td></tr> <tr><td>pubKeyList</td> <td>List&lt;byte[]&gt;</td> <td>需要签名的公钥列表</td></tr> <tr><td>minSigns</td> <td>long</td> <td>最少签名数</td></tr></tbody></table> <h2 id><a href="#" aria-hidden="true" class="header-anchor">#</a></h2> <h2 id="八、补充内容"><a href="#八、补充内容" aria-hidden="true" class="header-anchor">#</a> 八、补充内容</h2></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/dev/docs/zh/NULSInfrastructure/accountModuleDesign.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2019-1-7 14:00:22</span></div></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/zh/NULSInfrastructure/generalProtocol.html" class="prev">
+          通用协议设计
+        </a></span> <span class="next"><a href="/zh/NULSInfrastructure/ledgerModuleDesign.html">
+          账本模块设计文档
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/assets/js/app.84b68317.js" defer></script><script src="/assets/js/9.d5f64971.js" defer></script>
+  </body>
+</html>

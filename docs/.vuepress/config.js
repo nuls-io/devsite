@@ -39,72 +39,64 @@ module.exports = {
                 sidebar: {
                     '/': [
                         {
-                            title: '1.Overview',
+                            title: 'Overview',
                             children: [
                                 '/overview/1-1introduction',
                                 '/overview/1-2structure',
                             ]
                         },
-                        {
-                            title: '2.How to contribute',
-                            children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
-                            ]
-                        },
-                        {
-                            title: '3.How to start NULS',
-                            children: [
-                                '/startNULS/3-1sourceCodeStartNULS',
-                                '/startNULS/3-2howToConnectMainnet',
-                                '/startNULS/3-3howToConnectTestnet',
-                                '/startNULS/3-4clientGUI',
-                                '/startNULS/3-5clientCLI',
-                            ]
-                        },
-                        {
-                            title: '4.Build a private chain',
-                            children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
-                            ]
-                        },
-                        {
-                            title: '5.NULS infrastructure',
-                            children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
-                            ]
-                        },
-                        {
-                            title: '6.Smart Contract',
-                            children: [
-                                '/smartContract/6-1developerManual',
-                                '/smartContract/6-2GUIForSmartContract',
+                        // {
+                        //     title: '2.How to contribute',
+                        //     children: [
+                        //         '/contribution/mainNetworkDevelopment',
+                        //         '/contribution/reportError',
+                        //         '/contribution/2-3translateDocuments',
+                        //         '/contribution/2-4writingDocument'
+                        //     ]
+                        // },
+                        // {
+                        //     title: '3.How to start NULS',
+                        //     children: [
+                        //         '/startNULS/sourceCodeStartNULS',
+                        //         '/startNULS/3-howToConnectMainnet',
+                        //         '/startNULS/3-3howToConnectTestnet',
+                        //         '/startNULS/3-4clientGUI',
+                        //         '/startNULS/3-5clientCLI',
+                        //     ]
+                        // },
+                        // {
+                        //     title: '4.Build a private chain',
+                        //     children: [
+                        //         '/contribution/2-1mainNetworkDevelopment',
+                        //         '/contribution/2-2reportError',
+                        //         '/contribution/2-3translateDocuments',
+                        //         '/contribution/2-4writingDocument'
+                        //     ]
+                        // },
+            
+                        // {
+                        //     title: '6.Smart Contract',
+                        //     children: [
+                        //         '/smartContract/6-1developerManual',
+                        //         '/smartContract/6-2GUIForSmartContract',
                                 
-                            ]
-                        },
-                        {
-                            title: '7.Developer tools',
-                            children: [
-                                '/developerTools/7-1sdk',
-                            ]
-                        },
-                        {
-                            title: '8.NULS navigation',
-                            children: [
-                                '/contribution/2-1mainNetworkDevelopment',
-                                '/contribution/2-2reportError',
-                                '/contribution/2-3translateDocuments',
-                                '/contribution/2-4writingDocument'
-                            ]
-                        },
+                        //     ]
+                        // },
+                        // {
+                        //     title: '7.Developer tools',
+                        //     children: [
+                        //         '/developerTools/7-1sdk',
+                        //     ]
+                        // },
+                        // {
+                        //     title: '8.NULS navigation',
+                        //     children: [
+                        //         '/contribution/2-1mainNetworkDevelopment',
+                        //         '/contribution/2-2reportError',
+                        //         '/contribution/2-3translateDocuments',
+                        //         '/contribution/2-4writingDocument'
+                        //     ]
+                        // },
                     ]
                 },
             },
