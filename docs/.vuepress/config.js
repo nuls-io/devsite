@@ -129,6 +129,7 @@ module.exports = {
                             children: [
                                 '/zh/overview/introduction',
                                 '/zh/overview/structure',
+                                '/zh/overview/howToContribute',
                             ]
                         },
                         {
@@ -178,7 +179,6 @@ module.exports = {
                                 '/zh/NULSInfrastructure/rpcToolWebsocketDesign',
                                 '/zh/NULSInfrastructure/interfaceStandard',
                                 '/zh/NULSInfrastructure/randomImplementations',
-                                '/zh/NULSInfrastructure/buildNewChainBasedOnInfrastructure',
                             ]
                         },
                         {

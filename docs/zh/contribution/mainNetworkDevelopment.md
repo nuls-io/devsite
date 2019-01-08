@@ -1,2 +1,0 @@
-<NavBar></NavBar>
-
