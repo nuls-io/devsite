@@ -41,62 +41,96 @@ module.exports = {
                         {
                             title: 'Overview',
                             children: [
-                                '/overview/1-1introduction',
-                                '/overview/1-2structure',
+                                '/overview/introduction',
+                                '/overview/structure',
+                                '/overview/howToContribute',
                             ]
                         },
-                        // {
-                        //     title: '2.How to contribute',
-                        //     children: [
-                        //         '/contribution/mainNetworkDevelopment',
-                        //         '/contribution/reportError',
-                        //         '/contribution/2-3translateDocuments',
-                        //         '/contribution/2-4writingDocument'
-                        //     ]
-                        // },
-                        // {
-                        //     title: '3.How to start NULS',
-                        //     children: [
-                        //         '/startNULS/sourceCodeStartNULS',
-                        //         '/startNULS/3-howToConnectMainnet',
-                        //         '/startNULS/3-3howToConnectTestnet',
-                        //         '/startNULS/3-4clientGUI',
-                        //         '/startNULS/3-5clientCLI',
-                        //     ]
-                        // },
-                        // {
-                        //     title: '4.Build a private chain',
-                        //     children: [
-                        //         '/contribution/2-1mainNetworkDevelopment',
-                        //         '/contribution/2-2reportError',
-                        //         '/contribution/2-3translateDocuments',
-                        //         '/contribution/2-4writingDocument'
-                        //     ]
-                        // },
-            
-                        // {
-                        //     title: '6.Smart Contract',
-                        //     children: [
-                        //         '/smartContract/6-1developerManual',
-                        //         '/smartContract/6-2GUIForSmartContract',
-                                
-                        //     ]
-                        // },
-                        // {
-                        //     title: '7.Developer tools',
-                        //     children: [
-                        //         '/developerTools/7-1sdk',
-                        //     ]
-                        // },
-                        // {
-                        //     title: '8.NULS navigation',
-                        //     children: [
-                        //         '/contribution/2-1mainNetworkDevelopment',
-                        //         '/contribution/2-2reportError',
-                        //         '/contribution/2-3translateDocuments',
-                        //         '/contribution/2-4writingDocument'
-                        //     ]
-                        // },
+                        {
+                            title: 'Users guide',
+                            children: [
+                                // '/guide/GUIGuide',
+                                // '/guide/webGuide',
+                                '/guide/NULSTransaction',
+                            ]
+                        },
+                        {
+                            title: 'Community',
+                            children: [
+                                '/community/toolsGuide',
+                                '/community/ambassadorRules',
+                                '/community/communityConstitution',
+                                '/community/communityFund',
+                            ]
+                        },
+                        {
+                            title: 'Launch NULS',
+                            children: [
+                                '/startNULS/sourceCodeStartNULS',
+                                '/startNULS/connectMainnet',
+                                '/startNULS/connectTestnet',
+                            ]
+                        },
+                        {
+                            title: 'Quickly building a chain',
+                            children: [
+                                '/buildChain/buildPrivateChain',
+                            ]
+                        },
+                        {
+                            title: 'Underlying design of NULS',
+                            children: [
+                                '/NULSInfrastructure/NULS2.0Introduction',
+                                '/NULSInfrastructure/networkModuleDesign',
+                                '/NULSInfrastructure/eventBusModuleDesign',
+                                '/NULSInfrastructure/generalProtocol',
+                                '/NULSInfrastructure/accountModuleDesign',
+                                '/NULSInfrastructure/ledgerModuleDesign',
+                                '/NULSInfrastructure/blockModuleDesign',
+                                // '/zh/NULSInfrastructure/transactionModuleDesign',
+                                '/NULSInfrastructure/chainModuleDesign',
+                                '/NULSInfrastructure/consensusModuleDesign',
+                                '/NULSInfrastructure/rpcToolWebsocketDesign',
+                                '/NULSInfrastructure/interfaceStandard',
+                                '/NULSInfrastructure/randomImplementations',
+                            ]
+                        },
+                        {
+                            title: 'Smart Contracts',
+                            children: [
+                                '/smartContract/startSmartContract',
+                                '/smartContract/developerManual',
+                                '/smartContract/GUIForSmartContract',
+                                '/smartContract/ideaPlugin',
+                                '/smartContract/NRC-20TokenStandard',
+                                '/smartContract/smartContractFee'
+                               
+                            ]
+                        },
+                        {
+                            title: 'Developer Tools',
+                            children: [
+                                '/developerTools/sdk',
+                                // '/zh/developerTools/APIManual',
+                                '/developerTools/smartContractIDEAPlugin',
+                            ]
+                        },
+                        {
+                            title: 'NIPs',
+                            children: [
+                                '/nips/NIPIntroduction',
+                                '/nips/NIP-1',
+                                '/nips/NIP-2',
+                                '/nips/NIP-3',
+                                '/nips/NIP-4',
+                            ]
+                        },
+                        {
+                            title: 'NULS Portal',
+                            children: [
+                                '/nulsNav/NULSNav',
+                            ]
+                        },
                     ]
                 },
             },
@@ -127,8 +161,8 @@ module.exports = {
                         {
                             title: '用户操作指南',
                             children: [
-                                '/zh/guide/GUIGuide',
-                                '/zh/guide/webGuide',
+                                // '/zh/guide/GUIGuide',
+                                // '/zh/guide/webGuide',
                                 '/zh/guide/NULSTransaction',
                             ]
                         },
@@ -181,7 +215,7 @@ module.exports = {
                                 '/zh/smartContract/GUIForSmartContract',
                                 '/zh/smartContract/ideaPlugin',
                                 '/zh/smartContract/NRC-20TokenStandard',
-                                '/zh/smartContract/smartContractDemo',
+                                // '/zh/smartContract/smartContractDemo',
                                 // '/zh/smartContract/6-6communityVote',
                                 '/zh/smartContract/smartContractFee'
                                
@@ -191,7 +225,7 @@ module.exports = {
                             title: '开发者工具',
                             children: [
                                 '/zh/developerTools/sdk',
-                                '/zh/developerTools/APIManual',
+                                // '/zh/developerTools/APIManual',
                                 '/zh/developerTools/smartContractIDEAPlugin',
                             ]
                         },

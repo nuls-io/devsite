@@ -1,4 +1,4 @@
-#  [快速入门] 智能合约插件
+#   智能合约插件操作手册
 
 #### 1 在IDEA安装NULS插件
 - [获取NULS插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip)ZIP包，存放在磁盘

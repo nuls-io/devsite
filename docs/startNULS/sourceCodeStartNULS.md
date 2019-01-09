@@ -1,60 +1,41 @@
-title: How to run the node
---------------------------
+# Launching NULS with source code
 
-## What you'll need
+## Downloading source code
 
-* JDK 1.8
-* Maven 3.3+
-* Git 2.x
-* IDE ( Optional )
+Visit the NULS project on github: https://github.com/nuls-io/nuls
 
-## Getting Source
+Option 1: downloading the source code directly
 
-```sh
-$ git clone https://github.com/nuls-io/nuls.git && cd nuls
-```
+ 	After accessing the github, click the "Clone or download" button and select Download ZIP to download the source-code package.
 
-## Build Source
+Option 2: running the git command to clone the NULS repository 
 
-Make sure the JDK version is 1.8
+ 	` git clone https://github.com/nuls-io/nuls.git`
 
-```sh
-$ mvn -v
-Apache Maven 3.5.4 (1edded0938998edf8bf061f1ceb3cfdeccf443fe; 2018-06-18T02:33:14+08:00)
-Maven home: /usr/local/Cellar/maven/3.5.4/libexec
-Java version: 1.8.0_171, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home/jre
-```
+Option 3: (recommended): cloning the NULS repository with development tools such as IntelliJ IDEA.
 
-If the Java version is not 1.8, it is recommended to install and set it to version 1.8.
+## Environment description
 
-Now,we can build the node.
+ 	Operating Systems: macOS, Windows
 
-```
-$ mvn clean package
-```
+ 	Building Tools: maven
 
-After the command is successfully executed, you can find the compilation result in the path.
+ 	Development Tools: IntelliJ IDEA
 
-> client-module/client/target/nuls-node.tar.gz
+ 	Development Language: Java (JDK1.8)
 
-## Run Node
+## Basic introduction of launching NULS 
 
-```shell
-$ mvn clean package
-$ cd client-module/client/target
-$ mkdir nuls-node
-$ tar -zxvf nuls-node.tar.gz -C nuls-node
-$ cd nuls-node/bin
-```
+ 	Since blockchain is a decentralized network composed of multiple nodes, it makes no sense to launch a node with NULS source code alone, and it is also not feasible. This tutorial assumes an existing custom test-net running with NULS source code, and the source code other than the network parameters is not modified when building the network. How can we run the NULS source code and join the network 
 
-- Using start.sh running the nuls process.  
-- Using stop.sh stop the nuls process.
-- Using cmd.sh running the nuls shell.
+1. First install jdk1.8 and the build tool - maven.
 
-
-## Use IDEA
-
-Import the project folder into the IDEA and set configurations.
-
-
-![图片](assert/launcher.jpg)
+ 2. Run IntelliJ IDEA
+     - If you download the source code package, extract it and import the NULS project via IntelliJ IDEA
+     - If you download the source code by running git command to clone the NULS repository, import the NULS project via IntelliJ IDEA.
+     - Clone the NULS repository via IntelliJ IDEA’s Git plugin.
+ 3. Configure network environment parameters consistent with the existing network.
+     - Open the module.ini configuration file in the client-module project
+     - It is recommended to replace the module.ini file with that of other nodes in the known custom test-net to ensure the consistency of the network environment parameters.
+ 4. Run the NULS boot class Bootstrap.java in the client-module project, located in `io.nuls.client` package.
+ 5. The NULS wallet interface will be opened during start-up process and the block height of the custom test-net will be synchronized, indicating that the startup is successful.

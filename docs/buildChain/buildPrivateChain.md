@@ -1,79 +1,79 @@
-## 如何基于NULS搭建私链
+# How to build a private chain based on NULS
 
-#### 简介
+## Introduction
 
-​	本教程是基于NULS源代码介绍如何搭建私链，目的是为了方便学习了解NULS区块链网络运行，开发或者实验。自己搭建一条链来全方位的了解各节点是如何运行以及数据交互等，可以更好的把握NULS区块链网络的整体运行机制，有助于更深一步的研究。我们默认本文阅读者是具备Java开发环境的构建和调试技能的。
-
-
-
-#### 环境搭建
-
-- 操作系统：macOS、Windows
-- 构建工具：Maven
-- 开发工具：IntelliJ IDEA
-- NULS源码github地址：https://github.com/nuls-io/nuls
+This tutorial guides you to build a private chain based on NULS source code, to make is easier for users to learn about the operation, development or experiment of the NULS Blockchain. By building a chain to fully understand the operation of each node and data interaction, we can better grasp the overall operating mechanism of the NULS Blockchain, which is conducive to further research. We assume that readers have the skills to set up and debug a Java development environment.
 
 
 
-#### 开始
+## Setting up environment
 
-​	由于区块链是去中心化网络，是由多个节点组成，我们将以3个节点搭建一条私链为例进行介绍。虽然我们建议使用Linux服务器来作为运行NULS主网共识节点的服务器，但由于涉及到开发调试的需求，本文我们将在可以搭建Java开发环境的macOS系统上运行调试节点。
+- Operating systems: macOS, Windows
+- Build Tools: Maven
+- Development Tools: IntelliJ IDEA
+- NULS source code on github: https://github.com/nuls-io/nuls
 
-##### 开发环境
 
-​	首先使用IntelliJ IDEA克隆NULS源代码，并打开项目。确保Java使用的是jdk1.8，以及Maven工具配置正确。
 
-##### 如何搭建
+## Beginning
 
-​	1.打开module.ini 文件，该文件为加入或组建网络的配置文件，此示例是NULS测试网的配置信息。
+Since blockchain is a decentralized network composed of multiple nodes, we will take a private chain with three nodes as an example. Although we recommend using a Linux server to run the NULS main-net consensus node, in this tutorial, we choose macOS system that can set up a Java development environment to run and debug nodes.
 
-![image-20190103193901967](images/image-20190103193901967.png)
+## Development environment
 
-2.我们将用3个节点来搭建一条私链，首先需要准备可供3个节点运行的设备(可以是虚拟机)。
+First, clone the NULS source code using IntelliJ IDEA and open the project. Make sure JDK is the jdk1.8 version and Maven is configured correctly.
 
-- 节点A：192.168.1.1
-- 节点B：192.168.1.2
-- 节点C：192.168.1.3
+## Steps to build
 
-我们还需要设置一个种子节点，用来进行维持区块链的运行，即打包出块。同时我们还需要准备一个出块地址（包括私钥，用于在种子节点导入该地址），可以事先准备。
+1. Open the module.ini file, which is the configuration file for joining or building the network. In this tutorial, it is the configuration information of the NULS test-net.
 
-本例我们准备的初始出块地址为：`Nse4zpZHsUuU7h5ymv28pcGbwHju3joV`
+![image-20190103193901967](./images/image-20190103193901967.png)
 
-PS：如果你比较细心你可能为发现我们准备的地址和图中测试网的地址的开头字母是不一样的，那是为了让用户更容易识别测试网地址和主网地址，以免混淆导致不良后果，我们特意将测试网地址设置为以"TT"开头，将主网地址设置为"Ns"开头，而本教程使用的是NULS主分支代码，所以使用"Ns"开头的地址。如果您想自定义私链的账户地址开头字母，可以尝试修改nuls.ini文件中的`chain.id`参数，同一条链的节点该参数必须一致。
+2. We will use three nodes to build a private chain. First we need to prepare devices (virtual machine works) for three nodes to run.
 
-3. 假设节点A为种子节点，那么将A、B、C三个节点的module.ini配置文件的network、consensus节都按照以下配置进行修改：
+- Node A: 192.168.1.1
+- Node B: 192.168.1.2
+- Node C: 192.168.1.3
+
+We also need to set up a seed node to maintain the operation of the blockchain, i.e., to package and forge blocks. In addition, we need to prepare a block-forging address (including private key, to import into the seed node), which can be prepared in advance.
+
+In this tutorial, the initial block-forging address we prepare is: 
+`Nse4zpZHsUuU7h5ymv28pcGbwHju3joV`
+
+PS: You may find that the first few letters of the address we prepare differs from those of the test-net address in the figure, which is for the sake of distinguishing the test-net address from the main-net address, so as to avoid confusion that may result in adverse consequences. Specifically, we set the test-net address to start with "TT" and the main-net address to start with "Ns". This tutorial uses the NULS main-branch code, so the address starts with "Ns". If you prefer to custom the starting letters of the private-chain account address, you can try to modify the `chain.id` parameter in the nuls.ini file. The parameters of the same chain must be in consistence.
+
+3. Assuming node A is the seed node, then modify the network and consensus sections of the module.ini configuration file of three nodes A, B and C according to the following configuration:
 
 ```ini
 [network]
-bootstrap=io.nuls.network.netty.module.impl.NettyNetworkModuleBootstrap
-network.server.port=8003
-network.magic=20190101
-network.max.in=100
-network.max.out=10
-network.seed.ip=192.168.1.1:8003
+Bootstrap=io.nuls.network.netty.module.impl.NettyNetworkModuleBootstrap
+Network.server.port=8003
+Network.magic=20190101
+Network.max.in=100
+Network.max.out=10
+Network.seed.ip=192.168.1.1:8003
 
 [consensus]
-bootstrap=io.nuls.consensus.poc.module.impl.PocConsensusModuleBootstrap
-partake.packing=true
-min.upgrade.delay=1000
-seed.nodes=Nse4zpZHsUuU7h5ymv28pcGbwHju3joV
+Bootstrap=io.nuls.consensus.poc.module.impl.PocConsensusModuleBootstrap
+Partake.packing=true
+Min.upgrade.delay=1000
+Seed.nodes=Nse4zpZHsUuU7h5ymv28pcGbwHju3joV
 ```
 
-- 将`work.seed.ip`修改为种子节点的ip和端口。
-- 将`seed.nodes`修改为出块地址。
-- 必须保证私链所有节点的魔法参数`network.magic`一致
+- Modify `work.seed.ip` to the ip and port of the seed node.
+- Modify `seed.nodes` to the block-forging address.
+- The consistency of the magic parameters `network.magic` of all nodes in the private chain is a must.
 
-4. 通过IntelliJ IDEA分别将3个节点运行起来，如果只需要调试其中一个节点，那么其他两个节点可以用maven打包发送到Linux服务器中运行，但是要注意的是需要准备一个jre放到NULS根目录中才能正常运行。
-5. 这3个节点启动后直到IntelliJ IDEA控制台有类似以下日志输出，则表示3个节点已近组成一个私有链的网络，但是没有打包出块，高度为0。如果没有日志输出，需要打开logback.xml中`<appender-ref ref="STDOUT"/>`的注释。
-
-```
-io.nuls.client.Bootstrap.sysStart(Bootstrap.java:156):bestHeight:0 , txCount : 1 io.nuls.client.Bootstrap.sysStart(Bootstrap.java:174):height:0,count:2, hash:xxxxxxx,192.168.1.2:8003,192.168.1.2:8003
+4. Run the three nodes separately through IntelliJ IDEA. If you only need to debug one node, the other two nodes can be packaged with maven and sent to a Linux server to run. Remarkably, a jre must be placed in the NULS root directory to run properly.
+5. After launching the three nodes, once the IntelliJ IDEA console has the following log output, it means that the three nodes have successfully formed a private chain network, but it still cannot produce new blocks and the block height is 0. If there is no log output, you need to uncomment the `<appender-ref ref="STDOUT"/>` in logback.xml.
 
 ```
+io.nuls.client.Bootstrap.sysStart(Bootstrap.java:156):bestHeight:0 , txCount : 1 io.nuls.client.Bootstrap.sysStart(Bootstrap.java:174):height:0,count:2, hash :xxxxxxx,192.168.1.2:8003,192.168.1.2:8003
 
-6. 这时在种子节点A的钱包界面中，导入事先准备的出块账户`Nse4zpZHsUuU7h5ymv28pcGbwHju3joV`，稍等一会儿，则可以看见控制台的最新高度在增加了，表示网络已经在打包出块了，而与此同时B节点、C节点高度也会增加并且3个节点高度保持一致，此时表示私有链网络已经搭建完成。
+```
 
-#### 总结
+6. Then import the prepared block-forging account `Nse4zpZHsUuU7h5ymv28pcGbwHju3joV` via wallet interface of the seed node A. After a while, you can see the latest height displayed in the console increasing, which indicates that the network is producing new blocks. At the same time, the height of the node B, C will also increase and the height of the three nodes will remain the same. At this point, the setup of the private chain network is completed.
 
-​	本文主要介绍使用最简便的方式搭建一个用于开发调试NULS的私链，并没有修改NULS的源代码。如果您需要更进一步探索NULS，可以查阅NULS的相关文档并在此基础上对源码进行修改调试，或许您会发现更多的奥秘！
+## Conclusion
 
+This tutorial mainly introduces the easiest way to build a private chain for the development and debugging of NULS, without modification on the source code of NULS. If you want to dig deeper into NULS, you can refer to the relevant documentation of NULS to modify and debug the source code. Maybe you will find more secrets!
