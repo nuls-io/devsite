@@ -1187,8 +1187,6 @@ Cache each forked chain (starting height, starting hash, ending height, ending h
     The height difference is less than 1000 cached to disk, the disk space is limited in size, and the height is discarded. 
     If the cache space is full, the forked chain is cleared in the order of adding cache time.
 
-  ![](./image/consensus-module/consensus-flow-4.png)
-
 * Dependent service
 
   Database storage tool of tool modules
@@ -1208,8 +1206,6 @@ Cache each forked chain (starting height, starting hash, ending height, ending h
         - Verify the block in the forked chain if the verification continues by going down
         - Roll back the main chain block
         - Switch the fork chain as the main chain
-
-![](./image/consensus-module/consensus-flow-3.png)
 
 * Dependent service
 
@@ -1259,8 +1255,6 @@ Cache each forked chain (starting height, starting hash, ending height, ending h
   omit
 
 * process description
-
-![](./image/consensus-module/consensus-flow-6.png)
 
     - Start monitoring scheduled tasks, once every minute
     - Take the local latest block header
