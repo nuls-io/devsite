@@ -2,8 +2,7 @@
 
 ## 1. Running the test-net environment, creating an account, and claiming test tokens.
 
-[Preparations for deployment and invocation of smart contracts] (Connecting the test-net documentation)
-> `//TODO wait for connecting the test-net documentation`
+[Preparations for deployment and invocation of smart contracts](/startNULS/connectTestnet.html)
 
 
 ## 2. Installing JDK8, IntelliJ IDEA and NULS smart-contract plug-ins

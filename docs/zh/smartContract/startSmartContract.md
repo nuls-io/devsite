@@ -2,8 +2,7 @@
 
 ## 一、运行公测环境，创建账户，领取测试币
 
-[为部署、调用智能合约做准备。](连接测试网文档链接)
-> `//TODO 等待连接测试网文档链接`
+[为部署、调用智能合约做准备](/zh/startNULS/connectTestnet.html)
 
 
 ## 二、安装JDK8、IntelliJ IDEA、NULS智能合约插件
