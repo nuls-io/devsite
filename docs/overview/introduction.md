@@ -6,18 +6,18 @@ Following the principles of pluggability, modularization and parallel expansion,
 
 Upholding the "chain" as the core in the NULS development philosophy, NULS is striving for building its core product: "Chain Factory". In the meantime, NULS will realize the value circulation among chains through cross-chain module and build the ecosystem of blockchains.
 
-## 1 Our Mission
+## 1. Our Mission
 
 - Provide flexible blockchain technology that supports a wide variety of enterprise applications
 - Efficient, high performance technology to solve bottlenecks
 - Promote usage of blockchain technology by reducing the barrier of entry development cost
 - Provide the most powerful system of trust through a decentralized network
-## 2.Whitepaper
+## 2. Whitepaper
 The NULS whitepaper is an authoritative report that addresses what NULS’ goal is and how we plan to achieve it.
 
 [Learn more from whitepaper](https://nuls.io/api/v1/download/files/papers/white/NulsWhitepaper1.1.pdf)
 
-## 3.Yellowpaper
+## 3. Yellowpaper
 
 The NULS yellowpaper is the technical detailed version of the whitepaper, which drills down into the underlying aspects of NULS.
 

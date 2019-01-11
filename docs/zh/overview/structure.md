@@ -8,7 +8,7 @@
 - [用户操作指南](/zh/guide/NULSTransaction.html)
 
     如果你是一个新用户，那这里有你需要的东西，进来看看吧
-- [社区](http://localhost:8080/zh/community/toolsGuide.html)
+- [社区](/zh/community/toolsGuide.html)
 
    区块链项目总是以社区为基础的，从这里你可以了解到关于NULS社区各个方面的知识
 - [启动NULS](/zh/startNULS/sourceCodeStartNULS.html)
