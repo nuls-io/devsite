@@ -216,7 +216,8 @@ module.exports = {
                                 '/zh/smartContract/NRC-20TokenStandard',
                                 // '/zh/smartContract/smartContractDemo',
                                 // '/zh/smartContract/6-6communityVote',
-                                '/zh/smartContract/smartContractFee'
+                                '/zh/smartContract/smartContractFee',
+                                '/zh/smartContract/randomImplementations',
                                
                             ]
                         },
