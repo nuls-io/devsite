@@ -203,7 +203,6 @@ module.exports = {
                                 '/zh/NULSInfrastructure/consensusModuleDesign',
                                 '/zh/NULSInfrastructure/rpcToolWebsocketDesign',
                                 '/zh/NULSInfrastructure/interfaceStandard',
-                                '/zh/NULSInfrastructure/randomImplementations',
                             ]
                         },
                         {
