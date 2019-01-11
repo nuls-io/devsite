@@ -19,7 +19,7 @@
 > The event module is an edge system that provides some major asynchronous messaging, which means that even without an event bus, the system can operate normally, is lightweight, and does not depend on other module systems.
 
 ### 1.2 Architecture
-![event-bus-module](image/eventbus/event-bus-module.png)
+![event-bus-module](./image/eventbus/event-bus-module.png)
 
 - The event bus module mainly contains 2 parts of interactive logic:
   - Microservice registration and service information acquisition with the system core module.
@@ -28,10 +28,10 @@
 ## 2. functional design
 
 ### 2.1 Functional Architecture
-![event-bus-content](image/eventbus/event-bus-content.png)
+![event-bus-content](./image/eventbus/event-bus-content.png)
 
 ### 2.2 Module Service
-![event-bus-model](image/eventbus/event-bus-model.png)
+![event-bus-model](./image/eventbus/event-bus-model.png)
 
 > This module provides event subscriptions, event forwarding
 
@@ -40,7 +40,7 @@
 > Only rely on the core system, the core system can start, stop, modify parameters, etc. of the event module system,
 
 ### 2.3 Module internal function
-![event-bus-function](image/eventbus/event-bus-function.png)
+![event-bus-function](./image/eventbus/event-bus-function.png)
 
 > Module internal work mainly includes, subscription manager, event manager, and forwarding manager.
 
@@ -58,11 +58,11 @@
 
 * Event processing timing
 
-![event-bus-seq-flow](image/eventbus/event-bus-seq-flow.png)
+![event-bus-seq-flow](./image/eventbus/event-bus-seq-flow.png)
 
 - Event processing basic process
 
-![event-bus-main-flow](image/eventbus/event-bus-main-flow.png)
+![event-bus-main-flow](./image/eventbus/event-bus-main-flow.png)
 
 ### 2.5 Business Logic
 

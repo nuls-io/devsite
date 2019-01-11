@@ -1,6 +1,6 @@
 # NULS交易指南
 
-## 货币交易使用指南
+## 火币交易使用指南
 - 中文：https://huobiglobal.zendesk.com/hc/zh-cn/categories/115000389432
 - English：https://huobiglobal.zendesk.com/hc/en-us/categories/115000389432
 

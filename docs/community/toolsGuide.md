@@ -8,11 +8,11 @@ typora-copy-images-to: communityImagesCN
 
 If you want to participate in the community vote X created by address A, you can search for the community vote you want to participate in by entering the community vote title X or the creator’s address A. After finding the community vote X, you can see some key information about the community vote in the voting list.
 
-![1542526165310](communityImagesCN/1542526165310.png)
+![1542526165310](./communityImagesCN/1542526165310.png)
 
 Click on the title of the community vote X to enter the voting details page, which shows the detailed information of the vote. The upper right corner shows my address B and my corresponding available votes N. The available votes are subject to the total amount of NULS in my address B. Currently the ratio of votes to NULS is 1:1, while the fractional part of the total is excluded.
 
-![1542526178695](communityImagesCN/1542526178695.png)
+![1542526178695](./communityImagesCN/1542526178695.png)
 
 If community voting is still in progress, you can cast your vote by selecting the appropriate option according to the voting rules, and then click "Vote" to enter the password and submit your vote. 
 
@@ -26,17 +26,17 @@ Each option in the voting details page is clickable to show the current or final
 
 As mentioned before, if the creator sets the voting result to be changeable when creating the community vote Y and voting is still in progress, then the voter can re-enter the details page of the community vote Y, select a new option according to the voting rules, and update their vote. Simply click "Update Voting" and enter the password to complete the new submission.
 
-![1542526190286](communityImagesCN/1542526190286.png)
+![1542526190286](./communityImagesCN/1542526190286.png)
 
 There will be a well-marked icon in the voting list that indicates whether a community vote is of the changeable type.
 
-![1542526202833](communityImagesCN/1542526202833.png)
+![1542526202833](./communityImagesCN/1542526202833.png)
 
 ### 3 Checking My Votes
 
 In the voting list, click on "My Voting" on the right to enter “my” voting list, which shows the community votes created by you and the community votes you participated in. If Z is the community vote you have created, and it is still in progress, then its address will appear yellow.
 
-![1542526213174](communityImagesCN/1542526213174.png)
+![1542526213174](./communityImagesCN/1542526213174.png)
 
 If you click on the title of the community vote you participated in, all of the voting options you selected can be seen. If the community vote is of a changeable type and it is still in progress, then you can change your vote by choosing another option and submitting your changed vote according to the voting rules.
 
@@ -46,7 +46,7 @@ In the voting list, click **“Create Voting"** to enter the information page of
 
 In order to prevent the creation of frivolous or duplicate community votes that are not needed, each community vote created requires a deposit of 100 NULS. The block height to unlock the deposit is calculated according to the creation time and the end time of the community vote. When the block height corresponding to the end time has been reached, the deposit can be unlocked.
 
-![1542526223816](communityImagesCN/1542526223816.png)
+![1542526223816](./communityImagesCN/1542526223816.png)
 
 When creating a community vote, **please fill in the item contents** **carefully.** Once the community vote has been created successfully**, it cannot be modified**. It will take about one minute to confirm the created community vote on the NULS network, and the voting list page will then be refreshed.
 

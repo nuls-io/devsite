@@ -30,16 +30,16 @@
 ### 1.2 Architecture
 > The core of the Ledger is assets management and ledger management.
 
-![ledger-arch.png](image/ledger/ledger-arch.png)
+![ledger-arch.png](./image/ledger/ledger-arch.png)
 
 ## 2. functional design
 
 ### 2.1 Functional Architecture
-![ledger-functions.png](image/ledger/ledger-functions.png)
+![ledger-functions.png](./image/ledger/ledger-functions.png)
 
 ### 2.2 Module Service
 #### 2.2.1 System Service of the Ledger Module
-![ledger-service.png](image/ledger/ledger-service.png)
+![ledger-service.png](./image/ledger/ledger-service.png)
 
 > The RPC interface call provided by the ledger module. For detailed interface, please refer to the interface design section.
 
@@ -93,11 +93,11 @@
 
 #### 2.4.2 Ordinary transaction process (reference example)
 
-![eth-transaction-flow.png](image/ledger/eth-transaction-flow.png)
+![eth-transaction-flow.png](./image/ledger/eth-transaction-flow.png)
 
 #### 2.4.3 Transaction verification process
 
-![trx-validate-flow.png](image/ledger/trx-validate-flow.png)
+![trx-validate-flow.png](./image/ledger/trx-validate-flow.png)
 
 ## 3.Interface design
 

@@ -47,7 +47,7 @@ module.exports = {
                             ]
                         },
                         {
-                            title: 'Users guide',
+                            title: 'Users Guide',
                             children: [
                                 // '/guide/GUIGuide',
                                 // '/guide/webGuide',
@@ -72,13 +72,13 @@ module.exports = {
                             ]
                         },
                         {
-                            title: 'Quickly building a chain',
+                            title: 'Quickly Building A Chain',
                             children: [
                                 '/buildChain/buildPrivateChain',
                             ]
                         },
                         {
-                            title: 'Underlying design of NULS',
+                            title: 'Underlying Design Of NULS',
                             children: [
                                 '/NULSInfrastructure/NULS2.0Introduction',
                                 '/NULSInfrastructure/networkModuleDesign',
@@ -92,7 +92,6 @@ module.exports = {
                                 '/NULSInfrastructure/consensusModuleDesign',
                                 '/NULSInfrastructure/rpcToolWebsocketDesign',
                                 '/NULSInfrastructure/interfaceStandard',
-                                '/NULSInfrastructure/randomImplementations',
                             ]
                         },
                         {
@@ -103,8 +102,8 @@ module.exports = {
                                 '/smartContract/GUIForSmartContract',
                                 '/smartContract/ideaPlugin',
                                 '/smartContract/NRC-20TokenStandard',
-                                '/smartContract/smartContractFee'
-                               
+                                '/smartContract/smartContractFee',
+                                '/smartContract/randomImplementations',
                             ]
                         },
                         {

@@ -21,7 +21,7 @@
 > 事件模块是一个边缘系统，提供主要一些异步的消息发送，也就说，即使没有事件总线，系统一样可以正常运行，比较轻量级，而且不依赖其他模块系统。
 
 ### 1.2 架构图
-![event-bus-module](image/eventbus/event-bus-module.png)
+![event-bus-module](./image/eventbus/event-bus-module.png)
 
 - 事件总线模块主要含2部分交互逻辑：
   - 与系统核心模块的微服务注册与服务信息获取。
@@ -30,10 +30,10 @@
 ## 二、功能设计
 
 ### 2.1 功能架构图
-![event-bus-content](image/eventbus/event-bus-content.png)
+![event-bus-content](./image/eventbus/event-bus-content.png)
 
 ### 2.2 模块服务
-![event-bus-model](image/eventbus/event-bus-model.png)
+![event-bus-model](./image/eventbus/event-bus-model.png)
 
 > 该模块提供事件的订阅，事件的转发
 
@@ -42,7 +42,7 @@
 > 只依赖核心系统，核心系统可以对事件模块系统的启动，停止，参数修改等，
 
 ### 2.3 模块内部功能
-![event-bus-function](image/eventbus/event-bus-function.png)
+![event-bus-function](./image/eventbus/event-bus-function.png)
 
 > 模块内部工能主要包含，订阅管理器，事件管理器，转发管理器。
 
@@ -60,11 +60,11 @@
 
 * 事件处理时序
 
-![event-bus-seq-flow](image/eventbus/event-bus-seq-flow.png)  
+![event-bus-seq-flow](./image/eventbus/event-bus-seq-flow.png)  
 
 - 事件处理基本流程
 
-![event-bus-main-flow](image/eventbus/event-bus-main-flow.png)
+![event-bus-main-flow](./image/eventbus/event-bus-main-flow.png)
 
 ### 2.5 业务逻辑
 
