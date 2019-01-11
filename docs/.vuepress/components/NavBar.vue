@@ -27,7 +27,6 @@
                 <li class="li"><a href="https://gitter.im/nuls_io" target="_blank">Gitter</a></li>
                 <li class="li"><a href="https://bitcointalk.org/index.php?topic=2253487.0;topicseen" target="_blank">BitcoinTalk</a></li>
                 <li class="li"><a href="https://weibo.com/nulsio" target="_blank">微博</a></li>
-                <li class="li"><a href="" target="_blank">Medium</a></li>
             </ul>
         </div>
         <div class="cb"></div>
