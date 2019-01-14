@@ -27,6 +27,8 @@
                 <li class="li"><a href="https://gitter.im/nuls_io" target="_blank">Gitter</a></li>
                 <li class="li"><a href="https://bitcointalk.org/index.php?topic=2253487.0;topicseen" target="_blank">BitcoinTalk</a></li>
                 <li class="li"><a href="https://weibo.com/nulsio" target="_blank">微博</a></li>
+                <li class="li"></li>
+                <li class="li"></li>
             </ul>
         </div>
         <div class="cb"></div>
@@ -36,6 +38,7 @@
                 <li class="li"><a href="https://nuls.world/" target="_blank">nuls.world</a></li>
                 <li class="li"><a href="https://apiserver.nuls.io/nuls/assets/get" target="_blank">Assets API</a></li>
                 <li class="li"><a href="https://coinmarketcap.com/currencies/nuls" target="_blank">CoinMarketCap</a></li>
+                <li class="li"></li>
             </ul>
         </div>
         <div class="cb"></div>
@@ -48,6 +51,8 @@
                 <li class="li"><a href="https://www.zdpvt.com/web/tagDetail/5a98c81a5e3b6679aa33120d/quota" target="_blank">支点社区</a></li>
                 <li class="li"><a href="http://www.7234.cn/nuls" target="_blank">链世界专栏</a></li>
                 <li class="li"><a href="https://www.coingogo.com/article/nuls" target="_blank">币源社区专栏</a></li>
+                <li class="li"></li>
+                <li class="li"></li>
             </ul>
         </div>
         <div class="cb"></div>
@@ -77,6 +82,7 @@
                 <li class="li"><a href="https://www.qubi.com" target="_blank">趣币</a></li>
                 <li class="li"><a href="https://dragonex.im" target="_blank">DragonEx</a></li>
                 <li class="li"><a href="https://www.park.one/" target="_blank">PARK.ONE</a></li>
+                <li class="li"></li>
             </ul>
         </div>
         <div class="cb"></div>
@@ -95,7 +101,7 @@
     .title{padding: 20px 0 0 }
     .title p{border-bottom:1px solid #c9c9c9;font-size: 18px;font-weight: bold;line-height: 50px;padding: 0;margin: 0;}
     .title ul{padding: 0;margin: 0;}
-    .li{ width:25%;float: left;color: #2c815b;border-bottom:1px solid #c9c9c9;padding: 20px 0 20px 0}
+    .li{ width:25%;float: left;color: #2c815b;border-bottom:1px solid #c9c9c9;line-height:80px;height:80px;}
     .li a{text-decoration:none;}
     .cb{ clear: both}
 </style>
