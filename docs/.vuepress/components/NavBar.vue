@@ -101,7 +101,7 @@
     .title{padding: 20px 0 0 }
     .title p{border-bottom:1px solid #c9c9c9;font-size: 18px;font-weight: bold;line-height: 50px;padding: 0;margin: 0;}
     .title ul{padding: 0;margin: 0;}
-    .li{ width:25%;float: left;color: #2c815b;border-bottom:1px solid #c9c9c9;line-height:80px;height:80px;}
+    .li{ width:25%;float: left;color: #2c815b;border-bottom:1px solid #c9c9c9;line-height:70px;height:70px;}
     .li a{text-decoration:none;}
     .cb{ clear: both}
 </style>
