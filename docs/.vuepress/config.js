@@ -110,7 +110,7 @@ module.exports = {
                             title: 'Developer Tools',
                             children: [
                                 '/developerTools/sdk',
-                                // '/zh/developerTools/APIManual',
+                                '/developerTools/clientCLI',
                                 '/developerTools/smartContractIDEAPlugin',
                             ]
                         },
@@ -222,7 +222,7 @@ module.exports = {
                             title: '开发者工具',
                             children: [
                                 '/zh/developerTools/sdk',
-                                // '/zh/developerTools/APIManual',
+                                '/zh/developerTools/clientCLI',
                                 '/zh/developerTools/smartContractIDEAPlugin',
                             ]
                         },
