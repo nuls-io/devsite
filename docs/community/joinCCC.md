@@ -23,7 +23,7 @@ NULS technical community is open for all developers.
 If you are expecting the revolution driven by the blockchain technology and you’d like to create a brave new world with us:
 
 Please join the NULS dev Telegram group:
-https://t.me/joinchat/HK7hw0uqJGC31heVAHKFyQ
+[https://t.me/joinchat/HK7hw0uqJGC31heVAHKFyQ](https://nuls.community)
 
 **Notice**: We are not seeking for out-sourcing services. If you see anything here which can be improved, it can just be your playground!
 
@@ -55,15 +55,15 @@ B. Despite this, we still have lots of work to be finished. We will continue to 
     Community developers will discuss about some technical issues with you and get a brief understanding about what you want to do, which will determine what you could work on in the future.
 
   We also strongly recommend you to learn more about NULS through these links below:
-  - Official website: https://nuls.io/
-  - Code: https://github.com/nuls-io/nuls
-  - Dev documents: https://dev.nuls.io/docs/
-  - Community forum: https://nuls.community
+  - Official website: [https://nuls.io/](https://nuls.io/)
+  - Code: [https://github.com/nuls-io/nuls](https://github.com/nuls-io/nuls)
+  - Dev documents: [https://dev.nuls.io/docs/](https://dev.nuls.io/docs/)
+  - Community forum: [https://nuls.community](https://nuls.community)
 3. You are going to choose an interesting and competent task. At that time, we will ask you to join one of the development group due to your subject and work with other developers. We strongly recommend that you download WeChat as a communication tool:
 
-  https://play.google.com/store/apps/details?id=com.tencent.mm&hl=zh
+  [https://play.google.com/store/apps/details?id=com.tencent.mm&hl=zh](https://nuls.community/d/9-invitation-of-community-developers/4)
 
 4. In the group, each group leader will provide necessary documentations to help new developers to get started quickly. At the same time, we hope that developers will maintain effective communication with each other in order to work efficiently. After about a month of work, developers who are stable, efficient and have high quality output may apply to have a consensus node in the NULS main-net. Your application will be evaluated by the technical community and the core team. If the application is approved, we will create a consensus node for you as reward.
 
 ## 7.  Refer to task list
-https://nuls.community/d/9-invitation-of-community-developers/4 (Continuously updated)
+[https://nuls.community/d/9-invitation-of-community-developers/4](https://nuls.community/d/9-invitation-of-community-developers/4) (Continuously updated)

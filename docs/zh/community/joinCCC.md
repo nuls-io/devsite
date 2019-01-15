@@ -22,7 +22,7 @@ NULS技术社区向所有开发者开放。
 如果你：
 对区块链世界充满期待，希望用代码创造出新的世界。
 
-请加入我们的技术社区电报群：https://t.me/joinchat/HK7hw0uqJGC31heVAHKFyQ
+请加入我们的技术社区电报群：[https://t.me/joinchat/HK7hw0uqJGC31heVAHKFyQ](https://t.me/joinchat/HK7hw0uqJGC31heVAHKFyQ)
 注意：我们不是寻求任务外包。任何你认为值得改进的地方，都是你可以发挥的空间。
 
 ## 三、我们能提供什么？
@@ -50,13 +50,13 @@ NULS团队会为技术社区的每一个为NULS项目作出贡献的开发者提
 （2）跟社区开发者Moshe进行初步沟通，简要介绍自己的经历、擅长的编程语言等，社区开发者会跟你交流一些技术相关信息，并了解你希望做些什么，这将决定你接下来的工作内容。
 同时我们强烈建议你通过下面的链接，去了解更多关于NULS的内容:
 
-- 官网：https://nuls.io/
-- 代码：https://github.com/nuls-io/nuls
-- 开发者文档：https://dev.nuls.io/docs/
-- 社区论坛：https://nuls.community
+- 官网：[https://nuls.io/](https://nuls.io/)
+- 代码：[https://github.com/nuls-io/nuls](https://github.com/nuls-io/nuls)
+- 开发者文档：[https://dev.nuls.io/docs/](https://dev.nuls.io/docs/)
+- 社区论坛：[https://nuls.community](https://nuls.community)
 
 （3）你可以选择感兴趣并胜任的任务。届时，我们会让你加入各个开发小组，同其他开发人员一起工作。在这里，我们强烈建议你下载微信作为沟通交流工具：
-https://play.google.com/store/apps/details?id=com.tencent.mm&hl=zh
+[https://play.google.com/store/apps/details?id=com.tencent.mm&hl=zh](https://play.google.com/store/apps/details?id=com.tencent.mm&hl=zh)
 
 （4）在小组中，各小组leader会提供必要的文档资料以便开发者更快入手。同时，我们希望开发者们互相之间保持高效的沟通和交流，以便工作的开展。通过约1个月的工作，那些保持稳定工作状态、高质量产出的开发者可以向技术社区提出节点申请。
 
