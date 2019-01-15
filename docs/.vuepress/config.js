@@ -59,6 +59,7 @@ module.exports = {
                             children: [
                                 '/community/toolsGuide',
                                 '/community/ambassadorRules',
+                                '/community/joinCCC',
                                 '/community/communityConstitution',
                                 '/community/communityFund',
                             ]
@@ -170,6 +171,7 @@ module.exports = {
                             children: [
                                 '/zh/community/toolsGuide',
                                 '/zh/community/ambassadorRules',
+                                '/zh/community/joinCCC',
                                 '/zh/community/communityConstitution',
                                 '/zh/community/communityFund',
                             ]
