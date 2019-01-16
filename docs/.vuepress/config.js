@@ -161,7 +161,7 @@ module.exports = {
                         {
                             title: '用户操作指南',
                             children: [
-                                // '/zh/guide/GUIGuide',
+                                // '/zh/guide/clientWalletGuide',
                                 // '/zh/guide/webGuide',
                                 '/zh/guide/NULSTransaction',
                             ]

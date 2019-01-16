@@ -600,14 +600,20 @@ public class Utils {
     }
 
     /**
-     * @param src source string
-     * @return sha3-256 hash (utf-8 encode)
+     *
+     * Please note that this is the SHA-3 FIPS 202 standard, not Keccak-256.
+     *
+     * @param src source string (hex encoding string)
+     * @return sha3-256 hash (hex encoding string)
      */
-    public static native String sha3(String src);
+    public static native String sha3(String hexString);
 
     /**
+     *
+     * Please note that this is the SHA-3 FIPS 202 standard, not Keccak-256.
+     *
      * @param bytes source byte array
-     * @return sha3-256 hash
+     * @return sha3-256 hash (hex encoding string)
      */
     public static native String sha3(byte[] bytes);
     
