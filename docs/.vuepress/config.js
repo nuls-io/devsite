@@ -161,7 +161,7 @@ module.exports = {
                         {
                             title: '用户操作指南',
                             children: [
-                                // '/zh/guide/clientWalletGuide',
+                                '/zh/guide/clientWalletGuide',
                                 // '/zh/guide/webGuide',
                                 '/zh/guide/NULSTransaction',
                             ]
@@ -215,6 +215,7 @@ module.exports = {
                                 '/zh/smartContract/GUIForSmartContract',
                                 '/zh/smartContract/ideaPlugin',
                                 '/zh/smartContract/NRC-20TokenStandard',
+                                '/zh/smartContract/guessTheSize',
                                 '/zh/smartContract/smartContractFee',
                                 '/zh/smartContract/randomImplementations',
                                
