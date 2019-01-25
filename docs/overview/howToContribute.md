@@ -22,6 +22,22 @@ As a global open source blockchain project, NULS needs a lot of bilingual docume
 
 ## List of contributors
 
+> The rankings are arranged alphabetically, in no particular order
+
+Name|Email| Node Alias/ID
+:--|:--|:--
+Angang Tang | tangangang@nuls.io | --
+Albert | albert@nuls.io | --
+Charlie Li       | lichao@nuls.io  | ---
+Cody Lan      | lanjinsheng@nuls.io  | ---
+Davi Yang      | davi@nuls.io  | ---
+Yuanchen Jiang       | jiangyuanchen@nuls.io  | ---
+Yifeng Qin | qinyifeng@nuls.io |--
+Niels        | niels@nuls.io  | niels
+Pierre Luo | luohao@nuls.io  |---
+Pen Luo | pen@nuls.io  |---
+Siwei | 13809668344@139.com  |siwei
+Vivi Zhou | zhouwei@nuls.io  |---
 
 
 

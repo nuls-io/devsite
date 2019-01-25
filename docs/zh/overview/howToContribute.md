@@ -22,6 +22,22 @@ NULS作为一个全球性区块链开源社区项目，需要大量的中英双�
 
 ## 贡献者名单
 
+> 排名不分先后，仅按照字母排序
+
+名字|邮箱| 节点别名/ID
+:--|:--|:--
+Angang Tang | tangangang@nuls.io | --
+Albert | albert@nuls.io | --
+Charlie Li       | lichao@nuls.io  | ---
+Cody Lan      | lanjinsheng@nuls.io  | ---
+Davi Yang      | davi@nuls.io  | ---
+Yuanchen Jiang       | jiangyuanchen@nuls.io  | ---
+Yifeng Qin | qinyifeng@nuls.io |--
+Niels        | niels@nuls.io  | niels
+Pierre Luo | luohao@nuls.io  |---
+Pen Luo | pen@nuls.io  |---
+Siwei | 13809668344@139.com  |siwei
+Vivi Zhou | zhouwei@nuls.io  |---
 
 
 
