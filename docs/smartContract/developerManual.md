@@ -617,6 +617,76 @@ public class Utils {
      */
     public static native String sha3(byte[] bytes);
     
+    /**
+     * [Testnet]verify signature data(ECDSA)
+     *
+     * @param data(hex encoding string)
+     * @param signature(hex encoding string)
+     * @param pubkey(hex encoding string)
+     * @return verify result
+     */
+    public static native boolean verifySignatureData(String data, String signature, String pubkey);
+
+    /**
+     * [Testnet]Generate a random seed with a specific algorithm based on the cutoff block height and the number of original seeds
+     *
+     * @param endHeight the cutoff block height
+     * @param seedCount the number of original seeds
+     * @param algorithm Hash algorithm identifier
+     * @return After the original seed byte array is merged, the hash algorithm is used to get a 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
+     */
+    public static native BigInteger getRandomSeed(long endHeight, int seedCount, String algorithm);
+
+    /**
+     * [Testnet]Generate a random seed using the `SHA3-256`hash algorithm based on the cutoff block height and the number of original seeds.
+     *
+     * @param endHeight the cutoff block height
+     * @param seedCount the number of original seeds
+     * @return After the original seed byte array is merged, the `SHA3-256` hash algorithm is used to get the 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
+     */
+    public static BigInteger getRandomSeed(long endHeight, int seedCount) {
+        return getRandomSeed(endHeight, seedCount, "SHA3");
+    }
+
+    /**
+     * [Testnet]Generate a random seed with a specific algorithm based on the block height range
+     *
+     * @param startHeight the starting block height
+     * @param endHeight   the cutoff block height
+     * @param algorithm   Hash algorithm identifier
+     * @return After the original seed byte array is merged, the hash algorithm is used to get a 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
+     */
+    public static native BigInteger getRandomSeed(long startHeight, long endHeight, String algorithm);
+
+    /**
+     * [Testnet]Generate a random seed with the `SHA3-256` hash algorithm based on the block height range
+     *
+     * @param startHeight the starting block height
+     * @param endHeight   the cutoff block height
+     * @return After the original seed byte array is merged, the `SHA3-256` hash algorithm is used to get the 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
+     */
+    public static BigInteger getRandomSeed(long startHeight, long endHeight){
+        return getRandomSeed(startHeight, endHeight, "SHA3");
+    }
+
+    /**
+     * [Testnet]Get a collection of raw seeds based on the cutoff block height and the number of original seeds
+     *
+     * @param endHeight the cutoff block height
+     * @param seedCount the number of original seeds
+     * @return returns a collection of original seeds, the element is a BigInteger (new BigInteger(byte[] bytes)))
+     */
+    public static native List<BigInteger> getRandomSeedList(long endHeight, int seedCount);
+
+    /**
+     * [Testnet]Get a collection of raw seeds based on the block height range
+     *
+     * @param startHeight the starting block height
+     * @param endHeight   the cutoff block height
+     * @return returns a collection of original seeds, the element is a BigInteger (new BigInteger(byte[] bytes)))
+     */
+    public static native List<BigInteger> getRandomSeedList(long startHeight, long endHeight);
+    
 }
 ```
 
