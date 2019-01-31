@@ -93,6 +93,7 @@ module.exports = {
                                 '/NULSInfrastructure/consensusModuleDesign',
                                 '/NULSInfrastructure/rpcToolWebsocketDesign',
                                 '/NULSInfrastructure/interfaceStandard',
+                                '/NULSInfrastructure/randomRPC',
                             ]
                         },
                         {
@@ -105,6 +106,7 @@ module.exports = {
                                 '/smartContract/NRC-20TokenStandard',
                                 '/smartContract/smartContractFee',
                                 '/smartContract/randomImplementations',
+                                '/smartContract/randomRPC',
                             ]
                         },
                         {
@@ -204,7 +206,8 @@ module.exports = {
                                 '/zh/NULSInfrastructure/chainModuleDesign',
                                 '/zh/NULSInfrastructure/consensusModuleDesign',
                                 '/zh/NULSInfrastructure/rpcToolWebsocketDesign',
-                                '/zh/NULSInfrastructure/interfaceStandard',
+                                '/zh/NULSInfrastructure/randomRPC',
+                                
                             ]
                         },
                         {
@@ -218,6 +221,7 @@ module.exports = {
                                 '/zh/smartContract/guessTheSize',
                                 '/zh/smartContract/smartContractFee',
                                 '/zh/smartContract/randomImplementations',
+                                '/zh/smartContract/randomRPC',
                                
                             ]
                         },
