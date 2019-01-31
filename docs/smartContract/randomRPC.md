@@ -1,7 +1,7 @@
 
-## 钱包增加随机种子RPC接口：
+## Wallet adds a random seed RPC interface
 
-### 根据高度区间获取随机种子列表：
+### Get a random seed list based on the height interval
 
 URL：/random/seeds/height
 
@@ -11,15 +11,15 @@ Prams:
 
 | parameter   | type | Required | remark                                 |
 | ----------- | ---- | -------- | -------------------------------------- |
-| startHeight | Long | True     | 区间起始高度                           |
-| endHeight   | Long | True     | 区间截止高度，不能超过startHeight+1000 |
+| startHeight | Long | True     | Initial height of interval                           |
+| endHeight   | Long | True     | Interval cutoff height, cannot exceed startHeight+1000 |
 
 Returns:
 
 | field   | type    | Remark   |
 | ------- | ------- | -------- |
-| success | boolean | 是否成功 |
-| data    | array   | 种子数组 |
+| success | boolean | Successful or not |
+| data    | array   | The seed array |
 
 Example：
 
@@ -49,7 +49,7 @@ Response:
 }
 ```
 
-### 根据高度区间获取随机种子列表：
+### Get random seed list according to height interval
 
 URL：/random/seeds/count
 
@@ -59,15 +59,15 @@ Prams:
 
 | parameter | type | Required | remark                    |
 | --------- | ---- | -------- | ------------------------- |
-| height    | Long | True     | 获取种子列表的最高高度    |
-| count     | Long | True     | 随机种子数量，不能超过128 |
+| height    | Long | True     | Gets the maximum height of the seed list    |
+| count     | Long | True     | Random seed count, no more than 128 |
 
 Returns:
 
 | field   | type    | Remark   |
 | ------- | ------- | -------- |
-| success | boolean | 是否成功 |
-| data    | array   | 种子数组 |
+| success | boolean | Successful or not |
+| data    | array   | The seed array |
 
 Example：
 
@@ -97,7 +97,7 @@ Response:
 }
 ```
 
-### 根据算法计算通过高度区间获取的随机种子列表为一个随机种子，并返回：
+### According to the algorithm, the list of random seeds obtained through height interval is calculated as a random seed, and the following is returned
 
 URL：/random/seed/height
 
@@ -107,19 +107,19 @@ Prams:
 
 | parameter   | type   | Required | remark                                       |
 | ----------- | ------ | -------- | -------------------------------------------- |
-| startHeight | Long   | True     | 区间起始高度                                 |
-| endHeight   | Long   | True     | 区间截止高度，endHeight-startHeight<=1000    |
-| algorithm   | String | false    | 默认为sha3算法，支持sha3、KECCAK、merkle算法 |
+| startHeight | Long   | True     | Initial height of interval                                 |
+| endHeight   | Long   | True     | Interval cut-off height,endHeight-startHeight<=1000    |
+| algorithm   | String | false    | The default is sha3 algorithm, supporting sha3, KECCAK, merkle algorithm |
 
 Returns:
 
 | field     | type    | Remark             |
 | --------- | ------- | ------------------ |
-| success   | boolean | 是否成功           |
-| data      | Object  | 结果对象           |
-| seed      | String  | 计算的随机种子结果 |
-| algorithm | String  | 计算的 算法        |
-| count     | int     | 原始随机种子个数   |
+| success   | boolean | Successful or not           |
+| data      | Object  | The result object           |
+| seed      | String  | Calculate the random seed result |
+| algorithm | String  | Computational algorithm        |
+| count     | int     | Number of original random seeds   |
 
 Example：
 
@@ -142,7 +142,7 @@ Response:
 }
 ```
 
-### 根据算法计算通过高度和数量获取的随机种子列表为一个随机种子，并返回：
+### According to the algorithm, the list of random seeds obtained by height and quantity is calculated as a random seed, and the following is returned
 
 URL：/random/seed/count
 
@@ -152,19 +152,19 @@ Prams:
 
 | parameter | type   | Required | remark                                       |
 | --------- | ------ | -------- | -------------------------------------------- |
-| height    | Long   | True     | 获取种子列表的最高高度                       |
-| count     | Long   | True     | 随机种子数量，不能超过128                    |
-| algorithm | String | false    | 默认为sha3算法，支持sha3、KECCAK、merkle算法 |
+| height    | Long   | True     | Gets the maximum height of the seed list                       |
+| count     | Long   | True     | Random seed count, no more than 128                   |
+| algorithm | String | false    | The default is sha3 algorithm, supporting sha3, KECCAK, merkle algorithm |
 
 Returns:
 
 | field     | type    | Remark             |
 | --------- | ------- | ------------------ |
-| success   | boolean | 是否成功           |
-| data      | Object  | 结果对象           |
-| seed      | String  | 计算的随机种子结果 |
-| algorithm | String  | 计算的 算法        |
-| count     | int     | 原始随机种子个数   |
+| success   | boolean | Successful or not           |
+| data      | Object  | The result object           |
+| seed      | String  | Calculate the random seed result |
+| algorithm | String  | Computational algorithm        |
+| count     | int     | Number of original random seeds   |
 
 Example：
 
