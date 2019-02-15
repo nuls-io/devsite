@@ -1,5 +1,5 @@
-
-## Wallet adds a random seed RPC interface
+# Wallet adds a random seed
+## 一、Wallet adds a random seed RPC interface
 
 The random seed you get is a big number, and notice, it could be a negative number
 
