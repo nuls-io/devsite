@@ -1,5 +1,7 @@
 
-## 钱包增加随机种子RPC接口：
+## 一、钱包增加随机种子RPC接口
+
+	获取的随机种子是大数字，注意，它可能是负数
 
 ### 根据高度区间获取随机种子列表：
 
@@ -187,3 +189,166 @@ Response:
 }
 ```
 
+
+## 二、智能合约支持底层链随机数
+
+与以上RPC接口相同，在智能合约SDK中支持了相同的方法来获取底层区块链提供的随机数种子，如以下代码。
+后面将以其中一个方法`Utils.getRandomSeed(long endHeight, int seedCount, String algorithm)`为例，展示如何使用随机数种子产生随机数。
+
+### 1） io.nuls.contract.sdk.Utils
+
+```java
+/**
+ * [Testnet]根据截止高度和原始种子数量，用特定的算法生成一个随机种子
+ *
+ * @param endHeight 截止高度
+ * @param seedCount 原始种子数量
+ * @param algorithm hash算法标识
+ * @return 原始种子字节数组合并后, 使用hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+ */
+public static native BigInteger getRandomSeed(long endHeight, int seedCount, String algorithm);
+
+/**
+ * [Testnet]根据截止高度和原始种子数量，用`SHA3-256`hash算法生成一个随机种子
+ *
+ * @param endHeight 截止高度
+ * @param seedCount 原始种子数量
+ * @return 原始种子字节数组合并后, 使用`SHA3-256`hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+ */
+public static BigInteger getRandomSeed(long endHeight, int seedCount) {
+    return getRandomSeed(endHeight, seedCount, "SHA3");
+}
+
+/**
+ * [Testnet]根据高度范围，用特定的算法生成一个随机种子
+ *
+ * @param startHeight 起始高度
+ * @param endHeight   截止高度
+ * @param algorithm   hash算法标识
+ * @return 原始种子字节数组合并后, 使用hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+ */
+public static native BigInteger getRandomSeed(long startHeight, long endHeight, String algorithm);
+
+/**
+ * [Testnet]根据高度范围，用`SHA3-256`hash算法生成一个随机种子
+ *
+ * @param startHeight 起始高度
+ * @param endHeight   截止高度
+ * @return 原始种子字节数组合并后, 使用`SHA3-256`hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+ */
+public static BigInteger getRandomSeed(long startHeight, long endHeight){
+    return getRandomSeed(startHeight, endHeight, "SHA3");
+}
+
+/**
+ * [Testnet]根据截止高度和原始种子数量，获取原始种子的集合
+ *
+ * @param endHeight 截止高度
+ * @param seedCount 原始种子数量
+ * @return 返回原始种子的集合，元素是字节数组转化的BigInteger(new BigInteger(byte[] bytes))
+ */
+public static native List<BigInteger> getRandomSeedList(long endHeight, int seedCount);
+
+/**
+ * [Testnet]根据高度范围，获取原始种子的集合
+ *
+ * @param startHeight 起始高度
+ * @param endHeight   截止高度
+ * @return 返回原始种子的集合，元素是字节数组转化的BigInteger(new BigInteger(byte[] bytes))
+ */
+public static native List<BigInteger> getRandomSeedList(long startHeight, long endHeight);
+```
+
+### 2） 例子`同时摇N一个骰子`
+
+#### 2.1) 计算方式一
+
+- 获取原始种子`Utils.getRandomSeed(long endHeight, int seedCount, String algorithm)`
+- 根据骰子范围求模得到第一个随机数
+- 下一个随机数的计算方式
+	- 原始种子乘以投掷次数，得到的结果转换成字节数组
+	- 把字节数组进行SHA3-256得到32位字节数组的Hash
+	- 把此Hash的字节数组转换为BigInteger大数字
+	- 将此BigInteger大数字根据骰子范围求模得到下一个随机数
+	- 以此类推
+
+**参考以下代码**
+
+```java
+public List<Integer> dice(long endHeight, int count, int range, int times) {
+    BigInteger orginSeed = getRandomSeed(endHeight, count, "sha3");
+    if (orginSeed.equals(BigInteger.ZERO)) {
+        return null;
+    }
+    BigInteger wrapperRange = BigInteger.valueOf((long) range);
+    List<Integer> resultList = new ArrayList<Integer>(times);
+    for (int i = 0; i < times; i++) {
+        if(i == 0) {
+            BigInteger mod = orginSeed.mod(wrapperRange);
+            resultList.add(mod.intValue());
+        } else {
+            BigInteger multiply = wrapperRange.multiply(BigInteger.valueOf(i + 1));
+            String s = sha3(multiply.toByteArray());
+            byte[] decode = decode(s);
+            BigInteger bigInteger = new BigInteger(decode);
+            BigInteger mod = bigInteger.mod(wrapperRange);
+            resultList.add(mod.intValue());
+        }
+    }
+    return resultList;
+}
+
+public byte[] decode(String hexString) {
+    byte[] bts = new byte[hexString.length() / 2];
+    for (int i = 0; i < bts.length; i++) {
+        bts[i] = (byte) Integer.parseInt(hexString.substring(2 * i, 2 * i + 2), 16);
+    }
+    return bts;
+}
+```
+
+#### 2.2) 计算方式二
+
+- 获取原始种子`Utils.getRandomSeed(long endHeight, int seedCount, String algorithm)`
+- 根据骰子范围求模得到第一个随机数
+- 下一个随机数的计算方式
+	- 获取原始种子大数字的末位数字（根据投掷次数获取倒数第几位），将此末位数字乘以原始种子，得到的结果转换成字节数组
+	- 把字节数组进行SHA3-256得到32位字节数组的Hash
+	- 把此Hash的字节数组转换为BigInteger大数字
+	- 将此BigInteger大数字根据骰子范围求模得到下一个随机数
+	- 以此类推
+
+**参考以下代码**
+
+```java
+public List<Integer> diceAnother(long endHeight, int count, int range, int times) {
+    BigInteger orginSeed = getRandomSeed(endHeight, count, "sha3");
+    if (orginSeed.equals(BigInteger.ZERO)) {
+        return null;
+    }
+    BigInteger wrapperRange = BigInteger.valueOf((long) range);
+    List<Integer> resultList = new ArrayList<Integer>(times);
+    BigInteger mod = orginSeed.mod(wrapperRange);
+    resultList.add(mod.intValue());
+    String orginStr = orginSeed.toString();
+    int length = orginStr.length();
+    for (int i = 1; i < times; i++) {
+        int c = orginStr.charAt(length - i);
+        BigInteger multiply = wrapperRange.multiply(BigInteger.valueOf(c));
+        String s = sha3(multiply.toByteArray());
+        byte[] decode = decode(s);
+        BigInteger bigInteger = new BigInteger(decode);
+        mod = bigInteger.mod(wrapperRange);
+        resultList.add(mod.intValue());
+    }
+    return resultList;
+}
+
+public byte[] decode(String hexString) {
+    byte[] bts = new byte[hexString.length() / 2];
+    for (int i = 0; i < bts.length; i++) {
+        bts[i] = (byte) Integer.parseInt(hexString.substring(2 * i, 2 * i + 2), 16);
+    }
+    return bts;
+}
+```

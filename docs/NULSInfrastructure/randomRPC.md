@@ -1,6 +1,8 @@
 
 ## Wallet adds a random seed RPC interface
 
+The random seed you get is a big number, and notice, it could be a negative number
+
 ### Get a random seed list based on the height interval
 
 URL：/random/seeds/height
@@ -187,3 +189,165 @@ Response:
 }
 ```
 
+## 二、Smart contracts support random Numbers in the underlying chain
+
+Similar to the above RPC interface, the smart contract SDK supports the same method to obtain the random number seed provided by the underlying blockchain, such as the following code.
+Take one of these methods as an example`Utils.getRandomSeed(long endHeight, int seedCount, String algorithm)` Shows how to generate random Numbers using random number seeds.
+
+### 1） io.nuls.contract.sdk.Utils
+
+```java
+/**
+ * [Testnet]According to the cutoff height and the number of original seeds, a specific algorithm is used to generate a random seed
+ *
+ * @param endHeight End height
+ * @param seedCount Number of original seeds
+ * @param algorithm Hash algorithm identification
+ * @return After the original seed byte array is merged, the 32-bit hash byte array is obtained using the hash algorithm and converted to BigInteger(new BigInteger(byte[] bytes))
+ */
+public static native BigInteger getRandomSeed(long endHeight, int seedCount, String algorithm);
+
+/**
+ * [Testnet]According to the height and the original seed number, use the ` SHA3-256 ` hash algorithm to generate a random seed
+ *
+ * @param endHeight End height
+ * @param seedCount Number of original seeds
+ * @return After the original seed byte array is merged, the 32-bit hash byte array is obtained using the hash algorithm and converted to BigInteger(new BigInteger(byte[] bytes))
+ */
+public static BigInteger getRandomSeed(long endHeight, int seedCount) {
+    return getRandomSeed(endHeight, seedCount, "SHA3");
+}
+
+/**
+ * [Testnet]According to the height range, a specific algorithm is used to generate a random seed
+ *
+ * @param startHeight Start height
+ * @param endHeight   Number of original seeds
+ * @param algorithm   Hash algorithm identification
+ * @return After the original seed byte array is merged, the 32-bit hash byte array is obtained using the hash algorithm and converted to BigInteger(new BigInteger(byte[] bytes))
+ */
+public static native BigInteger getRandomSeed(long startHeight, long endHeight, String algorithm);
+
+/**
+ * [Testnet]According to height, use ` SHA3-256 ` hash algorithm to generate a random seed
+ *
+ * @param startHeight Start height
+ * @param endHeight   End height
+ * @return After the original seed byte array is merged, the 32-bit hash byte array is obtained using the hash algorithm and converted to BigInteger(new BigInteger(byte[] bytes))
+ */
+public static BigInteger getRandomSeed(long startHeight, long endHeight){
+    return getRandomSeed(startHeight, endHeight, "SHA3");
+}
+
+/**
+ * [Testnet]According to the cutoff height and the number of original seeds, the collection of original seeds was obtained
+ *
+ * @param endHeight End height
+ * @param seedCount Number of original seeds
+ * @return Returns a collection of original seeds, whose elements are BigInteger converted from byte arrays(new BigInteger(byte[] bytes))
+ */
+public static native List<BigInteger> getRandomSeedList(long endHeight, int seedCount);
+
+/**
+ * [Testnet]Get the set of original seeds according to the height range
+ *
+ * @param startHeight Start height
+ * @param endHeight   End height
+ * @return Returns a collection of original seeds, whose elements are BigInteger converted from byte arrays(new BigInteger(byte[] bytes))
+ */
+public static native List<BigInteger> getRandomSeedList(long startHeight, long endHeight);
+```
+
+### 2） A dice ` example ` shaking at the same time N
+
+#### 2.1) Calculation method 1
+
+- Get the original seed`Utils.getRandomSeed(long endHeight, int seedCount, String algorithm)`
+- The first random number is modeled according to the range of the dice
+- The next random number
+	- The original seed is multiplied by the number of tosses, resulting in an array of bytes
+	- The byte array is hashed with sha3-256 to get a 32-bit byte array
+	- Converts the byte array of this Hash to BigInteger
+	- Use this BigInteger to model the next random number based on the range of the dice
+	- And so on
+
+**Refer to the following code**
+
+```java
+public List<Integer> dice(long endHeight, int count, int range, int times) {
+    BigInteger orginSeed = getRandomSeed(endHeight, count, "sha3");
+    if (orginSeed.equals(BigInteger.ZERO)) {
+        return null;
+    }
+    BigInteger wrapperRange = BigInteger.valueOf((long) range);
+    List<Integer> resultList = new ArrayList<Integer>(times);
+    for (int i = 0; i < times; i++) {
+        if(i == 0) {
+            BigInteger mod = orginSeed.mod(wrapperRange);
+            resultList.add(mod.intValue());
+        } else {
+            BigInteger multiply = wrapperRange.multiply(BigInteger.valueOf(i + 1));
+            String s = sha3(multiply.toByteArray());
+            byte[] decode = decode(s);
+            BigInteger bigInteger = new BigInteger(decode);
+            BigInteger mod = bigInteger.mod(wrapperRange);
+            resultList.add(mod.intValue());
+        }
+    }
+    return resultList;
+}
+
+public byte[] decode(String hexString) {
+    byte[] bts = new byte[hexString.length() / 2];
+    for (int i = 0; i < bts.length; i++) {
+        bts[i] = (byte) Integer.parseInt(hexString.substring(2 * i, 2 * i + 2), 16);
+    }
+    return bts;
+}
+```
+
+#### 2.2) Calculation method 2
+
+- Get the original seed`Utils.getRandomSeed(long endHeight, int seedCount, String algorithm)`
+- The first random number is modeled according to the range of the dice
+- The next random number
+	- Get the last digit of the large number of the original seed (the last digit is obtained according to the number of tosses), multiply this last digit by the original seed, and the result is converted into a byte array
+	- The byte array is hashed with sha3-256 to get a 32-bit byte array
+	- Converts the byte array of this Hash to BigInteger
+	- Use this BigInteger to model the next random number based on the range of the dice
+	- And so on
+
+**Refer to the following code**
+
+```java
+public List<Integer> diceAnother(long endHeight, int count, int range, int times) {
+    BigInteger orginSeed = getRandomSeed(endHeight, count, "sha3");
+    if (orginSeed.equals(BigInteger.ZERO)) {
+        return null;
+    }
+    BigInteger wrapperRange = BigInteger.valueOf((long) range);
+    List<Integer> resultList = new ArrayList<Integer>(times);
+    BigInteger mod = orginSeed.mod(wrapperRange);
+    resultList.add(mod.intValue());
+    String orginStr = orginSeed.toString();
+    int length = orginStr.length();
+    for (int i = 1; i < times; i++) {
+        int c = orginStr.charAt(length - i);
+        BigInteger multiply = wrapperRange.multiply(BigInteger.valueOf(c));
+        String s = sha3(multiply.toByteArray());
+        byte[] decode = decode(s);
+        BigInteger bigInteger = new BigInteger(decode);
+        mod = bigInteger.mod(wrapperRange);
+        resultList.add(mod.intValue());
+    }
+    return resultList;
+}
+
+public byte[] decode(String hexString) {
+    byte[] bts = new byte[hexString.length() / 2];
+    for (int i = 0; i < bts.length; i++) {
+        bts[i] = (byte) Integer.parseInt(hexString.substring(2 * i, 2 * i + 2), 16);
+    }
+    return bts;
+}
+```
