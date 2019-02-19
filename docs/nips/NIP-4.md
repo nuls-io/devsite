@@ -1,4 +1,4 @@
-# NIP-4 Ambassadors participate in the election rules
+# Ambassadors participate in the election rules
 
 ```
   NIP: 4
@@ -7,7 +7,7 @@
   Discussions-To: https://nuls.community/d/206-ambassadors-participate-in-the-election-rules-ncg-20181114
   Status: Last call
   Type: Process
-  Created: 2018-12-29
+  Created: 2019-2-15
 ```
 
 
@@ -66,7 +66,7 @@ The voting will last for 15 days and once complete, the NULS Foundation will sta
 
 a. A candidate for the NULS ambassador is required to create a NULS node.
 
-b. A candidate is required to agree with the values of NULS, understand the core knowledge of NULS, and respect members of the NULS community.
+b. Identify with the NULS concepts of values, understand the core knowledge of NULS and respect the members of the NULS community. The election cycle is quarterly and requires a full 3 month commitment. Consider this commitment before running for election. Ambassadors are expected to meet the full term of the quarterly commitment.
 
 c. The appointment of NULS ambassadors is implemented through community voting. Candidates are able to apply for the position of ambassador during the first two months of a quarter. At the beginning of the third month of a quarter, the NULS team will initiate the voting and 1/3 of the candidates with the most votes will become the new ambassadors. For example, if 10 persons apply, 4 candidates with the most votes will get elected. 
 
@@ -78,7 +78,11 @@ f. Each NULS ambassador will be entrusted with 200,000 NULS tokens from the comm
 
 g. 80% is the initial parameter fir ambassador nodes. With market fluctuations, this parameter can be modified. Any node can propose to change this parameter, with a voting period of 15 days. If the voting volume exceeds 5 million NULS tokens and the supporting votes are 70% or higher, the vote is considered passed, and the NULS Foundation will execute.
 
-h. NULS ambassadors can apply for a budget from the NULS Foundation for major developments. The budget is open to all community members, and a budget vote will be initiated for it. The voting period is 15 days, and if the voting volume exceeds 10 million NULS tokens, and the supporting votes reach 70% or higher, the vote is considered passed and the NULS Foundation will execute.
+h. Half of all rewards of the ambassador's nodes are rewarded to ambassador(for he need to pay the node server cost and he shall get the rewards of 20,000 NULS he is staking on this nodes). And the other half must be used as development fund of ambassador for community development.
+
+i.About the resignation of ambassador, if the ambassador is voluntarily resigned or subject to recall by the community, please ambassador return the remaining development fund of ambassador to the community fund.
+
+j.The ambassador is a community contributor. If you need to initiate other community fund applications, please carry them out based on the community fund use and management process.
 
 ## 3.  How to participate in the election
 
