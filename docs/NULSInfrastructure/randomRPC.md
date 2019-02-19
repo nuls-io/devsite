@@ -286,7 +286,7 @@ public List<Integer> dice(long endHeight, int count, int range, int times) {
             BigInteger mod = orginSeed.mod(wrapperRange);
             resultList.add(mod.intValue());
         } else {
-            BigInteger multiply = wrapperRange.multiply(BigInteger.valueOf(i + 1));
+            BigInteger multiply = orginSeed.multiply(BigInteger.valueOf(i + 1));
             String s = sha3(multiply.toByteArray());
             byte[] decode = decode(s);
             BigInteger bigInteger = new BigInteger(decode);
@@ -333,7 +333,7 @@ public List<Integer> diceAnother(long endHeight, int count, int range, int times
     int length = orginStr.length();
     for (int i = 1; i < times; i++) {
         int c = orginStr.charAt(length - i);
-        BigInteger multiply = wrapperRange.multiply(BigInteger.valueOf(c));
+        BigInteger multiply = orginSeed.multiply(BigInteger.valueOf(c));
         String s = sha3(multiply.toByteArray());
         byte[] decode = decode(s);
         BigInteger bigInteger = new BigInteger(decode);
