@@ -1,4 +1,4 @@
-# Ambassadors participate in the election rules
+# NIP-4 Ambassadors participate in the election rules
 
 ```
   NIP: 4
