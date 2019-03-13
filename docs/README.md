@@ -1,4 +1,4 @@
-# Weclome to NULS!
+# Welcome to NULS!
 
 
 > NULS is a blockchain infrastructure for customizable services, driven by our global open-source community.
