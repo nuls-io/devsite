@@ -19,15 +19,18 @@ NULS核心团队革命性的在区块链底层基础设施设计中引入微服�
 - 搭建包含[业务模块](/zh/NULSInfrastructure/howToUseNulsBuildChain.html#_1-业务模块说明)的区块链
 
 ### 参与测试：
-1 [使用NULS搭建区块链](/zh/NULSInfrastructure/howToUseNulsBuildChain.html)
 
-2 [linux钱包使用教程](https://www.binance.vision/zh/tutorials/binance-dex-creating-a-wallet)
+1 下载linux客户端:
+
+2 [linux钱包使用教程](/zh/NULSInfrastructure/linuxTutorial.html)
 
 3 申请测试币，访问[nuls.community测试币领取帖](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141)并在帖子中回复:Alpha+地址
 
 4 访问区块链浏览器:[http://alpha.nulscan.io/](http://alpha.nulscan.io/)
 
-5 提交bug:[https://github.com/nuls-io/nuls_2.0/issues](https://github.com/nuls-io/nuls_2.0/issues)
+5 [使用NULS2.0搭建区块链](/zh/NULSInfrastructure/howToUseNulsBuildChain.html)
+
+6 提交bug:[https://github.com/nuls-io/nuls_2.0/issues](https://github.com/nuls-io/nuls_2.0/issues)
 
 
 ### 相关链接
