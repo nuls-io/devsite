@@ -18,7 +18,7 @@
 - [快速搭链](/zh/buildChain/buildPrivateChain.html)
 
     如何你想搭建一条私链，那这部分文档应该可以帮助到你
-- [NULS底层](/zh/NULSInfrastructure/NULS2.0Introduction.html)
+- [NULS2.0](/zh/NULSInfrastructure/NULS2.0Introduction.html)
 
     模块化设计是什么？NULS2.0是什么？该部分会一一帮你解答这些问题，会详细阐述NULS的设计理念，各个模块的设计细节
 - [智能合约](/zh/smartContract/startSmartContract.html)

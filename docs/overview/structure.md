@@ -20,7 +20,7 @@ Blockchain projects are always community-based, and here you can learn about all
 - [Quickly building a chain](/buildChain/buildPrivateChain.html)
 
     If you want to build a private chain, this section should help you
-- [Underlying design of NULS](/NULSInfrastructure/NULS2.0Introduction.html)
+- [NULS2.0](/NULSInfrastructure/NULS2.0Introduction.html)
 
     What is the modular design? What is NULS2.0? This section will answer these questions one by one. It elaborates on the design concept of NULS and the design details of each module
 - [Smart contracts](/smartContract/startSmartContract.html)

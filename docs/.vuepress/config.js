@@ -79,16 +79,16 @@ module.exports = {
                             ]
                         },
                         {
-                            title: 'Underlying Design Of NULS',
+                            title: 'NULS2.0',
                             children: [
                                 '/NULSInfrastructure/NULS2.0Introduction',
+                                '/NULSInfrastructure/howToUseNulsBuildChain',
                                 '/NULSInfrastructure/networkModuleDesign',
                                 '/NULSInfrastructure/eventBusModuleDesign',
                                 '/NULSInfrastructure/generalProtocol',
                                 '/NULSInfrastructure/accountModuleDesign',
                                 '/NULSInfrastructure/ledgerModuleDesign',
                                 '/NULSInfrastructure/blockModuleDesign',
-                                // '/zh/NULSInfrastructure/transactionModuleDesign',
                                 '/NULSInfrastructure/chainModuleDesign',
                                 '/NULSInfrastructure/consensusModuleDesign',
                                 '/NULSInfrastructure/rpcToolWebsocketDesign',
@@ -166,6 +166,7 @@ module.exports = {
                                 '/zh/guide/clientWalletGuide',
                                 '/zh/guide/lightWalletGuide',
                                 '/zh/guide/NULSTransaction',
+                                '/zh/guide/NULSExplorerGuide',                             
                             ]
                         },
                         {
@@ -193,9 +194,10 @@ module.exports = {
                             ]
                         },
                         {
-                            title: 'NULS底层',
+                            title: 'NULS2.0',
                             children: [
                                 '/zh/NULSInfrastructure/NULS2.0Introduction',
+                                '/zh/NULSInfrastructure/howToUseNulsBuildChain',
                                 '/zh/NULSInfrastructure/networkModuleDesign',
                                 '/zh/NULSInfrastructure/eventBusModuleDesign',
                                 '/zh/NULSInfrastructure/generalProtocol',
@@ -207,7 +209,6 @@ module.exports = {
                                 '/zh/NULSInfrastructure/consensusModuleDesign',
                                 '/zh/NULSInfrastructure/rpcToolWebsocketDesign',
                                 '/zh/NULSInfrastructure/randomRPC',
-                                
                             ]
                         },
                         {
