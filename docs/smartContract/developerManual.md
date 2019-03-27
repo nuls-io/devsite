@@ -1,4 +1,4 @@
-# NULS Smart Contract Development Manual
+# Smart Contract Development Manual
 
 ## 1. Introduction
 

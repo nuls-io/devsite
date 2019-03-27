@@ -16,28 +16,28 @@ NULS核心团队革命性的在区块链底层基础设施设计中引入微服�
 此次Alpha版本测试内容主要包含：
 - Linux钱包全部功能，例如:账户创建、导入、转账和创建节点等等
 - 基于NULS2.0核心模块搭建区块链
-- 搭建包含[业务模块](/zh/NULSInfrastructure/howToUseNulsBuildChain.html#_1-业务模块说明)的区块链
+- 搭建包含[业务模块](/zh/NULS2.0/developModule.html)的区块链
 
 ### 参与测试：
 
-1 下载linux客户端:
+1 [下载linux客户端](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/pangu/NULS-Wallet-linux64-alpha1.tgz)
 
-2 [linux钱包使用教程](/zh/NULSInfrastructure/linuxTutorial.html)
+2 [linux钱包使用教程](/zh/NULS2.0/linuxTutorial.html)
 
-3 申请测试币，访问[nuls.community测试币领取帖](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141)并在帖子中回复:Alpha+地址
+3 [申请测试币](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141)并在帖子中回复:Alpha+地址
 
 4 访问区块链浏览器:[http://alpha.nulscan.io/](http://alpha.nulscan.io/)
 
-5 [使用NULS2.0搭建区块链](/zh/NULSInfrastructure/howToUseNulsBuildChain.html)
+5 [使用NULS2.0搭建区块链](/zh/NULS2.0/howToUseNulsBuildChain.html)
 
 6 提交bug:[https://github.com/nuls-io/nuls_2.0/issues](https://github.com/nuls-io/nuls_2.0/issues)
 
 
 ### 相关链接
 
-- Github:[https://github.com/nuls-io](https://github.com/nuls-io)
+- Github:[https://github.com/nuls-io/nuls_2.0](https://github.com/nuls-io/nuls_2.0)
 - 论坛：[https://nuls.community](https://nuls.community)
-- 技术社区Telegram：[https://t.me/joinchat/H3uFmUuqJGAXYIQp7E7AbA](https://t.me/joinchat/H3uFmUuqJGAXYIQp7E7AbA)
+- 技术社区Telegram：[https://t.me/nulstest](https://t.me/nulstest)
 - 微信公众号：NULS中文社区
 
 

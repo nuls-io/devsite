@@ -1,255 +1,278 @@
 module.exports = {
-    base : '/',
+    // base : '/',
     markdown: {
-        lineNumbers: true // 代码块显示行号
+        lineNumbers: false // 代码块显示行号
     },
     locales: {
         // 键名是该语言所属的子路径
         // 作为特例，默认语言可以使用 '/' 作为其路径。
         '/': {
+            title:"NULS",
             lang: 'en-US',
-            title: 'NULS',
             description: 'NULS'
-        },
+        },   
         '/zh/': {
+            title:"NULS",
             lang: 'zh-CN',
-            title: 'NULS',
-            description: 'NULS document library'
+            description: 'NULS'
         }
     },
+    head:[
+        ['link', { rel: 'icon', href: "/icon.png" }]
+    ],
     themeConfig : {
         repo: 'nuls-io/devsite',
         editLinks: true,
         docsDir: 'docs',
         docsBranch: 'dev',
-        sidebarDepth: 2,
+        sidebarDepth: 1,
         lastUpdated: 'Last Updated',
+        nav:[
+            {text:"Guide",link:"/learn/"},
+            {text:"NULS1.0",link:"/NULS1.0/"},
+            {text:"NULS2.0",link:"/NULS2.0/"}
+        ],
         locales: {
             '/': {
                 selectText: 'Languages',
                 label: 'English',
                 editLinkText: 'Edit this page on GitHub',
-                serviceWorker: {
-                    updatePopup: {
-                        message: "New content is available.",
-                        buttonText: "Refresh"
-                    }
-                },
-                algolia: {},
                 sidebar: {
-                    '/': [
+                    '/learn/': [
                         {
                             title: 'Overview',
                             children: [
-                                '/overview/introduction',
-                                '/overview/structure',
-                                '/overview/howToContribute',
+                                'introduction',
+                                'howToContribute',
                             ]
                         },
                         {
                             title: 'Users Guide',
                             children: [
-                                // '/guide/GUIGuide',
-                                // '/guide/webGuide',
-                                '/guide/NULSTransaction',
+                                'NULSTransaction'
                             ]
                         },
                         {
                             title: 'Community',
                             children: [
-                                '/community/toolsGuide',
-                                '/community/ambassadorRules',
-                                '/community/joinCCC',
-                                '/community/communityConstitution',
-                                '/community/communityFund',
-                            ]
-                        },
-                        {
-                            title: 'Launch NULS',
-                            children: [
-                                '/startNULS/sourceCodeStartNULS',
-                                '/startNULS/connectMainnet',
-                                '/startNULS/connectTestnet',
-                            ]
-                        },
-                        {
-                            title: 'Quickly Building A Chain',
-                            children: [
-                                '/buildChain/buildPrivateChain',
-                            ]
-                        },
-                        {
-                            title: 'NULS2.0',
-                            children: [
-                                '/NULSInfrastructure/NULS2.0Introduction',
-                                '/NULSInfrastructure/linuxTutorial',
-                                '/NULSInfrastructure/howToUseNulsBuildChain',
-                                // '/NULSInfrastructure/networkModuleDesign',
-                                // '/NULSInfrastructure/eventBusModuleDesign',
-                                // '/NULSInfrastructure/generalProtocol',
-                                // '/NULSInfrastructure/accountModuleDesign',
-                                // '/NULSInfrastructure/ledgerModuleDesign',
-                                // '/NULSInfrastructure/blockModuleDesign',
-                                // '/NULSInfrastructure/chainModuleDesign',
-                                // '/NULSInfrastructure/consensusModuleDesign',
-                                '/NULSInfrastructure/rpcToolWebsocketDesign',
-                                '/NULSInfrastructure/interfaceStandard',
-                                '/NULSInfrastructure/randomRPC',
-                            ]
-                        },
-                        {
-                            title: 'Smart Contracts',
-                            children: [
-                                '/smartContract/startSmartContract',
-                                '/smartContract/developerManual',
-                                '/smartContract/GUIForSmartContract',
-                                '/smartContract/ideaPlugin',
-                                '/smartContract/NRC-20TokenStandard',
-                                '/smartContract/smartContractFee',
-                                '/smartContract/randomImplementations',
-                                '/smartContract/randomRPC',
-                            ]
-                        },
-                        {
-                            title: 'Developer Tools',
-                            children: [
-                                '/developerTools/sdk',
-                                '/developerTools/clientCLI',
-                                '/developerTools/smartContractIDEAPlugin',
+                                'toolsGuide',
+                                'ambassadorRules',
+                                'joinCCC',
+                                'communityConstitution',
+                                'communityFund',
                             ]
                         },
                         {
                             title: 'NIPs',
                             children: [
-                                '/nips/NIPIntroduction',
-                                '/nips/NIP-1',
-                                '/nips/NIP-2',
-                                '/nips/NIP-3',
-                                '/nips/NIP-4',
+                                'NIPIntroduction',
+                                'NIP-1',
+                                'NIP-2',
+                                'NIP-3',
+                                'NIP-4',
                             ]
                         },
                         {
                             title: 'NULS Portal',
                             children: [
-                                '/nulsNav/NULSNav',
+                                'NULSNav'
+                            ]
+                        },
+                    ],
+                    '/NULS1.0/':[
+                        {
+                            title: 'Launch NULS',
+                            children: [
+                                'sourceCodeStartNULS',
+                                'connectMainnet',
+                                'connectTestnet',
+                            ]
+                        },
+                        {
+                            title: 'Underlying',
+                            children: [
+                                'buildPrivateChain',
+                                'rpcToolWebsocketDesign'
+                            ]
+                        },
+                        {
+                            title: 'Smart Contracts',
+                            children: [
+                                'startSmartContract',
+                                'developerManual',
+                                'GUIForSmartContract',
+                                'ideaPlugin',
+                                'NRC-20TokenStandard',
+                                'smartContractFee',
+                                'randomImplementations',
+                                'randomRPC'
+                            ]
+                        },
+                        {
+                            title: 'Developer Tools',
+                            children: [
+                                'sdk',
+                                'clientCLI'
+                            ]
+                        },
+                    ],
+                    '/NULS2.0/': [
+                        {   
+                            title: 'Introduction',
+                            collapsable:false,
+                            children: [
+                                'NULS2.0Introduction'
+                            ]
+                        },
+                        {
+                            title: 'Alpha',
+                            collapsable:false,
+                            children: [
+                                'quickStart',
+                                'packageGeneration',
+                                'developModule',
+                                'linuxTutorial',
+                                'howToUseNulsBuildChain',
+                            ]
+                        },
+                        {
+                            title: 'Smart Contract',
+                            collapsable:false,
+                            children: [
+                                'startSmartContract',
+                                'developerManual',
+                                'ideaPlugin',
+                                'NRC-20TokenStandard',
+                                'smartContractFee',
                             ]
                         },
                     ]
                 },
             },
             '/zh/': {
-                // 多语言下拉菜单的标题
                 selectText: '选择语言',
                 // 该语言在下拉菜单中的标签
                 label: '简体中文',
                 // 编辑链接文字
                 editLinkText: '在 GitHub 上编辑此页',
                 // Service Worker 的配置
-                serviceWorker: {
-                    updatePopup: {
-                        message: "发现新内容可用.",
-                        buttonText: "刷新"
-                    }
-                },
+                nav:[
+                    {text:"了解NULS",link:"/zh/learn/"},
+                    {text:"NULS1.0",link:"/zh/NULS1.0/"},
+                    {text:"NULS2.0",link:"/zh/NULS2.0/"}
+                ],
                 sidebar: {
-                    '/zh/': [
+                    '/zh/learn/': [
                         {
                             title: '总览',
                             children: [
-                                '/zh/overview/introduction',
-                                '/zh/overview/structure',
-                                '/zh/overview/howToContribute',
+                                'introduction',
+                                'howToContribute',
                             ]
                         },
                         {
                             title: '用户操作指南',
                             children: [
-                                '/zh/guide/clientWalletGuide',
-                                '/zh/guide/lightWalletGuide',
-                                '/zh/guide/NULSTransaction',
-                                '/zh/guide/NULSExplorerGuide',                             
+                                'clientWalletGuide',
+                                'lightWalletGuide',
+                                'NULSTransaction',
+                                'NULSExplorerGuide',                             
                             ]
                         },
                         {
                             title: '社区',
                             children: [
-                                '/zh/community/toolsGuide',
-                                '/zh/community/ambassadorRules',
-                                '/zh/community/joinCCC',
-                                '/zh/community/communityConstitution',
-                                '/zh/community/communityFund',
-                            ]
-                        },
-                        {
-                            title: '启动NULS',
-                            children: [
-                                '/zh/startNULS/sourceCodeStartNULS',
-                                '/zh/startNULS/connectMainnet',
-                                '/zh/startNULS/connectTestnet',
-                            ]
-                        },
-                        {
-                            title: '快速搭链',
-                            children: [
-                                '/zh/buildChain/buildPrivateChain',
-                            ]
-                        },
-                        {
-                            title: 'NULS2.0',
-                            children: [
-                                '/zh/NULSInfrastructure/NULS2.0Introduction',
-                                '/zh/NULSInfrastructure/linuxTutorial',
-                                '/zh/NULSInfrastructure/howToUseNulsBuildChain',
-                                // '/zh/NULSInfrastructure/networkModuleDesign',
-                                // '/zh/NULSInfrastructure/eventBusModuleDesign',
-                                // '/zh/NULSInfrastructure/generalProtocol',
-                                // '/zh/NULSInfrastructure/accountModuleDesign',
-                                // '/zh/NULSInfrastructure/ledgerModuleDesign',
-                                // '/zh/NULSInfrastructure/blockModuleDesign',
-                                // '/zh/NULSInfrastructure/transactionModuleDesign',
-                                // '/zh/NULSInfrastructure/chainModuleDesign',
-                                // '/zh/NULSInfrastructure/consensusModuleDesign',
-                                '/zh/NULSInfrastructure/rpcToolWebsocketDesign',
-                                '/zh/NULSInfrastructure/randomRPC',
-                            ]
-                        },
-                        {
-                            title: '智能合约',
-                            children: [
-                                '/zh/smartContract/startSmartContract',
-                                '/zh/smartContract/developerManual',
-                                '/zh/smartContract/GUIForSmartContract',
-                                '/zh/smartContract/ideaPlugin',
-                                '/zh/smartContract/NRC-20TokenStandard',
-                                '/zh/smartContract/guessTheSize',
-                                '/zh/smartContract/smartContractFee',
-                                '/zh/smartContract/randomImplementations',
-                                '/zh/smartContract/randomRPC',
-                               
-                            ]
-                        },
-                        {
-                            title: '开发者工具',
-                            children: [
-                                '/zh/developerTools/sdk',
-                                '/zh/developerTools/clientCLI',
-                                '/zh/developerTools/smartContractIDEAPlugin',
+                                'toolsGuide',
+                                'ambassadorRules',
+                                'joinCCC',
+                                'communityConstitution',
+                                'communityFund',
                             ]
                         },
                         {
                             title: 'NIPs',
                             children: [
-                                '/zh/nips/NIPIntroduction',
-                                '/zh/nips/NIP-1',
-                                '/zh/nips/NIP-2',
-                                '/zh/nips/NIP-3',
-                                '/zh/nips/NIP-4',
+                                'NIPIntroduction',
+                                'NIP-1',
+                                'NIP-2',
+                                'NIP-3',
+                                'NIP-4',
                             ]
                         },
                         {
                             title: 'NULS 导航',
                             children: [
-                                '/zh/nulsNav/NULSNav',
+                                'NULSNav',
+                            ]
+                        },
+                    ],
+                    '/zh/NULS1.0/':[
+                        {
+                            title: '启动NULS',
+                            children: [
+                                'sourceCodeStartNULS',
+                                'connectMainnet',
+                                'connectTestnet',
+                            ]
+                        },
+                        {
+                            title: '底层',
+                            children: [
+                                'buildPrivateChain',
+                                'rpcToolWebsocketDesign'
+                            ]
+                        },
+                        {
+                            title: '智能合约',
+                            children: [
+                                'startSmartContract',
+                                'developerManual',
+                                'GUIForSmartContract',
+                                'ideaPlugin',
+                                'NRC-20TokenStandard',
+                                'smartContractFee',
+                                'randomImplementations',
+                                'randomRPC',
+                                'guessTheSize',
+                               
+                            ]
+                        },
+                         {
+                            title: '开发者工具',
+                            children: [
+                                'sdk',
+                                'clientCLI'
+                            ]
+                        },
+                    ],
+                    '/zh/NULS2.0/': [
+                        {   
+                            title: '介绍',
+                            collapsable:false,
+                            children: [
+                                'NULS2.0Introduction'
+                            ]
+                        },
+                        {
+                            title: 'Alpha',
+                            collapsable:false,
+                            children: [
+                                'quickStart',
+                                'packageGeneration',
+                                'developModule',
+                                'linuxTutorial',
+                                'howToUseNulsBuildChain',
+                            ]
+                        },
+                        {
+                            title: '智能合约',
+                            collapsable:false,
+                            children: [
+                                'startSmartContract',
+                                'developerManual',
+                                'ideaPlugin',
+                                'NRC-20TokenStandard',
+                                'smartContractFee',
                             ]
                         },
                     ]

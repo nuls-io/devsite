@@ -9,7 +9,7 @@ The NULS document library is a collection of all NULS documents. Here you can le
 
 ## NULS2.0 Alpha Version is released
 
-Dear users,
+Dear users:
 
 It is a great honor to announce that the NULS2.0 Alpha version has been released at 10:30 am, Beijing time: 2019-03-28. We sincerely invite you to participate in the internal test.
 
@@ -18,27 +18,29 @@ The NULS core team innovatively introduced micro-service thinking into the desig
 The Alpha version test mainly includes:
 - Full functionality of the Linux wallet, such as account creation, import, transfer, node creation, etc
 - Build blockchain based on NULS2.0 core modules
-- Build blockchain including business module
+- Build blockchain including [business module](/NULS2.0/developModule.html)
 
-### Join test：
+### Join Test：
 
-1 Download linux client:
+1 [Download linux client](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/pangu/NULS-Wallet-linux64-alpha1.tgz)
 
-2 [linux client tutorial](/NULSInfrastructure/linuxTutorial.html)
+2 [linux CLI Manual](/NULS2.0/linuxTutorial.html)
 
-3 Apply for test NULS,access [ post of applying for test NULS](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141) and reply: Alpha+address
+3 [Apply for test NULS](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141) and reply: Alpha+address
 
 4 Access blockchain explorer: [http://alpha.nulscan.io/](http://alpha.nulscan.io/)
 
-5 [Build Blockchain based on NULS2.0](/zh/NULSInfrastructure/howToUseNulsBuildChain.html)
+5 [Build Blockchain based on NULS2.0](/NULS2.0/howToUseNulsBuildChain.html)
 
 6 Submit bug:[https://github.com/nuls-io/nuls_2.0/issues](https://github.com/nuls-io/nuls_2.0/issues)
 
-### Related link
+### Related Link
 
-- Github:[https://github.com/nuls-io](https://github.com/nuls-io)
+- Github:[https://github.com/nuls-io/nuls_2.0](https://github.com/nuls-io/nuls_2.0)
 - Community：[https://nuls.community](https://nuls.community)
-- Tech community Telegram：[https://t.me/joinchat/H3uFmUuqJGAXYIQp7E7AbA](https://t.me/joinchat/H3uFmUuqJGAXYIQp7E7AbA)
+- Tech community Telegram：[https://t.me/nulstest](https://t.me/nulstest)
 - Wechat：NULS中文社区
+
+
 
 To learn more about us, visit [nuls.io](https://nuls.io).
