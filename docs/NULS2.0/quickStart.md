@@ -6,7 +6,7 @@ Download JDK11 to the server and extract it.
 
 ### 1 download jdk11
 
-Jdk11 download address: [jdk11 download] (https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
+Jdk11 download address: [jdk11 download](https://www.oracle.com/technetwork/java/javase/downloads/jdk11-downloads-5066655.html)
 
 ### 2 upload to the server and extract
 
