@@ -246,13 +246,13 @@ module.exports = {
                         },
                     ],
                     '/zh/NULS2.0/': [
-                        {   
-                            title: '介绍',
-                            collapsable:false,
-                            children: [
-                                'NULS2.0Introduction'
-                            ]
-                        },
+                        // {   
+                        //     title: '介绍',
+                        //     collapsable:false,
+                        //     children: [
+                        //         'NULS2.0Introduction'
+                        //     ]
+                        // },
                         {
                             title: 'Alpha',
                             collapsable:false,
