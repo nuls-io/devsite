@@ -23,12 +23,12 @@ The second layer is the basic service layer of the blockchain.
 The third layer is the DApp application layer.
 
 This design refactors NULS from the perspective of the blockchain, to a higher level of cognition that will bring NULS into the new era of NULS IS EVERYTHING. The core team has decided to refactor the NULS 2.0 architecture based on this new architectural design. The result of this decision inevitably means that with certainty NULS will become a truly powerful, one-of-a-kind and supremely flexible platform.
-![](./introduction/introduction1.jpg)
+![](./introduction/intro1.jpg)
 
 This architecture allows for the development of more advanced applications built on the second layer (such as the distributed system of exchanges, the data service system, and systems similar to DiDi, all of which can be built on the second layer). Another significant benefit of the architecture is that the NULS system will not only build out multiple chains and multiple DApps, but also other large and medium-sized non-blockchain commercial systems, such as Internet, mobile Internet, Internet of Things, car networking — the possibilities are endless!
 
 The new design empowers NULS to be more than just the underlying infrastructure of the blockchain and instead transforms it into a distributed system infrastructure that seamlessly integrates with the blockchain system. It will be a platform for seamless communication between different systems (blockchain and other systems), which will enable businesses built around NULS to flourish more quickly while greatly reducing development costs. This overall optimization gives NULS innate, and undisputed competitive advantages.
-![](./introduction/introduction2.jpg)
+![](./introduction/intro2.jpg)
 
 ## Philosophy of Design
 
