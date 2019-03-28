@@ -41,7 +41,7 @@ View the jdk version via java -version:
 
 ### 1 download NULS wallet
 
-Go to GitHub and download the latest version of the NULS2.0 Alpha1 wallet: [download address] (https://github.com/nuls-io/nuls/releases)
+Go to GitHub and download the latest version of the NULS2.0 Alpha1 wallet: [download address] (https://github.com/nuls-io/nuls_2.0/releases)
 
 ### 2 upload to the server and extract
 
@@ -59,7 +59,7 @@ After the wallet is decompressed, go to the start.sh file directory: /home/nuls2
 
 ![20190327150757](./quickStart/20190327150757.png)
 
-Execute the command: **./start.sh**
+Execute the command: **./start.sh -D**
 
 ### 2 enter the command line
 

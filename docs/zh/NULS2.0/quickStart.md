@@ -41,7 +41,7 @@ export JAVA_HOME PATH CLASSPATH
 
 ### 1、下载NULS钱包
 
-进入GitHub下载最新版的NULS2.0 Alpha1钱包：[下载地址](https://github.com/nuls-io/nuls/releases)
+进入GitHub下载最新版的NULS2.0 Alpha1钱包：[下载地址](https://github.com/nuls-io/nuls_2.0/releases)
 
 ### 2、上传至服务器并解压
 
@@ -59,7 +59,7 @@ tar -zxvf NULS-Walltet-linux64-alpha1.tar.gz
 
 ![20190327150757](./quickStart/20190327150757.png)
 
-执行命令：**./start.sh** 
+执行命令：**./start.sh -D** 
 
 ### 2、进入命令行
 
