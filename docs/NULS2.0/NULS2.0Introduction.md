@@ -14,21 +14,6 @@ Since its conception in 2017, NULS has been committed to establishing a communit
 
 The core team introduces an innovative microservice concept in the infrastructure design of blockchain, which designs software applications as service suites that can be deployed independently. This concept introduces the most advanced ideas in the 1.0 architecture and transforms them with enhanced flexibility into a new modular design, making modules as flexible as programs that can start independently. This new modular architecture enhanced with microservice suites, that have no programming language limitations, is called NULS 2.0. Modules in this architecture enjoy even more decoupling, while the feature of multi-language development greatly improves the contribution of code and the convenience of users. At the same time, it is even easier to extend, since the enhanced design of modules supports distributed deployment and hot module replacement. Both Chain Factory and Cross-Chain Modules are being developed in coordination with this architecture.
 
-During the design of NULS 2.0, the NULS team and technical community also established the NULS CCC (Code Craft Council), to provide the first stage of autonomy for the technical community. Around this time, and as a matter of coincidence, Berzeck, a member of CCC, had been considering the idea of refactoring the NULS architecture with microservices, a problem which he worked on in former projects of considerable size. After reading the design proposed by Berzeck, the core team was very pleased to find that his version encapsulated an even more complete micro-service design, which coincided with the more flexible blockchain infrastructure the team was working to achieve. Berzeck’s design is divided into a three-layer system of architecture:
-
-The first layer is the micro-service infrastructure layer.
-
-The second layer is the basic service layer of the blockchain.
-
-The third layer is the DApp application layer.
-
-This design refactors NULS from the perspective of the blockchain, to a higher level of cognition that will bring NULS into the new era of NULS IS EVERYTHING. The core team has decided to refactor the NULS 2.0 architecture based on this new architectural design. The result of this decision inevitably means that with certainty NULS will become a truly powerful, one-of-a-kind and supremely flexible platform.
-![](./introduction/intro1.jpg)
-
-This architecture allows for the development of more advanced applications built on the second layer (such as the distributed system of exchanges, the data service system, and systems similar to DiDi, all of which can be built on the second layer). Another significant benefit of the architecture is that the NULS system will not only build out multiple chains and multiple DApps, but also other large and medium-sized non-blockchain commercial systems, such as Internet, mobile Internet, Internet of Things, car networking — the possibilities are endless!
-
-The new design empowers NULS to be more than just the underlying infrastructure of the blockchain and instead transforms it into a distributed system infrastructure that seamlessly integrates with the blockchain system. It will be a platform for seamless communication between different systems (blockchain and other systems), which will enable businesses built around NULS to flourish more quickly while greatly reducing development costs. This overall optimization gives NULS innate, and undisputed competitive advantages.
-![](./introduction/intro2.jpg)
 
 ## Philosophy of Design
 
