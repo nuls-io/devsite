@@ -29,7 +29,7 @@ CLASSPATH=:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 export JAVA_HOME PATH CLASSPATH	
 ```
 
-**ps**:/home/nuls2/jdk-11.0.2为jdk加压之后的路径，请根据自己的实际路径配置。
+**ps**:/home/nuls2/jdk-11.0.2为jdk解压之后的路径，请根据自己的实际路径配置。
 
 **source /ect/profile** 执行该命令配置生效。
 
@@ -63,7 +63,7 @@ tar -zxvf NULS-Walltet-linux64-alpha1.tar.gz
 
 ### 2、进入命令行
 
-钱包启动之后，执行同目录下的cmd.sh（./cmd.sh）进入钱包命令行，将会提示NULS命令输入提示符：`nuls&gt;&gt;&gt;  `，输入NULS钱包操作命令，进行操作。
+钱包启动之后，执行同目录下的cmd.sh（./cmd.sh）进入钱包命令行，将会提示NULS命令输入提示符：`nuls>>>  `，输入NULS钱包操作命令，进行操作。
 
 ![20190327223858](./quickStart/20190327223858.png)
 

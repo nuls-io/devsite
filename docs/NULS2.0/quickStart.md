@@ -29,7 +29,7 @@ CLASSPATH=:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
 Export JAVA_HOME PATH CLASSPATH
 ```
 
-**ps**: /home/nuls2/jdk-11.0.2 is the path after jdk is pressurized, please configure according to your actual path.
+**ps**: /home/nuls2/jdk-11.0.2 is the path after jdk is unpacked, please configure according to your actual path.
 
 **source /ect/profile** The configuration of this command takes effect.
 
