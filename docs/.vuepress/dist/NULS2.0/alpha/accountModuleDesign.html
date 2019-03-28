@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Account module design document | NULS</title>
+    <meta name="description" content="NULS">
+    <link rel="icon" href="/icon.png">
+    
+    <link rel="preload" href="/assets/css/0.styles.3751d6d5.css" as="style"><link rel="preload" href="/assets/js/app.9a7036e8.js" as="script"><link rel="preload" href="/assets/js/21.db5c56e6.js" as="script"><link rel="prefetch" href="/assets/js/10.2cc8f5c2.js"><link rel="prefetch" href="/assets/js/100.d3a152d6.js"><link rel="prefetch" href="/assets/js/101.2a081cb7.js"><link rel="prefetch" href="/assets/js/102.a47ba456.js"><link rel="prefetch" href="/assets/js/103.d5ac9751.js"><link rel="prefetch" href="/assets/js/104.7595a7fc.js"><link rel="prefetch" href="/assets/js/105.828dda8f.js"><link rel="prefetch" href="/assets/js/106.e754f194.js"><link rel="prefetch" href="/assets/js/107.775c5175.js"><link rel="prefetch" href="/assets/js/108.8b1f0e7f.js"><link rel="prefetch" href="/assets/js/109.2f3b3253.js"><link rel="prefetch" href="/assets/js/11.b0ceb74e.js"><link rel="prefetch" href="/assets/js/110.aa04c678.js"><link rel="prefetch" href="/assets/js/111.f62d78bb.js"><link rel="prefetch" href="/assets/js/112.69acd927.js"><link rel="prefetch" href="/assets/js/113.888160f3.js"><link rel="prefetch" href="/assets/js/114.29e41199.js"><link rel="prefetch" href="/assets/js/115.d2ee5369.js"><link rel="prefetch" href="/assets/js/116.51fc87d4.js"><link rel="prefetch" href="/assets/js/117.4c9dc648.js"><link rel="prefetch" href="/assets/js/118.83070636.js"><link rel="prefetch" href="/assets/js/119.665c7995.js"><link rel="prefetch" href="/assets/js/12.02dfbd69.js"><link rel="prefetch" href="/assets/js/120.214bbe7a.js"><link rel="prefetch" href="/assets/js/121.bf9971ed.js"><link rel="prefetch" href="/assets/js/122.7560b52a.js"><link rel="prefetch" href="/assets/js/123.1d267c1f.js"><link rel="prefetch" href="/assets/js/124.f5bbb448.js"><link rel="prefetch" href="/assets/js/125.376b8644.js"><link rel="prefetch" href="/assets/js/126.f44dfff9.js"><link rel="prefetch" href="/assets/js/127.4bfabc7b.js"><link rel="prefetch" href="/assets/js/128.f1386192.js"><link rel="prefetch" href="/assets/js/129.bc8e43b2.js"><link rel="prefetch" href="/assets/js/13.6ff2f0d4.js"><link rel="prefetch" href="/assets/js/130.cacc4ae3.js"><link rel="prefetch" href="/assets/js/131.84d456ba.js"><link rel="prefetch" href="/assets/js/132.2aae8ca6.js"><link rel="prefetch" href="/assets/js/133.1a312ad1.js"><link rel="prefetch" href="/assets/js/134.703ce965.js"><link rel="prefetch" href="/assets/js/135.8cee3887.js"><link rel="prefetch" href="/assets/js/136.b36f5811.js"><link rel="prefetch" href="/assets/js/137.eda59c8e.js"><link rel="prefetch" href="/assets/js/138.551346e5.js"><link rel="prefetch" href="/assets/js/139.3a3f1471.js"><link rel="prefetch" href="/assets/js/14.fa820f23.js"><link rel="prefetch" href="/assets/js/140.1e504789.js"><link rel="prefetch" href="/assets/js/141.4bf908a3.js"><link rel="prefetch" href="/assets/js/142.618b966f.js"><link rel="prefetch" href="/assets/js/143.36491f90.js"><link rel="prefetch" href="/assets/js/144.76d9a156.js"><link rel="prefetch" href="/assets/js/145.be4615d5.js"><link rel="prefetch" href="/assets/js/146.a073f6bd.js"><link rel="prefetch" href="/assets/js/147.fec28542.js"><link rel="prefetch" href="/assets/js/148.1a4b00b2.js"><link rel="prefetch" href="/assets/js/149.6671cebe.js"><link rel="prefetch" href="/assets/js/15.1f656e2a.js"><link rel="prefetch" href="/assets/js/150.75db4652.js"><link rel="prefetch" href="/assets/js/151.b3ee235e.js"><link rel="prefetch" href="/assets/js/152.63fb9894.js"><link rel="prefetch" href="/assets/js/153.852b7cff.js"><link rel="prefetch" href="/assets/js/154.dbd3a07d.js"><link rel="prefetch" href="/assets/js/155.6f6f946b.js"><link rel="prefetch" href="/assets/js/156.8e16b0e8.js"><link rel="prefetch" href="/assets/js/157.8dbfeb43.js"><link rel="prefetch" href="/assets/js/158.919c857b.js"><link rel="prefetch" href="/assets/js/159.09925f42.js"><link rel="prefetch" href="/assets/js/16.aa19419e.js"><link rel="prefetch" href="/assets/js/160.797785d9.js"><link rel="prefetch" href="/assets/js/161.4d34eb09.js"><link rel="prefetch" href="/assets/js/162.94099c67.js"><link rel="prefetch" href="/assets/js/163.9f984d63.js"><link rel="prefetch" href="/assets/js/164.9e26163d.js"><link rel="prefetch" href="/assets/js/165.c8de855f.js"><link rel="prefetch" href="/assets/js/166.d8e0213d.js"><link rel="prefetch" href="/assets/js/167.778d1b2a.js"><link rel="prefetch" href="/assets/js/168.6ad455d7.js"><link rel="prefetch" href="/assets/js/169.f26a480a.js"><link rel="prefetch" href="/assets/js/17.4eef6f4e.js"><link rel="prefetch" href="/assets/js/170.9f0e1298.js"><link rel="prefetch" href="/assets/js/171.fc4a1cfb.js"><link rel="prefetch" href="/assets/js/172.d5c28bec.js"><link rel="prefetch" href="/assets/js/173.2cfc6896.js"><link rel="prefetch" href="/assets/js/174.6ac11f1d.js"><link rel="prefetch" href="/assets/js/175.ff16c02e.js"><link rel="prefetch" href="/assets/js/176.5d7156d4.js"><link rel="prefetch" href="/assets/js/177.89dacd78.js"><link rel="prefetch" href="/assets/js/178.a59d32eb.js"><link rel="prefetch" href="/assets/js/179.a6c468fe.js"><link rel="prefetch" href="/assets/js/18.f6c2f0b8.js"><link rel="prefetch" href="/assets/js/180.ebd647d5.js"><link rel="prefetch" href="/assets/js/181.872ce38a.js"><link rel="prefetch" href="/assets/js/182.0db6d70c.js"><link rel="prefetch" href="/assets/js/183.963128a1.js"><link rel="prefetch" href="/assets/js/184.b537b1fa.js"><link rel="prefetch" href="/assets/js/185.30696c6b.js"><link rel="prefetch" href="/assets/js/186.0ad2973d.js"><link rel="prefetch" href="/assets/js/187.ada551ca.js"><link rel="prefetch" href="/assets/js/188.0bf963be.js"><link rel="prefetch" href="/assets/js/189.39991fc7.js"><link rel="prefetch" href="/assets/js/19.c066ca9d.js"><link rel="prefetch" href="/assets/js/190.7453b0ea.js"><link rel="prefetch" href="/assets/js/191.6f8d2b48.js"><link rel="prefetch" href="/assets/js/192.ffa7a0ae.js"><link rel="prefetch" href="/assets/js/193.6b5187de.js"><link rel="prefetch" href="/assets/js/194.33c85b12.js"><link rel="prefetch" href="/assets/js/195.6ce6baa9.js"><link rel="prefetch" href="/assets/js/196.b7f7795d.js"><link rel="prefetch" href="/assets/js/197.56c70085.js"><link rel="prefetch" href="/assets/js/198.2b4a23bb.js"><link rel="prefetch" href="/assets/js/199.07618bd4.js"><link rel="prefetch" href="/assets/js/2.434158f1.js"><link rel="prefetch" href="/assets/js/20.5171c565.js"><link rel="prefetch" href="/assets/js/200.cd38ef32.js"><link rel="prefetch" href="/assets/js/201.63a35536.js"><link rel="prefetch" href="/assets/js/202.8463e76c.js"><link rel="prefetch" href="/assets/js/203.c2eff4d8.js"><link rel="prefetch" href="/assets/js/204.1b6a7ee2.js"><link rel="prefetch" href="/assets/js/205.84d64836.js"><link rel="prefetch" href="/assets/js/22.498863f8.js"><link rel="prefetch" href="/assets/js/23.9f1f092a.js"><link rel="prefetch" href="/assets/js/24.2dd53084.js"><link rel="prefetch" href="/assets/js/25.0460bbcd.js"><link rel="prefetch" href="/assets/js/26.cac7fce9.js"><link rel="prefetch" href="/assets/js/27.d07d1fcb.js"><link rel="prefetch" href="/assets/js/28.af448362.js"><link rel="prefetch" href="/assets/js/29.014f7be8.js"><link rel="prefetch" href="/assets/js/3.944c2fb9.js"><link rel="prefetch" href="/assets/js/30.71024fdc.js"><link rel="prefetch" href="/assets/js/31.a1d400ee.js"><link rel="prefetch" href="/assets/js/32.f6916684.js"><link rel="prefetch" href="/assets/js/33.7a11d236.js"><link rel="prefetch" href="/assets/js/34.2e902b60.js"><link rel="prefetch" href="/assets/js/35.77cbe800.js"><link rel="prefetch" href="/assets/js/36.b4a03b7d.js"><link rel="prefetch" href="/assets/js/37.835e1993.js"><link rel="prefetch" href="/assets/js/38.d905a078.js"><link rel="prefetch" href="/assets/js/39.9a0ea84a.js"><link rel="prefetch" href="/assets/js/4.10b50b1a.js"><link rel="prefetch" href="/assets/js/40.6894dc38.js"><link rel="prefetch" href="/assets/js/41.9abdd72f.js"><link rel="prefetch" href="/assets/js/42.791cbfec.js"><link rel="prefetch" href="/assets/js/43.b4204359.js"><link rel="prefetch" href="/assets/js/44.79523177.js"><link rel="prefetch" href="/assets/js/45.52dab45f.js"><link rel="prefetch" href="/assets/js/46.d45f0044.js"><link rel="prefetch" href="/assets/js/47.66798c19.js"><link rel="prefetch" href="/assets/js/48.2f7186f9.js"><link rel="prefetch" href="/assets/js/49.5efe22f1.js"><link rel="prefetch" href="/assets/js/5.54beffe8.js"><link rel="prefetch" href="/assets/js/50.76124638.js"><link rel="prefetch" href="/assets/js/51.b430df64.js"><link rel="prefetch" href="/assets/js/52.dc55c14c.js"><link rel="prefetch" href="/assets/js/53.32933bde.js"><link rel="prefetch" href="/assets/js/54.5f4ba8e6.js"><link rel="prefetch" href="/assets/js/55.07cb4238.js"><link rel="prefetch" href="/assets/js/56.051d4b4e.js"><link rel="prefetch" href="/assets/js/57.bd3f6e79.js"><link rel="prefetch" href="/assets/js/58.220ce9c8.js"><link rel="prefetch" href="/assets/js/59.896c6030.js"><link rel="prefetch" href="/assets/js/6.0c2e36a1.js"><link rel="prefetch" href="/assets/js/60.b8253c86.js"><link rel="prefetch" href="/assets/js/61.f607b3ec.js"><link rel="prefetch" href="/assets/js/62.a2eb63e8.js"><link rel="prefetch" href="/assets/js/63.ab079e01.js"><link rel="prefetch" href="/assets/js/64.ab1a2432.js"><link rel="prefetch" href="/assets/js/65.23af0670.js"><link rel="prefetch" href="/assets/js/66.2cf2b73c.js"><link rel="prefetch" href="/assets/js/67.dd039849.js"><link rel="prefetch" href="/assets/js/68.c1f2396d.js"><link rel="prefetch" href="/assets/js/69.f64d6dc5.js"><link rel="prefetch" href="/assets/js/7.66c6371d.js"><link rel="prefetch" href="/assets/js/70.1b8f30ff.js"><link rel="prefetch" href="/assets/js/71.6abde1ee.js"><link rel="prefetch" href="/assets/js/72.a80f16f5.js"><link rel="prefetch" href="/assets/js/73.6690fcbd.js"><link rel="prefetch" href="/assets/js/74.d7f82bfd.js"><link rel="prefetch" href="/assets/js/75.fc906157.js"><link rel="prefetch" href="/assets/js/76.106a4524.js"><link rel="prefetch" href="/assets/js/77.ad77edec.js"><link rel="prefetch" href="/assets/js/78.10c7b197.js"><link rel="prefetch" href="/assets/js/79.08097c6d.js"><link rel="prefetch" href="/assets/js/8.b37e7034.js"><link rel="prefetch" href="/assets/js/80.c33bd3c0.js"><link rel="prefetch" href="/assets/js/81.c1c8227b.js"><link rel="prefetch" href="/assets/js/82.042ca332.js"><link rel="prefetch" href="/assets/js/83.371427a4.js"><link rel="prefetch" href="/assets/js/84.95658ce6.js"><link rel="prefetch" href="/assets/js/85.e4365ba5.js"><link rel="prefetch" href="/assets/js/86.c5ed5194.js"><link rel="prefetch" href="/assets/js/87.1a56019a.js"><link rel="prefetch" href="/assets/js/88.a0664933.js"><link rel="prefetch" href="/assets/js/89.365bb774.js"><link rel="prefetch" href="/assets/js/9.c34e88ed.js"><link rel="prefetch" href="/assets/js/90.2330af89.js"><link rel="prefetch" href="/assets/js/91.25be9d8a.js"><link rel="prefetch" href="/assets/js/92.7fca59f6.js"><link rel="prefetch" href="/assets/js/93.5d25de24.js"><link rel="prefetch" href="/assets/js/94.52f3f774.js"><link rel="prefetch" href="/assets/js/95.3da9bca5.js"><link rel="prefetch" href="/assets/js/96.24b73c87.js"><link rel="prefetch" href="/assets/js/97.cd2d42fb.js"><link rel="prefetch" href="/assets/js/98.a520e926.js"><link rel="prefetch" href="/assets/js/99.22c2d988.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.3751d6d5.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">NULS</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learn/" class="nav-link">Guide</a></div><div class="nav-item"><a href="/NULS1.0/" class="nav-link">NULS1.0</a></div><div class="nav-item"><a href="/NULS2.0/" class="nav-link router-link-active">NULS2.0</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/NULS2.0/alpha/accountModuleDesign.html" class="nav-link router-link-exact-active router-link-active">English</a></li><li class="dropdown-item"><!----> <a href="/zh/" class="nav-link">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/learn/" class="nav-link">Guide</a></div><div class="nav-item"><a href="/NULS1.0/" class="nav-link">NULS1.0</a></div><div class="nav-item"><a href="/NULS2.0/" class="nav-link router-link-active">NULS2.0</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/NULS2.0/alpha/accountModuleDesign.html" class="nav-link router-link-exact-active router-link-active">English</a></li><li class="dropdown-item"><!----> <a href="/zh/" class="nav-link">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first"><p class="sidebar-heading open"><span>Alpha</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/NULS2.0/quickStart.html" class="sidebar-link">Quick Start</a></li><li><a href="/NULS2.0/packageGeneration.html" class="sidebar-link">Package Generation</a></li><li><a href="/NULS2.0/developModule.html" class="sidebar-link">Develop Business Modules</a></li><li><a href="/NULS2.0/linuxTutorial.html" class="sidebar-link">Linux CLI Manual</a></li><li><a href="/NULS2.0/howToUseNulsBuildChain.html" class="sidebar-link">Build Chain</a></li></ul></div></li><li><div class="sidebar-group"><p class="sidebar-heading"><span>Smart Contract</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/NULS2.0/startSmartContract.html" class="sidebar-link">Quick Start</a></li><li><a href="/NULS2.0/developerManual.html" class="sidebar-link">Development Manual</a></li><li><a href="/NULS2.0/ideaPlugin.html" class="sidebar-link">IDEA Plugin</a></li><li><a href="/NULS2.0/NRC-20TokenStandard.html" class="sidebar-link">NRC-20 Token Standard</a></li><li><a href="/NULS2.0/smartContractFee.html" class="sidebar-link">Service Charge</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="account-module-design-document"><a href="#account-module-design-document" aria-hidden="true" class="header-anchor">#</a> Account module design document</h1> <p>[TOC]</p> <h2 id="_1、general-description"><a href="#_1、general-description" aria-hidden="true" class="header-anchor">#</a> 1、General description</h2> <h3 id="_1-1-module-overview"><a href="#_1-1-module-overview" aria-hidden="true" class="header-anchor">#</a> 1.1 Module overview</h3> <h4 id="_1-1-1-why-have-a-account-module"><a href="#_1-1-1-why-have-a-account-module" aria-hidden="true" class="header-anchor">#</a> 1.1.1 Why  have a Account Module</h4> <ul><li>Used to manage account generation, security and storage, and access to information.</li> <li>User saves account address, public and private key pair, and verification data signature.</li></ul> <h4 id="_1-1-2-what-to-do-with-account-module"><a href="#_1-1-2-what-to-do-with-account-module" aria-hidden="true" class="header-anchor">#</a> 1.1.2 What to do with Account Module</h4> <p>The Account Module is a basic module that provides information about the various functions of the account.It mainly supports the functions of account generation, security and storage, and information acquisition. Other modules can use various functions of the account and obtain account information according to the interface provided by the account module. Users or other applications can be based on RPC. The interface makes the account more practical and personalized. The account is the basic module and the carrier of the user data.</p> <ul><li><p>Account generation</p> <p>Create an account, import an account.</p></li> <li><p>Account security and storage</p> <p>Backup of account, setting account password, modifying account password, removing account.</p></li> <li><p>Access to account information</p> <p>Query singel account information, query multiple account information, query account address, query account alias.</p></li> <li><p>Other usability and personalization features</p> <p>Set account alias, set account remark, verify account encryption, sign, verify account address format, verify account password is correct, etc.</p></li></ul> <h4 id="_1-1-3-positioning-of-the-account-module-in-the-system"><a href="#_1-1-3-positioning-of-the-account-module-in-the-system" aria-hidden="true" class="header-anchor">#</a> 1.1.3 Positioning of the account module in the system</h4> <p><img src="/assets/img/account-context.aaa5f026.png" alt></p> <p>The account is the underlying module that is dependent on the ledger, consensus, transaction, kernel, event bus, and community governance modules.</p> <p>1、Account module depends on the ledger module</p> <pre><code>The ledger module needs to handle local transactions and relies on account information.
+
+The account module needs to create an alias transaction, which requires the ledger module to pay the fee.
+
+Account balance inquiry, need to rely on ledger module.
+</code></pre> <p>2、Account module depends on kernel module</p> <div class="language- extra-class"><pre class="language-text"><code>Report module information and share data operations.
+</code></pre></div><p>3、Account module depends on network module</p> <div class="language- extra-class"><pre class="language-text"><code>Receive and send data through a network module.
+</code></pre></div><p>4、Account module depends on event bus module</p> <div class="language- extra-class"><pre class="language-text"><code>Create an account, delete an account,change a password event,send a message through the event bus module.
+The account module is not strongly dependent on the event bus module,because even if the event fails to send,it does not affect the normal business process.
+</code></pre></div><p>5、Consensus module depends on account module</p> <div class="language- extra-class"><pre class="language-text"><code>Consensus requires account information for packaging blocks.
+</code></pre></div><p>6、Transaction management module  depends on account module</p> <div class="language- extra-class"><pre class="language-text"><code>The transaction management module needs to verify the transaction,relying on the address function in the account to verify whether the address is legal.
+</code></pre></div><p>7、Community Governance Module depends on account Module</p> <div class="language- extra-class"><pre class="language-text"><code>Community governance requires account signature
+</code></pre></div><h3 id="_1-2-architecture-diagram"><a href="#_1-2-architecture-diagram" aria-hidden="true" class="header-anchor">#</a> 1.2 Architecture diagram</h3> <p><img src="/assets/img/account-module.ab4c1b38.png" alt></p> <p>1.API: Provides an interface layer externally, providing operations such as creating, backing up, and setting aliases for accounts.</p> <p>2.Business logic layer: the function of defining accounts, account addresses, and aliases.</p> <p>3.Data persistence layer: save account, alias data.</p> <h2 id="_2、function-design"><a href="#_2、function-design" aria-hidden="true" class="header-anchor">#</a> 2、Function design</h2> <h3 id="_2-1-functional-architecture-diagram"><a href="#_2-1-functional-architecture-diagram" aria-hidden="true" class="header-anchor">#</a> 2.1 Functional architecture diagram</h3> <p><img src="data:image/png;base64,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" alt></p> <h3 id="_2-2-module-service"><a href="#_2-2-module-service" aria-hidden="true" class="header-anchor">#</a> 2.2 Module service</h3> <h4 id="_2-2-1-create-account"><a href="#_2-2-1-create-account" aria-hidden="true" class="header-anchor">#</a> 2.2.1 create account</h4> <ul><li><p>Function Description</p> <p>Create a user's account, including the account's address, public key, private key creation, account information saved to the database, and create an account to notify other nodes through the event.</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-create-address.23098bf5.png" alt></p> <p>Create Address: Create a satellite chain standard account address</p> <div class="language- extra-class"><pre class="language-text"><code>1.Generate a random public-private key pair
+2.Get chainId and account type
+3.Calculate hash160 based on public key
+4.Stitching byte arrays to form addresses
+4.1.If it is the NULS system address: address=type+hash160
+4.2、If non-NULS system address (bitcoin): address=original address length + original address
+5、Generate address string: address byte[] + check digit, then perform base58 calculation to generate string
+5.1.If it is the NULS system check digit: xor=XOR(addressType+pkh)
+5.2.If non-NULS system check digit: xor=XOR(length+address)
+6. base58 calculation generates the address string:
+    NULS system address: Base58 (type+hash160+xor)+Hex(chainId)
+    Non-NULS system address: Base58 (length+address+xor)+Hex(chainId)
+7.Encrypt the private key according to the password and delete the plaintext of the private key
+8.Store account information
+9.Add account to cache
+10.Send Create Account Event
+</code></pre></div></li> <li><p>ac_createAccount interface</p> <ul><li><p>Interface Description</p> <p>This interface creates one or more accounts.</p></li> <li><p>Request example</p></li></ul> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;cmd&quot;:&quot;ac_createAccount&quot;,
+    &quot;minVersion&quot;:1.0,
+    &quot;params&quot;:[
+        1234,
+        10,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div><ul><li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID, indicating which chain the account belongs to</td></tr> <tr><td>1</td> <td>count</td> <td>false</td> <td>Integer</td> <td>To create an account number, constraints:1-100.</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account initial password, Can be empty</td></tr></tbody></table></li> <li><p>Return example</p></li></ul> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;list&quot;:[&quot;address&quot;,&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre></div><ul><li>Return field description</li></ul> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">Account address list</td></tr></tbody></table></li> <li><p>Dependent service</p> <p>Event Bus: Send Create Account Event</p></li></ul> <h4 id="_2-2-2-create-an-offline-account"><a href="#_2-2-2-create-an-offline-account" aria-hidden="true" class="header-anchor">#</a> 2.2.2 Create an offline account</h4> <ul><li><p>Function Description</p> <p>Create a user's offline account, including the account's address, public key, private key creation, account information is not saved to the database</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-create-offline.71a206b9.png" alt></p> <p>Create Address: Create a satellite chain standard account address</p> <div class="language- extra-class"><pre class="language-text"><code>1.Generate a random public-private key pair
+2.Get chainId and account type
+3.Calculate hash160 based on public key
+4.Stitching byte arrays to form addresses
+4.1.If it is the NULS system address: address=type+hash160
+4.2、If non-NULS system address (bitcoin): address=original address length + original address
+5、Generate address string: address byte[] + check digit, then perform base58 calculation to generate string
+5.1.If it is the NULS system check digit: xor=XOR(addressType+pkh)
+5.2.If non-NULS system check digit: xor=XOR(length+address)
+6. base58 calculation generates the address string:
+    NULS system address: Base58 (type+hash160+xor)+Hex(chainId)
+    Non-NULS system address: Base58 (length+address+xor)+Hex(chainId)
+7.Encrypt the private key according to the password and delete the plaintext of the private key
+8.Return account information, not saved to the database
+</code></pre></div></li> <li><p>ac_createOfflineAccount interface</p> <ul><li><p>Interface Description</p> <p>This interface creates one or more offline accounts.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;cmd&quot;:&quot;ac_createOfflineAccount&quot;,
+    &quot;minVersion&quot;:1.0,
+    &quot;params&quot;:[
+        1234,
+        10,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID, indicating which chain the account belongs to</td></tr> <tr><td>1</td> <td>count</td> <td>false</td> <td>Integer</td> <td>To create an account number, constraints:1-100.</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account initial password, Can be empty</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;list&quot;:[&quot;address&quot;,&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">Account address list</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-3-create-a-multi-sign-account"><a href="#_2-2-3-create-a-multi-sign-account" aria-hidden="true" class="header-anchor">#</a> 2.2.3 Create a multi-sign account</h4> <ul><li><p>Function Description</p> <p>Create a multi-signature account, including the address of the account, the creation of the script, and save the multi-signed account information to the database.</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify the signature public key list, and verify that the minimum number of signatures is correct.
+2. create a multi-signature script.
+3. create a multi-signature type account address according to the multi-sign script.
+4. save the multi-signature account.
+5. return multi-signed account information.
+</code></pre></div></li> <li><p>ac_createMultiSigAccount interface</p> <ul><li><p>Interface Description</p> <p>This interface creates a multi-signature account.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;createMultiAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        [&quot;pubKey1&quot;,&quot;pubKey2&quot;],
+        2
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID, indicating which chain the account belongs to</td></tr> <tr><td>1</td> <td>pubKeys</td> <td>true</td> <td>jsonArray</td> <td>Public key list that needs to be signed</td></tr> <tr><td>2</td> <td>minSigns</td> <td>true</td> <td>String</td> <td>Minimum number of signatures, at least a few public key verifications are required</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;address&quot;:&quot;&quot;,
+        &quot;minSigns&quot;:&quot;&quot;,
+        &quot;pubKeys&quot;:[{
+            &quot;pubKey&quot;:&quot;&quot;,
+            &quot;address&quot;:&quot;&quot;
+            },{}
+        ]
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Multi-sign account address</td></tr> <tr><td style="text-align:left">minSigns</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Minimum signature number</td></tr> <tr><td style="text-align:left">pubKeys</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Public key list</td></tr> <tr><td style="text-align:left">--pubKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Public key</td></tr> <tr><td style="text-align:left">--address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr></tbody></table></li></ul></li> <li><p>Dependent service</p> <p>no</p></li></ul> <h4 id="_2-2-4-remove-account"><a href="#_2-2-4-remove-account" aria-hidden="true" class="header-anchor">#</a> 2.2.4 Remove account</h4> <ul><li><p>Function Description</p> <p>Remove the user's local account, including deleting the address of the local account, and notifying the other nodes through the event</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-remove-address.e8b7a30d.png" alt></p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account address format is correct.
+2. Verify that the account exists
+3. Verify that the account is encrypted. If the account is encrypted and the account is unlocked, you need to verify the password.
+3.1. Obtain an unencrypted private key according to the account's encrypted private key and password.
+3.2, get the public key according to the unencrypted private key
+3.3. Compare the decrypted public key with the queried public key
+4, delete the data
+4.1. Delete local account information
+4.2. Delete account cache information
+5. send remove account events
+</code></pre></div></li> <li><p>ac_removeAccount interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to remove the account.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_removeAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;AAax8wqxALqjyhrL8Wv1tQiqswAshAnX&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>Integer</td> <td>Account address to delete</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>account password</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;value&quot;:true
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">删除是否成功</td></tr></tbody></table></li></ul></li> <li><p>Dependent service</p> <p>Event Bus Module: Send Remove Account Event.</p></li></ul> <h4 id="_2-2-5-import-account-private-key"><a href="#_2-2-5-import-account-private-key" aria-hidden="true" class="header-anchor">#</a> 2.2.5 Import account - private key</h4> <ul><li><p>Function Description</p> <p>Import accounts based on private keys, generate accounts based on private keys, and import account book data.</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-import-prikey.e1a987ac.png" alt></p> <p>Import account information based on private key</p> <div class="language- extra-class"><pre class="language-text"><code>1. Generate a public-private key pair based on the private key.
+2. get the chainId and account type.
+3. calculate hash160 according to Public key.
+4.Stitching byte arrays to form addresses
+4.1.If it is the NULS system address: address=type+hash160
+4.2、If non-NULS system address (bitcoin): original address length + original address
+5、Generate address string: address byte[] + check digit, then perform base58 calculation to generate string
+5.1.If it is the NULS system check digit: xor=XOR(addressType+pkh)
+5.2.If non-NULS system check digit: xor=XOR(length+address)
+6. base58 calculation generates the address string:
+    NULS system address: Base58 (type+hash160+xor)+Base58(chainId)
+    Non-NULS system address: Base58 (length+address+xor)+Base58(chainId)
+7. Encrypt the private key according to the password and delete the plaintext of the private key.
+8. storage account information.
+9. add the account to the cache.
+10. If you send an import account event: If the account already exists, the new event will not be released, only the update will be made.
+</code></pre></div></li> <li><p>ac_importAccountByPriKey interface</p> <ul><li><p>Interface Description</p> <p>The interface is imported into the account based on the account private key.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importAccountByPriKey&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;00c22ad91a170fc49df53b79791f702879eb0604235787eee2c303463bf6e41111&quot;,
+        &quot;123456&quot;,
+        true
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>priKey</td> <td>true</td> <td>String</td> <td>Account private key</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account password</td></tr> <tr><td>3</td> <td>overwrite</td> <td>true</td> <td>Boolean</td> <td>Whether to overwrite when the account exists</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr></tbody></table></li></ul></li> <li><p>Dependent service</p> <p>Event Bus Module: Send Import Account Event when the account does not exist.</p> <p>Account Book: Import Account leger(confirmed transaction)</p></li></ul> <h4 id="_2-2-6-import-account-keystore"><a href="#_2-2-6-import-account-keystore" aria-hidden="true" class="header-anchor">#</a> 2.2.6 Import account-keystore</h4> <ul><li><p>Function Description</p> <p>According to the keystore import account, according to the keystore parsing and decrypting to get the private key and generate an account, and import the account book data</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-import-keystore.5886df1e.png" alt></p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the keystore and password match.
+2. decrypt the private key in the keystore according to the password.
+3. Generate public and private based on the private key.
+4. get the chainId and account type.
+5. spliced byte array to form an address.
+6. generate an address string.
+7. Verify that the address string and the address in the keystore are consistent.
+8. storage account information.
+9. send import account event: the account already exists, do not post new events, only do the coverage update.
+</code></pre></div></li> <li><p>ac_importAccountByKeystore interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to import accounts keystore</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importAccountByKeystore&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;HEX&quot;,
+        &quot;123456&quot;,
+        true
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>keyStore</td> <td>true</td> <td>String</td> <td>Imported keyStore hex code</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account password</td></tr> <tr><td>3</td> <td>overwrite</td> <td>true</td> <td>Boolean</td> <td>Whether to overwrite when the account exists</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr></tbody></table></li></ul></li> <li><p>Dependent service</p> <p>Event Bus Module: Send Import Account Event when the account does not exist</p> <p>Account Book: Import Account leger(confirmed transaction)</p></li></ul> <h4 id="_2-2-7-import-multi-signed-accounts"><a href="#_2-2-7-import-multi-signed-accounts" aria-hidden="true" class="header-anchor">#</a> 2.2.7 Import multi-signed accounts</h4> <ul><li><p>Function Description</p> <p>Import a multi-signed account related to the local address, including the address of the account, the creation of the script, and save the multi-signed account information to the database.</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the multi-sign address, the signature public key list, and the minimum number of verified signatures are correct.
+2. create a multi-signature script.
+3. Create an account address of multiple signature types according to the multi-signed script.
+4. Determine whether the imported multi-sign address is the same as the address generated by the script. If it is not the same, it prompts an import error.
+5. save multi-signed account information, including: address, public key list, minimum number of verification signatures.
+6. return to multi-signal address.
+
+</code></pre></div></li> <li><p>ac_importMultiSigAccount interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to import multi-signature accounts.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importMultiSigAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        [&quot;pubKey1&quot;,&quot;pubKey2&quot;],
+        2
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Multi-sign account address</td></tr> <tr><td>2</td> <td>pubkeys</td> <td>true</td> <td>jsonArray</td> <td>Public key list that needs to be signed</td></tr> <tr><td>3</td> <td>minSigns</td> <td>true</td> <td>Integer</td> <td>Minimum signature number, At least a few Public key verifications are required</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Multi-sign address</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-8-export-account-private-key"><a href="#_2-2-8-export-account-private-key" aria-hidden="true" class="header-anchor">#</a> 2.2.8 Export Account private key</h4> <ul><li><p>Function Description</p> <p>Export Account private key hex code</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-export-prikey.49b3d4d1.png" alt></p> <p>Export Account private key</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists and verify that the password is correct.
+2. decrypt the private key, generate a Hex string
+</code></pre></div></li> <li><p>ac_exportAccountPriKey interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to export the Account private key.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_importMultiSigAccount&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+    	&quot;priKey&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Private key hex</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-9-export-account-keystore"><a href="#_2-2-9-export-account-keystore" aria-hidden="true" class="header-anchor">#</a> 2.2.9 Export account KeyStore</h4> <ul><li><p>Function Description</p> <p>Export account keystore</p></li> <li><p>Process description</p> <p><img src="/assets/img/account-export-keystore.a0ab3ab5.png" alt></p> <p>Export account keystore</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists and verify that the password is correct.
+2. generate a keystore file.
+</code></pre></div></li> <li><p>ac_exportAccountKeyStore interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to export the account keystore.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_exportAccountKeyStore&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;encryptedPrivateKey&quot;:&quot;&quot;,
+        &quot;pubKey&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr> <tr><td style="text-align:left">encryptedPrivateKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Encrypted private key</td></tr> <tr><td style="text-align:left">pubKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Public key hex</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-10-query-all-accounts"><a href="#_2-2-10-query-all-accounts" aria-hidden="true" class="header-anchor">#</a> 2.2.10 Query all accounts</h4> <ul><li><p>Function Description</p> <p>Query all accounts</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. query all account information
+</code></pre></div></li> <li><p>ac_getAccountList interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to query all accounts.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;cmd&quot;:&quot;ac_getAccountList&quot;,
+    &quot;minVersion&quot;:1.0,
+    &quot;params&quot;:[
+        1234
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;list&quot;:[{
+         	&quot;address&quot;:&quot;&quot;,
+            &quot;alias&quot;:&quot;&quot;,
+            &quot;pubkeyHex&quot;:&quot;&quot;,
+            &quot;encryptedPrikeyHex&quot;:&quot;&quot;
+            },{}]
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">List</td> <td style="text-align:left">Account list collection</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">alias</td></tr> <tr><td style="text-align:left">pubkeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">Public key hex code</td></tr> <tr><td style="text-align:left">encryptedPrikeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">Encrypted private key hex code</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-11-get-an-account-based-on-address"><a href="#_2-2-11-get-an-account-based-on-address" aria-hidden="true" class="header-anchor">#</a> 2.2.11 Get an account based on address</h4> <ul><li><p>Function Description</p> <p>Get an account based on address</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the address exists.
+2. get an account based on the address
+</code></pre></div></li> <li><p>ac_getAccountByAddress interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to get an account based on the address.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAccountByAddress&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;ABCMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+      &quot;address&quot;:&quot;&quot;,
+      &quot;alias&quot;:&quot;&quot;,
+      &quot;pubkeyHex&quot;:&quot;&quot;,
+      &quot;encryptedPrikeyHex&quot;:&quot;&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">alias</td></tr> <tr><td style="text-align:left">pubkeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">Public key hex code</td></tr> <tr><td style="text-align:left">encryptedPrikeyHex</td> <td style="text-align:left">String</td> <td style="text-align:left">Encrypted private key hex code</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-12-query-the-list-of-account-addresses"><a href="#_2-2-12-query-the-list-of-account-addresses" aria-hidden="true" class="header-anchor">#</a> 2.2.12 Query the list of Account addresses</h4> <ul><li><p>Function Description</p> <p>Query the list of Account addresses</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Check whether the paging parameter is legal. The number of pages and the size of the page cannot be less than 0, and must be an integer.
+2. Query all accounts.
+3. Filter accounts that meet the paging conditions.
+4. Return only the address list of the account.
+</code></pre></div></li> <li><p>ac_getAddressList interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to query the list of Account addresses.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAddressList&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        0,
+        10
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>pageNumber</td> <td>true</td> <td>Integer</td> <td>pageNumber</td></tr> <tr><td>2</td> <td>pageSize</td> <td>true</td> <td>Integer</td> <td>pageSize</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;list&quot;:[&quot;&quot;,&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">Address list collection</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-13-get-an-address-based-on-alias"><a href="#_2-2-13-get-an-address-based-on-alias" aria-hidden="true" class="header-anchor">#</a> 2.2.13 Get an address based on alias</h4> <ul><li><p>Function Description</p> <p>Get an address based on alias</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. query whether the existence of alias
+2. return the Account address used to set the alias, and use Base58 to encode the Account address
+</code></pre></div></li> <li><p>ac_getAddressByAlias interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to get the address based on alias.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAddressList&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;abc&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>alias</td> <td>true</td> <td>String</td> <td>alias</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;address&quot;:&quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address, Base58 code</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-14-query-account-private-key"><a href="#_2-2-14-query-account-private-key" aria-hidden="true" class="header-anchor">#</a> 2.2.14 Query Account private key</h4> <ul><li><p>Function Description</p> <p>Query Account private key</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Check whether the address is correct, use Base58 decoding, and check the Chain ID, address type, and check digit respectively.
+2. Verify that the account exists.
+3. If the account is over-densified (with password) and is not unlocked, decrypt it by AES and verify that the password is correct, and obtain the unencrypted private key.
+4. use hexadecimal encoding, and return to Account private key.
+</code></pre></div></li> <li><p>ac_getPriKeyByAddress interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to query the Account private key.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getPriKeyByAddress&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>address</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;priKey&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Private key hex</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-15query-all-account-private-keys"><a href="#_2-2-15query-all-account-private-keys" aria-hidden="true" class="header-anchor">#</a> 2.2.15Query all Account private keys</h4> <ul><li><p>Function Description</p> <p>Query all Account private keys</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the password format is correct and the password can be empty.
+2. get all local accounts.
+3. The encryption information of the local account must be the same. If the parameter password is not empty, the passwords of all accounts must be the same. If the parameter password is empty, all accounts cannot be set. Otherwise, the error is displayed.
+4. If the account is encrypted, the unencrypted private key is reversed by the password, otherwise the private key is obtained without encryption.
+5. Add all private keys to the collection and return.
+</code></pre></div></li> <li><p>ac_getAllPriKey interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to query all Account private keys.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAllPriKey&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+      &quot;list&quot;:[&quot;&quot;,&quot;&quot;]
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">String</td> <td style="text-align:left">Private key collection</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-16-set-password"><a href="#_2-2-16-set-password" aria-hidden="true" class="header-anchor">#</a> 2.2.16 set password</h4> <ul><li><p>Function Description</p> <p>set password</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists.
+2. Verify that the password has been set.
+3. set Account password.
+</code></pre></div></li> <li><p>ac_setPassword interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to set the Account password.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Data return object, password setting is successful</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-17-set-offline-account-password"><a href="#_2-2-17-set-offline-account-password" aria-hidden="true" class="header-anchor">#</a> 2.2.17 Set offline Account password</h4> <ul><li><p>Function Description</p> <p>Set offline Account password</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the address is correct.
+2. Verify that the private key is correct.
+3. create according to the private key.
+4. set offline Account password.
+</code></pre></div></li> <li><p>ac_setOfflineAccountPassword interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to set the offline Account password.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setOfflineAccountPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;00c22ad91a170fc49df53b79791f702879eb0604235787eee2c303463bf6e41111&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>priKey</td> <td>true</td> <td>String</td> <td>Account private key</td></tr> <tr><td>3</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;encryptedPriKey&quot;:&quot;&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Encrypted private key</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-18-change-password"><a href="#_2-2-18-change-password" aria-hidden="true" class="header-anchor">#</a> 2.2.18 change Password</h4> <ul><li><p>Request Body</p></li> <li><p>Function Description</p> <p>change Password</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. verify the correctness of the old password.
+2. Update the private key ciphertext.
+3. send a password change event.
+</code></pre></div></li> <li><p>ac_updatePassword interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to modify the Account password.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_updatePassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;,
+        &quot;111111&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr> <tr><td>3</td> <td>newPassword</td> <td>true</td> <td>String</td> <td>Account new password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Whether the password modification is successful</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-19-modify-offline-account-password"><a href="#_2-2-19-modify-offline-account-password" aria-hidden="true" class="header-anchor">#</a> 2.2.19 Modify offline Account password</h4> <ul><li><p>Function Description</p> <p>Modify offline Account password</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the address is correct.
+2. Generate an offline account based on address, private key, and new password.
+</code></pre></div></li> <li><p>ac_updateOfflineAccountPassword interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to modify the offline Account password.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_updateOfflineAccountPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;00c22ad91a170fc49df53b79791f702879eb0604235787eee2c303463bf6e41111&quot;,
+        &quot;123456&quot;,
+        &quot;111111&quot;
+    ]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>priKey</td> <td>true</td> <td>String</td> <td>Private key</td></tr> <tr><td>3</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr> <tr><td>4</td> <td>newPassword</td> <td>true</td> <td>String</td> <td>Account new password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;encryptedPriKey&quot;:&quot;&quot;
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">String</td> <td style="text-align:left">Encrypted private key</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-20-verify-password"><a href="#_2-2-20-verify-password" aria-hidden="true" class="header-anchor">#</a> 2.2.20 verify password</h4> <ul><li><p>Function Description</p> <p>verify password</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the password is correct.
+2. return verification results.
+</code></pre></div></li> <li><p>ac_validationPassword interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to verify the password.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_validationPassword&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>password</td> <td>true</td> <td>String</td> <td>Account password</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Is the password correct</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-21-verify-that-the-account-is-encrypted"><a href="#_2-2-21-verify-that-the-account-is-encrypted" aria-hidden="true" class="header-anchor">#</a> 2.2.21 Verify that the account is encrypted</h4> <ul><li><p>Function Description</p> <p>Verify that the account is encrypted</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists.
+2. Verify that the account is encrypted.
+3. return verification results.
+</code></pre></div></li> <li><p>ac_isEncrypted interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to verify that the account is encrypted.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_isEncrypted&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+    	&quot;value&quot;:true
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Whether the account is encrypted</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-22-set-up-an-account-alias"><a href="#_2-2-22-set-up-an-account-alias" aria-hidden="true" class="header-anchor">#</a> 2.2.22 Set up an account alias</h4> <ul><li><p>Function Description</p> <p>Set up an account alias</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that alias is legal
+2. generate settings alias transaction
+3. call ledger to fill transaction fee information
+4. broadcast transactions
+5. After the transaction is confirmed, the alias will be saved to the database, and address and alias will be stored as keys respectively. That is, the alias data will store two data, mainly for the convenience of querying according to address and alias.
+</code></pre></div></li> <li><p>ac_setAlias interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to set the account alias.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;,
+        &quot;abc&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>password</td> <td>false</td> <td>String</td> <td>Account password</td></tr> <tr><td>3</td> <td>alias</td> <td>true</td> <td>String</td> <td>alias</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+      &quot;txHash&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">txHash</td> <td style="text-align:left">String</td> <td style="text-align:left">Alias transaction hash</td></tr></tbody></table></li></ul></li> <li><p>Dependent service</p> <p>Account module: setting an alias requires a fee</p></li></ul> <h4 id="_2-2-23-get-set-alias-fee"><a href="#_2-2-23-get-set-alias-fee" aria-hidden="true" class="header-anchor">#</a> 2.2.23 Get set alias fee</h4> <ul><li><p>Function Description</p> <p>Get set alias fee</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists and verify that the alias is correct.
+2. calculate the fees required for the alias setting.
+</code></pre></div></li> <li><p>ac_getAliasFee interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to get the set alias fee.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAliasFee&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;abc&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>alias</td> <td>true</td> <td>String</td> <td>alias</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;fee&quot;:&quot;100&quot;,
+        &quot;maxAmount&quot;:&quot;10000&quot;
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">fee</td> <td style="text-align:left">String</td> <td style="text-align:left">Alias transaction fee</td></tr> <tr><td style="text-align:left">maxAmount</td> <td style="text-align:left">String</td> <td style="text-align:left">Maximum transaction fee</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-3-24-query-alias-based-on-address"><a href="#_2-3-24-query-alias-based-on-address" aria-hidden="true" class="header-anchor">#</a> 2.3.24 Query alias based on address</h4> <ul><li><p>Function Description</p> <p>Query alias based on address</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists.
+2. query the account corresponding alias from the database
+</code></pre></div></li> <li><p>ac_getAliasByAddress interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to query aliases based on the address.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_getAliasByAddress&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;alias&quot;:&quot;&quot;
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">Account alias</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-25-verify-that-alias-is-available"><a href="#_2-2-25-verify-that-alias-is-available" aria-hidden="true" class="header-anchor">#</a> 2.2.25 Verify that alias is available</h4> <ul><li><p>Function Description</p> <p>Verify that alias is available</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Query whether the alias already exists. If it exists, it is not available. Otherwise, it is available.
+</code></pre></div></li> <li><p>ac_isAliasUsable interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to verify if alias is available.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_isAliasUsable&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;abc&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>alias</td> <td>true</td> <td>String</td> <td>Account alias</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Is alias available</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-26-set-account-remark"><a href="#_2-2-26-set-account-remark" aria-hidden="true" class="header-anchor">#</a> 2.2.26 Set account remark</h4> <ul><li><p>Function Description</p> <p>Set account remark</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the account exists.
+2. modify the remarks information and save
+</code></pre></div></li> <li><p>ac_setRemark interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to set account remark.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setRemark&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;
+        &quot;remark1&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Account address</td></tr> <tr><td>2</td> <td>remark</td> <td>true</td> <td>String</td> <td>Account remark</td></tr></tbody></table></li> <li><p>Return example</p> <pre><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+        &quot;value&quot;:true
+    }
+}
+</code></pre></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Whether the setting is successful</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-27-set-up-multi-sign-account-alias"><a href="#_2-2-27-set-up-multi-sign-account-alias" aria-hidden="true" class="header-anchor">#</a> 2.2.27 Set up multi-sign account alias</h4> <ul><li><p>Function Description</p> <p>Set up multi-sign account alias</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the Account address, alias, Account password, and signature address parameters are legal.
+2. Query whether the Account address and the signature address exist.
+3. generate a set of multi-sign account alias trading.
+4, call ledger to fill transaction fee information.
+5. Sign the transaction using a signed account.
+6. Save the unconfirmed transaction to the local account when the signed number is equal to the minimum number of signatures.
+7. Broadcast the transaction.
+8. return the transaction hash.
+</code></pre></div></li> <li><p>ac_setMultiSigAlias interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to set the multi-sign account alias.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setMultiSigAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;NseMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;DCQMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+        &quot;123456&quot;,
+        &quot;abc&quot;
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Multi-sign account address</td></tr> <tr><td>2</td> <td>signAddress</td> <td>true</td> <td>String</td> <td>Signature address</td></tr> <tr><td>3</td> <td>password</td> <td>false</td> <td>String</td> <td>Account password</td></tr> <tr><td>4</td> <td>alias</td> <td>true</td> <td>String</td> <td>alias</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;txHash&quot;:&quot;1cb336b834494fb7eef070cf9c3e60a5a49e762ca1f81cb2592593047235f308&quot;
+    }
+}
+
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">txHash</td> <td style="text-align:left">String</td> <td style="text-align:left">Multi-signalias alias transactionhash</td></tr></tbody></table></li></ul></li> <li><p>Dependent service</p> <p>Account module: setting a multi-signal alias requires a fee.</p></li></ul> <h4 id="_2-2-28-remove-multi-signed-account"><a href="#_2-2-28-remove-multi-signed-account" aria-hidden="true" class="header-anchor">#</a> 2.2.28 Remove multi-signed account</h4> <ul><li><p>Function Description</p> <p>Remove multi-signed account</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Verify that the Account address is correct.
+2. delete the multi-signed account in the database.
+3. return to delete is successful.
+</code></pre></div></li> <li><p>ac_removeMultiSigAccount interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to remove multi-signed accounts.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_setMutilSigAlias&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [
+        1234,
+        &quot;DCQMUi1q9TefkXUcaysAuvFjj4NbTEST&quot;,
+    ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>address</td> <td>true</td> <td>String</td> <td>Multi-sign account address</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Whether the removal was successful</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-29-account-all-transaction-verification"><a href="#_2-2-29-account-all-transaction-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.29 Account all transaction verification</h4> <ul><li><p>Function Description</p> <p>account module all transaction verification interface, currently only alias transaction</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. Is the transaction list empty
+2. loop through all transaction lists, processing for alias transactions
+3. Check if the same alias is set in the current transaction list.
+4. Check whether there is an account duplicate setting alias in the current transaction list.
+5. If there is no conflict in the transaction list, the verification is passed.
+</code></pre></div></li> <li><p>ac_accountTxValidate interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to batch verify all transactions in the account module.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_accountTxValidate&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chianId, [&quot;txHex&quot;,&quot;txHex&quot;,&quot;txHex&quot;, ...]]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>array</td> <td>Alias transaction serialization data array</td></tr></tbody></table> <p>txHex description</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:10000,
+            &quot;nonce&quot;:&quot;123&quot;,
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:1
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:&quot;12345&quot;,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;list&quot;:[&quot;txHex&quot;, &quot;txHex&quot;, &quot;txHex&quot;, ...]
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">list</td> <td style="text-align:left">jsonArray</td> <td style="text-align:left">Illegal transaction serialization data array</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-30-alias-transaction-verification"><a href="#_2-2-30-alias-transaction-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.30 Alias transaction verification</h4> <ul><li><p>Function Description</p> <p>alias transaction verification interface</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. deserialize txHex alias transaction data
+2. verify the alias format
+3. Verify that the alias is already occupied.
+4. Verify that the account has an alias set.
+5. verify the coinData input and output
+6. verify the script signature format
+7. Verify that the signature contains the address of the alias. 
+If it is not included, it is a malicious foul. 
+Otherwise, the verification is passed.
+</code></pre></div></li> <li><p>ac_aliasTxValidate interface</p> <ul><li><p>Interface Description</p> <p>This interface is used for a single alias transaction.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_aliasTxValidate&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chainId,&quot;txHex&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>String</td> <td>alias transaction serialization data</td></tr></tbody></table> <p>txHex description</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:10000,
+            &quot;nonce&quot;:&quot;123&quot;,
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:1
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:&quot;12345&quot;,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Whether the verification is successful</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-31-alias-transaction-submit"><a href="#_2-2-31-alias-transaction-submit" aria-hidden="true" class="header-anchor">#</a> 2.2.31 Alias transaction submit</h4> <ul><li><p>Function Description</p> <p>Alias transaction submit, save alias</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. deserialize txHex alias transaction data
+2. save the alias alias to the database
+3. set the alias to account and save to the database
+4. Re-cache the modified account
+5. return the alias save is successful
+</code></pre></div></li> <li><p>ac_aliasTxCommit interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to save aliases.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_aliasTxCommit&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chainId,&quot;txHex&quot;,&quot;secondaryDataHex&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>String</td> <td>Alias transaction serialization data</td></tr> <tr><td>2</td> <td>secondaryDataHex</td> <td>true</td> <td>String</td> <td>Block header serialization data</td></tr></tbody></table> <p>txHex description</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:10000,
+            &quot;nonce&quot;:&quot;123&quot;,
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:1
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:&quot;12345&quot;,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre></div><p>secondaryDataHex description</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;txData&quot;:
+    {
+        &quot;hash&quot;:&quot;&quot;,
+        &quot;height&quot;:1,
+        &quot;time&quot;:13369748564
+    }
+</code></pre></div></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Is the alias transaction saved successfully</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-32-alias-transaction-rollback"><a href="#_2-2-32-alias-transaction-rollback" aria-hidden="true" class="header-anchor">#</a> 2.2.32 Alias transaction rollback</h4> <ul><li><p>Function Description</p> <p>Alias transaction rollback interface</p></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>1. deserialize txHex alias transaction data
+2. delete the alias object data from the database
+3. take the corresponding account to clear the alias, re-sent the database
+4. re-cache account
+5. return the alias rollback is successful
+</code></pre></div></li> <li><p>ac_aliasTxRollback interface</p> <ul><li><p>Interface Description</p> <p>This interface is used to roll back an alias.</p></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;ac_aliasTxRollback&quot;,
+  &quot;minVersion&quot;:1.0,
+  &quot;params&quot;: [chainId,&quot;txHex&quot;,&quot;secondaryDataHex&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Short</td> <td>Chain ID</td></tr> <tr><td>1</td> <td>txHex</td> <td>true</td> <td>String</td> <td>Alias transaction serialization data</td></tr> <tr><td>2</td> <td>secondaryDataHex</td> <td>true</td> <td>String</td> <td>Block header serialization data</td></tr></tbody></table> <p>txHex description</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;type&quot;:3,
+    &quot;time&quot;:&quot;12546545596&quot;,
+    &quot;scriptSig&quot;:&quot;&quot;,
+    &quot;hash&quot;:&quot;&quot;,
+    &quot;coinData&quot;:
+    {
+        &quot;froms&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:10000,
+            &quot;nonce&quot;:&quot;123&quot;,
+        }],
+        &quot;to&quot;:
+        [{
+            &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+            &quot;amount&quot;:1
+        }]
+    },
+    &quot;txData&quot;:
+    {
+        &quot;chainId&quot;:&quot;12345&quot;,
+        &quot;address&quot;:&quot;Nse8m2Te1UNGPhD1tjZ3A4GDW3dCJxqE&quot;,
+        &quot;alias&quot;:&quot;lucas&quot;
+    }
+}
+</code></pre></div><p>secondaryDataHex description</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;txData&quot;:
+    {
+        &quot;hash&quot;:&quot;&quot;,
+        &quot;height&quot;:1,
+        &quot;time&quot;:13369748564
+    }
+</code></pre></div></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,
+    &quot;msg&quot;: &quot;success&quot;,
+    &quot;version&quot;:1.0,
+    &quot;result&quot;: {
+       &quot;value&quot;:true
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <table><thead><tr><th style="text-align:left">parameter</th> <th style="text-align:left">type</th> <th style="text-align:left">description</th></tr></thead> <tbody><tr><td style="text-align:left">code</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Return result status</td></tr> <tr><td style="text-align:left">msg</td> <td style="text-align:left">String</td> <td style="text-align:left">Failure message</td></tr> <tr><td style="text-align:left">result</td> <td style="text-align:left">jsonObj</td> <td style="text-align:left">Data return object</td></tr> <tr><td style="text-align:left">value</td> <td style="text-align:left">boolean</td> <td style="text-align:left">Is the alias transaction rollback successful</td></tr></tbody></table></li></ul></li></ul> <h3 id="_2-3-module-internal-function"><a href="#_2-3-module-internal-function" aria-hidden="true" class="header-anchor">#</a> 2.3 Module internal function</h3> <h2 id="_3、event-description"><a href="#_3、event-description" aria-hidden="true" class="header-anchor">#</a> 3、Event description</h2> <h3 id="_3-1-published-event"><a href="#_3-1-published-event" aria-hidden="true" class="header-anchor">#</a> 3.1 Published event</h3> <ul><li><p>create Account</p> <p>event_topic : &quot;evt_ac_createAccount&quot;</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    address:''
+    isEncrypted：true   //Is the password set
+}
+</code></pre></div></li> <li><p>remove account</p> <p>event_topic : &quot;evt_ac_removeAccount&quot;</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+	address:''
+}
+</code></pre></div></li> <li><p>change password</p> <p>event_topic : &quot;evt_ac_updatePassword&quot;</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+	address:''
+}
+</code></pre></div></li></ul> <h3 id="_3-2-subscribed-event"><a href="#_3-2-subscribed-event" aria-hidden="true" class="header-anchor">#</a> 3.2 Subscribed event</h3> <p>no</p> <h2 id="_4、protocol"><a href="#_4、protocol" aria-hidden="true" class="header-anchor">#</a> 4、protocol</h2> <h3 id="_4-1-network-communication-protocol"><a href="#_4-1-network-communication-protocol" aria-hidden="true" class="header-anchor">#</a> 4.1 Network communication protocol</h3> <ul><li>no</li></ul> <h3 id="_4-2-transaction-agreement"><a href="#_4-2-transaction-agreement" aria-hidden="true" class="header-anchor">#</a> 4.2 Transaction agreement</h3> <ul><li><p>Set alias</p> <ul><li><p>protocol</p> <p>Compared with the general transaction, only the type and txData are different, the specific difference is as follows</p></li></ul> <div class="language- extra-class"><pre class="language-text"><code>type: n //Set the type of alias transaction
+txData:{
+    address:  //VarByte Set the address of alias
+    alias：   //VarByte Array of bytes converted into an alias string, decoded with UTF-8
+}
+</code></pre></div><ul><li>Alias transaction parameters</li></ul> <table><thead><tr><th>Len</th> <th>Fields</th> <th>Data Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>24</td> <td>address</td> <td>byte[]</td> <td>Set the address of alias</td></tr> <tr><td>32</td> <td>alias</td> <td>byte[]</td> <td>Array of bytes converted into an alias string, decoded with UTF-8</td></tr></tbody></table> <ul><li>Validator</li></ul> <div class="language- extra-class"><pre class="language-text"><code>1. alias format legality verification.
+2. the address must be the satellite chain address, and an address can only be set to an alias.
+3. burn a token unit.
+4. Transaction fee.
+5. signature: set address, input, signature verification.
+</code></pre></div><ul><li>processor</li></ul> <div class="language- extra-class"><pre class="language-text"><code>1. the asset processor.
+2. store alias data.
+3. Update local account information.
+</code></pre></div></li></ul> <h2 id="_5、module-configuration-item"><a href="#_5、module-configuration-item" aria-hidden="true" class="header-anchor">#</a> 5、Module configuration item</h2> <div class="language- extra-class"><pre class="language-text"><code>server.ip:0.0.0.0   //Native ip, used to provide services to other modules
+server.port:8080    //Service port
+</code></pre></div><h2 id="_6、java-specific-design"><a href="#_6、java-specific-design" aria-hidden="true" class="header-anchor">#</a> 6、Java-specific design</h2> <ul><li><p>Account Object design</p> <p>The key used when the table is stored:</p> <p>NULS system：chainId+type+hash160</p> <p>non-NULS system：chainId+length+address</p></li></ul> <table><thead><tr><th style="text-align:left"><code>Field name</code></th> <th style="text-align:left"><code>type</code></th> <th style="text-align:left"><code>Description</code></th></tr></thead> <tbody><tr><td style="text-align:left">chainId</td> <td style="text-align:left">short</td> <td style="text-align:left">Chain ID</td></tr> <tr><td style="text-align:left">address</td> <td style="text-align:left">String</td> <td style="text-align:left">Account address（Base58(address)+Base58(chainId)）</td></tr> <tr><td style="text-align:left">alias</td> <td style="text-align:left">String</td> <td style="text-align:left">Account alias</td></tr> <tr><td style="text-align:left">status</td> <td style="text-align:left">Integer</td> <td style="text-align:left">Account Status</td></tr> <tr><td style="text-align:left">pubKey</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">Public key</td></tr> <tr><td style="text-align:left">priKey</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">Private key - not encrypted</td></tr> <tr><td style="text-align:left">encryptedPriKey</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">Encrypted private key</td></tr> <tr><td style="text-align:left">extend</td> <td style="text-align:left">byte[]</td> <td style="text-align:left">Extended data</td></tr> <tr><td style="text-align:left">remark</td> <td style="text-align:left">String</td> <td style="text-align:left">ramark</td></tr> <tr><td style="text-align:left">createTime</td> <td style="text-align:left">long</td> <td style="text-align:left">create time</td></tr></tbody></table> <ul><li>Address object design (not persistent storage)</li></ul> <table><thead><tr><th><code>Field name</code></th> <th><code>type</code></th> <th><code>Description</code></th></tr></thead> <tbody><tr><td>chainId</td> <td>short</td> <td>Chain ID</td></tr> <tr><td>addressType</td> <td>byte</td> <td>Address type</td></tr> <tr><td>hash160</td> <td>byte[]</td> <td>Public key hash</td></tr> <tr><td>addressBytes</td> <td>byte[]</td> <td>Address byte array</td></tr></tbody></table> <ul><li><p>Alias object design</p> <p>The key used when the table is stored:</p> <p>Address and alias are stored as keys respectively, and alias data is stored in two copies.</p> <p>Need to create different alias tables according to different chains.</p></li></ul> <table><thead><tr><th><code>Field name</code></th> <th><code>type</code></th> <th><code>Description</code></th></tr></thead> <tbody><tr><td>address</td> <td>byte[]</td> <td>Account address</td></tr> <tr><td>alias</td> <td>String</td> <td>Account alias</td></tr></tbody></table> <ul><li>MultiSigAccount object design</li></ul> <table><thead><tr><th><code>Field name</code></th> <th><code>type</code></th> <th><code>Description</code></th></tr></thead> <tbody><tr><td>address</td> <td>String</td> <td>Account address</td></tr> <tr><td>pubKeyList</td> <td>List&lt;byte[]&gt;</td> <td>Public key list that needs to be signed</td></tr> <tr><td>minSigns</td> <td>long</td> <td>Minimum number of signatures</td></tr></tbody></table> <h2 id><a href="#" aria-hidden="true" class="header-anchor">#</a></h2> <h2 id="_7、to-add-on"><a href="#_7、to-add-on" aria-hidden="true" class="header-anchor">#</a> 7、to add on</h2></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/dev/docs/NULS2.0/alpha/accountModuleDesign.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">3/28/2019, 12:38:23 AM</span></div></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.9a7036e8.js" defer></script><script src="/assets/js/21.db5c56e6.js" defer></script>
+  </body>
+</html>

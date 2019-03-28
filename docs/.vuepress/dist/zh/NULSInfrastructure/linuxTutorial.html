@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>[Alpha]NULS2.0 CLI 使用指南 | NULS</title>
+    <meta name="description" content="NULS">
+    <link rel="icon" href="/icon.png">
+    
+    <link rel="preload" href="/assets/css/0.styles.3751d6d5.css" as="style"><link rel="preload" href="/assets/js/app.9a7036e8.js" as="script"><link rel="preload" href="/assets/js/167.778d1b2a.js" as="script"><link rel="prefetch" href="/assets/js/10.2cc8f5c2.js"><link rel="prefetch" href="/assets/js/100.d3a152d6.js"><link rel="prefetch" href="/assets/js/101.2a081cb7.js"><link rel="prefetch" href="/assets/js/102.a47ba456.js"><link rel="prefetch" href="/assets/js/103.d5ac9751.js"><link rel="prefetch" href="/assets/js/104.7595a7fc.js"><link rel="prefetch" href="/assets/js/105.828dda8f.js"><link rel="prefetch" href="/assets/js/106.e754f194.js"><link rel="prefetch" href="/assets/js/107.775c5175.js"><link rel="prefetch" href="/assets/js/108.8b1f0e7f.js"><link rel="prefetch" href="/assets/js/109.2f3b3253.js"><link rel="prefetch" href="/assets/js/11.b0ceb74e.js"><link rel="prefetch" href="/assets/js/110.aa04c678.js"><link rel="prefetch" href="/assets/js/111.f62d78bb.js"><link rel="prefetch" href="/assets/js/112.69acd927.js"><link rel="prefetch" href="/assets/js/113.888160f3.js"><link rel="prefetch" href="/assets/js/114.29e41199.js"><link rel="prefetch" href="/assets/js/115.d2ee5369.js"><link rel="prefetch" href="/assets/js/116.51fc87d4.js"><link rel="prefetch" href="/assets/js/117.4c9dc648.js"><link rel="prefetch" href="/assets/js/118.83070636.js"><link rel="prefetch" href="/assets/js/119.665c7995.js"><link rel="prefetch" href="/assets/js/12.02dfbd69.js"><link rel="prefetch" href="/assets/js/120.214bbe7a.js"><link rel="prefetch" href="/assets/js/121.bf9971ed.js"><link rel="prefetch" href="/assets/js/122.7560b52a.js"><link rel="prefetch" href="/assets/js/123.1d267c1f.js"><link rel="prefetch" href="/assets/js/124.f5bbb448.js"><link rel="prefetch" href="/assets/js/125.376b8644.js"><link rel="prefetch" href="/assets/js/126.f44dfff9.js"><link rel="prefetch" href="/assets/js/127.4bfabc7b.js"><link rel="prefetch" href="/assets/js/128.f1386192.js"><link rel="prefetch" href="/assets/js/129.bc8e43b2.js"><link rel="prefetch" href="/assets/js/13.6ff2f0d4.js"><link rel="prefetch" href="/assets/js/130.cacc4ae3.js"><link rel="prefetch" href="/assets/js/131.84d456ba.js"><link rel="prefetch" href="/assets/js/132.2aae8ca6.js"><link rel="prefetch" href="/assets/js/133.1a312ad1.js"><link rel="prefetch" href="/assets/js/134.703ce965.js"><link rel="prefetch" href="/assets/js/135.8cee3887.js"><link rel="prefetch" href="/assets/js/136.b36f5811.js"><link rel="prefetch" href="/assets/js/137.eda59c8e.js"><link rel="prefetch" href="/assets/js/138.551346e5.js"><link rel="prefetch" href="/assets/js/139.3a3f1471.js"><link rel="prefetch" href="/assets/js/14.fa820f23.js"><link rel="prefetch" href="/assets/js/140.1e504789.js"><link rel="prefetch" href="/assets/js/141.4bf908a3.js"><link rel="prefetch" href="/assets/js/142.618b966f.js"><link rel="prefetch" href="/assets/js/143.36491f90.js"><link rel="prefetch" href="/assets/js/144.76d9a156.js"><link rel="prefetch" href="/assets/js/145.be4615d5.js"><link rel="prefetch" href="/assets/js/146.a073f6bd.js"><link rel="prefetch" href="/assets/js/147.fec28542.js"><link rel="prefetch" href="/assets/js/148.1a4b00b2.js"><link rel="prefetch" href="/assets/js/149.6671cebe.js"><link rel="prefetch" href="/assets/js/15.1f656e2a.js"><link rel="prefetch" href="/assets/js/150.75db4652.js"><link rel="prefetch" href="/assets/js/151.b3ee235e.js"><link rel="prefetch" href="/assets/js/152.63fb9894.js"><link rel="prefetch" href="/assets/js/153.852b7cff.js"><link rel="prefetch" href="/assets/js/154.dbd3a07d.js"><link rel="prefetch" href="/assets/js/155.6f6f946b.js"><link rel="prefetch" href="/assets/js/156.8e16b0e8.js"><link rel="prefetch" href="/assets/js/157.8dbfeb43.js"><link rel="prefetch" href="/assets/js/158.919c857b.js"><link rel="prefetch" href="/assets/js/159.09925f42.js"><link rel="prefetch" href="/assets/js/16.aa19419e.js"><link rel="prefetch" href="/assets/js/160.797785d9.js"><link rel="prefetch" href="/assets/js/161.4d34eb09.js"><link rel="prefetch" href="/assets/js/162.94099c67.js"><link rel="prefetch" href="/assets/js/163.9f984d63.js"><link rel="prefetch" href="/assets/js/164.9e26163d.js"><link rel="prefetch" href="/assets/js/165.c8de855f.js"><link rel="prefetch" href="/assets/js/166.d8e0213d.js"><link rel="prefetch" href="/assets/js/168.6ad455d7.js"><link rel="prefetch" href="/assets/js/169.f26a480a.js"><link rel="prefetch" href="/assets/js/17.4eef6f4e.js"><link rel="prefetch" href="/assets/js/170.9f0e1298.js"><link rel="prefetch" href="/assets/js/171.fc4a1cfb.js"><link rel="prefetch" href="/assets/js/172.d5c28bec.js"><link rel="prefetch" href="/assets/js/173.2cfc6896.js"><link rel="prefetch" href="/assets/js/174.6ac11f1d.js"><link rel="prefetch" href="/assets/js/175.ff16c02e.js"><link rel="prefetch" href="/assets/js/176.5d7156d4.js"><link rel="prefetch" href="/assets/js/177.89dacd78.js"><link rel="prefetch" href="/assets/js/178.a59d32eb.js"><link rel="prefetch" href="/assets/js/179.a6c468fe.js"><link rel="prefetch" href="/assets/js/18.f6c2f0b8.js"><link rel="prefetch" href="/assets/js/180.ebd647d5.js"><link rel="prefetch" href="/assets/js/181.872ce38a.js"><link rel="prefetch" href="/assets/js/182.0db6d70c.js"><link rel="prefetch" href="/assets/js/183.963128a1.js"><link rel="prefetch" href="/assets/js/184.b537b1fa.js"><link rel="prefetch" href="/assets/js/185.30696c6b.js"><link rel="prefetch" href="/assets/js/186.0ad2973d.js"><link rel="prefetch" href="/assets/js/187.ada551ca.js"><link rel="prefetch" href="/assets/js/188.0bf963be.js"><link rel="prefetch" href="/assets/js/189.39991fc7.js"><link rel="prefetch" href="/assets/js/19.c066ca9d.js"><link rel="prefetch" href="/assets/js/190.7453b0ea.js"><link rel="prefetch" href="/assets/js/191.6f8d2b48.js"><link rel="prefetch" href="/assets/js/192.ffa7a0ae.js"><link rel="prefetch" href="/assets/js/193.6b5187de.js"><link rel="prefetch" href="/assets/js/194.33c85b12.js"><link rel="prefetch" href="/assets/js/195.6ce6baa9.js"><link rel="prefetch" href="/assets/js/196.b7f7795d.js"><link rel="prefetch" href="/assets/js/197.56c70085.js"><link rel="prefetch" href="/assets/js/198.2b4a23bb.js"><link rel="prefetch" href="/assets/js/199.07618bd4.js"><link rel="prefetch" href="/assets/js/2.434158f1.js"><link rel="prefetch" href="/assets/js/20.5171c565.js"><link rel="prefetch" href="/assets/js/200.cd38ef32.js"><link rel="prefetch" href="/assets/js/201.63a35536.js"><link rel="prefetch" href="/assets/js/202.8463e76c.js"><link rel="prefetch" href="/assets/js/203.c2eff4d8.js"><link rel="prefetch" href="/assets/js/204.1b6a7ee2.js"><link rel="prefetch" href="/assets/js/205.84d64836.js"><link rel="prefetch" href="/assets/js/21.db5c56e6.js"><link rel="prefetch" href="/assets/js/22.498863f8.js"><link rel="prefetch" href="/assets/js/23.9f1f092a.js"><link rel="prefetch" href="/assets/js/24.2dd53084.js"><link rel="prefetch" href="/assets/js/25.0460bbcd.js"><link rel="prefetch" href="/assets/js/26.cac7fce9.js"><link rel="prefetch" href="/assets/js/27.d07d1fcb.js"><link rel="prefetch" href="/assets/js/28.af448362.js"><link rel="prefetch" href="/assets/js/29.014f7be8.js"><link rel="prefetch" href="/assets/js/3.944c2fb9.js"><link rel="prefetch" href="/assets/js/30.71024fdc.js"><link rel="prefetch" href="/assets/js/31.a1d400ee.js"><link rel="prefetch" href="/assets/js/32.f6916684.js"><link rel="prefetch" href="/assets/js/33.7a11d236.js"><link rel="prefetch" href="/assets/js/34.2e902b60.js"><link rel="prefetch" href="/assets/js/35.77cbe800.js"><link rel="prefetch" href="/assets/js/36.b4a03b7d.js"><link rel="prefetch" href="/assets/js/37.835e1993.js"><link rel="prefetch" href="/assets/js/38.d905a078.js"><link rel="prefetch" href="/assets/js/39.9a0ea84a.js"><link rel="prefetch" href="/assets/js/4.10b50b1a.js"><link rel="prefetch" href="/assets/js/40.6894dc38.js"><link rel="prefetch" href="/assets/js/41.9abdd72f.js"><link rel="prefetch" href="/assets/js/42.791cbfec.js"><link rel="prefetch" href="/assets/js/43.b4204359.js"><link rel="prefetch" href="/assets/js/44.79523177.js"><link rel="prefetch" href="/assets/js/45.52dab45f.js"><link rel="prefetch" href="/assets/js/46.d45f0044.js"><link rel="prefetch" href="/assets/js/47.66798c19.js"><link rel="prefetch" href="/assets/js/48.2f7186f9.js"><link rel="prefetch" href="/assets/js/49.5efe22f1.js"><link rel="prefetch" href="/assets/js/5.54beffe8.js"><link rel="prefetch" href="/assets/js/50.76124638.js"><link rel="prefetch" href="/assets/js/51.b430df64.js"><link rel="prefetch" href="/assets/js/52.dc55c14c.js"><link rel="prefetch" href="/assets/js/53.32933bde.js"><link rel="prefetch" href="/assets/js/54.5f4ba8e6.js"><link rel="prefetch" href="/assets/js/55.07cb4238.js"><link rel="prefetch" href="/assets/js/56.051d4b4e.js"><link rel="prefetch" href="/assets/js/57.bd3f6e79.js"><link rel="prefetch" href="/assets/js/58.220ce9c8.js"><link rel="prefetch" href="/assets/js/59.896c6030.js"><link rel="prefetch" href="/assets/js/6.0c2e36a1.js"><link rel="prefetch" href="/assets/js/60.b8253c86.js"><link rel="prefetch" href="/assets/js/61.f607b3ec.js"><link rel="prefetch" href="/assets/js/62.a2eb63e8.js"><link rel="prefetch" href="/assets/js/63.ab079e01.js"><link rel="prefetch" href="/assets/js/64.ab1a2432.js"><link rel="prefetch" href="/assets/js/65.23af0670.js"><link rel="prefetch" href="/assets/js/66.2cf2b73c.js"><link rel="prefetch" href="/assets/js/67.dd039849.js"><link rel="prefetch" href="/assets/js/68.c1f2396d.js"><link rel="prefetch" href="/assets/js/69.f64d6dc5.js"><link rel="prefetch" href="/assets/js/7.66c6371d.js"><link rel="prefetch" href="/assets/js/70.1b8f30ff.js"><link rel="prefetch" href="/assets/js/71.6abde1ee.js"><link rel="prefetch" href="/assets/js/72.a80f16f5.js"><link rel="prefetch" href="/assets/js/73.6690fcbd.js"><link rel="prefetch" href="/assets/js/74.d7f82bfd.js"><link rel="prefetch" href="/assets/js/75.fc906157.js"><link rel="prefetch" href="/assets/js/76.106a4524.js"><link rel="prefetch" href="/assets/js/77.ad77edec.js"><link rel="prefetch" href="/assets/js/78.10c7b197.js"><link rel="prefetch" href="/assets/js/79.08097c6d.js"><link rel="prefetch" href="/assets/js/8.b37e7034.js"><link rel="prefetch" href="/assets/js/80.c33bd3c0.js"><link rel="prefetch" href="/assets/js/81.c1c8227b.js"><link rel="prefetch" href="/assets/js/82.042ca332.js"><link rel="prefetch" href="/assets/js/83.371427a4.js"><link rel="prefetch" href="/assets/js/84.95658ce6.js"><link rel="prefetch" href="/assets/js/85.e4365ba5.js"><link rel="prefetch" href="/assets/js/86.c5ed5194.js"><link rel="prefetch" href="/assets/js/87.1a56019a.js"><link rel="prefetch" href="/assets/js/88.a0664933.js"><link rel="prefetch" href="/assets/js/89.365bb774.js"><link rel="prefetch" href="/assets/js/9.c34e88ed.js"><link rel="prefetch" href="/assets/js/90.2330af89.js"><link rel="prefetch" href="/assets/js/91.25be9d8a.js"><link rel="prefetch" href="/assets/js/92.7fca59f6.js"><link rel="prefetch" href="/assets/js/93.5d25de24.js"><link rel="prefetch" href="/assets/js/94.52f3f774.js"><link rel="prefetch" href="/assets/js/95.3da9bca5.js"><link rel="prefetch" href="/assets/js/96.24b73c87.js"><link rel="prefetch" href="/assets/js/97.cd2d42fb.js"><link rel="prefetch" href="/assets/js/98.a520e926.js"><link rel="prefetch" href="/assets/js/99.22c2d988.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.3751d6d5.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><!----> <span class="site-name">NULS</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/zh/learn/" class="nav-link">了解NULS</a></div><div class="nav-item"><a href="/zh/NULS1.0/" class="nav-link">NULS1.0</a></div><div class="nav-item"><a href="/zh/NULS2.0/" class="nav-link">NULS2.0</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/NULSInfrastructure/linuxTutorial.html" class="nav-link">English</a></li><li class="dropdown-item"><!----> <a href="/zh/NULSInfrastructure/linuxTutorial.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/zh/learn/" class="nav-link">了解NULS</a></div><div class="nav-item"><a href="/zh/NULS1.0/" class="nav-link">NULS1.0</a></div><div class="nav-item"><a href="/zh/NULS2.0/" class="nav-link">NULS2.0</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/NULSInfrastructure/linuxTutorial.html" class="nav-link">English</a></li><li class="dropdown-item"><!----> <a href="/zh/NULSInfrastructure/linuxTutorial.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <!----> </div> <div class="page"> <div class="content"><h1 id="alpha-nuls2-0-cli-使用指南"><a href="#alpha-nuls2-0-cli-使用指南" aria-hidden="true" class="header-anchor">#</a> [Alpha]NULS2.0 CLI 使用指南</h1> <h2 id="介绍"><a href="#介绍" aria-hidden="true" class="header-anchor">#</a> 介绍</h2> <p>本文档为NULS2.0 alpha版本测试网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。</p> <h2 id="版本更新记录"><a href="#版本更新记录" aria-hidden="true" class="header-anchor">#</a> 版本更新记录</h2> <table><thead><tr><th style="text-align:center">版本</th> <th style="text-align:center">更新日期</th> <th style="text-align:center">内容</th></tr></thead> <tbody><tr><td style="text-align:center">V1.0.0</td> <td style="text-align:center">2018-03-18</td> <td style="text-align:center">alpha版功能</td></tr></tbody></table> <h2 id="准备"><a href="#准备" aria-hidden="true" class="header-anchor">#</a> 准备</h2> <h3 id="服务器硬件配置"><a href="#服务器硬件配置" aria-hidden="true" class="header-anchor">#</a> 服务器硬件配置</h3> <p><strong>建立NULS节点的服务器不低于如下配置：</strong></p> <table><thead><tr><th style="text-align:center">CPU</th> <th style="text-align:center">内存</th> <th style="text-align:center">硬盘</th> <th style="text-align:center">宽带</th></tr></thead> <tbody><tr><td style="text-align:center">四核 3.0GHz</td> <td style="text-align:center">16G</td> <td style="text-align:center">128G硬盘</td> <td style="text-align:center">20M上行</td></tr></tbody></table> <p><strong>推荐配置：</strong></p> <table><thead><tr><th style="text-align:center">CPU</th> <th style="text-align:center">内存</th> <th style="text-align:center">硬盘</th> <th style="text-align:center">宽带</th></tr></thead> <tbody><tr><td style="text-align:center">八核 3.0GHz</td> <td style="text-align:center">32G</td> <td style="text-align:center">256G硬盘</td> <td style="text-align:center">100M上行</td></tr></tbody></table> <h3 id="系统及内核版本"><a href="#系统及内核版本" aria-hidden="true" class="header-anchor">#</a> 系统及内核版本</h3> <p><strong>Linux系统</strong></p> <ul><li>CentOS 6,7</li></ul> <p>Linux内核版本推荐使用 2.6.32及以上</p> <h2 id="开始"><a href="#开始" aria-hidden="true" class="header-anchor">#</a> 开始</h2> <h3 id="下载"><a href="#下载" aria-hidden="true" class="header-anchor">#</a> 下载</h3> <ul><li><p>最新版本的全节点钱包NULS官网下载地址：http://nuls.io/wallet；GitHub地址：https://github.com/nuls-io/nuls-wallet-release</p></li> <li><p>进入<a href="http://nuls.io/wallet" target="_blank" rel="noopener noreferrer">NULS官网钱包下载<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>界面后，选择Linux download，我们提供了MEGA和百度云盘两种下载方式，用户可自行选择。</p> <p>Linux系统中下载v2.0.0-alpha-1版的钱包可以使用如下命令：</p> <div class="language-shell extra-class"><pre class="language-text"><code>$ wget https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-1.0.0.tar.gz
+</code></pre></div><p>注：如果后续有其他版本，下载地址可能会不同。</p></li></ul> <h3 id="安装"><a href="#安装" aria-hidden="true" class="header-anchor">#</a> 安装</h3> <ul><li><p>在Linux中解压已下载的文件</p> <div class="language-shell extra-class"><pre class="language-text"><code>$ tar -zxf NULS-Wallet-linux64-2.0.0-alpha-1.tar.gz
+</code></pre></div></li></ul> <h3 id="运行"><a href="#运行" aria-hidden="true" class="header-anchor">#</a> 运行</h3> <ul><li><p>进入解压后的目录，并运行启动脚本，启动全节点钱包</p> <div class="language-shell extra-class"><pre class="language-text"><code>$ cd NULS-Wallet-linux64-2.0.0-alpha-1
+$ ./start.sh
+</code></pre></div></li></ul> <h2 id="使用钱包"><a href="#使用钱包" aria-hidden="true" class="header-anchor">#</a> 使用钱包</h2> <h3 id="快速入门"><a href="#快速入门" aria-hidden="true" class="header-anchor">#</a> 快速入门</h3> <ul><li><p>在确定钱包已经启动后，启动钱包的命令行程序，可对钱包进行操作。</p> <p>进入cmdclient/1.0.0目录，执行如下命令：</p> <div class="language-shell extra-class"><pre class="language-text"><code>$ cd cmdclient/1.0.0
+$ ./cmd.sh
+</code></pre></div><p>将会出现NULS命名输入提示符<code>nuls&gt;&gt;&gt;</code> ，然后可直接输入NULS钱包操作命令，来进行操作。</p> <p>例如，创建账户的示例如下：</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; create
+Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+Enter your password:*********
+Please confirm new password:*********
+[ &quot;Nse9EtaRwgVgN42pxURgZjUR33LUx1j1&quot; ]
+nuls&gt;&gt;&gt;
+</code></pre></div><p>执行<code>create</code>命令表示创建单个账户，然后输入密码，以及再次确认输入的密码，创建成功后将会返回账户的地址。</p></li></ul> <h2 id="约定"><a href="#约定" aria-hidden="true" class="header-anchor">#</a> 约定</h2> <ul><li>设置密码规则：密码长度在8至20位，必须同时包含字母和数字。</li> <li>命令参数说明： &lt;parameter&gt; 表示必填参数；[parameter] 表示选填参数。&quot;|&quot; 在参数中表示或者，表示前后参数只能选其一。</li></ul> <h2 id="钱包命令"><a href="#钱包命令" aria-hidden="true" class="header-anchor">#</a> 钱包命令</h2> <h3 id="帮助命令"><a href="#帮助命令" aria-hidden="true" class="header-anchor">#</a> 帮助命令</h3> <p>输出打印所有的命令，</p> <ul><li><strong>命令： help [-a]|[group]|[command]</strong></li></ul> <table><thead><tr><th style="text-align:left">参数</th> <th style="text-align:left">说明</th></tr></thead> <tbody><tr><td style="text-align:left">-a</td> <td style="text-align:left">格式化打印命令，选填</td></tr> <tr><td style="text-align:left">command</td> <td style="text-align:left">查看指定命令使用说明</td></tr> <tr><td style="text-align:left">group</td> <td style="text-align:left">查看指定命令组的所有命令使用说明</td></tr></tbody></table> <p>返回信息 help</p> <div class="language-json extra-class"><pre class="language-json"><code>getaccount &lt;address&gt; --get account information
+</code></pre></div><p>返回信息 help -a</p> <div class="language-json extra-class"><pre class="language-json"><code>getaccount &lt;address&gt; --get account information
+	OPTIONS<span class="token operator">:</span>
+	&lt;address&gt; the account address - Required
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; help
+nuls&gt;&gt;&gt; help -a
+nuls&gt;&gt;&gt; help account
+nuls&gt;&gt;&gt; help create
+</code></pre></div><h3 id="创建账户"><a href="#创建账户" aria-hidden="true" class="header-anchor">#</a> 创建账户</h3> <p>创建账户，返回账户地址集合</p> <ul><li><strong>命令： create [number]</strong></li></ul> <table><thead><tr><th style="text-align:left">参数</th> <th style="text-align:left">说明</th></tr></thead> <tbody><tr><td style="text-align:left">[number]</td> <td style="text-align:left">创建账户的数量，选填</td></tr></tbody></table> <p>创建账户时，将会提示输入密码，为了保证资产安全，必须给账户设置密码；</p> <p>返回账户集合</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token string">&quot;5MR_2CkDZtZRHGLD43JreUc8LsFBertsc9r&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;5MR_2CXCCU89fj9RyQj9MgZVE7Pq3Mmk77p&quot;</span> <span class="token punctuation">]</span>
+</code></pre></div><p>示例</p> <p>创建1个账户</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; create 
+Please enter the new password(8-20 characters, the combination of letters and numbers).
+Enter your new password:**********
+Please confirm new password:**********
+[ &quot;5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW&quot; ]
+</code></pre></div><p>一次创建多个账户</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; create 3
+Please enter the new password(8-20 characters, the combination of letters and numbers).
+Enter your new password:**********
+Please confirm new password:**********
+[ &quot;5MR_2CWdfU2VDERgQbWS1quGYAGD1iDDM4N&quot;, &quot;5MR_2CcYq7fqrvKagReBmzG3qEz8qGkifCr&quot;, &quot;5MR_2Cd6E2vAGZQxkqeXbeqThRxDGTFiLei&quot; ]
+</code></pre></div><h3 id="备份账户"><a href="#备份账户" aria-hidden="true" class="header-anchor">#</a> 备份账户</h3> <p>备份账户，将生成一个名称为账户地址，扩展名为.keystore的文件，该文件为账户的备份文件</p> <ul><li><strong>命令：backup &lt;address&gt; [path]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr> <tr><td>[path]</td> <td>文件生成备份文件的目标文件夹，默认为当前文件夹，选填</td></tr></tbody></table> <p>返回信息</p> <div class="language-shell extra-class"><pre class="language-text"><code>The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
+</code></pre></div><p>示例 备份一个有密码的账户</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; backup 5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW /Users/zlj
+Enter account password
+***************
+The path to the backup file is /Users/zlj/5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW.keystore
+</code></pre></div><h3 id="移除账户"><a href="#移除账户" aria-hidden="true" class="header-anchor">#</a> 移除账户</h3> <p>根据账户地址移除本地账户，需要输入密码</p> <ul><li><strong>命令：remove &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code>Success
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; remove 5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW
+Enter your password for account**********
+Success
+</code></pre></div><h3 id="修改账户密码"><a href="#修改账户密码" aria-hidden="true" class="header-anchor">#</a> 修改账户密码</h3> <p>根据账户地址和账户密码重新设置新密码。</p> <ul><li><strong>命令：resetpwd &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code>Success
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; resetpwd 5MR_2CWdfU2VDERgQbWS1quGYAGD1iDDM4N
+Enter your old password:**********
+Enter new password**********
+Please confirm new password:**********
+Success
+</code></pre></div><h3 id="设置别名"><a href="#设置别名" aria-hidden="true" class="header-anchor">#</a> 设置别名</h3> <p>给账户设置一个别名，如果用此账户建立节点，别名将作为节点来源显示</p> <ul><li><strong>命令：setalias &lt;address&gt; &lt;alias&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr> <tr><td>&lt;alias&gt;</td> <td>别名名称，必填</td></tr></tbody></table> <p>返回信息 交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code>txHash<span class="token operator">:</span><span class="token number">0020</span>f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d&quot;
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; setalias 5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9 zlj
+Enter your account password**********
+txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
+</code></pre></div><h3 id="导入账户keystore"><a href="#导入账户keystore" aria-hidden="true" class="header-anchor">#</a> 导入账户keystore</h3> <p>导入账户keystore文件，生成本地账户，如果本地已有该账户将无法导入。</p> <ul><li><strong>命令：importkeystore &lt;path&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;path&gt;</td> <td>待导入的keystore文件地址，必填</td></tr></tbody></table> <p>注意：导入keystore文件生成账户时，需要原始密码</p> <p>返回信息 导入的账户地址</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; importkeystore /Users/zhoulijun/5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW.keystore
+Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+Enter your password:**********
+5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW
+</code></pre></div><h3 id="导入账户私钥"><a href="#导入账户私钥" aria-hidden="true" class="header-anchor">#</a> 导入账户私钥</h3> <p>导入账户私钥，生成本地账户，如果本地已有该账户将覆盖,导入时需要给账户设置密码。此功能可以用于忘记账户密码后，通过私钥重新找回账户。</p> <ul><li><strong>命令：import &lt;privatekey&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;privatekey&gt;</td> <td>账户的私钥，必填</td></tr></tbody></table> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; import 1c2b9fd4417c1aad8ae9f24c982ff294eb50a6462b873b79a879e805a9990346
+Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+Enter your password:**********
+Please confirm new password:**********
+5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
+</code></pre></div><h3 id="查询账户信息"><a href="#查询账户信息" aria-hidden="true" class="header-anchor">#</a> 查询账户信息</h3> <p>根据账户地址查询账户信息</p> <ul><li><strong>命令：getaccount &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th style="text-align:left">说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td style="text-align:left">账户地址，必填</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;</span><span class="token punctuation">,</span>  //加密后的私钥
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;zlj&quot;</span><span class="token punctuation">,</span>  //别名
+  <span class="token property">&quot;baglance&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>  
+    <span class="token property">&quot;freeze&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>   //冻结的资产数量
+    <span class="token property">&quot;total&quot;</span> <span class="token operator">:</span> <span class="token number">997999999800000</span><span class="token punctuation">,</span>     //总的资产数量
+    <span class="token property">&quot;available&quot;</span> <span class="token operator">:</span> <span class="token number">997999999800000</span>  //可用的资产数量
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;</span><span class="token punctuation">,</span>  //账户地址
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;</span> //公钥
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
+{
+  &quot;encryptedPrikeyHex&quot; : &quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;,  //加密后的私钥
+  &quot;alias&quot; : &quot;zlj&quot;,  //别名
+  &quot;baglance&quot; : {  
+    &quot;freeze&quot; : 0,   //冻结的资产数量
+    &quot;total&quot; : 997999999800000,     //总的资产数量
+    &quot;available&quot; : 997999999800000  //可用的资产数量
+  },
+  &quot;address&quot; : &quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;,  //账户地址
+  &quot;pubkeyHex&quot; : &quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot; //加密后的公钥
+}
+</code></pre></div><h3 id="查询账户列表"><a href="#查询账户列表" aria-hidden="true" class="header-anchor">#</a> 查询账户列表</h3> <p>根据分页参数查询账户列表，所有账户以创建时间倒序输出。</p> <ul><li><strong>命令：getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;pageNumber&gt;</td> <td>页数，需要获取第几页的数据，必填</td></tr> <tr><td>&lt;pageSize&gt;</td> <td>每一页显示的数据条数，必填</td></tr></tbody></table> <p>返回信息，将输出账户集合</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;</span><span class="token punctuation">,</span>  //地址
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null">null</span><span class="token punctuation">,</span>  //别名
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;</span><span class="token punctuation">,</span>  //公钥
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;</span>  //私钥
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0205a70731e7653eca328ba7d71f0a789f8cfb1ced32f5a00d4fc3fb2ad8b9f7c1&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;e38d2dd08154a0eedf8298f5fe50b86723e521522f38aba5c68072bad365c3e8c57d7ac3ae83f8d646a17f845a38bc57&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;zlj&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;03021a46a7e5ea59ae8884340568e9e79511fbd352b4ba28db39f15856918cdbeb&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;bfbfdad874f74215e241ad15152d8648925c497b6a826965f5c06c46fd9b008313e6918ebcfcb56f2cdf8d1b9f088f77&quot;</span>
+<span class="token punctuation">}</span> <span class="token punctuation">]</span>
+</code></pre></div><p>示例 获取账户列表</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getaccounts
+[ {
+  &quot;address&quot; : &quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;,  //地址
+  &quot;alias&quot; : null,  //别名
+  &quot;pubkeyHex&quot; : &quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;,  //加密后的公钥
+  &quot;encryptedPrikeyHex&quot; : &quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;  //加密后的私钥
+}, {
+  &quot;address&quot; : &quot;5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW&quot;,
+  &quot;alias&quot; : null,
+  &quot;pubkeyHex&quot; : &quot;0205a70731e7653eca328ba7d71f0a789f8cfb1ced32f5a00d4fc3fb2ad8b9f7c1&quot;,
+  &quot;encryptedPrikeyHex&quot; : &quot;e38d2dd08154a0eedf8298f5fe50b86723e521522f38aba5c68072bad365c3e8c57d7ac3ae83f8d646a17f845a38bc57&quot;
+}, {
+  &quot;address&quot; : &quot;5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9&quot;,
+  &quot;alias&quot; : &quot;zlj&quot;,
+  &quot;pubkeyHex&quot; : &quot;03021a46a7e5ea59ae8884340568e9e79511fbd352b4ba28db39f15856918cdbeb&quot;,
+  &quot;encryptedPrikeyHex&quot; : &quot;bfbfdad874f74215e241ad15152d8648925c497b6a826965f5c06c46fd9b008313e6918ebcfcb56f2cdf8d1b9f088f77&quot;
+} ]
+</code></pre></div><h3 id="查询账户私钥"><a href="#查询账户私钥" aria-hidden="true" class="header-anchor">#</a> 查询账户私钥</h3> <p>根据账户地址个密码查询账户私钥</p> <ul><li><strong>命令：getprikey &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息 导入的账户的私钥（未加密）</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token number">00</span>a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getprikey 5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9
+Enter your account password**********
+7b4d3ec971fc01ea813b52f6c35091d43beac4a68550bae2db63975149244678
+</code></pre></div><h3 id="查询账户余额"><a href="#查询账户余额" aria-hidden="true" class="header-anchor">#</a> 查询账户余额</h3> <p>根据账户地址查询账户余额</p> <ul><li><strong>命令：getbalance &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息 导入的账户地址</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;total&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;9999998.99&quot;</span><span class="token punctuation">,</span>//余额
+  <span class="token property">&quot;freeze&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0&quot;</span><span class="token punctuation">,</span>//已锁定余额
+  <span class="token property">&quot;available&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;9999998.99&quot;</span>//可用余额
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
+{
+  &quot;total&quot; : &quot;9999998.99&quot;,
+  &quot;freeze&quot; : &quot;0&quot;,
+  &quot;available&quot; : &quot;9999998.99&quot;
+}
+</code></pre></div><h3 id="转账"><a href="#转账" aria-hidden="true" class="header-anchor">#</a> 转账</h3> <p>根据账户地址或别名将NULS转入另一账户地址或别名中</p> <ul><li>**命令：transfer &lt;formAddress&gt;|&lt;formAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark] **</li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;formAddress&gt;</td> <td>转出地址(与formAlias任选一项）</td></tr> <tr><td>&lt;formAlias&gt;</td> <td>转出地址别名(与formAddress任选一项）</td></tr> <tr><td>&lt;toAddress&gt;</td> <td>接收地址(与toAlias任选一项）</td></tr> <tr><td>&lt;toAlias&gt;</td> <td>接收地址别名(与toAddress任选一项）</td></tr> <tr><td>&lt;amount&gt;</td> <td>转账数量，必填</td></tr> <tr><td>[remark]</td> <td>备注信息，选填</td></tr></tbody></table> <p>返回信息 转账交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; transfer Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 100 转账
+Please enter the password.
+Enter your password:**********
+&quot;00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596&quot;
+</code></pre></div><h3 id="查询交易详情"><a href="#查询交易详情" aria-hidden="true" class="header-anchor">#</a> 查询交易详情</h3> <p>根据交易hash查询交易详细信息</p> <ul><li><strong>命令：gettx &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>交易hash，必填</td></tr></tbody></table> <p>返回信息 交易详细信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>  //交易类型（枚举说明见下表【type 枚举类型说明】）
+  <span class="token property">&quot;coinData&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;ARc5MAGYBT3XNVp+BIuhGvGcejuTev8DODkwAQCgZ/cFAAAAAAAAAAAAAAAACO/WnDT4pvmsAAEXOTABL/80LO1f8vxvfNXc5l9eeIDTGKM5MAEAAOH1BQAAAAAAAAAAAAAAAAA=&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;txData&quot;</span> <span class="token operator">:</span> <span class="token null">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token number">1552979783918</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;transactionSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;IQIRxF8ocQzSaixF+3kIlaD/LglaKQ8YJbMdgOvDCRPEhgBGMEQCICdnNr3HqEg/UZZ6RLBHyGuPChoLdMtcOHXT3Xlb5SC3AiBGAWSPGH3yjtEkaVbLsI5n9UcqDvOfG3Ui1jf672IDCg==&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;remark&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;6L2s6LSm&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;digestAlgType&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;digestBytes&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CivAIHpVyqNr/h87/FWk7vXsXqBekHJ+3kQc5mZp+H8=&quot;</span><span class="token punctuation">,</span> 
+    <span class="token property">&quot;digestHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f&quot;</span> 
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockHeight&quot;</span> <span class="token operator">:</span> <span class="token number">341</span><span class="token punctuation">,</span>   //区块高度
+  <span class="token property">&quot;status&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CONFIRMED&quot;</span><span class="token punctuation">,</span>  //确认状态
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">225</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;inBlockIndex&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;coinDataInstance&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>  
+    <span class="token property">&quot;from&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;OTABmAU91zVafgSLoRrxnHo7k3r/Azg=&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsChainId&quot;</span> <span class="token operator">:</span> <span class="token number">12345</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsId&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;amount&quot;</span> <span class="token operator">:</span> <span class="token number">100100000</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;nonce&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;79acNPim+aw=&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;locked&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;to&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;OTABL/80LO1f8vxvfNXc5l9eeIDTGKM=&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsChainId&quot;</span> <span class="token operator">:</span> <span class="token number">12345</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsId&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;amount&quot;</span> <span class="token operator">:</span> <span class="token number">100000000</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;lockTime&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;fee&quot;</span> <span class="token operator">:</span> <span class="token number">100000</span><span class="token punctuation">,</span>  //手续费
+  <span class="token property">&quot;multiSignTx&quot;</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例 查询转账交易</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; gettx 00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f
+{
+  &quot;type&quot; : 2,  //交易类型（枚举说明见下表【type 枚举类型说明】）
+  &quot;coinData&quot; : &quot;ARc5MAGYBT3XNVp+BIuhGvGcejuTev8DODkwAQCgZ/cFAAAAAAAAAAAAAAAACO/WnDT4pvmsAAEXOTABL/80LO1f8vxvfNXc5l9eeIDTGKM5MAEAAOH1BQAAAAAAAAAAAAAAAAA=&quot;,
+  &quot;txData&quot; : null,
+  &quot;time&quot; : 1552979783918,
+  &quot;transactionSignature&quot; : &quot;IQIRxF8ocQzSaixF+3kIlaD/LglaKQ8YJbMdgOvDCRPEhgBGMEQCICdnNr3HqEg/UZZ6RLBHyGuPChoLdMtcOHXT3Xlb5SC3AiBGAWSPGH3yjtEkaVbLsI5n9UcqDvOfG3Ui1jf672IDCg==&quot;,
+  &quot;remark&quot; : &quot;6L2s6LSm&quot;,
+  &quot;hash&quot; : {
+    &quot;digestAlgType&quot; : 0,
+    &quot;digestBytes&quot; : &quot;CivAIHpVyqNr/h87/FWk7vXsXqBekHJ+3kQc5mZp+H8=&quot;, 
+    &quot;digestHex&quot; : &quot;00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f&quot; 
+  },
+  &quot;blockHeight&quot; : 341,   //区块高度
+  &quot;status&quot; : &quot;CONFIRMED&quot;,  //确认状态
+  &quot;size&quot; : 225,
+  &quot;inBlockIndex&quot; : 0,
+  &quot;coinDataInstance&quot; : {  
+    &quot;from&quot; : [ {
+      &quot;address&quot; : &quot;OTABmAU91zVafgSLoRrxnHo7k3r/Azg=&quot;,
+      &quot;assetsChainId&quot; : 12345,
+      &quot;assetsId&quot; : 1,
+      &quot;amount&quot; : 100100000,
+      &quot;nonce&quot; : &quot;79acNPim+aw=&quot;,
+      &quot;locked&quot; : 0
+    } ],
+    &quot;to&quot; : [ {
+      &quot;address&quot; : &quot;OTABL/80LO1f8vxvfNXc5l9eeIDTGKM=&quot;,
+      &quot;assetsChainId&quot; : 12345,
+      &quot;assetsId&quot; : 1,
+      &quot;amount&quot; : 100000000,
+      &quot;lockTime&quot; : 0
+    } ]
+  },
+  &quot;fee&quot; : 100000,  //手续费
+  &quot;multiSignTx&quot; : false
+}
+</code></pre></div><h3 id="type-枚举类型说明"><a href="#type-枚举类型说明" aria-hidden="true" class="header-anchor">#</a> type 枚举类型说明</h3> <div class="language- extra-class"><pre class="language-text"><code>/** coinbase交易*/
+    int TX_TYPE_COINBASE = 1;
+    /** 转账交易*/
+    int TX_TYPE_TRANSFER = 2;
+    /** 设置别名*/
+    int TX_TYPE_ALIAS = 3;
+    /** 创建共识节点交易*/
+    int TX_TYPE_REGISTER_AGENT = 4;
+    /** 委托交易(加入共识)*/
+    int TX_TYPE_JOIN_CONSENSUS = 5;
+    /** 取消委托交易(退出共识)*/
+    int TX_TYPE_CANCEL_DEPOSIT = 6;
+    /** 黄牌惩罚*/
+    int TX_TYPE_YELLOW_PUNISH = 7;
+    /** 红牌惩罚*/
+    int TX_TYPE_RED_PUNISH = 8;
+    /** 停止节点(删除共识节点)*/
+    int TX_TYPE_STOP_AGENT = 9;
+    /** 跨链转账交易*/
+    int TX_TYPE_CROSS_CHAIN_TRANSFER = 10;
+    /** 注册链交易*/
+    int TX_TYPE_REGISTER_CHAIN_AND_ASSET = 11;
+    /** 销毁链*/
+    int TX_TYPE_DESTROY_CHAIN_AND_ASSET = 12;
+    /** 为链新增一种资产*/
+    int TX_TYPE_ADD_ASSET_TO_CHAIN = 13;
+    /** 删除链上资产*/
+    int TX_TYPE_REMOVE_ASSET_FROM_CHAIN = 14;
+    /** 创建智能合约交易*/
+    int TX_TYPE_CREATE_CONTRACT = 100;
+    /** 调用智能合约交易*/
+    int TX_TYPE_CALL_CONTRACT = 101;
+    /** 删除智能合约交易*/
+    int TX_TYPE_DELETE_CONTRACT = 102;
+</code></pre></div><h3 id="创建节点"><a href="#创建节点" aria-hidden="true" class="header-anchor">#</a> 创建节点</h3> <p>根据账户地址创建节点,创建节点时需要提供两个地址，第一个地址为节点地址，需要输入节点地址账户密码，第二地址为打包地址，不需要输入密码。同时需要至少20000NULS的保证金。</p> <ul><li><strong>命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;agentAddress&gt;</td> <td>创建节点的账户地址，必填</td></tr> <tr><td>&lt;packingAddress&gt;</td> <td>节点打包账户地址，必填（注：该账户不能设置密码，否则节点不能打包出块）</td></tr> <tr><td>&lt;commissionRate&gt;</td> <td>代理佣金比例，范围：10~100，必填</td></tr> <tr><td>&lt;deposit&gt;</td> <td>创建节点的保证金，不能低于20000NULS，必填</td></tr></tbody></table> <p>返回信息 返回节点的agent hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e&quot;</span>
+</code></pre></div><p>示例 创建一个节点，佣金比例为10%，押金20000NULS。</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; createagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdvAnqc8oEiNiGgcp6pEusfiRFZi4vt 10 20000
+Please enter the password.
+Enter your password:**********
+&quot;002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e&quot;
+</code></pre></div><h3 id="加入共识（委托节点）"><a href="#加入共识（委托节点）" aria-hidden="true" class="header-anchor">#</a> 加入共识（委托节点）</h3> <p>根据账户地址和节点agentHash，加入共识，至少需要2000NULS</p> <ul><li><strong>命令：deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr> <tr><td>&lt;agentHash&gt;</td> <td>节点的agentHash，必填</td></tr> <tr><td>&lt;deposit&gt;</td> <td>加入共识保证金，不能低于2000NULS，必填</td></tr></tbody></table> <p>返回信息 加入共识的交易hash，如果要退出这笔共识，则需要该hash。</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e 5000
+&quot;0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0&quot;
+</code></pre></div><h3 id="退出共识（退出委托）"><a href="#退出共识（退出委托）" aria-hidden="true" class="header-anchor">#</a> 退出共识（退出委托）</h3> <p>根据账户地址和加入共识时的交易hash来退出共识(委托)，单个账户多次委托节点时，每次委托的交易是独立的，所以退出时也要通过单次委托时的交易hash来退出对应的那一次委托，而不会一次退出所有委托。</p> <ul><li><strong>命令：withdraw &lt;address&gt; &lt;txHash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr> <tr><td>&lt;txHash&gt;</td> <td>委托时的交易hash，必填</td></tr></tbody></table> <p>返回信息 退出共识交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0
+&quot;00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf&quot;
+</code></pre></div><h3 id="停止节点"><a href="#停止节点" aria-hidden="true" class="header-anchor">#</a> 停止节点</h3> <p>停止节点，所有委托给节点的NULS将被退回，节点创建者账户的保证金将会被锁定72小时。</p> <ul><li><strong>命令：stopagent &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr></tbody></table> <p>返回信息 停止节点交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; stopagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
+Please enter the password.
+Enter your password:**********
+&quot;0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f&quot;
+</code></pre></div><h3 id="获取最新的区块头信息"><a href="#获取最新的区块头信息" aria-hidden="true" class="header-anchor">#</a> 获取最新的区块头信息</h3> <p>获取最新的区块头信息</p> <ul><li><strong>命令：getbestblockheader</strong></li></ul> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;</span><span class="token punctuation">,</span>  //区块hash
+  <span class="token property">&quot;preHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;</span><span class="token punctuation">,</span>  //上一个区块hash
+  <span class="token property">&quot;merkleHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;</span><span class="token punctuation">,</span>  //merkle hash
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:20.020&quot;</span><span class="token punctuation">,</span>  //打包时间
+  <span class="token property">&quot;height&quot;</span> <span class="token operator">:</span> <span class="token number">1479</span><span class="token punctuation">,</span> //区块高度
+  <span class="token property">&quot;txCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>   //包含的交易数
+  <span class="token property">&quot;blockSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;</span><span class="token punctuation">,</span> //区块签名
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> //区块大小
+  <span class="token property">&quot;packingAddress&quot;</span> <span class="token operator">:</span> <span class="token null">null</span><span class="token punctuation">,</span>  //打包地址
+  <span class="token property">&quot;roundIndex&quot;</span> <span class="token operator">:</span> <span class="token number">155299118</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;consensusMemberCount&quot;</span> <span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;roundStartTime&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:10.010&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;packingIndexOfRound&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;mainVersion&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockVersion&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;stateRoot&quot;</span> <span class="token operator">:</span> <span class="token null">null</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getbestblockheader
+{
+  &quot;hash&quot; : &quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;,
+  &quot;preHash&quot; : &quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;,
+  &quot;merkleHash&quot; : &quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;,
+  &quot;time&quot; : &quot;2019-03-19 18:26:20.020&quot;,
+  &quot;height&quot; : 1479,
+  &quot;txCount&quot; : 0,
+  &quot;blockSignature&quot; : &quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;,
+  &quot;size&quot; : 0,
+  &quot;packingAddress&quot; : null,
+  &quot;roundIndex&quot; : 155299118,
+  &quot;consensusMemberCount&quot; : 100,
+  &quot;roundStartTime&quot; : &quot;2019-03-19 18:26:10.010&quot;,
+  &quot;packingIndexOfRound&quot; : 1,
+  &quot;mainVersion&quot; : 1,
+  &quot;blockVersion&quot; : 0,
+  &quot;stateRoot&quot; : null
+}
+</code></pre></div><h3 id="查询区块头信息"><a href="#查询区块头信息" aria-hidden="true" class="header-anchor">#</a> 查询区块头信息</h3> <p>根据区块高度或者区块hash，查询区块信息，必须并且只能选择一种参数作为查询条件。</p> <ul><li><strong>命令：getblock &lt;hash&gt; | &lt;height&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>区块的hash值</td></tr> <tr><td>&lt;height&gt;</td> <td>区块的高度</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;</span><span class="token punctuation">,</span>  //区块hash
+  <span class="token property">&quot;preHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;</span><span class="token punctuation">,</span>  //上一个区块hash
+  <span class="token property">&quot;merkleHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;</span><span class="token punctuation">,</span>  //merkle hash
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:20.020&quot;</span><span class="token punctuation">,</span>  //打包时间
+  <span class="token property">&quot;height&quot;</span> <span class="token operator">:</span> <span class="token number">1479</span><span class="token punctuation">,</span> //区块高度
+  <span class="token property">&quot;txCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>   //包含的交易数
+  <span class="token property">&quot;blockSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;</span><span class="token punctuation">,</span> //区块签名
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> //区块大小
+  <span class="token property">&quot;packingAddress&quot;</span> <span class="token operator">:</span> <span class="token null">null</span><span class="token punctuation">,</span>  //打包地址
+  <span class="token property">&quot;roundIndex&quot;</span> <span class="token operator">:</span> <span class="token number">155299118</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;consensusMemberCount&quot;</span> <span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;roundStartTime&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:10.010&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;packingIndexOfRound&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;mainVersion&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockVersion&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;stateRoot&quot;</span> <span class="token operator">:</span> <span class="token null">null</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例 根据高度获取区块</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getblock 28115
+{
+  &quot;hash&quot; : &quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;,  //区块hash
+  &quot;preHash&quot; : &quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;,  //上一个区块hash
+  &quot;merkleHash&quot; : &quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;,  //merkle hash
+  &quot;time&quot; : &quot;2019-03-19 18:26:20.020&quot;,  //打包时间
+  &quot;height&quot; : 1479, //区块高度
+  &quot;txCount&quot; : 1,   //包含的交易数
+  &quot;blockSignature&quot; : &quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;, //区块签名
+  &quot;size&quot; : 0, //区块大小
+  &quot;packingAddress&quot; : null,  //打包地址
+  &quot;roundIndex&quot; : 155299118, 
+  &quot;consensusMemberCount&quot; : 100,
+  &quot;roundStartTime&quot; : &quot;2019-03-19 18:26:10.010&quot;,
+  &quot;packingIndexOfRound&quot; : 1, 
+  &quot;mainVersion&quot; : 1,
+  &quot;blockVersion&quot; : 0,
+  &quot;stateRoot&quot; : null
+}
+</code></pre></div><h3 id="查询区块头信息-2"><a href="#查询区块头信息-2" aria-hidden="true" class="header-anchor">#</a> 查询区块头信息</h3> <p>根据区块高度或者区块hash，查询区块头信息，必须并且只能选择一种参数作为查询条件。</p> <ul><li><strong>命令：getblockheader &lt;hash&gt; | &lt;height&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>区块的hash值</td></tr> <tr><td>&lt;height&gt;</td> <td>区块的高度</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817&quot;</span><span class="token punctuation">,</span>//区块hash
+  <span class="token property">&quot;preHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954&quot;</span><span class="token punctuation">,</span>//前一区块hash
+  <span class="token property">&quot;merkleHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158&quot;</span><span class="token punctuation">,</span>//梅克尔hash
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2018-07-16 16:29:30&quot;</span><span class="token punctuation">,</span>//区块生成时间
+  <span class="token property">&quot;height&quot;</span> <span class="token operator">:</span> <span class="token number">28115</span><span class="token punctuation">,</span>//区块高度
+  <span class="token property">&quot;txCount&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>//区块打包交易数量
+  <span class="token property">&quot;packingAddress&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw&quot;</span><span class="token punctuation">,</span>//打包地址
+  <span class="token property">&quot;roundIndex&quot;</span> <span class="token operator">:</span> <span class="token number">662578</span><span class="token punctuation">,</span>//共识轮次
+  <span class="token property">&quot;consensusMemberCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>//参与共识成员数量
+  <span class="token property">&quot;roundStartTime&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2018-07-16 16:29:20&quot;</span><span class="token punctuation">,</span>//当前轮次开始时间
+  <span class="token property">&quot;packingIndexOfRound&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>//当前轮次打包出块的名次
+  <span class="token property">&quot;reward&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0.001&quot;</span><span class="token punctuation">,</span>//共识奖励
+  <span class="token property">&quot;fee&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0.001&quot;</span><span class="token punctuation">,</span>//区块的打包手续费
+  <span class="token property">&quot;confirmCount&quot;</span> <span class="token operator">:</span> <span class="token number">6174</span><span class="token punctuation">,</span>//确认次数
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">507</span><span class="token punctuation">,</span>//区块大小
+  <span class="token property">&quot;scriptSig&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf&quot;</span>//签名
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例 根据高度获取区块头</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getblockheader 28115
+{
+  &quot;hash&quot; : &quot;0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817&quot;,
+  &quot;preHash&quot; : &quot;0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954&quot;,
+  &quot;merkleHash&quot; : &quot;0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158&quot;,
+  &quot;time&quot; : &quot;2018-07-16 16:29:30&quot;,
+  &quot;height&quot; : 28115,
+  &quot;txCount&quot; : 2,
+  &quot;packingAddress&quot; : &quot;NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw&quot;,
+  &quot;roundIndex&quot; : 662578,
+  &quot;consensusMemberCount&quot; : 1,
+  &quot;roundStartTime&quot; : &quot;2018-07-16 16:29:20&quot;,
+  &quot;packingIndexOfRound&quot; : 1,
+  &quot;reward&quot; : &quot;0.001&quot;,
+  &quot;fee&quot; : &quot;0.001&quot;,
+  &quot;confirmCount&quot; : 6280,
+  &quot;size&quot; : 204,
+  &quot;scriptSig&quot; : &quot;210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf&quot;
+}
+</code></pre></div><h3 id="创建智能合约"><a href="#创建智能合约" aria-hidden="true" class="header-anchor">#</a> 创建智能合约</h3> <p>调用此接口在链上创建一个智能合约</p> <ul><li><strong>命令：createcontract &lt;sender&gt; &lt;gaslimt&gt; &lt;price&gt; &lt;contractCode&gt; [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;sender&gt;</td> <td>创建智能合约的账户地址</td></tr> <tr><td>&lt;gaslimt&gt;</td> <td>本次创建合约最大消耗的Gas</td></tr> <tr><td>&lt;price&gt;</td> <td>单价，每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na，系统最小单价是25Na/Gas</td></tr> <tr><td>&lt;contractCode&gt;</td> <td>合约代码的hex编码</td></tr> <tr><td>[remark]</td> <td>备注</td></tr></tbody></table> <p>返回信息 创建合约的交易hash和合约的地址</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;txHash&quot; : &quot;00205fb44fd0924a57857e71d06ec0549366b5d879b2cbd68488ed88a2dbf96c130f&quot;,  //交易hash
+  &quot;contractAddress&quot; : &quot;tNULSeBaN6ofkEqsPJmWVaeMpENTgmC5ifWtz9&quot; //合约地址
+}
+</code></pre></div><p>示例 创建一个合约（contractCode 省略中间部分）</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; createcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 504b03040a........000000800080051020000b31600000000 remarkdemo
+The arguments structure: 
+[ {
+  &quot;type&quot; : &quot;String&quot;,
+  &quot;name&quot; : &quot;name&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;String&quot;,
+  &quot;name&quot; : &quot;symbol&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;BigInteger&quot;,
+  &quot;name&quot; : &quot;initialAmount&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;int&quot;,
+  &quot;name&quot; : &quot;decimals&quot;,
+  &quot;required&quot; : true
+} ]
+Please enter the arguments you want to fill in according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;).
+Enter the arguments:&quot;KQB&quot;,&quot;KQB&quot;,10000,2
+{
+  &quot;txHash&quot; : &quot;0020ec1d68eaed63e2db8649b0a39f16b7c5af24f86b787233f6ba6d577d7d090587&quot;,
+  &quot;contractAddress&quot; : &quot;tNULSeBaNBYK9MQcWWbfgFTHj2U4j8KQGDzzuK&quot;
+}
+</code></pre></div><h3 id="获取合约基本信息"><a href="#获取合约基本信息" aria-hidden="true" class="header-anchor">#</a> 获取合约基本信息</h3> <p>获取智能合约的描述信息以及构造函数、调用方法的参数列表</p> <ul><li><strong>命令：getcontractinfo &lt;contract address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;contract address&gt;</td> <td>合约地址</td></tr></tbody></table> <p>返回信息</p> <div class="language- extra-class"><pre class="language-text"><code>略 ，见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>
+nuls&gt;&gt;&gt; getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+{
+  &quot;createTxHash&quot; : &quot;00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f&quot;,
+  &quot;address&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;creater&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+  &quot;createTime&quot; : 1553563706022,
+  &quot;blockHeight&quot; : 46,
+  &quot;isNrc20&quot; : true,
+  &quot;nrc20TokenName&quot; : &quot;QKB&quot;,
+  &quot;nrc20TokenSymbol&quot; : &quot;QKB&quot;,
+  &quot;decimals&quot; : 2,
+  &quot;totalSupply&quot; : &quot;200000000&quot;,
+  &quot;status&quot; : &quot;normal&quot;,
+  &quot;method&quot; : [ {
+    &quot;name&quot; : &quot;&lt;init&gt;&quot;,
+    &quot;desc&quot; : &quot;(String name, String symbol, BigInteger initialAmount, int decimals) return void&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;name&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;symbol&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;initialAmount&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;int&quot;,
+      &quot;name&quot; : &quot;decimals&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;void&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  }，{
+    &quot;name&quot; : &quot;transfer&quot;,
+    &quot;desc&quot; : &quot;(Address to, BigInteger value) return boolean&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;Address&quot;,
+      &quot;name&quot; : &quot;to&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;value&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;boolean&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  }]
+}
+
+</code></pre></div><h3 id="调用智能合约"><a href="#调用智能合约" aria-hidden="true" class="header-anchor">#</a> 调用智能合约</h3> <p>调用智能合约提供的函数</p> <ul><li><strong>命令：callcontract &lt;sender&gt; &lt;gasLimit&gt; &lt;price&gt; &lt;contractAddress&gt; &lt;methodName&gt; &lt;value&gt; [-d methodDesc] [-r remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>调动合约的账户地址</td></tr> <tr><td>&lt;gasLimit&gt;</td> <td>本次合约执行最大消耗的Gas</td></tr> <tr><td>&lt;price&gt;</td> <td>单价，每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na，系统最小单价是25Na/Gas</td></tr> <tr><td>&lt;contractAddress</td> <td>调用的合约地址</td></tr> <tr><td>&lt;methodName&gt;</td> <td>合约的方法名</td></tr> <tr><td>&lt;value&gt;</td> <td>如果要向合约转账，转账的数量</td></tr> <tr><td>[-d methodDesc]</td> <td>如果合约中有同名方法时，使用此方法来描述参数列表</td></tr> <tr><td>[-r remark]</td> <td>备注信息</td></tr></tbody></table> <p>返回信息 本次调用的交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020c9079e0f0454103adceed798d40171c41a8db04586dba966fbe7f2ab722583ad&quot; //交易hash
+</code></pre></div><p>示例 调用一个指定合约的NRC20-Token转账函数, 示例中<code>tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L</code>为NRC20合约地址，输入的参数为 接收地址和转账数量</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; callcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L transfer 0 -r call
+callcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L transfer 0 -r call
+Please Enter your account passwordzhoujun172
+**********
+Please enter the arguments according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;),
+If this method has no arguments(Refer to the command named &quot;getcontractinfo&quot; for the arguments structure of the method.), return directly.
+Enter the arguments:&quot;tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG&quot;,2
+&quot;0020c9079e0f0454103adceed798d40171c41a8db04586dba966fbe7f2ab722583ad&quot;
+</code></pre></div><h3 id="删除智能合约"><a href="#删除智能合约" aria-hidden="true" class="header-anchor">#</a> 删除智能合约</h3> <p>停止一个可用的智能合约</p> <ul><li><strong>命令：deletecontract &lt;senderAddress&gt; &lt;contractAddress&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>调用合约的账户地址</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>调用的合约地址</td></tr></tbody></table> <p>返回值 交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020c55e885dd910dad0b2c49f5b71b62691b57884ca21fd47668f1f5cadc84daad6&quot; //交易hash
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; deletecontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+deletecontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+Please enter your account passwordzhoujun172
+**********
+&quot;0020c55e885dd910dad0b2c49f5b71b62691b57884ca21fd47668f1f5cadc84daad6&quot;
+</code></pre></div><h3 id="调用合约视图方法"><a href="#调用合约视图方法" aria-hidden="true" class="header-anchor">#</a> 调用合约视图方法</h3> <p>调用合约的视图方法，会立即返回结果，不会产生交易</p> <ul><li><strong>命令：deletecontractviewcontract &lt;contractAddress&gt; &lt;methodName&gt; [-d methodDesc] --view contract</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;contractAddress&gt;</td> <td>调用的合约地址</td></tr> <tr><td>&lt;methodName&gt;</td> <td>调用的方法</td></tr> <tr><td>[-d methodDesc]</td> <td>如果合约中有同名方法时，使用此方法来描述参数列表</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>根据具体调用函数返回值不同
+</code></pre></div><p>示例 调用NRC20-Token合约的查询Token余额函数查询指定地址的Token余额</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; viewcontract tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc balanceOf
+viewcontract tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc balanceOf
+Please enter the arguments according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;),
+If this method has no arguments(Refer to the command named &quot;getcontractinfo&quot; for the arguments structure of the method.), return directly.
+Enter the arguments:&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;
+&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;
+{
+  &quot;result&quot; : &quot;20000000&quot;
+}
+</code></pre></div><h3 id="向合约地址转账"><a href="#向合约地址转账" aria-hidden="true" class="header-anchor">#</a> 向合约地址转账</h3> <p>向指定的合约地址转入主网币</p> <ul><li><strong>命令：transfertocontract &lt;senderAddress&gt; &lt;contractAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>转出账户地址</td></tr> <tr><td>&lt;contractAddress</td> <td>转入的合约地址</td></tr> <tr><td>&lt;amount&gt;</td> <td>转入数量</td></tr> <tr><td>[remark]</td> <td>备注</td></tr></tbody></table> <p>返回值 交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020f5d6b87c246595d1b060a3fa8bac6a2992490e38fdfcad40db2a3908297e7979&quot;
+</code></pre></div><p>示例 向指定合约转入2个NULS</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; transfertocontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaN1NRtaj1ZPAmEmTqcpkyCLqv64PR7U 2 remark
+Please enter your account password
+**********
+&quot;0020f5d6b87c246595d1b060a3fa8bac6a2992490e38fdfcad40db2a3908297e7979&quot;
+</code></pre></div><h3 id="token转账"><a href="#token转账" aria-hidden="true" class="header-anchor">#</a> token转账</h3> <p>NRC20 token转账</p> <ul><li><strong>命令：tokentransfer &lt;formAddress&gt; &lt;toAddress&gt; &lt;contractAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;formAddress&gt;</td> <td>转出账户地址</td></tr> <tr><td>&lt;toAddress</td> <td>转入的账户地址</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>合约地址</td></tr> <tr><td>&lt;amount&gt;</td> <td>转入数量</td></tr> <tr><td>[remark]</td> <td>备注</td></tr></tbody></table> <p>返回值 交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;002022dffd96026b493945d2cf9ad276c4bc9655c735b72e6fcc85a2d19f6cbe25e8&quot;
+</code></pre></div><p>示例 token转账:</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; tokentransfer tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD  tNULSeBaNBh9RUsVrVmMy8NHcZJ2BhNVsM1Vta  tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc 200000 25 10000
+Please enter your account password
+**********
+&quot;002022dffd96026b493945d2cf9ad276c4bc9655c735b72e6fcc85a2d19f6cbe25e8&quot;
+</code></pre></div><h3 id="获取合约交易"><a href="#获取合约交易" aria-hidden="true" class="header-anchor">#</a> 获取合约交易</h3> <p>获取合约的交易信息, 包含交易详情，合约调用参数，合约执行结果</p> <ul><li><strong>命令：getcontracttx &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>交易hash</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+{
+  &quot;hash&quot; : &quot;00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f&quot;,
+  &quot;type&quot; : &quot;100&quot;,
+  &quot;time&quot; : &quot;2019-03-26 09:28:26&quot;,
+  &quot;blockHeight&quot; : 46,
+  &quot;fee&quot; : 0.0,
+  &quot;value&quot; : 0.0,
+  &quot;remark&quot; : null,
+  &quot;scriptSig&quot; : &quot;210318f683066b45e7a5225779061512e270044cc40a45c924afcf78bb7587758ca0004630440220112a446b2a684510b4016fa97b92d2f3fead03128f0f658c99a6a8d230d05d4e02201e23a2f6e68aacdff2d117bd5bbe7ce2440babfe4211168eafbae41acad5d505&quot;,
+  &quot;status&quot; : &quot;confirm&quot;,
+  &quot;confirmCount&quot; : 0,
+  &quot;size&quot; : 6686,
+  &quot;inputs&quot; : [ {
+    &quot;address&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+    &quot;assetsChainId&quot; : 2,
+    &quot;assetsId&quot; : 1,
+    &quot;amount&quot; : &quot;5700000&quot;,
+    &quot;nonce&quot; : &quot;ffffffff&quot;,
+    &quot;locked&quot; : 0,
+    &quot;value&quot; : 0.0
+  } ],
+  &quot;outputs&quot; : [ ],
+  &quot;txData&quot; : {
+    &quot;data&quot; : {
+      &quot;sender&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+      &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+      &quot;value&quot; : 0.0,
+      &quot;hexCode&quot; : &quot;504b03040a0000080...........31600000000&quot;,
+      &quot;gasLimit&quot; : 200000,
+      &quot;price&quot; : &quot;0.00000025&quot;,
+      &quot;args&quot; : [ [ &quot;QKB&quot; ], [ &quot;QKB&quot; ], [ &quot;2000000&quot; ], [ &quot;2&quot; ] ]
+    }
+  },
+  &quot;contractResult&quot; : {
+    &quot;success&quot; : true,
+    &quot;errorMessage&quot; : null,
+    &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+    &quot;result&quot; : null,
+    &quot;gasLimit&quot; : 200000,
+    &quot;gasUsed&quot; : 14029,
+    &quot;price&quot; : &quot;0.00000025&quot;,
+    &quot;totalFee&quot; : 0.0,
+    &quot;txSizeFee&quot; : 0.0,
+    &quot;actualContractFee&quot; : 0.0,
+    &quot;refundFee&quot; : 0.0,
+    &quot;stateRoot&quot; : &quot;be76399c41a8cb4be5ecf80e04dab36830b124cb1c43fea6ca69ae62259899ba&quot;,
+    &quot;value&quot; : 0.0,
+    &quot;stackTrace&quot; : null,
+    &quot;balance&quot; : 0.0,
+    &quot;transfers&quot; : [ ],
+    &quot;events&quot; : [ &quot;{\&quot;contractAddress\&quot;:\&quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L\&quot;,\&quot;blockNumber\&quot;:46,\&quot;event\&quot;:\&quot;TransferEvent\&quot;,\&quot;payload\&quot;:{\&quot;from\&quot;:null,\&quot;to\&quot;:\&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\&quot;,\&quot;value\&quot;:\&quot;200000000\&quot;}}&quot; ],
+    &quot;tokenTransfers&quot; : [ {
+      &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+      &quot;from&quot; : null,
+      &quot;to&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+      &quot;value&quot; : &quot;200000000&quot;,
+      &quot;name&quot; : &quot;QKB&quot;,
+      &quot;symbol&quot; : &quot;QKB&quot;,
+      &quot;decimals&quot; : 2
+    } ],
+    &quot;remark&quot; : &quot;create&quot;
+  }
+}
+
+
+</code></pre></div><h3 id="获取合约执行结果"><a href="#获取合约执行结果" aria-hidden="true" class="header-anchor">#</a> 获取合约执行结果</h3> <p>获取一个合约的执行结果</p> <ul><li><strong>命令:getcontractresult &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>交易hash</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractresult 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+{
+  &quot;success&quot; : true,
+  &quot;errorMessage&quot; : null,
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;result&quot; : null,
+  &quot;gasLimit&quot; : 200000,
+  &quot;gasUsed&quot; : 14029,
+  &quot;price&quot; : &quot;0.00000025&quot;,
+  &quot;totalFee&quot; : 0.0,
+  &quot;txSizeFee&quot; : 0.0,
+  &quot;actualContractFee&quot; : 0.0,
+  &quot;refundFee&quot; : 0.0,
+  &quot;stateRoot&quot; : &quot;be76399c41a8cb4be5ecf80e04dab36830b124cb1c43fea6ca69ae62259899ba&quot;,
+  &quot;value&quot; : 0.0,
+  &quot;stackTrace&quot; : null,
+  &quot;balance&quot; : 0.0,
+  &quot;transfers&quot; : [ ],
+  &quot;events&quot; : [ &quot;{\&quot;contractAddress\&quot;:\&quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L\&quot;,\&quot;blockNumber\&quot;:46,\&quot;event\&quot;:\&quot;TransferEvent\&quot;,\&quot;payload\&quot;:{\&quot;from\&quot;:null,\&quot;to\&quot;:\&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\&quot;,\&quot;value\&quot;:\&quot;200000000\&quot;}}&quot; ],
+  &quot;tokenTransfers&quot; : [ {
+    &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+    &quot;from&quot; : null,
+    &quot;to&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+    &quot;value&quot; : &quot;200000000&quot;,
+    &quot;name&quot; : &quot;QKB&quot;,
+    &quot;symbol&quot; : &quot;QKB&quot;,
+    &quot;decimals&quot; : 2
+  } ],
+  &quot;remark&quot; : &quot;create&quot;
+}
+
+</code></pre></div><h3 id="获取合约构造函数"><a href="#获取合约构造函数" aria-hidden="true" class="header-anchor">#</a> 获取合约构造函数</h3> <p>获取创建指定合约时需要传入的参数列表</p> <ul><li><strong>命令：getcontractcontructor &lt;contractCode&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;contractCode&gt;</td> <td>合约代码的hex编码</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractcontructor 504b03040a000008000.........20000b31600000000
+{
+  &quot;constructor&quot; : {
+    &quot;name&quot; : &quot;&lt;init&gt;&quot;,
+    &quot;desc&quot; : &quot;(String name, String symbol, BigInteger initialAmount, int decimals) return void&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;name&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;symbol&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;initialAmount&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;int&quot;,
+      &quot;name&quot; : &quot;decimals&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;void&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  },
+  &quot;isNrc20&quot; : true
+}
+
+</code></pre></div><h3 id="获取指定账户创建的合约列表"><a href="#获取指定账户创建的合约列表" aria-hidden="true" class="header-anchor">#</a> 获取指定账户创建的合约列表</h3> <p>获取指定账户地址所创建的合约列表</p> <ul><li><strong>命令：getaccountcontracts &lt;createAddress&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;createAddress&gt;</td> <td>账户地址</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;createTime&quot; : &quot;2019-03-26 09:28:26.026&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 2,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getaccountcontracts tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
+[ {
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;createTime&quot; : &quot;2019-03-26 09:28:26.026&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 2,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}, {
+  &quot;contractAddress&quot; : &quot;tNULSeBaMzsHrbMy2VK23RzwjkXS1qo2ycG5Cg&quot;,
+  &quot;createTime&quot; : &quot;2019-03-25 16:08:25.025&quot;,
+  &quot;height&quot; : 253,
+  &quot;confirmCount&quot; : 195,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 0,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}, {
+  &quot;contractAddress&quot; : &quot;tNULSeBaNBYK9MQcWWbfgFTHj2U4j8KQGDzzuK&quot;,
+  &quot;createTime&quot; : &quot;2019-03-25 15:33:54.054&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 0,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+} ]
+</code></pre></div><h3 id="查询网络信息"><a href="#查询网络信息" aria-hidden="true" class="header-anchor">#</a> 查询网络信息</h3> <p>查询网络基本信息</p> <ul><li>**命令：network info **</li></ul> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;localBestHeight&quot;</span> <span class="token operator">:</span> <span class="token number">35317</span><span class="token punctuation">,</span>//本地最新区块高度
+  <span class="token property">&quot;netBestHeight&quot;</span> <span class="token operator">:</span> <span class="token number">35317</span><span class="token punctuation">,</span>//网络最新区块高度
+  <span class="token property">&quot;timeOffset&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0ms&quot;</span><span class="token punctuation">,</span>//网络时间偏移值
+  <span class="token property">&quot;inCount&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>//被动连接节点数量
+  <span class="token property">&quot;outCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span>//主动连接节点数量
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; network info
+{
+  &quot;localBestHeight&quot; : 35317,
+  &quot;netBestHeight&quot; : 35317,
+  &quot;timeOffset&quot; : &quot;0ms&quot;,
+  &quot;inCount&quot; : 0,
+  &quot;outCount&quot; : 1
+}
+</code></pre></div><h3 id="查询网络节点ip"><a href="#查询网络节点ip" aria-hidden="true" class="header-anchor">#</a> 查询网络节点IP</h3> <p>查询网络节点IP</p> <ul><li>**命令：network nodes **</li></ul> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token string">&quot;192.168.1.223&quot;</span> <span class="token punctuation">]</span>
+</code></pre></div><p>示例 根据高度获取区块</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; network nodes
+[ &quot;192.168.1.223&quot; ]
+</code></pre></div><h3 id="退出钱包命令程序"><a href="#退出钱包命令程序" aria-hidden="true" class="header-anchor">#</a> 退出钱包命令程序</h3> <p>退出操作钱包的命令行程序，不会退出已启动的钱包节点。</p> <ul><li><strong>命令：exit</strong></li></ul> <p>示例</p> <div class="language-shell extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; exit
+</code></pre></div></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/dev/docs/zh/NULSInfrastructure/linuxTutorial.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2019-3-26 18:13:19</span></div></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.9a7036e8.js" defer></script><script src="/assets/js/167.778d1b2a.js" defer></script>
+  </body>
+</html>
