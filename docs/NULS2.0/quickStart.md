@@ -41,7 +41,7 @@ View the jdk version via java -version:
 
 ### 1 download NULS wallet
 
-Go to GitHub and download the latest version of the NULS2.0 Alpha1 wallet: [download address] (https://github.com/nuls-io/nuls_2.0/releases)
+Go to GitHub and download the latest version of the NULS2.0 Alpha1 wallet: [download address](https://github.com/nuls-io/nuls_2.0/releases)
 
 ### 2 upload to the server and extract
 
