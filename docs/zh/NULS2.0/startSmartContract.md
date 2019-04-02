@@ -2,7 +2,7 @@
 
 ## 一、运行公测环境，创建账户，领取测试币
 
-[为部署、调用智能合约做准备](/zh/startNULS/connectTestnet.html)
+[为部署、调用智能合约做准备](/zh/NULS1.0/connectTestnet.html)
 
 
 ## 二、安装JDK8、IntelliJ IDEA、NULS智能合约插件
@@ -15,7 +15,7 @@
 
 [下载NULS智能合约插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin.zip)
 
-[安装NULS智能合约插件](https://dev.nuls.io/zh-cn/contract/IdeaPlugin.html)
+[安装NULS智能合约插件](/zh/NULS1.0/ideaPlugin.html)
 
 ## 三、智能合约代码示例
 
@@ -85,8 +85,8 @@ public class SimpleContract implements Contract {
 
 ## 五、智能合约部署与调用
 
-[全节点钱包智能合约部署与调用方式](https://dev.nuls.io/zh-cn/contract/smartContract.html)
+[全节点钱包智能合约部署与调用方式](/zh/NULS1.0/GUIForSmartContract.html)
 
 ## 六、智能合约代码规范与语法
 
-[智能合约代码规范与语法说明](https://dev.nuls.io/zh-cn/contract/index.html)
+[智能合约代码规范与语法说明](/zh/NULS1.0/developerManual.html)

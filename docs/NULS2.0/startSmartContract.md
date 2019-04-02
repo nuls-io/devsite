@@ -2,22 +2,21 @@
 
 ## 1. Running the test-net environment, creating an account, and claiming test tokens.
 
-[Preparations for deployment and invocation of smart contracts](/startNULS/connectTestnet.html)
+[Preparations for deployment and invocation of smart contracts](/NULS1.0/connectTestnet.html)
 
 
 ## 2. Installing JDK8, IntelliJ IDEA and NULS smart-contract plug-ins
 
 Preparations for the development of smart contract code
 
-[Downloading JDK8] 
-(https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (Installation omitted)
+[Downloading JDK8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html) (Installation omitted)
 
-[Downloading IntelliJ IDEA] (https://www.jetbrains.com/idea/download/) (Installation omitted)
+[Downloading IntelliJ IDEA](https://www.jetbrains.com/idea/download/) (Installation omitted)
 
 [Downloading NULS smart contract plug-ins] 
 (https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin.zip)
 
-[Installing the NULS smart contract plug-ins] (https://dev.nuls.io/zh-cn/contract/IdeaPlugin.html)
+[Installing the NULS smart contract plug-ins](/NULS1.0/ideaPlugin.html)
 
 ## 3. Smart contract example
 
@@ -87,9 +86,8 @@ Public class SimpleContract implements Contract {
 
 ## 5. Deploying and invoking smart contracts
 
-[How to deploy and invoke the wallet smart contract]
- (https://dev.nuls.io/zh-cn/contract/smartContract.html)
+[How to deploy and invoke the wallet smart contract](/NULS1.0/GUIForSmartContract.html)
 
 ## 6. Smart contract specifications and syntax
 
-[Smart contract specifications and syntax] (https://dev.nuls.io/zh-cn/contract/index.html)
+[Smart contract specifications and syntax](/NULS1.0/developerManual.html)
