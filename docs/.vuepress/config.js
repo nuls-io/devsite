@@ -92,7 +92,6 @@ module.exports = {
                             title: 'Underlying',
                             children: [
                                 'buildPrivateChain',
-                                'rpcToolWebsocketDesign'
                             ]
                         },
                         {
@@ -133,6 +132,7 @@ module.exports = {
                                 'developModule',
                                 'linuxTutorial',
                                 'howToUseNulsBuildChain',
+                                'rpcToolWebsocketDesign'
                             ]
                         },
                         {
@@ -218,8 +218,7 @@ module.exports = {
                         {
                             title: '底层',
                             children: [
-                                'buildPrivateChain',
-                                'rpcToolWebsocketDesign'
+                                'buildPrivateChain'
                             ]
                         },
                         {
@@ -262,6 +261,7 @@ module.exports = {
                                 'developModule',
                                 'linuxTutorial',
                                 'howToUseNulsBuildChain',
+                                'rpcToolWebsocketDesign'
                             ]
                         },
                         {
