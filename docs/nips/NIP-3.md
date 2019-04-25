@@ -32,7 +32,7 @@ The following is a specification of the Community Fund Management and Use of Pro
 
 
 
-# Community Fund Management and Use of Process 
+# Community Fund Management and Use of Process
 
 ![img](https://nuls.community/assets/files/2018-12-21/1545375254-226196-20181221145220.png) 
 
@@ -50,7 +50,7 @@ The proposal is initiated by the Council members: the voting period after the pr
 
 **Note: The Council members are appointed by the designated members of the core team. After the governance tools and community regulations are improved, the council will be elected by all community members.**
 
-**Tentative first Council members: Liesa, Isaac, Omar, Reaper, Emerson, Penny, Berzeck, Moshe, Niels, Lin, Siwei **
+**Tentative first Council members: Liesa、Sue、Omar、Reaper、Tigh、Penny、Berzeck、Moshe、Mudi、Lin、Siwei **
 
 ## **II. The Application Member**
 
@@ -148,10 +148,6 @@ Edward's node - NsdzQguVTwyQKaNCYfhh3sDJNa3BAgNa
 
 Edward's staking - Nse69F3cnLdf3pfXbjt8Q6uHS6ywQ33G
 
-Josh’s node - Nse7htYjgXcPbvPx5gmny75NK3zkyyhs
-
-Josh's staking - NsdxwqYoXBjwbznkUQG4ftHm3D2MNUHR
-
 Moshe’s node - Nsdwx3XSJHAc7Y28urTUcM92g5Av87oW
 
 Moshe’s staking – Same as above
@@ -160,8 +156,8 @@ Naveen's node - Nse4KZttUX2wD3YEL95BrU1THf5h1oT4
 
 Naveen's staking - NsdvYw77H9bQLZeKhweZqcfdy9bGrVUN
 
-
-
+Ray's Node - Nsdv3UaTgWvJJS1okG8322q8meMLzi5s
+Ray's staking – Same as above
 ###
 
  

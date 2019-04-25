@@ -48,7 +48,7 @@
 
 **注：理事会前期由核心团队指定成员担任，在治理工具和社区章程完善后，理事会将由全体社区成员投票动态竞选产生。**
 
-**暂定首批理事会成员：Liesa、Isaac、Omar、Reaper、Emerson、Penny、Berzeck、Moshe、Niels、Lin、Siwei** 
+**暂定首批理事会成员：Liesa、Sue、Omar、Reaper、Tigh、Penny、Berzeck、Moshe、Mudi、Lin、Siwei** 
 
 ## **二、发起申请的成员**
 
@@ -150,10 +150,6 @@ Edward的节点 -NsdzQguVTwyQKaNCYfhh3sDJNa3BAgNa
 
 Edward的委托 -Nse69F3cnLdf3pfXbjt8Q6uHS6ywQ33G
 
-Josh的节点 - Nse7htYjgXcPbvPx5gmny75NK3zkyyhs
-
-Josh的委托 - NsdxwqYoXBjwbznkUQG4ftHm3D2MNUHR
-
 Moshe的节点 -Nsdwx3XSJHAc7Y28urTUcM92g5Av87oW
 
 Moshe的委托 -Nsdwx3XSJHAc7Y28urTUcM92g5Av87oW
@@ -162,7 +158,8 @@ Naveen的节点 - Nse4KZttUX2wD3YEL95BrU1THf5h1oT4
 
 Naveen的委托 - NsdvYw77H9bQLZeKhweZqcfdy9bGrVUN
 
-
+Ray的节点 - Nsdv3UaTgWvJJS1okG8322q8meMLzi5s
+Ray的委托 – Same as above
 
 ###
 
