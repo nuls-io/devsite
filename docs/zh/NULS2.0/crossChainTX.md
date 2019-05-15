@@ -13,7 +13,7 @@
 
 - [访问alpha版本网页钱包](https://alpha.wallet.nuls.io/)
 
-- [下载alpha版本轻钱包]()
+- [下载alpha版本轻钱包](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/pangu/NULS-Wallet2-Alpha-2.0.1.exe)
 
 - [下载NBTC链节点程序](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/pangu/NULS-Wallet-linux64-alpha3-NBTC.tar.gz)
 
