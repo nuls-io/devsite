@@ -19,7 +19,11 @@
 
 - [下载NETH链节点程序](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/pangu/NULS-Wallet-linux64-alpha3-NETH.tar.gz)
 
+NULS的alpha版本节点程序需要服务器开放两个端口号
+- 默认端口号：18001
+- 跨链交易端口号：18002
 
+> 如果开发者想在同一台服务器上运行多个链的程序，需要在:nuls.ncf 中更改端口号配置。原则是保证端口号不相同即可
 
 ## 主网转入NULS到平行链
 

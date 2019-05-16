@@ -19,7 +19,11 @@ The technical team provides two parallel chains: NBTC and NETH.Developers can li
 
 - [Download NETH chain node program](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/pangu/NULS-Wallet-linux64-alpha3-NETH.tar.gz)
 
+The NULS alpha version node program requires the server to open two port Numbers
+- Default port：18001
+- cross-chain port：18002
 
+> If a developer wants to run multiple chain programs on the same server, they need to change the port number configuration in :nuls.ncf. The principle is to ensure that the port number is not the same
 
 ## Main Network Transfers NULS to Parallel Chain
 
