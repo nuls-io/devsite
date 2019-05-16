@@ -128,6 +128,7 @@ module.exports = {
                             collapsable:false,
                             children: [
                                 'quickStart',
+                                'crossChainTX',
                                 'packageGeneration',
                                 'developModule',
                                 'linuxTutorial',

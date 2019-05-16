@@ -23,6 +23,8 @@
 
 ## 主网转入NULS到平行链
 
+平行链发起跨链交易需要消耗NULS作为手续费，因此我们需要先转少量NULS到平行链
+
 命令：**createcrosstx** [chainId] [formAddress] [toAddress] [assetChainId] [assetId] [amount] [remark]
 
 | 参数         | 说明           | 备注                |
