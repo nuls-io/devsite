@@ -1,14 +1,16 @@
-# Linux CLI 手册
+
+# Linux节点程序手册
 
 ## 介绍
 
-本文档为NULS2.0 alpha版本测试网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。
+本文档为NULS2.0 alpha3版本测试网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。
 
 ## 版本更新记录
 
 |  版本  |  更新日期  |        内容        |
 | :----: | :--------: | :----------------: |
-| V1.0.0 | 2018-03-18 | alpha版功能 |
+| V1.0.0 | 2019-03-18 | alpha版功能 |
+| V1.0.1 | 2019-05-13|alpha3版功能|
 
 ## 准备
 
@@ -35,6 +37,7 @@
 **Linux系统**
 
 - CentOS 6,7
+- Ubuntu 14 +
 
 Linux内核版本推荐使用 2.6.32及以上
 
@@ -49,7 +52,7 @@ Linux内核版本推荐使用 2.6.32及以上
   Linux系统中下载v2.0.0-alpha-1版的钱包可以使用如下命令：
 
   ```shell
-  $ wget https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-1.0.0.tar.gz
+  $ wget https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-2.0.0-alpha-3.tar.gz
   ```
 
   注：如果后续有其他版本，下载地址可能会不同。
@@ -59,7 +62,7 @@ Linux内核版本推荐使用 2.6.32及以上
 - 在Linux中解压已下载的文件
 
   ```shell
-  $ tar -zxf NULS-Wallet-linux64-2.0.0-alpha-1.tar.gz
+  $ tar -zxf NULS-Wallet-linux64-2.0.0-alpha-3.tar.gz
   ```
 
 ### 运行
@@ -67,7 +70,7 @@ Linux内核版本推荐使用 2.6.32及以上
 - 进入解压后的目录，并运行启动脚本，启动全节点钱包
 
   ```shell
-  $ cd NULS-Wallet-linux64-2.0.0-alpha-1
+  $ cd NULS-Wallet-linux64-2.0.0-alpha-3
   $ ./start.sh
   ```
 
@@ -77,11 +80,10 @@ Linux内核版本推荐使用 2.6.32及以上
 
 - 在确定钱包已经启动后，启动钱包的命令行程序，可对钱包进行操作。
 
-  进入cmdclient/1.0.0目录，执行如下命令：
+  进入钱包根目录，执行如下命令：
 
   ```shell
-  $ cd cmdclient/1.0.0
-  $ ./cmd.sh
+  $ ./cmd
   ```
 
   将会出现NULS命名输入提示符`nuls>>>  ` ，然后可直接输入NULS钱包操作命令，来进行操作。
@@ -123,15 +125,15 @@ Linux内核版本推荐使用 2.6.32及以上
 返回信息 help
 
 ```json
-getaccount <address> --get account information
+getaccount &lt;address> --get account information
 ```
 
 返回信息 help -a
 
 ```json
-getaccount <address> --get account information
+getaccount &lt;address> --get account information
 	OPTIONS:
-	<address> the account address - Required
+	&lt;address> the account address - Required
 ```
 
 示例
@@ -264,6 +266,8 @@ Enter new password**********
 Please confirm new password:**********
 Success
 ```
+
+
 
 ### 设置别名
 
@@ -632,7 +636,7 @@ nuls>>> gettx 00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f8
   "multiSignTx" : false
 }
 ```
-### type 枚举类型说明
+#### type 枚举类型说明
 
 ```
 /** coinbase交易*/
@@ -697,6 +701,79 @@ nuls>>> createagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdvAnqc8oEiNiGgcp6pEusfiRF
 Please enter the password.
 Enter your password:**********
 "002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e"
+```
+### 查询共识节点信息
+根据agentHash查询指定节点信息
+
+-**命令：getagent &lt;agentHash>**
+| 参数              | 说明                                   |
+| ----------------- | -------------------------------------- |
+| &lt;agentHash&gt;   | 节点hash                        |
+返回值
+
+```
+略 见示例
+```
+示例
+
+```
+nuls>>> getagent 0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7
+{
+  "agentAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "agentId" : "5F3B7EB7",
+  "commissionRate" : 10.0,
+  "delHeight" : -1,
+  "agentHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "totalDeposit" : "0",
+  "memberCount" : 0,
+  "agentName" : null,
+  "packingAddress" : "tNULSeBaMnKhtrJpYY12S9wXGg2ASaTnk5km95",
+  "version" : null,
+  "blockHeight" : 2384,
+  "rewardAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "deposit" : "20000",
+  "time" : "2019-03-26 16:06:55.055",
+  "creditVal" : 0.0,
+  "txHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "status" : "unconsensus"
+}
+```
+
+### 查询共识节点列表
+查询共识节点列表
+-**命令：getagents [pageNumber] [pageSize] [keyWord]**
+| 参数              | 说明                                   |
+| ----------------- | -------------------------------------- |
+| [pageNumber];   | 列表页号位置                      |
+| [pageSize]; | 每页显示条数                  |
+| [keyWord];   | 匹配节点别名关键字 |
+返回值
+
+```
+略 见示例
+```
+示例 获取第1页，共10条，别名带nuls的节点列表
+```
+nuls>>> getagents 1 10 nuls
+[ {
+  "agentAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "agentId" : "5F3B7EB7",
+  "commissionRate" : 10.0,
+  "delHeight" : -1,
+  "agentHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "totalDeposit" : "0",
+  "memberCount" : 0,
+  "agentName" : null,
+  "packingAddress" : "tNULSeBaMnKhtrJpYY12S9wXGg2ASaTnk5km95",
+  "version" : null,
+  "blockHeight" : 2384,
+  "rewardAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "deposit" : "20000",
+  "time" : "2019-03-26 16:06:55.055",
+  "creditVal" : 0.0,
+  "txHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "status" : "unconsensus"
+} ]
 ```
 
 
@@ -1038,7 +1115,7 @@ getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
   "totalSupply" : "200000000",
   "status" : "normal",
   "method" : [ {
-    "name" : "<init>",
+    "name" : "&lt;init>",
     "desc" : "(String name, String symbol, BigInteger initialAmount, int decimals) return void",
     "args" : [ {
       "type" : "String",
@@ -1384,7 +1461,7 @@ nuls>>> getcontractresult 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8
 nuls>>> getcontractcontructor 504b03040a000008000.........20000b31600000000
 {
   "constructor" : {
-    "name" : "<init>",
+    "name" : "&lt;init>",
     "desc" : "(String name, String symbol, BigInteger initialAmount, int decimals) return void",
     "args" : [ {
       "type" : "String",
@@ -1476,7 +1553,7 @@ nuls>>> getaccountcontracts tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
 
 查询网络基本信息
 
-- **命令：network info **
+- **命令：network info**
 
 返回信息
 
@@ -1509,7 +1586,7 @@ nuls>>> network info
 
 查询网络节点IP
 
-- **命令：network nodes **
+- **命令：network nodes**
 
 返回信息
 
@@ -1524,7 +1601,139 @@ nuls>>> network nodes
 [ "192.168.1.223" ]
 ```
 
+### 在主链注册侧链
+侧链需要进行跨链交易，需要先在主链完成注册，此命令需要在主网节点运行
+- **命令： registercrosschain &lt;address> &lt;chainId> &lt;chainName> &lt;magicNumber> &lt;assetId> &lt;symbol> &lt;assetName> &lt;initNumber> [decimalPlaces] [minAvailableNodeNum] [txConfirmedBlockNum]**
 
+| 参数           | 说明         |
+| -------------- | ------------ |
+|&lt;address>|注册跨链费用支付账户|
+|&lt;chainId>|注册的链id|
+|&lt;chainName>|注册的链名称|
+|&lt;magicNumber>|注册链的运行的网络魔法参数|
+|&lt;assetId>|注册的资产id|
+|&lt;symbol>|资产简称 e.g. BTC|
+|&lt;assetName>|资产名称|
+|&lt;initNumber>|资产发现总量|
+|[decimalPlaces]|资产小数位数 默认8|
+|[minAvailableNodeNum]|跨链交易可用条件：最小可用节点数量，默认5|
+|[txConfirmedBlockNum]|注册交易的确认块数，默认30|
+返回值
+
+```
+6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312  #注册交易hash
+```
+示例
+
+```nuls>>> registercrosschain tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 3 testchain 123456 10 TB tb 1000
+Please enter the password.
+Enter your password:**********
+6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312
+```
+### 查询侧链注册信息
+在主网查询某条测试的注册信息
+- **命令：crosschaininfo &lt;chainId>**
+
+| 参数           | 说明         |
+| -------------- | ------------ |
+|&lt;chainId>|注册链的id|
+返回值
+
+```{
+  "chainId" : 3,
+  "chainName" : "testchain",
+  "addressType" : "1",
+  "magicNumber" : 123456,
+  "minAvailableNodeNum" : 5,
+  "txConfirmedBlockNum" : 0,
+  "regAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "regTxHash" : "6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312",
+  "createTime" : 1557739548367,
+  "seeds" : "192.168.1.192:8088",
+  "selfAssetKeyList" : [ "3-10" ],
+  "totalAssetKeyList" : [ "3-10" ]
+}
+```
+返回参数说明
+
+|parameter|required|type|description|
+|------------------|-------|-----|-------------------------------------------|
+|chainId|true|int|链标识|
+|assetId|true|int|资产id|
+|chainName|true|string|链名称|
+|addressType|true|int|链上创建的账户的地址类型：1生态内2非生态内|
+|magicNumber|true|string|网络魔法参数|
+|minAvailableNodeNum|true|int|最小可用节点数量|
+|txConfirmBlockNum|true|int|交易确认块数|
+|symbol|true|string|资产符号|
+|assetName|true|string|资产名称|
+|initNumber|true|string|资产初始值|
+|decimalPlaces|true|int|最小资产可分割位数|
+|address|true|string|创建链的主网地址|
+|password|true|string|私钥对应的密码|
+示例
+
+```
+nuls>>> crosschaininfo 11
+{
+  "chainId" : 11,
+  "chainName" : "Neth",
+  "addressType" : "1",
+  "magicNumber" : 20190303,
+  "minAvailableNodeNum" : 5,
+  "txConfirmedBlockNum" : 0,
+  "regAddress" : "tNULSeBaMgDEcAUhPSdF3D3C6mT54HPUt81cQ4",
+  "regTxHash" : "7a672b093b274b93bc145dda0e598eddf1f1cf0ccb9aba3e67b3899a5b4ad7a1",
+  "createTime" : 1557921296460,
+  "seeds" : "192.168.1.192:8088",
+  "selfAssetKeyList" : [ "11-1" ],
+  "totalAssetKeyList" : [ "11-1", "2-1" ]
+}
+```
+### 创建跨链交易
+- **命令：createcrosstx &lt;chainId> &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
+
+
+| 参数           | 说明         |
+| -------------- | ------------ |
+|&lt;chainId>|运行交易的链id|
+|&lt;formAddress>|转出地址|
+|&lt;toAddress>|转入地址|
+|&lt;assetChainId>|转账资产的chainId|
+|&lt;assetId>|转账资产id|
+|&lt;amount>|转账资产数量|
+|&lt;remark>|转账备注|
+返回值:交易hash
+```
+529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+```
+示例
+
+```
+nuls>>> createcrosstx 2 tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD M9busmFhQeu1Efn6rDyeQkFjHxv2dSzkuH8 2 1 1
+Please enter the password.
+Enter your password:**********
+529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+```
+### 查询跨链交易确认状态
+- **命令：getcrosstxstate  &lt;chainId> &lt;txHash>**
+
+| 参数           | 说明         |
+| -------------- | ------------ |
+|&lt;chainId>|当前运行的chainId|
+|&lt;txHash>|交易hash|
+
+返回值
+
+```
+Confirmed | Unconfirmed
+```
+示例
+
+```
+nuls>>> getcrosstxstate 2 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+Unconfirmed
+```
 
 
 ### 退出钱包命令程序
@@ -1538,5 +1747,3 @@ nuls>>> network nodes
 ```shell
 nuls>>> exit
 ```
-
-

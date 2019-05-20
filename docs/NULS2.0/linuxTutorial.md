@@ -1443,7 +1443,139 @@ Example: get a block with the block height
 nuls>>> network nodes
 [ "192.168.1.223" ]
 ```
+### Register the Parallel Chain in the Main Chain
+Parallel chain need to complete registration in the main chain when sending cross-chain transactions, this command needs to run on the main network node
+- **命令： registercrosschain &lt;address> &lt;chainId> &lt;chainName> &lt;magicNumber> &lt;assetId> &lt;symbol> &lt;assetName> &lt;initNumber> [decimalPlaces] [minAvailableNodeNum] [txConfirmedBlockNum]**
 
+| Parameter | Specification |
+| -------------- | ------------ |
+|&lt;address>|registered cross-chain fee payment account|
+|&lt;chainId>|registered chain id|
+|&lt;chainName>|registered chain name|
+|&lt;magicNumber>|magic number parameter of the registered running chain|
+|&lt;assetId>|registered asset id|
+|&lt;symbol>|asset abbreviation e.g. BTC|
+|&lt;assetName>|asset name|
+|&lt;initNumber>|initiated asset amount|
+|[decimalPlaces]|asset decimal places default 8|
+|[minAvailableNodeNum]|cross-chain transaction available conditions: minimum number of available nodes, default 5|
+|[txConfirmedBlockNum]|the number of confirmed blocks for the registered transaction, default 30|
+Return
+
+```
+6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312  #registered transaction hash
+```
+Example
+
+```nuls>>> registercrosschain tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 3 testchain 123456 10 TB tb 1000
+Please enter the password.
+Enter your password:**********
+6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312
+```
+### Query Parallel Registration Information
+Query the registration information of a test on the main network
+- **Commandchaininfo     &lt;chainId>**
+
+| Parameter  | Specification |
+| -------------- | ------------ |
+|&lt;chainId>|registered chain id|
+Return
+
+```{
+  "chainId" : 3,
+  "chainName" : "testchain",
+  "addressType" : "1",
+  "magicNumber" : 123456,
+  "minAvailableNodeNum" : 5,
+  "txConfirmedBlockNum" : 0,
+  "regAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "regTxHash" : "6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312",
+  "createTime" : 1557739548367,
+  "seeds" : "192.168.1.192:8088",
+  "selfAssetKeyList" : [ "3-10" ],
+  "totalAssetKeyList" : [ "3-10" ]
+}
+```
+Return chain specification
+
+|parameter|required|type|description|
+|------------------|-------|-----|-------------------------------------------|
+|chainId|true|int|chain symbol|
+|assetId|true|int|asset id|
+|chainName|true|string|chain name|
+|addressType|true|int|the address type of the account created on the chain: 1 within the ecological 2 non-ecological|
+|magicNumber|true|string|magic number|
+|minAvailableNodeNum|true|int|minimum number of available nodes|
+|txConfirmBlockNum|true|int|transaction confirmation block number|
+|symbol|true|string|asset symbol|
+|assetName|true|string|asset name|
+|initNumber|true|string|asset initial number|
+|decimalPlaces|true|int|minimum asset separable digits|
+|address|true|string|the main network address of created chain|
+|password|true|string|private key password|
+Example
+
+```
+nuls>>> crosschaininfo 11
+{
+  "chainId" : 11,
+  "chainName" : "Neth",
+  "addressType" : "1",
+  "magicNumber" : 20190303,
+  "minAvailableNodeNum" : 5,
+  "txConfirmedBlockNum" : 0,
+  "regAddress" : "tNULSeBaMgDEcAUhPSdF3D3C6mT54HPUt81cQ4",
+  "regTxHash" : "7a672b093b274b93bc145dda0e598eddf1f1cf0ccb9aba3e67b3899a5b4ad7a1",
+  "createTime" : 1557921296460,
+  "seeds" : "192.168.1.192:8088",
+  "selfAssetKeyList" : [ "11-1" ],
+  "totalAssetKeyList" : [ "11-1", "2-1" ]
+}
+```
+### Send Cross-chain Transaction
+- **Commandecrosstx &lt;chainId> &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
+
+
+| Parameter   | Specification |
+| -------------- | ------------ |
+|&lt;chainId>|chain id of running transaction|
+|&lt;formAddress>|from address|
+|&lt;toAddress>|to address|
+|&lt;assetChainId>| chain Id of the transfer asset  |
+|&lt;assetId>|transfer asset id|
+|&lt;amount>|transfer amount of assets|
+|&lt;remark>|transfer remark|
+Return :transaction hash
+```
+529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+```
+Example
+
+```
+nuls>>> createcrosstx 2 tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD M9busmFhQeu1Efn6rDyeQkFjHxv2dSzkuH8 2 1 1
+Please enter the password.
+Enter your password:**********
+529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+```
+### Query Cross-chain Transaction Confirmation Status
+- **Command：getcrosstxstate  &lt;chainId> &lt;txHash>**
+
+| Parameter   | Specification |
+| -------------- | ------------ |
+|&lt;chainId>|currently running chain id|
+|&lt;txHash>|transaction hash|
+
+Return
+
+```
+Confirmed | Unconfirmed
+```
+Example
+
+```
+nuls>>> getcrosstxstate 2 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+Unconfirmed
+```
 ### Exit the wallet CLI
 
 Exit the command line that operates the wallet, while it won’t stop the launched wallet node.
