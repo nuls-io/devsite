@@ -1,7 +1,7 @@
 # IDEA插件
 
 #### 1 在IDEA安装NULS插件
-- [获取NULS插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/1.1.0-beta/Docs%26plugin.zip)ZIP包，存放在磁盘
+- [获取NULS插件](https://nuls-usa-west.oss-us-west-1.aliyuncs.com/plugins/Docs%26plugin.zip)ZIP包，存放在磁盘
 点击File->Settings->Plugin->Install plugin from disk
 
 ![Install](./pluginImages/Install.jpg)
