@@ -1,6 +1,6 @@
 # 快速开始
 
-## 一、安装JDK11
+## 安装JDK11
 
 下载JDK11到服务器并解压。
 
@@ -37,7 +37,7 @@ export JAVA_HOME PATH CLASSPATH
 
 ![20190327143435](./quickStart/20190327143435.png)
 
-## 二、下载、安装客户端
+## 下载、安装客户端
 
 ### 1、下载NULS钱包
 
@@ -51,7 +51,7 @@ tar -zxvf NULS-Walltet-linux64-alpha1.tar.gz
 
 ![20190327144549](./quickStart/20190327144549.png)
 
-## 三、进入CLI
+## 进入CLI
 
 ### 1、启动钱包
 
@@ -67,7 +67,7 @@ tar -zxvf NULS-Walltet-linux64-alpha1.tar.gz
 
 ![20190327223858](./quickStart/20190327223858.png)
 
-## 四、部分操作命令说明
+## 部分操作命令说明
 
 ### 1、创建账户
 

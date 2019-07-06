@@ -1,4 +1,4 @@
-# NRC-20 Token Standard
+# NRC-20
 
 
 ## Simple Summary

@@ -1,6 +1,6 @@
 # Introduction
 
-## Why NULS 2.0?
+## Why NULS 2.0
 
 NULS was created to make blockchain very simple. So, in September 2017, the core team defined the modular architecture, which was designed to make it easier for developers to write, and for users to utilize. NULS 1.0 achieves the modular effect at the coding paradigm level, but this design doesn’t solve the problem of tight coupling between modules. Developers who want to use a module or participate in the development of a module would need to understand the design of other modules associated with it and can only use a specific language for the development of their module. This is not friendly to the NULS vision for the technical community which anticipates intense, active participation in the design and development of NULS architecture, as well as the user’s supply of simple and low-cost modules.
 

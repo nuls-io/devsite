@@ -25,7 +25,7 @@ module.exports = {
         editLinks: true,
         docsDir: 'docs',
         docsBranch: 'dev',
-        sidebarDepth: 2,
+        sidebarDepth: 1,
         lastUpdated: 'Last Updated',
         nav:[
             {text:"Guide",link:"/learn/"},
@@ -124,16 +124,15 @@ module.exports = {
                             ]
                         },
                         {
-                            title: 'Alpha',
+                            title: 'Tutorial',
                             collapsable:false,
                             children: [
                                 'quickStart',
-                                'crossChainTX',
-                                'packageGeneration',
-                                'developModule',
+                                'developeModule',
+                                'encryptedMessageDesign',
+                                'chainBoxGuide',
                                 'linuxTutorial',
-                                'howToUseNulsBuildChain',
-                                'rpcToolWebsocketDesign'
+                                'nodeGuide'
                             ]
                         },
                         {
@@ -144,6 +143,7 @@ module.exports = {
                                 'developerManual',
                                 'ideaPlugin',
                                 'NRC-20TokenStandard',
+                                'NRC-721',
                                 'smartContractFee',
                             ]
                         },
@@ -254,16 +254,20 @@ module.exports = {
                             ]
                         },
                         {
-                            title: 'Alpha',
+                            title: '教程',
                             collapsable:false,
                             children: [
                                 'quickStart',
-                                'crossChainTX',
-                                'packageGeneration',
-                                'developModule',
+                                
+                                'developeModule',
+                                'encryptedMessageDesign',
+                                'chainBoxGuide',
+                                // 'crossChainTX',
+                                // 'packageGeneration',
                                 'linuxTutorial',
-                                'howToUseNulsBuildChain',
-                                'rpcToolWebsocketDesign'
+                                'nodeGuide'
+                                // 'howToUseNulsBuildChain',
+                                // 'rpcToolWebsocketDesign'
                             ]
                         },
                         {
@@ -274,6 +278,7 @@ module.exports = {
                                 'developerManual',
                                 'ideaPlugin',
                                 'NRC-20TokenStandard',
+                                'NRC-721',
                                 'smartContractFee',
                             ]
                         },
