@@ -9,7 +9,7 @@ The NULS core team innovatively introduced micro-service thinking into the desig
 
 The Beta version test mainly includes:
 - [NULS ChianBox](/NULS2.0/chainBoxGuide.html)
-- 开发[业务模块](/NULS2.0/developeModule.html)
+- [Develope Module](/NULS2.0/developeModule.html)
 - 2.0 light wallet
 
 ### Join Test：
