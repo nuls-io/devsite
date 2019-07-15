@@ -41,12 +41,12 @@ View the jdk version via java -version:
 
 ### 1 download NULS wallet
 
-Go to GitHub and download the latest version of the NULS2.0 Alpha1 wallet: [download address](https://github.com/nuls-io/nuls_2.0/releases)
+Go to GitHub and download the latest version of the NULS2.0  wallet: [download address](https://github.com/nuls-io/nuls_2.0/releases)
 
 ### 2 upload to the server and extract
 
 ```
-Tar -zxvf NULS-Walltet-linux64-alpha1.tar.gz
+Tar -zxvf NULS-Walltet-linux64-beta1.tar.gz
 ```
 
 ![20190327144549](./quickStart/20190327144549.png)
@@ -55,7 +55,7 @@ Tar -zxvf NULS-Walltet-linux64-alpha1.tar.gz
 
 ### 1 start the wallet
 
-After the wallet is decompressed, go to the start.sh file directory: /home/nuls2/NULS-Walltet-linux64-alpha1/bin
+After the wallet is decompressed, go to the start.sh file directory: /home/nuls2/NULS-Wallet-linux64-beta1
 
 ![20190327150757](./quickStart/20190327150757.png)
 
@@ -130,7 +130,7 @@ PackingAddress: The address of the consensus node is packed. The password must b
 CommissionRate: commission ratio, range: 10-100, maximum decimal place 2 digits (required) Deposit: margin, range: 20000-200000, maximum decimal place 8 digits (required) RewardAddress: reward address, default is node creation address ( Optional)
 ```
 
-**ps**: Save the hash of the consensus node (or query in [**Browser**] (http://alpha.nulscan.io)), join the consensus and query consensus node information needs to be used; Ensure that the consensus node creates an address and a packaged address in one wallet, and one wallet cannot create two consensus nodes at the same time.
+**ps**: Save the hash of the consensus node (or query in [**Browser**] (http://beta.nulscan.io)), join the consensus and query consensus node information needs to be used; Ensure that the consensus node creates an address and a packaged address in one wallet, and one wallet cannot create two consensus nodes at the same time.
 
 ### 8 join the consensus
 

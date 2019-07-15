@@ -1,16 +1,13 @@
-
 # 节点程序手册
-
 ## 介绍
 
-本文档为NULS2.0 alpha3版本测试网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。
+本文档为NULS2.0 beta1版本测试网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。
 
 ## 版本更新记录
 
 |  版本  |  更新日期  |        内容        |
 | :----: | :--------: | :----------------: |
-| V1.0.0 | 2019-03-18 | alpha版功能 |
-| V1.0.1 | 2019-05-13|alpha3版功能|
+| V1.0.0 | 2019-07-11 | beta1版功能 |
 
 ## 准备
 
@@ -41,18 +38,16 @@
 
 Linux内核版本推荐使用 2.6.32及以上
 
-## 开始
+## 开始                 
 
 ### 下载
 
-- 最新版本的全节点钱包NULS官网下载地址：http://nuls.io/wallet；GitHub地址：https://github.com/nuls-io/nuls-wallet-release
+- NULS2.0 beta1版本GitHub地址：<https://github.com/nuls-io/nuls-v2/releases>
 
-- 进入[NULS官网钱包下载](http://nuls.io/wallet)界面后，选择Linux download，我们提供了MEGA和百度云盘两种下载方式，用户可自行选择。
-
-  Linux系统中下载v2.0.0-alpha-1版的钱包可以使用如下命令：
+- Linux系统中下载beta1版的钱包可以使用如下命令：
 
   ```shell
-  $ wget https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-2.0.0-alpha-3.tar.gz
+  $ wget http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.0/NULS-Wallet-linux64-beta1-main.tar.gz
   ```
 
   注：如果后续有其他版本，下载地址可能会不同。
@@ -62,16 +57,16 @@ Linux内核版本推荐使用 2.6.32及以上
 - 在Linux中解压已下载的文件
 
   ```shell
-  $ tar -zxf NULS-Wallet-linux64-2.0.0-alpha-3.tar.gz
+  $ tar -zxf NULS-Wallet-linux64-beta1-main.tar.gz
   ```
 
 ### 运行
 
-- 进入解压后的目录，并运行启动脚本，启动全节点钱包
+- 进入解压后的目录，并运行启动脚本，启动节点钱包
 
   ```shell
-  $ cd NULS-Wallet-linux64-2.0.0-alpha-3
-  $ ./start.sh
+  $ cd NULS-Wallet-linux64-beta1
+  $ ./start
   ```
 
 ## 使用钱包
@@ -92,11 +87,10 @@ Linux内核版本推荐使用 2.6.32及以上
 
   ```shell
   nuls>>> create
-  Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-  Enter your password:*********
-  Please confirm new password:*********
-  [ "Nse9EtaRwgVgN42pxURgZjUR33LUx1j1" ]
-  nuls>>>
+  Please enter the new password(8-20 characters, the combination of letters and numbers).
+  Enter your new password:********
+  Please confirm new password:********
+  [ "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8" ]
   ```
 
   执行`create`命令表示创建单个账户，然后输入密码，以及再次确认输入的密码，创建成功后将会返回账户的地址。
@@ -125,15 +119,15 @@ Linux内核版本推荐使用 2.6.32及以上
 返回信息 help
 
 ```json
-getaccount &lt;address> --get account information
+getaccount <address> --get account information
 ```
 
 返回信息 help -a
 
 ```json
-getaccount &lt;address> --get account information
+getaccount <address> --get account information
 	OPTIONS:
-	&lt;address> the account address - Required
+	<address> the account address - Required
 ```
 
 示例
@@ -162,7 +156,7 @@ nuls>>> help create
 返回账户集合
 
 ```json
-[ "5MR_2CkDZtZRHGLD43JreUc8LsFBertsc9r", "5MR_2CXCCU89fj9RyQj9MgZVE7Pq3Mmk77p" ]
+[ "tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm", "tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs", "tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4" ]
 ```
 
 示例 
@@ -171,20 +165,20 @@ nuls>>> help create
 
 
 ```shell
-nuls>>> create 
+nuls>>> create
 Please enter the new password(8-20 characters, the combination of letters and numbers).
-Enter your new password:**********
-Please confirm new password:**********
-[ "5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW" ]
+Enter your new password:********
+Please confirm new password:********
+[ "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8" ]
 ```
 一次创建多个账户
 
 ```
 nuls>>> create 3
 Please enter the new password(8-20 characters, the combination of letters and numbers).
-Enter your new password:**********
-Please confirm new password:**********
-[ "5MR_2CWdfU2VDERgQbWS1quGYAGD1iDDM4N", "5MR_2CcYq7fqrvKagReBmzG3qEz8qGkifCr", "5MR_2Cd6E2vAGZQxkqeXbeqThRxDGTFiLei" ]
+Enter your new password:********
+Please confirm new password:********
+[ "tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm", "tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs", "tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4" ]
 ```
 
 
@@ -204,16 +198,16 @@ Please confirm new password:**********
 返回信息
 
 ```shell
-The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
+The path to the backup file is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
 ```
 
 示例 备份一个有密码的账户
 
 ```shell
-nuls>>> backup 5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW /Users/zlj
-Enter account password
-***************
-The path to the backup file is /Users/zlj/5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW.keystore
+nuls>>> backup tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm /home/nuls2/nuls-v2/NULS-Wallet-linux64-beta1
+Please enter the password.
+Enter your password:********
+The path to the backup file is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
 ```
 
 ### 移除账户
@@ -235,8 +229,9 @@ Success
 示例
 
 ```shell
-nuls>>> remove 5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW
-Enter your password for account**********
+nuls>>> remove tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs
+Please enter the password.
+Enter your password:********
 Success
 ```
 
@@ -260,10 +255,10 @@ Success
 示例
 
 ```shell
-nuls>>> resetpwd 5MR_2CWdfU2VDERgQbWS1quGYAGD1iDDM4N
-Enter your old password:**********
-Enter new password**********
-Please confirm new password:**********
+nuls>>> resetpwd tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4
+Enter your old password:********
+Enter new password*********
+Please confirm new password:*********
 Success
 ```
 
@@ -289,7 +284,7 @@ txHash:0020f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d"
 示例
 
 ```shell
-nuls>>> setalias 5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9 zlj
+nuls>>> setalias tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 nuls
 Enter your account password**********
 txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
 ```
@@ -311,16 +306,16 @@ txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
 返回信息 导入的账户地址
 
 ```json
-"NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
+"tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8"
 ```
 
 示例
 
 ```shell
-nuls>>> importkeystore /Users/zhoulijun/5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW.keystore
+nuls>>> importkeystore /home/nuls2/nuls-v2/tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8.keystore
 Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-Enter your password:**********
-5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW
+Enter your password:********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 ```
 
 
@@ -337,17 +332,17 @@ Enter your password:**********
 
 
 ```json
-"NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
+"tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8"
 ```
 
 示例
 
 ```shell
-nuls>>> import 1c2b9fd4417c1aad8ae9f24c982ff294eb50a6462b873b79a879e805a9990346
+nuls>>> import 74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
 Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-Enter your password:**********
-Please confirm new password:**********
-5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
+Enter your password:********
+Please confirm new password:********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 ```
 
 ### 查询账户信息
@@ -364,33 +359,34 @@ Please confirm new password:**********
 
 ```json
 {
-  "encryptedPrikeyHex" : "724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d",  //加密后的私钥
-  "alias" : "zlj",  //别名
-  "baglance" : {  
-    "freeze" : 0,   //冻结的资产数量
-    "total" : 997999999800000,     //总的资产数量
-    "available" : 997999999800000  //可用的资产数量
+  "encryptedPrikeyHex" : "4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c", //加密后私钥
+  "alias" : null,//别名
+  "baglance" : {
+    "available" : "5000000",//可用资产数量
+    "total" : "5000000",//总资产数量
+    "freeze" : "0"//冻结的资产数量
   },
-  "address" : "5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu",  //账户地址
-  "pubkeyHex" : "0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486" //公钥
+  "address" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",//地址
+  "pubkeyHex" : "02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de" //加密后公钥
 }
 ```
 
 示例
 
 ```shell
-nuls>>> getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
+nuls>>> getaccount tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 {
-  "encryptedPrikeyHex" : "724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d",  //加密后的私钥
-  "alias" : "zlj",  //别名
-  "baglance" : {  
-    "freeze" : 0,   //冻结的资产数量
-    "total" : 997999999800000,     //总的资产数量
-    "available" : 997999999800000  //可用的资产数量
+  "encryptedPrikeyHex" : "4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c", //加密后私钥
+  "alias" : null,//别名
+  "baglance" : {
+    "available" : "5000000",//可用资产数量
+    "total" : "5000000",//总资产数量
+    "freeze" : "0"//冻结的资产数量
   },
-  "address" : "5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu",  //账户地址
-  "pubkeyHex" : "0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486" //加密后的公钥
+  "address" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",//地址
+  "pubkeyHex" : "02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de" //加密后公钥
 }
+
 ```
 
 
@@ -410,20 +406,25 @@ nuls>>> getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
 
 ```json
 [ {
-  "address" : "5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu",  //地址
-  "alias" : null,  //别名
-  "pubkeyHex" : "0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486",  //公钥
-  "encryptedPrikeyHex" : "724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d"  //私钥
-}, {
-  "address" : "5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW",
+  "address" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
   "alias" : null,
-  "pubkeyHex" : "0205a70731e7653eca328ba7d71f0a789f8cfb1ced32f5a00d4fc3fb2ad8b9f7c1",
-  "encryptedPrikeyHex" : "e38d2dd08154a0eedf8298f5fe50b86723e521522f38aba5c68072bad365c3e8c57d7ac3ae83f8d646a17f845a38bc57"
+  "pubkeyHex" : "02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de",
+  "encryptedPrikeyHex" : "4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c"
 }, {
-  "address" : "5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9",
-  "alias" : "zlj",
-  "pubkeyHex" : "03021a46a7e5ea59ae8884340568e9e79511fbd352b4ba28db39f15856918cdbeb",
-  "encryptedPrikeyHex" : "bfbfdad874f74215e241ad15152d8648925c497b6a826965f5c06c46fd9b008313e6918ebcfcb56f2cdf8d1b9f088f77"
+  "address" : "tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4",
+  "alias" : null,
+  "pubkeyHex" : "03ad08ca4f73178c4e3e6d7126cb61e3a4c9b4dec95e4077112f085797eadc808a",
+  "encryptedPrikeyHex" : "e97dedb7697a6d37a8dfe9e2aa41543161f63d0740c4b5a72a0e1df2cc85ef99949e6f8ce41667587225df8cff0aae17"
+}, {
+  "address" : "tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm",
+  "alias" : null,
+  "pubkeyHex" : "039abe58d5a20bac72ebb1fd80cac6a1012d17ad04a131a8a2350ea4df9ea4416e",
+  "encryptedPrikeyHex" : "fee6f590fc900aee4f3aa84437701d406d00c3045b1d0ce074efa1b42a6db8d5925e3a10272041b5f3c0c2d2572c0f42"
+}, {
+  "address" : "tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc",
+  "alias" : null,
+  "pubkeyHex" : "023b8834bceb1228711ed6301322f5617e1b2d2e5197bc9832744af41191096c39",
+  "encryptedPrikeyHex" : "d9b4704c5b6470b51ca09c8cca888a4c9e7abea32aad17cc91f1c20c74a30632cb38d759129abea1d3c3f8080fc11f01"
 } ]
 ```
 
@@ -434,20 +435,25 @@ nuls>>> getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
 ```shell
 nuls>>> getaccounts
 [ {
-  "address" : "5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu",  //地址
-  "alias" : null,  //别名
-  "pubkeyHex" : "0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486",  //加密后的公钥
-  "encryptedPrikeyHex" : "724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d"  //加密后的私钥
-}, {
-  "address" : "5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW",
+  "address" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
   "alias" : null,
-  "pubkeyHex" : "0205a70731e7653eca328ba7d71f0a789f8cfb1ced32f5a00d4fc3fb2ad8b9f7c1",
-  "encryptedPrikeyHex" : "e38d2dd08154a0eedf8298f5fe50b86723e521522f38aba5c68072bad365c3e8c57d7ac3ae83f8d646a17f845a38bc57"
+  "pubkeyHex" : "02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de",
+  "encryptedPrikeyHex" : "4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c"
 }, {
-  "address" : "5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9",
-  "alias" : "zlj",
-  "pubkeyHex" : "03021a46a7e5ea59ae8884340568e9e79511fbd352b4ba28db39f15856918cdbeb",
-  "encryptedPrikeyHex" : "bfbfdad874f74215e241ad15152d8648925c497b6a826965f5c06c46fd9b008313e6918ebcfcb56f2cdf8d1b9f088f77"
+  "address" : "tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4",
+  "alias" : null,
+  "pubkeyHex" : "03ad08ca4f73178c4e3e6d7126cb61e3a4c9b4dec95e4077112f085797eadc808a",
+  "encryptedPrikeyHex" : "e97dedb7697a6d37a8dfe9e2aa41543161f63d0740c4b5a72a0e1df2cc85ef99949e6f8ce41667587225df8cff0aae17"
+}, {
+  "address" : "tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm",
+  "alias" : null,
+  "pubkeyHex" : "039abe58d5a20bac72ebb1fd80cac6a1012d17ad04a131a8a2350ea4df9ea4416e",
+  "encryptedPrikeyHex" : "fee6f590fc900aee4f3aa84437701d406d00c3045b1d0ce074efa1b42a6db8d5925e3a10272041b5f3c0c2d2572c0f42"
+}, {
+  "address" : "tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc",
+  "alias" : null,
+  "pubkeyHex" : "023b8834bceb1228711ed6301322f5617e1b2d2e5197bc9832744af41191096c39",
+  "encryptedPrikeyHex" : "d9b4704c5b6470b51ca09c8cca888a4c9e7abea32aad17cc91f1c20c74a30632cb38d759129abea1d3c3f8080fc11f01"
 } ]
 ```
 
@@ -466,15 +472,15 @@ nuls>>> getaccounts
 返回信息 导入的账户的私钥（未加密）
 
 ```json
-00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
+74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
 ```
 
 示例
 
 ```shell
-nuls>>> getprikey 5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9
-Enter your account password**********
-7b4d3ec971fc01ea813b52f6c35091d43beac4a68550bae2db63975149244678
+nuls>>> getprikey tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+Enter your account password********
+74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
 ```
 
 
@@ -492,21 +498,22 @@ Enter your account password**********
 返回信息 导入的账户地址
 
 ```json
+nuls>>> getbalance tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 {
-  "total" : "9999998.99",//余额
-  "freeze" : "0",//已锁定余额
-  "available" : "9999998.99"//可用余额
+  "available" : "4999998.999",
+  "total" : "4999998.999",
+  "freeze" : "0"
 }
 ```
 
 示例
 
 ```shell
-nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
+nuls>>> getbalance tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 {
-  "total" : "9999998.99",
-  "freeze" : "0",
-  "available" : "9999998.99"
+  "available" : "4999998.999",
+  "total" : "4999998.999",
+  "freeze" : "0"
 }
 ```
 
@@ -521,25 +528,24 @@ nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 | 参数              | 说明                                            |
 | ----------------- | ----------------------------------------------- |
 | &lt;formAddress&gt; | 转出地址(与formAlias任选一项）                                |
-|&lt;formAlias&gt;|转出地址别名(与formAddress任选一项）|
+|&lt;formAlias>|转出地址别名(与formAddress任选一项）|
 | &lt;toAddress&gt; | 接收地址(与toAlias任选一项）                               |
-|&lt;toAlias&gt;|接收地址别名(与toAddress任选一项）|
+|&lt;toAlias>|接收地址别名(与toAddress任选一项）|
 | &lt;amount&gt;    | 转账数量，必填 |
 | [remark]          | 备注信息，选填                                  |
 
 返回信息 转账交易hash
 
 ```json
-"00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596"
+"41d8b78214ad9e34beba420248dfc4f282d5d46166fe6d67e3c7006f2990de0e"
 ```
 
 示例
 
 ```shell
-nuls>>> transfer Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 100 转账
-Please enter the password.
-Enter your password:**********
-"00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596"
+nuls>>> transfer tNULSeBaMoodYW7AqyJrgYdWiJ6nfwfVHHHyXm tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 5000000
+Enter your account password********
+41d8b78214ad9e34beba420248dfc4f282d5d46166fe6d67e3c7006f2990de0e
 ```
 
 
@@ -558,154 +564,122 @@ Enter your password:**********
 
 ```json
 {
-  "type" : 2,  //交易类型（枚举说明见下表【type 枚举类型说明】）
-  "coinData" : "ARc5MAGYBT3XNVp+BIuhGvGcejuTev8DODkwAQCgZ/cFAAAAAAAAAAAAAAAACO/WnDT4pvmsAAEXOTABL/80LO1f8vxvfNXc5l9eeIDTGKM5MAEAAOH1BQAAAAAAAAAAAAAAAAA=",
-  "txData" : null,
-  "time" : 1552979783918,
-  "transactionSignature" : "IQIRxF8ocQzSaixF+3kIlaD/LglaKQ8YJbMdgOvDCRPEhgBGMEQCICdnNr3HqEg/UZZ6RLBHyGuPChoLdMtcOHXT3Xlb5SC3AiBGAWSPGH3yjtEkaVbLsI5n9UcqDvOfG3Ui1jf672IDCg==",
-  "remark" : "6L2s6LSm",
-  "hash" : {
-    "digestAlgType" : 0,
-    "digestBytes" : "CivAIHpVyqNr/h87/FWk7vXsXqBekHJ+3kQc5mZp+H8=", 
-    "digestHex" : "00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f" 
-  },
-  "blockHeight" : 341,   //区块高度
-  "status" : "CONFIRMED",  //确认状态
-  "size" : 225,
+  "type" : 3,//交易类型（枚举说明见下表【type 枚举类型说明】）
+  "time" : "2019-07-11 11:34:24.024",
+  "transactionSignature" : "2102f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de4730450221008def105209cf7b32da777686a98a06359f80baf2887e8b1c2d5258feac3a70880220538e9fc2fc2a239d1fdced4de3239b762a1decf67f026fc5a93f59d6e281c5c8",
+  "remark" : null,
+  "hash" : "1a12a2499ec805956ce074e42ce29c64ea1194addc65a68cb186d519d3ed4f43",
+  "blockHeight" : 3806, //交易高度
+  "status" : "CONFIRMED", //确认状态
+  "size" : 285,
   "inBlockIndex" : 0,
-  "coinDataInstance" : {  
-    "from" : [ {
-      "address" : "OTABmAU91zVafgSLoRrxnHo7k3r/Azg=",
-      "assetsChainId" : 12345,
-      "assetsId" : 1,
-      "amount" : 100100000,
-      "nonce" : "79acNPim+aw=",
-      "locked" : 0
-    } ],
-    "to" : [ {
-      "address" : "OTABL/80LO1f8vxvfNXc5l9eeIDTGKM=",
-      "assetsChainId" : 12345,
-      "assetsId" : 1,
-      "amount" : 100000000,
-      "lockTime" : 0
-    } ]
-  },
-  "fee" : 100000,  //手续费
-  "multiSignTx" : false
+  "form" : [ {
+    "address" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
+    "assetsChainId" : 2,
+    "assetsId" : 1,
+    "amount" : 100100000,
+    "nonce" : "0000000000000000"
+  } ],
+  "to" : [ {
+    "address" : "tNULSeBaMtx5Dex2BNURMXdA2HkMZy9uXNf5cZ",
+    "assetsChainId" : 2,
+    "assetsId" : 1,
+    "amount" : 100000000,
+    "nonce" : null
+  } ]
 }
 ```
 
 示例 查询转账交易
 
 ```shell
-nuls>>> gettx 00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f
+nuls>>> gettx 1a12a2499ec805956ce074e42ce29c64ea1194addc65a68cb186d519d3ed4f43
 {
-  "type" : 2,  //交易类型（枚举说明见下表【type 枚举类型说明】）
-  "coinData" : "ARc5MAGYBT3XNVp+BIuhGvGcejuTev8DODkwAQCgZ/cFAAAAAAAAAAAAAAAACO/WnDT4pvmsAAEXOTABL/80LO1f8vxvfNXc5l9eeIDTGKM5MAEAAOH1BQAAAAAAAAAAAAAAAAA=",
-  "txData" : null,
-  "time" : 1552979783918,
-  "transactionSignature" : "IQIRxF8ocQzSaixF+3kIlaD/LglaKQ8YJbMdgOvDCRPEhgBGMEQCICdnNr3HqEg/UZZ6RLBHyGuPChoLdMtcOHXT3Xlb5SC3AiBGAWSPGH3yjtEkaVbLsI5n9UcqDvOfG3Ui1jf672IDCg==",
-  "remark" : "6L2s6LSm",
-  "hash" : {
-    "digestAlgType" : 0,
-    "digestBytes" : "CivAIHpVyqNr/h87/FWk7vXsXqBekHJ+3kQc5mZp+H8=", 
-    "digestHex" : "00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f" 
-  },
-  "blockHeight" : 341,   //区块高度
-  "status" : "CONFIRMED",  //确认状态
-  "size" : 225,
+  "type" : 3,//交易类型（枚举说明见下表【type 枚举类型说明】）
+  "time" : "2019-07-11 11:34:24.024",
+  "transactionSignature" : "2102f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de4730450221008def105209cf7b32da777686a98a06359f80baf2887e8b1c2d5258feac3a70880220538e9fc2fc2a239d1fdced4de3239b762a1decf67f026fc5a93f59d6e281c5c8",
+  "remark" : null,
+  "hash" : "1a12a2499ec805956ce074e42ce29c64ea1194addc65a68cb186d519d3ed4f43",
+  "blockHeight" : 3806, //交易高度
+  "status" : "CONFIRMED", //确认状态
+  "size" : 285,
   "inBlockIndex" : 0,
-  "coinDataInstance" : {  
-    "from" : [ {
-      "address" : "OTABmAU91zVafgSLoRrxnHo7k3r/Azg=",
-      "assetsChainId" : 12345,
-      "assetsId" : 1,
-      "amount" : 100100000,
-      "nonce" : "79acNPim+aw=",
-      "locked" : 0
-    } ],
-    "to" : [ {
-      "address" : "OTABL/80LO1f8vxvfNXc5l9eeIDTGKM=",
-      "assetsChainId" : 12345,
-      "assetsId" : 1,
-      "amount" : 100000000,
-      "lockTime" : 0
-    } ]
-  },
-  "fee" : 100000,  //手续费
-  "multiSignTx" : false
+  "form" : [ {
+    "address" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
+    "assetsChainId" : 2,
+    "assetsId" : 1,
+    "amount" : 100100000,
+    "nonce" : "0000000000000000"
+  } ],
+  "to" : [ {
+    "address" : "tNULSeBaMtx5Dex2BNURMXdA2HkMZy9uXNf5cZ",
+    "assetsChainId" : 2,
+    "assetsId" : 1,
+    "amount" : 100000000,
+    "nonce" : null
+  } ]
 }
 ```
 #### type 枚举类型说明
 
-```
-/** coinbase交易*/
-    int TX_TYPE_COINBASE = 1;
-    /** 转账交易*/
-    int TX_TYPE_TRANSFER = 2;
-    /** 设置别名*/
-    int TX_TYPE_ALIAS = 3;
-    /** 创建共识节点交易*/
-    int TX_TYPE_REGISTER_AGENT = 4;
-    /** 委托交易(加入共识)*/
-    int TX_TYPE_JOIN_CONSENSUS = 5;
-    /** 取消委托交易(退出共识)*/
-    int TX_TYPE_CANCEL_DEPOSIT = 6;
-    /** 黄牌惩罚*/
-    int TX_TYPE_YELLOW_PUNISH = 7;
-    /** 红牌惩罚*/
-    int TX_TYPE_RED_PUNISH = 8;
-    /** 停止节点(删除共识节点)*/
-    int TX_TYPE_STOP_AGENT = 9;
-    /** 跨链转账交易*/
-    int TX_TYPE_CROSS_CHAIN_TRANSFER = 10;
-    /** 注册链交易*/
-    int TX_TYPE_REGISTER_CHAIN_AND_ASSET = 11;
-    /** 销毁链*/
-    int TX_TYPE_DESTROY_CHAIN_AND_ASSET = 12;
-    /** 为链新增一种资产*/
-    int TX_TYPE_ADD_ASSET_TO_CHAIN = 13;
-    /** 删除链上资产*/
-    int TX_TYPE_REMOVE_ASSET_FROM_CHAIN = 14;
-    /** 创建智能合约交易*/
-    int TX_TYPE_CREATE_CONTRACT = 100;
-    /** 调用智能合约交易*/
-    int TX_TYPE_CALL_CONTRACT = 101;
-    /** 删除智能合约交易*/
-    int TX_TYPE_DELETE_CONTRACT = 102;
-```
+| 交易类型           | 枚举值 |
+| ------------------ | ------ |
+| 全部交易           | 0      |
+| 共识奖励           | 1      |
+| 转账交易           | 2      |
+| 设置别名           | 3      |
+| 创建节点           | 4      |
+| 加入共识           | 5      |
+| 退出共识           | 6      |
+| 黄牌               | 7      |
+| 红牌               | 8      |
+| 注销节点           | 9      |
+| 跨链               | 10     |
+| 注册跨链           | 11     |
+| 注销链             | 12     |
+| 为链新增资产       | 13     |
+| 删除链资产         | 14     |
+| 创建合约           | 15     |
+| 调用合约           | 16     |
+| 删除合约           | 17     |
+| 合约内部转账       | 18     |
+| 合约执行手续费返还 | 19     |
+| 合约创建共识节点   | 20     |
+| 合约加入共识       | 21     |
+| 合约退出共识       | 22     |
+| 合约注销节点       | 23     |
 
 ### 创建节点
 
-根据账户地址创建节点,创建节点时需要提供两个地址，第一个地址为节点地址，需要输入节点地址账户密码，第二地址为打包地址，不需要输入密码。同时需要至少20000NULS的保证金。
+根据账户地址创建节点,创建节点时需要提供两个地址，第一个地址为节点地址，需要输入节点地址账户密码。同时需要至少20000NULS的保证金。
 
-- **命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt;**
+- **命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt;** [RewardAddress]
 
 | 参数                   | 说明                                                         |
 | ---------------------- | ------------------------------------------------------------ |
 | &lt;agentAddress&gt;   | 创建节点的账户地址，必填                                     |
-| &lt;packingAddress&gt; | 节点打包账户地址，必填（注：该账户不能设置密码，否则节点不能打包出块） |
-| &lt;commissionRate&gt; | 代理佣金比例，范围：10~100，必填                             |
+| &lt;packingAddress&gt; | 节点打包账户地址，必填（注：该账户默认密码：nuls123456，可以通过配置文件设置，否则节点不能打包出块） |
+| &lt;commissionRate&gt; | 代理佣金比例，范围：10~100之间的整数，必填                   |
 | &lt;deposit&gt;        | 创建节点的保证金，不能低于20000NULS，必填                    |
+| [RewardAddress]        | 奖励地址，默认为节点创建地址（选填）                         |
 
 返回信息 返回节点的agent hash
 
 ```json
-"002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e"
+"33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35"
 ```
 
 示例 创建一个节点，佣金比例为10%，押金20000NULS。
 
 ```shell
-nuls>>> createagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdvAnqc8oEiNiGgcp6pEusfiRFZi4vt 10 20000
-Please enter the password.
-Enter your password:**********
-"002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e"
+nuls>>> createagent tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 tNULSeBaMotNcjQ8E72uh6XituC8CFV2UBBAHo 10 20000
+Enter agent address password********
+"33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35"
 ```
 ### 查询共识节点信息
 根据agentHash查询指定节点信息
 
--**命令：getagent &lt;agentHash>**
+-**命令：getagent &lt;agentHash&gt;**
 | 参数              | 说明                                   |
 | ----------------- | -------------------------------------- |
 | &lt;agentHash&gt;   | 节点hash                        |
@@ -717,24 +691,24 @@ Enter your password:**********
 示例
 
 ```
-nuls>>> getagent 0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7
+nuls>>> getagent 33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35
 {
-  "agentAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
-  "agentId" : "5F3B7EB7",
+  "agentAddress" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
+  "agentId" : "D1308A35",
   "commissionRate" : 10.0,
   "delHeight" : -1,
-  "agentHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "agentHash" : "33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35",
   "totalDeposit" : "0",
   "memberCount" : 0,
   "agentName" : null,
-  "packingAddress" : "tNULSeBaMnKhtrJpYY12S9wXGg2ASaTnk5km95",
+  "packingAddress" : "tNULSeBaMotNcjQ8E72uh6XituC8CFV2UBBAHo",
   "version" : null,
-  "blockHeight" : 2384,
-  "rewardAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "blockHeight" : 4262,
+  "rewardAddress" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
   "deposit" : "20000",
-  "time" : "2019-03-26 16:06:55.055",
+  "time" : "1970-01-19 10:07:05.005",
   "creditVal" : 0.0,
-  "txHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "txHash" : "33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35",
   "status" : "unconsensus"
 }
 ```
@@ -752,26 +726,26 @@ nuls>>> getagent 0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3
 ```
 略 见示例
 ```
-示例 获取第1页，共10条，别名带nuls的节点列表
+示例 获取第1页，共10条的节点列表
 ```
-nuls>>> getagents 1 10 nuls
+nuls>>> getagents 1 10
 [ {
-  "agentAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
-  "agentId" : "5F3B7EB7",
+  "agentAddress" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
+  "agentId" : "D1308A35",
   "commissionRate" : 10.0,
   "delHeight" : -1,
-  "agentHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "agentHash" : "33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35",
   "totalDeposit" : "0",
   "memberCount" : 0,
   "agentName" : null,
-  "packingAddress" : "tNULSeBaMnKhtrJpYY12S9wXGg2ASaTnk5km95",
+  "packingAddress" : "tNULSeBaMotNcjQ8E72uh6XituC8CFV2UBBAHo",
   "version" : null,
-  "blockHeight" : 2384,
-  "rewardAddress" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+  "blockHeight" : 4262,
+  "rewardAddress" : "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8",
   "deposit" : "20000",
-  "time" : "2019-03-26 16:06:55.055",
+  "time" : "1970-01-19 10:07:05.005",
   "creditVal" : 0.0,
-  "txHash" : "0020623133fe6e9a530b5658873439c6db3673cbeaa092d4a0c837ee00245f3b7eb7",
+  "txHash" : "33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35",
   "status" : "unconsensus"
 } ]
 ```
@@ -793,14 +767,16 @@ nuls>>> getagents 1 10 nuls
 返回信息 加入共识的交易hash，如果要退出这笔共识，则需要该hash。
 
 ```json
-"0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0"
+"f5b2622a2ca23710a0a1f28bd0cb9c054220ba0719275abca5e4a7750dcf933a"
 ```
 
 示例
 
 ```shell
-nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e 5000
-"0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0"
+nuls>>> deposit tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35 200000
+Please enter the password.
+Enter your password:********
+"f5b2622a2ca23710a0a1f28bd0cb9c054220ba0719275abca5e4a7750dcf933a"
 ```
 
 
@@ -819,14 +795,16 @@ nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219
 返回信息 退出共识交易hash
 
 ```json
-"00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf"
+"d8e1784239d73e064e83e448adcf0feec9ba8e56a4b55280d7a0a8149d9da545"
 ```
 
 示例
 
 ```shell
-nuls>>> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0
-"00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf"
+nuls>>> withdraw tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 f5b2622a2ca23710a0a1f28bd0cb9c054220ba0719275abca5e4a7750dcf933a 
+Please enter the password.
+Enter your password:********
+"d8e1784239d73e064e83e448adcf0feec9ba8e56a4b55280d7a0a8149d9da545"
 ```
 
 
@@ -861,114 +839,56 @@ Enter your password:**********
 
 获取最新的区块头信息
 
-- **命令：getbestblockheader**
+- **命令：getlatestblockheader**
 
 返回信息
 
 ```json
 {
-  "hash" : "0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57",  //区块hash
-  "preHash" : "0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc",  //上一个区块hash
-  "merkleHash" : "00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e",  //merkle hash
-  "time" : "2019-03-19 18:26:20.020",  //打包时间
-  "height" : 1479, //区块高度
-  "txCount" : 1,   //包含的交易数
-  "blockSignature" : "00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365", //区块签名
-  "size" : 0, //区块大小
-  "packingAddress" : null,  //打包地址
-  "roundIndex" : 155299118, 
-  "consensusMemberCount" : 100,
-  "roundStartTime" : "2019-03-19 18:26:10.010",
-  "packingIndexOfRound" : 1, 
+  "hash" : "c244a7936821a58eff6daf117a6acf398d1c959c1b11edbb2abf01d753f01a45",//区块hash
+  "preHash" : "3c775846e93468119aa73c9a84b712875d0730f8e9579cc2535be4662d415b46",//上一个区块hash
+  "merkleHash" : "00edec12b2382d47829e3685b04c109aeac651ee7d2dbda40c1ea1245b8bb953",//merkle hash
+  "time" : "1970-01-19 10:07:05.005", //打包时间
+  "height" : 4295,//区块高度
+  "txCount" : 1, //包含的交易数
+  "blockSignature" : "463044022027db8f20882d0b37be2981587213f15fdd49110ad9e80c15b90485ad487372c902201e3eae9eca8fb6fde7424ab656300c42185923f0bae10120b58019e3bfb79456", //区块签名
+  "size" : 246, //区块大小
+  "packingAddress" : "tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc",//打包地址
+  "roundIndex" : 78141245,
+  "consensusMemberCount" : 2,
+  "roundStartTime" : "1970-01-19 10:07:05.005",
+  "packingIndexOfRound" : 2,
   "mainVersion" : 1,
-  "blockVersion" : 0,
-  "stateRoot" : null
+  "blockVersion" : 1,
+  "stateRoot" : "56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
 }
 ```
 
 示例
 
 ```shell
-nuls>>> getbestblockheader
+nuls>>> getlatestblockheader
 {
-  "hash" : "0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57",
-  "preHash" : "0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc",
-  "merkleHash" : "00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e",
-  "time" : "2019-03-19 18:26:20.020",
-  "height" : 1479,
-  "txCount" : 0,
-  "blockSignature" : "00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365",
-  "size" : 0,
-  "packingAddress" : null,
-  "roundIndex" : 155299118,
-  "consensusMemberCount" : 100,
-  "roundStartTime" : "2019-03-19 18:26:10.010",
-  "packingIndexOfRound" : 1,
+  "hash" : "c244a7936821a58eff6daf117a6acf398d1c959c1b11edbb2abf01d753f01a45",//区块hash
+  "preHash" : "3c775846e93468119aa73c9a84b712875d0730f8e9579cc2535be4662d415b46",//上一个区块hash
+  "merkleHash" : "00edec12b2382d47829e3685b04c109aeac651ee7d2dbda40c1ea1245b8bb953",//merkle hash
+  "time" : "1970-01-19 10:07:05.005", //打包时间
+  "height" : 4295,//区块高度
+  "txCount" : 1, //包含的交易数
+  "blockSignature" : "463044022027db8f20882d0b37be2981587213f15fdd49110ad9e80c15b90485ad487372c902201e3eae9eca8fb6fde7424ab656300c42185923f0bae10120b58019e3bfb79456", //区块签名
+  "size" : 246, //区块大小
+  "packingAddress" : "tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc",//打包地址
+  "roundIndex" : 78141245,
+  "consensusMemberCount" : 2,
+  "roundStartTime" : "1970-01-19 10:07:05.005",
+  "packingIndexOfRound" : 2,
   "mainVersion" : 1,
-  "blockVersion" : 0,
-  "stateRoot" : null
+  "blockVersion" : 1,
+  "stateRoot" : "56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421"
 }
 ```
 
 
-
-### 查询区块头信息
-
-根据区块高度或者区块hash，查询区块信息，必须并且只能选择一种参数作为查询条件。
-
-- **命令：getblock &lt;hash&gt; | &lt;height&gt;**
-
-| 参数           | 说明         |
-| -------------- | ------------ |
-| &lt;hash&gt;   | 区块的hash值 |
-| &lt;height&gt; | 区块的高度   |
-
-返回信息
-
-```json
-{
-  "hash" : "0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57",  //区块hash
-  "preHash" : "0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc",  //上一个区块hash
-  "merkleHash" : "00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e",  //merkle hash
-  "time" : "2019-03-19 18:26:20.020",  //打包时间
-  "height" : 1479, //区块高度
-  "txCount" : 1,   //包含的交易数
-  "blockSignature" : "00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365", //区块签名
-  "size" : 0, //区块大小
-  "packingAddress" : null,  //打包地址
-  "roundIndex" : 155299118, 
-  "consensusMemberCount" : 100,
-  "roundStartTime" : "2019-03-19 18:26:10.010",
-  "packingIndexOfRound" : 1, 
-  "mainVersion" : 1,
-  "blockVersion" : 0,
-  "stateRoot" : null
-}
-```
-
-示例 根据高度获取区块
-
-```shell
-nuls>>> getblock 28115
-{
-  "hash" : "0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57",  //区块hash
-  "preHash" : "0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc",  //上一个区块hash
-  "merkleHash" : "00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e",  //merkle hash
-  "time" : "2019-03-19 18:26:20.020",  //打包时间
-  "height" : 1479, //区块高度
-  "txCount" : 1,   //包含的交易数
-  "blockSignature" : "00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365", //区块签名
-  "size" : 0, //区块大小
-  "packingAddress" : null,  //打包地址
-  "roundIndex" : 155299118, 
-  "consensusMemberCount" : 100,
-  "roundStartTime" : "2019-03-19 18:26:10.010",
-  "packingIndexOfRound" : 1, 
-  "mainVersion" : 1,
-  "blockVersion" : 0,
-  "stateRoot" : null
-}
-```
 
 
 
@@ -986,24 +906,7 @@ nuls>>> getblock 28115
 返回信息
 
 ```json
-{
-  "hash" : "0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817",//区块hash
-  "preHash" : "0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954",//前一区块hash
-  "merkleHash" : "0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158",//梅克尔hash
-  "time" : "2018-07-16 16:29:30",//区块生成时间
-  "height" : 28115,//区块高度
-  "txCount" : 2,//区块打包交易数量
-  "packingAddress" : "NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw",//打包地址
-  "roundIndex" : 662578,//共识轮次
-  "consensusMemberCount" : 1,//参与共识成员数量
-  "roundStartTime" : "2018-07-16 16:29:20",//当前轮次开始时间
-  "packingIndexOfRound" : 1,//当前轮次打包出块的名次
-  "reward" : "0.001",//共识奖励
-  "fee" : "0.001",//区块的打包手续费
-  "confirmCount" : 6174,//确认次数
-  "size" : 507,//区块大小
-  "scriptSig" : "210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf"//签名
-}
+见示例
 ```
 
 示例 根据高度获取区块头
@@ -1033,14 +936,15 @@ nuls>>> getblockheader 28115
 ### 创建智能合约
 调用此接口在链上创建一个智能合约
 
-- **命令：createcontract &lt;sender> &lt;gaslimt> &lt;price> &lt;contractCode> [remark]**
+- **命令：createcontract &lt;sender> &lt;gaslimt> &lt;price> &lt;contractCode>&lt;alias>  [remark]**
 
 | 参数           | 说明         |
 | -------------- | ------------ |
 | &lt;sender&gt;   | 创建智能合约的账户地址 |
 | &lt;gaslimt&gt; | 本次创建合约最大消耗的Gas   |
 | &lt;price&gt; | 单价，每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na，系统最小单价是25Na/Gas   |
-| &lt;contractCode> | 合约代码的hex编码 |
+| &lt;contractCode&lt; | 合约代码的hex编码 |
+| &lt;alias&lt; | 合约别名 |
 | [remark]|备注|
 
 
@@ -1115,7 +1019,7 @@ getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
   "totalSupply" : "200000000",
   "status" : "normal",
   "method" : [ {
-    "name" : "&lt;init>",
+    "name" : "<init>",
     "desc" : "(String name, String symbol, BigInteger initialAmount, int decimals) return void",
     "args" : [ {
       "type" : "String",
@@ -1335,7 +1239,7 @@ getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb5
   "inputs" : [ {
     "address" : "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
     "assetsChainId" : 2,
-    "assetsId" : 1,
+    "assetId" : 1,
     "amount" : "5700000",
     "nonce" : "ffffffff",
     "locked" : 0,
@@ -1461,7 +1365,7 @@ nuls>>> getcontractresult 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8
 nuls>>> getcontractcontructor 504b03040a000008000.........20000b31600000000
 {
   "constructor" : {
-    "name" : "&lt;init>",
+    "name" : "<init>",
     "desc" : "(String name, String symbol, BigInteger initialAmount, int decimals) return void",
     "args" : [ {
       "type" : "String",
@@ -1591,14 +1495,22 @@ nuls>>> network info
 返回信息
 
 ```json
-[ "192.168.1.223" ]
+见示例
 ```
 
 示例 根据高度获取区块
 
 ```shell
 nuls>>> network nodes
-[ "192.168.1.223" ]
+[ {
+  "blockHash" : "8c3a57eeda7ed74926eba6e007b11fca9363dc22019da19415e0a7731a9b1bdf",
+  "blockHeight" : 4401,
+  "peer" : "192.168.1.191:18001"
+}, {
+  "blockHash" : "8c3a57eeda7ed74926eba6e007b11fca9363dc22019da19415e0a7731a9b1bdf",
+  "blockHeight" : 4401,
+  "peer" : "192.168.1.143:18001"
+} ]
 ```
 
 ### 在主链注册侧链
@@ -1621,14 +1533,15 @@ nuls>>> network nodes
 返回值
 
 ```
-6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312  #注册交易hash
+6e7397753d93742586c4b73a2785efc0e848a5cdb220e33eac3cd470ee57e210  #注册交易hash
 ```
 示例
 
 ```nuls>>> registercrosschain tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 3 testchain 123456 10 TB tb 1000
+nuls>>> registercrosschain tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 10 bitcoin 20191919 1 BTC btc 1000000 8 1 10
 Please enter the password.
-Enter your password:**********
-6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312
+Enter your password:********
+6e7397753d93742586c4b73a2785efc0e848a5cdb220e33eac3cd470ee57e210
 ```
 ### 查询侧链注册信息
 在主网查询某条测试的注册信息
@@ -1691,12 +1604,11 @@ nuls>>> crosschaininfo 11
 }
 ```
 ### 创建跨链交易
-- **命令：createcrosstx &lt;chainId> &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
+- **命令：createcrosstx &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
 
 
 | 参数           | 说明         |
 | -------------- | ------------ |
-|&lt;chainId>|运行交易的链id|
 |&lt;formAddress>|转出地址|
 |&lt;toAddress>|转入地址|
 |&lt;assetChainId>|转账资产的chainId|
@@ -1710,17 +1622,16 @@ nuls>>> crosschaininfo 11
 示例
 
 ```
-nuls>>> createcrosstx 2 tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD M9busmFhQeu1Efn6rDyeQkFjHxv2dSzkuH8 2 1 1
+nuls>>> createcrosstx tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD M9busmFhQeu1Efn6rDyeQkFjHxv2dSzkuH8 2 1 1
 Please enter the password.
 Enter your password:**********
 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
 ```
 ### 查询跨链交易确认状态
-- **命令：getcrosstxstate  &lt;chainId> &lt;txHash>**
+- **命令：getcrosstxstate  &lt;txHash>**
 
 | 参数           | 说明         |
 | -------------- | ------------ |
-|&lt;chainId>|当前运行的chainId|
 |&lt;txHash>|交易hash|
 
 返回值
@@ -1731,7 +1642,7 @@ Confirmed | Unconfirmed
 示例
 
 ```
-nuls>>> getcrosstxstate 2 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+nuls>>> getcrosstxstate 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
 Unconfirmed
 ```
 

@@ -1,13 +1,14 @@
 # Linux CLI Manual
 
 ## Introduction
-This section is a guide for the use of the full node wallet for Linux version of the NULS2.0-alpha test network. We suppose you have basic operation capability of Linux system. This paper introduces how to use NULS wallet to create accounts, import accounts, transfer, and create nodes or stake, etc. in the Linux system. We recommend users to use the Linux system server to create stable NULS nodes.
+This section is a guide for the use of the full node wallet for Linux version. We suppose you have basic operation capability of Linux system. This paper introduces how to use NULS wallet to create accounts, import accounts, transfer, and create nodes or stake, etc. in the Linux system. We recommend users to use the Linux system server to create stable NULS nodes.
 
 ## Version update history
 
 | Versions | Date | Contents |
 | :----: | :--------: | :----------------: |
-| V1.0.0 | 2018-03-18 | alpha |
+| V1.0.0 | 2018-03-18 | alpha|
+| V1.1.0 | 2019-07-08 | Beta|
 
 ## Preparation
 ### Server hardware configuration
@@ -38,10 +39,10 @@ The Linux kernel version is recommended to use 2.6.32 and above
 - Access to NULS official website address for the latest version of full node wallet: http://nuls.io/wallet.com; GitHub address: https://github.com/nuls-io/nuls-wallet-release
 - After entering the interface of [NULS official wallet download](http://nuls.io/wallet), select Linux version to download. MEGA and Baidu Cloud Disk are available for your choice.
 
-To download v2.0.0-alpha-1 wallet via Linux system, you can type the following command:
+To download Beta wallet via Linux system, you can type the following command:
 
 ```shell
-  $wget https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-1.0.0.tar.gz
+  $wget  https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-1.0.0.tar.gz
 ``` 
 
 Note: the download address may be different if there are subsequent versions.
@@ -51,7 +52,7 @@ Note: the download address may be different if there are subsequent versions.
 -  Extract the downloaded file in Linux
 
 ```shell
-  $ tar -zxf NULS-Wallet-linux64-2.0.0-alpha-1.tar.gz
+  $ tar -zxf NULS-Wallet-linux64-beta1-main.tar.gz
 ```
 
 ### Run
@@ -59,7 +60,7 @@ Note: the download address may be different if there are subsequent versions.
 - Enter the extracted directory and run the boot script to start the full node wallet
 
 ```shell
-  $ cd NULS-Wallet-linux64-2.0.0-alpha-1
+  $ cd NULS-Wallet-linux64-beta1
   $ ./start.sh
 ```
 

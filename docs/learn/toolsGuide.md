@@ -1,10 +1,7 @@
----
-typora-copy-images-to: communityImagesCN
----
 
-## Guide to Community Vote
+# Guide to Community Vote
 
-### 1 Voting
+## Voting
 
 If you want to participate in the community vote X created by address A, you can search for the community vote you want to participate in by entering the community vote title X or the creator’s address A. After finding the community vote X, you can see some key information about the community vote in the voting list.
 
@@ -22,7 +19,7 @@ The system allows the creator of the community vote to set the type of voting re
 
 Each option in the voting details page is clickable to show the current or final distribution of votes.
 
-### 2  Changing and Updating Your Vote
+##  Changing and Updating Your Vote
 
 As mentioned before, if the creator sets the voting result to be changeable when creating the community vote Y and voting is still in progress, then the voter can re-enter the details page of the community vote Y, select a new option according to the voting rules, and update their vote. Simply click "Update Voting" and enter the password to complete the new submission.
 
@@ -32,7 +29,7 @@ There will be a well-marked icon in the voting list that indicates whether a com
 
 ![1542526202833](./communityImagesCN/1542526202833.png)
 
-### 3 Checking My Votes
+## Checking My Votes
 
 In the voting list, click on "My Voting" on the right to enter “my” voting list, which shows the community votes created by you and the community votes you participated in. If Z is the community vote you have created, and it is still in progress, then its address will appear yellow.
 
@@ -40,7 +37,7 @@ In the voting list, click on "My Voting" on the right to enter “my” voting l
 
 If you click on the title of the community vote you participated in, all of the voting options you selected can be seen. If the community vote is of a changeable type and it is still in progress, then you can change your vote by choosing another option and submitting your changed vote according to the voting rules.
 
-### 4 Creating A Community Vote
+## Creating A Community Vote
 
 In the voting list, click **“Create Voting"** to enter the information page of the community vote and fill in the corresponding options and settings. Afterwards, select the correct start and end time. Once finished, click "Confirm" to complete creation of your community vote. Creating a community vote requires that there is enough NULS in your address B to provide a deposit and a fee.
 

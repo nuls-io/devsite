@@ -49,17 +49,8 @@ module.exports = {
                         {
                             title: 'Users Guide',
                             children: [
-                                'NULSTransaction'
-                            ]
-                        },
-                        {
-                            title: 'Community',
-                            children: [
-                                'toolsGuide',
-                                'ambassadorRules',
-                                'joinCCC',
-                                'communityConstitution',
-                                'communityFund',
+                                'NULSTransaction',
+                                'toolsGuide'
                             ]
                         },
                         {
@@ -181,16 +172,6 @@ module.exports = {
                             ]
                         },
                         {
-                            title: '社区',
-                            children: [
-                                'toolsGuide',
-                                'ambassadorRules',
-                                'joinCCC',
-                                'communityConstitution',
-                                'communityFund',
-                            ]
-                        },
-                        {
                             title: 'NIPs',
                             children: [
                                 'NIPIntroduction',
@@ -258,24 +239,18 @@ module.exports = {
                             collapsable:false,
                             children: [
                                 'quickStart',
-                                
                                 'developeModule',
                                 'encryptedMessageDesign',
                                 'chainBoxGuide',
-                                // 'crossChainTX',
-                                // 'packageGeneration',
                                 'linuxTutorial',
                                 'nodeGuide'
-                                // 'howToUseNulsBuildChain',
-                                // 'rpcToolWebsocketDesign'
                             ]
                         },
                         {
                             title: '智能合约',
                             collapsable:false,
                             children: [
-                                'startSmartContract',
-                                'developerManual',
+                                'smartContractManual',
                                 'ideaPlugin',
                                 'NRC-20TokenStandard',
                                 'NRC-721',
@@ -291,25 +266,3 @@ module.exports = {
 
 
 
-function getGuideSidebar (groupA, groupB) {
-    return [
-        {
-            title: groupA,
-            collapsable: false,
-            children: [
-                '/overview/1-1Introduction',
-                '/overview/1-2structure',
-            ]
-        },
-        {
-            title: groupB,
-            collapsable: false,
-            children: [
-                '/contribution/2-1mainNetworkDevelopment',
-                '/contribution/2-2reportError',
-                '/contribution/2-3translateDocuments',
-                '/contribution/2-4writingDocument'
-            ]
-        }
-    ]
-}

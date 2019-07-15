@@ -1,3 +1,0 @@
-# NULS Portal
-
-<NavBars></NavBars>
