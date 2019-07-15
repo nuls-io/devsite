@@ -130,8 +130,7 @@ module.exports = {
                             title: 'Smart Contract',
                             collapsable:false,
                             children: [
-                                'startSmartContract',
-                                'developerManual',
+                                'smartContractManual',
                                 'ideaPlugin',
                                 'NRC-20TokenStandard',
                                 'NRC-721',
