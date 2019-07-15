@@ -253,6 +253,13 @@ module.exports = {
                                 'ideaPlugin',
                                 'NRC-20TokenStandard',
                                 'NRC-721',
+                                'mavenPackage',
+                                'offlineAssembly',
+                                'assetsOff',
+                                'vm-sdk',
+                                'consensusTransaction',
+                                'excuteResult',
+                                'triggerPayable',
                                 'smartContractFee',
                             ]
                         },

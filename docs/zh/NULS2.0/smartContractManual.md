@@ -22,7 +22,7 @@ NULS智能合约Maven-archetype提供的主要功能：
 * 编译、打包、部署合约
 * 展示、调用合约方法。
 
-> [已提供一个可以打包智能合约代码的Maven工程说明文档](http://120.77.241.8:10086/pierre/doc/blob/master/智能合约文档/NULS2.0/智能合约Maven项目打包智能合约代码.md)
+> [已提供一个可以打包智能合约代码的Maven工程说明文档](/zh/NULS2.0/mavenPackage.html)
 
 ## 3. NULS智能合约规范与语法
 
