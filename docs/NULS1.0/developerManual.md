@@ -975,7 +975,7 @@ public class VoteContract implements Contract {
 If the methods of smart contract include the parameter of  `array type`, please use the following method to transfer parameters
 > Refer to the `create` method in the aforesaid voting contract code
 
-```javascript
+```json
 {
   "sender": "NsdtydTVWskMc7GkZzbsq2FoChqKFwMf",
   "password": "",

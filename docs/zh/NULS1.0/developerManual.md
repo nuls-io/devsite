@@ -977,7 +977,7 @@ public class VoteContract implements Contract {
 智能合约的方法中如果有`数组类型`的参数，请使用如下方式传递参数
 > 参考以上投票合约代码中的`create`方法
 
-```javascript
+```json
 {
   "sender": "NsdtydTVWskMc7GkZzbsq2FoChqKFwMf",
   "password": "",

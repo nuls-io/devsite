@@ -1,4 +1,4 @@
-# VM-SDK
+# VM-SDK_Utils#invokeExternalCmd函数(合约调用外部命令说明)
 
 ```java
 /**

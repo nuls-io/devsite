@@ -2,7 +2,7 @@
 
 ## 执行结果说明
 
-```javascript
+```json
 {
     "success": true, `合约执行是否成功`,
     "errorMessage": null, `失败原因 - string, eg. not enough gas`,

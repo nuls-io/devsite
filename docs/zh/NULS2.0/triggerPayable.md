@@ -1,4 +1,4 @@
-# 触发payable方法
+# 触发payable方法的场景
 
 在`vm-sdk`中，对于`Contract#payable`有这样的描述
 

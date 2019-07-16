@@ -778,7 +778,7 @@ public @interface View {
 智能合约的方法中如果有`数组类型`的参数，请使用如下方式传递参数
 > 参考[投票合约](https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26)代码中的`create`方法
 
-```javascript
+```json
 {
   "sender": "NsdtydTVWskMc7GkZzbsq2FoChqKFwMf",
   "password": "",

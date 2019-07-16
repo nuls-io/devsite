@@ -22,7 +22,7 @@ NULS smart contract Maven-archetype provide the following main functions:
 * Compile, package and deploy contracts
 * Display and call contract methods
 
-> [A Maven project specification document that can package smart contract code has been provided] (http://120.77.241.8:10086/pierre/doc/blob/master/智能合约文档/NULS2.0/智能合约Maven项目打包智能合约代码.md)
+> [A Maven project specification document that can package smart contract code has been provided](./mavenPackage.html)
 
 ## 3. NULS smart contract specifications and syntax
 
@@ -781,7 +781,7 @@ In the NULS 2.0 module [NULS-SDK-PROVIDER] (https://github.com/nuls-io/nuls-sdk-
 If the methods of smart contract include the parameter of  `array type`, please use the following method to transfer parameters
 > Refer to the [vote contract] (https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26) code for the `create` method
 
-```javascript
+```json
 {
   "sender": "NsdtydTVWskMc7GkZzbsq2FoChqKFwMf",
   "password": "",
