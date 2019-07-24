@@ -254,9 +254,9 @@ Configuration file (created after running the start-dev script for the first tim
 ### How to develop your own module
 NULS2.0 is a distributed microservice architecture program written in JAVA language. The entire node program consists of multiple modules, each of which communicates via the websocket protocol. NULS 2.0 defines a standard [module communication protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md), this standard protocol can be implemented in various development languages ​​to communicate with other modules to realize their own business logic. Extending your own business logic is mainly achieved by extending the new transaction type, storing its own business data in the transaction's txData, and txData will follow the transaction in the chain.
 #### Creating a transaction process
-![node creation transaction](./chainbox/createtx.png)
+![node creation transaction](./chainbox/createTX.jpg)
 #### Processing network transaction process
-![Processing Webcast Transactions](./chainbox/handnetworktx.png)
+![Processing Webcast Transactions](./chainbox/network.jpg)
 
 As you can see from the figure, there are four main things you need to do to extend a new business module.
 1. Register your own transaction type in the trading module.
@@ -280,7 +280,7 @@ The above are the core steps that need to be done to extend a transaction type. 
 ### Communicate with other modules
 NULS 2.0 uses a microservices architecture, and modules communicate using [websocket](https://zh.wikipedia.org/wiki/WebSocket). The links to all modules are governed by Nulstar and the process is as follows:
 
-![](./chainbox/pic01.jpeg)
+![](./chainbox/pic01.jpg)
 
 All modules are started by the ServiceManager. After startup, the device establishes a connection with the ServiceManager module. The handshake is completed according to the protocol. After the handshake is successful, it is registered with the ServiceManager. The purpose of the registration is to tell the ServiceManager its connection mode, the provided interface protocol, and which modules to rely on.
 #### establish connection
