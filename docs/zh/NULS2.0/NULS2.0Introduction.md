@@ -17,4 +17,4 @@ NULS在创立之初，就致力于成为一个由全球社区驱动的开源项�
 ## NULS2.0的设计思维
 
 
-NULS2.0的微服务架构是逐渐演化而成，想深入了解其是如何形成的，可阅读文档[NULS2.0设计思维](https://nuls.io/api/v1/download/files/papers/nuls2.0/NULS_2.0_Philosophy_of_Design_V0.1_(Chi)_Final.pdf)，文档中详细阐述了NULS2.0的演化之路。
+NULS2.0的微服务架构是逐渐演化而成，想深入了解其是如何形成的，可阅读文档[NULS2.0设计思维](http://nuls.io/wp-content/uploads/2019/07/NULS-2.0的设计思维-V0.1-Chi_Final.pdf)，文档中详细阐述了NULS2.0的演化之路。

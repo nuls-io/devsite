@@ -18,4 +18,4 @@ The core team introduces an innovative microservice concept in the infrastructur
 ## Philosophy of Design
 
 
-The NULS2.0 microservice architecture evolved over time. For more information on how it came about, read the documentation[NULS2.0:Philosophy of Design](https://nuls.io/api/v1/download/files/papers/nuls2.0/NULS_2.0_Philosophy_of_Design_V0.1_(Eng)_Final.pdf).The documentation details the NULS2.0 evolutionary path。
+The NULS2.0 microservice architecture evolved over time. For more information on how it came about, read the documentation[NULS2.0:Philosophy of Design](https://nuls.io/wp-content/uploads/2019/07/NULS-2.0-Philosophy-of-Design-V0.1-Eng_Final.pdf).The documentation details the NULS2.0 evolutionary path。
