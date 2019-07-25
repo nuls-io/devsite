@@ -725,11 +725,21 @@ public class Utils {
     /**
      * 调用链上其他模块的命令
      *
+     * @see <a href="https://docs.nuls.io/zh/NULS2.0/vm-sdk.html">调用命令详细说明</a>
      * @param cmdName 命令名称
      * @param args 命令参数
      * @return 命令返回值(根据注册命令的返回类型可返回字符串,字符串数组,字符串二维数组)
      */
     public static native Object invokeExternalCmd(String cmdName, String[] args);
+    
+    /**
+     * 把对象转换成json字符串
+     * 注意：对象内如果包含复杂对象，序列化深度不得超过3级
+     *
+     * @param obj
+     * @return json字符串
+     */
+    public static native String obj2Json(Object obj);
 }
 ```
 

@@ -726,11 +726,21 @@ public class Utils {
     /**
      * command to call other modules on the chain
      *
+     * @see <a href="https://docs.nuls.io/zh/NULS2.0/vm-sdk.html">Detailed documentation for calling the command</a>
      * @param cmdName 
      * @param args 
      * @return depending on the return type of the registration command, it can return a string, an array of strings, a two-dimensional array of strings
      */
     public static native Object invokeExternalCmd(String cmdName, String[] args);
+    
+    /**
+     * Convert an object to a json string
+     * Note: If the object contains complex objects, the serialization depth must not exceed level 3
+     *
+     * @param obj
+     * @return Json string
+     */
+    public static native String obj2Json(Object obj);
 }
 ```
 
