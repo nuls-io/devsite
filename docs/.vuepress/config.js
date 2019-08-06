@@ -75,8 +75,7 @@ module.exports = {
                             title: 'Launch NULS',
                             children: [
                                 'sourceCodeStartNULS',
-                                'connectMainnet',
-                                'connectTestnet',
+                                'connectMainnet'
                             ]
                         },
                         {
@@ -191,8 +190,7 @@ module.exports = {
                             title: '启动NULS',
                             children: [
                                 'sourceCodeStartNULS',
-                                'connectMainnet',
-                                'connectTestnet',
+                                'connectMainnet'
                             ]
                         },
                         {
