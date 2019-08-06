@@ -42,7 +42,7 @@ The Linux kernel version is recommended to use 2.6.32 and above
 To download Beta wallet via Linux system, you can type the following command:
 
 ```shell
-  $wget  https://media.githubusercontent.com/media/nuls-io/nuls-wallet-release/master/NULS-Wallet-linux64-1.0.0.tar.gz
+  $wget http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.0/NULS-Wallet-linux64-beta1-main.tar.gz
 ``` 
 
 Note: the download address may be different if there are subsequent versions.
@@ -61,7 +61,7 @@ Note: the download address may be different if there are subsequent versions.
 
 ```shell
   $ cd NULS-Wallet-linux64-beta1
-  $ ./start.sh
+  $ ./start
 ```
 
 ## Use wallet
@@ -81,11 +81,10 @@ For example, to create an account you can do like this:
 
 ```shell
   nuls>>> create
-  Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+  Please enter the new password(8-20 characters, the combination of letters and numbers).
   Enter your password:*********
-  Please confirm new password:*********
-  [ "Nse9EtaRwgVgN42pxURgZjUR33LUx1j1" ]
-  nuls>>>
+  Please confirm new password:*********	  
+  [ "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8" ]
 ```
 
 Command ` create ` means to create a single account, next enter your password, and once again confirm the new password. If successful, the address of the account will be returned.
@@ -146,7 +145,7 @@ When creating an account, you are required to enter the password for the account
 Return: accounts set
 
 ```json
-[ "5MR_2CkDZtZRHGLD43JreUc8LsFBertsc9r", "5MR_2CXCCU89fj9RyQj9MgZVE7Pq3Mmk77p" ]
+[ "tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm", "tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs", "tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4" ]
 ```
 
 Example
@@ -158,7 +157,7 @@ nuls>>> create
 Please enter the new password(8-20 characters, the combination of letters and numbers).
 Enter your new password:**********
 Please confirm new password:**********
-[ "5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW" ]
+[ "tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8" ]
 ```
 
 Create multiple accounts at once
@@ -168,7 +167,7 @@ nuls>>> create 3
 Please enter the new password(8-20 characters, the combination of letters and numbers).
 Enter your new password:**********
 Please confirm new password:**********
-["5MR_2CWdfU2VDERgQbWS1quGYAGD1iDDM4N", "5MR_2CcYq7fqrvKagReBmzG3qEz8qGkifCr", "5MR_2Cd6E2vAGZQxkqeXbeqThRxDGTFiLei" ]
+[ "tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm", "tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs", "tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4" ]
 ```
 
 ### Back up account
@@ -185,18 +184,18 @@ To back up an account, a file named as account address with the extension .keyst
 Return 
 
 ```shell
-The path to the backup file is /nuls/bin/NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy.keystore
+The path to the backup file is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
 ```
 
 Example: backup an account with password
 
-
-    shell
-    nuls>>> backup 5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW /Users/zlj
-    Enter account password
-    ***************
-    The path to the backup file is /Users/zlj/5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW.keystore
-
+```
+  shell
+  nuls>>> backup tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm /home/nuls2/nuls-v2/NULS-Wallet-linux64-beta1
+  Please enter the password.
+  Enter your password:********
+  The path to the backup file is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
+```
 
 ### Remove account
 
@@ -217,8 +216,9 @@ Success
 Example
 
 ```shell
-nuls>>> remove 5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW
-Enter your password for account**********
+nuls>>> remove tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs
+Please enter the password.
+Enter your password:********
 Success
 ```
 
@@ -241,11 +241,10 @@ Success
 Example
 
 ```shell
-nuls>>> resetpwd 5MR_2CWdfU2VDERgQbWS1quGYAGD1iDDM4N
-Enter your old password:**********
-Enter new password**********
-Please confirm new password:**********
-Success
+nuls>>> resetpwd tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4
+Enter your old password:********
+Enter new password*********
+Please confirm new password:*********
 ```
 
 ### Set alias
@@ -268,7 +267,7 @@ txHash:0020f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d"
 Example
 
 ```shell
-nuls>>> setalias 5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9 zlj
+nuls>>> setalias tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 nuls
 Enter your account password**********
 txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
 ```
@@ -288,16 +287,16 @@ Note: the original password is required to import the keystore file to generate 
 Return: address of the imported account
 
 ``` json
-"NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy"
+"tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8"
 ```
 
 Example
 
 ```shell
-nuls>>>importkeystore /Users/zhoulijun/5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW.keystore
+nuls>>>importkeystore /home/nuls2/nuls-v2/tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8.keystore
 Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
 Enter your password:**********
-5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 ``` 
 
 ### Import account private key
@@ -317,11 +316,11 @@ Import the account private key to generate a local account, overwritten if the l
 Example
 
 ```shell
-nuls>>> import 1c2b9fd4417c1aad8ae9f24c982ff294eb50a6462b873b79a879e805a9990346
+nuls>>> import 74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
 Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-Enter your password:**********
-Please confirm new password:**********
-5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
+Enter your password:********
+Please confirm new password:********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 ```
 
 ### Query account information
@@ -510,7 +509,7 @@ Enter your password: *********
 
 Query the transaction details with the transaction hash
 
-- ** command: gettx &lt;hash&gt;**
+- **command: gettx &lt;hash&gt;**
 
 | Parameter | Description |
 | ------------ | -------------- |
