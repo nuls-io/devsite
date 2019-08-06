@@ -18,7 +18,7 @@ Tar -zxvf jdk-11.0.2_linux-x64_bin.tar.gz
 
 ### 3 configuration environment
 
-**vi /ect/profile**
+**vi /etc/profile**
 
 Copy the following code to the file
 
@@ -31,7 +31,7 @@ Export JAVA_HOME PATH CLASSPATH
 
 **ps**: /home/nuls2/jdk-11.0.2 is the path after jdk is unpacked, please configure according to your actual path.
 
-**source /ect/profile** The configuration of this command takes effect.
+**source /etc/profile** The configuration of this command takes effect.
 
 View the jdk version via java -version:
 
