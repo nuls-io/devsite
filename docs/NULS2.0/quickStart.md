@@ -11,7 +11,7 @@ Jdk11 download address: [jdk11 download](https://www.oracle.com/technetwork/java
 ### 2 upload to the server and extract
 
 ```
-Tar -zxvf jdk-11.0.2_linux-x64_bin.tar.gz
+tar -zxvf jdk-11.0.2_linux-x64_bin.tar.gz
 ```
 
 ![20190327142342](./quickStart/20190327142342.png)
@@ -46,7 +46,7 @@ Go to GitHub and download the latest version of the NULS2.0  wallet: [download a
 ### 2 upload to the server and extract
 
 ```
-Tar -zxvf NULS-Walltet-linux64-beta1.tar.gz
+tar -zxvf NULS-Walltet-linux64-beta1.tar.gz
 ```
 
 ![20190327144549](./quickStart/20190327144549.png)
