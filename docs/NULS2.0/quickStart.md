@@ -11,14 +11,14 @@ Jdk11 download address: [jdk11 download](https://www.oracle.com/technetwork/java
 ### 2 upload to the server and extract
 
 ```
-Tar -zxvf jdk-11.0.2_linux-x64_bin.tar.gz
+tar -zxvf jdk-11.0.2_linux-x64_bin.tar.gz
 ```
 
 ![20190327142342](./quickStart/20190327142342.png)
 
 ### 3 configuration environment
 
-**vi /ect/profile**
+**vi /etc/profile**
 
 Copy the following code to the file
 
@@ -31,7 +31,7 @@ Export JAVA_HOME PATH CLASSPATH
 
 **ps**: /home/nuls2/jdk-11.0.2 is the path after jdk is unpacked, please configure according to your actual path.
 
-**source /ect/profile** The configuration of this command takes effect.
+**source /etc/profile** The configuration of this command takes effect.
 
 View the jdk version via java -version:
 
@@ -46,7 +46,7 @@ Go to GitHub and download the latest version of the NULS2.0  wallet: [download a
 ### 2 upload to the server and extract
 
 ```
-Tar -zxvf NULS-Walltet-linux64-beta1.tar.gz
+tar -zxvf NULS-Walltet-linux64-beta1.tar.gz
 ```
 
 ![20190327144549](./quickStart/20190327144549.png)
