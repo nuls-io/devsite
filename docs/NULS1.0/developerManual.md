@@ -579,6 +579,7 @@ public class Utils {
 	/**
      * @param seed a private seed
      * @return pseudo random number (0 ~ 1)
+<<<<<<< HEAD:docs/NULS1.0/developerManual.md
      */
     public static float pseudoRandom(long seed) {
         int hash1 = Block.currentBlockHeader().getPackingAddress().toString().substring(2).hashCode();
@@ -686,6 +687,39 @@ public class Utils {
      * @return returns a collection of original seeds, the element is a BigInteger (new BigInteger(byte[] bytes)))
      */
     public static native List<BigInteger> getRandomSeedList(long startHeight, long endHeight);
+=======
+     */
+    public static float pseudoRandom(long seed) {
+        int hash1 = Block.currentBlockHeader().getPackingAddress().toString().substring(2).hashCode();
+        int hash2 = Msg.address().toString().substring(2).hashCode();
+        int hash3 = Msg.sender() != null ? Msg.sender().toString().substring(2).hashCode() : 0;
+        int hash4 = Long.valueOf(Block.timestamp()).toString().hashCode();
+
+        long hash = seed ^ hash1 ^ hash2 ^ hash3 ^ hash4;
+
+        seed = (hash * 0x5DEECE66DL + 0xBL) & ((1L << 48) - 1);
+        return ((int) (seed >>> 24) / (float) (1 << 24));
+    }
+
+    /**
+     * @return pseudo random number (0 ~ 1)
+     */
+    public static float pseudoRandom() {
+        return pseudoRandom(0x5DEECE66DL);
+    }
+
+    /**
+     * @param src source string
+     * @return sha3-256 hash (utf-8 encode)
+     */
+    public static native String sha3(String src);
+
+    /**
+     * @param bytes source byte array
+     * @return sha3-256 hash
+     */
+    public static native String sha3(byte[] bytes);
+>>>>>>> 46bb1d94903094b3bd2ef86b2e87fe5d05d60f24:source/contract/index.md
     
 }
 ```

@@ -25,7 +25,7 @@ module.exports = {
         editLinks: true,
         docsDir: 'docs',
         docsBranch: 'dev',
-        sidebarDepth: 1,
+        sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         nav:[
             {text:"Guide",link:"/learn/"},
@@ -75,8 +75,7 @@ module.exports = {
                             title: 'Launch NULS',
                             children: [
                                 'sourceCodeStartNULS',
-                                'connectMainnet',
-                                'connectTestnet',
+                                'connectMainnet'
                             ]
                         },
                         {
@@ -192,8 +191,7 @@ module.exports = {
                             title: '启动NULS',
                             children: [
                                 'sourceCodeStartNULS',
-                                'connectMainnet',
-                                'connectTestnet',
+                                'connectMainnet'
                             ]
                         },
                         {
@@ -242,7 +240,8 @@ module.exports = {
                                 'encryptedMessageDesign',
                                 'chainBoxGuide',
                                 'linuxTutorial',
-                                'nodeGuide'
+                                'nodeGuide',
+								'multiSignAccount'
                             ]
                         },
                         {
