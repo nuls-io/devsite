@@ -239,7 +239,8 @@ module.exports = {
                                 'encryptedMessageDesign',
                                 'chainBoxGuide',
                                 'linuxTutorial',
-                                'nodeGuide'
+                                'nodeGuide',
+								'multiSignAccount'
                             ]
                         },
                         {
