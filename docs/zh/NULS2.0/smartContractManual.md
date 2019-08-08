@@ -14,15 +14,14 @@ NULS智能合约使用Java进行开发，合约运行在NULS虚拟机中。合�
 
 Nuls智能合约使用的开发工具为IntelliJ IDEA。
 
-### 2.4 NULS智能合约Maven-archetype(建设中)
+### 2.4 NULS智能合约开发工具
 
-NULS智能合约Maven-archetype提供的主要功能：
+NULS智能合约开发工具提供的主要功能：
 
 * 新建NULS智能合约Maven工程
-* 编译、打包、部署合约
-* 展示、调用合约方法。
+* 提供可视化页面来编译、打包、部署合约、调用合约、查询合约相关数据
 
-> [已提供一个可以打包智能合约代码的Maven工程说明文档](/zh/NULS2.0/mavenPackage.html)
+> [构建NULS智能合约开发工具的说明文档](/zh/NULS2.0/mavenPackage.html)
 
 ## 3. NULS智能合约规范与语法
 
@@ -204,6 +203,18 @@ public class SimpleStorage implements Contract {
     public void setStoredData(@Required String storedData) {
         this.storedData = storedData;
     }
+    
+    /**
+     * 返回值会被VM自动JSON序列化，以JSON字符串的形式返回
+     * 注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化
+     */
+    @JSONSerializable
+    public Map vJsonSerializableMap() {
+        Map map = new HashMap();
+        map.put("name", "nuls");
+        map.put("url", "https://nuls.io");
+        return map;
+    }
 
 }
 ```
@@ -212,6 +223,10 @@ public class SimpleStorage implements Contract {
 合约部署好以后，_**合约类的所有public方法都是能调用的**_，通过调用这些方法读取或修改合约状态。
 
 注解说明
+
+@JSONSerializable 标记@JSONSerializable的方法，返回值会被VM自动JSON序列化，以JSON字符串的形式返回。
+
+<b style="color:red">注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化。</b>
 
 @View 标记@View的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态。
 
@@ -227,7 +242,7 @@ public class SimpleStorage implements Contract {
 
 [NULS合约示例 - NRC721](https://github.com/MIMIEYES/NULS-NRC721-baselib)
 
-[NULS合约示例 - POCM](https://github.com/MIMIEYES/pocmContract-ConsensusEnhancement)
+[NULS合约示例 - POCM](https://github.com/CCC-NULS/pocm-contract)
 
 ## 5. NULS Contract SDK
 
@@ -246,11 +261,18 @@ public class Address {
     }
 
     /**
-     * 获取该地址的余额（只能获取合约地址余额）
+     * 获取该地址的可用余额
      *
      * @return BigInteger
      */
     public native BigInteger balance();
+
+    /**
+     * 获取该地址的总余额
+     *
+     * @return BigInteger
+     */
+    public native BigInteger totalBalance();
 
     /**
      * 合约向该地址转账
@@ -776,6 +798,20 @@ public @interface Required {
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface View {
+}
+```
+
+### io.nuls.contract.sdk.annotation.JSONSerializable
+
+`@JSONSerializable ` 标记@JSONSerializable的方法，返回值会被VM自动JSON序列化，以JSON字符串的形式返回。
+
+<b style="color:red">注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化。</b>
+
+```java
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface JSONSerializable {
 }
 ```
 

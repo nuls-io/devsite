@@ -1,475 +1,85 @@
-# 以Maven项目打包合约代码
-
-## 1. 新建Maven工程
-
-- ![graph](https://github.com/MIMIEYES/readmd/blob/master/package/1.png?raw=true)
-- ![graph](https://github.com/MIMIEYES/readmd/blob/master/package/1.1.png?raw=true)
-- ![graph](https://github.com/MIMIEYES/readmd/blob/master/package/2.png?raw=true)
-- ![graph](https://github.com/MIMIEYES/readmd/blob/master/package/3.png?raw=true)
-
-## 2. pom.xml文件中加入SDK依赖
-
-```xml
-<?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-
-    <groupId>io.nuls.contract</groupId>
-    <artifactId>token</artifactId>
-    <version>1.0-SNAPSHOT</version>
-
-    <dependencies>
-        <!-- NULS1.0使用1.2.0版本，NULS2.0使用2.0-beta1版本 -->
-        <dependency>
-            <groupId>io.nuls.sdk</groupId>
-            <artifactId>sdk-contract-vm</artifactId>
-            <version>2.0-beta1</version>
-        </dependency>
-    </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.7.0</version>
-                <configuration>
-                    <source>1.6</source>
-                    <target>1.6</target>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
-
-</project>
-```
-
-## 3. 编写代码(略，可跳过，以下是示例代码NRC20合约代码)
-
-![graph](https://github.com/MIMIEYES/readmd/blob/master/package/4.png?raw=true)
-
-package目录为io.nuls.contract.token，编写两个java文件，`io.nuls.contract.token.SimpleToken`和`io.nuls.contract.token.Token`
-
-```java
-package io.nuls.contract.token;
-
-import io.nuls.contract.sdk.Address;
-import io.nuls.contract.sdk.Contract;
-import io.nuls.contract.sdk.Msg;
-import io.nuls.contract.sdk.annotation.Required;
-import io.nuls.contract.sdk.annotation.View;
-
-import java.math.BigInteger;
-import java.util.HashMap;
-import java.util.Map;
-
-import static io.nuls.contract.sdk.Utils.emit;
-import static io.nuls.contract.sdk.Utils.require;
-
-public class SimpleToken implements Contract, Token {
-
-    private final String name;
-    private final String symbol;
-    private final int decimals;
-    private BigInteger totalSupply = BigInteger.ZERO;
-
-    private Map<Address, BigInteger> balances = new HashMap<Address, BigInteger>();
-    private Map<Address, Map<Address, BigInteger>> allowed = new HashMap<Address, Map<Address, BigInteger>>();
-
-    @Override
-    @View
-    public String name() {
-        return name;
-    }
-
-    @Override
-    @View
-    public String symbol() {
-        return symbol;
-    }
-
-    @Override
-    @View
-    public int decimals() {
-        return decimals;
-    }
-
-    @Override
-    @View
-    public BigInteger totalSupply() {
-        return totalSupply;
-    }
-
-    public SimpleToken(@Required String name, @Required String symbol, @Required BigInteger initialAmount, @Required int decimals) {
-        this.name = name;
-        this.symbol = symbol;
-        this.decimals = decimals;
-        totalSupply = initialAmount.multiply(BigInteger.TEN.pow(decimals));;
-        balances.put(Msg.sender(), totalSupply);
-        emit(new TransferEvent(null, Msg.sender(), totalSupply));
-    }
-
-    @Override
-    @View
-    public BigInteger allowance(@Required Address owner, @Required Address spender) {
-        Map<Address, BigInteger> ownerAllowed = allowed.get(owner);
-        if (ownerAllowed == null) {
-            return BigInteger.ZERO;
-        }
-        BigInteger value = ownerAllowed.get(spender);
-        if (value == null) {
-            value = BigInteger.ZERO;
-        }
-        return value;
-    }
-
-    @Override
-    public boolean transferFrom(@Required Address from, @Required Address to, @Required BigInteger value) {
-        subtractAllowed(from, Msg.sender(), value);
-        subtractBalance(from, value);
-        addBalance(to, value);
-        emit(new TransferEvent(from, to, value));
-        return true;
-    }
-
-    @Override
-    @View
-    public BigInteger balanceOf(@Required Address owner) {
-        require(owner != null);
-        BigInteger balance = balances.get(owner);
-        if (balance == null) {
-            balance = BigInteger.ZERO;
-        }
-        return balance;
-    }
-
-    @Override
-    public boolean transfer(@Required Address to, @Required BigInteger value) {
-        subtractBalance(Msg.sender(), value);
-        addBalance(to, value);
-        emit(new TransferEvent(Msg.sender(), to, value));
-        return true;
-    }
-
-    @Override
-    public boolean approve(@Required Address spender, @Required BigInteger value) {
-        setAllowed(Msg.sender(), spender, value);
-        emit(new ApprovalEvent(Msg.sender(), spender, value));
-        return true;
-    }
-
-    public boolean increaseApproval(@Required Address spender, @Required BigInteger addedValue) {
-        addAllowed(Msg.sender(), spender, addedValue);
-        emit(new ApprovalEvent(Msg.sender(), spender, allowance(Msg.sender(), spender)));
-        return true;
-    }
-
-    public boolean decreaseApproval(@Required Address spender, @Required BigInteger subtractedValue) {
-        check(subtractedValue);
-        BigInteger oldValue = allowance(Msg.sender(), spender);
-        if (subtractedValue.compareTo(oldValue) > 0) {
-            setAllowed(Msg.sender(), spender, BigInteger.ZERO);
-        } else {
-            subtractAllowed(Msg.sender(), spender, subtractedValue);
-        }
-        emit(new ApprovalEvent(Msg.sender(), spender, allowance(Msg.sender(), spender)));
-        return true;
-    }
-
-    private void addAllowed(Address address1, Address address2, BigInteger value) {
-        BigInteger allowance = allowance(address1, address2);
-        check(allowance);
-        check(value);
-        setAllowed(address1, address2, allowance.add(value));
-    }
-
-    private void subtractAllowed(Address address1, Address address2, BigInteger value) {
-        BigInteger allowance = allowance(address1, address2);
-        check(allowance, value, "Insufficient approved token");
-        setAllowed(address1, address2, allowance.subtract(value));
-    }
-
-    private void setAllowed(Address address1, Address address2, BigInteger value) {
-        check(value);
-        Map<Address, BigInteger> address1Allowed = allowed.get(address1);
-        if (address1Allowed == null) {
-            address1Allowed = new HashMap<Address, BigInteger>();
-            allowed.put(address1, address1Allowed);
-        }
-        address1Allowed.put(address2, value);
-    }
-
-    private void addBalance(Address address, BigInteger value) {
-        BigInteger balance = balanceOf(address);
-        check(value, "The value must be greater than or equal to 0.");
-        check(balance);
-        balances.put(address, balance.add(value));
-    }
-
-    private void subtractBalance(Address address, BigInteger value) {
-        BigInteger balance = balanceOf(address);
-        check(balance, value, "Insufficient balance of token.");
-        balances.put(address, balance.subtract(value));
-    }
-
-    private void check(BigInteger value) {
-        require(value != null && value.compareTo(BigInteger.ZERO) >= 0);
-    }
-
-    private void check(BigInteger value1, BigInteger value2) {
-        check(value1);
-        check(value2);
-        require(value1.compareTo(value2) >= 0);
-    }
-
-    private void check(BigInteger value, String msg) {
-        require(value != null && value.compareTo(BigInteger.ZERO) >= 0, msg);
-    }
-
-    private void check(BigInteger value1, BigInteger value2, String msg) {
-        check(value1);
-        check(value2);
-        require(value1.compareTo(value2) >= 0, msg);
-    }
-
-
-
-}
-
-```
-
----
-
-```java
-package io.nuls.contract.token;
-
-import io.nuls.contract.sdk.Address;
-import io.nuls.contract.sdk.Event;
-import io.nuls.contract.sdk.annotation.Required;
-import io.nuls.contract.sdk.annotation.View;
-
-import java.math.BigInteger;
-
-public interface Token {
-
-    @View
-    String name();
-
-    @View
-    String symbol();
-
-    @View
-    int decimals();
-
-    @View
-    BigInteger totalSupply();
-
-    @View
-    BigInteger balanceOf(@Required Address owner);
-
-    boolean transfer(@Required Address to, @Required BigInteger value);
-
-    boolean transferFrom(@Required Address from, @Required Address to, @Required BigInteger value);
-
-    boolean approve(@Required Address spender, @Required BigInteger value);
-
-    @View
-    BigInteger allowance(@Required Address owner, @Required Address spender);
-
-    class TransferEvent implements Event {
-
-        private Address from;
-
-        private Address to;
-
-        private BigInteger value;
-
-        public TransferEvent(Address from, @Required Address to, @Required BigInteger value) {
-            this.from = from;
-            this.to = to;
-            this.value = value;
-        }
-
-        public Address getFrom() {
-            return from;
-        }
-
-        public void setFrom(Address from) {
-            this.from = from;
-        }
-
-        public Address getTo() {
-            return to;
-        }
-
-        public void setTo(Address to) {
-            this.to = to;
-        }
-
-        public BigInteger getValue() {
-            return value;
-        }
-
-        public void setValue(BigInteger value) {
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            TransferEvent that = (TransferEvent) o;
-
-            if (from != null ? !from.equals(that.from) : that.from != null) return false;
-            if (to != null ? !to.equals(that.to) : that.to != null) return false;
-            return value != null ? value.equals(that.value) : that.value == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = from != null ? from.hashCode() : 0;
-            result = 31 * result + (to != null ? to.hashCode() : 0);
-            result = 31 * result + (value != null ? value.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "TransferEvent{" +
-                    "from=" + from +
-                    ", to=" + to +
-                    ", value=" + value +
-                    '}';
-        }
-
-    }
-
-    class ApprovalEvent implements Event {
-
-        private Address owner;
-
-        private Address spender;
-
-        private BigInteger value;
-
-        public ApprovalEvent(@Required Address owner, @Required Address spender, @Required BigInteger value) {
-            this.owner = owner;
-            this.spender = spender;
-            this.value = value;
-        }
-
-        public Address getOwner() {
-            return owner;
-        }
-
-        public void setOwner(Address owner) {
-            this.owner = owner;
-        }
-
-        public Address getSpender() {
-            return spender;
-        }
-
-        public void setSpender(Address spender) {
-            this.spender = spender;
-        }
-
-        public BigInteger getValue() {
-            return value;
-        }
-
-        public void setValue(BigInteger value) {
-            this.value = value;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-
-            ApprovalEvent that = (ApprovalEvent) o;
-
-            if (owner != null ? !owner.equals(that.owner) : that.owner != null) return false;
-            if (spender != null ? !spender.equals(that.spender) : that.spender != null) return false;
-            return value != null ? value.equals(that.value) : that.value == null;
-        }
-
-        @Override
-        public int hashCode() {
-            int result = owner != null ? owner.hashCode() : 0;
-            result = 31 * result + (spender != null ? spender.hashCode() : 0);
-            result = 31 * result + (value != null ? value.hashCode() : 0);
-            return result;
-        }
-
-        @Override
-        public String toString() {
-            return "ApprovalEvent{" +
-                    "owner=" + owner +
-                    ", spender=" + spender +
-                    ", value=" + value +
-                    '}';
-        }
-
-    }
-
-}
-
-```
-
-## 4. 打包智能合约代码
-
-	mvn clean -DskipTests=true package
-	
-## 5. jar包输出在项目路径下
-
-	$PROJECT_DIR$/target/token-1.0-SNAPSHOT.jar
-	
-![graph](https://github.com/MIMIEYES/readmd/blob/master/package/4.png?raw=true)
-
-
-## 6. 把jar包转换成字节HEX码
-
-```java
-
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.io.IOUtils;
-
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
-public class ContractCodeHexString {
-    public static void main(String[] args) throws IOException {
-        // 把jar包转成流(把jar包文件放到classpath根路径下)
-        InputStream in = new FileInputStream(ContractCodeHexString.class.getResource("/token-1.0-SNAPSHOT.jar").getFile());
-        // 把流转成字节数组
-        byte[] contractCode = IOUtils.toByteArray(in);
-        // 把字节数组转成Hex字符串
-        System.out.println(Hex.encodeHexString(contractCode));
-    }
-}
-
-```
-
-> 此示例需要加入两个依赖来转换HEX码，也可以不使用上述示例，依据自身情况，按上述注释完成jar包转换HEX码
-
-```xml
-
-<dependency>
-    <groupId>commons-codec</groupId>
-    <artifactId>commons-codec</artifactId>
-    <version>1.11</version>
-</dependency>
-
-<dependency>
-    <groupId>commons-io</groupId>
-    <artifactId>commons-io</artifactId>
-    <version>2.6</version>
-</dependency>
-
-```
+# 开发工具
+
+## NULS智能合约Maven-archetype使用文档
+
+### NULS智能合约Maven-archetype介绍
+
+NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目模板，在IntelliJ IDEA添加该Maven archetype，并选择此archetype可以快速地生成NULS智能合约开发项目工程。该智能合约项目为maven项目，其中自带样本合约类，并且所有必需的NULS智能合约依赖项都自动添加到项目中，开发者只需关注智能合约业务逻辑的代码开发。
+
+该maven archetype还集成了离线智能合约客户端，在通过maven打包智能合约之后，会自动启动该离线智能合约客户端，开发者在此客户端上进行智能合约的部署和合约方法调用。
+
+
+### 新建NULS智能合约Maven工程
+
+1、为了解决Intellij IDEA 通过archetype创建Maven项目缓慢的问题，增加maven运行参数： -DarchetypeCatalog=internal，操作步骤如下图：
+
+![](https://i.imgur.com/jG8M6dR.png)
+![](https://i.imgur.com/axexko4.png)
+
+2、在IntelliJ IDEA中选择新建maven项目，然后按下图（图1）的操作顺序将NULS智能合约Maven archetype添加到IDEA中。在添加archetype时参数如下：
+
+         GroupId：io.nuls.v2
+         ArtifactId: nuls-smartcontract-archetype 
+         Version: 0.10
+
+![图1](https://i.imgur.com/jFTBDBh.png)
+
+3、选择“io.nuls.v2:nuls-smartcontract-archetype”，然后点击下一步，如下图所示（图2），创建Maven工程。
+
+> 第一次创建时，可能会等待2~3分钟，请耐心等待
+
+![图2](https://i.imgur.com/roCyIZD.png)
+
+4、最后生成的maven工程如下图（图3）所示，其中pom.xml文件已经加入NULS智能合约所需的依赖jar，开发者无需修改此文件。
+
+![图3](https://i.imgur.com/nw87nAh.png)
+
+5、开始NULS智能合约的业务代码开发，示例见https://github.com/CCC-NULS/pocm-contract
+
+### 打包NULS智能合约
+
+完成智能合约的开发之后，通过“mvn clean pakcage”命令或者IDEA的maven插件对智能合约进行打包，打包完成后会启动离线智能合约客户端，开发者可在此客户端进行智能合约的部署和调用工作。
+
+### 部署合约
+
+在“部署合约”页面，自动加载当前智能合约项目target目录下面的jar包，即maven打包的默认路径。若开发者需要部署其他jar包，可选择其他jar包上传并部署。
+
+![](https://i.imgur.com/CDH844z.png)
+
+### 调用合约
+
+当合约部署成功之后，在“我的合约”页面的列表中展示，开发者点击相应合约的“调用”按钮即可进入调用合约页面，选择调用的合约方法，填写合约方法相关的参数，点击“调用”即可完成合约方法的调用。如下图所示。
+
+![](https://i.imgur.com/VjyGwcR.png)
+
+### 离线智能合约客户端介绍
+
+离线智能合约客户端的主要功能是进行智能合约的部署和发布，同时还提供了账户创建和导入、NULS API module服务节点地址的维护等功能。客户端的主要页面包括我的合约、部署合约、账户管理、服务节点。
+
+离线智能合约客户端的主要优势是，开发者无需在本地部署NULS钱包，仅运行该客户端即可进行智能合约的部署和合法方法调用工作。
+
+#### 我的合约
+
+在“我的合约”页面可以查看选中的账户地址下已经部署的合约列表，点击“调用”按钮可以进入合约方法的调用页面。
+
+![](https://i.imgur.com/POkgE3L.png)
+
+#### 部署合约
+
+在“部署合约”页面进行合约的部署，可以选中“jar包”或“HEX码”两种方式部署合约。
+
+![](https://i.imgur.com/ctTcYdM.png)
+
+
+#### 账户管理
+
+在进行智能合约部署和发布之前，必须通过“进入”按钮选择账户地址，若无账户信息则可以通过创建账户或者导入账户两种方式实现。操作页面如下图所示。
+
+![](https://i.imgur.com/hMJECqh.png)
+
+#### 服务节点
+
+服务节点是指NULS API模块的URL地址，当不选择服务地址时，默认使用http://apitn1.nulscan.io，操作页面如下图所示。
+
+![](https://i.imgur.com/P3rRa4L.png)
+![](https://i.imgur.com/rRUWyI3.png)

@@ -14,15 +14,14 @@ NULS smart contract is developed with Java, and it operates in NULS virtual mach
 
 NULS smart contract adopts IntelliJ IDEA as development tool
 
-### 2.4 Setup of NULS smart contract Maven-archetype(under construction)
+### 2.4 NULS Smart Contract Development Tool
 
-NULS smart contract Maven-archetype provide the following main functions:
+The main features provided by the NULS Smart Contract Development Tool:
 
-* Newly create NULS contract project
-* Compile, package and deploy contracts
-* Display and call contract methods
+* Create a new NULS smart contract Maven project
+* Provide visual pages to compile, package, deploy contracts, call contracts, query contract related data
 
-> [A Maven project specification document that can package smart contract code has been provided](./mavenPackage.html)
+> [Documentation for building a NULS smart contract Development Tool](/NULS2.0/mavenPackage.html)
 
 ## 3. NULS smart contract specifications and syntax
 
@@ -206,6 +205,18 @@ public class SimpleStorage implements Contract {
     public void setStoredData(@Required String storedData) {
         this.storedData = storedData;
     }
+    
+    /**
+     * The return value is automatically serialized by the VM in JSON format and returned as a JSON string.
+     * Note: The object level must not exceed 3 layers. The more than 3 layers will call the object's toString method, and will not continue serialization.
+     */
+    @JSONSerializable
+    public Map vJsonSerializableMap() {
+        Map map = new HashMap();
+        map.put("name", "nuls");
+        map.put("url", "https://nuls.io");
+        return map;
+    }
 
 }
 ```
@@ -219,6 +230,10 @@ After the contract is deployed, _**all public methods of contract class can be c
 
 
 Explanatory comments
+
+@JSONSerializable labels the method of @JSONSerializable, The return value is automatically serialized by the VM in JSON format and returned as a JSON string.
+
+<b style="color:red">Note: The object level must not exceed 3 layers. The more than 3 layers will call the object's toString method, and will not continue serialization.</b>
 
 @View labels the method of @View. After it is added, the contract status will remain and it can be researched by such means
 
@@ -234,7 +249,7 @@ Explanatory comments
 
 [NULS Contract Sample - NRC721](https://github.com/MIMIEYES/NULS-NRC721-baselib)
 
-[NULS Contract Sample - POCM](https://github.com/MIMIEYES/pocmContract-ConsensusEnhancement)
+[NULS Contract Sample - POCM](https://github.com/CCC-NULS/pocm-contract)
 
 ## 5. NULS Contract SDK
 
@@ -251,13 +266,20 @@ public class Address {
         valid(address);
         this.address = address;
     }
-
+    
     /**
-     * Get the balance of the address (only the balance of contract address)
+     * Get the available balance of the address
      *
-     * @return
+     * @return BigInteger
      */
     public native BigInteger balance();
+
+    /**
+     * Get the total balance of the address
+     *
+     * @return BigInteger
+     */
+    public native BigInteger totalBalance();
 
     /**
      * Transfer amount to the address from contract 
@@ -770,13 +792,27 @@ public @interface Required {
 
 ### io.nuls.contract.sdk.annotation.View
 
-`@View`labels the method of `@View`. After it is added, the contract status will remain and it can be researched by such means
+`@View` labels the method of `@View`. After it is added, the contract status will remain and it can be researched by such means
 
 ```java
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface View {
+}
+```
+
+### io.nuls.contract.sdk.annotation.JSONSerializable
+
+`@JSONSerializable` labels the method of @JSONSerializable, the return value is automatically serialized by the VM in JSON format and returned as a JSON string.
+
+<b style="color:red">Note: The object level must not exceed 3 layers. The more than 3 layers will call the object's toString method, and will not continue serialization.</b>
+
+```java
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface JSONSerializable {
 }
 ```
 
