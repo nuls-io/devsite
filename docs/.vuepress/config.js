@@ -131,6 +131,7 @@ module.exports = {
                             collapsable:false,
                             children: [
                                 'smartContractManual',
+                                'mavenPackage',
                                 'NRC-20TokenStandard',
                                 'NRC-721',
                                 'smartContractFee',
@@ -249,9 +250,9 @@ module.exports = {
                             collapsable:false,
                             children: [
                                 'smartContractManual',
+                                'mavenPackage',
                                 'NRC-20TokenStandard',
                                 'NRC-721',
-                                'mavenPackage',
                                 'offlineAssembly',
                                 'assetsOff',
                                 'vm-sdk',
