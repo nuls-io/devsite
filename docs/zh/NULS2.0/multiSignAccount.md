@@ -85,12 +85,14 @@ pubKeys = [A账户的公钥，B账户的地址，C账户的公钥]
 | signAddress                                                  |   string   | 第一个签名账户地址(不填则只创建交易不签名) |    否    |
 | signPassword                                                 |   string   | 第一个签名账户密码(不填则只创建交易不签名) |    否    |
 
-返回值  
+返回值   
+
 | 字段名    | 字段类型 | 参数描述                                                    |  
 | --------- | :------: | ----------------------------------------------------------- |
 | tx        |  string  | 完整交易序列化字符串,如果交易没达到最小签名数可继续签名     |
 | txHash    |  string  | 交易hash                                                    |
 | completed | boolean  | true:交易已完成(已广播),false:交易没完成,没有达到最小签名数 |
+
 
 ### ac_signMultiSignTransaction 
 多签交易签名/sign MultiSign Transaction
@@ -110,7 +112,8 @@ pubKeys = [A账户的公钥，B账户的地址，C账户的公钥]
 | completed | boolean  | true:交易已完成(已广播),false:交易没完成,没有达到最小签名数 |
 
 ### ac_setMultiSignAlias   
-设置别名/set the alias of multi sign account   
+设置别名/set the alias of multi sign account  
+
 | 参数名       | 参数类型 | 参数描述                                   | 是否非空 |  
 | ------------ | :------: | ------------------------------------------ | :------: |
 | chainId      |   int    | 链id                                       |    是    |
@@ -156,6 +159,7 @@ pubKeys = [A账户的公钥，B账户的地址，C账户的公钥]
 ### cs_multiDeposit 
 
 多签账户委托共识/Multi-Sign Account deposit agent transaction   
+
 | 参数名      | 参数类型 | 参数描述     | 是否非空 |  
 | ----------- | :------: | ------------ | :------: |
 | chainId     |   int    | 链id         |    是    |
@@ -200,6 +204,7 @@ pubKeys = [A账户的公钥，B账户的地址，C账户的公钥]
 ### cs_stopMultiAgent  
 
 多签账户注销节点/Multi-Sign Account stop agent   
+
 | 参数名      | 参数类型 | 参数描述           | 是否非空 |
 | ----------- | :------: | ------------------ | :------: |
 | chainId     |   int    | 链id               |    是    |
