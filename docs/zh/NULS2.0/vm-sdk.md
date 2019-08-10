@@ -1,15 +1,16 @@
-# VM-SDK_Utils#invokeExternalCmd函数(合约调用外部命令说明)
+# 合约调用外部命令说明
 
 ```java
-/**
- * 调用链上其他模块的命令
- *
- * @param cmdName 命令名称
- * @param args 命令参数
- * @return 命令返回值(根据注册命令的返回类型可返回字符串,字符串数组,字符串二维数组)
- */
-public static native Object invokeExternalCmd(String cmdName, String[] args);
-
+public class Utils {
+    /**
+     * 调用链上其他模块的命令
+     *
+     * @param cmdName 命令名称
+     * @param args 命令参数
+     * @return 命令返回值(根据注册命令的返回类型可返回字符串,字符串数组,字符串二维数组)
+     */
+    public static native Object invokeExternalCmd(String cmdName, String[] args);
+}
 ```
 
 ## 1. 生成合约共识交易的功能
