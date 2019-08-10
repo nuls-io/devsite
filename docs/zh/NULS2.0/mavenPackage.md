@@ -13,8 +13,9 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 1、为了解决Intellij IDEA 通过archetype创建Maven项目缓慢的问题，增加maven运行参数： -DarchetypeCatalog=internal，操作步骤如下图：
 
-![](https://i.imgur.com/jG8M6dR.png)
-![](https://i.imgur.com/axexko4.png)
+![](../../NULS2.0/mavenPackage/jG8M6dR.png)
+
+![](../../NULS2.0/mavenPackage/axexko4.png)
 
 2、在IntelliJ IDEA中选择新建maven项目，然后按下图（图1）的操作顺序将NULS智能合约Maven archetype添加到IDEA中。在添加archetype时参数如下：
 
@@ -22,17 +23,17 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
          ArtifactId: nuls-smartcontract-archetype 
          Version: 0.10
 
-![图1](https://i.imgur.com/jFTBDBh.png)
+![图1](../../NULS2.0/mavenPackage/jFTBDBh.png)
 
 3、选择“io.nuls.v2:nuls-smartcontract-archetype”，然后点击下一步，如下图所示（图2），创建Maven工程。
 
 > 第一次创建时，可能会等待2~3分钟，请耐心等待
 
-![图2](https://i.imgur.com/roCyIZD.png)
+![图2](../../NULS2.0/mavenPackage/roCyIZD.png)
 
 4、最后生成的maven工程如下图（图3）所示，其中pom.xml文件已经加入NULS智能合约所需的依赖jar，开发者无需修改此文件。
 
-![图3](https://i.imgur.com/nw87nAh.png)
+![图3](../../NULS2.0/mavenPackage/nw87nAh.png)
 
 5、开始NULS智能合约的业务代码开发，示例见https://github.com/CCC-NULS/pocm-contract
 
@@ -44,13 +45,13 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 在“部署合约”页面，自动加载当前智能合约项目target目录下面的jar包，即maven打包的默认路径。若开发者需要部署其他jar包，可选择其他jar包上传并部署。
 
-![](https://i.imgur.com/CDH844z.png)
+![](./mavenPackage/CDH844z.png)
 
 ### 调用合约
 
 当合约部署成功之后，在“我的合约”页面的列表中展示，开发者点击相应合约的“调用”按钮即可进入调用合约页面，选择调用的合约方法，填写合约方法相关的参数，点击“调用”即可完成合约方法的调用。如下图所示。
 
-![](https://i.imgur.com/VjyGwcR.png)
+![](./mavenPackage/VjyGwcR.png)
 
 ### 离线智能合约客户端介绍
 
@@ -62,24 +63,25 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 在“我的合约”页面可以查看选中的账户地址下已经部署的合约列表，点击“调用”按钮可以进入合约方法的调用页面。
 
-![](https://i.imgur.com/POkgE3L.png)
+![](./mavenPackage/POkgE3L.png)
 
 #### 部署合约
 
 在“部署合约”页面进行合约的部署，可以选中“jar包”或“HEX码”两种方式部署合约。
 
-![](https://i.imgur.com/ctTcYdM.png)
+![](./mavenPackage/ctTcYdM.png)
 
 
 #### 账户管理
 
 在进行智能合约部署和发布之前，必须通过“进入”按钮选择账户地址，若无账户信息则可以通过创建账户或者导入账户两种方式实现。操作页面如下图所示。
 
-![](https://i.imgur.com/hMJECqh.png)
+![](./mavenPackage/hMJECqh.png)
 
 #### 服务节点
 
 服务节点是指NULS API模块的URL地址，当不选择服务地址时，默认使用http://apitn1.nulscan.io，操作页面如下图所示。
 
-![](https://i.imgur.com/P3rRa4L.png)
-![](https://i.imgur.com/rRUWyI3.png)
+![](./mavenPackage/P3rRa4L.png)
+
+![](./mavenPackage/rRUWyI3.png)
