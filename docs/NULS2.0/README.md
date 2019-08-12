@@ -10,17 +10,19 @@ The NULS core team innovatively introduced micro-service thinking into the desig
 The Beta version test mainly includes:
 - [NULS ChianBox](/NULS2.0/chainBoxGuide.html)
 - [Develope Module](/NULS2.0/developeModule.html)
-- 2.0 light wallet
+- [Web wallet](http://beta.wallet.nuls.io/)
+- [Node Wallet and Light Wallet](https://github.com/nuls-io/nuls-v2/releases)
+- [Blockchain Explorer](http://beta.nulscan.io/)
 
 ### Join Test：
 
-1 [Download wallet](https://github.com/nuls-io/nuls-v2/releases)
+1 [Download wallet](https://github.com/nuls-io/nuls-v2/releases) or directly access [Web wallet](http://beta.wallet.nuls.io/)
 
-2 [linux CLI Manual](/NULS2.0/linuxTutorial.html)
+2 If you want to use linux wallet,you need learn [linux CLI Manual](/NULS2.0/linuxTutorial.html)
 
 3 [Apply for test NULS](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141) and reply: beta+address
 
-4 Access blockchain explorer: [http://beta.nulscan.io/](http://beta.nulscan.io/)
+4 [Access blockchain explorer](http://beta.nulscan.io/)
 
 5 [NULS ChianBox](/NULS2.0/chainBoxGuide.html)
 
@@ -31,6 +33,5 @@ The Beta version test mainly includes:
 - Github:[https://github.com/nuls-io/nuls_2.0](https://github.com/nuls-io/nuls_2.0)
 - Community：[https://nuls.community](https://nuls.community)
 - Tech community Telegram：[https://t.me/nulstest](https://t.me/nulstest)
-- Wechat：NULS中文社区
-
+  
 To learn more about us, visit [nuls.io](https://nuls.io).
