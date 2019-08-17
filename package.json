@@ -1,34 +1,9 @@
 {
-  "name": "NULS-developer-site",
-  "version": "1.0.0",
-  "license": "MIT",
-  "hexo": {
-    "version": "3.7.1"
-  },
   "scripts": {
-    "build": "rm -rf public && hexo generate",
-    "eslint": "eslint .",
-    "deploy": "hexo clean && hexo deploy",
-    "dev": "hexo server",
-    "clean": "hexo clean"
-  },
-  "dependencies": {
-    "cheerio": "^0.22.0",
-    "hexo": "^3.7.1",
-    "hexo-deployer-git": "^0.3.1",
-    "hexo-generator-archive": "^0.1.4",
-    "hexo-generator-feed": "^1.1.0",
-    "hexo-generator-sitemap": "^1.1.2",
-    "hexo-renderer-jade": "^0.4.1",
-    "hexo-renderer-marked": "^0.3.2",
-    "hexo-renderer-stylus": "^0.3.1",
-    "hexo-server": "^0.3.2",
-    "lodash": "^4.5.1",
-    "lunr": "^2.1.2"
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
   },
   "devDependencies": {
-    "del": "^3.0.0",
-    "eslint": "^5.1.0",
-    "eslint-config-hexo": "^3.0.0"
+    "vuepress": "^0.14.8"
   }
 }

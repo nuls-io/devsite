@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Consensus module design document | NULS</title>
+    <meta name="description" content="NULS">
+    <link rel="icon" href="/icon.png">
+    
+    <link rel="preload" href="/assets/css/0.styles.3751d6d5.css" as="style"><link rel="preload" href="/assets/js/app.15dd29f7.js" as="script"><link rel="preload" href="/assets/js/50.76124638.js" as="script"><link rel="prefetch" href="/assets/js/10.2cc8f5c2.js"><link rel="prefetch" href="/assets/js/100.d3a152d6.js"><link rel="prefetch" href="/assets/js/101.2a081cb7.js"><link rel="prefetch" href="/assets/js/102.a47ba456.js"><link rel="prefetch" href="/assets/js/103.d5ac9751.js"><link rel="prefetch" href="/assets/js/104.7595a7fc.js"><link rel="prefetch" href="/assets/js/105.828dda8f.js"><link rel="prefetch" href="/assets/js/106.e754f194.js"><link rel="prefetch" href="/assets/js/107.775c5175.js"><link rel="prefetch" href="/assets/js/108.8b1f0e7f.js"><link rel="prefetch" href="/assets/js/109.2f3b3253.js"><link rel="prefetch" href="/assets/js/11.b0ceb74e.js"><link rel="prefetch" href="/assets/js/110.aa04c678.js"><link rel="prefetch" href="/assets/js/111.f62d78bb.js"><link rel="prefetch" href="/assets/js/112.69acd927.js"><link rel="prefetch" href="/assets/js/113.888160f3.js"><link rel="prefetch" href="/assets/js/114.29e41199.js"><link rel="prefetch" href="/assets/js/115.d2ee5369.js"><link rel="prefetch" href="/assets/js/116.51fc87d4.js"><link rel="prefetch" href="/assets/js/117.4c9dc648.js"><link rel="prefetch" href="/assets/js/118.83070636.js"><link rel="prefetch" href="/assets/js/119.665c7995.js"><link rel="prefetch" href="/assets/js/12.02dfbd69.js"><link rel="prefetch" href="/assets/js/120.214bbe7a.js"><link rel="prefetch" href="/assets/js/121.bf9971ed.js"><link rel="prefetch" href="/assets/js/122.7560b52a.js"><link rel="prefetch" href="/assets/js/123.1d267c1f.js"><link rel="prefetch" href="/assets/js/124.f5bbb448.js"><link rel="prefetch" href="/assets/js/125.376b8644.js"><link rel="prefetch" href="/assets/js/126.f44dfff9.js"><link rel="prefetch" href="/assets/js/127.4bfabc7b.js"><link rel="prefetch" href="/assets/js/128.f1386192.js"><link rel="prefetch" href="/assets/js/129.bc8e43b2.js"><link rel="prefetch" href="/assets/js/13.6ff2f0d4.js"><link rel="prefetch" href="/assets/js/130.cacc4ae3.js"><link rel="prefetch" href="/assets/js/131.84d456ba.js"><link rel="prefetch" href="/assets/js/132.2aae8ca6.js"><link rel="prefetch" href="/assets/js/133.1a312ad1.js"><link rel="prefetch" href="/assets/js/134.703ce965.js"><link rel="prefetch" href="/assets/js/135.8cee3887.js"><link rel="prefetch" href="/assets/js/136.b36f5811.js"><link rel="prefetch" href="/assets/js/137.eda59c8e.js"><link rel="prefetch" href="/assets/js/138.551346e5.js"><link rel="prefetch" href="/assets/js/139.3a3f1471.js"><link rel="prefetch" href="/assets/js/14.fa820f23.js"><link rel="prefetch" href="/assets/js/140.1e504789.js"><link rel="prefetch" href="/assets/js/141.4bf908a3.js"><link rel="prefetch" href="/assets/js/142.618b966f.js"><link rel="prefetch" href="/assets/js/143.36491f90.js"><link rel="prefetch" href="/assets/js/144.76d9a156.js"><link rel="prefetch" href="/assets/js/145.be4615d5.js"><link rel="prefetch" href="/assets/js/146.a073f6bd.js"><link rel="prefetch" href="/assets/js/147.fec28542.js"><link rel="prefetch" href="/assets/js/148.1a4b00b2.js"><link rel="prefetch" href="/assets/js/149.6671cebe.js"><link rel="prefetch" href="/assets/js/15.1f656e2a.js"><link rel="prefetch" href="/assets/js/150.75db4652.js"><link rel="prefetch" href="/assets/js/151.b3ee235e.js"><link rel="prefetch" href="/assets/js/152.63fb9894.js"><link rel="prefetch" href="/assets/js/153.852b7cff.js"><link rel="prefetch" href="/assets/js/154.dbd3a07d.js"><link rel="prefetch" href="/assets/js/155.6f6f946b.js"><link rel="prefetch" href="/assets/js/156.8e16b0e8.js"><link rel="prefetch" href="/assets/js/157.8dbfeb43.js"><link rel="prefetch" href="/assets/js/158.919c857b.js"><link rel="prefetch" href="/assets/js/159.09925f42.js"><link rel="prefetch" href="/assets/js/16.aa19419e.js"><link rel="prefetch" href="/assets/js/160.797785d9.js"><link rel="prefetch" href="/assets/js/161.4d34eb09.js"><link rel="prefetch" href="/assets/js/162.94099c67.js"><link rel="prefetch" href="/assets/js/163.9f984d63.js"><link rel="prefetch" href="/assets/js/164.9e26163d.js"><link rel="prefetch" href="/assets/js/165.c8de855f.js"><link rel="prefetch" href="/assets/js/166.d8e0213d.js"><link rel="prefetch" href="/assets/js/167.778d1b2a.js"><link rel="prefetch" href="/assets/js/168.6ad455d7.js"><link rel="prefetch" href="/assets/js/169.f26a480a.js"><link rel="prefetch" href="/assets/js/17.4eef6f4e.js"><link rel="prefetch" href="/assets/js/170.9f0e1298.js"><link rel="prefetch" href="/assets/js/171.fc4a1cfb.js"><link rel="prefetch" href="/assets/js/172.d5c28bec.js"><link rel="prefetch" href="/assets/js/173.2cfc6896.js"><link rel="prefetch" href="/assets/js/174.6ac11f1d.js"><link rel="prefetch" href="/assets/js/175.ff16c02e.js"><link rel="prefetch" href="/assets/js/176.5d7156d4.js"><link rel="prefetch" href="/assets/js/177.89dacd78.js"><link rel="prefetch" href="/assets/js/178.a59d32eb.js"><link rel="prefetch" href="/assets/js/179.a6c468fe.js"><link rel="prefetch" href="/assets/js/18.f6c2f0b8.js"><link rel="prefetch" href="/assets/js/180.ebd647d5.js"><link rel="prefetch" href="/assets/js/181.872ce38a.js"><link rel="prefetch" href="/assets/js/182.0db6d70c.js"><link rel="prefetch" href="/assets/js/183.963128a1.js"><link rel="prefetch" href="/assets/js/184.b537b1fa.js"><link rel="prefetch" href="/assets/js/185.30696c6b.js"><link rel="prefetch" href="/assets/js/186.0ad2973d.js"><link rel="prefetch" href="/assets/js/187.ada551ca.js"><link rel="prefetch" href="/assets/js/188.0bf963be.js"><link rel="prefetch" href="/assets/js/189.39991fc7.js"><link rel="prefetch" href="/assets/js/19.c066ca9d.js"><link rel="prefetch" href="/assets/js/190.7453b0ea.js"><link rel="prefetch" href="/assets/js/191.6f8d2b48.js"><link rel="prefetch" href="/assets/js/192.ffa7a0ae.js"><link rel="prefetch" href="/assets/js/193.6b5187de.js"><link rel="prefetch" href="/assets/js/194.33c85b12.js"><link rel="prefetch" href="/assets/js/195.6ce6baa9.js"><link rel="prefetch" href="/assets/js/196.b7f7795d.js"><link rel="prefetch" href="/assets/js/197.56c70085.js"><link rel="prefetch" href="/assets/js/198.2b4a23bb.js"><link rel="prefetch" href="/assets/js/199.07618bd4.js"><link rel="prefetch" href="/assets/js/2.434158f1.js"><link rel="prefetch" href="/assets/js/20.5171c565.js"><link rel="prefetch" href="/assets/js/200.cd38ef32.js"><link rel="prefetch" href="/assets/js/201.63a35536.js"><link rel="prefetch" href="/assets/js/202.8463e76c.js"><link rel="prefetch" href="/assets/js/203.c2eff4d8.js"><link rel="prefetch" href="/assets/js/204.1b6a7ee2.js"><link rel="prefetch" href="/assets/js/205.84d64836.js"><link rel="prefetch" href="/assets/js/21.db5c56e6.js"><link rel="prefetch" href="/assets/js/22.498863f8.js"><link rel="prefetch" href="/assets/js/23.9f1f092a.js"><link rel="prefetch" href="/assets/js/24.2dd53084.js"><link rel="prefetch" href="/assets/js/25.0460bbcd.js"><link rel="prefetch" href="/assets/js/26.cac7fce9.js"><link rel="prefetch" href="/assets/js/27.d07d1fcb.js"><link rel="prefetch" href="/assets/js/28.af448362.js"><link rel="prefetch" href="/assets/js/29.014f7be8.js"><link rel="prefetch" href="/assets/js/3.944c2fb9.js"><link rel="prefetch" href="/assets/js/30.71024fdc.js"><link rel="prefetch" href="/assets/js/31.a1d400ee.js"><link rel="prefetch" href="/assets/js/32.f6916684.js"><link rel="prefetch" href="/assets/js/33.7a11d236.js"><link rel="prefetch" href="/assets/js/34.2e902b60.js"><link rel="prefetch" href="/assets/js/35.77cbe800.js"><link rel="prefetch" href="/assets/js/36.b4a03b7d.js"><link rel="prefetch" href="/assets/js/37.835e1993.js"><link rel="prefetch" href="/assets/js/38.d905a078.js"><link rel="prefetch" href="/assets/js/39.9a0ea84a.js"><link rel="prefetch" href="/assets/js/4.10b50b1a.js"><link rel="prefetch" href="/assets/js/40.6894dc38.js"><link rel="prefetch" href="/assets/js/41.9abdd72f.js"><link rel="prefetch" href="/assets/js/42.791cbfec.js"><link rel="prefetch" href="/assets/js/43.b4204359.js"><link rel="prefetch" href="/assets/js/44.79523177.js"><link rel="prefetch" href="/assets/js/45.52dab45f.js"><link rel="prefetch" href="/assets/js/46.d45f0044.js"><link rel="prefetch" href="/assets/js/47.66798c19.js"><link rel="prefetch" href="/assets/js/48.2f7186f9.js"><link rel="prefetch" href="/assets/js/49.eeb6792f.js"><link rel="prefetch" href="/assets/js/5.54beffe8.js"><link rel="prefetch" href="/assets/js/51.b430df64.js"><link rel="prefetch" href="/assets/js/52.dc55c14c.js"><link rel="prefetch" href="/assets/js/53.336f003c.js"><link rel="prefetch" href="/assets/js/54.5f4ba8e6.js"><link rel="prefetch" href="/assets/js/55.07cb4238.js"><link rel="prefetch" href="/assets/js/56.051d4b4e.js"><link rel="prefetch" href="/assets/js/57.bd3f6e79.js"><link rel="prefetch" href="/assets/js/58.220ce9c8.js"><link rel="prefetch" href="/assets/js/59.896c6030.js"><link rel="prefetch" href="/assets/js/6.0c2e36a1.js"><link rel="prefetch" href="/assets/js/60.c437b838.js"><link rel="prefetch" href="/assets/js/61.f607b3ec.js"><link rel="prefetch" href="/assets/js/62.a2eb63e8.js"><link rel="prefetch" href="/assets/js/63.7b74ed20.js"><link rel="prefetch" href="/assets/js/64.ab1a2432.js"><link rel="prefetch" href="/assets/js/65.23af0670.js"><link rel="prefetch" href="/assets/js/66.2cf2b73c.js"><link rel="prefetch" href="/assets/js/67.dd039849.js"><link rel="prefetch" href="/assets/js/68.c1f2396d.js"><link rel="prefetch" href="/assets/js/69.f64d6dc5.js"><link rel="prefetch" href="/assets/js/7.66c6371d.js"><link rel="prefetch" href="/assets/js/70.1b8f30ff.js"><link rel="prefetch" href="/assets/js/71.6abde1ee.js"><link rel="prefetch" href="/assets/js/72.a80f16f5.js"><link rel="prefetch" href="/assets/js/73.6690fcbd.js"><link rel="prefetch" href="/assets/js/74.d7f82bfd.js"><link rel="prefetch" href="/assets/js/75.fc906157.js"><link rel="prefetch" href="/assets/js/76.106a4524.js"><link rel="prefetch" href="/assets/js/77.ad77edec.js"><link rel="prefetch" href="/assets/js/78.10c7b197.js"><link rel="prefetch" href="/assets/js/79.08097c6d.js"><link rel="prefetch" href="/assets/js/8.b37e7034.js"><link rel="prefetch" href="/assets/js/80.c33bd3c0.js"><link rel="prefetch" href="/assets/js/81.c1c8227b.js"><link rel="prefetch" href="/assets/js/82.042ca332.js"><link rel="prefetch" href="/assets/js/83.371427a4.js"><link rel="prefetch" href="/assets/js/84.95658ce6.js"><link rel="prefetch" href="/assets/js/85.e4365ba5.js"><link rel="prefetch" href="/assets/js/86.c5ed5194.js"><link rel="prefetch" href="/assets/js/87.1a56019a.js"><link rel="prefetch" href="/assets/js/88.a0664933.js"><link rel="prefetch" href="/assets/js/89.365bb774.js"><link rel="prefetch" href="/assets/js/9.c34e88ed.js"><link rel="prefetch" href="/assets/js/90.2330af89.js"><link rel="prefetch" href="/assets/js/91.25be9d8a.js"><link rel="prefetch" href="/assets/js/92.7fca59f6.js"><link rel="prefetch" href="/assets/js/93.5d25de24.js"><link rel="prefetch" href="/assets/js/94.52f3f774.js"><link rel="prefetch" href="/assets/js/95.3da9bca5.js"><link rel="prefetch" href="/assets/js/96.24b73c87.js"><link rel="prefetch" href="/assets/js/97.cd2d42fb.js"><link rel="prefetch" href="/assets/js/98.a520e926.js"><link rel="prefetch" href="/assets/js/99.22c2d988.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.3751d6d5.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container no-sidebar"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">NULS</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/learn/" class="nav-link">Guide</a></div><div class="nav-item"><a href="/NULS1.0/" class="nav-link">NULS1.0</a></div><div class="nav-item"><a href="/NULS2.0/" class="nav-link">NULS2.0</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/NULSInfrastructure/consensusModuleDesign.html" class="nav-link router-link-exact-active router-link-active">English</a></li><li class="dropdown-item"><!----> <a href="/zh/NULSInfrastructure/consensusModuleDesign.html" class="nav-link">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/learn/" class="nav-link">Guide</a></div><div class="nav-item"><a href="/NULS1.0/" class="nav-link">NULS1.0</a></div><div class="nav-item"><a href="/NULS2.0/" class="nav-link">NULS2.0</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/NULSInfrastructure/consensusModuleDesign.html" class="nav-link router-link-exact-active router-link-active">English</a></li><li class="dropdown-item"><!----> <a href="/zh/NULSInfrastructure/consensusModuleDesign.html" class="nav-link">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <!----> </div> <div class="page"> <div class="content"><h1 id="consensus-module-design-document"><a href="#consensus-module-design-document" aria-hidden="true" class="header-anchor">#</a> Consensus module design document</h1> <p>[TOC]</p> <h2 id="_1、general-description"><a href="#_1、general-description" aria-hidden="true" class="header-anchor">#</a> 1、General description</h2> <h3 id="_1-1-module-overview"><a href="#_1-1-module-overview" aria-hidden="true" class="header-anchor">#</a> 1.1 Module overview</h3> <h4 id="_1-1-1-why-do-you-have-a-consensus-module"><a href="#_1-1-1-why-do-you-have-a-consensus-module" aria-hidden="true" class="header-anchor">#</a> 1.1.1 Why do you have a consensus module</h4> <p>​	As we all know, the core of the blockchain is the consensus mechanism. Unlike the traditional Internet's clipet-server architecture, the agents of the blockchain are peer-to-peer, without the center, and everyone has the same rights; so in order to make the data consistent, let a network without a center maintain a set of books that everyone agrees with. This is the role of the consensus mechanism.</p> <p>​	Broadly speaking, the consensus mechanism is the rule or algorithm that each agent of the blockchain adheres to, and is the basis for mutual trust. In this way, it can achieve decentralized unsupervised and maintain the normal operation of the entire platform.</p> <p>​	In a narrow sense, the consensus mechanism determines the mechanism by which each agent verifies and validates transactions on the blockchain.</p> <h4 id="_1-1-2-what-does-the-consensus-module-do"><a href="#_1-1-2-what-does-the-consensus-module-do" aria-hidden="true" class="header-anchor">#</a> 1.1.2 What does the consensus module do</h4> <p>​	Each transaction in the blockchain must be approved by each agent, and the transaction is completed only after the entire network has reached a consensus. It is like in a democratic election, the voting method or rules must be recognized by the whole people, based on which the election can be completed. In the blockchain, the main performance of the consensus mechanism is the incentive system, which is the reward for the miners. Under the guarantee of the consensus mechanism, every miner can be rewarded, and the entire blockchain can operate in an orderly manner, providing a fair, transparent and trusting environment. Therefore, the consensus module needs to provide a specific algorithm to maintain, that is, the consensus algorithm.</p> <p>​	There are many public chain consensus mechanisms, and the mainstream is POW, POS, and DPOS. The NULS main network adopts the self-originated POC (Proof Of Credit) consensus mechanism, which inherits the security and high efficiency of the Dpos consensus mechanism. At the same time, it has made great improvements in collaboration, which can be regarded as an upgraded version. Dpos.</p> <p>​	POC Consensus module responsibility：</p> <ul><li><p>Legality verification after block synchronization</p></li> <li><p>Create consensus agents, delegate participation consensus, cancel delegation, and cancel consensus agents ★</p></li> <li><p>Consensus agent packs out blocks</p></li> <li><p>Disbursement of network maintenance incentives</p></li> <li><p>Bad agent punishment ★</p> <p><strong>PS：Different consensus mechanisms have different consensus algorithms. The above marked ★ is unique to POC consensus.</strong></p></li></ul> <h4 id="_1-1-3-《consensus-module》positioning-in-the-system"><a href="#_1-1-3-《consensus-module》positioning-in-the-system" aria-hidden="true" class="header-anchor">#</a> 1.1.3 《Consensus module》Positioning in the system</h4> <p>​	The consensus module is a relatively core piece in the system. It is mainly responsible for packing transactions, verifying block headers, managing consensus agent information in the management system, entrusting information, and penalizing information.</p> <h3 id="_1-2-architecture-diagram"><a href="#_1-2-architecture-diagram" aria-hidden="true" class="header-anchor">#</a> 1.2 Architecture diagram</h3> <p><img src="/assets/img/consensus-constants.5d3198f1.jpg" alt></p> <p>Description：</p> <ul><li>Services：
+<ul><li>tx service : Additions, deletions and changes to transactions</li> <li>consensus service : Consensus activities and state management, functional design</li></ul></li> <li>Validator
+<ul><li>tx Validator: Validator for consensus-related transactions for verifying consensus-related transactions</li></ul></li> <li>Processor
+<ul><li>Tx Processor:Consensus module related transaction processor for submitting rollback detection transactions</li></ul></li> <li>Task/Thread：
+<ul><li>consensus Task: Consensus packaging</li> <li>Reward Task ： Data statistics</li></ul></li> <li>Storage:Store consensus module related transaction data</li></ul> <h3 id="_2-0-functional-architecture-diagram"><a href="#_2-0-functional-architecture-diagram" aria-hidden="true" class="header-anchor">#</a> 2.0 Functional architecture diagram</h3> <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAjEAAADzCAIAAAD4stA1AAAa1klEQVR4nO3df28ct53H8T4g+y8/G/1jPZL9S/sU7k9tC8gQrkCBABfEcAs1DRQJKXoXK/ElStw0Oqs5X1M3sS1Zrl0Dxs3v+ZJDznB3hjMc7rt44SCvOBzORMfPksNd/uL9uxsAAELwi8lbAABAjkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAublaHnn1p07t1N3V5eTtOFitVu2Yffgsf9GBnDJGAuZBMzQ8aKjgy5iY+fwwlcbTvZu2TPJrZHDXjKiQCYBc5QNHVo66LwHv7M48deG7BRtmdTZyGEvGVEgk4A5CqCDJpPgAZkEzFEAHTSZBA/IJMCL/HFLau+onEkzLAq4PNipfmWaant8ePdWVWB5XL0uO2ixBCB7gFSfuqqwbkDyiqxTP6PanpIxCcpMEqeTLbyxpIhyRenNGeKSDTXrjcE8kEmAN1USlD1v0X0r/1RjQ+nB855XFqj6X627z7pjeWyxxkFETr1YrqikiB+RCvkrRVeel+9+ZFV1/UUkWFLEdEXNRva45PRmVteS1UwmzRGZBPjT7JTzjjvvZ7VOXP4qlSVW/c88MMphllJzUrLR/+a1ye6++YrWPL21WgN0hrk7NVGMKaJVmAebEtKbXXL6W6Uxx4vWeUUEikwC/DFMXjVHJxWlR24MU5RBjKjZFEg3a2SSFiGiwPqZVAwEm400XlH9Yn7SXpdczOYxNpo7Mgnwx/RAxfg5m8bEWtfHcfKaF0t9uqyyQSZtMndnfDxmHNlYrihvQ3bVPS9ZPLTz+sEseEUmAf7YM6kYJ5WP5cu3/+tlUlpY9OlKgU0yqT6vdQGCXtI4TvKYSW2XXDeg9TsmEDQyCfDHOneXdZd639o+d2et2fzx2M0yKXnF+WO2A87d5S/2vWRLtZgVMgnwp3WNQ2NYoD6/aS5jy1/MO2KlZtMzqo3n7vpkUvuiCesah7KSHpfcWNGw3rUgGGQS4E/x4L3qLpWpLXUldPnBINFl699Zl3bZloc9RW8u+uXmBJftFdFxK49kumbAzGvBW+vXFn83RzMbX7K6fi//LXN3c0QmAf7kb+13qm/R1kYJ8gOqaQdarXTQhhrqserHWtWP7+QzWmq0pH26yyv5GcV3fnfEUlKD+nHg5nIJ08dXlU+2mmre6JKTZiv3mQV4c0UmAf7M6+twjK2d1yVg9sgkwJ85dejZWMSyfq99AR4wHDIJ8GZeq79MS7EtQQX4QiYBXsgPynR/1icQzTUOcwlUxIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMAgCEgkwCAISCTAIAhIJMApzsf/hf2BKT/7FtMzIJ8fvHzz99++Tp5+dP+pi8o8RoJv+L3WZkEqL1/MXzoz89bvY4H3zy1fHD78gk2Ez+p7vNyCTEKRkY/eqjh7Kj+c3Hjy5++NvGFU7eUWI0k//1bjMyCRH6+vsftF4mGRi9e3s9ecMAtCOTEJvnL55rI6TTL76fvFUAXMw0k7LtO8UuL7sHj80l803VlC1hFietdZZVZdtr1ke1b2umFb69PLYWzjZJ69yfxmdjij1ybJWUh5v3+1njSqdy//RcBtJvPn7ECAmYi9llkt4nWjt3Qxq1b7AmYqC5s5k9+fSMaTmFvUmNnt1nYzbNpDWudDpJ/Gizdk9/fDZ5qwA4mlcm1cMjrUdOu0uZSaL3V7t7EWl6T1rGwN5C36+6rq3Rj5eBobUn3WNUq99cSdUerWafjdksk9yvdFI/PvuHDKRfffRw8iYBcDenTCo3k26fuboRHb15mq56v6/GlZgPtA9x1B65fZrL1CTDTJ2xEp+N2SST3K90Yo+++6vMpP/49OvJmwTA3XwyqXyf3v0Ao6PPvbEkRBUDxiQzHlK8aH2a5dgkw2+na0xrJnVXPjXtg0R/fHQxeZMAuJtNJhWDJPOKgPVLFv2y7PHLGLAMBYrRlVqtY6u6ihWnFnHrsTGbzd253/9paZmU/HPyJgFwN5dMcn+f7laymP4yDE1sB5YzfurARSxAsJ+xs0nNAv4a0/d5UuCjJTIJmLW5ZFJzJNGzpHVosl4MvLvR18UZRhL6ynWbvpnk1Jgea8FdKp8amQTMGpmkv7J2DCi/NS6PHjGTuhvT8/NJXZVPjUwCZm1mmeQwa+RWcqi5O3O1WmftHqgjNMZ47ZLbEjtb5VMjk4BZm0smrbEWuXga317SvsahVwwoJatOf4NFa/4aM1Am2SqfGpkEzNpcMmmN7s+hZNtHgvrHQDWGqAZGaxzrvzEdlVcDIJfRj6HyiZFJwKzNJpPqpzLdj9bbP9xjC63BY8D0eSNbR3+xWirn9dqYls8Ut3zPhWPlEyOTgFmbUSYp6760N+aWr89p+26hRne/QQyktdm+qk7LTrE0QEsC48ye38aI+9OcvdzZtXxm1rXySZFJwKzNKpPeNZYjtywAa/0OVtNc04YxYDmFYQRj/Q5TQ3nvjSm/qEmTjHhav1vIrfIJkUnArM0tkzLNzt32PKNZ0r7QYLPpMkNn3fpwpVneOPE1SmPMnzeyrXFY90qnQSZtI33qe5tEd+2zzCTAhkzaQsmgP+TvFuHa10ImISpkUrDkpEU9wrZ9OUhjT5Z8tnn3YFV9Aj2vRMxCK1MOjfJiXlqUbLbKdiIPl2BuUv9rnzUyCVEhk0IllskknXjRcR8tRbcr3u8bC+eRUMxXiy3T0sL2LS6L8ln3XZxLO3atEw14CUM1iXESEC4yaQbSgUXWvaYDAjEUqB5hitflz2lfXJWpKmnPpLK8su2n6OsNrbKeaOBLMDdpoGufLzIJUSGTgqUuOMq7VMsgQ1806zGTTK2yZtKwl2DPpAGufb7IJESFTAqUHG3oP6uPYd7l/bLl0xTDZpKlVeYTDX0J9kwa4Nrni0xCVMikQIlOPHuOUv1sfDivdLUnB2JMYxq+2NaerZVJslWdmTTIJViGbsNc+3yRSYgKmRSq+vNty+Ps43dZF2ycOsscWdeY1XFyW6SF/oE5rbyyNXN9rKFVh9YTDXwJliYNcO2zRiYhKmTSjCSdsnyPP8e3/BFcQmjIJESFTJoR6+Lp+YjgEkJDJiEqZNKsKFswz3OEEcElhIVMQlTIJGDWyCREhUwCZo1MQlTIJGDWyCREhUwCZo1MQlTIJGDWyCREhUzy54NPvpL3VnPvwVnLbxGC+6fnk/8VdSKTEBUyyZ/kfk7eBkSPTEJUyCR/yCSMgExCVMgkf8gkjIBMQlTIJH/IJIyATEJUyCR/yCSMgExCVMgkf8gkjIBMQlTIJH/IJIyATEJUyCR/BsqkYmc8r1+hrWzhilkhkxAVMsmfAcdJvve+UzLpYrXc2i0kZnjtZBKiQib5M6NMmupcoZnjtZNJiAqZ5E/fTDpeFHvf3V0dyr7yYrVbbIu3c3hxIyb3jvIfytdz9R56VQ1Jz1vVfJkPksqf618plRSv7x6slvWpHzdPV1SVyTeQbRx4u9pYtllYuWrRQtNVuzbJ4UClqc1rD9yGmaT9fz4wPmPekEn+7PfKpDRLip4661XLRBH7hSfdd9llZ/172ZOm3friRCtc/VwflZwiLybn7tJixrFCdoqifNZ9F6fTjrW0zXyiRuGkSXVymHdJt9Q8VJO2ZZxEJmFyZNLI9vtkUppDRaf5XnbQ6etl9oif045176g8vOzZ1UqKMlnC1eOS6lcumVSeQnn+JPr6Wp2LatvE64bC4orSjKmOcrhqc5Ncbpca4WQSMJJfH33Z8ttV9n/JpAHt+8qkW2J2a/1MEpVU/e9QmSSn4zozyVTYMk5yuGp7JnXdLjIJmATjpJHt+8qkxjhj3UyqT1EMmIbJJDkG6hwnWQrLp2iX78x3Y40mudwuMgmYBJk0sn1vz5Pq1QoHhgcknc+Tmo+mZIduW3u2ViZlT3dcM0kWPtkzri+wX3XH0K37QK0l25JJQJjIJH/6ZZIyYjjJp7mKbvTIvIZtb7G847DuTk5nZRWK9WZVWqhr4VqX6pXlk2OrZW/Jsdl5sxWDyrintfClZfbPeNVuTeo+UClsuvbAkUmICpnkT99MWoc+LzdPyVXIYcocRy3jI5MQFTLJHzJpXdb137AjkxAVMsmf0TJJn4yasXqezfdX/EWDTEJUyCR/xhwnYWuRSYgKmeQPmYQRkEmICpnkD5mEEZBJiAqZ5A+ZhBGQSYgKmeQPmYQRkEmICpnkz/6Hn7d8rca9B2eTf7UH+rh/ej7539h7MgmRIZP82WecBP/IJESFTPKHTMIIyCREhUzyh0zCCMgkRIVM8odMwgjIJESFTPKHTMIIyCREhUzyh0zCCMgkRIVM8odMwgjIJESFTPJnzEwqvhpc366i3DfPuBmrUw0IHZmEqJBJ/ow8TrJtoWTdINy5hu1ysVrOao8MMglRCSmTlL1zFMaOUu7hre+T3Vn49u7Batl+SG8BZtJmNWyV2W1uSyYhKiFlUuZ4oe5NVwaV8u6+mJLS9sm2pJe9cLiZVLX5qJh8u7NzeKFfZhoh4s5kibLSyr8XSaOVb+4EmJVclO8M6hrkTcuyvCrw2Hy6MvjzXWIbB96udo9tFq7/BirVf/r6jYVyNzqb5HCg0lTj5QeLTEJUgsukvPuQCVR2KFWo5B1Hc1fsooNTY8lWOHt9yEx6ef362c83L67qV3qOk7LLKXvGtJsuWquMZpLXZaJ0la/n7uoDj5ayZPlzen8aAa8XKE8npgTFhuV628RZ2gon7amTw7wVuqXmoZrEOAmYzAwySRvo6AMpqRhU6e+4jYXTEw2TSS+uXn/66Prjs6vTr64/+fLqD2dXP7149X6QTKpToe6p2zKpq3zd+Wb3WYtqW83GAsqjKVPhthxt3vnqxbRhYjRTHSVelz93N8nhQNEkMgmY1NwyyTARJ6kzeO2Fk98OkEnPX75O0ujvz9/8q/zf86u3nz66evbzq6Az6Z1hADpIJsnpuM5MMhW2jJP0J4JrZVLHgWQSEIoZZFLRp+RdSWMkpCkeRVS92y2vDwbevblJRkg/vawDKf/f9c3b33/+cvXhwz6Vr5sxa2eSuL35/Rwgk+QYqHOcZClcP0/S/wwM7yHcMqnjQDIJCEXomaS9l1fyyURmUmfh3p6/vPnky6t/mf73p2+uDn73TZ/K5QMPvX8XDz+MD0hcnieVPW/9uGXYTJJP7DozSRY+2TP+J1PS4uTAkMSWoVv3gVpLyCRgMoFmkrIWXLzJDSyTvn/66ou/3CQJ9MH9r/7tl5/lkp+TV86fXP/777/vU7l9FdxR/eJxfo2LpWEF2k39mdlszHFYLypbnMj7nHXN+jK8xqM4rYCyiq++7fUZl8dZO+V5HQpfmif0tAtvLJNra1L3gUrhcpRmHYsHhkxCVALNJOvnOsOau3v286vTr66N46SzP18f/q7X2+3t/LRQctXaqv15jVrGRyYhKnPLpAHXOAzg7ZubP5xdXd+81QLp7Zv0edIvP/qiT+XbmUnW9d+wIJMQlbll0nprwbVPiTar6h9XP/z46rPz65t/vpWBdPbnq7/871WfdXfND7RuDeXrPBgkdSKTEJX5ZVI5+nH7zGzLUOloqO8WuvzbdTJa+vIvr755cv3fF8nPL5NAes/3gmMUZBKiElwmKQ+EbNb6biHTtxPJz1EO4Z+vby6eXn/7JB0e3dy8yl8kkzACMglRCSmTGt/B2j5ttdZ3sNq+Qs0nMgkjIJMQlZAyKTZkEkZAJiEqZJI/ZBJGQCYhKmSSP/sffi7vrebeg7OW32IW7p+eT/5nRiYhKmSSP/uMk+AfmYSokEn+kEkYAZmEqJBJ/pBJGAGZhKhomfSfX//P5E2KBpmEEZBJiMrZt5cyk377Wa/tFSCRSRgBmYSoXP7f32UmHTzotQ0dJDIJIyCTEJU3r6+15a1X1y8mb1UcyCSMgExCbH599CXTdz6EnUneN/LAOMgkxEabvkt8++Tp5K2KQNiZlNreHfMuVstYLpxMQoSOH36nPVVKgmryVs0dmRSsmC6cTEKE3ry+/u1n32ijpSSoktc3rnPy733xx/0ObHz38q03dg+O8hm28ovM669Oz7tUuUOH3MCwPHxVla+3m6q+Iv3u6rDRNTcO3Dm8KGb55C7yxblEzS1nbBZWmqF9U3v9de/F6Ryb5HCg0lT98NkikxCtb588TUZIWv97//T8j48uPj9/sq7Jk2PWmfS+6MqzTjPpvtMuW24EXv+sbJFelKwOL/bvSH8WqVZUknXizeGCPDDrvouOW1QiWtJ9RmPhpBl1cpg3O7fUPFSTGCcB8/D0x2ePvvvrBiG0PZmU5LRLsVX/TNL3Iaz3iKqiqC2T5Ov5sWolxikseaDSBlF5rarZdkZjYbGnYpox1VFyr0Xxc3eTHA4UTSKTgO0zeXL4434H+txApT99F1Ymyem4zkwyFbaMk/R9GtfKpI4DySQAW238TJL9tcdMkmOgznGSpbB8rGUbC67RJIcDySQAW23gTGp5niQek3RkkuPzJOdMyp7uuGaSLHyyZ1xfoKTFyYHhWixDt+4DtZaQSQC2S59MsqwN09fdqS/uHB7nU1iLZXV4nSK3RUgUvzrJZ9VE8p2oB8q1fKKSatnb7eVxdvZsCZ/ljIbCl5bZP+0a9WVybU3qPtB4E+p1gLNFJgFw0nOcFLEkV+QwJaZRy/jIJABOyCQb6/pvrI9MAuCETLKr59n4zr2eyCQATsgkjIBMAuCETMIIyCQATsgkjIBMAuCETMIIyCQATsgkjIBMAuCk/Uvz7j04m/yL++Di/un55H9LLcgkAE72GSfBPzIJgBMyCSMgkwA4IZMwAjIJgBMyCSMgkwA4IZMwAjIJgBMyCSMgkwA4IZMwAjIJgJN5ZlKxBZ/n7+ouN/pTNtLtoOwwGwatSfUugutcV09kEgAn88yk1Dib7DU2d2+4WC1FM3pkUr3X7bCpZtkbfmXa1t0XMgmAEzKpXWcmDdaMKi287h9Yn2VUZBIAJ30yKZ8F2j04Kt7g553dxWq32ApvJ3snXu2Ml/+z7nDLSaT09bTrL3fPk7/VK0+61HIkcWgMg/rsxcxes+ZmsaIlWfYU5cuOW2aSrZH6VdSdfr0rYN6Y8qJW1et1k9JLW5wUR+2IQcyRUri8A2mF+q023LQT0STZ/jt7C+W/S1mtpywkkwA46TlOyrq5slNLOz7xHr9+S572qsWLeTda9vIne3kvbDyqWbleTyOTmvUYaza8qIyHtDYUr1ur2jXP3cnhTv1zdlH5VWsTfdnc3d2dXSWQ6l/VZzleZFU53jTL3J3ewrSYv83dySQATgbIJDkXlEZF2aWKn9P378UoZHF4nLxeDgia80j1cMFYefGr98ZJM7WArqrZVMwhk4yNtGeSepaqHv1E8mLl0oNiDFTcQHkriiC33OrmAy17JmkJar91vZFJAJwMkEmyyxZzYnJOqR617Imxy/Gi6s2VaSXZTeuVr51Jhpo3zSRTIwfKJGXiLsvv5BX92rObmfyghJZ+q5sh2pJJ9TxhVa0fZBIAJx4yyfh2O+v7joslavlR6ZipSqzqKG3osHYmqRNfxpqbxZrZ08wkcyOHySR1cJM/QNJaWJyonmGz3Oo1M6kYwnqduHtPJgFwNHAmqX30yYHy6GL37kLONe3uiY6y7F6zp/SWTHJ7nqSc3VyzoZHac6D2TJKN1KLR6XlS2zipvjpTtCyWe+otbdzqdTOp+G/hc+LuPZkEwFH/dXfKHF3qyLCozPQ8X3Tl9UdzlsfZ4dmyOkPlYt1dsaJMn3HSzm6o+dLcSLE+8Lh4lrOrfGDIUpVYsSZuiJiIa6y7aywjLIdK1URcuaBD/Vxw+ooaw/pVNP+LyCYt65/lfxp9qOcDmQTAyXw/n4SBJJnUXOk3MDIJgBMyadtpiyn8IJMAOCGTtlbjE74ekUkAnJBJGAGZBMAJmYQRkEkAnJBJGAGZBMAJmYQRkEkAnJBJGAGZBMBJkkkt7j04ay+ALXT/9HzdPzMyCYCTfcZJ8I9MAuCETMIIyCQATsgkjIBMAuCETMIIyCQATsgkjIBMAuCETMIIyCQATsgkjIBMAuAkhExSt/sbsjACQSYBcDJ8Jl2slp2blqplOmJmrcJbzuXmT4FMAuBk8Ew62eveSNulzGaFt1yw94pMAuCkZyYlnWC6L1y5NVz9zzvFdtrFxnGZ5bF6SFZG21muvUJ9G7qL1e6dokDeF2uHa+3cPVgti/JJbY8P796STW1prTiweN1YOHW8qF60NLU4nWOTHA4039jJ/7QkMgmAk16ZlPS/RZ97tLyzOEl/SHtV8VY9/WfRX9eFtTJiOq67Qjl316jccPiNcmD5YtZ9i9S0Vdg4sKtwct46Obrug5cmMU4CMGO9Mil7C18PEVL2bjEdQHTFjEOFamE1eAyH3ygH7h3plbxT+npTa5UD5euGwmkDxGimOkq8Ln/ubpLDgS03NhxkEgAnfZ8nlTNLZVdoipB6Lqtz6ONWoS2TDIffKAd2ZZKptdZMMhW2jJPEHKM+sdmdSR0HkkkA4jHMGod6gKJ2i3JU4TJO6qxQzyTLgxPTgKk7AMyttQSApXD9PElekTE+XTOp40AyCUA8ej5PkqOZ6km7MZOy5yX1z7bnSR0V2h+fnBykz5OahysHOmeSbG1nJqmXZozJRlMdm+RwoNYSMgnAjPV/nlQMC5QusloMVi0kS/55lK4Tq3v/ooxYLbY46apQKZz+9khZe2Y8PKOtx1PW7xX1JxUaWnuoLeRrLXxpmf1732yqa5O6D1QKKzc/IGQSACchfI9DNJJckcOUYEct4yOTADghkwZkXf+99cgkAE7IpEHV82zGtX9bi0wC4IRMwgjIJABOyCSMgEwC4IRMwgjIJABOyCSMgEwC4IRMwgjIJABODh48TGLJ5t6Ds5bfYtbun56P9mdGJgEAQkEmAQBCQSYBAEJBJgEAQkEmAQBCQSYBAEJBJgEAQkEmAQBCQSYBAEJBJgEAQkEmAQBCQSYBAEJBJgEAQkEmAQBCQSYBAELx/6dlfwtgmE9xAAAAAElFTkSuQmCC" alt></p> <h3 id="_2-1consensus-module-functional-requirements-analysis"><a href="#_2-1consensus-module-functional-requirements-analysis" aria-hidden="true" class="header-anchor">#</a> 2.1Consensus module functional requirements analysis</h3> <h4 id="_2-1-1-support-multi-chain-parallelism"><a href="#_2-1-1-support-multi-chain-parallelism" aria-hidden="true" class="header-anchor">#</a> 2.1.1 Support multi-chain parallelism</h4> <p>​	The NULS 2.0 design concept is to provide modular services, and each module should support multiple chains of data running at the same time, so the consensus module needs to implement algorithms with different consensus mechanisms. When the consensus module is started, it can simultaneously support multiple chains to run at the same time.</p> <h4 id="_2-1-2-poc-consensus-mechanism"><a href="#_2-1-2-poc-consensus-mechanism" aria-hidden="true" class="header-anchor">#</a> 2.1.2 POC consensus mechanism</h4> <p>​	The main network of NULS adopts the independent POC consensus mechanism. To realize POC, you first need to know the design concept and business rules of POC. The following content is taken from the introduction part of the NULS white paper POC consensus. If you are familiar, you can skip it directly.</p> <div class="language- extra-class"><pre class="language-text"><code>Consensus mechanism——POC
+	The NULS main chain defaults to the credit consensus mechanism POC (Proof-Of-Credit). In the case where the agent credit is up to standard, a certain margin can be locked to join the consensus. After the consensus agent is reordered, each round will flow out of the block, and the margin will be unlocked when the consensus is exited.
+	
+1、Consensus entry and exit mechanism
+	Anyone can join the NULS consensus at any time, as long as they meet the conditions and follow the rules, that is, they can continue to receive NULS token rewards. The addition of POC is divided into hard indicators and soft indicators. The hard indicator means that the credit score must reach a certain standard line, and exclude some agents that have been evil. The soft index refers to the need to freeze a certain amount of NULS tokens as a margin, in order to prevent the proliferation of agents and make the whole system more fair. The number of margins can be freely selected by anyone except the minimum value. The amount of the deposit will be tied to the final reward.
+	
+1.1 Yellow card penalty
+	Due to the hardware configuration of the agent or the network, the disconnection, crash, etc. during the consensus period cannot be blocked. It is not a violation, but it will affect the whole system. Therefore, the system has a mild warning mechanism for such cases. : lower the agent credit value.
+	
+1.2 Red card penalty
+	For some double-split, repeated block-outs, attempts to fork the system, and malicious human-induced damage that does not comply with system rules, the NULS system is firmly resisted, and all agents can detect this kind of situation; once a malicious agent tries to challenge the system, Then the corresponding margin will be locked for 2 months, and the credit rating will never reach the consensus threshold.
+	
+2、Credit Rating
+	In the NULS system, credit is the credit factor of the account in the system, and the credit of all accounts is automatically calculated by the credit rating algorithm formula in the interval [-1, 1].
+	
+	Credit evaluation formula: credit base = capacity coefficient + responsibility coefficient
+	Capacity factor: calculated based on the number of historical blocks
+	Responsibility factor: Calculated according to violations and correctness of the block
+	
+3、Consensus reward
+	For the balance and fairness of the entire NULS system, the consensus reward is calculated based on the margin and consensus agent credits submitted by all consensus agents. Consensus reward calculation formula: see (Figure p1)
+	
+4、Subchain consensus mechanism
+	There are two types of sub-chains that access NULS. The first one is accessed through the standard interface protocol of the NULS system, and the second is deployed through the NULS program.
+	
+	NULS is a common blockchain underlying infrastructure that does not run any application services on its main chain, and all application services are run by sub-chains. Through the NULS system, NULS-based sub-chains can be quickly deployed, and various operational parameters of the sub-chain can be flexibly customized, including whether to support basic tokens, encryption algorithms, consensus mechanisms, and storage mechanisms.
+	
+	NULS defines a standard consensus module to provide interfaces that are compatible with different consensus mechanisms. The NULS community will develop consensus mechanisms such as POW, DPOS, POS, PBFT, and POOL verification pools for users to choose freely.
+
+</code></pre></div><p><em>Figure p1: Consensus reward calculation formula：</em></p> <p><img src="/assets/img/coinbase.afeaf0dd.png" alt></p> <h5 id="in-the-poc-system-there-are-four-roles-agent-principal-packager-and-rewarder"><a href="#in-the-poc-system-there-are-four-roles-agent-principal-packager-and-rewarder" aria-hidden="true" class="header-anchor">#</a> In the POC system, there are four roles: agent, principal, packager, and rewarder</h5> <ul><li>Agent - the consensus agent creator. The NULS holder initiates a transaction to create a consensus agent, which is recorded in the chain and tells everyone that I want to be a consensus agent. The basic condition for agent creation is that 20,000-200,000 NULS need to be locked, and there is no red card penalty record. The purpose of setting up this basic condition is to prove that you are really trying to maintain the basic network of NULS.</li> <li>Packager- When creating a consensus agent, the agent can specify a packager. This packager can be his own other account, or a friend who knows technology. The most important thing is that the packager can not hold any NULS. Even if the server participating in the consensus is hacked, the user will not have a huge loss, and the loss will only be affected by the earnings after the attack. It should be noted that the packager is a real out-of-the-box account. Each time you package a block, you need to sign the block. Therefore, you must not set a password for the packaged account.</li> <li>Rewarding people- When creating a consensus agent, an agent can not only specify a packager, but also designate a beneficiary to specify who can get the reward generated by the consensus.</li> <li>The principal-NULS holder can entrust the NULS he holds to the agent according to the agent's credit value and the influence of the agent, etc., and enjoy the corresponding consensus. Revenue, if the agent agent quality or integrity is found to decrease, the principal may withdraw its entrustment and change to others at any time.</li></ul> <h5 id="in-the-poc-system-there-are-four-business-logics-creating-a-proxy-creating-a-consensus-agent-stopping-a-proxy-agent-exiting-consensus-delegating-a-consensus-and-canceling-a-delegation"><a href="#in-the-poc-system-there-are-four-business-logics-creating-a-proxy-creating-a-consensus-agent-stopping-a-proxy-agent-exiting-consensus-delegating-a-consensus-and-canceling-a-delegation" aria-hidden="true" class="header-anchor">#</a> In the POC system, there are four business logics: creating a proxy (creating a consensus agent), stopping a proxy agent (exiting consensus), delegating a consensus, and canceling a delegation.</h5> <ul><li>Create proxy (create consensus agent): Lock 20,000-200,000 NULS and initiate a registration proxy transaction. After packaging, the whole network can be seen. Others can lock the NULS delegation to the proxy agent.</li> <li>Stop the agent agent (exit consensus): The agent can stop its agent qualification at any time, initiate a transaction to delete the agent agent, and after the transaction is packaged and confirmed, it will quickly withdraw from the consensus and no longer participate in the production of the new block. The 20,000 NULS locked during the registration of the agent will be unlocked after 72 hours, and the rest of the NULS delegated to the agent will be unlocked immediately.</li> <li>Delegate consensus: Users with NULS of 2000 or above can choose a proxy agent to commission and obtain the corresponding block revenue. Before exiting, the corresponding delegated NULS will be locked out of use. A proxy agent can accept up to 500,000 NULS delegates.</li> <li>Cancellation of the delegation: The user can cancel the previous entrustment. After the revocation, the locked NULS will immediately explain and no longer enjoy the corresponding consensus revenue.</li></ul> <h5 id="two-punishment-mechanisms-for-poc-systems"><a href="#two-punishment-mechanisms-for-poc-systems" aria-hidden="true" class="header-anchor">#</a> Two punishment mechanisms for POC systems</h5> <ul><li>Yellow card penalty: When the block agent is disconnected from the network, card machine and other uncertain reasons, the block will not be out of the block, or the block is not used, then the yellow card will be punished in the next round. The yellow card penalty will affect the agent's income; when 100 consecutive yellow card penalties are awarded, a red card will be imposed.</li> <li>Red card penalty: When the block agent makes malicious fork, double flower and other behaviors that seriously endanger the stability of the network, or when it receives 100 yellow card penalties continuously, the system will give a red card penalty. The agent that receives the red card penalty will be forced to stop the consensus. The deposit when the agent is created is frozen for 3 months, and the agent can never be created again; the corresponding agent of the agent that received the red card penalty is immediately unlocked.</li></ul> <h5 id="hidden-functional-requirements-of-poc-internal-systems"><a href="#hidden-functional-requirements-of-poc-internal-systems" aria-hidden="true" class="header-anchor">#</a> Hidden functional requirements of POC internal systems</h5> <ul><li>Maintain a consensus agent information table and update based on the above four transactions received in real time.</li> <li>Maintain a round of information table, so that each round of agents who meet the conditions of the outbound block are randomly queued out.</li> <li>The proxy agent that meets the condition of the outbound condition verifies and packages the transaction of the memory pool, assembles it into a new block and broadcasts it to the whole network.</li></ul> <p>The above is a functional analysis of the implementation of the consensus module POC consensus mechanism. The details of each function implementation are described in the next section.</p> <h3 id="_2-2-module-service"><a href="#_2-2-module-service" aria-hidden="true" class="header-anchor">#</a> 2.2 Module service</h3> <p>​	The consensus module is the core module of the blockchain. Due to the different consensus mechanisms, the services provided by the outside are not the same. The module service will describe in detail the services shared by the consensus module and the services specific to the POC mechanism.</p> <h4 id="_2-2-1-create-agent"><a href="#_2-2-1-create-agent" aria-hidden="true" class="header-anchor">#</a> 2.2.1 Create agent</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Create an address that specifies the packaged block (the fast address when the consensus agent satisfies the packageable condition), the commission ratio (the commission ratio of other accounts participating in the agent consensus), and the consensus reward settlement address (the reward for the consensus agent) The consensus agent of the home address, waiting for other agents to delegate consensus, when the commissioned consensus amount reaches the standard amount, the agent can package the block to earn the reward.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Create a transaction
+- Determine if the account balance is sufficient
+- Verify the transaction
+- Save the transaction
+- Broadcasting transactions
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	By creating a agent interface, the NULS user can initiate the creation of a agent transaction, and after the transaction is confirmed and packaged, the consensus agent can be successfully created.
+</code></pre></div></li></ul> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_createAgent&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;agentAddress&quot;,&quot;packingAddress&quot;,&quot;rewardAddress&quot;,10,20000,&quot;password&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">agentAddress</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Request to create a agent account address</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">packingAddress</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Packing block address</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">rewardAddress</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">Reward settlement address (default is the same as the agent address)</td></tr> <tr><td style="text-align:center">3</td> <td style="text-align:center">commissionRate</td> <td style="text-align:center">true</td> <td style="text-align:center">double</td> <td style="text-align:center">Commission rate</td></tr> <tr><td style="text-align:center">4</td> <td style="text-align:center">deposit</td> <td style="text-align:center">true</td> <td style="text-align:center">long</td> <td style="text-align:center">Create a agent's margin</td></tr> <tr><td style="text-align:center">5</td> <td style="text-align:center">password</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">password</td></tr> <tr><td style="text-align:center">6</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+ 	&quot;version&quot;: 1.0,
+    &quot;code&quot;:0,
+    &quot;msg&quot; :&quot;Success message&quot;,
+    &quot;result&quot;:{
+        &quot;value&quot;:&quot;tx.getHash().getDigestHex()&quot; //Generated transaction hash value
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+	&quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,
+   	 &quot;msg&quot; :&quot;Error message&quot;,
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">value</td> <td style="text-align:center">String</td> <td style="text-align:center">The hex string of the generated transaction hash value</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-2-create-agent-transaction-verification"><a href="#_2-2-2-create-agent-transaction-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.2 Create agent transaction verification</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Create a validator for agent transactions
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify that the transaction contains agent information
+- Verify that the trade creator is correct
+- agent address and package address cannot be verified
+- agent reward address and package address cannot be verified
+- Commission proportional validity verification
+- Create a agent's margin validity verification
+- Signature correctness verification
+- CoinData verification (lock time verification)
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	This interface is mainly to verify the block round information, the packager, the transaction in the block and whether the CoinBase is correct, and verify whether there is a red and yellow card penalty.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_createAgentValid&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Create serialized data for agent transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                           //Prompt message                          
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                                //error code
+   	 &quot;msg&quot; :&quot;错误Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>无
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-3-create-a-agent-transaction-submission"><a href="#_2-2-3-create-a-agent-transaction-submission" aria-hidden="true" class="header-anchor">#</a> 2.2.3 Create a agent transaction submission</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Save the created consensus node information
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Save node information to the database
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Save consensus node information to the database
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_createAgentCommit&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;blockHeader&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Create serialized data for agent transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">blockHeader</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block header hex string</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-4-create-agent-transaction-rollback"><a href="#_2-2-4-create-agent-transaction-rollback" aria-hidden="true" class="header-anchor">#</a> 2.2.4 Create agent transaction rollback</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Delete consensus agent information
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Delete consensus agent information
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Remove consensus agent information from the data
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_createAgentRollBack&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;blockHeader&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Create serialized data for agent transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">blockHeader</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block header hex string</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set 
+  		
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-5-logout-consensus-agent"><a href="#_2-2-5-logout-consensus-agent" aria-hidden="true" class="header-anchor">#</a> 2.2.5 Logout consensus agent</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Log out a consensus agent created by yourself, and the consensus amount and consensus bonus of the agents participating in the consensus after unregistering the agent will be thawed after a certain time.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Create a transaction
+- Determine if the account balance is sufficient
+- Verify the transaction
+- Save the transaction
+- Broadcasting transactions
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	By deregistering the agent interface, the NULS user can initiate a transaction to cancel the agent created by himself. After the transaction is confirmed to be packaged, the consensus agent can be successfully logged out.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_stopAgent&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;address&quot;,&quot;password&quot;,chainId]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">address</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Create the address of the logout agent trading account</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">password</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">password</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chian ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message        
+    &quot;result&quot;: {                                 //Returned business data set 
+  		&quot;value&quot;:&quot;tx.getHash().getDigestHex()&quot;   //Generated transaction hash value
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">value</td> <td style="text-align:center">String</td> <td style="text-align:center">The hex string of the generated transaction hash value</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-6-logout-agent-transaction-verification"><a href="#_2-2-6-logout-agent-transaction-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.6 Logout agent transaction verification</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Verify the correctness of the logout agent transaction验证注销节点交易的正确性
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify that the deleted consensus agent exists and that the consensus agent has       been logged out
+- Verify that the trade creator is correct
+- CoinData verification (output address must exist)
+- Query all consensus information participating in the consensus agent and the total   consensus amount of the agent
+- Check whether the total amount of UTXO spent in the logout agent transaction is     equal to the consensus agent entrusted amount in the database query. If not,         verify the fail.
+- Verify that each UTXO unlocked in the logout agent transaction is correct
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Verify that the logout agent transaction is correct.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_stopAgentValid&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,chainId]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Logout serialized data for agent transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message 
+    &quot;result&quot;: {                                 //Returned business data set
+  		
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-7-logout-agent-transaction-submission"><a href="#_2-2-7-logout-agent-transaction-submission" aria-hidden="true" class="header-anchor">#</a> 2.2.7 Logout agent transaction submission</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Submit logout agent data transaction
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Set all delegate data under the consensus agent to deleted
+- Set the consensus agent data to deleted
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Log out the consensus agent and set all the delegate data and consensus agents under the consensus agent to the deleted state.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_stopAgentCommit&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;blockHeader&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Create serialized data for agent transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">blockHeader</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block header hex string</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message 
+    &quot;result&quot;: {                                 //Returned business data set  
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-8-logout-agent-transaction-rollback"><a href="#_2-2-8-logout-agent-transaction-rollback" aria-hidden="true" class="header-anchor">#</a> 2.2.8 Logout agent transaction rollback</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Logout agent transaction data rollback
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Set all delegate data under the consensus agent to not deleted
+- Set the consensus agent data to not deleted
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Rollback logout agent transaction data
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_stopAgentRollback&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;blockHeader&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Logout serialized data for agent transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">blockHeader</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block header hex string</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chian ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message 
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-9-apply-to-join-the-consensus"><a href="#_2-2-9-apply-to-join-the-consensus" aria-hidden="true" class="header-anchor">#</a> 2.2.9 Apply to join the consensus</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Entrust the specified amount to the consensus agent to participate in the consensus to earn consensus rewards. The entrusted amount and consensus reward will be frozen during the consensus period.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Create a transaction
+- Determine if the account balance is sufficient
+- Verify the transaction
+- Save the transaction
+- Broadcasting transactions
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Through this interface, users can entrust the specified agent address to join the consensus and earn bonuses.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_depositToAgent&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;address&quot;,&quot;agentHash&quot;,20000,&quot;password&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">address</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Apply for a consensus account address</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">agentHash</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Consensus agent id</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">deposit</td> <td style="text-align:center">true</td> <td style="text-align:center">long</td> <td style="text-align:center">Amount of participation in the consensus</td></tr> <tr><td style="text-align:center">3</td> <td style="text-align:center">password</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">Apply for a password for participating in the consensus account</td></tr> <tr><td style="text-align:center">4</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set  
+  		&quot;value&quot;:&quot;tx.getHash().getDigestHex()&quot;     //Generated transaction hash value
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">value</td> <td style="text-align:center">String</td> <td style="text-align:center">The hex string of the transaction hash value</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-10-commissioned-consensus-transaction-verification"><a href="#_2-2-10-commissioned-consensus-transaction-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.10 Commissioned consensus transaction verification</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Entrusted consensus transaction correctness verification委托共识交易正确性验证
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify that the consensus agent to apply for is valid
+- Verify that the consensus agent that applied to join has reached the maximum         number allowed to join the consensus
+- Verify that the entrusted amount is valid
+- Verify that the transaction was created by the account that requested the           application.
+- Verify that the commission amount is equal to the output UTXO amount, and that     the output UTXO lock time is correct.
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Verify the validity of the entrusted agent in the entrusted transaction, verify the correctness of the entrusted amount, verify whether the entrusted transaction creator is correct, and whether the UTXO output by the entrusted transaction is correct. Verify that the logout agent transaction is correct.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_depositValid&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Serialized data for commissioned consensus transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-11-entrusted-consensus-transaction-submission"><a href="#_2-2-11-entrusted-consensus-transaction-submission" aria-hidden="true" class="header-anchor">#</a> 2.2.11 Entrusted consensus transaction submission</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Entrusted transaction submission
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Save commissioned transaction information
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Save commissioned transaction data
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_depositCommit&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,1000000,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Serialized data for transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">height</td> <td style="text-align:center">true</td> <td style="text-align:center">long</td> <td style="text-align:center">The height of the block where the commissioned transaction is packaged</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-12-delegate-consensus-transaction-rollback"><a href="#_2-2-12-delegate-consensus-transaction-rollback" aria-hidden="true" class="header-anchor">#</a> 2.2.12 Delegate consensus transaction rollback</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Delegate consensus transaction rollback, delete delegate consensus transaction data
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Delete delegate consensus transaction information
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	When the commissioned consensus transaction commits an error, this interface needs to be dropped to delete the delegate consensus transaction data.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_depositRollback&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,1000000,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Serialized data for commissioned consensus transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">height</td> <td style="text-align:center">true</td> <td style="text-align:center">long</td> <td style="text-align:center">The height of the consigned consensus transaction is packaged</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message 
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-13-revoke-commission"><a href="#_2-2-13-revoke-commission" aria-hidden="true" class="header-anchor">#</a> 2.2.13 Revoke commission</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Apply for withdrawal from the consensus, after the transaction is verified, the deposit and reward will be released after the specified time.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Create a transaction
+- Determine if the account balance is sufficient
+- Verify the transaction
+- Save the transaction
+- Broadcasting transactions
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Apply for withdrawal from the consensus, after the transaction is verified, the deposit and reward will be released after the specified time.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_withdraw&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;address&quot;,&quot;txHash&quot;,&quot;password&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">address</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Apply to withdraw from the consensus account address</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">txHash</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Transaction hash when joining consensus</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">password</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">password</td></tr> <tr><td style="text-align:center">3</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set  
+  		&quot;value&quot;:&quot;tx.getHash().getDigestHex()&quot;   //Generated transaction hash value
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">value</td> <td style="text-align:center">String</td> <td style="text-align:center">The hex string of the transaction hash value</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-14-exit-consensus-transaction-verification"><a href="#_2-2-14-exit-consensus-transaction-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.14 Exit consensus transaction verification</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Verify that the exit consensus transaction is correct
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify that the consensus to exit has been delegated before and has not exited
+- Verify that the account that created the transaction is correct
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Before exiting, verify that the account has participated in the delegate and is still in the delegate. Also verify that the transaction creator is the principal.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_withdrawValid&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Exit serialized data for a trusted transaction</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message  
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-15-exit-consensus-transaction-submission"><a href="#_2-2-15-exit-consensus-transaction-submission" aria-hidden="true" class="header-anchor">#</a> 2.2.15 Exit consensus transaction submission</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Exit the consensus transaction submission, save the data related to the exit consensus transaction
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Save exit consensus transaction related data
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Save the transaction-related data by calling the interface after exiting the consensus transaction verification success
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_depositCommit&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;blockHeader&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Serialized data for transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">blockHeader</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block header hex string</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;, 
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message 
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-16-exit-consensus-transaction-rollback"><a href="#_2-2-16-exit-consensus-transaction-rollback" aria-hidden="true" class="header-anchor">#</a> 2.2.16 Exit consensus transaction rollback</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Exit consensus transaction data rollback
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Rollback exit consensus transaction data
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	When exiting the consensus transaction submission error, you need to call this interface to roll back the data to ensure the correctness of the data.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_withdrawRollback&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;tx&quot;,&quot;blockHeader&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Exit serialized data for a trusted transaction</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">blockHeader</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block header hex string</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-17-query-consensus-agent-list"><a href="#_2-2-17-query-consensus-agent-list" aria-hidden="true" class="header-anchor">#</a> 2.2.17 Query consensus agent list</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Obtain all the consensus agent lists that you have joined or the whole network, support keyword query, sort, page query
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Get a list of consensus agents on the local primary chain
+- Filter the list of consensus agents to get a list of consensus agents that meet the   criteria
+- Consensus agent list sorting
+- Pagination
+- Return to the list of consensus agents
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Obtain all the consensus agent lists that you have joined or the whole network, support keyword query, sort, page query
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getAgentList&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[1,10,&quot;address&quot;,&quot;keyword&quot;,&quot;sortType&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">pageNumber</td> <td style="text-align:center">true</td> <td style="text-align:center">int</td> <td style="text-align:center">page number</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">pageSize</td> <td style="text-align:center">true</td> <td style="text-align:center">int</td> <td style="text-align:center">Amount of data per page</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">keyword</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">Keyword (agent address, packed address, agent alias, agent ID)</td></tr> <tr><td style="text-align:center">3</td> <td style="text-align:center">sortType</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">The sort type (deposit creates the lock amount of the consensus agent, the commissionRate commission ratio, the creditVal reward amount, the total amount of the total deposit consensus, the comprehensive sort of comprehensive)</td></tr> <tr><td style="text-align:center">4</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;pageNumber&quot;:1,                         //page number         
+    	&quot;pageSize&quot;:10,                          //Amount of data per page
+    	&quot;total&quot;:100,                            //Total data volume
+    	&quot;pages&quot;,10,                             //total pages
+    	&quot;data&quot;:[
+            {
+                &quot;agentHash&quot;:&quot;&quot;,                  //agent hash
+                &quot;agentAddress&quot;;&quot;&quot;，            //Create the address of the agent
+                &quot;packingAddress&quot;;&quot;&quot;，            //Packed address
+                &quot;rewardAddress&quot;;&quot;&quot;，             //Reward address
+                &quot;deposit&quot;;，                     //Margin
+                &quot;commissionRate&quot;;，              //Commission rate
+                &quot;agentName&quot;;&quot;&quot;，                 //agent name
+                &quot;agentId&quot;;&quot;&quot;，                   //agent ID
+                &quot;introduction&quot;;&quot;&quot;，              //Introduction
+                &quot;time&quot;;，                        //Creation time
+                &quot;blockHeight&quot;;，                 //Block height
+                &quot;delHeight&quot;:，                   //Block height at which the consensus agent is deleted
+                &quot;status&quot;:，                      //status                    
+                &quot;creditVal&quot;:，                   //Reputation value
+                &quot;totalDeposit&quot;:，                //Total amount of participation in the consensus
+                &quot;txHash&quot;:&quot;&quot;，                    //Transaction hash
+                &quot;memberCount&quot;:，                 //Number of people joining the agent consensus
+                &quot;version&quot;:                       //version
+            }，{
+                
+            }
+    	]
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <p>data:</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">pageNumber</td> <td style="text-align:center">int</td> <td style="text-align:center">page number</td></tr> <tr><td style="text-align:center">pageSize</td> <td style="text-align:center">int</td> <td style="text-align:center">Amount of data per page</td></tr> <tr><td style="text-align:center">total</td> <td style="text-align:center">int</td> <td style="text-align:center">Total data volume</td></tr> <tr><td style="text-align:center">pages</td> <td style="text-align:center">int</td> <td style="text-align:center">total pages</td></tr> <tr><td style="text-align:center">data</td> <td style="text-align:center">List<Agent></Agent></td> <td style="text-align:center">Consensus agent list</td></tr></tbody></table> <p>Agent:</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">agentHash</td> <td style="text-align:center">String</td> <td style="text-align:center">agnet hash</td></tr> <tr><td style="text-align:center">agentAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Create the address of the agent</td></tr> <tr><td style="text-align:center">packingAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Packed address</td></tr> <tr><td style="text-align:center">rewardAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Reward address</td></tr> <tr><td style="text-align:center">deposit</td> <td style="text-align:center">long</td> <td style="text-align:center">Margin</td></tr> <tr><td style="text-align:center">commissionRate</td> <td style="text-align:center">double</td> <td style="text-align:center">Commission rate</td></tr> <tr><td style="text-align:center">agentName</td> <td style="text-align:center">String</td> <td style="text-align:center">agent name</td></tr> <tr><td style="text-align:center">agentId</td> <td style="text-align:center">String</td> <td style="text-align:center">agent ID</td></tr> <tr><td style="text-align:center">introduction</td> <td style="text-align:center">String</td> <td style="text-align:center">Introduction</td></tr> <tr><td style="text-align:center">time</td> <td style="text-align:center">long</td> <td style="text-align:center">Creation time</td></tr> <tr><td style="text-align:center">blockHeight</td> <td style="text-align:center">long</td> <td style="text-align:center">Create the height of the block where the agent is trading</td></tr> <tr><td style="text-align:center">delHeight</td> <td style="text-align:center">long</td> <td style="text-align:center">Write off the height of the block where the transaction is located</td></tr> <tr><td style="text-align:center">status</td> <td style="text-align:center">int</td> <td style="text-align:center">status</td></tr> <tr><td style="text-align:center">creditVal</td> <td style="text-align:center">double</td> <td style="text-align:center">Reputation value</td></tr> <tr><td style="text-align:center">totalDeposit</td> <td style="text-align:center">long</td> <td style="text-align:center">Total commission amount</td></tr> <tr><td style="text-align:center">txHash</td> <td style="text-align:center">String</td> <td style="text-align:center">Transaction hash</td></tr> <tr><td style="text-align:center">memberCount</td> <td style="text-align:center">int</td> <td style="text-align:center">Number of orders</td></tr> <tr><td style="text-align:center">version</td> <td style="text-align:center">String</td> <td style="text-align:center">Protocol version</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-18-query-agent-details-basic-information-credit-value-agent-status"><a href="#_2-2-18-query-agent-details-basic-information-credit-value-agent-status" aria-hidden="true" class="header-anchor">#</a> 2.2.18 Query agent details (basic information, credit value, agent status)</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Query detailed information of the specified consensus agent, including the creation time of the consensus agent, margin, commission ratio, agent address, package address, consensus status, credit value, commission amount, consensus number, etc.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Get a list of consensus agents on the local primary chain
+- Find the corresponding agent information from the list
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Query the details of the agent through the agent hash
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getAgent&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;agentHash&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">agentHash</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Consensus agent id</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;data&quot;:{
+                &quot;agentHash&quot;:&quot;&quot;,                  
+                &quot;agentAddress&quot;;&quot;&quot;，              
+                &quot;packingAddress&quot;;&quot;&quot;，          
+                &quot;rewardAddress&quot;;&quot;&quot;，             
+                &quot;deposit&quot;;，                     
+                &quot;commissionRate&quot;;，              
+                &quot;agentName&quot;;&quot;&quot;，                 
+                &quot;agentId&quot;;&quot;&quot;，                   
+                &quot;introduction&quot;;&quot;&quot;，              
+                &quot;time&quot;;，                       
+                &quot;blockHeight&quot;;，                 
+                &quot;delHeight&quot;:，                   
+                &quot;status&quot;:，                                      
+                &quot;creditVal&quot;:，                   
+                &quot;totalDeposit&quot;:，               
+                &quot;txHash&quot;:&quot;&quot;，                  
+                &quot;memberCount&quot;:，                 
+                &quot;version&quot;:       
+         }
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">agentHash</td> <td style="text-align:center">String</td> <td style="text-align:center">agent hash</td></tr> <tr><td style="text-align:center">agentAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Create the address of the agent</td></tr> <tr><td style="text-align:center">packingAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Packed address</td></tr> <tr><td style="text-align:center">rewardAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Reward address</td></tr> <tr><td style="text-align:center">deposit</td> <td style="text-align:center">long</td> <td style="text-align:center">Margin</td></tr> <tr><td style="text-align:center">commissionRate</td> <td style="text-align:center">double</td> <td style="text-align:center">Commission rate</td></tr> <tr><td style="text-align:center">agentName</td> <td style="text-align:center">String</td> <td style="text-align:center">agent name</td></tr> <tr><td style="text-align:center">agentId</td> <td style="text-align:center">String</td> <td style="text-align:center">agent ID</td></tr> <tr><td style="text-align:center">introduction</td> <td style="text-align:center">String</td> <td style="text-align:center">Introduction</td></tr> <tr><td style="text-align:center">time</td> <td style="text-align:center">long</td> <td style="text-align:center">Creation time</td></tr> <tr><td style="text-align:center">blockHeight</td> <td style="text-align:center">long</td> <td style="text-align:center">Create the height of the block where the agent is trading</td></tr> <tr><td style="text-align:center">delHeight</td> <td style="text-align:center">long</td> <td style="text-align:center">Write off the height of the block where the transaction is located</td></tr> <tr><td style="text-align:center">status</td> <td style="text-align:center">int</td> <td style="text-align:center">status</td></tr> <tr><td style="text-align:center">creditVal</td> <td style="text-align:center">double</td> <td style="text-align:center">Reputation value</td></tr> <tr><td style="text-align:center">totalDeposit</td> <td style="text-align:center">long</td> <td style="text-align:center">Total commission amount</td></tr> <tr><td style="text-align:center">txHash</td> <td style="text-align:center">String</td> <td style="text-align:center">tx hash</td></tr> <tr><td style="text-align:center">memberCount</td> <td style="text-align:center">int</td> <td style="text-align:center">Number of orders</td></tr> <tr><td style="text-align:center">version</td> <td style="text-align:center">String</td> <td style="text-align:center">Protocol version</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-19-query-agent-penalty-list-all-red-yellow"><a href="#_2-2-19-query-agent-penalty-list-all-red-yellow" aria-hidden="true" class="header-anchor">#</a> 2.2.19 Query agent penalty list (all, red, yellow)</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Obtain the penalty record (red card and yellow card penalty) obtained by the consensus agent. The user can customize the query for all penalty records or only the red card or yellow card penalty information.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Get the penalty based on the type of query
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Query the penalty record specifying the block address
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getPunishList&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;address&quot;,0,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">address</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Block address</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">type</td> <td style="text-align:center">true</td> <td style="text-align:center">int</td> <td style="text-align:center">Penalty type 1 yellow card, 2 red card, 0 all</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;pageNumber&quot;:1,                         //page number         
+    	&quot;pageSize&quot;:10,                          //Amount of data per page
+    	&quot;total&quot;:100,                            //Total data volume
+    	&quot;pages&quot;,10,                             //total pages
+    	&quot;data&quot;:[
+            {
+                &quot;type&quot;,，                        
+                &quot;address&quot;,&quot;&quot;，                   
+                &quot;time&quot;,&quot;&quot;，                      
+                &quot;height&quot;,，                     
+                &quot;roundIndex&quot;,，                              
+                &quot;reasonCode&quot;,&quot;&quot;                 
+            }，{
+               ......
+            }
+    	]
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <p>data:</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">pageNumber</td> <td style="text-align:center">int</td> <td style="text-align:center">page number</td></tr> <tr><td style="text-align:center">pageSize</td> <td style="text-align:center">int</td> <td style="text-align:center">Amount of data per page</td></tr> <tr><td style="text-align:center">total</td> <td style="text-align:center">int</td> <td style="text-align:center">Total data</td></tr> <tr><td style="text-align:center">pages</td> <td style="text-align:center">int</td> <td style="text-align:center">total pages</td></tr> <tr><td style="text-align:center">data</td> <td style="text-align:center">List<Punish></Punish></td> <td style="text-align:center">Penalty list data</td></tr></tbody></table> <p>Punish:</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">type</td> <td style="text-align:center">byte</td> <td style="text-align:center">Type of punishment</td></tr> <tr><td style="text-align:center">address</td> <td style="text-align:center">String</td> <td style="text-align:center">address</td></tr> <tr><td style="text-align:center">time</td> <td style="text-align:center">String</td> <td style="text-align:center">punishment time</td></tr> <tr><td style="text-align:center">height</td> <td style="text-align:center">long</td> <td style="text-align:center">Punish the height of the block</td></tr> <tr><td style="text-align:center">roundIndex</td> <td style="text-align:center">long</td> <td style="text-align:center">round</td></tr> <tr><td style="text-align:center">reasonCode</td> <td style="text-align:center">String</td> <td style="text-align:center">Reason for punishment</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-20-query-the-list-of-delegates-according-to-the-principal-according-to-the-agent"><a href="#_2-2-20-query-the-list-of-delegates-according-to-the-principal-according-to-the-agent" aria-hidden="true" class="header-anchor">#</a> 2.2.20 Query the list of delegates (according to the principal, according to the agent)</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>1. Query the list of all delegation information participating in the specified 	      address
+2. Query the delegation information of the specified consensus agent participating      in the specified account
+3. Query the specified consensus agent trust list information
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Verify parameter correctness
+- Get a list of participating consensus information on the local primary chain
+- Filter the consensus list to get the consensus list of the specified account       participation or the consensus list information of the specified agent
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Obtain the consensus list information accepted by the specified account or specified by the consensus agent. When querying all the consensus lists of the specified account, the agentHash field is passed &quot;&quot;. When all the delegated lists of the specified agent need to be queried, the address field is passed &quot;&quot;.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getDepositList&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[1，10，&quot;address&quot;,&quot;agentHash&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">pageNumber</td> <td style="text-align:center">true</td> <td style="text-align:center">int</td> <td style="text-align:center">page number</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">pageSize</td> <td style="text-align:center">true</td> <td style="text-align:center">int</td> <td style="text-align:center">Amount of data per page</td></tr> <tr><td style="text-align:center">2</td> <td style="text-align:center">address</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">The account address of the participating delegation (the entrusted information of the query agent is the designated pass &quot;&quot;)</td></tr> <tr><td style="text-align:center">3</td> <td style="text-align:center">agentHash</td> <td style="text-align:center">false</td> <td style="text-align:center">String</td> <td style="text-align:center">Specify the proxy agent ID (this field is passed &quot;&quot; when querying all account delegation information)</td></tr> <tr><td style="text-align:center">4</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;pageNumber&quot;:1,                         //page number         
+    	&quot;pageSize&quot;:10,                          //Amount of data per page
+    	&quot;total&quot;:100,                            //Total data volume
+    	&quot;pages&quot;,10,                             //total pages
+    	&quot;data&quot;:[
+            {
+                &quot;agentHash&quot;:&quot;&quot;,                  
+                &quot;address&quot;;&quot;&quot;，                   
+                &quot;deposit&quot;;，                     
+                &quot;time&quot;;，                        
+                &quot;blockHeight&quot;;，                 
+                &quot;delHeight&quot;:，                         
+                &quot;txHash&quot;:&quot;&quot;，                    
+                &quot;status&quot;:,                       
+                &quot;agentName&quot;:&quot;&quot;,                  
+                &quot;agentAddress&quot;:&quot;&quot;  
+            }，{
+                
+            }
+    	]
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <p>data:</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">pageNumber</td> <td style="text-align:center">int</td> <td style="text-align:center">page number</td></tr> <tr><td style="text-align:center">pageSize</td> <td style="text-align:center">int</td> <td style="text-align:center">Amount of data per page</td></tr> <tr><td style="text-align:center">total</td> <td style="text-align:center">int</td> <td style="text-align:center">otal data</td></tr> <tr><td style="text-align:center">pages</td> <td style="text-align:center">int</td> <td style="text-align:center">page number</td></tr> <tr><td style="text-align:center">data</td> <td style="text-align:center">List<Deposit></Deposit></td> <td style="text-align:center">Json string of consensus data list</td></tr></tbody></table> <p>Deposit:</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">agentHash</td> <td style="text-align:center">String</td> <td style="text-align:center">agent hash</td></tr> <tr><td style="text-align:center">address</td> <td style="text-align:center">String</td> <td style="text-align:center">Apply to join the consensus account address</td></tr> <tr><td style="text-align:center">deposit</td> <td style="text-align:center">long</td> <td style="text-align:center">Commission amount</td></tr> <tr><td style="text-align:center">time</td> <td style="text-align:center">long</td> <td style="text-align:center">Commission time</td></tr> <tr><td style="text-align:center">blockHeight</td> <td style="text-align:center">long</td> <td style="text-align:center">The height of the block where the transaction is located</td></tr> <tr><td style="text-align:center">delHeight</td> <td style="text-align:center">long</td> <td style="text-align:center">Exit the height of the commissioned exchange</td></tr> <tr><td style="text-align:center">txHash</td> <td style="text-align:center">String</td> <td style="text-align:center">tx hash</td></tr> <tr><td style="text-align:center">status</td> <td style="text-align:center">int</td> <td style="text-align:center">Consensus agent status (to be agreed, consensus)</td></tr> <tr><td style="text-align:center">agentName</td> <td style="text-align:center">String</td> <td style="text-align:center">agent name</td></tr> <tr><td style="text-align:center">agentAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">agent address</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-21-query-the-consensus-status-of-the-entire-network"><a href="#_2-2-21-query-the-consensus-status-of-the-entire-network" aria-hidden="true" class="header-anchor">#</a> 2.2.21 Query the consensus status of the entire network</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	Query the overall information of the network consensus, including the number of agents, total mortgage, total number of participating consensus accounts, etc.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Get a list of network-wide consensus agents
+- Filter the list of consensus agents and wait until the list of valid consensus       agents
+- Get current package round information
+- According to the current package round information, the total amount of accounts   and the total amount of entrusted funds that the current network participates in   the consensus
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>	Query the number of agents in the whole network, the total commission amount, the accounts participating in the consensus, and the number of consensus agents that meet the packaging conditions.
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getWholeInfo&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;data&quot;:{
+            &quot;agentCount&quot;:,                     
+            &quot;totalDeposit&quot;:,                    
+            &quot;rewardOfDay&quot;:,                   
+            &quot;consensusAccountNumber&quot;:,          
+            &quot;packingAgentCount&quot;:     
+    	}
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">agentCount</td> <td style="text-align:center">int</td> <td style="text-align:center">Number of agents</td></tr> <tr><td style="text-align:center">totalDeposit</td> <td style="text-align:center">long</td> <td style="text-align:center">Total amount of entrusted amount</td></tr> <tr><td style="text-align:center">rewardOfDay</td> <td style="text-align:center">long</td> <td style="text-align:center">Reward amount within 24 hours</td></tr> <tr><td style="text-align:center">consensusAccountNumber</td> <td style="text-align:center">int</td> <td style="text-align:center">Number of accounts participating in the consensus</td></tr> <tr><td style="text-align:center">packingAgentCount</td> <td style="text-align:center">int</td> <td style="text-align:center">Current rounded number of consensus agents</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-22-query-individual-account-consensus-status"><a href="#_2-2-22-query-individual-account-consensus-status" aria-hidden="true" class="header-anchor">#</a> 2.2.22 Query individual account consensus status</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Query the consensus information of the specified account, including the number of consensus nodes created by the account and the node hash, the total amount of participation in the consensus, the number of consensus nodes participating in the account, the available balance, the consensus bonus, and the consensus bonus obtained within 24 hours.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code> - Get a list of network-wide consensus nodes
+</code></pre></div></li></ul> <p>- Check if there is a consensus node created by the account in the consensus node list
+   - Get the current network delegate list
+   - Get the list of delegates participating in the account from the delegate list
+   - Obtain commission information for the account from the delegate list of the account</p> <div class="language- extra-class"><pre class="language-text"><code>
+- Interface definition
+
+- Interface Description
+
+</code></pre></div><pre><code>Query the consensus information of the specified account, including the number of consensus nodes created by the account and the node hash, the total amount of participation in the consensus, the number of consensus nodes participating in the account, the available balance, the consensus bonus, and the consensus bonus obtained within 24 hours.
+```
+</code></pre> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getInfo&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;address&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">address</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Account address</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;data&quot;:{
+            &quot;agentCount&quot;:,                      
+            &quot;totalDeposit&quot;:,                    
+            &quot;joinAgentCount&quot;:,                 
+            &quot;usableBalance&quot;:,                   
+            &quot;reward&quot;:,                          
+            &quot;rewardOfDay&quot;:,                     
+            &quot;agentHash&quot;:&quot;&quot;                    
+    	}
+    }
+}
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                         //error code
+   	 &quot;msg&quot; :&quot;错误Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">data</td> <td style="text-align:center">Object</td> <td style="text-align:center">Consensus information</td></tr> <tr><td style="text-align:center">agentCount</td> <td style="text-align:center">int</td> <td style="text-align:center">The number of agents created by this account</td></tr> <tr><td style="text-align:center">totalDeposit</td> <td style="text-align:center">long</td> <td style="text-align:center">The total commission amount of the account</td></tr> <tr><td style="text-align:center">joinAgentCount</td> <td style="text-align:center">int</td> <td style="text-align:center">The number of consensus agents participating in the account</td></tr> <tr><td style="text-align:center">usableBalance</td> <td style="text-align:center">long</td> <td style="text-align:center">Available Balance</td></tr> <tr><td style="text-align:center">reward</td> <td style="text-align:center">long</td> <td style="text-align:center">All rewards for account participation consensus</td></tr> <tr><td style="text-align:center">rewardOfDay</td> <td style="text-align:center">long</td> <td style="text-align:center">Consensus rewards obtained within 24 hours of the account</td></tr> <tr><td style="text-align:center">agentHash</td> <td style="text-align:center">String</td> <td style="text-align:center">The hash of the agent created by the account</td></tr></tbody></table></li></ul> <h4 id="_2-2-23-verify-block-correctness"><a href="#_2-2-23-verify-block-correctness" aria-hidden="true" class="header-anchor">#</a> 2.2.23 Verify block correctness</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Verify the block round information, package the person, the transaction information in the block, whether the CoinBase is correct, and verify whether there is red and yellow card transaction generation.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code> - Verify fork (call block management module interface), generate red card trade with fork
+</code></pre></div></li></ul> <p>- Verify double flower (call transaction module interface), generate double card transaction with double flower and return to verify fail directly
+   - Generate red card trades and place red card trades in the trading pool to be packaged
+   - Verify block rotation information and packager correct
+   - Verify transaction correctness in the block (call transaction module interface)
+   - Verify CoinBase transactions</p> <div class="language- extra-class"><pre class="language-text"><code>
+- Interface definition
+
+- Interface Description
+
+</code></pre></div><pre><code>This interface is mainly to verify the block round information, the packager, the transaction in the block and whether the CoinBase is correct, and verify whether there is a red and yellow card penalty.
+```
+</code></pre> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_validSmallBlock&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;SmallBlock&quot;,&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">smallBlock</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">SmallBlock serialization data</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message                          
+    &quot;result&quot;: {                                 //Returned business data set  
+  		
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul> <h4 id="_2-2-24-consensus-module-batch-verification"><a href="#_2-2-24-consensus-module-batch-verification" aria-hidden="true" class="header-anchor">#</a> 2.2.24 Consensus module batch verification</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Consensus module transaction batch verification, verify the correctness of each transaction, verify transaction conflict
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code> - Cycle to verify that each transaction is correct
+</code></pre></div></li></ul> <p>- Verify that there is a conflicting transaction in the transaction list</p> <div class="language- extra-class"><pre class="language-text"><code>
+- Interface definition
+
+- Interface Description
+
+</code></pre></div><pre><code>Loop to verify that each transaction in the incoming transaction list is correct and verify that there is a conflicting transaction in the transaction list
+```
+</code></pre> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_batchValid&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[[&quot;tx1&quot;,&quot;tx2&quot;,&quot;tx3&quot;],&quot;chainId&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">tx1,tx2,tx3......</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">Serialized data for transactions</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain id</td></tr></tbody></table></li> <li><p>Return example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;:&quot;1.0&quot;,  
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;Prompt message&quot;,                    //Prompt message                          
+    &quot;result&quot;: {                                 //Returned business data set  
+  		&quot;data&quot;:[							 
+  				&quot;tx1_hash&quot;,
+  				&quot;tx2_hash&quot;,
+  				&quot;tx3_hash&quot;
+  			  ]
+    }
+}
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">data</td> <td style="text-align:center">String</td> <td style="text-align:center">Verify the list of transactions that failed</td></tr> <tr><td style="text-align:center">tx1_hash,tx2_hash,tx3_hash.....</td> <td style="text-align:center">String</td> <td style="text-align:center">Verify the hash of the transaction that failed</td></tr></tbody></table></li></ul> <h4 id="_2-2-25-get-current-round-information"><a href="#_2-2-25-get-current-round-information" aria-hidden="true" class="header-anchor">#</a> 2.2.25 Get current round information</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Query the package round information of the current network consensus node, including the consensus node of the current network in the packed state, the start end time of the current round of packaging, and the basic information of all the packed nodes in the current round.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Query the current network consensus node packaging round information
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getRoundInfo&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;chainId&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;data&quot;:{
+            &quot;totalWeight&quot;:,                      
+            &quot;index&quot;:,                    
+            &quot;startTime&quot;:,                     
+            &quot;endTime&quot;:,          
+            &quot;memberCount&quot;:,
+            &quot;memberList&quot;:[
+                {
+                    &quot;agentAddress&quot;:&quot;&quot;,
+                    &quot;packingAddress&quot;:&quot;&quot;,
+                    &quot;agentHash&quot;:&quot;&quot;,
+                    &quot;packingIndexOfRound&quot;:,
+                    &quot;creditVal&quot;:,
+                    &quot;packStartTime&quot;:,
+                    &quot;packEndTime&quot;:,
+					&quot;Weight&quot;:
+                },{
+                    
+                }
+            ],
+            &quot;myMember&quot;:{
+                	&quot;agentAddress&quot;:&quot;&quot;,
+                    &quot;packingAddress&quot;:&quot;&quot;,
+                    &quot;agentHash&quot;:&quot;&quot;,
+                    &quot;packingIndexOfRound&quot;:,
+                    &quot;creditVal&quot;:,
+                    &quot;packStartTime&quot;:,
+                    &quot;packEndTime&quot;:,
+					&quot;weight&quot;:
+            }
+    	}
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                         //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+
+</code></pre></div></li> <li><p>Return parameter description</p> <p>data</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">totalWeight</td> <td style="text-align:center">double</td> <td style="text-align:center">Total weight (used to calculate consensus rewards)</td></tr> <tr><td style="text-align:center">index</td> <td style="text-align:center">long</td> <td style="text-align:center">Current round subscript</td></tr> <tr><td style="text-align:center">startTime</td> <td style="text-align:center">long</td> <td style="text-align:center">Current round start packing time</td></tr> <tr><td style="text-align:center">endTime</td> <td style="text-align:center">long</td> <td style="text-align:center">Current end of packaging time</td></tr> <tr><td style="text-align:center">memberCount</td> <td style="text-align:center">int</td> <td style="text-align:center">Current number of packaged packages</td></tr> <tr><td style="text-align:center">memberList</td> <td style="text-align:center">List<MeetingMember></MeetingMember></td> <td style="text-align:center">Current round packed agent packing information</td></tr> <tr><td style="text-align:center">myMember</td> <td style="text-align:center">MeetingMember</td> <td style="text-align:center">Current agent packing information</td></tr></tbody></table> <p>MeetingMember</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">agentAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">agent address</td></tr> <tr><td style="text-align:center">packingAddress</td> <td style="text-align:center">String</td> <td style="text-align:center">Packed address</td></tr> <tr><td style="text-align:center">agentHash</td> <td style="text-align:center">String</td> <td style="text-align:center">agent ID</td></tr> <tr><td style="text-align:center">packingIndexOfRound</td> <td style="text-align:center">int</td> <td style="text-align:center">The consensus agent packs the subscript in the current round</td></tr> <tr><td style="text-align:center">creditVal</td> <td style="text-align:center">double</td> <td style="text-align:center">Credit value</td></tr> <tr><td style="text-align:center">packStartTime</td> <td style="text-align:center">long</td> <td style="text-align:center">Consensus agent packaging start time</td></tr> <tr><td style="text-align:center">packEndTime</td> <td style="text-align:center">long</td> <td style="text-align:center">Consensus agent packaging end time</td></tr> <tr><td style="text-align:center">weight</td> <td style="text-align:center">double</td> <td style="text-align:center">Current consensus agent weight (total commission amount * credit value)</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-26-specify-consensus-agent-status-query"><a href="#_2-2-26-specify-consensus-agent-status-query" aria-hidden="true" class="header-anchor">#</a> 2.2.26 Specify consensus agent status query</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Query the current status of the specified consensus agent (consensus, packaged)
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Query whether the agent exists
+- Query agent status
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Query the current status of the specified consensus agent
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_getAgentStatus&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;agentHash&quot;,&quot;chainId&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">agentHash</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">agnet ID</td></tr> <tr><td style="text-align:center">1</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	&quot;data&quot;:{
+            &quot;status&quot;:1                            
+    	}
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+
+</code></pre></div></li> <li><p>Return parameter description</p> <table><thead><tr><th style="text-align:center">parameter</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">status</td> <td style="text-align:center">int</td> <td style="text-align:center">agent status (0 consensus, 1 package)</td></tr></tbody></table></li></ul></li></ul> <h4 id="_2-2-27-modify-agent-packing-status"><a href="#_2-2-27-modify-agent-packing-status" aria-hidden="true" class="header-anchor">#</a> 2.2.27 Modify agent packing status</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>	When the local agent starts, notify the consensus module to package after the block management module synchronizes the block.
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>- Modify agent packing status
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Modify agent packing status
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_updatePackStatus&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;chainId&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th style="text-align:center">index</th> <th style="text-align:center">parameter</th> <th style="text-align:center">required</th> <th style="text-align:center">type</th> <th style="text-align:center">description</th></tr></thead> <tbody><tr><td style="text-align:center">0</td> <td style="text-align:center">chainId</td> <td style="text-align:center">true</td> <td style="text-align:center">String</td> <td style="text-align:center">chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-28-stop-chain"><a href="#_2-2-28-stop-chain" aria-hidden="true" class="header-anchor">#</a> 2.2.28 Stop chain</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Pause a running chain
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Pause a running chain
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_stopChain&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;chainId&quot;]
+}
+
+</code></pre></div></li> <li><p>Request parameter description</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>String</td> <td>chain ID</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	
+    }
+}
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+
+</code></pre></div></li> <li><p>Return parameter description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li></ul></li></ul> <h4 id="_2-2-29-run-a-new-chain"><a href="#_2-2-29-run-a-new-chain" aria-hidden="true" class="header-anchor">#</a> 2.2.29 Run a new chain</h4> <ul><li><p>Function Description:</p> <div class="language- extra-class"><pre class="language-text"><code>Run a new subchain locally 
+</code></pre></div></li> <li><p>Process description</p> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div></li> <li><p>Interface definition</p> <ul><li><p>Interface Description</p> <div class="language- extra-class"><pre class="language-text"><code>Run a new subchain locally
+</code></pre></div></li> <li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;method&quot;:&quot;cs_runChain&quot;,
+    &quot;version:&quot;1.0&quot;,
+    &quot;params&quot;:[&quot;chainId&quot;,1999,8000,12131,24274727,54646,12.5,80.5,200000,700000,2000,500000]
+}
+
+</code></pre></div></li> <li><p>Request parameter description（待完善）</p> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>String</td> <td>chain ID</td></tr> <tr><td>1</td> <td>packing_interval</td> <td>true</td> <td>long</td> <td>Packing interval (unit: s)</td></tr> <tr><td>2</td> <td>packing_amount</td> <td>true</td> <td>long</td> <td>Minimum amount of the block</td></tr> <tr><td>3</td> <td>coinbase_lockHeight</td> <td>true</td> <td>long</td> <td>Bonus lock block number</td></tr> <tr><td>4</td> <td>redPublish_lockTime</td> <td>true</td> <td>long</td> <td>Get red card margin lock time (unit: s)</td></tr> <tr><td>5</td> <td>stopAgent_lockTime</td> <td>true</td> <td>long</td> <td>Logout agent margin lock time (unit: s)</td></tr> <tr><td>6</td> <td>commissionRate_min</td> <td>true</td> <td>double</td> <td>Commission ratio minimum</td></tr> <tr><td>7</td> <td>commissionRate_max</td> <td>true</td> <td>double</td> <td>Commission ratio maximum</td></tr> <tr><td>8</td> <td>deposit_min</td> <td>true</td> <td>int</td> <td>Create a agent margin minimum amount</td></tr> <tr><td>9</td> <td>deposit_max</td> <td>true</td> <td>int</td> <td>Create a agent margin maximum amount</td></tr> <tr><td>10</td> <td>commission_min</td> <td>true</td> <td>int</td> <td>Commissioned consensus minimum amount</td></tr> <tr><td>11</td> <td>Commission_max</td> <td>true</td> <td>int</td> <td>Maximum amount of commissioned consensus</td></tr></tbody></table></li> <li><p>Return example</p> <p>success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;code&quot;: 0,                                  //error code
+    &quot;msg&quot;: &quot;success&quot;,                           //Prompt message
+    &quot;version&quot;:&quot;1.0&quot;,                            
+    &quot;result&quot;: {                                 //Returned business data set  
+    	
+    }
+}
+
+
+</code></pre></div><p>fail</p> <div class="language- extra-class"><pre class="language-text"><code>{
+     &quot;version&quot;: 1.0,
+   	 &quot;code&quot;:1,                            //error code
+   	 &quot;msg&quot; :&quot;Prompt message&quot;,             //Prompt message
+     &quot;result&quot;:{
+        
+  	  }
+}
+
+
+</code></pre></div></li> <li><p>Return parameter description</p></li></ul></li></ul> <h3 id="_2-3-module-internal-function"><a href="#_2-3-module-internal-function" aria-hidden="true" class="header-anchor">#</a> 2.3 Module internal function</h3> <p>​	The POC consensus mechanism is to take the agent round out of the block that participates in the consensus, reach a consensus, and jointly maintain a set of books. However, due to network reasons or some consensus agents do evil (send different packing blocks to different agents), there will be bifurcation. For this malicious agent system, different penalties will be given according to the severity, when it is a turn When the agent fails to issue the block at the specified time, the system will give the agent a yellow card penalty. The penalty will lower the credit value of the agent. When the agent credit value drops to -1, the agent will be punished with a red card; The agent will be directly punished with a red card. The agent that receives the red card penalty will stop packing and the agent will never be able to create a consensus agent again, and the margin will be frozen for a certain period of time. The other commissioned amount of the agent will be returned to the client; When a normal block is issued, the agent will receive a block reward, and the account entrusted to the agent will also receive a corresponding proportion of the bonus according to the amount of the commission.</p> <p>​	In addition to providing packaged blocks, the consensus module will also do the statistical work of bonuses, statistics on the total amount of rewards issued within 24 hours, the amount of rewards accumulated in local accounts within 24 hours, and the details of rewards within 24 hours.</p> <ul><li><p>Consensus module startup process</p> <p>initialization：</p> <ul><li>Load consensus module configuration information (out of block interval, bonus lock block number)</li> <li>Register Consensus Module Transaction, Transaction Verifier, Transaction Processor (registered with Transaction Module)</li> <li>Register Consensus Module Service Interface (registered with the core module)</li> <li>Register consensus module event (register with event bus module)</li></ul> <p>start up：</p> <ul><li>Get the latest round of block information in the database and calculate the round information</li> <li>Get current protocol version information and cache</li> <li>Start each relevant thread</li></ul></li> <li><p>Package out process</p> <ul><li>Determine if the agent meets the requirements for becoming a packed agent</li> <li>Calculate packaging round information</li> <li>Waiting for packing out</li> <li>Receive the latest block. If you wait for 5 seconds and have not received the latest block, the default last block agent does not have a block, and the current agent continues to perform the packing operation.</li> <li>Verify the transactions that need to be packaged, and eliminate the new package after the duplicate package transaction</li> <li>Verify the packaged new block and save the relevant data to the database</li> <li>Broadcast block</li></ul></li></ul> <p><img src="/assets/img/consensus-flow-5.e1e96c82.png" alt></p> <ul><li><p>Consensus reward statistics</p> <p><img src="/assets/img/statics_en.4c53a0d1.png" alt></p> <ul><li>Get a list of local accounts</li> <li>Get a list of blocks within 24 hours</li> <li>Traverse block list to get CoinBase transactions</li> <li>According to the CoinBase transaction, update the total reward amount within 24 hours, the accumulated bonus amount of the local account within 24 hours, and the reward details within 24 hours.</li></ul></li></ul> <h2 id="_4、event-description"><a href="#_4、event-description" aria-hidden="true" class="header-anchor">#</a> 4、Event description</h2> <h3 id="_4-1-published-event"><a href="#_4-1-published-event" aria-hidden="true" class="header-anchor">#</a> 4.1 Published event</h3> <h4 id="_4-1-1-block-packaging-success-event"><a href="#_4-1-1-block-packaging-success-event" aria-hidden="true" class="header-anchor">#</a> 4.1.1 Block packaging success event</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: This event is released when a new zone is successfully packaged successfully.
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_packing&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;smallBlock&quot;:&quot;Serialize a smallBlock object into a hex string&quot;
+}
+</code></pre></div><h4 id="_4-1-2-create-agent"><a href="#_4-1-2-create-agent" aria-hidden="true" class="header-anchor">#</a> 4.1.2 Create agent</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: Issue the event after the create agent transaction is confirmed and packaged into the block
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_createAgent&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;agentList&quot;:{    //List of consensus agents created in the packaging block
+        &quot;agent1&quot;,    //Serialization of the Agent object to a hex string
+        &quot;agent2&quot;,
+        &quot;agent3&quot;
+    }
+}
+</code></pre></div><h4 id="_4-1-3-logout-agent"><a href="#_4-1-3-logout-agent" aria-hidden="true" class="header-anchor">#</a> 4.1.3 Logout agent</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: Issue the event after the logout agent transaction is confirmed and packaged into the block
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_stopAgent&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;agentList&quot;:{    //List of consensus agents that are logged out in the packaging block
+        &quot;agent1&quot;,    //Serialization of the Agent object to a hex string
+        &quot;agent2&quot;,
+        &quot;agent3&quot;
+    }
+}
+</code></pre></div><h4 id="_4-1-4-consensus-agent-state-change-in-the-consensus-out-of-the-block"><a href="#_4-1-4-consensus-agent-state-change-in-the-consensus-out-of-the-block" aria-hidden="true" class="header-anchor">#</a> 4.1.4 Consensus agent state change (in the consensus, out of the block)</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: Issue the event when the consensus agent status changes
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_agentStatusChage&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;agentList&quot;:{    //The list of consensus agents for the table in the state of the packed block
+        &quot;agent1&quot;,    //Serialization of the Agent object to a hex string
+        &quot;agent2&quot;,
+        &quot;agent3&quot;
+    }
+}
+</code></pre></div><h4 id="_4-1-5commission-consensus"><a href="#_4-1-5commission-consensus" aria-hidden="true" class="header-anchor">#</a> 4.1.5Commission consensus</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: Issue the event after the delegate consensus transaction is confirmed and packaged into the block
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_deposit&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;depositList&quot;:{     //Delegate list in the packaging block
+        &quot;deposit1&quot;,     /Deposit object serialized to a hex string
+        &quot;deposit2&quot;
+    }
+}
+</code></pre></div><h4 id="_4-1-6-exit-consensus"><a href="#_4-1-6-exit-consensus" aria-hidden="true" class="header-anchor">#</a> 4.1.6 Exit consensus</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: Issue the event after the exit consensus transaction is confirmed and packaged into the block
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_withdraw&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;depositList&quot;:{     //Exit the delegation list in the packaging block
+        &quot;deposit1&quot;,     //The deposit object is serialized as a hex string
+        &quot;deposit2&quot;
+    }
+}
+</code></pre></div><h4 id="_4-1-7-yellow-card-penalty"><a href="#_4-1-7-yellow-card-penalty" aria-hidden="true" class="header-anchor">#</a> 4.1.7 Yellow card penalty</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: When there is a consensus agent to get a yellow card penalty is to issue the event
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_yellowPublish&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;yellowPublishList&quot;:{    //Yellow card list in the packing block
+        &quot;yellowPublish1&quot;,    //YellowPublish object serialized to a hex string
+        &quot;yellowPublish2&quot;
+    }
+}
+</code></pre></div><h4 id="_4-1-8-red-card-penalty"><a href="#_4-1-8-red-card-penalty" aria-hidden="true" class="header-anchor">#</a> 4.1.8 Red card penalty</h4> <div class="language- extra-class"><pre class="language-text"><code>Description: Obtain the event when there is a consensus agent to get a red card transaction
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code> event_topic : &quot;evt_cs_redPublish&quot;
+</code></pre></div><div class="language- extra-class"><pre class="language-text"><code>data:{
+    &quot;chainId&quot;:88,
+    &quot;redPublishList&quot;:{    //Red card list in the package block
+        &quot;redPublish1&quot;,    //Serializing a RedPublish object to a hex string
+        &quot;redPublish2&quot;
+    }
+}
+</code></pre></div><h3 id="_4-2-subscribed-event"><a href="#_4-2-subscribed-event" aria-hidden="true" class="header-anchor">#</a> 4.2 Subscribed event</h3> <div class="language- extra-class"><pre class="language-text"><code>nothing
+</code></pre></div><h2 id="五、protocol"><a href="#五、protocol" aria-hidden="true" class="header-anchor">#</a> 五、protocol</h2> <h3 id="_5-1-network-communication-protocol"><a href="#_5-1-network-communication-protocol" aria-hidden="true" class="header-anchor">#</a> 5.1 Network communication protocol</h3> <h4 id="broadblock"><a href="#broadblock" aria-hidden="true" class="header-anchor">#</a> broadBlock</h4> <ul><li>Send a new block (SmallBlock)</li> <li>Get blocks based on hash</li> <li>Send a full block</li> <li>Get multiple blocks based on height</li> <li>Get a list of transactions based on the trade hash list</li> <li>Send a list of transactions</li> <li>Get SmallBlock based on hash</li> <li>Get block hash list based on height interval</li> <li>Get the SmallBlock list based on the height interval</li></ul> <p>New area for broadcast packaging</p> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>4</td> <td>chainId</td> <td>int</td> <td>chain ID</td></tr> <tr><td>??</td> <td>smallBlock</td> <td>String</td> <td>SmallBlock object serialized hex string</td></tr></tbody></table> <h2 id="六、module-configuration"><a href="#六、module-configuration" aria-hidden="true" class="header-anchor">#</a> 六、Module configuration</h2> <div class="language- extra-class"><pre class="language-text"><code>{
+    {
+        &quot;name&quot;: &quot;packing_interval&quot;,
+        &quot;remark&quot;: “packaging interval”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;10秒&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;packing_amount&quot;,
+        &quot;remark&quot;: “minimum amount of the block”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;200000&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;coinbase_unlock_height&quot;,
+        &quot;remark&quot;: “Number of bonus lock blocks”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;100&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;redPublish_lockTime&quot;,
+        &quot;remark&quot;: “Get red card margin lock time”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;3 months&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;stopAgent_lockTime&quot;,
+        &quot;remark&quot;: “Logout agent margin lock time”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;3 days&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;commissionRate_min&quot;,
+        &quot;remark&quot;: “minimum and minimum commission ratio”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;10&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;commissionRate_max&quot;,
+        &quot;remark&quot;: “Maximum commission ratio”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;80&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;deposit_min&quot;,
+        &quot;remark&quot;: “Create the minimum margin for the agent”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;20000&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;deposit_max&quot;,
+        &quot;remark&quot;: “Create the maximum margin for the agent”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;700000&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;commission_min&quot;,
+        &quot;remark&quot;: “trust the maximum amount”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;2000&quot;
+    },
+    {
+    	&quot;name&quot;: &quot;commission_max&quot;,
+        &quot;remark&quot;: “delegate the minimum amount”,
+        &quot;changable&quot;: &quot;true&quot;,
+        &quot;default&quot;: &quot;680000&quot;
+    }
+}
+</code></pre></div><h2 id="七、java-specific-design"><a href="#七、java-specific-design" aria-hidden="true" class="header-anchor">#</a> 七、Java-specific design</h2> <h2 id="八、to-add-on"><a href="#八、to-add-on" aria-hidden="true" class="header-anchor">#</a> 八、to add on</h2></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/dev/docs/NULSInfrastructure/consensusModuleDesign.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">1/9/2019, 4:46:46 PM</span></div></div> <!----> </div> <!----></div></div>
+    <script src="/assets/js/app.15dd29f7.js" defer></script><script src="/assets/js/50.76124638.js" defer></script>
+  </body>
+</html>

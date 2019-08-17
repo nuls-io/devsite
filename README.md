@@ -1,3 +1,4 @@
+
 # NULS Official Developer Website
 
 The website for NULS Developer. You can see the generated files at [nuls-io/nuls-io.github.io](https://github.com/nuls-io/nuls-io.github.io) repository.
@@ -27,12 +28,4 @@ $ yarn run build
 ## Contributors
 
  Waiting for you
-
-## License
-
-Source released under the [MIT license](https://opensource.org/licenses/MIT)
-
-Power by [HEXO](https://hexo.io)
-
-Documentation released under the [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
