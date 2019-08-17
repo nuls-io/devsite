@@ -510,7 +510,7 @@ nuls>>> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
 
 Transfer NULS to the specific account with the account address
 
-- **command：transfer &lt;formAddress&gt;|&lt;formAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark]**
+- **command：transfer &lt;fromAddress&gt;|&lt;fromAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark]**
 
 | Parameter           | Description                                                |
 | ------------------- | ---------------------------------------------------------- |
@@ -1197,7 +1197,7 @@ Please enter your account password
 
 NRC20 token transfer
 
-- **command：tokentransfer &lt;formAddress> &lt;toAddress> &lt;contractAddress> &lt;amount> [remark]**
+- **command：tokentransfer &lt;fromAddress> &lt;toAddress> &lt;contractAddress> &lt;amount> [remark]**
 
 | Parameter            | Description      |
 | -------------------- | ---------------- |
@@ -1642,12 +1642,12 @@ nuls>>> crosschaininfo 11
 
 ### Send Cross-chain Transaction
 
-- **Command: getecrosstx &lt;chainId> &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
+- **Command: getecrosstx &lt;chainId> &lt;fromAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
 
 | Parameter         | Specification                   |
 | ----------------- | ------------------------------- |
 | &lt;chainId>      | chain id of running transaction |
-| &lt;formAddress>  | from address                    |
+| &lt;fromAddress>  | from address                    |
 | &lt;toAddress>    | to address                      |
 | &lt;assetChainId> | chain Id of the transfer asset  |
 | &lt;assetId>      | transfer asset id               |

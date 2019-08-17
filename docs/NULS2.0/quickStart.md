@@ -113,10 +113,10 @@ Address: Account address to change the password (required)
 
 ### 6 Transfer
 
-Command: **transfer** &lt;FormAddress/FormAlias&gt; &lt;ToAddress/ToAlias&gt;&lt;amount&gt; [Remark]
+Command: **transfer** &lt;fromAddress/fromAlias&gt; &lt;ToAddress/ToAlias&gt;&lt;amount&gt; [Remark]
 
 ```
-FormAddress/FormAlias: Transfer the address or export the alias, choose one (required)
+fromAddress/fromAlias: Transfer the address or export the alias, choose one (required)
 ToAddress/ToAlias: Receive address or receive alias, choose one (required)
 ```
 

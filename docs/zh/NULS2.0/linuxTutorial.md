@@ -523,12 +523,12 @@ nuls>>> getbalance tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 
 根据账户地址或别名将NULS转入另一账户地址或别名中
 
-- **命令：transfer &lt;formAddress&gt;|&lt;formAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark] **
+- **命令：transfer &lt;fromAddress&gt;|&lt;fromAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark] **
 
 | 参数              | 说明                                            |
 | ----------------- | ----------------------------------------------- |
-| &lt;formAddress&gt; | 转出地址(与formAlias任选一项）                                |
-|&lt;formAlias>|转出地址别名(与formAddress任选一项）|
+| &lt;fromAddress&gt; | 转出地址(与fromAlias任选一项）                                |
+|&lt;fromAlias>|转出地址别名(与fromAddress任选一项）|
 | &lt;toAddress&gt; | 接收地址(与toAlias任选一项）                               |
 |&lt;toAlias>|接收地址别名(与toAddress任选一项）|
 | &lt;amount&gt;    | 转账数量，必填 |
@@ -1180,11 +1180,11 @@ Please enter your account password
 
 NRC20 token转账
 
-- **命令：tokentransfer &lt;formAddress> &lt;toAddress> &lt;contractAddress> &lt;amount> [remark]**
+- **命令：tokentransfer &lt;fromAddress> &lt;toAddress> &lt;contractAddress> &lt;amount> [remark]**
 
 | 参数           | 说明         |
 | -------------- | ------------ |
-|&lt;formAddress>|转出账户地址|
+|&lt;fromAddress>|转出账户地址|
 |&lt;toAddress|转入的账户地址|
 |&lt;contractAddress>|合约地址|
 |&lt;amount>|转入数量|
@@ -1604,12 +1604,12 @@ nuls>>> crosschaininfo 11
 }
 ```
 ### 创建跨链交易
-- **命令：createcrosstx &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
+- **命令：createcrosstx &lt;fromAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
 
 
 | 参数           | 说明         |
 | -------------- | ------------ |
-|&lt;formAddress>|转出地址|
+|&lt;fromAddress>|转出地址|
 |&lt;toAddress>|转入地址|
 |&lt;assetChainId>|转账资产的chainId|
 |&lt;assetId>|转账资产id|
