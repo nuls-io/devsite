@@ -83,10 +83,10 @@ Address：修改密码的账户地址（必填）
 
 ### 6、转账
 
-- 命令：**transfer** &lt;fromAddress/fromAlias&gt; &lt;ToAddress/ToAlias&gt; &lt;Amount&gt; [Remark]
+- 命令：**transfer** &lt;FromAddress/FromAlias&gt; &lt;ToAddress/ToAlias&gt; &lt;Amount&gt; [Remark]
 
 ```
-fromAddress/fromAlias：转出地址或转出别名，二者选一（必填）
+FromAddress/FromAlias：转出地址或转出别名，二者选一（必填）
 ToAddress/ToAlias：接收地址或接收别名，二选一（必填）
 ```
 
