@@ -15,23 +15,25 @@ NULS核心团队革命性的在区块链底层基础设施设计中引入微服�
 
 此次Beta版本测试内容主要包含：
 - [使用ChainBox搭建区块链](/zh/NULS2.0/chainBoxGuide.html)
-- 开发[业务模块](/zh/NULS2.0/developeModule.html)
-- 2.0版本轻钱包
+- [开发业务模块](/zh/NULS2.0/developeModule.html)
+- [网页钱包](http://beta.wallet.nuls.io/)
+- [节点钱包和轻钱包](https://github.com/nuls-io/nuls-v2/releases)
+- [区块链浏览器](http://Beta.nulscan.io/)
 
 
-### 参与测试：
+### 如何参与测试：
 
-1 [钱包下载](https://github.com/nuls-io/nuls-v2/releases)
+1 [下载钱包](https://github.com/nuls-io/nuls-v2/releases)或直接访问[网页钱包](http://beta.wallet.nuls.io/)
 
-2 [linux钱包使用教程](/zh/NULS2.0/linuxTutorial.html)
+2 如果使用linux节点钱包，则需查看[linux钱包使用教程](/zh/NULS2.0/linuxTutorial.html)
 
 3 [申请测试币](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141)并在帖子中回复:beta+地址
 
-4 访问区块链浏览器:[http://beta.nulscan.io/](http://Beta.nulscan.io/)
+4 [访问区块链浏览器](http://Beta.nulscan.io/)
 
 5 [使用ChainBox搭建区块链](/zh/NULS2.0/chainBoxGuide.html)
 
-6 提交bug:[https://github.com/nuls-io/nuls_2.0/issues](https://github.com/nuls-io/nuls_2.0/issues)
+6 [提交bug](https://github.com/nuls-io/nuls_2.0/issues)
 
 
 ### 相关链接
@@ -39,7 +41,6 @@ NULS核心团队革命性的在区块链底层基础设施设计中引入微服�
 - Github:[https://github.com/nuls-io/nuls_2.0](https://github.com/nuls-io/nuls_2.0)
 - 论坛：[https://nuls.community](https://nuls.community)
 - 技术社区Telegram：[https://t.me/nulstest](https://t.me/nulstest)
-- 微信公众号：NULS中文社区
 
 
 想了解更多与NULS相关的信息，可以访问我们的[官网](https://nuls.io)

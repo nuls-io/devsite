@@ -4,7 +4,7 @@
 
 ### 1、下载NULS钱包
 
-进入GitHub下载最新版的NULS2.0 beta钱包：[下载地址](&lt;https://github.com/nuls-io/nuls-v2/releases&gt;)。
+进入GitHub下载最新版的NULS2.0 beta钱包：[下载地址](https://github.com/nuls-io/nuls-v2/releases)。
 
 钱包安装包在打包时已经加入JDK11，不需要安装jdk。
 
