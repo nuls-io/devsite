@@ -21,7 +21,7 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
          GroupId：io.nuls.v2
          ArtifactId: nuls-smartcontract-archetype 
-         Version: 0.10
+         Version: 0.11
 
 ![图1](../../NULS2.0/mavenPackage/jFTBDBh.png)
 

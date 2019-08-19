@@ -21,7 +21,7 @@ The maven archetype also integrates an offline smart contract client. After the 
 
          GroupId：io.nuls.v2
          ArtifactId: nuls-smartcontract-archetype 
-         Version: 0.10
+         Version: 0.11
 
 ![图1](./mavenPackage/jFTBDBh.png)
 
