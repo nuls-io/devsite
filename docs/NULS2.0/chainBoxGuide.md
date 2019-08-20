@@ -5,38 +5,39 @@ ChainBox is an out-of-the-box solution to chain-building. It encapsulates six un
 
 ## Why Chainbox
 
-NULS ChainBox is designed to help enterprises or application developers build applications on the blockchain with ease and focus on their own business implementations without concern for the arcane and complex underlying technology of blockchains.
+NULS ChainBox is designed to help enterprises or application developers build applications on the blockchain with ease and focus on their own business implementations without concern underlying complex technology of blockchains.
 
 ## Features
-Essentially NULS ChainBox is an extension of NULS 2.0 with the positioning to be a one-stop blockchain development platform. It has three core features:
-- Quickly set up development environment
-- Lower the threshold of application development through templates
-- Reduce the difficulty of template integration through conventions and scripts and realize one-click generation of executable programs
+Essentially NULS ChainBox is an extension of NULS 2.0 position: to be a one-stop blockchain development platform. It has three core features:
+- Quick set up development environment.
+- Lower the threshold of application development by using templates.
+- Reduce the difficulty of integrating with NULS provided templates by utilizing provided scripts and one-click generation of executable programs.
 
 ## Quick start
-In the following case, you will experience how to quickly build a blockchain application that provides encrypted message services with the help of NULS ChainBox.
+In the following ChainBox example, you will see how to quickly build a blockchain application that provides an encrypted message services.
 
 ### 1 Environment preparation
-- Operating System of Linux Kernel
-- Install Git
-- Install Maven
-- Install JDK11
+- Linux or MacOS
+- Git
+- Maven
+- JDK11
+Java must be set in the $PATH environment variable.
 
-### 2 Get NULS ChainBox
+### 2 Get NULS ChainBox Repository
 Open the terminal and run the following command
 
 ```
 git clone https://github.com/nuls-io/nuls-chainbox.git chainbox
 ```
 ### 3 Building encrypted message module
-Run the command to enter the `example` directory 
+Change directory to the `example` directory:
 ```
-cd example   # enter the sample folder
+cd example   # enter the example folder
 ```
-Run the command to build a module
+Run the command to build a example module:
 
 ```
-./package    # execute the build script (provided by the template)
+package    # execute the build script (provided by the template)
 ```
 The following output indicates the success of the build
 ```
@@ -47,30 +48,30 @@ If the build is successful, you will find the `outer` folder generated in `examp
 
 > PS: If you want to know the detailed design of the module, please refer to the [message Module Design](./developeModule.md)
 
-### 4 Integrated encrypted message module
-Go back to the `chainbox` root directory 
+### 4 Integrate the encrypted message module into chainbox
+Go back to the `chainbox` root directory:
 
 ```
 cd ..
 ```
 
-Run the command to integrate the encryption module into NULS 2.0 runtime environment
+Run the command to integrate the encryption module into the NULS 2.0 runtime environment:
 
 ```
-./tools -p example
+tools -p example
 ```
-The following output indicates the success of the integration 
+The following output indicates the success of the integration:
 
 ```
 ============ PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
 ```
 
-After that, the `NULS-WALLET` folder will be generated in the `chainbox` directory, which contains the NULS 2.0 running program integrated with the encrypted message module.
+The `NULS-WALLET` folder will be created in the `chainbox` directory. It contains the NULS 2.0 running program integrated with the encrypted message module, and support directories such as Logs, and scripts.
 
 If multiple nodes are deployed on different machines, it is recommended to modify the following two parameters in the `NULS-WALLET/.default-config.ncf` configuration file.
 
  ```
-# Minimum number of linking nodes. If the number of linking nodes is lower than this parameter, it will continue to wait
+# Minimum number of linking nodes. If the number of linking nodes is lower than this parameter, it will continue to wait.
 minNodeAmount=0
 
 # Seed node block address
@@ -80,13 +81,21 @@ seedNodes=tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
 
 
 
-### 5 Start node program
-After the configuration, run the following command in the `NULS-WALLET` directory
+### 5 Start your node!
+Execute the following command in the `NULS-WALLET` directory:
 
 ```
-./start-dev
+start-dev
+nuls.ncf is created by default-config.ncf.
+Please re-excute the startup program.
 ```
-The following outputs indicate that the module is starting
+
+The nuls.ncf is created during the first execution of the command. Re-enter the command:
+
+```
+start-dev
+```
+The following output indicate that the chainbox modules are starting:
 
 ```
 LOG PATH    : ~/NULS-WALLET/Logs
@@ -99,16 +108,16 @@ Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
 Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
 
 ====================
-NULS-WALLET STARING
+NULS-WALLET STARTING
 ====================
 ```
 
-Check the startup status through the following command
+Check the startup status using the following command:
 
 ```
-./check-status 
+check-status
 ```
-The following outputs indicate that all the modules of the node have been successfully started.
+The following output indicate that all the modules of the node have been successfully started. Notice the module 'mail-example' is included.
 ```
 ==================MODULE PROCESS====================
 account PROCESS IS START
@@ -117,14 +126,14 @@ consensus PROCESS IS START
 ledger PROCESS IS START
 network PROCESS IS START
 transaction PROCESS IS START
-==================RPC REDAY MODULE==================
+==================RPC READY MODULE==================
 account RPC READY
 block RPC READY
 consensus RPC READY
 ledger RPC READY
 network RPC READY
 transaction RPC READY
-======================REDAY MODULE==================
+======================READY MODULE==================
 account STATE IS READY
 block STATE IS READY
 consensus STATE IS READY
@@ -151,61 +160,73 @@ NULS WALLET IS RUNNING
 ==========================
 ```
 
-### 7 Import block address of seed node
+### 7 Start creating blocks, and other housekeeping:
 
-Now that the seed node is started, we need to enter the command line and import the default block address of the seed node so that the node can produce blocks.
+Now that the node is started, also referred to as the 'seed node', we need to import the default block address of the seed node so that the node can begin to produce blocks.
+
+First start the command line interface:
 
 First enter the command line
 
 ```
-./cmd 
+cmd
+...
+Module:cmd-client
+...
+waiting nuls-wallet base module ready
+nuls>>>
 ```
-Next you must import the block address of the seed node.  This is very important, and if you miss this step, the rest won't work. 
+Next you must import the block address of the seed node.  This is very important. If you miss this step, or enter the wrong details, the seed node will not begin building blocks and 'mail-example' will not work.
 
 Enter:   import b54db432bba7e13a6c4a28f65b925b18e63bcb79143f7b894fa735d5d3d09db5
-
-Password:   nuls123456   
+and, when prompted, provide the Password: nuls123456
 
 ```
-nuls>>> import b54db432bba7e13a6c4a28f65b925b18e63bcb79143f7b894fa735d5d3d09db5 
-# Import the address of the seed node through the private key, and the address generated by the private key must be the same as the second address in Step 5.
+nuls>>> import b54db432bba7e13a6c4a28f65b925b18e63bcb79143f7b894fa735d5d3d09db5
 Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-Enter your password: nuls123456  
-# Set the password for the imported address which must be nuls123456
-Please confirm new password: nuls123456 
-# Repeat the password entered in the previous step
-tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp 
-# Import address successfully, verify that the address is exactly the same as the second configuration item in Step 4
+Enter your password:**********
+Please confirm new password:**********
+tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
+
+# The password for the imported address  must be nuls123456
+# You will be asked to enter the password twice
 ```
+The returned NULS account address is 'tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp'.
+Note: 'import address' is successful if the returned address is the same as the 'Seed Node Block Address' listed as a configuration item is Step 4.
 
-### 8 Use encrypted message
-- Prepare two accounts to test sending and receiving message. The following two addresses are defined in the genesis block in the test environment, which contain certain amount of assets for testing.  
+### 7 Get nuls accounts for 'mail-example'
+Setup two accounts to test sending and receiving a message. The following two addresses are pre-defined in the genesis block.  For these accounts, enter any password.
 
-  ```
-  nuls>>> import 477059f40708313626cccd26f276646e4466032cabceccbf571a7c46f954eb75
-  Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-  Enter your password:**********
-  Please confirm new password:**********
-  tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
-  
-  nuls>>> import 8212e7ba23c8b52790c45b0514490356cd819db15d364cbe08659b5888339e78
-  Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
-  Enter your password:**********
-  Please confirm new password:**********
-  tNULSeBaMrbMRiFAUeeAt6swb4xVBNyi81YL24
-  ```
+```
+nuls>>> import 477059f40708313626cccd26f276646e4466032cabceccbf571a7c46f954eb75
+Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+Enter your password:**********
+Please confirm new password:**********
+tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
 
-  
+nuls>>> import 8212e7ba23c8b52790c45b0514490356cd819db15d364cbe08659b5888339e78
+Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+Enter your password:**********
+Please confirm new password:**********
+tNULSeBaMrbMRiFAUeeAt6swb4xVBNyi81YL24
+```
+For testing 'mail-example' the accounts 'tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD' and 'tNULSeBaMrbMRiFAUeeAt6swb4xVBNyi81YL24' are now available.
 
-- Enter the `NULS-WALLET/Modules/Nuls/mail-example/1.0.0` directory and open `mail-test.html` with a browser (this is a simple test page that can test the functions of binding messagebox address, sending and receiving messages). First, bind the messagebox address to the account.
+### 8 Testing 'mail-example'
 
+Enter the `NULS-WALLET/Modules/Nuls/mail-example/1.0.0` directory and open `mail-test.html` with a browser (this is a simple test page that can test the functions of 1.) associating a sender/receiver with a NULS address, 2.) sending a message, and 3.) viewing the sent message.
 
-Set emessage addresses for two test accounts, and enter the password of the test account you just set. The hash value of this transaction will be returned if the submission is successful. Here the emessage addresses we applied for are asd@nuls.io and l24@nuls.io respectively. After setting up, we need to wait about 10 seconds to confirm the block.
-- Now let's test sending message to l24@nuls.io with asd@nuls.io. Enter the receiver's emessage address, the sender's account address, and the sender's account password. The hash value of this transaction will be returned if the submission is successful.
+First, associate the sender/receiver with a NULS address. The sender/receiver can be an email address, as in the example that follows, or any other identifier such as 'kathy' and 'bella'.
 
-- After waiting for about 10 seconds (to ensure that the transaction has been confirmed), the content of the message can be viewed by the hash value of the message sent. Only the sender and the receiver have the permission to view it.
+Set the sender/receiver for one NULS account, and enter the password of the  account you used. The hash value of this transaction will be returned if the submission is successful.  Then, do the same for the second NULS account.
 
+In the example that follows, asd@nuls.io and l24@nuls.io are used. asd@nuls.io and l24@nuls.io are each associated with a NULS account.
 
+Then, send a message to 24@nuls.io from asd@nuls.io. Enter the receiver's address (asd@nuls.io), the sender's account address, and the sender's account password. The hash value of this transaction will be returned if the submission is successful.
+
+After waiting for about 10 seconds (to ensure that the transaction has been confirmed), the content of the message can be viewed by the hash value of the message sent. Only the sender and the receiver have the permission to view it.
+
+Here is the decrypted sent message, as provided by 'mail-example':
   ```
   {
       "sendermessageAddress": "asd@nuls.io",   //Sender's messagebox address
@@ -218,84 +239,136 @@ Set emessage addresses for two test accounts, and enter the password of the test
   ```
 
 ## ChainBox Guide
-### Directory Structure
+### Directory Structure of ChainBox
 #### tools
-ChainBox uses the portal to provide operations such as acquiring programs, integrating packages, and so on. [Command Parameter Document](#cmd-doc).
+The script tools downloads packages and repositories, integrates packages, etc.
+[Command Parameter Document](#cmd-doc).
 #### document
-A list of documents.
+The directory document contains the documentation for the six core modules that comprise the basic block chain program. Currently these documents are in Chinese.  If you are interested in finding out more about these topics, we suggest you use Google Translate.
 #### example
-An example module program source code for an encrypted mail developed based on a java module template.
+An example module program source code for an encrypted mail developed based on a java module template. The example directory includes source code, test.html, package script, module.ncf, README.md.
 #### rpc-debug-tool
 Basic module rpc interface debugging tool.
 
-#### Get NULS2.0 run environment
+#### NULS_WALLET: the NULS2.0 run environment
 
-The NULS2.0 running environment contains the most basic block chain program, which contains six core modules: account, ledger, block, network, transaction, consensus (poc). Running NULS2.0 basic run environment you can get the core functions of the underlying blockchain including account model, transfer transaction, POC consensus incentive, etc. If you want to send a simple chain transfer deal, by modifying the configuration file can be completed ([complete configuration list](https://github.com/nuls-io/nuls-v2/blob/develop/useguide.md#nulsncf-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)). You can integrate your own business modules in the base environment and do so by extending a new type of transaction, which I'll describe in detail in the next section.
+The NULS2.0 running environment containing all necessary files for the contains the most basic block chain program, which are the six core modules: account, ledger, block, network, transaction, consensus (poc).
 
+To add additional functionality, such as cross chain transfer, the configuration file, nuls.ncf, must be modified and NULS_WALLET must be rebuilt. ([complete configuration list](https://github.com/nuls-io/nuls-v2/blob/develop/useguide.md#nulsncf-%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6)).
 
-Use the tools script to get the NULS2.0 run environment
+To integrate your own business module(s) in chainbox, the NULS2.0 run environment is modified using the script 'tools'. More information is provided in the next section.
+
+##### tools
+The script 'tools' is used to download templates and repositories, and to build the NULS2.0 run environment.
 
 ```
-./tools -n
+tools -h
+Desc: NULS-engine script
+Usage: ./tools
+   -t <language> [folder name] Get the module program module of the specified development language
+<language> development language, such as java
+[folder name] Download to the directory with the specified name
+   -r <folder name> Retrieve the business module code and execute the package to compile
+   -l View a list of supported templates
+   -n [base module name...] Get the NULS2.0 runtime environment (pull from the nuls-v2/nuls-engine branch) By default, 6 core modules are built, and optional modules can be added by passing in optional module names.
+   -p [business module directory...] build NULS2.0 wallet
+   -a add a base module
+   -d remove a base module
+   -s View the configured list of base modules to be packaged
+   -i <package.ncf> specifies the configuration file of the base module to be packaged
+   -o <folder path> specifies the output directory
+   -h View help
 ```
-The script first checks the current environment, then pulls NULS2.0 code from the github repository, executes the package to complete the NULS2.0 compilation and packaging, and outputs the runnable program to the./ nuls-wallet -RUNTIME directory.
-When you see the following, the packaging is complete.
+The following '-n' 'tools' option checks the current environment, then pulls NULS2.0 code from the github repository, executes 'package' to complete the NULS2.0 compilation and packaging, and writes the runnable program and support directories to the NULS_WALLET directory.
+
 ```
-============ ~/nuls-engine/NULS-WALLET-RUNTIME PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
+tools -n
 ```
-#### NULS-WALLET-RUNTIME directory structure
+When you see the following, 'tools -n' has successfully completed:
+```
+============ .../.NULS2.0/NULS-WALLET-RUNTIME PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
+```
+To start and complete the configuration of chainbox, execute steps 5 and 6 of the 'Quick Start' section.
+
+#### NULS-WALLET directory structure
 ##### start-dev
-Boot node
+- Start node.
 ##### stop-dev
-Stop node
+- Stop node.
 ##### check-status
-Check the operating status of each module
+- Check the operating status of each module.
 ##### cmd
-Command line startup script
+- Command line startup script.
 ##### create-address
-Create address tool
+- Create NULS account and return account address and private key.
+
+```
+./create-address
+JAVA_HOME:/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home
+java version "11.0.2" 2019-01-15 LTS
+Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
+
+.../NULS_WALLET/nuls.ncf
+Service Manager URL: ws://127.0.0.1:7771
+chainId:2
+number:1
+====================================================================================================
+address   :tNULSeBaMtrzD4kChZPfEAFLRqX18n7UrrbY1s
+privateKey:f67877e994d6bd0ef23e0aaf0f8c6b62edf5dc636ff5b6981666c4632499bc56
+====================================================================================================
+```
+
+
 ##### nuls.ncf
-Configuration file (created after running the start-dev script for the first time)
+- Configuration file (created after running the start-dev script for the first time).
 ##### More usage reference ([NULS2.0 Wallet User Manual](https://github.com/nuls-io/nuls-v2/blob/develop/useguide.md))
 
-### How to develop your own module
-NULS2.0 is a distributed microservice architecture program written in JAVA language. The entire node program consists of multiple modules, each of which communicates via the websocket protocol. NULS 2.0 defines a standard [module communication protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md), this standard protocol can be implemented in various development languages ​​to communicate with other modules to realize their own business logic. Extending your own business logic is mainly achieved by extending the new transaction type, storing its own business data in the transaction's txData, and txData will follow the transaction in the chain.
+### How to develop your own module (also called 'Business Module')
+NULS2.0 is a distributed microservice architecture  written in the JAVA language. It consists of multiple modules, each of which communicates via the websocket protocol. NULS 2.0 defines a standard [module communication protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md), which can be implemented in various development languages to communicate with other modules.
+To interact with the blockchain your business module registers it's transaction type(s) at startup.  Your business module  stores its own business data in the transaction's txData, and  passes the assembled transaction  to the transaction module which will manage the verification of the transaction, and, if correct, stores the transaction in a packed queue which is subsequently processed by the block module.
 #### Creating a transaction process
 ![node creation transaction](./chainbox/createTX.jpg)
 #### Processing network transaction process
 ![Processing Webcast Transactions](./chainbox/network.jpg)
 
-As you can see from the figure, there are four main things you need to do to extend a new business module.
-1. Register your own transaction type in the trading module.
-2. Assemble the transaction data and call the trading module to create a new transaction.
-3. Verify that the business data in the transaction is legal.
+As you can see from the figure, there are four main things you need to do:
+1. Register your own transaction type to the blockchain. A transaction type represents a unique write to the blockchain. For example,  mail-example has 2 types: a. create mail address, where details about the mail address are written to the ledger, b. send mail, where the details about the email message are written to the ledger.).
+2. Assemble the transaction data and create the new transaction.
+3. Verify that the business data in the transaction is valid.
 4. Save the business data in the transaction to the node database.
 
-Of course, in addition to the above 4 steps, business data needs to be used according to specific business needs. Below I will introduce the above 4 steps in detail.
+Of course, in addition to the above 4 steps, business data needs to be used according to specific business needs.
 
-Each transaction in the system needs to define a unique transaction type of an integer type (extended transactions typically use values ​​above 200) to distinguish the callback function of the processed transaction. The registration transaction interface provided by the transaction module should normally be called when the module is started (please check the RPC interface documentation of the transaction module). When the transaction module gets a transaction to be processed, it will be verified according to the transaction type to the registered verification function to verify the legality of the transaction data. In addition to validation, there are two functions: commitTx (save transaction business data) and rollbackTx (rollback transaction business data).
+Here are the above 4 steps in detail.
 
-Usually the business module assembles its own extended transaction type. A legal transaction includes transaction type, timestamp, CoinData, txData, remarks, and signature. CoinData includes transfer data, transfer accounts, transfer accounts, transfer amounts, asset information, and so on. The txData mainly uses the save business data, the underlying layer does not verify and process the txData field, and the business module stores its own business data in txData according to the business design. The signature field signs all transaction data by an elliptic curve algorithm to ensure that the data is not skewed during transmission. After the assembly is complete, the transaction module interface is called to create the transaction.
+Each type of transaction in the business module is  registered with the transaction module with a unique transaction value, called transaction type.  These values are 200 and above (integer). The value needs to be unique within this occurrence of chainbox.  The transaction type is used to distinguish the callback function of the processed transaction. The registration transaction interface provided by the transaction module is called when the business module is started (please refer to 'mail-example'). When the transaction module gets a transaction to be processed, the transaction, including the transaction data and business data, will be verified according to the transaction type. In addition to verification, there are two functions: commitTx (save transaction business data) and rollbackTx (rollback transaction business data).
 
-The trading module will create a transaction through the current node itself, and will also receive the transactions broadcast by other nodes through the network module. After the transaction module gets the transaction, it first checks whether the parameters of the transaction data are legal, then checks whether the account balance is sufficient to pay the transaction fee, and then verifies the nonce value of the account (an algorithm that guarantees that the balance is not reused by controlling the transaction order) )is it legal. After the verification is passed, the callback function of the business verification is found according to the transaction type, and the transaction is verified by the business.
+The contents of a transaction include transaction type, timestamp, CoinData, txData, remarks, and signature. CoinData includes transfer data, transfer accounts, transfer accounts, transfer amounts, asset information, and so on. The txData contains business data. The business module stores its own business data in txData according to the business design. The signature field signs all transaction data by an elliptic curve algorithm to ensure that the data is not skewed during transmission. After the assembly is complete, the transaction module interface is called to create the transaction.
 
-Finally, when the transaction breaks into the block and the block has been confirmed, a callback function for storing the service data will be found through the transaction type, and the service module can be notified that the service data guide node can be kept local. In some cases, block rollback may occur. When the block is rolled back, the transaction data is also matched to the corresponding transaction rollback callback function to roll back the business data.
+When the transaction module gets the transaction, it checks whether the parameters of the transaction data is correct, then checks whether the account balance is sufficient to pay the transaction fee, and then verifies the nonce value of the account (using an algorithm that guarantees that the balance is not reused by controlling the transaction order ). After the verification is passed, the callback function of the business verification is found according to the transaction type, and the transaction business data is verified.
 
-The above are the core steps that need to be done to extend a transaction type. The three interfaces of verifying transactions, saving business data, and rolling back business data are implemented by the business module, and the specific [interface protocol](#registerTx) is viewed.
+Finally, when the transaction is added to the block and the block has been confirmed, a callback function for storing the business data will be found through the transaction type, and the business module is notified to ‘backup’ the data. In some cases, block rollback may occur. When the block is rolled back, the transaction data is also matched to the corresponding transaction rollback callback function to roll back the business data.
+
+The above are the core steps required for  new transaction type. The three interfaces for verifying transactions, saving business data, and rolling back business data are implemented by the business module.
+
 ### Communicate with other modules
 NULS 2.0 uses a microservices architecture, and modules communicate using [websocket](https://zh.wikipedia.org/wiki/WebSocket). The links to all modules are governed by Nulstar and the process is as follows:
 
 ![](./chainbox/pic01.jpg)
 
-All modules are started by the ServiceManager. After startup, the device establishes a connection with the ServiceManager module. The handshake is completed according to the protocol. After the handshake is successful, it is registered with the ServiceManager. The purpose of the registration is to tell the ServiceManager its connection mode, the provided interface protocol, and which modules to rely on.
-#### establish connection
-The connection is established using the standard websocket protocol, and the connection manner will not be described here. After the connection is established, you can send a packet (interface request) and receive the other party's data packet to the other party. Note: All requests are asynchronous requests, non-synchronous blocking.
-#### Shaking hands with ServiceManager
-After establishing a connection with the ServiceManager, you need to send a NegotiateConnection object first. The service can process other requests only when the negotiation is successful. Otherwise, you should receive the NegotiateConnectionResponse object with the status set to 0 (failed) and immediately disconnect.
-It consists of two fields:
+All modules are started by the ServiceManager. After startup, each module (also referred to as service module)  establishes a connection with the ServiceManager module. This handshake is completed according to protocol. After the handshake is successful, the module is registered with the ServiceManager. The purpose of the registration is to tell the ServiceManager its connection mode, the provided interface protocol, and which modules it relies on.
+#### Establish connection
+The connection is established using the standard websocket protocol. After the connection is established, the module can send a packet (interface request) to any module and receive the other party's data packet. Note: All requests are asynchronous  non-blocking.
+#### Handshake with ServiceManager
+After establishing a connection with the ServiceManager, the module sends a NegotiateConnection object. The module can process other requests only when the negotiation is successful. Otherwise, the module receives the NegotiateConnectionResponse message with the status set to 0 (failed) and immediately disconnect.
+The NegotiateConnection message consists of two fields:
 
 - CompressionAlgorithm (default: zlib): A String representing the algorithm that will be used to receive and send messages if CompressionRate is greater than zero. The default is zlib, which is supported in most development languages.
-- CompressionRate: An integer between 0 and 9 that establishes the level of compression at which messages should be sent and received for this connection. 0 means no compression, and 9 means maximum compression
+- CompressionRate: An integer between 0 and 9 that establishes the level of compression at which messages should be sent and received for this connection. 0 means no compression, and 9 is maximum compression.
+
+
+
 
 Example:
 
@@ -306,8 +379,8 @@ Example:
         "TimeZone": "9",
         "MessageType": "NegotiateConnection",
         "MessageData": {
-            "Abbreviation": "ledger",   
-            "ProtocolVersion": "0.1",  
+            "Abbreviation": "ledger",
+            "ProtocolVersion": "0.1",
             "CompressionAlgorithm": "zlib",
             "CompressionRate": "0"
         }
@@ -335,7 +408,7 @@ Example:
 ```
 
 #### registerAPI (registration module)
-After the handshake with the ServiceManager is successful, the RegisterAPI request is sent to the ServiceManager to complete the registration. The ServiceManager will obtain the connection information and interface method of the module through this request, and determine whether the module meets the normal working conditions by analyzing whether the dependent module of the module exists.
+After the handshake with the ServiceManager is successful, the RegisterAPI request is sent by the registering module to the ServiceManager to complete the registration. The ServiceManager will obtain the connection information and interface method of the module through this request. The ServiceManager determines whether the registering module meets the normal working conditions by analyzing whether it's provided list of "dependency" module(s) exist. (See example.)
 
 Example:
 
@@ -398,7 +471,7 @@ Example:
     }
 }
 ```
-When the ServiceManager determines that the dependencies have been started, it returns a Response that contains the way the dependent modules are linked.
+When the ServiceManager determines that the dependency modules have been started, it returns a response to the registering module that contains the way the dependent modules are linked.
 
 Example:
 
@@ -456,9 +529,10 @@ Example:
     }
 }
 ```
-After the module obtains the link mode of the dependent module, it can establish a connection with the other module to send the interface request.
+***After the registering module obtains the link mode of the dependent module, it can establish a connection with  other business module(s) and obtain the connected business module's interface that is available for other business modules. *** is this clear and complete? ***
+
 #### Calling other module interfaces
-Before calling the interface of other modules, it is also necessary to complete the operation of establishing a websocket connection and shaking hands with the module. After the handshake is completed, the Request object can be sent to the module.
+Before calling the interface of other modules, it is also necessary to complete the operation of establishing a websocket connection and shaking hands with the module. After the handshake is completed, the Request  is sent to the module.
 
 Example:
 
@@ -517,18 +591,27 @@ Example:
 * [Basic Module Interface Document](#doclist)
 
 ### Get module development templates for various development languages
-In theory, as long as the connection is established with the module through the websocket, and then the information exchange with the module according to the agreed protocol can realize the expansion of the business module. However, the way to build wheels from scratch is relatively inefficient and the threshold is relatively high. In order to reduce the difficulty of module development, we will provide a quick start template for various languages (currently only java is provided), developers only need to be in the template. The development of the extension module can be completed by inserting specific business logic code at the specified location.
+In theory, as long as the connection is established between the business module and another module using the websocket, information can be exchanged between the two modules according to the agreed protocol. In order to reduce the difficulty of module development, NULS provides quick start templates for java, with the intention of providing other language templates in the future.  Developers only need to use a template. The development of the business module can be completed by inserting specific business logic code at  specified locations in the template.
 
-The module development template for the specified language can be obtained very easily through the tools script.
+All template can be listed using the tools script.
 
 ```
-tools -t java 
+tools -l
+java-module
+nuls-module-explorer
+nuls-module-sdk-provider
+nuls-module-web-wallet
+nuls-module-helloworld
 ```
-After the execution is completed, a folder of nuls-module-java will be created in the current directory, and the common development tools can be imported to start the development business. There will be corresponding usage documents in each template.
+
+A template can be downloaded using:
+
+```
+tools -t java-module
+```
+After the execution is completed, the directory 'java-module' is created in the current directory, and the common development tools can be imported to start the development business. There will be corresponding usage documents in each template.
 ### Module debugging method
-In the module development process, you need to coordinate with the basic module. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script to start the NULS2.0 basic module, and then address the ws://127.0.0.1:7771 in the service module. Register and register the agreement. After completing the registration, you can get the communication address of each module you depend on and call the module's interface.
-### Integrating business modules into the NULS 2.0 runtime environment
-After the business module is developed, the business module needs to be integrated into the NULS2.0 runtime environment, and then the output program is deployed to the production environment or output to an external node. There are several conventions that need to be met to complete the integration using the tools script.
+In the module development process, you need to coordinate with the chainbox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interfut program is deployed to the productionOOnce finished, the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
 1. The packaged executable program should be placed in the outer directory of the module development directory.
 2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (take java as an example)
 
@@ -536,15 +619,15 @@ After the business module is developed, the business module needs to be integrat
 [Core]
 Language=JAVA # Indicate the development language
 Managed=1 # 1 means the module starts with the node program, 0 means manual start
-    
+
 [Libraries]
 JRE=11.0.2 # Module Operating Environment Version
-    
+
 [Script]
 Scripted=1 # Whether to use script to start 1 means yes
 StartScript=start # Start the module script (start must be in the outer directory)
-StopScript=stop # Stop the module script (stop must be in the outer directory)     
-    
+StopScript=stop # Stop the module script (stop must be in the outer directory)
+
 ```
 3. The module can be started and stopped by the script configured in 2
 
@@ -571,7 +654,7 @@ tools -n
 #### Example
 
 ```
-tools -t java demo
+tools -t java-demo
 ```
 ### View a list of available templates
 #### Command: tools -l
@@ -591,14 +674,14 @@ doto
 #### Example
 
 ```
-./tools -p demo
+tools -p mail-example nuls-helloworld-template
 ```
 ### <span id="registerTx">Business Module Related Interface Protocol</span>
 The business module needs to provide three callback functions to the transaction module. The transaction module will call these three functions through the websocket. The parameters of the three functions are the same and the names are different.
 #### Verifying a transaction
 Cmd name: txValidator
 
-It is used by the service module to verify whether the txData data is legal. It can also verify whether the data such as coinData meets the business requirements. If the verification fails, the trading module will discard the transaction.
+It is used by the service module to validate the txData data. It can also verify whether the data such as coinData meets the business requirements. If the verification fails, the trading module will discard the transaction.
 #### Save transaction business data
 Cmd name: txCommit
 
@@ -690,10 +773,10 @@ The variable length type consists of two parts. The first part is the length of 
 * [Transaction Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/transaction.md)
 * [Block module RPC interface document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/block.md)
 * [Consensus Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/consensus.md)
-* [Network Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/netwrok.md)
+* [Network Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/network.md)
 ### Contribution
 
-Contributions to NULS are welcomed! We sincerely invite developers who experienced in blockchain field to join in NULS technology community. [Details](https://nuls.communimunity/d/9-recruitment-of-community-developers) To be a great community, Nuls needs to welcome developers from all walks of life, with different backgrounds, and with a wide range of experience.
+Contributions to NULS are welcomed! We sincerely invite developers who are experienced in the blockchain field to join the NULS technology community. [Details](https://nuls.community/d/9-recruitment-of-community-developers) To be a great community, Nuls needs to welcome developers from all walks of life, with different backgrounds, and with a wide range of experience.
 
 ### License
 
@@ -709,4 +792,4 @@ Modules added in the future may be release under different license, will specifi
 - Telegram [NULS Community](https://t.me/Nulsio)
 - Telegram [NULS 中文社区](https://t.me/Nulscn)
 
-####  
+####
