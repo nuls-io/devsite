@@ -8,7 +8,7 @@ It is a great honor to announce that the NULS2.0 Beta version has been released 
 The NULS core team innovatively introduced micro-service thinking into the design of the underlying infrastructure of the blockchain, designed the software application as a service suite that can be independently deployed, and introduced the most advanced ideas in this architectural design into the module design, making the module as flexible as a program that can be independently started. This modular architecture with no programming language thresholds combined with microservices is what we call NULS 2.0. In this architecture, the coupling degree between modules is smaller. The development of multiple languages greatly improves the contribution of code and the convenience of users. At the same time, it is easier to expand. Meanwhile, the chain factory and cross-chain module will also be designed on this architecture.
 
 The Beta version test mainly includes:
-- [NULS ChianBox](/NULS2.0/chainBoxGuide.html)
+- [NULS ChainBox](/NULS2.0/chainBoxGuide.html)
 - [Develope Module](/NULS2.0/developeModule.html)
 - [Web wallet](http://beta.wallet.nuls.io/)
 - [Node Wallet and Light Wallet](https://github.com/nuls-io/nuls-v2/releases)
