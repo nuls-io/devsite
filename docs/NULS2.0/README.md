@@ -1,37 +1,21 @@
+# Introduction
 
-# NULS2.0 Beta Version is released
+## Why NULS 2.0
 
-Dear users:
+NULS was created to make blockchain very simple. So, in September 2017, the core team defined the modular architecture, which was designed to make it easier for developers to write, and for users to utilize. NULS 1.0 achieves the modular effect at the coding paradigm level, but this design doesn’t solve the problem of tight coupling between modules. Developers who want to use a module or participate in the development of a module would need to understand the design of other modules associated with it and can only use a specific language for the development of their module. This is not friendly to the NULS vision for the technical community which anticipates intense, active participation in the design and development of NULS architecture, as well as the user’s supply of simple and low-cost modules.
 
-It is a great honor to announce that the NULS2.0 Beta version has been released on 2019-07-08. We sincerely invite you to participate in the public test.
+Since its conception in 2017, NULS has been committed to establishing a community-driven open-source project. This community-driven route for development is what stimulates continuous innovation and distinguishes blockchain projects from other commercial projects. Continuous iteration and innovation is both inherent and inevitable in open source projects, and is also a novel and valuable feature of blockchain. In order to allow ease of participation to the open-source and technical community for developing on NULS, and to establish ease of use provided by the “Module Repository”, which is an important part of the revolutionary product “Chain Factory”, the following difficulties had to be overcome:
 
-The NULS core team innovatively introduced micro-service thinking into the design of the underlying infrastructure of the blockchain, designed the software application as a service suite that can be independently deployed, and introduced the most advanced ideas in this architectural design into the module design, making the module as flexible as a program that can be independently started. This modular architecture with no programming language thresholds combined with microservices is what we call NULS 2.0. In this architecture, the coupling degree between modules is smaller. The development of multiple languages greatly improves the contribution of code and the convenience of users. At the same time, it is easier to expand. Meanwhile, the chain factory and cross-chain module will also be designed on this architecture.
+1. Loosened coupling and removal of dependencies between modules;
 
-The Beta version test mainly includes:
-- [NULS ChianBox](/NULS2.0/chainBoxGuide.html)
-- [Develope Module](/NULS2.0/developeModule.html)
-- [Web wallet](http://beta.wallet.nuls.io/)
-- [Node Wallet and Light Wallet](https://github.com/nuls-io/nuls-v2/releases)
-- [Blockchain Explorer](http://beta.nulscan.io/)
+2. Modules must be easier to extend, modify and replace. Each module must be simple and basic; and modules should not encompass the overall complexity of blockchain applications;
 
-### Join Test：
+3. Complete elimination of programming language limitations.
 
-1 [Download wallet](https://github.com/nuls-io/nuls-v2/releases) or directly access [Web wallet](http://beta.wallet.nuls.io/)
+The core team introduces an innovative microservice concept in the infrastructure design of blockchain, which designs software applications as service suites that can be deployed independently. This concept introduces the most advanced ideas in the 1.0 architecture and transforms them with enhanced flexibility into a new modular design, making modules as flexible as programs that can start independently. This new modular architecture enhanced with microservice suites, that have no programming language limitations, is called NULS 2.0. Modules in this architecture enjoy even more decoupling, while the feature of multi-language development greatly improves the contribution of code and the convenience of users. At the same time, it is even easier to extend, since the enhanced design of modules supports distributed deployment and hot module replacement. Both Chain Factory and Cross-Chain Modules are being developed in coordination with this architecture.
 
-2 If you want to use linux wallet,you need learn [linux CLI Manual](/NULS2.0/linuxTutorial.html)
 
-3 [Apply for test NULS](https://nuls.community/d/131-get-the-testing-coins-of-the-testnet/141) and reply: beta+address
+## Philosophy of Design
 
-4 [Access blockchain explorer](http://beta.nulscan.io/)
 
-5 [NULS ChianBox](/NULS2.0/chainBoxGuide.html)
-
-6 Submit bug:[https://github.com/nuls-io/nuls_2.0/issues](https://github.com/nuls-io/nuls_2.0/issues)
-
-### Related Link
-
-- Github:[https://github.com/nuls-io/nuls_2.0](https://github.com/nuls-io/nuls_2.0)
-- Community：[https://nuls.community](https://nuls.community)
-- Tech community Telegram：[https://t.me/nulstest](https://t.me/nulstest)
-  
-To learn more about us, visit [nuls.io](https://nuls.io).
+The NULS2.0 microservice architecture evolved over time. For more information on how it came about, read the documentation[NULS2.0:Philosophy of Design](https://nuls.io/wp-content/uploads/2019/07/NULS-2.0-Philosophy-of-Design-V0.1-Eng_Final.pdf).The documentation details the NULS2.0 evolutionary path。

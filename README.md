@@ -1,7 +1,8 @@
 
-# NULS Official Developer Website
 
-The website for NULS Developer. You can see the generated files at [nuls-io/nuls-io.github.io](https://github.com/nuls-io/nuls-io.github.io) repository.
+# NULS Document Website
+
+The website for NULS Normal users and Developers. You can see the generated files at [nuls-io/nuls-io.github.io](https://github.com/nuls-io/nuls-io.github.io) repository.
 
 ## Getting started
 

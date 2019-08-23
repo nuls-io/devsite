@@ -9,16 +9,16 @@ module.exports = {
         '/': {
             title:"NULS",
             lang: 'en-US',
-            description: 'NULS'
+            description: 'Make Blockchain Easy'
         },   
         '/zh/': {
             title:"NULS",
             lang: 'zh-CN',
-            description: 'NULS'
+            description: '让区块链更简单'
         }
     },
     head:[
-        ['link', { rel: 'icon', href: "/icon.png" }]
+    ['link', { rel: 'icon', href: "/icon.png" }]
     ],
     themeConfig : {
         repo: 'nuls-io/devsite/tree/dev',
@@ -28,9 +28,7 @@ module.exports = {
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         nav:[
-            {text:"Guide",link:"/learn/"},
-            {text:"NULS1.0",link:"/NULS1.0/"},
-            {text:"NULS2.0",link:"/NULS2.0/"}
+        {text:"NULS2.0",link:"/NULS2.0/"}
         ],
         locales: {
             '/': {
@@ -38,106 +36,60 @@ module.exports = {
                 label: 'English',
                 editLinkText: 'Edit this page on GitHub',
                 sidebar: {
-                    '/learn/': [
+                    "/NULS2.0/WechatIMG321.png":[
                         {
-                            title: 'Overview',
-                            children: [
-                                'introduction',
-                                'howToContribute',
-                            ]
-                        },
-                        {
-                            title: 'Users Guide',
-                            children: [
-                                'NULSTransaction',
-                                'toolsGuide'
-                            ]
-                        },
-                        {
-                            title: 'NIPs',
-                            children: [
-                                'NIPIntroduction',
-                                'NIP-1',
-                                'NIP-2',
-                                'NIP-3',
-                                'NIP-4',
-                            ]
-                        },
-                        {
-                            title: 'NULS Portal',
-                            children: [
-                                'NULSNav'
-                            ]
-                        },
-                    ],
-                    '/NULS1.0/':[
-                        {
-                            title: 'Launch NULS',
-                            children: [
-                                'sourceCodeStartNULS',
-                                'connectMainnet'
-                            ]
-                        },
-                        {
-                            title: 'Underlying',
-                            children: [
-                                'buildPrivateChain',
-                            ]
-                        },
-                        {
-                            title: 'Smart Contracts',
-                            children: [
-                                'startSmartContract',
-                                'developerManual',
-                                'GUIForSmartContract',
-                                'ideaPlugin',
-                                'NRC-20TokenStandard',
-                                'smartContractFee',
-                                'randomImplementations',
-                                'randomRPC'
-                            ]
-                        },
-                        {
-                            title: 'Developer Tools',
-                            children: [
-                                'sdk',
-                                'clientCLI'
-                            ]
-                        },
-                    ],
-                    '/NULS2.0/': [
-                        {   
                             title: 'Introduction',
                             collapsable:false,
                             children: [
-                                'NULS2.0Introduction'
+                            ''
                             ]
                         },
                         {
                             title: 'Tutorial',
                             collapsable:false,
                             children: [
-                                'quickStart',
-                                'developeModule',
-                                'encryptedMessageDesign',
-                                'chainBoxGuide',
-                                'linuxTutorial',
-                                'nodeGuide'
+                            'quickStart',
+                            'developeModule',
+                            'encryptedMessageDesign',
+                            'chainBoxGuide',
+                            'linuxTutorial',
+                            'nodeGuide'
+                            ]
+                        },
+                        {
+                            title: 'Design',
+                            collapsable:false,
+                            children: [
+                            'quickStart'
+                            ]
+                        },
+                        {
+                            title: 'API',
+                            collapsable:false,
+                            children: [
+                            'quickStart'
                             ]
                         },
                         {
                             title: 'Smart Contract',
                             collapsable:false,
                             children: [
-                                'smartContractManual',
-                                'mavenPackage',
-                                'NRC-20TokenStandard',
-                                'NRC-721',
-                                'smartContractFee',
+                            'smartContractManual',
+                            'mavenPackage',
+                            'NRC-20TokenStandard',
+                            'NRC-721',
+                            'smartContractFee',
+                            ]
+                        }, 
+                        {
+                            title: 'SDK',
+                            collapsable:false,
+                            children: [
+                            'quickStart'
                             ]
                         },
                     ]
-                },
+                }
             },
             '/zh/': {
                 selectText: '选择语言',
@@ -147,124 +99,72 @@ module.exports = {
                 editLinkText: '在 GitHub 上编辑此页',
                 // Service Worker 的配置
                 nav:[
-                    {text:"了解NULS",link:"/zh/learn/"},
-                    {text:"NULS1.0",link:"/zh/NULS1.0/"},
-                    {text:"NULS2.0",link:"/zh/NULS2.0/"}
+                {text:"NULS2.0",link:"/zh/NULS2.0/"}
                 ],
                 sidebar: {
-                    '/zh/learn/': [
-                        {
-                            title: '总览',
-                            children: [
-                                'introduction',
-                                'howToContribute',
-                            ]
-                        },
-                        {
-                            title: '用户操作指南',
-                            children: [
-                                'clientWalletGuide',
-                                'lightWalletGuide',
-                                'NULSTransaction',
-                                'NULSExplorerGuide',                             
-                            ]
-                        },
-                        {
-                            title: 'NIPs',
-                            children: [
-                                'NIPIntroduction',
-                                'NIP-1',
-                                'NIP-2',
-                                'NIP-3',
-                                'NIP-4',
-                            ]
-                        },
-                        {
-                            title: 'NULS 导航',
-                            children: [
-                                'NULSNav',
-                            ]
-                        },
-                    ],
-                    '/zh/NULS1.0/':[
-                        {
-                            title: '启动NULS',
-                            children: [
-                                'sourceCodeStartNULS',
-                                'connectMainnet'
-                            ]
-                        },
-                        {
-                            title: '底层',
-                            children: [
-                                'buildPrivateChain'
-                            ]
-                        },
-                        {
-                            title: '智能合约',
-                            children: [
-                                'startSmartContract',
-                                'developerManual',
-                                'GUIForSmartContract',
-                                'ideaPlugin',
-                                'NRC-20TokenStandard',
-                                'smartContractFee',
-                                'randomImplementations',
-                                'randomRPC',
-                                'guessTheSize',
-                               
-                            ]
-                        },
-                         {
-                            title: '开发者工具',
-                            children: [
-                                'sdk',
-                                'clientCLI'
-                            ]
-                        },
-                    ],
-                    '/zh/NULS2.0/': [
+                   "/zh/NULS2.0/":[
                         {   
                             title: '介绍',
                             collapsable:false,
                             children: [
-                                'NULS2.0Introduction'
+                            ''
                             ]
                         },
                         {
                             title: '教程',
                             collapsable:false,
                             children: [
-                                'quickStart',
-                                'developeModule',
-                                'encryptedMessageDesign',
-                                'chainBoxGuide',
-                                'linuxTutorial',
-                                'nodeGuide',
-								'multiSignAccount'
+                            'quickStart',
+                            'developeModule',
+                            'encryptedMessageDesign',
+                            'chainBoxGuide',
+                            'linuxTutorial',
+                            'nodeGuide',
+                            'multiSignAccount'
+                            ]
+                        },
+                        {   
+                            title: '设计文档',
+                            collapsable:false,
+                            children: [
+                            'quickStart'
+                            ]
+                        },
+                        {   
+                            title: '接口文档',
+                            collapsable:false,
+                            children: [
+                            'quickStart'
                             ]
                         },
                         {
                             title: '智能合约',
                             collapsable:false,
                             children: [
-                                'smartContractManual',
-                                'mavenPackage',
-                                'NRC-20TokenStandard',
-                                'NRC-721',
-                                'offlineAssembly',
-                                'assetsOff',
-                                'vm-sdk',
-                                'consensusTransaction',
-                                'excuteResult',
-                                'triggerPayable',
-                                'smartContractFee',
+                            'smartContractManual',
+                            'mavenPackage',
+                            'NRC-20TokenStandard',
+                            'NRC-721',
+                            'offlineAssembly',
+                            'assetsOff',
+                            'vm-sdk',
+                            'consensusTransaction',
+                            'excuteResult',
+                            'triggerPayable',
+                            'smartContractFee',
+                            ]
+                        },  
+                        {   
+                            title: 'SDK',
+                            collapsable:false,
+                            children: [
+                            'quickStart'
                             ]
                         },
                     ]
-                },
+                }
             }
-        },
+        }
     }
 }
 
