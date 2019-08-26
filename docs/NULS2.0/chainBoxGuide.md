@@ -160,7 +160,7 @@ NULS WALLET IS RUNNING
 ==========================
 ```
 
-### 7 Start creating blocks, and other housekeeping:
+### 6 Start creating blocks, and other housekeeping:
 
 Now that the node is started, also referred to as the 'seed node', we need to import the default block address of the seed node so that the node can begin to produce blocks.
 
@@ -303,7 +303,7 @@ To start and complete the configuration of chainbox, execute steps 5 and 6 of th
 - Create NULS account and return account address and private key.
 
 ```
-./create-address
+create-address
 JAVA_HOME:/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home
 java version "11.0.2" 2019-01-15 LTS
 Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
@@ -405,10 +405,10 @@ Example:
         "NegotiationComment": "Connection true!"
     }
 }
-```
+
 
 #### registerAPI (registration module)
-After the handshake with the ServiceManager is successful, the RegisterAPI request is sent by the registering module to the ServiceManager to complete the registration. The ServiceManager will obtain the connection information and interface method of the module through this request. The ServiceManager determines whether the registering module meets the normal working conditions by analyzing whether it's provided list of "dependency" module(s) exist. (See example.)
+After the handshake with the ServiceManager is successful, the RegisterAPI request is sent by the registering module to the ServiceManager to complete the registration. The ServiceManager will obtain the connection information and interface method of the module through this request. The ServiceManager determines whether the registering module meets the normal working conditions by analyzing whether it's provided list of "dependency" module(s) exist. (See example)
 
 Example:
 
@@ -529,10 +529,10 @@ Example:
     }
 }
 ```
-***After the registering module obtains the link mode of the dependent module, it can establish a connection with  other business module(s) and obtain the connected business module's interface that is available for other business modules. *** is this clear and complete? ***
+After the registering module obtains the link mode of the dependent module(s), it can establish a connection with  other business module(s) and obtain the connected business module's interface that is available for other business modules.
 
 #### Calling other module interfaces
-Before calling the interface of other modules, it is also necessary to complete the operation of establishing a websocket connection and shaking hands with the module. After the handshake is completed, the Request  is sent to the module.
+Before calling the interface of other modules, it is also necessary to complete the operation of establishing a websocket connection and shaking hands with the module. After the handshake is completed, the Request is sent to the module.
 
 Example:
 
@@ -611,7 +611,7 @@ tools -t java-module
 ```
 After the execution is completed, the directory 'java-module' is created in the current directory, and the common development tools can be imported to start the development business. There will be corresponding usage documents in each template.
 ### Module debugging method
-In the module development process, you need to coordinate with the chainbox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interfut program is deployed to the productionOOnce finished, the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
+In the module development process, you need to coordinate with the chainbox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interface program is deployed to the production. Once finished, the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
 1. The packaged executable program should be placed in the outer directory of the module development directory.
 2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (take java as an example)
 
@@ -645,7 +645,7 @@ no
 tools -n
 ```
 ### Get the specified language module development template
-#### Command: tools -t &lt;language> [out folder]
+#### Command: tools -t <language> [out folder]
 #### parameter list
 | Parameter | Description |
 | --- | --- |
@@ -666,7 +666,7 @@ no
 doto
 ```
 ### Integrating modules into the NULS 2.0 runtime environment
-#### Command: tools -p &lt;module folder>
+#### Command: tools -p <module folder>
 #### parameter list
 | Parameter | Description |
 | --- | --- |
