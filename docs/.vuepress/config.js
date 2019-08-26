@@ -28,7 +28,7 @@ module.exports = {
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         nav:[
-        {text:"NULS2.0",link:"/NULS2.0/"}
+        {text:"Docs",link:"/Docs/"}
         ],
         locales: {
             '/': {
@@ -36,7 +36,7 @@ module.exports = {
                 label: 'English',
                 editLinkText: 'Edit this page on GitHub',
                 sidebar: {
-                    "/NULS2.0/WechatIMG321.png":[
+                    "/Docs/":[
                         {
                             title: 'Introduction',
                             collapsable:false,
@@ -99,10 +99,10 @@ module.exports = {
                 editLinkText: '在 GitHub 上编辑此页',
                 // Service Worker 的配置
                 nav:[
-                {text:"NULS2.0",link:"/zh/NULS2.0/"}
+                {text:"Docs",link:"/zh/Docs/"}
                 ],
                 sidebar: {
-                   "/zh/NULS2.0/":[
+                   "/zh/Docs/":[
                         {   
                             title: '介绍',
                             collapsable:false,
