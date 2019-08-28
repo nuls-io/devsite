@@ -27,15 +27,26 @@ module.exports = {
         docsBranch: 'dev',
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
-        nav:[
-        {text:"Docs",link:"/Docs/"}
-        ],
         locales: {
             '/': {
                 selectText: 'Languages',
                 label: 'English',
                 editLinkText: 'Edit this page on GitHub',
+                nav:[
+                {text:"Guide",link:"/Guide/"},
+                {text:"Docs",link:"/Docs/"}
+                ],
                 sidebar: {
+                    "/Guide/":[
+                        {
+                            title: 'Guide',
+                            collapsable:false,
+                            children: [
+                            '',
+                            'howToContribute'
+                            ]
+                        }
+                    ],
                     "/Docs/":[
                         {
                             title: 'Introduction',
@@ -99,28 +110,32 @@ module.exports = {
                 editLinkText: '在 GitHub 上编辑此页',
                 // Service Worker 的配置
                 nav:[
-                {text:"Docs",link:"/zh/Docs/"}
+                {text:"指南",link:"/zh/Guide/"},
+                {text:"文档",link:"/zh/Docs/"}
                 ],
                 sidebar: {
-                   "/zh/Docs/":[
-                        {   
-                            title: '介绍',
-                            collapsable:false,
-                            children: [
-                            ''
-                            ]
-                        },
+                    "/zh/Guide/":[
                         {
-                            title: '教程',
+                            title: 'Guide',
                             collapsable:false,
                             children: [
-                            'quickStart',
+                            '',
+                            'howToContribute'
+                            // 'linuxTutorial',
+                            // 'multiSignAccount'
+                            ]
+                        }
+                    ],
+                   "/zh/Docs/":[
+                        {
+                            title: 'ChainBox',
+                            collapsable:false,
+                            children: [
+                            
                             'developeModule',
                             'encryptedMessageDesign',
                             'chainBoxGuide',
-                            'linuxTutorial',
-                            'nodeGuide',
-                            'multiSignAccount'
+                            
                             ]
                         },
                         {   

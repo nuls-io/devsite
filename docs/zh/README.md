@@ -1,15 +1,15 @@
 ---
 home: true
 heroImage: /icon.png
-actionText: 快速上手 →
-actionLink: /zh/Docs/
+actionText: 快速开始 →
+actionLink: /zh/Guide/
 features:
 - title: 模块化
-  details: 以 Markdown 为中心的项目结构，以最少的配置帮助你专注于写作。
+  details: 封装复杂底层技术，将区块链系统拆分成完全独立的业务模块
 - title: 多语言
-  details: 享受 Vue + webpack 的开发体验，在 Markdown 中使用 Vue 组件，同时可以使用 Vue 来开发自定义主题。
-- title: 低门槛
-  details: VuePress 为每个页面预渲染生成静态的 HTML，同时在页面被加载的时候，将作为 SPA 运行。
+  details: 支持多语言，让开发者可使用自己擅长的编程语言，降低开发门槛
+- title: 定制化
+  details: 根据实际需求开发业务模块，只需遵循约定通信协议即可和底层区块链模块进行集成
 footer: MIT Licensed | Copyright © 2019-present NULS Foundation
 ---
 
