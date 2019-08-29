@@ -124,7 +124,8 @@ module.exports = {
                             title: '设计文档',
                             collapsable:false,
                             children: [
-                            'quickStart'
+                            'quickStart',
+                            'nulsProtocolAddress'
                             ]
                         },
                         {   
