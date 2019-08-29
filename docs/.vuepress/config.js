@@ -49,25 +49,6 @@ module.exports = {
                     ],
                     "/Docs/":[
                         {
-                            title: 'Introduction',
-                            collapsable:false,
-                            children: [
-                            ''
-                            ]
-                        },
-                        {
-                            title: 'Tutorial',
-                            collapsable:false,
-                            children: [
-                            'quickStart',
-                            'developeModule',
-                            'encryptedMessageDesign',
-                            'chainBoxGuide',
-                            'linuxTutorial',
-                            'nodeGuide'
-                            ]
-                        },
-                        {
                             title: 'Design',
                             collapsable:false,
                             children: [
@@ -79,6 +60,17 @@ module.exports = {
                             collapsable:false,
                             children: [
                             'quickStart'
+                            ]
+                        },
+                        {
+                            title: 'ChainBox',
+                            collapsable:false,
+                            children: [
+                            
+                            'developeModule',
+                            'encryptedMessageDesign',
+                            'chainBoxGuide',
+                            
                             ]
                         },
                         {
@@ -120,24 +112,14 @@ module.exports = {
                             collapsable:false,
                             children: [
                             '',
-                            'howToContribute'
-                            // 'linuxTutorial',
-                            // 'multiSignAccount'
+                            'howToContribute',
+                            'NULSExplorerGuide',
+                            'joinCCC',
+                            'NULSTransaction'
                             ]
                         }
                     ],
                    "/zh/Docs/":[
-                        {
-                            title: 'ChainBox',
-                            collapsable:false,
-                            children: [
-                            
-                            'developeModule',
-                            'encryptedMessageDesign',
-                            'chainBoxGuide',
-                            
-                            ]
-                        },
                         {   
                             title: '设计文档',
                             collapsable:false,
@@ -150,6 +132,17 @@ module.exports = {
                             collapsable:false,
                             children: [
                             'quickStart'
+                            ]
+                        },
+                        {
+                            title: 'ChainBox',
+                            collapsable:false,
+                            children: [
+                            
+                            'developeModule',
+                            'encryptedMessageDesign',
+                            'chainBoxGuide',
+                            
                             ]
                         },
                         {
