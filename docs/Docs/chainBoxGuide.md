@@ -734,7 +734,7 @@ The CoinData object stores the relationship between the deposit and withdrawal o
 ##### <span id="TransactionSignature">[TransactionSignature](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/signture/TransactionSignature.java)</span>
 There will be multiple signatures in front of the transaction, so the TransactionSignature stores the list of signature data. Multiple signatures are stored sequentially in a byte array. In the case of deserialization, it is rotated in turn.
 1. 1 byte stores the public key length.
-2. Public key data (length is obtained according to 1)
+2. Public key data (length is obtained according to 1).
 3. Variable length type stores signature data.
 
 ##### <span id="BlockHeader">[BlockHeader](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/data/BlockHeader.java)</span>
