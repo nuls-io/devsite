@@ -21,7 +21,7 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
      GroupId：io.nuls.v2
      ArtifactId: nuls-smartcontract-archetype 
-     Version: 0.11
+     Version: 0.12
 
 ![图1](../../Docs/mavenPackage/create_archetype.png)
 
@@ -33,9 +33,13 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 4、最后生成的maven工程如下图（图3）所示，其中pom.xml文件已经加入NULS智能合约所需的依赖jar，开发者无需修改此文件。
 
-![图3](../../Docs/mavenPackage/nw87nAh.png)
+![图3](../../Docs/mavenPackage/dev_contract_pom_setting.png)
 
-5、开始NULS智能合约的业务代码开发，示例见https://github.com/CCC-NULS/pocm-contract
+5、开始NULS智能合约的业务代码开发，示例如下
+
+[入门示例`NRC20-Token`点击进入](https://github.com/CCC-NULS/NRC20-Token)
+
+[进阶示例`POCM`点击进入](https://github.com/CCC-NULS/pocm-contract)
 
 ### 打包NULS智能合约
 

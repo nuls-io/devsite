@@ -245,7 +245,7 @@ Explanatory comments
 
 [NULS Contract Sample Collection](https://github.com/nuls-io/nuls-contracts)
 
-[NULS Contract Sample - NRC20](https://github.com/nuls-io/nuls-contracts/tree/master/nrc20)
+[NULS Contract Sample - NRC20](https://github.com/CCC-NULS/NRC20-Token)
 
 [NULS Contract Sample - NRC721](https://github.com/MIMIEYES/NULS-NRC721-baselib)
 
