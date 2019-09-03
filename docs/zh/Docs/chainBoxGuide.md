@@ -1,7 +1,7 @@
 # NULS ChainBox
 ## NULS ChainBox是什么
 
-ChainBox是一个快速搭建区块链的工具，封装了账本，账户，交易，区块，共识，网络六个底层模块，屏蔽了分布式数据存储、点对点传输、共识机制、加密算法等复杂区块链技术，开发者可使用它实现分钟级搭建TPS达1000的基础链，或根据标准通信协议开发业务模块，然后通过chainbox驱动组成一条全新的应用链
+ChainBox是一个快速搭建区块链的工具，封装了账本，账户，交易，区块，共识，网络六个底层模块，屏蔽了分布式数据存储、点对点传输、共识机制、加密算法等复杂区块链技术，开发者可使用它实现分钟级搭建TPS达1000的基础链，或根据标准通信协议开发业务模块，然后通过chainbox驱动组成一条全新的应用链。
 
 ## 为什么需要ChainBox
  NULS ChainBox设计的初衷是帮助企业或应用开发者在区块链上能快速构建应用，并专注自己的业务实现，无需关心晦涩、复杂的区块链底层技术。
@@ -17,12 +17,12 @@ NULS ChainBox本质上是NULS2.0的一个扩展应用，它的定位是一站式
 - 通过约定和脚本降低模板集成的难度，实现一键生成可运行程序
 
 ## 快速体验
-在下面这个case中，你将体验到如何使用NULS ChainBox快速构建一套提供加密信息服务的区块链应用
+在下面这个case中，你将体验到如何使用NULS ChainBox快速构建一套提供加密信息服务的区块链应用。
 
 ### 1 环境准备
 
 - linux内核的操作系统
-- 安装 Git
+- 安装Git
 - 安装Maven
 - 安装JDK11
 
@@ -74,22 +74,22 @@ cd ..
 ============ PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
 ```
 
-完成后在chainbox目录下会生成NULS-WALLET文件夹，此文件夹包含了集成了加密信息模块的NULS2.0运行程序
+完成后在chainbox目录下会生成NULS_WALLET文件夹，此文件夹包含了集成了加密信息模块的NULS2.0运行程序
 
-若在不同机器部署了多个节点，建议修改NULS-WALLET/.default-config.ncf配置文件中的以下两个参数
+若在不同机器部署了多个节点，建议修改NULS_WALLET/.default-config.ncf配置文件中的以下两个参数
 
 ```
 #最小链接节点数,当链接到的网络节点低于此参数时,会持续等待
 minNodeAmount=0
-#种子节点出块地址
+#种子节点出块地址 
 seedNodes=tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
 ```
 
 ### 5 启动节点程序
-配置完成后，在NULS-WALLET目录执行以下命令
+配置完成后，在NULS_WALLET目录执行以下命令
 
 ```
-./start-dev
+./start
 ```
 看到以下内容说明模块正在启动中
 
@@ -540,48 +540,47 @@ tools -t java
     ```
 3. 可以通过2中配置的脚本启动模块和停止模块。
 #### 模块开发模板中已完成以上约定。
-
 ## 附录
-### <span id="cmd-doc">tools脚本使用手册</span>
-### 获取NULS2.0运行环境
-#### 命令：tools -n
-#### 参数列表
+### tools脚本使用手册
+#### 获取NULS2.0运行环境
+##### 命令：tools -n
+##### 参数列表
 无
-#### 示例
+##### 示例
 ```
 tools -n
 ```
-### 获取指定语言模块开发模板
-#### 命令:tools -t &lt;language> [out folder]
-#### 参数列表
+#### 获取指定语言模块开发模板
+##### 命令:tools -t &lt;language> [out folder]
+##### 参数列表
 | 参数 | 说明 |
 | --- | --- |
 | &lt;language> | 语言模板名称 |
 | [out folder] | 输出的文件夹名 |
-#### 示例
+##### 示例
 ```
 tools -t java demo
 ```
-### 查看可用模板列表
-#### 命令：tools -l
-#### 参数列表
+#### 查看可用模板列表
+##### 命令：tools -l
+##### 参数列表
 无
-##### 示例
+###### 示例
 
 ```
 doto
 ```
-### 将模块集成到NULS2.0运行环境
-#### 命令:tools -p &lt;module folder>
-#### 参数列表
+#### 将模块集成到NULS2.0运行环境
+##### 命令:tools -p &lt;module folder>
+##### 参数列表
 | 参数 | 说明 |
 | --- | --- |
 | &lt;out folder> | 模块的文件夹名 |
-#### 示例
+##### 示例
 ```
 ./tools -p demo
 ```
-### <span id="registerTx">业务模块相关接口协议</span>
+### 业务模块相关接口协议
 业务模块需要给交易模块提供3个回调函数，交易模块会通过websocket调用这3个函数，3个函数的参数相同，命名不同。
 #### 验证交易
 cmd名称：txValidator
@@ -642,7 +641,7 @@ CoinData对象存储了一笔交易中出入金关系，一笔交易出金账户
 2. 公钥数据（长度根据1中获取）
 3. 变长类型存储签名数据。
 
-##### <span id="BlockHeader">[BlockHeader](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/data/BlockHeader.java)</span>
+###### <span id="BlockHeader">[BlockHeader](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/data/BlockHeader.java)</span>
 BlockHeader为区块头对象，主要存储前一块的hash值、[merkle tree](https://en.wikipedia.org/wiki/Merkle_tree)的根hash值、出块时间戳、区块高度、块中的交易总数、区块签名、扩展数据。
 序列化规则：
 1. 32个byte存储前一个块的hash值。
@@ -670,7 +669,7 @@ BlockHeader为区块头对象，主要存储前一块的hash值、[merkle tree](
 * [java模块开发模板](https://github.com/nuls-io/nuls-module-template-java)
 * [区块链浏览器模板](https://github.com/nuls-io/nuls-module-explorer)
 
-### <span id="doclist">文档列表</span>
+### 文档列表
 * [Java模块开发模板使用文档](https://github.com/nuls-io/nuls-module-template-java)
 * [加密信息示例模块设计文档](./example/模块设计文档.md)
 * [账户模块RPC接口文档](./document/account.md)
@@ -680,22 +679,3 @@ BlockHeader为区块头对象，主要存储前一块的hash值、[merkle tree](
 * [共识模块RPC接口文档](./document/consensus.md)
 * [网络模块RPC接口文档](./document/netwrok.md)
 
-### Contribution
-
-Contributions to NULS are welcomed! We sincerely invite developers who experienced in blockchain field to join in NULS technology community. Details: s: https://nuls.communimunity/d/9-recruitment-of-community-developers To be a great community, Nuls needs to welcome developers from all walks of life, with different backgrounds, and with a wide range of experience.
-
-### License
-
-Nuls is released under the [MIT](http://opensource.org/licenses/MIT) license.
-Modules added in the future may be release under different license, will specified in the module library path.
-
-### Community
-
-- [nuls.io](https://nuls.io/)
-- [@twitter](https://twitter.com/nulsservice)
-- [facebook](https://www.facebook.com/nulscommunity/)
-- [YouTube channel](https://www.youtube.com/channel/UC8FkLeF4QW6Undm4B3InN1Q?view_as=subscriber)
-- Telegram [NULS Community](https://t.me/Nulsio)
-- Telegram [NULS 中文社区](https://t.me/Nulscn)
-
-####  

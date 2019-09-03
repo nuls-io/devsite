@@ -124,24 +124,45 @@ module.exports = {
                             title: '设计文档',
                             collapsable:false,
                             children: [
-                            'quickStart'
+                             "d_network",
+                             "d_ledger",
+                             "d_chain_manager",
+                             "d_account",
+                             "d_transaction",
+                             "d_cross_chain",
+                             "d_consensus",
+                             "d_public_service",
+                             "d_block",
+                             "d_protocol_update"
                             ]
                         },
                         {   
                             title: '接口文档',
                             collapsable:false,
                             children: [
-                            'quickStart'
+                            'i_rpc_protocol',
+                            "i_public_service",
+                            "i_nuls-api_JSONRPC",
+                            "i_nuls-api_RESTFUL",
+                            "i_account",
+                            "i_chain-manager",
+                            "i_cross-chain",
+                            "i_network",
+                            "i_block",
+                            "i_transaction",
+                             "i_consensus",
+                            "i_smart-contract",
+                            "i_ledger"
                             ]
                         },
                         {
                             title: 'ChainBox',
                             collapsable:false,
                             children: [
-                            
+                            'chainBoxGuide',
                             'developeModule',
                             'encryptedMessageDesign',
-                            'chainBoxGuide',
+                            
                             
                             ]
                         },
