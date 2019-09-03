@@ -33,7 +33,7 @@ The maven archetype also integrates an offline smart contract client. After the 
 
 4、The resulting maven project is shown in the following figure (Figure 3). The pom.xml file has been added to the dependency jar required by the NULS smart contract. The developer does not need to modify this file.
 
-![图3](./mavenPackage/nw87nAh.png)
+![图3](./mavenPackage/dev_contract_pom_setting.png)
 
 5、Start the business code development of the NULS smart contract, see https://github.com/CCC-NULS/pocm-contract
 

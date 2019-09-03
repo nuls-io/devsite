@@ -133,7 +133,9 @@ module.exports = {
                              "d_consensus",
                              "d_public_service",
                              "d_block",
-                             "d_protocol_update"
+                             "d_protocol_update",
+                            'quickStart',
+                            'nulsProtocolAddress'
                             ]
                         },
                         {   

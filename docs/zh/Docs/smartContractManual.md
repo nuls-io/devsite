@@ -238,7 +238,7 @@ public class SimpleStorage implements Contract {
 
 [NULS合约示例收集](https://github.com/nuls-io/nuls-contracts)
 
-[NULS合约示例 - NRC20](https://github.com/nuls-io/nuls-contracts/tree/master/nrc20)
+[NULS合约示例 - NRC20](https://github.com/CCC-NULS/NRC20-Token)
 
 [NULS合约示例 - NRC721](https://github.com/MIMIEYES/NULS-NRC721-baselib)
 

@@ -109,23 +109,23 @@ Add request header:
 
     Content-Type: application/json;charset=UTF-8
 
-For the rest, please refer to [RESTFUL API Documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-sdk-provider/documents/nuls-sdk-provider_RESTFUL.md)
+For the rest, please refer to [RESTFUL API Documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
 
 
 ## API Documentation
 
 We provide two types of API, namely `JSON-RPC` and `Restful`. Users can choose different docking methods according to their needs. Please see the interface documentation below for details:
 
-[JSON-RPC API Documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-sdk-provider/documents/nuls-sdk-provider_JSONRPC.md)
+[JSON-RPC API Documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_JSONRPC.md)
 
-[RESTFUL API Documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-sdk-provider/documents/nuls-sdk-provider_RESTFUL.md)
+[RESTFUL API Documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
 
-_ **FYI:** The official tool NULS-SDK-4J is available now, through which partners using JAVA can dock `NULS-SDK-Provider` module, see: [NULS-SDK-4J Instructions](https://github.com/nuls-io/nuls-v2-sdk4j/b/blomaster/README.md)
+_ **FYI:** The official tool NULS-SDK-4J is available now, through which partners using JAVA can dock `NULS-SDK-Provider` module, see: [NULS-SDK-4J Instructions](https://github.com/nuls-io/nuls-v2-sdk4j/blob/master/README.md)
 
 ## API Debugging
 
 We provide the import files of (`JSON-RPC` and `RESTFUL`) for `Postman` interface debug tool. Users can debug interfaces with the corresponding file imported.
 
-[JSON-PRC API Debugging-POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-sdk-provider/documents/nuls-sdk-provider_Postman_JSONRPC.json)
+[JSON-PRC API Debugging-POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_JSONRPC.json)
 
-[RESTFUL API Debugging-POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-sdk-provider/documents/nuls-sdk-provider_Postman_RESTFUL.json)
+[RESTFUL API Debugging-POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
