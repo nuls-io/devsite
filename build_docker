@@ -1,0 +1,6 @@
+#!/bin/bash
+cd `dirname $0`
+yarn run build
+mv docs/.vuepress/dist ./docker/dist
+cd docker
+docker build -t doc_site .

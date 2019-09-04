@@ -6,7 +6,7 @@
 # User-specific stuff
 .idea/
 *.iml
-
+docs/.vuepress/dist
 # CMake
 cmake-build-debug/
 cmake-build-release/

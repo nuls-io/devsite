@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NRC-721非同质资产标准 | NULS</title>
+    <meta name="description" content="让区块链更简单">
+    <link rel="icon" href="/icon.png">
+    
+    <link rel="preload" href="/assets/css/0.styles.a1300348.css" as="style"><link rel="preload" href="/assets/js/app.ff9a8a4d.js" as="script"><link rel="preload" href="/assets/js/59.3a65d3ab.js" as="script"><link rel="prefetch" href="/assets/js/10.908a54c6.js"><link rel="prefetch" href="/assets/js/11.bd34c7d0.js"><link rel="prefetch" href="/assets/js/12.7358d934.js"><link rel="prefetch" href="/assets/js/13.5026de6e.js"><link rel="prefetch" href="/assets/js/14.f289b167.js"><link rel="prefetch" href="/assets/js/15.05b7e739.js"><link rel="prefetch" href="/assets/js/16.52f3bc5b.js"><link rel="prefetch" href="/assets/js/17.c824039f.js"><link rel="prefetch" href="/assets/js/18.840f0d14.js"><link rel="prefetch" href="/assets/js/19.4259104e.js"><link rel="prefetch" href="/assets/js/2.aef32cc5.js"><link rel="prefetch" href="/assets/js/20.ea39dca9.js"><link rel="prefetch" href="/assets/js/21.60438a15.js"><link rel="prefetch" href="/assets/js/22.2df5d9a8.js"><link rel="prefetch" href="/assets/js/23.89e04919.js"><link rel="prefetch" href="/assets/js/24.fba1f5f1.js"><link rel="prefetch" href="/assets/js/25.ea30f1c1.js"><link rel="prefetch" href="/assets/js/26.e8313c3f.js"><link rel="prefetch" href="/assets/js/27.738174e6.js"><link rel="prefetch" href="/assets/js/28.618f6f9e.js"><link rel="prefetch" href="/assets/js/29.bf3f3d03.js"><link rel="prefetch" href="/assets/js/3.90ed52c4.js"><link rel="prefetch" href="/assets/js/30.7ee5ad23.js"><link rel="prefetch" href="/assets/js/31.aa2cb318.js"><link rel="prefetch" href="/assets/js/32.3bce5208.js"><link rel="prefetch" href="/assets/js/33.655692f4.js"><link rel="prefetch" href="/assets/js/34.e201f85a.js"><link rel="prefetch" href="/assets/js/35.49c826cd.js"><link rel="prefetch" href="/assets/js/36.aff2112c.js"><link rel="prefetch" href="/assets/js/37.a567dafb.js"><link rel="prefetch" href="/assets/js/38.e86114b0.js"><link rel="prefetch" href="/assets/js/39.9dcd0d14.js"><link rel="prefetch" href="/assets/js/4.b35bce24.js"><link rel="prefetch" href="/assets/js/40.13015d8a.js"><link rel="prefetch" href="/assets/js/41.c926201b.js"><link rel="prefetch" href="/assets/js/42.ecb5fdc6.js"><link rel="prefetch" href="/assets/js/43.7e354ec4.js"><link rel="prefetch" href="/assets/js/44.f0d1ac2d.js"><link rel="prefetch" href="/assets/js/45.c632aa6a.js"><link rel="prefetch" href="/assets/js/46.0d463c3f.js"><link rel="prefetch" href="/assets/js/47.6ddd38f2.js"><link rel="prefetch" href="/assets/js/48.357d6f47.js"><link rel="prefetch" href="/assets/js/49.fac67488.js"><link rel="prefetch" href="/assets/js/5.f56fea99.js"><link rel="prefetch" href="/assets/js/50.ca18e13b.js"><link rel="prefetch" href="/assets/js/51.af09458b.js"><link rel="prefetch" href="/assets/js/52.bdad80b6.js"><link rel="prefetch" href="/assets/js/53.4ea93e0d.js"><link rel="prefetch" href="/assets/js/54.991c7cc2.js"><link rel="prefetch" href="/assets/js/55.1652a0e9.js"><link rel="prefetch" href="/assets/js/56.f8b88d2c.js"><link rel="prefetch" href="/assets/js/57.62e70612.js"><link rel="prefetch" href="/assets/js/58.ee2b8a2d.js"><link rel="prefetch" href="/assets/js/6.0641bc7b.js"><link rel="prefetch" href="/assets/js/60.071e1c19.js"><link rel="prefetch" href="/assets/js/61.ae93856d.js"><link rel="prefetch" href="/assets/js/62.4c39b766.js"><link rel="prefetch" href="/assets/js/63.08582e36.js"><link rel="prefetch" href="/assets/js/64.b43e00d2.js"><link rel="prefetch" href="/assets/js/65.742f43b6.js"><link rel="prefetch" href="/assets/js/66.ba7db902.js"><link rel="prefetch" href="/assets/js/67.6b40c8a4.js"><link rel="prefetch" href="/assets/js/68.6f7619d2.js"><link rel="prefetch" href="/assets/js/69.143d9fd0.js"><link rel="prefetch" href="/assets/js/7.4661d4f9.js"><link rel="prefetch" href="/assets/js/8.b652d739.js"><link rel="prefetch" href="/assets/js/9.fb483f76.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.a1300348.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><!----> <span class="site-name">NULS</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/zh/Guide/" class="nav-link">指南</a></div><div class="nav-item"><a href="/zh/Docs/" class="nav-link router-link-active">开发</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link">English</a></li><li class="dropdown-item"><!----> <a href="/zh/Docs/s_nrc721.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/tree/dev" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/zh/Guide/" class="nav-link">指南</a></div><div class="nav-item"><a href="/zh/Docs/" class="nav-link router-link-active">开发</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/" class="nav-link">English</a></li><li class="dropdown-item"><!----> <a href="/zh/Docs/s_nrc721.html" class="nav-link router-link-exact-active router-link-active">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/tree/dev" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first"><p class="sidebar-heading"><span>设计文档</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/zh/Docs/d_network.html" class="sidebar-link">网络模块设计文档</a></li><li><a href="/zh/Docs/d_ledger.html" class="sidebar-link">账本模块设计文档</a></li><li><a href="/zh/Docs/d_chain_manager.html" class="sidebar-link">链管理模块设计文档</a></li><li><a href="/zh/Docs/d_account.html" class="sidebar-link">账户模块设计文档</a></li><li><a href="/zh/Docs/d_transaction.html" class="sidebar-link">交易管理模块设计文档</a></li><li><a href="/zh/Docs/d_cross_chain.html" class="sidebar-link">跨链模块设计文档</a></li><li><a href="/zh/Docs/d_consensus.html" class="sidebar-link">共识模块设计文档</a></li><li><a href="/zh/Docs/d_public_service.html" class="sidebar-link">public-service模块设计文档</a></li><li><a href="/zh/Docs/d_block.html" class="sidebar-link">区块管理模块设计文档</a></li><li><a href="/zh/Docs/d_protocol_update.html" class="sidebar-link">协议升级模块设计文档</a></li><li><a href="/zh/Docs/d_address.html" class="sidebar-link">NULS Protocol Address</a></li></ul></div></li><li><div class="sidebar-group"><p class="sidebar-heading"><span>接口文档</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/zh/Docs/i_rpc_protocol.html" class="sidebar-link">接口交互格式与规范 JSON-RPC</a></li><li><a href="/zh/Docs/i_public_service.html" class="sidebar-link">NULS2.0——API接口文档</a></li><li><a href="/zh/Docs/i_nuls-api_JSONRPC.html" class="sidebar-link">NULS2.0 API-JSONRPC</a></li><li><a href="/zh/Docs/i_nuls-api_RESTFUL.html" class="sidebar-link">NULS2.0 API-RESTFUL</a></li><li><a href="/zh/Docs/i_account.html" class="sidebar-link">账户模块</a></li><li><a href="/zh/Docs/i_chain-manager.html" class="sidebar-link">链管理模块</a></li><li><a href="/zh/Docs/i_cross-chain.html" class="sidebar-link">跨链模块</a></li><li><a href="/zh/Docs/i_network.html" class="sidebar-link">网络模块</a></li><li><a href="/zh/Docs/i_block.html" class="sidebar-link">区块模块</a></li><li><a href="/zh/Docs/i_transaction.html" class="sidebar-link">交易模块</a></li><li><a href="/zh/Docs/i_consensus.html" class="sidebar-link">POC共识模块</a></li><li><a href="/zh/Docs/i_smart-contract.html" class="sidebar-link">智能合约模块</a></li><li><a href="/zh/Docs/i_ledger.html" class="sidebar-link">账本模块</a></li></ul></div></li><li><div class="sidebar-group"><p class="sidebar-heading"><span>ChainBox</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/zh/Docs/c_chain_box.html" class="sidebar-link">NULS ChainBox</a></li><li><a href="/zh/Docs/c_module.html" class="sidebar-link">开发业务模块</a></li><li><a href="/zh/Docs/c_message_module.html" class="sidebar-link">加密信息模块示例</a></li></ul></div></li><li><div class="sidebar-group"><p class="sidebar-heading open"><span>智能合约</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/zh/Docs/s_manual.html" class="sidebar-link">开发手册</a></li><li><a href="/zh/Docs/s_tools.html" class="sidebar-link">开发工具</a></li><li><a href="/zh/Docs/s_nrc20.html" class="sidebar-link">NRC-20</a></li><li><a href="/zh/Docs/s_nrc721.html" class="active sidebar-link">NRC-721非同质资产标准</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/Docs/s_nrc721.html#简单摘要" class="sidebar-link">简单摘要</a></li><li class="sidebar-sub-header"><a href="/zh/Docs/s_nrc721.html#抽象" class="sidebar-link">抽象</a></li><li class="sidebar-sub-header"><a href="/zh/Docs/s_nrc721.html#规格" class="sidebar-link">规格</a></li><li class="sidebar-sub-header"><a href="/zh/Docs/s_nrc721.html#合理性" class="sidebar-link">合理性</a></li><li class="sidebar-sub-header"><a href="/zh/Docs/s_nrc721.html#nft实现" class="sidebar-link">NFT实现</a></li></ul></li><li><a href="/zh/Docs/s_offline_assembly.html" class="sidebar-link">合约交易离线组装</a></li><li><a href="/zh/Docs/s_advance.html" class="sidebar-link">高级说明</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="nrc-721非同质资产标准"><a href="#nrc-721非同质资产标准" aria-hidden="true" class="header-anchor">#</a> NRC-721非同质资产标准</h1> <h2 id="简单摘要"><a href="#简单摘要" aria-hidden="true" class="header-anchor">#</a> 简单摘要</h2> <p>用于不可替代的令牌的标准接口，也称为行为。</p> <h2 id="抽象"><a href="#抽象" aria-hidden="true" class="header-anchor">#</a> 抽象</h2> <p>以下标准允许在智能合约中实施NFT的标准API。该标准提供了跟踪和传输NFT的基本功能。</p> <p>我们认为NFT的使用案例由个人拥有和交易，以及托运给第三方经纪人/钱包/拍卖商（“运营商”）。NFT可以代表对数字或实物资产的所有权。我们考虑了各种各样的资产，我们知道你会想到更多：</p> <ul><li>物理财产 - 房屋，独特的艺术品</li> <li>虚拟收藏品 - 小猫，可收集卡片的独特图片</li> <li>“负值”资产 - 贷款，负担和其他责任</li></ul> <p>一般来说，所有房屋都是独特的，没有两只小猫是相同的。NFT是<em>可区分的</em>，您必须分别跟踪每个NFT 的所有权。</p> <h2 id="规格"><a href="#规格" aria-hidden="true" class="header-anchor">#</a> 规格</h2> <p><strong>每个符合NRC-721标准的合同都必须实施NRC721和NRC165接口</strong>（以下“注意事项”）：</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>token<span class="token punctuation">.</span>interfaces<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>Address<span class="token punctuation">;</span>
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>Event<span class="token punctuation">;</span>
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>View<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>math<span class="token punctuation">.</span>BigInteger<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INRC721</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * Count all NFTs assigned to an owner
+     * @param owner An address for whom to query the balance
+     * @return The number of NFTs owned by `owner`, possibly zero
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    <span class="token keyword">int</span> <span class="token function">balanceOf</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Find the owner of an NFT
+     * @param tokenId The identifier for an NFT
+     * @return The address of the owner of the NFT
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    Address <span class="token function">ownerOf</span><span class="token punctuation">(</span>BigInteger tokenId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Transfers the ownership of an NFT from one address to another address.
+     * When transfer is complete, this function checks if `to` is a smart contract.
+     * If so, it calls `onNRC721Received` on `to` and throws if the return value is `false`.
+     * @throws revert unless `Msg.sender()` is the current owner, an authorized
+     *          operator, or the approved address for this NFT.
+     * @throws revert if `from` is not the current owner.
+     * @throws revert if `tokenId` is not a valid NFT.
+     * @param from The current owner of the NFT
+     * @param to The new owner
+     * @param tokenId The NFT to transfer
+     * @param data Additional data with no specified format, sent in call to `to`
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">safeTransferFrom</span><span class="token punctuation">(</span>Address from<span class="token punctuation">,</span> Address to<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">,</span> String data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Transfers the ownership of an NFT from one address to another address.
+     * This works identically to the other function with an extra data parameter,
+     *  except this function just sets data to &quot;&quot;.
+     * @param from The current owner of the NFT
+     * @param to The new owner
+     * @param tokenId The NFT to transfer
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">safeTransferFrom</span><span class="token punctuation">(</span>Address from<span class="token punctuation">,</span> Address to<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Transfer ownership of an NFT -- THE CALLER IS RESPONSIBLE
+     *  TO CONFIRM THAT `to` IS CAPABLE OF RECEIVING NFTS OR ELSE
+     *  THEY MAY BE PERMANENTLY LOST
+     * @throws Revert unless `Msg.sender()` is the current owner, an authorized
+     *  operator, or the approved address for this NFT.
+     * @throws Revert if `from` is not the current owner.
+     * @throws Revert if `tokenId` is not a valid NFT.
+     * @param from The current owner of the NFT
+     * @param to The new owner
+     * @param tokenId The NFT to transfer
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">transferFrom</span><span class="token punctuation">(</span>Address from<span class="token punctuation">,</span> Address to<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Change or reaffirm the approved address for an NFT
+     * @throws revert unless `Msg.sender()` is the current NFT owner, or an authorized
+     *  operator of the current owner.
+     * @param approved The new approved NFT controller
+     * @param tokenId The NFT to approve
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">approve</span><span class="token punctuation">(</span>Address to<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Enable or disable approval for a third party (&quot;operator&quot;) to manage
+     *  all of `Msg.sender()`'s assets.
+     * Emits the ApprovalForAll event. The contract MUST allow multiple operators per owner.
+     * @param operator Address to add to the set of authorized operators
+     * @param approved True if the operator is approved, false to revoke approval
+     */</span>
+    <span class="token keyword">void</span> <span class="token function">setApprovalForAll</span><span class="token punctuation">(</span>Address operator<span class="token punctuation">,</span> <span class="token keyword">boolean</span> approved<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Get the approved address for a single NFT.
+     * @throws revert if there is none or if `tokenId` is not a valid NFT.
+     * @param tokenId The NFT to find the approved address for
+     * @return The approved address for this NFT.
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    Address <span class="token function">getApproved</span><span class="token punctuation">(</span>BigInteger tokenId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Query if an address is an authorized operator for another address
+     * @param owner The address that owns the NFTs
+     * @param operator The address that acts on behalf of the owner
+     * @return True if `operator` is an approved operator for `owner`, false otherwise
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    <span class="token keyword">boolean</span> <span class="token function">isApprovedForAll</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">,</span> Address operator<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * This emits when ownership of any NFT changes by any mechanism.
+     *  This event emits when NFTs are created (`from` is NULL) and destroyed.
+     *  At the time of any transfer, the approved address for that NFT (if any) is reset to none.
+     *  &lt;p&gt;Exception: during contract creation, any number of NFTs may be created and assigned without emitting Transfer.&lt;/p&gt;
+     */</span>
+    <span class="token keyword">class</span> <span class="token class-name">Transfer</span> <span class="token keyword">implements</span> <span class="token class-name">Event</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> Address from<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> Address to<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> BigInteger tokenId<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">Transfer</span><span class="token punctuation">(</span>Address from<span class="token punctuation">,</span> Address to<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>from <span class="token operator">=</span> from<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>to <span class="token operator">=</span> to<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>tokenId <span class="token operator">=</span> tokenId<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Address <span class="token function">getFrom</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> from<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setFrom</span><span class="token punctuation">(</span>Address from<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>from <span class="token operator">=</span> from<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Address <span class="token function">getTo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> to<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTo</span><span class="token punctuation">(</span>Address to<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>to <span class="token operator">=</span> to<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> BigInteger <span class="token function">getTokenId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> tokenId<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTokenId</span><span class="token punctuation">(</span>BigInteger tokenId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>tokenId <span class="token operator">=</span> tokenId<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * This emits when the approved address for an NFT is changed or reaffirmed.
+     *  When a Transfer event emits, this also indicates that the approved address for that NFT (if any) is reset to none.
+     */</span>
+    <span class="token keyword">class</span> <span class="token class-name">Approval</span> <span class="token keyword">implements</span> <span class="token class-name">Event</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> Address owner<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> Address approved<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> BigInteger tokenId<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">Approval</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">,</span> Address approved<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> owner<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>approved <span class="token operator">=</span> approved<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>tokenId <span class="token operator">=</span> tokenId<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Address <span class="token function">getOwner</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> owner<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOwner</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> owner<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Address <span class="token function">getApproved</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> approved<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setApproved</span><span class="token punctuation">(</span>Address approved<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>approved <span class="token operator">=</span> approved<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> BigInteger <span class="token function">getTokenId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> tokenId<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setTokenId</span><span class="token punctuation">(</span>BigInteger tokenId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>tokenId <span class="token operator">=</span> tokenId<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * This emits when an operator is enabled or disabled for an owner.
+     * The operator can manage all NFTs of the owner.
+     */</span>
+    <span class="token keyword">class</span> <span class="token class-name">ApprovalForAll</span> <span class="token keyword">implements</span> <span class="token class-name">Event</span> <span class="token punctuation">{</span>
+        <span class="token keyword">private</span> Address owner<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> Address operator<span class="token punctuation">;</span>
+        <span class="token keyword">private</span> Boolean approved<span class="token punctuation">;</span>
+
+        <span class="token keyword">public</span> <span class="token function">ApprovalForAll</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">,</span> Address operator<span class="token punctuation">,</span> Boolean approved<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> owner<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>operator <span class="token operator">=</span> operator<span class="token punctuation">;</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>approved <span class="token operator">=</span> approved<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Address <span class="token function">getOwner</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> owner<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOwner</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>owner <span class="token operator">=</span> owner<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Address <span class="token function">getOperator</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> operator<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setOperator</span><span class="token punctuation">(</span>Address operator<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>operator <span class="token operator">=</span> operator<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> Boolean <span class="token function">getApproved</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> approved<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+
+        <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setApproved</span><span class="token punctuation">(</span>Boolean approved<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>approved <span class="token operator">=</span> approved<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>token<span class="token punctuation">.</span>interfaces<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INRC165</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * Query if a contract implements an interface
+     * @param interfaceName The interface name, as specified in the implementation class of NRC-165.
+     *                      eg. interfaceName: ['INRC165', 'INRC721', 'INRC721Enumerable', 'INRC721Metadata']
+     * @return `true` if the contract implements `interfaceName`, `false` otherwise
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    <span class="token keyword">boolean</span> <span class="token function">supportsInterface</span><span class="token punctuation">(</span>String interfaceName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>钱包/经纪/拍卖应用程序必须实现<strong>钱包接口，</strong> 如果它将接受安全转移。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>token<span class="token punctuation">.</span>interfaces<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>Address<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>math<span class="token punctuation">.</span>BigInteger<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INRC721TokenReceiver</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * Handle the receipt of an NFT.
+     * The NRC721 smart contract calls this function on the recipient
+     *  after a `transfer`. This function MAY revert and reject the
+     *  transfer.
+     *  Note: the contract address is always the message sender.
+     * @param operator The address which called `safeTransferFrom` function
+     * @param from The address which previously owned the token
+     * @param tokenId The NFT identifier which is being transferred
+     * @param data Additional data with no specified format
+     * @return `true` if it accepts NFTs from other contracts, otherwise `false`
+     */</span>
+    <span class="token keyword">boolean</span> <span class="token function">onNRC721Received</span><span class="token punctuation">(</span>Address operator<span class="token punctuation">,</span> Address from<span class="token punctuation">,</span> BigInteger tokenId<span class="token punctuation">,</span> String data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>对于NRC-721智能合约，<strong>元数据扩展</strong>是可选的（参见下面的“警告”）。这样可以查询您的智能合约的名称以及您的NFT所代表的资产的详细信息。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>token<span class="token punctuation">.</span>interfaces<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>View<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>math<span class="token punctuation">.</span>BigInteger<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INRC721Metadata</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * @return A descriptive name for a collection of NFTs in this contract
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    String <span class="token function">name</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * @return An abbreviated name for NFTs in this contract
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    String <span class="token function">symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * @return A distinct Uniform Resource Identifier (URI) for a given asset.
+     *         NULL if `tokenId` is not a valid NFT.
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    String <span class="token function">tokenURI</span><span class="token punctuation">(</span>BigInteger tokenId<span class="token punctuation">)</span> <span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>对于NRC-721智能合约，<strong>枚举扩展</strong>是可选的（参见下面的“警告”）。这允许您的合同发布其完整的NFT列表并使其可被发现。</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>token<span class="token punctuation">.</span>interfaces<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>Address<span class="token punctuation">;</span>
+<span class="token keyword">import</span> io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span>View<span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> java<span class="token punctuation">.</span>math<span class="token punctuation">.</span>BigInteger<span class="token punctuation">;</span>
+
+
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">INRC721Enumerable</span> <span class="token punctuation">{</span>
+    <span class="token comment">/**
+     * Count NFTs tracked by this contract
+     * @return A count of valid NFTs tracked by this contract, where each one of
+     *         them has an assigned and queryable owner
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    <span class="token keyword">int</span> <span class="token function">totalSupply</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Enumerate valid NFTs
+     * @param index A counter less than `totalSupply()`
+     * @return The token identifier for the `index` NFT,
+     *  (sort order not specified), NULL if `index` &gt;= `totalSupply()`.
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    BigInteger <span class="token function">tokenByIndex</span><span class="token punctuation">(</span><span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Enumerate NFTs assigned to an owner
+     * @param owner An address where we are interested in NFTs owned by them
+     * @param index A counter less than `balanceOf(_owner)`
+     * @return The token identifier for the `index` NFT assigned to `owner`,
+     *   (sort order not specified), NULL if `index` &gt;= `balanceOf(owner)` or invalid NFTs.
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    BigInteger <span class="token function">tokenOfOwnerByIndex</span><span class="token punctuation">(</span>Address owner<span class="token punctuation">,</span> <span class="token keyword">int</span> index<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="合理性"><a href="#合理性" aria-hidden="true" class="header-anchor">#</a> 合理性</h2> <p>此智能合约的许多建议用途依赖于跟踪可区分的资产。现有或计划的NFT的示例是Decentraland中的LAND，CryptoPunks中的同名朋友，以及使用DMarket或EnjinCoin等系统的游戏内物品。未来的用途包括跟踪现实世界的资产，如房地产（如Ubitquity或Propy等公司所设想的那样。在这些情况中，这些项目在分类账中不是“集中在一起”，而是每个资产，这一点至关重要。必须拥有单独和原子跟踪的所有权。无论这些资产的性质如何，如果我们拥有允许跨功能资产管理和销售平台的标准化界面，生态系统将更加强大。</p> <p><strong>NFT标识符</strong></p> <p>每个NFT都由<code>BigInteger</code>NRC-721智能合约中的唯一ID标识。该识别号码在合同期限内不得更改。该对<code>(Address contractAddress, BigInteger tokenId)</code>然后将用于在链上特定资产的全局唯一和完全合格的标识符。虽然一些NRC-721智能合约可能会发现从ID 0开始并且每个新NFT只增加一个是方便的，但是呼叫者不应该假设ID号具有任何特定模式，并且必须将ID视为“黑匣子” ”。另请注意，NFT可能无效（被销毁）。请参阅支持的枚举接口的枚举函数。</p> <p><strong>转移机制</strong></p> <p>NRC-721标准化了安全传递函数<code>safeTransferFrom</code>（带有和不带<code>String</code>参数的重载方法）和不安全的功能<code>transferFrom</code>。转移可以通过以下方式启动：</p> <ul><li>NFT的所有者</li> <li>NFT当前经批准的地址</li> <li>NFT当前所有者的授权操作者</li></ul> <p>另外，授权操作者可以设置NFT的批准地址。这为钱包，经纪人和拍卖应用程序提供了一套强大的工具，可以快速使用<em>大量</em>的NFT。</p> <p>创建NFT（“铸造”）和销毁NFT（“燃烧”）不包括在规范中。您的合同可以通过其他方式实现。</p> <p><strong>NRC-165接口</strong></p> <p>我们选择标准接口检测（NRC-165）来公开NRC-721智能合约支持的接口。</p> <p><strong>气体和复杂性</strong>（关于枚举扩展）</p> <p>该规范设想了管理少量和<em>任意大量</em> NFT的实现。如果您的应用程序能够增长，那么请避免在代码中使用for / while循环。这些表明您的合同可能无法扩展，燃气成本将随着时间的推移不断增加。</p> <p><strong>隐私</strong></p> <p>在激励部分中确定的钱包/经纪人/拍卖者非常需要确定所有者拥有哪些NFT。</p> <p>考虑一个NFT不可枚举的用例可能很有意思，例如财产所有权的私人注册表或部分私有注册表。但是，无法获得隐私，因为攻击者可以为所有可能的<code>tokenId</code>简单地调用<code>ownerOf</code>。</p> <p><strong>元数据选择</strong>（元数据扩展）</p> <p>我们在元数据扩展中需要<code>name</code>和<code>symbol</code>功能。
+我们提醒实现作者，空字符串是一个有效的响应<code>name</code>，<code>symbol</code>，如果你抗议使用这种机制。我们也提醒大家，任何智能合同可以使用相同的名称和符号作为<em>你的</em>合同。客户如何确定哪些NRC-721智能合约是众所周知的（规范的）超出了本标准的范围。</p> <p>提供了一种将NFT与URI相关联的机制。我们希望许多实现将利用此功能为每个NFT提供元数据，URI可能是可变的（即它会不时变化）。我们考虑了代表房屋所有权的NFT，在这种情况下，关于房屋的元数据（图像，居住者等）可以自然地改变。</p> <p>元数据作为字符串值返回。</p> <p><em>考虑的替代方案：将每个资产的所有元数据放在区块链上（太贵），使用URL模板查询元数据部分</em></p> <h2 id="nft实现"><a href="#nft实现" aria-hidden="true" class="header-anchor">#</a> NFT实现</h2> <ol><li>最基本实现 https://github.com/MIMIEYES/NULS-NRC721-baselib</li> <li>NRC721Metadata基本功能实现 https://github.com/MIMIEYES/NRC721Metadata</li> <li>NRC721Enumerable基本功能实现 https://github.com/MIMIEYES/NRC721Enumerable</li> <li>NRC721Full基本功能实现 https://github.com/MIMIEYES/NRC721Full</li> <li>NRC721Receiver基本功能实现 https://github.com/MIMIEYES/NRC721Receiver</li></ol></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/tree/dev/edit/dev/docs/zh/Docs/s_nrc721.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">2019-9-4 13:46:10</span></div></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/zh/Docs/s_nrc20.html" class="prev">
+          NRC-20
+        </a></span> <span class="next"><a href="/zh/Docs/s_offline_assembly.html">
+          合约交易离线组装
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/assets/js/app.ff9a8a4d.js" defer></script><script src="/assets/js/59.3a65d3ab.js" defer></script>
+  </body>
+</html>
