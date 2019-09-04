@@ -1,9 +1,5 @@
-FROM node
-COPY dist /doc_site
-RUN npm install -g http-server  
-
-WORKDIR /doc_site
-
-CMD ["http-server"]
+FROM nginx
+RUN rm -rf /usr/share/nginx/html
+COPY dist /usr/share/nginx/html    
 
 RUN echo "successfully build nuls image"
