@@ -34,7 +34,7 @@ module.exports = {
                 editLinkText: 'Edit this page on GitHub',
                 nav:[
                 {text:"Guide",link:"/Guide/"},
-                {text:"Docs",link:"/Docs/"}
+                {text:"Develope",link:"/Docs/"}
                 ],
                 sidebar: {
                     "/Guide/":[
@@ -103,7 +103,7 @@ module.exports = {
                 // Service Worker 的配置
                 nav:[
                 {text:"指南",link:"/zh/Guide/"},
-                {text:"文档",link:"/zh/Docs/"}
+                {text:"开发",link:"/zh/Docs/"}
                 ],
                 sidebar: {
                     "/zh/Guide/":[
@@ -112,10 +112,14 @@ module.exports = {
                             collapsable:false,
                             children: [
                             '',
-                            'howToContribute',
-                            'NULSExplorerGuide',
-                            'joinCCC',
-                            'NULSTransaction'
+                            // 'contribute',
+                            'transaction',
+                            'linux_tutorial',
+                            'explorer',
+                            'multi_sign_account',
+                            
+                            // 'joinCCC',
+                            
                             ]
                         }
                     ],
@@ -134,8 +138,7 @@ module.exports = {
                              "d_public_service",
                              "d_block",
                              "d_protocol_update",
-                            'quickStart',
-                            'nulsProtocolAddress'
+                             'd_address'
                             ]
                         },
                         {   
@@ -152,7 +155,7 @@ module.exports = {
                             "i_network",
                             "i_block",
                             "i_transaction",
-                             "i_consensus",
+                            "i_consensus",
                             "i_smart-contract",
                             "i_ledger"
                             ]
@@ -161,37 +164,29 @@ module.exports = {
                             title: 'ChainBox',
                             collapsable:false,
                             children: [
-                            'chainBoxGuide',
-                            'developeModule',
-                            'encryptedMessageDesign',
-                            
-                            
+                            'c_chain_box',
+                            'c_module',
+                            'c_message_module',
                             ]
                         },
                         {
                             title: '智能合约',
                             collapsable:false,
                             children: [
-                            'smartContractManual',
-                            'mavenPackage',
-                            'NRC-20TokenStandard',
-                            'NRC-721',
-                            'offlineAssembly',
-                            'assetsOff',
-                            'vm-sdk',
-                            'consensusTransaction',
-                            'excuteResult',
-                            'triggerPayable',
-                            'smartContractFee',
+                            's_manual',
+                            's_tools',
+                            's_nrc20',
+                            's_nrc721',                            
+                            's_offline_assembly',
+                            's_advance'
                             ]
                         },  
-                        {   
-                            title: 'SDK',
-                            collapsable:false,
-                            children: [
-                            'quickStart'
-                            ]
-                        },
+                        // {   
+                        //     title: 'SDK',
+                        //     collapsable:false,
+                        //     children: [
+                        //     ]
+                        // },
                     ]
                 }
             }
