@@ -1,30 +1,33 @@
 # NRC-20
 
 
-## 简述
+## Simple Summary
 
-token的接口标准
+A standard interface for tokens.
 
 
-## 摘要
+## Abstract
 
-以下标准允许在智能合约中实施标记的标记API。 该标准提供了转移token的基本功能，并允许token被批准，以便他们可以由另一个在线第三方使用。
+The following standard allows for the implementation of a standard API for tokens within smart contracts.
+This standard provides basic functionality to transfer tokens, as well as allow tokens to be approved so they can be spent by another on-chain third party.
 
-## 动机
 
-标准接口可以让Nuls上的任何令牌被其他应用程序重新使用：从钱包到分散式交换。
+## Motivation
 
-## 规则
+A standard interface allows any tokens on Nuls to be re-used by other applications: from wallets to decentralized exchanges.
+
+
+## Specification
 
 ## Token
-### 方法
+### Methods
 
-**注意**: 调用者必须处理返回`false`的`return boolean`.调用者绝对不能假设返回`false`的情况不存在。
+**NOTE**: Callers MUST handle `false` from `return boolean`.  Callers MUST NOT assume that `false` is never returned!
 
 
 #### name
 
-返回令牌的名称 - 例如 `"MyToken"`.
+Returns the name of the token - e.g. `"MyToken"`.
 
 ``` java
 @View
@@ -34,7 +37,7 @@ public String name();
 
 #### symbol
 
-返回令牌的符号 - 例如 "MT".
+Returns the symbol of the token. E.g. "MT".
 
 ``` java
 @View
@@ -43,7 +46,7 @@ public String symbol();
 
 #### decimals
 
-返回令牌使用的小数位数 - 例如“8”表示将令牌数量除以“100000000”以获得其用户表示。
+Returns the number of decimals the token uses - e.g. `8`, means to divide the token amount by `100000000` to get its user representation.
 
 ``` java
 @View
@@ -53,7 +56,7 @@ public int decimals();
 
 #### totalSupply
 
-返回总令牌供应量。
+Returns the total token supply.
 
 ``` js
 @View
@@ -64,7 +67,7 @@ public BigInteger totalSupply();
 
 #### balanceOf
 
-返回地址为“owner”的帐户余额。
+Returns the account balance of another account with address `owner`.
 
 ``` java
 @View
@@ -75,11 +78,12 @@ public BigInteger balanceOf(@Required Address owner);
 
 #### transfer
 
-转移`value`的token数量到的地址`to`，并且必须触发`TransferEvent`事件。 如果`from`帐户余额没有足够的令牌来支出，该函数应该被revert。
+Transfers `value` amount of tokens to address `to`, and MUST fire the `TransferEvent` event.
+The function SHOULD `revert` if the `from` account balance does not have enough tokens to spend.
 
-创建新令牌的令牌合同应该在创建令牌时将`from`地址设置为`null`触发`TransferEvent`事件。
+A token contract which creates new tokens SHOULD trigger a Transfer event with the `from` address set to `null` when tokens are created.
 
-注意 0值的传输必须被视为正常传输并触发`TransferEvent`事件。
+*Note* Transfers of 0 values MUST be treated as normal transfers and fire the `TransferEvent` event.
 
 ``` java
 public boolean transfer(@Required Address to, @Required BigInteger value);
@@ -89,11 +93,13 @@ public boolean transfer(@Required Address to, @Required BigInteger value);
 
 #### transferFrom
 
-从地址`from`发送数量为`value`的token到地址`to`,必须触发`TransferEvent`事件。
+Transfers `value` amount of tokens from address `from` to address `to`, and MUST fire the `TransferEvent` event.
 
-`transferFrom`方法用于提取工作流，允许合同代您转移token。这可以用于例如允许合约代您转让代币和/或以子货币收取费用。除了`from`帐户已经通过某种机制(比如调用`approve(@Required Address spender, @Required BigInteger value)`)故意地授权消息的发送者之外，否则该函数应该`revert`。
+The `transferFrom` method is used for a withdraw workflow, allowing contracts to transfer tokens on your behalf.
+This can be used for example to allow a contract to transfer tokens on your behalf and/or to charge fees in sub-currencies.
+The function SHOULD `revert` unless the `from` account has deliberately authorized the sender of the message via some mechanism, such as calling `approve(@Required Address spender, @Required BigInteger value)`.
 
-注意 0值的传输必须被视为正常传输并触发传输事件。
+*Note* Transfers of 0 values MUST be treated as normal transfers and fire the `TransferEvent` event.
 
 ``` java
 public boolean transferFrom(@Required Address from, @Required Address to, @Required BigInteger value);
@@ -103,7 +109,7 @@ public boolean transferFrom(@Required Address from, @Required Address to, @Requi
 
 #### approve
 
-允许`spender`多次支配您的帐户，最高达`value`金额。 如果再次调用此函数，它将以`value`覆盖当前的余量。
+Allows `spender` to withdraw from your account multiple times, up to the `value` amount. If this function is called again it overwrites the current allowance with `value`.
 
 ``` java
 public boolean approve(@Required Address spender, @Required BigInteger value);
@@ -112,7 +118,6 @@ public boolean approve(@Required Address spender, @Required BigInteger value);
 
 #### allowance
 
-返回`spender`仍然被允许从`owner`提取的金额。
 Returns the amount which `spender` is still allowed to withdraw from `owner`.
 
 ``` java
@@ -127,9 +132,9 @@ public BigInteger allowance(@Required Address owner, @Required Address spender);
 
 #### TransferEvent
 
-当token被转移(包括0值)，必须被触发。
+MUST trigger when tokens are transferred, including zero value transfers.
 
-创建新令牌的令牌合同应该在创建令牌时将`from`地址设置为`null`触发`TransferEvent`事件。
+A token contract which creates new tokens SHOULD trigger a Transfer event with the `from` address set to `null` when tokens are created.
 
 ``` java
 public TransferEvent(Address from, @Required Address to, @Required BigInteger value)
@@ -139,7 +144,7 @@ public TransferEvent(Address from, @Required Address to, @Required BigInteger va
 
 #### ApprovalEvent
 
-当任何成功调用`approve(@Required Address spender, @Required BigInteger value)`后，必须被触发。
+MUST trigger on any successful call to `approve(@Required Address spender, @Required BigInteger value)`.
 
 ``` java
 public ApprovalEvent(@Required Address owner, @Required Address spender, @Required BigInteger value)

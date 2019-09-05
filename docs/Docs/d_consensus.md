@@ -1,166 +1,166 @@
-# 共识模块设计文档
+# Consensus Module Design Document
 
-## 一、总体描述
+## I. Overall description
 
-### 1.1 模块概述
+### 1.1 Module Overview
 
-#### 1.1.1 为什么要有共识模块
+#### 1.1.1 Why do you have a consensus module?
 
-​	众所周知，区块链的核心是共识机制。和传统互联网的cliet-server架构不同，区块链的节点是对等的，没有中心，大家权利一样；所以为了使数据达到一致性，让一个没有中心的网络维护一套大家都认同的账本，这就是共识机制的作用。
+	As we all know, the core of the blockchain is the consensus mechanism.Unlike the traditional Internet's clipet-server architecture, the nodes of the blockchain are peer-to-peer, without the center, and everyone has the same rights; so in order to make the data consistent, let a network without a center maintain a set of books that everyone agrees with. This is the role of the consensus mechanism.
 
-​	从广义上来说，共识机制就是区块链每个节点共同遵守的规则或算法，是实现互信的基础，如此才能实现去中心化的无监管，维持整个平台的正常运转。
+	Broadly speaking, the consensus mechanism is the rule or algorithm that each node of the blockchain adheres to, and is the basis for mutual trust, so that decentralized unsupervised can be realized and the normal operation of the entire platform can be maintained.
 
-​	从狭义来说，共识机制决定了每个节点对区块链上交易的验证和确认的机制。
+	In a narrow sense, the consensus mechanism determines the mechanism by which each node verifies and validates transactions on the blockchain.
 
-#### 1.1.2 共识模块要做什么
+#### 1.1.2 What do the consensus module do?
 
-​	区块链的每次交易，都必须获得每个节点的认可，只有全网都达成共识后，交易才算完成。就好像民主选举中，投票方式或规则必须被全民认可，基于此才能完成选举。而在区块链中，共识机制的主要表现就是激励制度，也就是给矿工的奖励。在共识机制的保障下，每个矿工都能获得奖励，整个区块链才能有序的运转，提供公平、透明及互信的环境。因此共识模块就需要提供特定的算法来维持，即共识算法。
+	Every transaction in the blockchain must be approved by each node. Only after the whole network has reached a consensus, the transaction is completed.It is like in a democratic election, the voting method or rules must be recognized by the whole people, based on which the election can be completed.In the blockchain, the main performance of the consensus mechanism is the incentive system, which is the reward for the miners.Under the guarantee of the consensus mechanism, every miner can be rewarded, and the entire blockchain can operate in an orderly manner, providing a fair, transparent and trusting environment.Therefore, the consensus module needs to provide a specific algorithm to maintain, that is, the consensus algorithm.
 
-​	公链共识机制有多种，主流的有POW、POS、DPOS。NULS主网采用自主原创的POC（Proof Of Credit）共识机制，一种继承了Dpos共识机制的安全性和高效率，同时在协作方面进行了非常大的改进，可以看成是一种升级版的Dpos。
+	There are many public chain consensus mechanisms, and the mainstream is POW, POS, and DPOS.The NULS main network adopts the self-originated POC (Proof Of Credit) consensus mechanism, which inherits the security and high efficiency of the Dpos consensus mechanism. At the same time, it has made great improvements in collaboration, which can be regarded as an upgraded version. Dpos.
 
-​	POC共识模块职责：
+	Poc consensus module responsibilities:
 
-- 区块同步后的合法性验证
+- Legality verification after block synchronization
 
-- 创建共识节点、委托参与共识、取消委托、注销共识节点★
+- Create consensus nodes, delegate participation consensus, cancel delegation, and cancel consensus nodes ★
 
-- 共识节点打包出块
+- Consensus node packs out blocks
 
-- 网络维护激励的发放
+- Disbursement of network maintenance incentives
 
-- 作恶节点惩罚★
+- Do evil node punishment ★
 
-  **PS：不同的共识机制其共识算法不尽相同，以上有标记★的为POC共识特有**
+  **ps: Different consensus mechanisms have different consensus algorithms. The above marked @ is unique to the poc consensus**
 
-#### 1.1.3 《共识模块》在系统中的定位
+#### 1.1.3 Positioning of the Consensus Module in the system
 
-​	共识模块在系统中是比较核心的一块，主要负责打包交易出块，验证区块头，管理系统中的共识节点信息，委托信息，处罚信息等。
+	The consensus module is a relatively core piece in the system. It is mainly responsible for packing transactions, verifying block headers, managing consensus node information in the management system, entrusting information, and penalizing information.
 
-### 1.2 架构图
+### 1.2 Architecture
 
-（注意：区块下载属于区块管理模块，重新画图）
+(Note: Block download belongs to the block management module, repainting)
 
 ![](./image/consensus-module/consensus-constants.jpg)
 
-说明：
+Description:
 
-- Services 层：
-  - tx service : 交易的增删改查
-  - consensus service : 共识活动及状态管理二、功能设计
+- Services layer:
+  - tx service : the addition, deletion and change of the transaction
+  - consensus service : Consensus activities and state management II. Functional design
 - Validator
-  - tx Validator: 共识相关交易的验证器，用于验证共识相关交易
+  - tx Validator: a validator for consensus-related transactions for verifying consensus-related transactions
 - Processor
-  - Tx Processor:共识模块相关交易处理器，用于提交回滚检测交易
-- Task/Thread层：定时任务
-  - consensus Task: 共识打包
-  - Reward Task ： 数据统计
-- Storage层:存储共识模块相关交易数据
+  - Tx Processor: Consensus module related transaction processor for submitting rollback detection transactions
+- Task/Thread layer: timed task
+  - consensus Task: Consensus Packaging
+  - Reward Task : Statistics
+- Storage layer: store consensus module related transaction data
 
-### 2.0 功能架构图
+### 2.0 Functional Architecture
 
 ![](./image/consensus-module/consensus-func.png)
 
-### 2.1共识模块功能需求分析
+### 2.1 Consensus Module Functional Requirements Analysis
 
-#### 2.1.1 支持多链并行
+#### 2.1.1 Support for multi-chain parallelism
 
-NULS2.0设计理念是提供模块化的服务，并且每个模块都应该支持多条链的数据同时运行，因此共识模块需要实现不同共识机制的算法。当共识模块启动运行后，可同时支持多条链同时运行。
+The nuls2.0 design concept is to provide modular services, and each module should support multiple chains of data running at the same time, so the consensus module needs to implement algorithms with different consensus mechanisms.When the consensus module starts running, it can simultaneously support multiple chains to run at the same time.
 
 
 
-#### 2.1.2 POC的共识机制
+#### 2.1.2 poc consensus mechanism
 
-NULS的主网采用自主的POC共识机制，要实现POC，首先需要知道POC的设计理念和业务规则，以下内容摘自NULS白皮书POC共识介绍部分，如果熟悉可直接跳过。
-
-```
-共识机制——POC
-	NULS主链默认采用信用共识机制 POC(Proof-Of-Credit)。节点信用达标的情况下，锁定一定保证金即可加入共识，共识节点重新排序后每轮轮流出块，退出共识时保证金解锁。
-1、共识进入与退出机制
-	任何人都可以随时加入NULS的共识之中，只要满足条件，遵守规则，即可持续获得NULS代币奖励。POC的加入分为硬性指标和软性指标。硬性指标指的是信用分值必须达到一定标准线，排除掉一部分曾经作恶的节点。软性指标指的是必须冻结一定量的NULS代币作为保证金，为杜绝节点的泛滥，同时让整个系统更加公平，保证金的数量除了有一个最低值的限制外，任何人可自由选择保证金的数量，保证金的数量会和最终的奖励挂钩。
-1.1黄牌警告
-	由于节点硬件配置或者网络原因，造成的共识期间掉线、死机等无法出块的，不属于违规情况，但对整个系统会造成一定影响，所以对这类情况，系统有一个轻度的警告机制：降低节点信用值，
-1.2红牌警告
-	对于一些双花、重复出块、尝试分叉系统、不遵守系统规则的恶意人为破坏情况，NULS系统坚决抵制，所有节点都可以检测到这类情况的发生；一旦有恶意节点确实试图挑战系统，那么对应的保证金将会被锁定2个月，且再次信用评级，将永远达不到共识门槛。
-2、信用评级
-	在 NULS 系统里，信用是账户在系统中的诚信系数，所有账户的信用会在区间[-1,1]内，通过信用评级算法公式自动计算。
-	信用评估公式：信用基数=能力系数+责任系数
-	能力系数：根据历史出块数量计算
-	责任系数：根据违规情况和出块正确性计算
-3、共识奖励
-	为了整个 NULS 系统的平衡与公平，共识奖励根据所有共识节点所提交保证金与共识节点信用综合计算。共识奖励计算公式：见（图p1）
-4、子链共识机制
-	接入 NULS 的子链分为两种类型，第一种是通过 NULS 系统的标准接口协议接入，第二种是通过 NULS 的程序部署接入。
-	NULS 是一套通用的区块链底层基础设施，在其主链上不运行任何应用业务，所有应用业务由子链运行。通过 NULS 的系统，能快速的部署基于 NULS 的子链，且可灵活定制子链的各种运行参数，包括是否支持基础代币、加密算法、共识机制、存储机制等。
-	NULS 定义了标准共识模块，以提供接口兼容不同的共识机制。NULS 社区会陆续开发 POW、DPOS、POS、PBFT、POOL 验证池等共识机制，以供用户自由选择。
+The main network of nuls adopts the independent poc consensus mechanism. To realize the poc, you first need to know the design concept and business rules of the poc. The following content is taken from the introduction part of the nuls white paper poc consensus. If you are familiar, you can skip it directly.
 
 ```
+Consensus mechanism - poc
+	The NULS main chain defaults to the credit consensus mechanism POC (Proof-Of-Credit).In the case where the node credit is up to standard, a certain margin can be locked to join the consensus. After the consensus node is reordered, each round will flow out of the block, and the margin will be unlocked when the consensus is exited.
+1. Consensus entry and exit mechanism
+	Anyone can join the consensus of nuls at any time, as long as the conditions are met and the rules are followed, that is, the nuls token reward can be obtained continuously.The addition of poc is divided into hard indicators and soft indicators.The hard indicator means that the credit score must reach a certain standard line, and exclude some nodes that have been evil.The soft index refers to the need to freeze a certain amount of nuls tokens as a margin, in order to prevent the proliferation of nodes, and to make the whole system more fair, the number of margins can be freely selected by anyone except the minimum value. The amount of the deposit will be linked to the final reward.
+1.1 Yellow card warning
+	Due to the hardware configuration of the node or the network, the disconnection and crash of the consensus period cannot be blocked. It is not a violation, but it will affect the whole system. Therefore, the system has a mild warning mechanism for such cases. : lower the node credit value,
+1.2 red card warning
+	For some double-split, repeated block-outs, attempts to fork the system, and malicious human-induced damage that does not comply with system rules, the nuls system resolutely resists, and all nodes can detect this kind of situation; once a malicious node does try to challenge the system, Then the corresponding margin will be locked for 2 months, and the credit rating will never reach the consensus threshold.
+2, credit rating
+	In the nuls system, credit is the credit factor of the account in the system, and the credit of all accounts is automatically calculated in the interval [-1, 1] by the credit rating algorithm formula.
+	Credit evaluation formula: credit base = capacity coefficient + responsibility coefficient
+	Capacity factor: calculated based on the number of historical blocks
+	Responsibility factor: calculated according to violations and correctness of the block
+3. Consensus reward
+	For the balance and fairness of the entire NULS system, the consensus reward is calculated based on the margins submitted by all consensus nodes and the consensus node credits.Consensus reward calculation formula: see (Figure p1)
+4, the sub-chain consensus mechanism
+	The sub-chains that access the nuls are divided into two types. The first one is accessed through the standard interface protocol of the nuls system, and the second is deployed through the program of nuls.
+	Nuls is a common blockchain underlying infrastructure that does not run any application services on its main chain, and all application services are run by sub-chains.Through the nuls system, you can quickly deploy a sub-chain based on nuls, and flexibly customize the various operating parameters of the sub-chain, including whether to support basic tokens, encryption algorithms, consensus mechanisms, storage mechanisms, and so on.
+	Nuls defines a standard consensus module to provide interfaces that are compatible with different consensus mechanisms.The nuls community will develop consensus mechanisms such as pow, dpos, pos, pbft, and pool verification pool for users to choose freely.
 
-*图p1：共识奖励计算公式：*
+```
+
+*Figure p1: Consensus reward calculation formula: *
 
 ![](./image/consensus-module/coinbase.png)
 
-##### 在POC系统中，有代理人、委托人、打包人、奖励人这四个角色。
+##### In the poc system, there are four roles: agent, principal, packager, and rewarder.
 
-- 代理人————即共识节点创建人。NULS持有人发起一笔创建共识节点的交易，记录到链中，告诉所有人我要做共识节点。节点创建的基本条件是需要锁定20,000—200,000个NULS，且没有红牌惩罚记录，设立这个基本条件的目的是证明你是真心实意的想维护好NULS的基础网络。
-- 打包人————代理人在创建共识节点时，可指定一个打包人，这个打包人可以是自己的其他账户，也可以是懂技术的朋友，最重要的是打包人可以不持有任何NULS，即使参与共识的服务器被黑客攻破，用户也不会有巨大损失，损失的仅仅是被攻击后的收益影响。需要注意的是打包人是真正出块的账户，每次打包区块后都需要对区块签名，因此打包账户一定不要设置密码。
-- 奖励人————代理人在创建共识节点时，不仅仅可以指定一个打包人，还可以指定一个受益人，指定谁可以获得共识所产出的奖励
-- 委托人————NULS持有人，可根据代理人的信用值情况，以及代理人的影响力等等因素，把自己所持有的NULS委托给该代理人进行共识，同时享受相应的共识收益，若发现代理人节点质量或者诚信有所下降，委托人可随时撤掉其委托改投他人。
+- Agent - - the consensus node creator.The nuls holder initiates a transaction to create a consensus node, logs it into the chain, and tells everyone that I want to be a consensus node.The basic condition for node creation is that 20,000-200,000 nuls need to be locked, and there is no red card penalty record. The purpose of setting up this basic condition is to prove that you are really trying to maintain the basic network of nuls.
+- Packager———— When creating a consensus node, the agent can specify a packager. This packager can be his own account, or a friend who knows technology. The most important thing is that the packager can not hold any Nuls, even if the server participating in the consensus is hacked, the user will not have a huge loss, the loss is only affected by the earnings after the attack.It should be noted that the packager is a real account, and each time the block is packaged, the block must be signed. Therefore, the package account must not be set.
+- Rewarding people - When creating a consensus node, an agent can not only specify a packager, but also assign a beneficiary to specify who can get the reward from the consensus.
+- The principal--nuls holder can entrust the nuls he holds to the agent for consensus based on the agent's credit value and the influence of the agent, etc., while enjoying the corresponding Consensus benefits, if the quality of the agent node or the integrity of the agent is found to decrease, the principal may withdraw its entrustment and change to others at any time.
 
-##### 在POC系统中，有创建代理（创建共识节点）、停止代理节点（退出共识）、委托共识、取消委托四种业务逻辑。
+##### In the poc system, there are four business logics: creating a proxy (creating a consensus node), stopping a proxy node (exiting consensus), delegating a consensus, and canceling a delegation.
 
-- 创建代理（创建共识节点）：锁定20,000—200,000个NULS，发起一笔注册代理交易，打包之后全网可见，其它人可锁定NULS委托到该代理人节点之上。
-- 停止代理节点（退出共识）：代理人可随时停止其代理资格，发起交易删除代理节点，交易被打包确认之后，很快就会退出共识，不再参与新区块的生产。注册代理时锁定的2万个NULS会72小时之后解锁，其余委托人委托到该节点的NULS立即解锁。
-- 委托共识：持有2000及以上NULS的用户，可以选择一个代理节点进行委托，获得相应的出块收益。在退出之前，相应委托的NULS将被锁定不可用。一个代理节点最高可接受500,000NULS的委托。
-- 取消委托：用户可对之前进行的委托进行撤销，撤销之后锁定的NULS马上解释，不再享受相应的共识收益。
+- Create proxy (create consensus node): Lock 20,000-200,000 nuls and initiate a registration proxy transaction. After packaging, the whole network can be seen. Others can lock the nuls delegation to the proxy node.
+- Stop the proxy node (exit consensus): The agent can stop its proxy qualification at any time, initiate a transaction to delete the proxy node, and after the transaction is packaged and confirmed, it will quickly withdraw from the consensus and no longer participate in the production of the new block.The 20,000 nuls locked when registering the agent will be unlocked after 72 hours, and the other nuls that the principal delegates to the node will be unlocked immediately.
+- Delegate consensus: Users with 2000 or above nuls can choose a proxy node to commission and obtain the corresponding block revenue.The corresponding delegated nuls will be locked out of availability before exiting.A proxy node can accept up to 500,000nuls of delegates.
+- Cancellation of the delegation: The user can cancel the previous entrustment, and the locked nuls will be explained immediately after the revocation, and the corresponding consensus revenue will no longer be enjoyed.
 
-##### POC系统的两种处罚机制
+##### Two punishment mechanisms for the poc system
 
-- 黄牌处罚：当出块节点因断网，卡机等各种不确定原因，导致该出块时没有出块，或者出的块没有被采用，那么将在下一轮获得黄牌处罚。黄牌处罚会影响节点的收益；当连续获得100个黄牌处罚时，会被进行红牌处罚。
-- 红牌处罚：当出块节点作出恶意分叉、双花等严重危害网络稳定的行为时，或者连续获得100个黄牌处罚时，系统会给予红牌处罚。获得红牌处罚的节点会被强制停止共识，创建代理时的押金被冻结3个月，且永远不可再次创建节点；获得红牌处罚的节点对应的委托立即解锁。
+- Yellow card penalty: When the block node is disconnected from the network, card machine and other uncertain reasons, the block is not out of the block, or the block is not used, then the yellow card will be punished in the next round.The yellow card penalty will affect the revenue of the node; when 100 consecutive yellow card penalties are awarded, a red card will be imposed.
+- Red card penalty: When a block node makes malicious forks, double flowers, etc., which seriously endangers the stability of the network, or receives 100 yellow card penalties in a row, the system will give a red card penalty.The node that receives the red card penalty will be forced to stop the consensus. The deposit when the agent is created is frozen for 3 months, and the node can never be created again; the corresponding node of the node that received the red card penalty is immediately unlocked.
 
-##### POC内部系统的隐藏功能需求
+##### The hidden function requirements of the poc internal system
 
-- 维护一张共识节点信息表，并根据实时接收到的以上四种交易进行更新。
-- 维护一个轮次信息表，让每个轮次符合出块条件的代理人随机排队出块。
-- 符合出块条件的代理节点，对内存池的交易进行验证打包，组装成新区块并广播到全网。
+- Maintain a consensus node information table and update it based on the above four transactions received in real time.
+- Maintain a round of information tables so that agents who meet the outbound conditions for each round are randomly queued out.
+- Proxy nodes that meet the outbound conditions, verify and package the memory pool transactions, assemble them into new blocks and broadcast them to the entire network.
 
-以上是对共识模块POC共识机制实现的功能分析，在下一章节会介绍每个功能实现的细节。
+The above is a functional analysis of the implementation of the consensus module poc consensus mechanism. The details of each function implementation are described in the next section.
 
-### 2.2 模块服务
+### 2.2 Module Service
 
-共识模块为区块链的核心模块，由于共识机制的不同，导致对外提供的服务也不尽相同。模块服务会对共识模块共有的服务和POC机制特有的服务做详细描述。
+The consensus module is the core module of the blockchain. Due to the different consensus mechanisms, the services provided by the outside are not the same.The module service will describe in detail the services shared by the consensus module and the services specific to the poc mechanism.
 
-参考[共识模块RPC-API接口文档](./consensus.md)
+Refer to [Consensus Module RPC-API Interface Document] (./consensus.md)
 
-### 2.3 模块内部功能
+### 2.3 Module internal function
 
-​	POC共识机制是由参与共识出块的节点轮流出块，达成共识，共同维护一套账本。但由于网络原因或者是有的共识节点作恶（向不同的节点发送不同的打包块），会出现分叉的情况，对于这种恶意节点系统会根据恶劣程度给与不同的处罚，当轮到某节点出块时未按规定时间出块时系统会给与节点黄牌处罚，该处罚会降低节点的信用值，当节点信用值降到-1时，该节点会被处以红牌惩罚；对于作恶程度恶劣的节点会直接处以红牌惩罚，获得红牌惩罚的节点将会停止打包且该节点永久不能再创建共识节点，且保证金会被冻结一定时间，其他委托该节点的委托金额会返还给委托人；当节点正常出块时，节点会获得出块奖励，委托该节点的账户也会根据委托金额的多少获取相应比例的奖励金。
+	The poc consensus mechanism is that the nodes that participate in the consensus block out of the block, reach a consensus, and jointly maintain a set of books.However, due to network reasons or some consensus nodes do evil (send different packing blocks to different nodes), there will be a fork. For this malicious node system, different penalties will be given according to the severity, when it is a turn When the node fails to issue a block at the specified time, the system will give the node a yellow card penalty. This penalty will reduce the credit value of the node. When the node credit value drops to -1, the node will be punished with a red card; The node will be directly punished with a red card. The node that receives the red card penalty will stop packing and the node will never be able to create a consensus node again, and the margin will be frozen for a certain period of time. The other commissioned amount of the node will be returned to the principal; When the block is normally released, the node will get a block reward, and the account entrusted to the node will also receive the corresponding proportion of the bonus according to the amount of the commission.
 
-​	共识模块除了提供打包出块外，还会做奖励金的统计工作，统计24小时内发放的总的奖励金额，24小时内本地账户累计的奖励金额，24小时内的奖励明细等
+	In addition to providing packaged blocks, the consensus module will also do the statistical work of bonuses, statistics on the total amount of rewards issued within 24 hours, the amount of bonuses accumulated in local accounts within 24 hours, and the details of rewards within 24 hours.
 
-- 共识模块启动流程
+- Consensus module startup process
 
-  初始化：
+  initialization:
 
-  - 1.加载共识模块配置信息（出块间隔时间，奖励金锁定块数）
-  - 2.注册共识模块交易、交易验证器、交易处理器（向交易模块注册）
-  - 3.注册共识模块服务接口（向核心模块注册）
-  - 4.注册共识模块事件（向事件总线模块注册）
+  - 1. Load consensus module configuration information (out of block interval, bonus lock block number)
+  - 2. Register Consensus Module Transaction, Transaction Verifier, Transaction Processor (registered with Transaction Module)
+  - 3. Register Consensus Module Service Interface (registered with the core module)
+  - 4. Register the consensus module event (registered with the event bus module)
 
-  启动：
+  start up:
 
-  - 获取数据库最新一轮区块信息，计算轮次信息
-  - 获取当前协议版本信息并缓存
-  - 启动各个相关线程
+  - Get the latest round of block information in the database and calculate the round information
+  - Get current protocol version information and cache
+  - Start each relevant thread
 
-- 打包出块流程
-  - 判断节点是否满足成为打包节点要求
-  - 计算打包轮次信息
-  - 等待打包出块
-  - 接收最新区块，如果等待5秒还没有收到最新的区块，则默认上一个出块节点没有出块，当前节点继续执行打包操作
-  - 校验需打包的交易，剔除重复打包交易后打包新区块
-  - 校验打包的新区块，并保存相关数据到数据库
-  - 广播区块
+- Packing out the block process
+  - Determine if the node meets the requirements for becoming a packed node
+  - Calculate packaging round information
+  - Waiting for packaging
+  - Receive the latest block. If you have not received the latest block after waiting for 5 seconds, the default last block node does not have a block, and the current node continues to perform the packing operation.
+  - Verify the package to be packaged, and eliminate the new package after the duplicate package transaction
+  - Verify the packaged new block and save the relevant data to the database
+  - Broadcast block
 
 
 
@@ -168,23 +168,23 @@ NULS的主网采用自主的POC共识机制，要实现POC，首先需要知道P
 
 
 
-- 共识奖励统计
+- Consensus award statistics
 
   ![](./image/consensus-module/consensus-staticsReward.jpg)
 
-  - 获取本地账户列表
-  - 获取24小时内的区块列表
-  - 遍历区块列表获取CoinBase交易
-  - 根据CoinBase交易，更新24小时内总的奖励金额，24小时内本地账户累计的奖励金额，24小时内的奖励明细
+  - Get a list of local accounts
+  - Get a list of blocks within 24 hours
+  - Traverse block list to get CoinBase transactions
+  - According to the CoinBase transaction, update the total reward amount within 24 hours, the accumulated bonus amount of the local account within 24 hours, and the bonus details within 24 hours
 
-## 四、事件说明
+## IV. Description of the event
 
-### 4.1 发布的事件
+### 4.1 Published events
 
-#### 4.1.1 区块打包成功事件
+#### 4.1.1 Block Packing Success Event
 
 ```
-说明：当一个新区快打包成功之后发布该事件
+Description: This event is released when a new zone is successfully packaged successfully.
 ```
 
 ```
@@ -194,16 +194,16 @@ NULS的主网采用自主的POC共识机制，要实现POC，首先需要知道P
 ```
 data:{
     "chainId":88,
-    "smallBlock":"smallBlock对象序列化成十六进制字符串"
+    "smallBlock": "smallBlock object is serialized into a hex string"
 }
 ```
 
 
 
-#### 4.1.2 创建节点
+#### 4.1.2 Creating a Node
 
 ```
-说明：当创建节点交易被确认并打包进块之后发布该事件
+Description: This event is posted when the Create Node transaction is confirmed and packaged into the block.
 ```
 
 ```
@@ -213,8 +213,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "agentList":{    //打包区块中创建的共识节点列表
-        "agent1",    //Agent对象的序列化为十六进制字符串
+    "agentList": { //list of consensus nodes created in the packaging block
+        "agent1", // serialization of the Agent object to a hex string
         "agent2",
         "agent3"
     }
@@ -223,10 +223,10 @@ data:{
 
 
 
-#### 4.1.3 注销节点
+#### 4.1.3 Logout node
 
 ```
-说明：当注销节点交易被确认并打包进块之后发布该事件
+Description: Issue the event after the logout node transaction is confirmed and packaged into the block
 ```
 
 ```
@@ -236,8 +236,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "agentList":{    //打包区块中注销的共识节点列表
-        "agent1",    //Agent对象的序列化为十六进制字符串
+    "agentList": { //list of consensus nodes that are unregistered in the packed block
+        "agent1", // serialization of the Agent object to a hex string
         "agent2",
         "agent3"
     }
@@ -246,10 +246,10 @@ data:{
 
 
 
-#### 4.1.4 共识节点状态改变（共识中，出块中）
+#### 4.1.4 Consensus node state change (in the consensus, out of the block)
 
 ```
-说明：当共识节点状态改变时发布该事件
+Description: Issue the event when the consensus node status changes
 ```
 
 ```
@@ -259,8 +259,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "agentList":{    //打包区块中状态该表的共识节点列表
-        "agent1",    //Agent对象的序列化为十六进制字符串
+    "agentList": { // the list of consensus nodes for the table in the state of the packed block
+        "agent1", // serialization of the Agent object to a hex string
         "agent2",
         "agent3"
     }
@@ -269,10 +269,10 @@ data:{
 
 
 
-#### 4.1.5 委托共识
+#### 4.1.5 Delegate consensus
 
 ```
-说明：当委托共识交易被确认并打包进块之后发布该事件
+Description: Issue the event after the delegate consensus transaction is confirmed and packaged into the block
 ```
 
 ```
@@ -282,8 +282,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "depositList":{     //打包区块中委托列表
-        "deposit1",     //Deposit对象序列化为十六进制字符串
+    "depositList": { //Delegate the list of delegates in the block
+        "deposit1", //Deposit object serialized to hex string
         "deposit2"
     }
 }
@@ -291,10 +291,10 @@ data:{
 
 
 
-#### 4.1.6 退出共识
+#### 4.1.6 Exit Consensus
 
 ```
-说明：当退出共识交易被确认并打包进块之后发布该事件
+Description: Issue the event after the exit consensus transaction is confirmed and packaged into the block
 ```
 
 ```
@@ -304,8 +304,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "depositList":{     //打包区块中退出委托列表
-        "deposit1",     //Deposit对象序列化为十六进制字符串
+    "depositList": { //Exit the delegate list in the package block
+        "deposit1", //Deposit object serialized to hex string
         "deposit2"
     }
 }
@@ -313,10 +313,10 @@ data:{
 
 
 
-#### 4.1.7 黄牌惩罚
+#### 4.1.7 Yellow card penalty
 
 ```
-说明：当有共识节点获得黄牌惩罚是发布该事件
+Description: When there is a consensus node to get a yellow card penalty is to release the event
 ```
 
 ```
@@ -326,8 +326,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "yellowPublishList":{    //打包区块中黄牌列表
-        "yellowPublish1",    //YellowPublish对象序列化为十六进制字符串
+    "yellowPublishList":{ //The yellow card list in the packing block
+        "yellowPublish1", //YellowPublish object is serialized to a hex string
         "yellowPublish2"
     }
 }
@@ -335,10 +335,10 @@ data:{
 
 
 
-#### 4.1.8 红牌惩罚
+#### 4.1.8 Red card penalty
 
 ```
-说明：当有共识节点获得红牌交易时获得该事件
+Description: Obtain the event when there is a consensus node to get a red card transaction
 ```
 
 ```
@@ -348,8 +348,8 @@ data:{
 ```
 data:{
     "chainId":88,
-    "redPublishList":{    //打包区块中红牌列表
-        "redPublish1",    //RedPublish对象序列化为十六进制字符串
+    "redPublishList": { //Red card list in the package block
+        "redPublish1", //RedPublish object serialized to hex string
         "redPublish2"
     }
 }
@@ -357,111 +357,111 @@ data:{
 
 
 
-### 4.2 订阅的事件
+### 4.2 Subscription Events
 
 ```
-无
+no
 ```
 
 
-## 五、协议
+## 五, Agreement
 
-### 5.1 网络通讯协议
+### 5.1 Network Communication Protocol
 
 #### broadBlock
 
-- 发送新区块（SmallBlock）
-- 根据hash获取区块
-- 发送完整区块
-- 根据高度获取多个区块
-- 根据交易hash列表获取交易列表
-- 发送交易列表
-- 根据hash获取SmallBlock
-- 根据高度区间获取区块hash列表
-- 根据高度区间获取SmallBlock列表
+- Send a new block (SmallBlock)
+- Get blocks based on hash
+- Send a full block
+- Get multiple blocks based on height
+- Get a list of transactions based on the trade hash list
+- Send a list of transactions
+- Get SmallBlock based on hash
+- Get block hash list based on height interval
+- Get the SmallBlock list based on the height interval
 
-用于广播打包的新区快
+New area for broadcast packaging
 
 | Length | Fields     | Type   | Remark                               |
 | ------ | ---------- | ------ | ------------------------------------ |
-| 4      | chainId    | int    | 链ID                                 |
-| ??     | smallBlock | String | SmallBlock对象序列化的十六进制字符串 |
+| 4 | chainId | int | Chain ID |
+Small String | String | SmallBlock Object Serialized Hexadecimal String |
 
 
-## 六、模块配置
+## 六, Module Configuration
 
 ```
 {
     {
         "name": "packing_interval",
-        "remark": "打包间隔时间",
+        "remark": "packaging interval",
         "changable": "true",
-        "default": "10秒"
+        "default": "10 seconds"
     },
     {
     	"name": "packing_amount",
-        "remark": "出块最小金额",
+        "remark": "the minimum amount of the block",
         "changable": "true",
         "default": "200000"
     },
     {
     	"name": "coinbase_unlock_height",
-        "remark": "奖励金锁定块数",
+        "remark": "The number of bonus lock blocks",
         "changable": "true",
         "default": "100"
     },
     {
     	"name": "redPublish_lockTime",
-        "remark": "获得红牌保证金锁定时间",
+        "remark": "Get the red card lock time",
         "changable": "true",
-        "default": "3个月"
+        "default": "3 months"
     },
     {
     	"name": "stopAgent_lockTime",
-        "remark": "注销节点保证金锁定时间",
+        "remark": "Logout node margin lock time",
         "changable": "true",
-        "default": "3天"
+        "default": "3 days"
     },
     {
     	"name": "commissionRate_min",
-        "remark": "佣金比例的最小值",
+        "remark": "the minimum value of the commission ratio",
         "changable": "true",
         "default": "10"
     },
     {
     	"name": "commissionRate_max",
-        "remark": "佣金比例的最大值",
+        "remark": "maximum commission ratio",
         "changable": "true",
         "default": "80"
     },
     {
     	"name": "deposit_min",
-        "remark": "创建节点的保证金最小值",
+        "remark": "Minimum margin of the created node",
         "changable": "true",
         "default": "20000"
     },
     {
     	"name": "deposit_max",
-        "remark": "创建节点的保证金最大值",
+        "remark": "Maximize the margin of the created node",
         "changable": "true",
         "default": "700000"
     },
     {
     	"name": "commission_min",
-        "remark": "委托最小值",
+        "remark": "trust minimum",
         "changable": "true",
         "default": "2000"
     },
     {
     	"name": "commission_max",
-        "remark": "委托最大值",
+        "remark": "delegation maximum",
         "changable": "true",
         "default": "680000"
     }
 }
 ```
 
-## 七、Java特有的设计
+## VII, Java-specific design
 
-## 八、补充内容
+## 八, supplementary content
 

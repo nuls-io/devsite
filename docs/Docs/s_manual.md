@@ -1,47 +1,47 @@
-# 开发手册
+# Development Manual
 
-## 1. 简介
+## 1. Introduction
 
-NULS智能合约使用Java进行开发，合约运行在NULS虚拟机中。合约开发不能使用所有的Java特性，在第3节列出具体限制。
+NULS smart contract is developed with Java, and it operates in NULS virtual machine. Not all Java features are applicable to contract development and the relevant restrictions are specified in section 3.
 
-## 2. 开发环境
+## 2. Development environment
 
-### 2.1 安装NULS钱包
+### 2.1 Setup of NULS wallet
 
-### 2.2 安装JDK 8
+### 2.2 Setup of JDK 8
 
-### 2.3 安装IntelliJ IDEA
+### 2.3 Setup of IntelliJ IDEA
 
-Nuls智能合约使用的开发工具为IntelliJ IDEA。
+NULS smart contract adopts IntelliJ IDEA as development tool
 
-### 2.4 NULS智能合约开发工具
+### 2.4 NULS Smart Contract Development Tool
 
-NULS智能合约开发工具提供的主要功能：
+The main features provided by the NULS Smart Contract Development Tool:
 
-* 新建NULS智能合约Maven工程
-* 提供可视化页面来编译、打包、部署合约、调用合约、查询合约相关数据
+* Create a new NULS smart contract Maven project
+* Provide visual pages to compile, package, deploy contracts, call contracts, query contract related data
 
-> [构建NULS智能合约开发工具的说明文档](/zh/NULS2.0/mavenPackage.html)
+> [Documentation for building a NULS smart contract Development Tool](/NULS2.0/mavenPackage.html)
 
-## 3. NULS智能合约规范与语法
+## 3. NULS smart contract specifications and syntax
 
-Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一些限制。
+NULS smart contract syntax is a subset of Java syntax, with some restrictions
 
-### 3.1 NULS智能合约规范
+### 3.1 NULS smart contract specifications
 
-> **_合约主类必须实现Contract接口，一个智能合约只能有一个类实现Contract接口，其他类和接口都是为这个合约提供功能的。_**
+> **_Main classes of contracts must implement contract interfaces. A smart contract can have a class implementing contract interface only; and other classes and interfaces provide functions for such contract._**
 
-### 3.2 关键字
+### 3.2 Keywords
 
-下面列出Java关键字，其中将标注NULS智能合约不支持的关键字
+Java key words are listed as follows and those not applicable for NULS smart contract will be marked
 
-访问控制
+Access control
 
 * public
 * protected
 * private
 
-定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象
+Key words and instantiated object of definition class, interface, abstract class, implementation interface and derivative class
 
 * class
 * interface
@@ -50,12 +50,12 @@ Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一�
 * extends
 * new
 
-包的关键字
+Key words of package
 
 * import
 * package
 
-数据类型的关键字
+Key words of data type
 
 * byte
 * char
@@ -70,7 +70,7 @@ Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一�
 * true
 * false
 
-条件循环（流程控制）
+Conditional loops (process control)
 
 * if
 * else
@@ -85,7 +85,7 @@ Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一�
 * return
 * instanceof
 
-错误处理
+Error processing
 
 * catch
 * try
@@ -93,43 +93,44 @@ Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一�
 * throw
 * throws
 
-修饰方法、类、属性和变量
+Modification method, class, property and variables
 
 * static
 * final
 * super
 * this
-* native（不支持）
-* strictfp（不支持）
-* synchronized（不支持）
-* transient（不支持）
-* volatile（不支持）
+* native（not supported）
+* strictfp（not supported）
+* synchronized（not supported）
+* transient（not supported）
+* volatile（not supported）
 
-其他
+other
 
-* enum（不支持）
-* assert（不支持）
+* enum（not supported）
+* assert（not supported）
 
-### 3.3 基本语法
+### 3.3 Basic syntax
 
-下面的语法与Java相同，只是简单列出，具体可参考Java相关文档
+The following syntax is the same with Java and simply listed here under, with specific details referred to the relevant documents of Java
 
-* 标识符：由字符、下划线、美元符或数字组成，以字符、下划线、美元符开头
-* 基本数据类型：byte short int long float double char boolean
-* 引用数据类型：类、接口、数组
-* 算术运算符：+        -        *        /        %        ++        --
-* 关系运算符：>        <        >=        <=        ==        !=  
-* 逻辑运算符：!        &        |        ^        &&        ||
-* 位运算符：&        |        ^        ~        >>        <<        >>>
-* 赋值运算符：=
-* 拓展赋值运算符：+        =        -=        *=        /=
-* 字符串链接运算符：+
-* 三目条件运算符          ?        :
-* 流程控制语句（if,switch,for,while,do...while）
+* Identifiers are consisted of character, underline, dollar sign or figure, beginning with character, underline or dollar sign
+* Basic data type: byte short int long float double char boolean
+* Reference data type: class, interface, array
+* Arithmetic operators: + - * /%++ -
+* Relational operator: > <> = <= ==! =
+* Logical Operators: ! &| ^ && ||
+* Bit operator: &| ^~>> << >>>
+* Assignment operator: =
+* Extension assignment operators: + = - = * = / =
+* String link operator: +
+* Conditional operators: ? :
+* Process control sentence (if, switch, for, while, do...while)
 
-### 3.4 支持的类
 
-Nuls智能合约只能使用下面的类进行开发
+### 3.4 Available class
+
+NULS smart contract can be developed with the following class
 
 * io.nuls.contract.sdk.Address
 * io.nuls.contract.sdk.Block
@@ -163,20 +164,21 @@ Nuls智能合约只能使用下面的类进行开发
 * java.util.Set
 * java.util.HashSet
 
-### 3.5 其他限制
+### 3.5 Other restrictions
 
-* 合约类只能有一个构造方法，其他类不限制
-* 执行一次合约方法最大的Gas消耗是1000万，请保证尽可能的优化合约代码
-* 执行一次`@View`类型的方法调用，最大的Gas消耗是1亿，请保证尽可能的优化合约代码
+* Contract class can have one construction method. No restriction for other classes
+* The maximum gas consumption for executing a contract method once is 10 million,  Make sure to optimize the contract code as much as possible.
+* The maximum gas consumption for executing the method of the `@View` type once is 100 million,  Make sure to optimize the contract code as much as possible.
 
-## 4. NULS智能合约简单示例
+## 4. Nuls smart contract example
 
-一个简单的合约
+a simple contract
 
-> **_合约主类必须实现Contract接口，其他类和接口都是为这个合约提供功能的。_**
+> **_Main classes of contract must implement contract interface, and other classes and interfaces provide functions for this contract_**
 
 
 ```java
+
 package contracts.examples;
 
 import io.nuls.contract.sdk.Contract;
@@ -189,7 +191,7 @@ public class SimpleStorage implements Contract {
     private String storedData;
 
     /**
-     * 调用后合约状态不会改变，可以通过这种方法查询合约状态
+     * Only when `@View` is added, the contract status will remain and it can be researched by such means
      */
     @View
     public String getStoredData() {
@@ -197,7 +199,7 @@ public class SimpleStorage implements Contract {
     }
 
     /**
-     * 标记@Payable的方法，才能在调用时候传入NULS金额
+     * Only when `@Payable` is added, the amount can be transferred in
      */
     @Payable
     public void setStoredData(@Required String storedData) {
@@ -205,8 +207,8 @@ public class SimpleStorage implements Contract {
     }
     
     /**
-     * 返回值会被VM自动JSON序列化，以JSON字符串的形式返回
-     * 注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化
+     * The return value is automatically serialized by the VM in JSON format and returned as a JSON string.
+     * Note: The object level must not exceed 3 layers. The more than 3 layers will call the object's toString method, and will not continue serialization.
      */
     @JSONSerializable
     public Map vJsonSerializableMap() {
@@ -219,34 +221,39 @@ public class SimpleStorage implements Contract {
 }
 ```
 
-合约写好后，编译打包，部署到NULS链上时候，虚拟机会执行合约的构造方法初始化这个合约，并把这个合约状态保存在链上，合约状态是合约类的所有成员变量。
-合约部署好以后，_**合约类的所有public方法都是能调用的**_，通过调用这些方法读取或修改合约状态。
+In one contract project, it requires to introduce a jar package “contract-sdk.jar” which provides the class to get block and transaction details
+The project has several classes and interfaces
 
-注解说明
+When compiling, packaging and deploying the prepared contract onto the NULS chain, the virtual machine will implement the construction method of this contract to initialize it, and save the contract status onto the chain. The contract status is the member variables of contract class
 
-@JSONSerializable 标记@JSONSerializable的方法，返回值会被VM自动JSON序列化，以JSON字符串的形式返回。
+After the contract is deployed, _**all public methods of contract class can be called**_ so as to read or modify the contract status
 
-<b style="color:red">注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化。</b>
 
-@View 标记@View的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态。
+Explanatory comments
 
-@Payable 标记@Payable的方法，才能在调用时候传入NULS金额
+@JSONSerializable labels the method of @JSONSerializable, The return value is automatically serialized by the VM in JSON format and returned as a JSON string.
 
-@Required 标记@Required的参数，调用时候必须传入值，_**若不想传递未标记此注解的参数，需要填入0或者null占位**_
+<b style="color:red">Note: The object level must not exceed 3 layers. The more than 3 layers will call the object's toString method, and will not continue serialization.</b>
 
-### Github上里面有一些合约示例。
+@View labels the method of @View. After it is added, the contract status will remain and it can be researched by such means
 
-[NULS合约示例收集](https://github.com/nuls-io/nuls-contracts)
+@Payable labels the method of @Payable. Only when it is added, the amount can be transferred in
 
-[NULS合约示例 - NRC20](https://github.com/CCC-NULS/NRC20-Token)
+@Required labels the parameter of @Required. When it is added, there must be transfer-in value, _**If you do not want to pass parameters that are not marked with this annotation, you need to fill in 0 or null placeholder.**_
 
-[NULS合约示例 - NRC721](https://github.com/MIMIEYES/NULS-NRC721-baselib)
+### Some contract examples on github
 
-[NULS合约示例 - POCM](https://github.com/CCC-NULS/pocm-contract)
+[NULS Contract Sample Collection](https://github.com/nuls-io/nuls-contracts)
+
+[NULS Contract Sample - NRC20](https://github.com/CCC-NULS/NRC20-Token)
+
+[NULS Contract Sample - NRC721](https://github.com/MIMIEYES/NULS-NRC721-baselib)
+
+[NULS Contract Sample - POCM](https://github.com/CCC-NULS/pocm-contract)
 
 ## 5. NULS Contract SDK
 
-合约SDK提供了几个类，方便合约开发：
+Contract SDK provides several classes to be convenient for contract development:
 
 ### io.nuls.contract.sdk.Address
 
@@ -259,62 +266,63 @@ public class Address {
         valid(address);
         this.address = address;
     }
-
+    
     /**
-     * 获取该地址的可用余额
+     * Get the available balance of the address
      *
      * @return BigInteger
      */
     public native BigInteger balance();
 
     /**
-     * 获取该地址的总余额
+     * Get the total balance of the address
      *
      * @return BigInteger
      */
     public native BigInteger totalBalance();
 
     /**
-     * 合约向该地址转账
+     * Transfer amount to the address from contract 
      *
-     * @param value 转账金额（多少Na）
+     * @param value transfer amount (in Na)
      */
     public native void transfer(BigInteger value);
 
     /**
-     * 调用该地址的合约方法
+     * Contract method to call the address
      *
-     * @param methodName 方法名
-     * @param methodDesc 方法签名
-     * @param args       参数
-     * @param value      附带的货币量（多少Na）
+     * @param Method name
+     * @param Method signature
+     * @param Parameters       
+     * @param value  Incidental currency (in Na)
      */
     public native void call(String methodName, String methodDesc, String[][] args, BigInteger value);
 
-    /**
-     * 调用该地址的合约方法并带有返回值(String)
+	/**
+     * Call the contract method of this address with a return value(String)
      *
-     * @param methodName 方法名
-     * @param methodDesc 方法签名
-     * @param args       参数
-     * @param value      附带的货币量（多少Na）
-     * @return 调用合约后的返回值
+     * @param Method name
+     * @param Method signature
+     * @param Parameters       
+     * @param value  Incidental currency (in Na)
+     * @return return value after calling the contract
      */
     public native String callWithReturnValue(String methodName, String methodDesc, String[][] args, BigInteger value);
-
+    
     /**
-     * 验证地址
+     * Verify the address 
      *
-     * @param address 地址
+     * @param address
+     * @see io.nuls.kernel.utils.AddressTool#validAddress(String)
      */
     private native void valid(String address);
 
     /**
-     * 验证地址是否是合约地址
+     * Verify that the address is a contract address
      *
      */
     public native boolean isContract();
-
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -346,63 +354,62 @@ public class Address {
 public class Block {
 
     /**
-     * 给定块的区块头
+     * Given block’s head
      *
-     * @param blockNumber 区块高度
-     * @return 给定块的区块头
+     * @param blockNumber
+     * @return
      */
     public static native BlockHeader getBlockHeader(long blockNumber);
 
     /**
-     * 当前块的区块头
+     * Current block’s head
      *
-     * @return 当前块的区块头
+     * @return
      */
     public static native BlockHeader currentBlockHeader();
-
+    
     /**
-     * 最新块的区块头
+     * Newest block’s head
      *
-     * @return 最新块的区块头
+     * @return 
      */
     public static native BlockHeader newestBlockHeader();
 
     /**
-     * 给定块的哈希值
-     * hash of the given block
+     * Given block’s hash
      *
      * @param blockNumber
-     * @return 给定块的哈希值
+     * @return
      */
     public static String blockhash(long blockNumber) {
         return getBlockHeader(blockNumber).getHash();
     }
 
     /**
-     * 当前块矿工地址
-     * current block miner’s address
+     * 
+     * CCurrent block’s miner address
      *
-     * @return 地址
+     * @return
      */
     public static Address coinbase() {
         return currentBlockHeader().getPackingAddress();
     }
 
     /**
-     * 当前块编号
-     * current block number
+     * 
+     * Current block’s No.
      *
-     * @return number
+     * @return
      */
     public static long number() {
         return currentBlockHeader().getHeight();
     }
 
     /**
-     * 当前块时间戳
-     * current block timestamp
+     * 
+     * Current block’s time stamp
      *
-     * @return timestamp
+     * @return
      */
     public static long timestamp() {
         return currentBlockHeader().getTime();
@@ -493,21 +500,21 @@ public class BlockHeader {
 
 ```java
 /**
- * 合约接口，合约类实现这个接口
+ *  Contract interface, implemented by contract class
  */
 public interface Contract {
-
+    
     /**
-     * 直接向合约转账，会触发这个方法，默认不做任何操作，可以重载这个方法。
-     * 前提: 需重载这个方法，并且标记`@Payable`注解
+     * Directly transfer to the contract, this method will be called, no action is done by default. 
+     * Prerequisite: you need override this method and mark the `@Payable` annotation.
      */
     default void _payable() {
     }
 
     /**
-     * 1. 当共识节点奖励地址是合约地址时，会触发这个方法，参数是区块奖励地址明细二维数组数据 eg. [[address, amount], [address, amount], ...]
-     * 2. 当委托节点地址是合约地址时，会触发这个方法，参数是合约地址和奖励金额二维数组数据 eg. [[address, amount]]
-     * 前提: 需重载这个方法，并且标记`@Payable`注解
+     * 1. This method is triggered when the consensus node reward address is the contract address, and the parameter is the block reward address detail two-dimensional array data. eg. [[address, amount], [address, amount], ...]
+     * 2. This method is triggered when the deposit address is a contract address. The parameters are the contract address and the reward amount two-dimensional array data. eg. [[address, amount]]
+     * Prerequisite: you need override this method and mark the `@Payable` annotation.
      */
     default void _payable(String[][] args) {
     }
@@ -519,7 +526,7 @@ public interface Contract {
 
 ```java
 /**
-* 事件接口，事件类实现这个接口
+* Event interface, implemented by event class
 */
 public interface Event {
 }
@@ -531,31 +538,27 @@ public interface Event {
 public class Msg {
 
     /**
-     * 剩余Gas
-     * remaining gas
+     * Remaining gas
      *
-     * @return 剩余gas
+     * @return
      */
     public static native long gasleft();
 
     /**
-     * 合约发送者地址
      * sender of the contract
      *
-     * @return 消息发送者地址
+     * @return
      */
     public static native Address sender();
-
+    
     /**
-     * 合约发送者地址公钥
      * sender public key of the contract
      *
-     * @return 消息发送者地址公钥
+     * @return sender public key of the contract
      */
     public static native String senderPublicKey();
 
     /**
-     * 合约发送者转入合约地址的Nuls数量，单位是Na，1Nuls=1亿Na
      * The number of Nuls transferred by the contract sender to the contract address, the unit is Na, 1Nuls = 1 billion Na
      *
      * @return
@@ -563,18 +566,16 @@ public class Msg {
     public static native BigInteger value();
 
     /**
-     * Gas价格
-     * gas price
+     * Gas price
      *
-     * @return Gas价格
+     * @return
      */
     public static native long gasprice();
 
     /**
-     * 合约地址
-     * contract address
+     * Contract address
      *
-     * @return 合约地址
+     * @return
      */
     public static native Address address();
 
@@ -590,7 +591,7 @@ public class Utils {
     }
 
     /**
-     * 检查条件，如果条件不满足则回滚
+     *  Check conditions; if conditions are not met, it will roll back.
      *
      * @param expression
      */
@@ -601,7 +602,7 @@ public class Utils {
     }
 
     /**
-     * 检查条件，如果条件不满足则回滚
+     * Check conditions; if conditions are not met, it will roll back
      *
      * @param expression
      * @param errorMessage
@@ -613,21 +614,21 @@ public class Utils {
     }
 
     /**
-     * 终止执行并还原改变的状态
+     * Terminate implementation and restore status
      */
     public static void revert() {
         revert(null);
     }
 
     /**
-     * 终止执行并还原改变的状态
+     * Terminate implementation and restore status
      *
      * @param errorMessage
      */
     public static native void revert(String errorMessage);
 
     /**
-     * 发送事件
+     * Send events
      *
      * @param event
      */
@@ -685,81 +686,81 @@ public class Utils {
     public static native boolean verifySignatureData(String data, String signature, String pubkey);
 
     /**
-     * [Testnet]根据截止高度和原始种子数量，用特定的算法生成一个随机种子
+     * [Testnet]Generate a random seed with a specific algorithm based on the cutoff block height and the number of original seeds
      *
-     * @param endHeight 截止高度
-     * @param seedCount 原始种子数量
-     * @param algorithm hash算法标识
-     * @return 原始种子字节数组合并后, 使用hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     * @param endHeight the cutoff block height
+     * @param seedCount the number of original seeds
+     * @param algorithm Hash algorithm identifier
+     * @return After the original seed byte array is merged, the hash algorithm is used to get a 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
      */
     public static native BigInteger getRandomSeed(long endHeight, int seedCount, String algorithm);
 
     /**
-     * [Testnet]根据截止高度和原始种子数量，用`SHA3-256`hash算法生成一个随机种子
+     * [Testnet]Generate a random seed using the `SHA3-256`hash algorithm based on the cutoff block height and the number of original seeds.
      *
-     * @param endHeight 截止高度
-     * @param seedCount 原始种子数量
-     * @return 原始种子字节数组合并后, 使用`SHA3-256`hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     * @param endHeight the cutoff block height
+     * @param seedCount the number of original seeds
+     * @return After the original seed byte array is merged, the `SHA3-256` hash algorithm is used to get the 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
      */
     public static BigInteger getRandomSeed(long endHeight, int seedCount) {
         return getRandomSeed(endHeight, seedCount, "SHA3");
     }
 
     /**
-     * [Testnet]根据高度范围，用特定的算法生成一个随机种子
+     * [Testnet]Generate a random seed with a specific algorithm based on the block height range
      *
-     * @param startHeight 起始高度
-     * @param endHeight   截止高度
-     * @param algorithm   hash算法标识
-     * @return 原始种子字节数组合并后, 使用hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     * @param startHeight the starting block height
+     * @param endHeight   the cutoff block height
+     * @param algorithm   Hash algorithm identifier
+     * @return After the original seed byte array is merged, the hash algorithm is used to get a 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
      */
     public static native BigInteger getRandomSeed(long startHeight, long endHeight, String algorithm);
 
     /**
-     * [Testnet]根据高度范围，用`SHA3-256`hash算法生成一个随机种子
+     * [Testnet]Generate a random seed with the `SHA3-256` hash algorithm based on the block height range
      *
-     * @param startHeight 起始高度
-     * @param endHeight   截止高度
-     * @return 原始种子字节数组合并后, 使用`SHA3-256`hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     * @param startHeight the starting block height
+     * @param endHeight   the cutoff block height
+     * @return After the original seed byte array is merged, the `SHA3-256` hash algorithm is used to get the 32-bit hash byte array, which is then converted into BigInteger(new BigInteger(byte[] bytes)).
      */
     public static BigInteger getRandomSeed(long startHeight, long endHeight){
         return getRandomSeed(startHeight, endHeight, "SHA3");
     }
 
     /**
-     * [Testnet]根据截止高度和原始种子数量，获取原始种子的集合
+     * [Testnet]Get a collection of raw seeds based on the cutoff block height and the number of original seeds
      *
-     * @param endHeight 截止高度
-     * @param seedCount 原始种子数量
-     * @return 返回原始种子的集合，元素是字节数组转化的BigInteger(new BigInteger(byte[] bytes))
+     * @param endHeight the cutoff block height
+     * @param seedCount the number of original seeds
+     * @return returns a collection of original seeds, the element is a BigInteger (new BigInteger(byte[] bytes)))
      */
     public static native List<BigInteger> getRandomSeedList(long endHeight, int seedCount);
 
     /**
-     * [Testnet]根据高度范围，获取原始种子的集合
+     * [Testnet]Get a collection of raw seeds based on the block height range
      *
-     * @param startHeight 起始高度
-     * @param endHeight   截止高度
-     * @return 返回原始种子的集合，元素是字节数组转化的BigInteger(new BigInteger(byte[] bytes))
+     * @param startHeight the starting block height
+     * @param endHeight   the cutoff block height
+     * @return returns a collection of original seeds, the element is a BigInteger (new BigInteger(byte[] bytes)))
      */
     public static native List<BigInteger> getRandomSeedList(long startHeight, long endHeight);
     
     /**
-     * 调用链上其他模块的命令
+     * command to call other modules on the chain
      *
-     * @see <a href="https://docs.nuls.io/zh/NULS2.0/vm-sdk.html">调用命令详细说明</a>
-     * @param cmdName 命令名称
-     * @param args 命令参数
-     * @return 命令返回值(根据注册命令的返回类型可返回字符串,字符串数组,字符串二维数组)
+     * @see <a href="https://docs.nuls.io/zh/NULS2.0/vm-sdk.html">Detailed documentation for calling the command</a>
+     * @param cmdName 
+     * @param args 
+     * @return depending on the return type of the registration command, it can return a string, an array of strings, a two-dimensional array of strings
      */
     public static native Object invokeExternalCmd(String cmdName, String[] args);
     
     /**
-     * 把对象转换成json字符串
-     * 注意：对象内如果包含复杂对象，序列化深度不得超过3级
+     * Convert an object to a json string
+     * Note: If the object contains complex objects, the serialization depth must not exceed level 3
      *
      * @param obj
-     * @return json字符串
+     * @return Json string
      */
     public static native String obj2Json(Object obj);
 }
@@ -767,7 +768,7 @@ public class Utils {
 
 ### io.nuls.contract.sdk.annotation.Payable
 
-`@Payable` 标记`@Payable`的方法，才能在调用时候转入NULS金额
+`@Payable` labels the method of `@Payable`. Only when it is added, the amount can be transferred in
 
 ```java
 @Target({ElementType.METHOD})
@@ -779,7 +780,7 @@ public @interface Payable {
 
 ### io.nuls.contract.sdk.annotation.Required
 
-`@Required` 标记`@Required`的参数，调用时候必须传入值, _**未标记此注解的参数，若不想传递参数，需要填入0或者null占位**_
+`@Required` labels the parameter of `@Required`. When it is added, there must be transfer-in value, _**If you do not want to pass parameters that are not marked with this annotation, you need to fill in 0 or null placeholder.**_
 
 ```java
 @Target({ElementType.PARAMETER})
@@ -791,7 +792,7 @@ public @interface Required {
 
 ### io.nuls.contract.sdk.annotation.View
 
-`@View` 标记`@View`的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态
+`@View` labels the method of `@View`. After it is added, the contract status will remain and it can be researched by such means
 
 ```java
 @Target({ElementType.METHOD})
@@ -803,9 +804,9 @@ public @interface View {
 
 ### io.nuls.contract.sdk.annotation.JSONSerializable
 
-`@JSONSerializable ` 标记@JSONSerializable的方法，返回值会被VM自动JSON序列化，以JSON字符串的形式返回。
+`@JSONSerializable` labels the method of @JSONSerializable, the return value is automatically serialized by the VM in JSON format and returned as a JSON string.
 
-<b style="color:red">注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化。</b>
+<b style="color:red">Note: The object level must not exceed 3 layers. The more than 3 layers will call the object's toString method, and will not continue serialization.</b>
 
 ```java
 @Target({ElementType.METHOD})
@@ -815,14 +816,16 @@ public @interface JSONSerializable {
 }
 ```
 
-## 6. 智能合约主要的API
+## 6. Main RPC interface of smart contract
 
-在NULS2.0模块[NULS-SDK-PROVIDER](https://github.com/nuls-io/nuls-sdk-provider/blob/master/README.md)中，我们提供了大部分常用的API，请参考该文档中智能合约部分。
+In the NULS 2.0 module [NULS-SDK-PROVIDER] (https://github.com/nuls-io/nuls-sdk-provider/blob/master/README.md), we provide most of the commonly used APIs. Please refer to the Smart Contracts section of this document.
 
-## 7. 智能合约方法参数传递的一些说明
 
-智能合约的方法中如果有`数组类型`的参数，请使用如下方式传递参数
-> 参考[投票合约](https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26)代码中的`create`方法
+## 7. Some instructions for the delivery of smart contract method parameters
+
+
+If the methods of smart contract include the parameter of  `array type`, please use the following method to transfer parameters
+> Refer to the [vote contract] (https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26) code for the `create` method
 
 ```json
 {
@@ -836,15 +839,15 @@ public @interface JSONSerializable {
   "methodDesc": "",
   "remark": "",
   "args": [
-    "测试投票1",
-    "第一个投票合约",
-    [
-      "第一个选项",
-      "第二个选项",
-      "第三个选项"
-    ],
-    1536044066056, 1536184066056, false, 300, false
-  ]
+     "Test voting 1",
+     "Voting contract 1",
+     [
+       "Option 1",
+       "Option 2",
+       "Option 3"
+     ],
+     1536044066056, 1536184066056, false, 300, false
+   ]
 }
 ```
 

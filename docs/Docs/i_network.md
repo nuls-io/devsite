@@ -1,410 +1,410 @@
-# 网络模块
+Network module
 
-## 为什么要有《网络模块》
+## Why should I have "Network Module"?
 
-网络模块保障了去中心化节点间的通讯，为NULS基础模块之一，提供最底层的网络通信、节点发现等服务。区块链的网络基础就是Peer to  Peer,即P2P。P2P网络中的所有参与者，可以是提供服务（server），也可以是资源使用者（client）。P2P网络的特点：去中心化、可扩展性、健壮性、高性价比、隐私保护、负载均衡。
+The network module guarantees the communication between the decentralized nodes and provides the lowest level of network communication, node discovery and other services for one of the NULS basic modules.The network foundation of the blockchain is Peer to Peer, or P2P.All participants in the P2P network can be either a service server or a resource user.Features of P2P networks: decentralization, scalability, robustness, cost-effectiveness, privacy protection, and load balancing.
 
-## 《网络模块》要做什么
+## "Network Module" What to do
 
-网络模块是整个系统的基础模块，用来管理节点、节点间的连接及连接的状态、数据的发送与接收。网络模块不涉及复杂的业务逻辑。
+The network module is the basic module of the entire system, which is used to manage the connection between nodes, nodes and connections, and the transmission and reception of data.Network modules do not involve complex business logic.
 
-* 接收到的网络消息，根据内核模块中的指令服务映射关系，推送消息相应的处理模块中。
+* Received network messages, according to the instruction service mapping relationship in the kernel module, push the corresponding processing module of the message.
 
-* 开放接口供其他模块封装好的消息调用推送到指定的peer节点以及广播到指定的网络组中。
+* The open interface is used to push the message calls encapsulated by other modules to the specified peer node and broadcast to the specified network group.
 
-## 《网络模块》在系统中的定位
+## "Network Module" positioning in the system
 
-* 网络模块是底层应用模块，任何需要网络通讯的模块都要通过网络模块来进行消息的收发。
-* 网络模块依赖核心模块进行服务接口的治理。
-* 网络模块按网络id（魔法参数） 来进行不同网络的构建。
-* 网络模块在卫星链中的节点在进行跨链网络组建时，需要链管理模块提供跨链配置信息。
-* 网络模块在子链中的节点在进行跨链网络组建时，需要跨链模块提供跨链配置信息。
+* The network module is the underlying application module. Any module that needs network communication must send and receive messages through the network module.
+* The network module relies on the core module for governance of the service interface.
+* The network module builds different networks by network id (magic parameter).
+* When the nodes of the network module in the satellite chain are building a cross-chain network, the chain management module is required to provide cross-chain configuration information.
+* When a node in a sub-chain of a network module is configured for a cross-chain network, cross-chain configuration information is required for the cross-chain module.
 
 
 
-## 模块配置
+## Module Configuration
 
 ```
-#本链服务端口
+#本链服务口
 port=18001
-#跨链服务端口
+#跨链服务口
 crossPort=18002
-#魔法参数
+#魔法参
 packetMagic=55886633
-#种子连接节点
+#籽接链接
 selfSeedIps=192.168.1.12:18001
-#最大入网连接数
+#Maximum number of network connections
 maxInCount=100
-#最大出网连接数
+#Maximum number of outgoing connections
 maxOutCount=20
 ```
 
 
-## 接口列表
+## Interface List
 ### nw\_info
-获取节点网络基本信息
+Get basic information about the node network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| -------------------- |:----:|
-| chainId | int  | 连接的链Id,取值区间[1-65535] |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名             |  字段类型   | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:-------:| -------------------- |
-| localBestHeight |  long   | 本地节点区块高度             |
-| netBestHeight   |  long   | 网络节点区块最高高度           |
-| timeOffset      |  long   | 节点与网络时间相差值           |
-| inCount         | integer | 最为Server,peer接入数量    |
-| outCount        | integer | 作为client连接外部Server数量 |
+| localBestHeight | long | local node block height |
+| netBestHeight | long | Network Node Block Height |
+| timeOffset | long | Difference between node and network time |
+| inCount | integer | Most Server, peer access quantity|
+| outCount | integer | Number of external servers connected as client |
 
 ### nw\_nodes
-获取网络连接节点信息
+Get network connection node information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| -------------------- |:----:|
-| chainId | int  | 连接的链Id,取值区间[1-65535] |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名         |  字段类型  | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------- |:------:| -------- |
-| peer        | string | peer节点ID |
-| blockHeight |  long  | 节点高度     |
-| blockHash   | string | 节点Hash   |
+| peer | string | peer node ID |
+| blockHeight | long | Node Height |
+| blockHash | string | Node Hash |
 
 ### nw\_currentTimeMillis
-获取节点网络时间
+Get node network time
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-| 字段名               | 字段类型 | 参数描述                   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------------- |:----:| ---------------------- |
-| currentTimeMillis | long | 时间毫秒-currentTimeMillis |
+| currentTimeMillis | long | Time milliseconds - currentTimeMillis |
 
 ### nw\_delNodes
-删除节点组节点
+Delete node group node
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| -------------------- |:----:|
-| chainId |  int   | 连接的链Id,取值区间[1-65535] |  是   |
-| nodes   | string | 节点组ID，逗号拼接           |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| nodes | string | node group ID, comma stitching | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_addNodes
-增加待连接节点
+Increase the node to be connected
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| -------------------- |:----:|
-| chainId |  int   | 连接的链Id,取值区间[1-65535] |  是   |
-| isCross |  int   | 1跨链连接,0普通连接          |  是   |
-| nodes   | string | 节点组ID，逗号拼接           |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| isCross | int | 1 cross-chain connection, 0 normal connection | Yes |
+| nodes | string | node group ID, comma stitching | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_getNodes
-分页查看连接节点信息,startPage与pageSize 都为0时，不分页，返回所有节点信息
+Paging view connection node information, when both startPage and pageSize are 0, no paging, return all node information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型   | 参数描述                  | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:-------:| --------------------- |:----:|
-| chainId   |   int   | 连接的链Id,取值区间[1-65535]  |  是   |
-| state     |   int   | 0:所有连接,1:已连接  2:未连接   |  是   |
-| isCross   | boolean | false:非跨链连接，true:跨链连接 |  是   |
-| startPage |   int   | 分页起始页数                |  是   |
-| pageSize  |   int   | 每页显示数量                |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| state | int | 0: all connections, 1: connected 2: not connected | yes |
+| isCross | boolean | false: non-cross-chain connection, true: cross-chain connection | Yes |
+| startPage | int | Page Start Pages | Yes |
+| pageSize | int | Number of pages per page | Yes |
 
-#### 返回值
-| 字段名         |  字段类型  | 参数描述               |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------- |:------:| ------------------ |
-| chainId     |  int   | 链ID                |
-| nodeId      | string | 节点ID               |
-| magicNumber |  long  | 网络魔法参数             |
-| blockHeight |  long  | peer节点区块高度         |
-| blockHash   | string | peer最新区块hash       |
-| ip          | string | peer连接IP地址         |
-| port        |  int   | peer连接端口号          |
-| state       |  int   | 0:未完成握手 1:已完成握手的连接 |
-| isOut       |  int   | 0:入网连接 1:出网连接      |
-| time        |  long  | 连接时间毫秒             |
+| chainId | int | Chain ID |
+| nodeId | string | node ID |
+| magicNumber | long | Network Magic Parameters |
+| blockHeight | long | peer node block height |
+| blockHash | string | peer latest block hash |
+| ip | string | peer connection IP address|
+| port | int | peer connection port number |
+| state | int | 0: Unfinished handshake 1: Connection completed handshake |
+| isOut | int | 0: Incoming network connection 1: Outbound connection |
+| time | long | connection time milliseconds |
 
 ### nw\_updateNodeInfo
-更新连接节点信息
+Update connection node information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| -------------------- |:----:|
-| chainId     |  int   | 连接的链Id,取值区间[1-65535] |  是   |
-| nodeId      | string | 连接节点ID               |  是   |
-| blockHeight |  long  | 区块高度                 |  是   |
-| blockHash   | string | 区块hash值              |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| nodeId | string | Connection Node ID | Yes |
+| blockHeight | long | Block Height | Yes |
+| blockHash | string | Block hash value | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### protocolRegisterWithPriority
-模块协议指令注册，带有优先级参数
+Module protocol instruction registration with priority parameters
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名                                                      |  参数类型  | 参数描述                        | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------------------------------------------------------- |:------:| --------------------------- |:----:|
-| role                                                     | string | 模块角色名称                      |  是   |
-| protocolCmds                                             |  list  | 注册指令列表                      |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmd      | string | 协议指令名称,12byte               |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;priority | string | 优先级,3个等级,HIGH,DEFAULT,LOWER |  是   |
+| role | string | module role name | yes |
+| protocolCmds | list | Registered Instruction List | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmd | string | Protocol Instruction Name, 12byte | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;priority | string | Priority, 3 levels, HIGH, DEFAULT, LOWER | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_protocolRegister
-模块协议指令注册
+Module protocol instruction registration
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |      参数类型       | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:---------------:| ------ |:----:|
-| role         |     string      | 模块角色名称 |  是   |
-| protocolCmds | list&lt;string> | 注册指令列表 |  是   |
+| role | string | module role name | yes |
+| protocolCmds | list&lt;string> | Registered Instruction List | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_sendPeersMsg
-向指定节点发送消息
+Send a message to the specified node
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述                   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---------------------- |:----:|
-| chainId     |  int   | 连接的链Id,取值区间[1-65535]   |  是   |
-| nodes       | string | 指定发送peer节点Id，用逗号拼接的字符串 |  是   |
-| messageBody | string | 消息体Hex                 |  是   |
-| command     | string | 消息协议指令                 |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| nodes | string | Specifies the string to send the peer node Id, comma-separated | Yes |
+| messageBody | string | Message Body Hex | Yes |
+| command | string | message protocol directive | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_broadcast
-广播消息
+Broadcast message
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |  参数类型   | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:-------:| -------------------- |:----:|
-| chainId      |   int   | 连接的链Id,取值区间[1-65535] |  是   |
-| excludeNodes | string  | 排除peer节点Id，用逗号分割     |  是   |
-| messageBody  | string  | 消息体Hex               |  是   |
-| command      | string  | 消息协议指令               |  是   |
-| isCross      | boolean | 是否是跨链                |  是   |
-| percent      |   int   | 广播发送比例,不填写,默认100     |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| excludeNodes | string | Exclude peer node Id, separated by commas | Yes |
+| messageBody | string | Message Body Hex | Yes |
+| command | string | message protocol directive | yes |
+| isCross | boolean | Whether it is a cross-chain | Yes |
+| percent | int | Broadcast transmission ratio, do not fill, default 100 | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述               |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------------------ |
-| value | boolean | 一个节点都没发送出去时返回false |
+| value | boolean | Returns false if none of the nodes are sent out |
 
 ### nw\_createNodeGroup
-主网创建跨链网络或者链工厂创建链
+The main network creates a cross-chain network or chain factory creation chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名               |  参数类型   | 参数描述                           | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------------- |:-------:| ------------------------------ |:----:|
-| chainId           |   int   | 连接的链Id,取值区间[1-65535]           |  是   |
-| magicNumber       |  long   | 网络魔法参数                         |  是   |
-| maxOut            |   int   | 作为client主动对外最大连接数              |  是   |
-| maxIn             |   int   | 作为sever允许外部最大连接数               |  是   |
-| minAvailableCount |   int   | 最小有效连接数                        |  是   |
-| isCrossGroup      | boolean | 是否创建跨链连接组:true 跨链连接，false 普通连接 |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| magicNumber | long | Network Magic Parameters | Yes |
+| maxOut | int | The number of active external connections as the client | Yes |
+| maxIn | int | Allows the maximum number of external connections as sever | Yes |
+| minAvailableCount | int | Minimum valid connections | Yes |
+| isCrossGroup | boolean | Whether to create a cross-chain connection group: true cross-chain connection, false normal connection | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_activeCross
-跨链协议模块激活跨链
+Cross-chain protocol module activation cross-chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| -------------------- |:----:|
-| chainId |  int   | 连接的链Id,取值区间[1-65535] |  是   |
-| maxOut  | string | 作为client主动对外最大连接数    |  是   |
-| maxIn   |  int   | 作为sever允许外部最大连接数     |  是   |
-| seedIps | string | 种子连接节点ID,用逗号拼接       |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| maxOut | string | The number of active external connections as the client | Yes |
+| maxIn | int | Allows the maximum number of external connections as sever | Yes |
+| seedIps | string | seed connection node ID, comma stitched | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_getGroupByChainId
-获取节点组信息
+Get node group information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| -------------------- |:----:|
-| chainId | int  | 连接的链Id,取值区间[1-65535] |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名                  | 字段类型 | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------- |:----:| ----------- |
-| chainId              | int  | 链ID         |
-| magicNumber          | long | 网络魔法参数      |
-| totalCount           | int  | 总连接数        |
-| connectCount         | int  | 本地网络已连接节点数  |
-| disConnectCount      | int  | 本地网络待接节点数   |
-| inCount              | int  | 本地网络入网连接节点数 |
-| outCount             | int  | 本地网络出网连接节点数 |
-| connectCrossCount    | int  | 跨链网络连接节点数   |
-| disConnectCrossCount | int  | 跨链网络待接节点数   |
-| inCrossCount         | int  | 跨链网络入网节点数   |
-| outCrossCount        | int  | 跨链网络出网节点数   |
-| isActive             | int  | 本地网络是否已工作   |
-| isCrossActive        | int  | 跨链网络是否已工作   |
-| isMoonNet            | int  | 网络组是否是主网链节点 |
+| chainId | int | Chain ID |
+| magicNumber | long | Network Magic Parameters |
+| totalCount | int | Total connections |
+ConnectCount | int | Number of connected nodes on the local network |
+| disConnectCount | int | Number of nodes to be connected to the local network |
+| inCount | int | Number of nodes connected to the local network |
+| outCount | int | Number of nodes connected to the local network |
+| connectCrossCount | int | Number of nodes connected across the chain |
+| disConnectCrossCount | int | Number of nodes to be connected in a cross-chain network |
+| inCrossCount | int | Number of nodes in the cross-chain network |
+| outCrossCount | int | Number of outgoing nodes in a cross-chain network |
+| isActive | int | Whether the local network is working |
+| isCrossActive | int | Cross-chain network is working |
+| isMoonNet | int | Is the network group the primary network link node |
 
 ### nw\_getChainConnectAmount
-获取指定网络组可连接数量
+Get the number of connectable network groups
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型   | 参数描述                      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:-------:| ------------------------- |:----:|
-| chainId |   int   | 连接的链Id,取值区间[1-65535]      |  是   |
-| isCross | boolean | true，获取跨链连接数，false本地网络连接数 |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
+| isCross | boolean | true, get the number of cross-chain connections, false local network connections | Yes |
 
-#### 返回值
-| 字段名           |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------- |:-------:| ---- |
-| connectAmount | integer | 可连接数 |
+| connectAmount | integer | connectables |
 
 ### nw\_delNodeGroup
-删除指定网络组
+Delete the specified network group
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| -------------------- |:----:|
-| chainId | int  | 连接的链Id,取值区间[1-65535] |  是   |
+| chainId | int | Linked chain Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### nw\_getSeeds
-查看跨链网络提供的种子节点
+View the seed nodes provided by the cross-chain network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-| 字段名      |  字段类型  | 参数描述                |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------- |:------:| ------------------- |
-| seedsIps | string | 主网可连接的种子节点ID，逗号进行拼接 |
+| seedsIps | string | The seed node ID of the main network connectable, comma stitching |
 
 ### nw\_getMainMagicNumber
-查看主网的魔法参数
+View the magic parameters of the main network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-| 字段名   | 字段类型 | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:----:| ------ |
-| value | long | 主网魔法参数 |
+| value | long | main network magic parameters |
 
 ### nw\_getGroups
-分页获取网络组信息,startPage与pageSize 都为0时，不分页，返回所有网络组信息
+Pagination to obtain network group information, when both startPage and pageSize are 0, no paging, return all network group information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       | 参数类型 | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:----:| ------ |:----:|
-| startPage | int  | 开始页数   |  是   |
-| pageSize  | int  | 每页展示数量 |  是   |
+| startPage | int | Start Pages | Yes |
+| pageSize | int | Number of impressions per page | Yes |
 
-#### 返回值
-| 字段名                  | 字段类型 | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------- |:----:| ----------- |
-| chainId              | int  | 链ID         |
-| magicNumber          | long | 网络魔法参数      |
-| totalCount           | int  | 总连接数        |
-| connectCount         | int  | 本地网络已连接节点数  |
-| disConnectCount      | int  | 本地网络待接节点数   |
-| inCount              | int  | 本地网络入网连接节点数 |
-| outCount             | int  | 本地网络出网连接节点数 |
-| connectCrossCount    | int  | 跨链网络连接节点数   |
-| disConnectCrossCount | int  | 跨链网络待接节点数   |
-| inCrossCount         | int  | 跨链网络入网节点数   |
-| outCrossCount        | int  | 跨链网络出网节点数   |
-| isActive             | int  | 本地网络是否已工作   |
-| isCrossActive        | int  | 跨链网络是否已工作   |
-| isMoonNet            | int  | 网络组是否是主网链节点 |
+| chainId | int | Chain ID |
+| magicNumber | long | Network Magic Parameters |
+| totalCount | int | Total connections |
+ConnectCount | int | Number of connected nodes on the local network |
+| disConnectCount | int | Number of nodes to be connected to the local network |
+| inCount | int | Number of nodes connected to the local network |
+| outCount | int | Number of nodes connected to the local network |
+| connectCrossCount | int | Number of nodes connected across the chain |
+| disConnectCrossCount | int | Number of nodes to be connected in a cross-chain network |
+| inCrossCount | int | Number of nodes in the cross-chain network |
+| outCrossCount | int | Number of outgoing nodes in a cross-chain network |
+| isActive | int | Whether the local network is working |
+| isCrossActive | int | Cross-chain network is working |
+| isMoonNet | int | Is the network group the primary network link node |
 
 ### nw\_reconnect
-本地网络重启
+Local network restart
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| -------------------- |:----:|
-| chainId | int  | 组网的链Id,取值区间[1-65535] |  是   |
+| chainId | int | Network Chain Id, Value Range [1-65535] | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 

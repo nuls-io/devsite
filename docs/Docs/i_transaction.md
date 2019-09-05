@@ -1,371 +1,371 @@
-# 交易模块
-## 模块概述
-在NULS2.0的生态体系中，交易会在链中或者链与链之间流转，各条链的节点不仅要处理链内的交易，可能还会处理跨链的交易，于是每个节点需要处理的交易会越来越多，并且更复杂，因此我们需要一个但单独的模块来统一处理各种交易。而从NULS2.0的架构设计来看，我们需要一个独立的模块来处理交易的收集、验证、为区块组装提供安全的交易数据、存储等功能，对于所有交易来说，这些功能具有共用性、统一性，因此我们把交易管理作为一个独立的模块来运行。
+# Transaction module
+## Module Overview
+In the nuls2.0 ecosystem, trades flow between chains or chains, and the nodes of each chain not only deal with transactions within the chain, but also deal with cross-chain transactions, so each node needs to be processed. The trades are more and more complex and more complex, so we need a single but separate module to handle the various transactions.From the architectural design of nuls2.0, we need a separate module to handle transaction collection, verification, secure transaction data, storage and other functions for block assembly. For all transactions, these functions have commonality. Uniformity, so we run transaction management as a separate module.
 
-## 交易处理逻辑
+## Transaction Processing Logic
 
-- 收集交易
-- 本地验证
-- 广播转发交易给其他节点
-- 提取可打包的交易
-- 提交、回滚交易
-- 保存未确认的、可打包的以及已确认的交易
-- 提供交易的数据
+- Collecting transactions
+- Local verification
+- Broadcast forwarding transactions to other nodes
+- Extract packageable transactions
+- Submit, rollback transactions
+- Save unconfirmed, packageable and confirmed transactions
+- Provide data for the transaction
 
-## 接口列表
+## Interface List
 ### tx\_register
-注册模块交易/Register module transactions
+Register module transactions / Register module transactions
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名                                                             |       参数类型       | 参数描述        | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------------------------------------------------------- |:----------------:| ----------- |:----:|
-| chainId                                                         |       int        | 链id         |  是   |
-| moduleCode                                                      |      string      | 注册交易的模块code |  是   |
-| list                                                            |       list       | 待注册交易的数据    |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txType          |       int        | 交易类型        |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;systemTx        |     boolean      | 是否是系统交易     |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unlockTx        |     boolean      | 是否是解锁交易     |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verifySignature |     boolean      | 交易是否需要签名    |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verifyFee       |     boolean      | 交易是否需要验证手续费 |  是   |
-| delList                                                         | list&lt;integer> | 待移除已注册交易数据  |  否   |
+| chainId | int | chain id | yes |
+| moduleCode | string | module code for registering transactions | yes |
+| list | list | Data for pending transactions | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txType | int | Transaction Type | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;systemTx | boolean | Is it a system transaction | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;unlockTx | boolean | Whether it is an unlock transaction | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verifySignature | boolean | Does the transaction require a signature | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verifyFee | boolean | Does the transaction require a verification fee | Yes |
+| delList | list&lt;integer> | Pending registered transaction data | No|
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------ |
-| value | boolean | 是否注册成功 |
+| value | boolean | Whether registration is successful |
 
 ### tx\_getTx
-根据hash获取交易, 先查未确认, 查不到再查已确认/Get transaction by tx hash
+According to the hash to get the transaction, first check the unconfirmed, can not find the reconfirmed / Get transaction by tx hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| --------- |:----:|
-| chainId |  int   | 链id       |  是   |
-| txHash  | string | 待查询交易hash |  是   |
+| chainId | int | chain id | yes |
+| txHash | string | To-be-traded hash | Yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ---------------- |
-| tx  | string | 获取到的交易的序列化数据的字符串 |
+| tx | string | Get the string of the serialized data of the transaction |
 
 ### tx\_newTx
-接收本地新交易/receive a new transaction
+Receive local new transaction /receive a new transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---------- |:----:|
-| chainId |  int   | 链id        |  是   |
-| tx      | string | 交易序列化数据字符串 |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Transaction Serialized Data String | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------ |
-| value | boolean | 是否成功   |
-| hash  | string  | 交易hash |
+| value | boolean | success |
+| hash | string | transaction hash |
 
 ### tx\_batchVerify
-验证区块所有交易/Verify all transactions in the block
+Verify all transactions in the block / Verify all transactions in the block
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |      参数类型       | 参数描述            | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:---------------:| --------------- |:----:|
-| chainId      |       int       | 链id             |  是   |
-| txList       | list&lt;string> | 待验证交易序列化数据字符串集合 |  是   |
-| blockHeader  |     string      | 对应的区块头          |  是   |
-| preStateRoot |     string      | 前一个区块状态根        |  是   |
+| chainId | int | chain id | yes |
+| txList | list&lt;string> | To-be-verified transaction serialized data string collection | Yes |
+| blockHeader | string | Corresponding block header | Yes |
+| preStateRoot | string | previous block state root | yes |
 
-#### 返回值
-| 字段名          |      字段类型       | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------ |:---------------:| ---------- |
-| value        |     boolean     | 是否验证成功     |
-| contractList | list&lt;string> | 智能合约新产生的交易 |
+| value | boolean | Whether verification succeeds |
+| contractList | list&lt;string> | Smart Contract New Deal |
 
 ### tx\_rollback
-回滚区块的交易/transaction rollback
+Rollback block transaction / transaction rollback
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |      参数类型       | 参数描述    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:---------------:| ------- |:----:|
-| chainId     |       int       | 链id     |  是   |
-| txHashList  | list&lt;string> | 待回滚交易集合 |  是   |
-| blockHeader |     string      | 区块头     |  是   |
+| chainId | int | chain id | yes |
+| txHashList | list&lt;string> | To-be-rolled transaction collection | Yes |
+| blockHeader | string | Block Head | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 是否成功 |
+| value | boolean | success |
 
 ### tx\_cs\_state
-设置节点打包状态(由共识模块设置)/Set the node packaging state
+Set the node packing status (set by the consensus module) / Set the node packaging state
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型   | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:-------:| ------ |:----:|
-| chainId   |   int   | 链id    |  是   |
-| packaging | boolean | 是否正在打包 |  是   |
+| chainId | int | chain id | yes |
+| packaging | boolean | Whether it is being packaged | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即设置成功 |
+| N/A | void | No specific return value, set without success |
 
 ### tx\_packableTxs
-获取可打包的交易集/returns a list of packaged transactions
+Get a packageable transaction set/returns a list of packaged transactions
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名            |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------------- |:------:| --------- |:----:|
-| chainId        |  int   | 链id       |  是   |
-| endTimestamp   |  long  | 截止时间      |  是   |
-| maxTxDataSize  |  int   | 交易集最大容量   |  是   |
-| blockTime      |  long  | 本次出块区块时间  |  是   |
-| packingAddress | string | 当前出块地址    |  是   |
-| preStateRoot   | string | 前一个区块的状态根 |  是   |
+| chainId | int | chain id | yes |
+EndTimestamp | long | Deadline | Yes |
+| maxTxDataSize | int | Maximum transaction set capacity | Yes |
+| blockTime | long | This block time | Yes |
+| packingAddress | string | current block address | yes |
+| preStateRoot | string | The status root of the previous block | Yes |
 
-#### 返回值
-| 字段名           |      字段类型       | 参数描述      |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------- |:---------------:| --------- |
-| list          | list&lt;string> | 可打包交易集    |
-| stateRoot     |     string      | 当前出块的状态根  |
-| packageHeight |      long       | 本次打包区块的高度 |
+| list | list&lt;string> | packageable transaction set |
+| stateRoot | string | The current state of the current block |
+| packageHeight | long | The height of this packaging block |
 
 ### tx\_backPackableTxs
-共识模块把不能打包的交易还回来，重新加入待打包列表/back packaged transactions
+The consensus module returns the unpackable transaction and rejoins the package to be packaged/back packaged transactions
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |      参数类型       | 参数描述         | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:---------------:| ------------ |:----:|
-| chainId |       int       | 链id          |  是   |
-| txList  | list&lt;string> | 交易序列化数据字符串集合 |  是   |
+| chainId | int | chain id | yes |
+| txList | list&lt;string> | Transaction Serialization Data String Collection | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 是否成功 |
+| value | boolean | success |
 
 ### tx\_save
-保存新区块的交易/Save the confirmed transaction
+Save the new block transaction / Save the confirmed transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |      参数类型       | 参数描述     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:---------------:| -------- |:----:|
-| chainId      |       int       | 链id      |  是   |
-| txList       | list&lt;string> | 待保存的交易集合 |  是   |
-| contractList | list&lt;string> | 智能合约交易   |  是   |
-| blockHeader  |     string      | 区块头      |  是   |
+| chainId | int | chain id | yes |
+| txList | list&lt;string> | The set of transactions to be saved | Yes |
+| contractList | list&lt;string> | Smart Contract Trading | Yes |
+| blockHeader | string | Block Head | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 是否成功 |
+| value | boolean | success |
 
 ### tx\_gengsisSave
-保存创世块的交易/Save the transactions of the Genesis block 
+Save the transactions of the Genesis block 
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |      参数类型       | 参数描述     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:---------------:| -------- |:----:|
-| chainId     |       int       | 链id      |  是   |
-| txList      | list&lt;string> | 待保存的交易集合 |  是   |
-| blockHeader |     string      | 区块头      |  是   |
+| chainId | int | chain id | yes |
+| txList | list&lt;string> | The set of transactions to be saved | Yes |
+| blockHeader | string | Block Head | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 是否成功 |
+| value | boolean | success |
 
 ### tx\_getSystemTypes
-获取所有系统交易类型/Get system transaction types
+Get all system transaction types / Get system transaction types
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名  |       字段类型       | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ---- |:----------------:| -------- |
-| list | list&lt;integer> | 系统交易类型集合 |
+| list | list&lt;integer> | System Transaction Type Collection |
 
 ### tx\_getConfirmedTx
-根据hash获取已确认交易(只查已确认)/Get confirmed transaction by tx hash
+Get confirmed transactions based on hash (check only confirmed) / Get confirmed transaction by tx hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| --------- |:----:|
-| chainId |  int   | 链id       |  是   |
-| txHash  | string | 待查询交易hash |  是   |
+| chainId | int | chain id | yes |
+| txHash | string | To-be-traded hash | Yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ---------------- |
-| tx  | string | 获取到的交易的序列化数据的字符串 |
+| tx | string | Get the string of the serialized data of the transaction |
 
 ### tx\_getBlockTxs
-获取区块的完整交易，如果没有查询到，或者查询到的不是区块完整的交易数据，则返回空集合/Get block transactions
+Get the complete transaction of the block, if there is no query, or if the query is not the complete transaction data of the block, then return the empty set / Get block transactions
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |      参数类型       | 参数描述        | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:---------------:| ----------- |:----:|
-| chainId    |       int       | 链id         |  是   |
-| txHashList | list&lt;string> | 待查询交易hash集合 |  是   |
+| chainId | int | chain id | yes |
+| txHashList | list&lt;string> | To-be-reported hash collection | Yes |
 
-#### 返回值
-| 字段名    |      字段类型       | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:---------------:| -------------- |
-| txList | list&lt;string> | 返回交易序列化数据字符串集合 |
+| txList | list&lt;string> | Returns a collection of transaction serialized data strings |
 
 ### tx\_getBlockTxsExtend
-根据hash列表，获取交易，先查未确认，再查已确认/Get transactions by hashs
+According to the hash list, get the transaction, first check the unconfirmed, then check the confirmed / Get transactions by hashs
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |      参数类型       | 参数描述                                       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:---------------:| ------------------------------------------ |:----:|
-| chainId    |       int       | 链id                                        |  是   |
-| txHashList | list&lt;string> | 待查询交易hash集合                                |  是   |
-| allHits    |     boolean     | true：必须全部查到才返回数据，否则返回空list； false：查到几个返回几个 |  是   |
+| chainId | int | chain id | yes |
+| txHashList | list&lt;string> | To-be-reported hash collection | Yes |
+| allHits | boolean | true: must be found to return data, otherwise return empty list; false: check several returns a few | Yes |
 
-#### 返回值
-| 字段名    |      字段类型       | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:---------------:| -------------- |
-| txList | list&lt;string> | 返回交易序列化数据字符串集合 |
+| txList | list&lt;string> | Returns a collection of transaction serialized data strings |
 
 ### tx\_getNonexistentUnconfirmedHashs
-查询传入的交易hash中,不在未确认库中的交易hash/Get nonexistent unconfirmed transaction hashs
+Query the incoming transaction hash, the transaction in the unconfirmed library hash/Get nonexistent unconfirmed transaction hashs
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |      参数类型       | 参数描述        | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:---------------:| ----------- |:----:|
-| chainId    |       int       | 链id         |  是   |
-| txHashList | list&lt;string> | 待查询交易hash集合 |  是   |
+| chainId | int | chain id | yes |
+| txHashList | list&lt;string> | To-be-reported hash collection | Yes |
 
-#### 返回值
-| 字段名    |      字段类型       | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:---------------:| -------------- |
-| txList | list&lt;string> | 返回交易序列化数据字符串集合 |
+| txList | list&lt;string> | Returns a collection of transaction serialized data strings |
 
 ### tx\_bl\_state
-设置节点区块同步状态(由区块模块设置)/Set the node block state
+Set node block synchronization status (set by block module) / Set the node block state
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述          | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ------------- |:----:|
-| chainId | int  | 链id           |  是   |
-| status  | int  | 是否进入等待, 不处理交易 |  是   |
+| chainId | int | chain id | yes |
+| status | int | Whether to wait, not to process transactions | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即设置成功 |
+| N/A | void | No specific return value, set without success |
 
 ### tx\_blockHeight
-接收最新区块高度/Receive the latest block height
+Receive the latest block height/Receive the latest block height
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
-| height  | long | 区块高度 |  是   |
+| chainId | int | chain id | yes |
+| height | long | block height | yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 是否成功 |
+| value | boolean | success |
 
 ### tx\_getTxClient
-根据hash获取交易，先查未确认，查不到再查已确认/Get transaction by tx hash
+Get the transaction according to the hash, first check the unconfirmed, check and check the confirmed / Get transaction by tx hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| --------- |:----:|
-| chainId |  int   | 链id       |  是   |
-| txHash  | string | 待查询交易hash |  是   |
+| chainId | int | chain id | yes |
+| txHash | string | To-be-traded hash | Yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述                   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ---------------------- |
-| tx     | string | 获取到的交易的序列化数据的字符串       |
-| height | string | 获取到的交易的确认高度，未确认交易高度为-1 |
-| status | string | 获取到的交易是否确认的状态          |
+| tx | string | Get the string of the serialized data of the transaction |
+| height | string | Get the confirmed height of the transaction, the unconfirmed transaction height is -1 |
+| status | string | Get the status of the confirmed transaction |
 
 ### tx\_verifyTx
-验证交易接口，包括含基础验证、验证器、账本验证/Verify transation
+Verify transaction interface, including basic verification, validator, account verification/Verify transation
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---------- |:----:|
-| chainId |  int   | 链id        |  是   |
-| tx      | string | 待验证交易完整字符串 |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Full string to be verified | Yes |
 
-#### 返回值
-| 字段名   |  字段类型  | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:------:| ------ |
-| value | string | 交易hash |
+| value | string | transaction hash |
 
 ### transferCMDTest
 
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-无返回值
+#### return value
+No return value
 
 ### tx\_getConfirmedTxClient
-根据hash获取已确认交易(只查已确认)/Get confirmed transaction by tx hash
+Get confirmed transactions based on hash (check only confirmed) / Get confirmed transaction by tx hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| --------- |:----:|
-| chainId |  int   | 链id       |  是   |
-| txHash  | string | 待查询交易hash |  是   |
+| chainId | int | chain id | yes |
+| txHash | string | To-be-traded hash | Yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ---------------- |
-| tx     | string | 获取到的交易的序列化数据的字符串 |
-| height | string | 获取到的交易的确认高度      |
-| status | string | 获取到的交易是否确认的状态    |
+| tx | string | Get the string of the serialized data of the transaction |
+| height | string | Get the confirmed height of the transaction |
+| status | string | Get the status of the confirmed transaction |
 

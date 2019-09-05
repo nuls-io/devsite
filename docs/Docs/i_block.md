@@ -1,365 +1,365 @@
-# 区块模块
+# Block Module
 
-## 为什么要有《区块管理》模块
+## Why should I have the "Block Management" module?
 
-​区块链上所有交易数据都保存在区块中，所以要有一个模块负责区块的存储与管理，以便其他模块对区块中数据进行验证、业务处理时可以获取到区块。
+All transaction data in the blockchain is stored in the block, so there is a module responsible for the storage and management of the block, so that other modules can obtain the block when verifying the data in the block and processing the business.
 
-​区块链程序初次启动时，需要同步网络上的最新区块到本地，这个过程一般耗时较长，且同步未完成时不能发起交易，所以适合由单独模块来完成该工作。
+When the blockchain program is started for the first time, it is necessary to synchronize the latest block on the network to the local. This process is generally time consuming, and the transaction cannot be initiated when the synchronization is not completed, so it is suitable for the work to be performed by a separate module.
 
-​综上所述，为其他模块提供统一的区块数据服务是必要的，也能更好地把区块的管理与区块的具体业务进行分离，用到区块的模块不必关心区块的获取细节。
+In summary, it is necessary to provide a unified block data service for other modules, and it is also better to separate the management of the block from the specific service of the block. The modules used in the block do not have to care about the block. Get the details.
 
-## 《区块管理》要做什么
+## "Block Management" What to do
 
-- 提供api，进行区块存储、查询、回滚的操作
-- 从网络上同步最新区块，进行初步验证、分叉验证，如果没有分叉，调用共识模块进行共识验证，调用交易模块进行交易验证，全部验证通过后保存到本地。
-- 区块同步、广播、转发消息的处理
-- 分叉区块的判断、存储
-- 孤儿区块的判断、存储
-- 分叉链维护、切换
-- 孤儿链维护、切换
+- Provide api for block storage, query, rollback operations
+- Synchronize the latest block from the network for preliminary verification and fork verification. If there is no fork, call the consensus module for consensus verification, call the transaction module for transaction verification, and save all the verifications to the local.
+- Block synchronization, broadcast, and forwarding of message processing
+- Judgment and storage of bifurcation blocks
+- Judgment and storage of orphan blocks
+- Forked chain maintenance, switching
+- Orphan chain maintenance, switching
 
-## 常见日志分析
+## Common log analysis
 
-|日志内容															|日志生成原因|
+|Log content															|Log generation reason |
 |----|----|
-|skip block syn because minNodeAmount is set to 0|				把minNodeAmount设置为0会打印此日志,直接跳过区块同步流程,如果想一个节点出块才需要改这个参数|
-|no consistent nodes								|				连接到的节点高度不一致造成的|
-|first start										|				连接到的节点高度都是0,表示这条链刚开始运行|
-|local blocks is newest							|				本地节点的区块已经是最新的,不需要进行区块同步|
-|The number of rolled back blocks exceeded the configured value|	本地区块与网络上的区块不一致,本地区块回滚,但是回滚数量超过阈值,停止回滚|
-|The local GenesisBlock differ from network		|				本地节点的创世区块hash与网络上的创世区块hash不匹配,需要检查本地配置|
-|available nodes not enough						|				连接到的可用节点数量不足,检查minNodeAmount这个配置项,以及网络模块配置、日志|
-|block syn complete successfully current height	|				区块同步成功,且已经同步到最新区块|
-|block syn complete but is not newest			|				区块同步成功,但还不是最新区块,会自动进行再次同步|
-|error occur when saving downloaded blocks	|				区块同步失败,一般是保存同步到的区块时报错,重点检查区块模块、共识模块、交易模块的日志|
+|skip block syn because minNodeAmount is set to 0|				Setting minNodeAmount to 0 will print this log and skip the block synchronization process directly. If you want a node to block out, you need to change this parameter|
+|no consistent nodes								|				The height of the connected nodes is inconsistent |
+|first start										|				The height of the connected node is 0, indicating that the chain is just starting to run |
+|local blocks is newest							|				The block of the local node is already up to date, no block synchronization is required |
+|The number of rolled back blocks exceeded the configured value|	The block in this area is inconsistent with the block on the network. The block in this area is rolled back, but the number of rollbacks exceeds the threshold, and the rollback stops.
+|The local GenesisBlock differ from network		|				The creation node hash of the local node does not match the creation block hash on the network, and the local configuration needs to be checked.
+|available nodes not enough						|				The number of available nodes connected to is insufficient, check the minNodeAmount configuration item, and the network module configuration, log |
+|block syn complete successfully current height	|				The block sync is successful and has been synchronized to the latest block|
+|block syn complete but is not newest			|				The block sync is successful, but it is not the latest block and will be automatically synchronized again |
+|error occur when saving downloaded blocks	|				Block synchronization failure, generally when saving the synced block, error, focus on the block module, consensus module, transaction module log |
 
-## 配置项说明
-|配置项															|说明|
+## Configuration Item Description
+|Configuration item															|Description|
 |----|----|
-|dataFolder|数据库文件夹名|
-|language|错误码语言|
-|forkChainsMonitorInterval|分叉链监视线程运行间隔|
-|orphanChainsMonitorInterval|孤儿链监视线程运行间隔|
-|orphanChainsMaintainerInterval|孤儿链维护线程运行间隔|
-|storageSizeMonitorInterval|缓存数据库容量监视线程运行间隔|
-|networkResetMonitorInterval|网络监视线程运行间隔|
-|nodesMonitorInterval|节点数量监视线程运行间隔|
-|txGroupRequestorInterval|TxGroup获取线程运行间隔|
-|txGroupTaskDelay|分叉链监视线程运行间隔|
-|testAutoRollbackAmount|启动后自动回滚的区块数量,仅供测试区块回滚用,生产环境下设置为0|
-|chainName|默认链名称|
-|chainId|默认链ID|
-|assetId|默认资产ID|
-|blockMaxSize|区块最大字节数|
-|extendMaxSize|区块扩展字段最大字节数|
-|resetTime|本地区块高度不更新时,引发重置网络动作的时间间隔|
-|chainSwtichThreshold|引发分叉链切换的高度差阈值|
-|cacheSize|分叉链、孤儿链区块最大缓存数量|
-|heightRange|接收新区块的范围|
-|waitInterval|批量下载区块时,如果收到CompleteMessage时,区块还没有保存完,每一个区块预留多长等待时间|
-|maxRollback|本地区块与网络区块不一致时,本地最大回滚数|
-|consistencyNodePercent|统计网络上的节点最新区块高度、hash一致的百分比阈值|
-|minNodeAmount|最小链接节点数,当链接到的网络节点低于此参数时,会持续等待|
-|downloadNumber|区块同步过程中,每次从网络上节点下载的区块数量|
-|validBlockInterval|为阻止恶意节点提前出块,设置此参数,区块时间戳大于当前时间多少就丢弃该区块|
-|blockCache|同步区块时最多缓存多少个区块|
-|smallBlockCache|系统正常运行时最多缓存多少个从别的节点接收到的小区块|
-|orphanChainMaxAge|孤儿链维护失败时,年龄加一,此参数是孤儿链能达到的最大年龄,高于这个值会被清理线程清理|
-|logLevel|日志级别,按照不同的链进行区分|
-|singleDownloadTimeout|从网络节点下载单个区块的超时时间|
-|batchDownloadTimeout|从网络节点下载多个区块的超时时间|
-|maxLoop|批量下载区块时,如果收到CompleteMessage时,区块还没有保存完,最多循环等待几个回合|
-|synSleepInterval|两次区块同步之间的时间间隔|
-|waitNetworkInterval|等待网络稳定的时间间隔|
-|cleanParam|分叉链监视线程运行间隔|
+|dataFolder|Database Folder Name|
+|language|Error Code Language|
+|forkChainsMonitorInterval|Forked Chain Monitoring Thread Running Interval|
+|orphanChainsMonitorInterval|Orphan chain monitoring thread running interval|
+|orphanChainsMaintainerInterval|Orphan chain maintenance thread running interval|
+|storageSizeMonitorInterval|Cache database capacity monitoring thread run interval|
+|networkResetMonitorInterval|Network Monitoring Thread Running Interval|
+|nodesMonitorInterval|Number of nodes monitors thread run interval|
+|txGroupRequestorInterval|TxGroup gets thread running interval|
+|txGroupTaskDelay|Forked chain monitoring thread running interval|
+|testAutoRollbackAmount|The number of blocks that are automatically rolled back after startup, only for test block rollback, set to 0 in production environment |
+|chainName|default chain name|
+|chainId|Default Chain ID|
+|assetId|Default Asset ID|
+|blockMaxSize|Maximum number of bytes in the block|
+|extendMaxSize|Block extension field maximum number of bytes|
+|resetTime|Time interval at which the network action is reset when the height of the local block is not updated |
+|chainSwtichThreshold|Raise the height difference threshold for the forked chain switch|
+|cacheSize|The maximum number of branches in the forked chain or orphan chain block|
+|heightRange|Receive the range of new blocks|
+|waitInterval|When downloading a block in batches, if the CompleteMessage is received, the block has not been saved, and how long is reserved for each block|
+|maxRollback|The local maximum rollback number when the local block is inconsistent with the network block|
+|consistencyNodePercent|Statistics of the node's latest block height and hash consistent percentage threshold on the network|
+|minNodeAmount|The minimum number of linked nodes, when the linked network node is lower than this parameter, it will continue to wait|
+|downloadNumber|Number of blocks downloaded from the node on the network each time during block synchronization |
+|validBlockInterval|To prevent malicious nodes from pre-eventing blocks, set this parameter to discard the block if the block timestamp is greater than the current time.
+|blockCache|How many blocks are cached when syncing blocks|
+|smallBlockCache|How many cached cell blocks are received from other nodes during normal system operation |
+| orphanChainMaxAge|When the orphan chain fails to maintain, the age is increased by one. This parameter is the maximum age that the orphan chain can reach. Above this value, it will be cleaned up by the cleanup thread|
+|logLevel|Log level, differentiated by different chains|
+|singleDownloadTimeout|Timeout for downloading a single block from a network node|
+|batchDownloadTimeout|Timeout for downloading multiple blocks from a network node|
+|maxLoop|When downloading a block in batches, if the CompleteMessage is received, the block has not been saved yet, and the loop waits for a few rounds at most |
+|synSleepInterval|Time interval between two block syncs|
+|waitNetworkInterval|Time interval waiting for network stability|
+|cleanParam|forked chain monitoring thread running interval|
     
 
 
-> 配置文件中所有时间参数单位都是毫秒
+> All time parameter units in the configuration file are in milliseconds
 
-## 接口列表
+## Interface List
 ### info
 returns network node height and local node height
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名           | 字段类型 | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------- |:----:| ---------- |
-| networkHeight | long | 网络节点最新区块高度 |
-| localHeight   | long | 本地节点最新区块高度 |
+| networkHeight | long | Network Node Latest Block Height |
+| localHeight | long | The latest block height of the local node |
 
 ### latestBlock
 the latest block of master chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述              |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ----------------- |
-| 返回值 | string | 返回一个区块序列化后的HEX字符串 |
+| Return value | string | Returns a HEX string after serialization of a block |
 
 ### downloadBlockByHash
 get a block by hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
-| chainId |  int   | 链ID    |  是   |
-| hash    | string | 区块hash |  是   |
+| chainId | int | Chain ID | Yes |
+| hash | string | block hash | yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述            |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| --------------- |
-| 返回值 | string | 返回区块序列化后的HEX字符串 |
+| Return value | string | Returns the HEX string after the serialization of the block |
 
 ### latestHeight
 the latest height of master chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名   | 字段类型 | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:----:| ------ |
-| value | long | 最新主链高度 |
+| value | long | Latest main chain height |
 
 ### latestBlockHeader
 the latest block header of master chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述               |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ------------------ |
-| 返回值 | string | 返回一个区块头序列化后的HEX字符串 |
+| Return value | string | Returns a HEX string after serialization of a block header |
 
 ### latestBlockHeaderPo
 the latest block header po of master chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| -------------------- |
-| 返回值 | string | 返回一个区块头PO序列化后的HEX字符串 |
+| Return value | string | Returns a HEX string after a block header PO serialization |
 
 ### getBlockHeaderByHeight
 get a block header by height
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| height  | long | 区块高度 |  是   |
+| chainId | int | Chain ID | Yes |
+| height | long | block height | yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述               |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ------------------ |
-| 返回值 | string | 返回一个区块头序列化后的HEX字符串 |
+| Return value | string | Returns a HEX string after serialization of a block header |
 
 ### getBlockHeaderPoByHeight
 get a block header po by height
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| height  | long | 区块高度 |  是   |
+| chainId | int | Chain ID | Yes |
+| height | long | block height | yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| -------------------- |
-| 返回值 | string | 返回一个区块头PO序列化后的HEX字符串 |
+| Return value | string | Returns a HEX string after a block header PO serialization |
 
 ### getBlockByHeight
 get a block by height
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| height  | long | 区块高度 |  是   |
+| chainId | int | Chain ID | Yes |
+| height | long | block height | yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述                |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ------------------- |
-| 返回值 | string | 返回区块序列化后的HEX字符串List |
+| Return Value | string | Returns the HEX String List after serialization of the block |
 
 ### getBlockHeaderByHash
 get a block header by hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
-| chainId |  int   | 链ID    |  是   |
-| hash    | string | 区块hash |  是   |
+| chainId | int | Chain ID | Yes |
+| hash | string | block hash | yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ---------------- |
-| 返回值 | string | 返回区块头序列化后的HEX字符串 |
+| Return value | string | Returns the HEX string after the block header serialization |
 
 ### getBlockHeaderPoByHash
 get a block header po by hash
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
-| chainId |  int   | 链ID    |  是   |
-| hash    | string | 区块hash |  是   |
+| chainId | int | Chain ID | Yes |
+| hash | string | block hash | yes |
 
-#### 返回值
-| 字段名 |  字段类型  | 参数描述               |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:------:| ------------------ |
-| 返回值 | string | 返回区块头PO序列化后的HEX字符串 |
+| Return value | string | Returns the HEX string after the block header PO serialization |
 
 ### getLatestBlockHeaders
 get the latest number of block headers
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| size    | int  | 数量   |  是   |
+| chainId | int | Chain ID | Yes |
+| size | int | quantity | yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| -------------------- |
-| 返回值 | list&lt;string> | 返回区块头序列化后的HEX字符串List |
+| Return value | list&lt;string> | Returns the HEX string of the block header serialized List |
 
 ### getLatestRoundBlockHeaders
 get the latest several rounds of block headers
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| round   | int  | 共识轮次 |  是   |
+| chainId | int | Chain ID | Yes |
+| round | int | Consensus Round | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| -------------------- |
-| 返回值 | list&lt;string> | 返回区块头序列化后的HEX字符串List |
+| Return value | list&lt;string> | Returns the HEX string of the block header serialized List |
 
 ### getRoundBlockHeaders
 get the latest several rounds of block headers
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| height  | long | 起始高度 |  是   |
-| round   | int  | 共识轮次 |  是   |
+| chainId | int | Chain ID | Yes |
+| height | long | starting height | yes |
+| round | int | Consensus Round | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| -------------------- |
-| 返回值 | list&lt;string> | 返回区块头序列化后的HEX字符串List |
+| Return value | list&lt;string> | Returns the HEX string of the block header serialized List |
 
 ### receivePackingBlock
 receive the new packaged block
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述          | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------------- |:----:|
-| chainId |  int   | 链ID           |  是   |
-| block   | string | 区块序列化后的HEX字符串 |  是   |
+| chainId | int | Chain ID | Yes |
+| block | string | HEX string after block serialization | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---- |
-| N/A | void | 无返回值 |
+| N/A | void | No return value |
 
 ### getBlockHeadersByHeightRange
 get the block headers according to the height range
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| begin   | long | 起始高度 |  是   |
-| end     | long | 结束高度 |  是   |
+| chainId | int | Chain ID | Yes |
+| begin | long | starting height | yes |
+| end | long | end height | yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| -------------------- |
-| 返回值 | list&lt;string> | 返回区块头序列化后的HEX字符串List |
+| Return value | list&lt;string> | Returns the HEX string of the block header serialized List |
 
 ### getBlockHeadersForProtocol
 get block headers for protocol upgrade module
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      | 参数类型 | 参数描述     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:----:| -------- |:----:|
-| chainId  | int  | 链ID      |  是   |
-| interval | int  | 协议升级统计区间 |  是   |
+| chainId | int | Chain ID | Yes |
+| interval | int | Protocol Upgrade Statistics | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| -------------------- |
-| 返回值 | list&lt;string> | 返回区块头序列化后的HEX字符串List |
+| Return value | list&lt;string> | Returns the HEX string of the block header serialized List |
 
 ### getStatus
 receive the new packaged block
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名    |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:-------:| ---- |
-| status | integer | 运行状态 |
+| status | integer | Run Status |
 

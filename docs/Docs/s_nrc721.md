@@ -1,24 +1,24 @@
-# NRC-721非同质资产标准
+# NRC-721
 
-## 简单摘要
+## Simple Summary
 
-用于不可替代的令牌的标准接口，也称为行为。
+A standard interface for non-fungible tokens, also known as deeds.
 
-## 抽象
+## Abstract
 
-以下标准允许在智能合约中实施NFT的标准API。该标准提供了跟踪和传输NFT的基本功能。
+The following standard allows for the implementation of a standard API for NFTs within smart contracts. This standard provides basic functionality to track and transfer NFTs.
 
-我们认为NFT的使用案例由个人拥有和交易，以及托运给第三方经纪人/钱包/拍卖商（“运营商”）。NFT可以代表对数字或实物资产的所有权。我们考虑了各种各样的资产，我们知道你会想到更多：
+We considered use cases of NFTs being owned and transacted by individuals as well as consignment to third party brokers/wallets/auctioneers (“operators”). NFTs can represent ownership over digital or physical assets. We considered a diverse universe of assets, and we know you will dream up many more:
 
-- 物理财产 - 房屋，独特的艺术品
-- 虚拟收藏品 - 小猫，可收集卡片的独特图片
-- “负值”资产 - 贷款，负担和其他责任
+- Physical property — houses, unique artwork
+- Virtual collectables — unique pictures of kittens, collectable cards
+- “Negative value” assets — loans, burdens and other responsibilities
 
-一般来说，所有房屋都是独特的，没有两只小猫是相同的。NFT是*可区分的*，您必须分别跟踪每个NFT 的所有权。
+In general, all houses are distinct and no two kittens are alike. NFTs are distinguishable and you must track the ownership of each one separately.
 
-## 规格
+## Specification
 
-**每个符合NRC-721标准的合同都必须实施NRC721和NRC165接口**（以下“注意事项”）：
+**Every NRC-721 compliant contract must implement the NRC721 and NRC165 interfaces**（(subject to “caveats” below):
 
 ```java
 package io.nuls.token.interfaces;
@@ -263,7 +263,7 @@ public interface INRC165 {
 ```
 
 
-钱包/经纪/拍卖应用程序必须实现**钱包接口，** 如果它将接受安全转移。
+A wallet/broker/auction application MUST implement the **wallet interface** if it will accept safe transfers.
 
 ```java
 package io.nuls.token.interfaces;
@@ -291,7 +291,7 @@ public interface INRC721TokenReceiver {
 }
 ```
 
-对于NRC-721智能合约，**元数据扩展**是可选的（参见下面的“警告”）。这样可以查询您的智能合约的名称以及您的NFT所代表的资产的详细信息。
+The **metadata extension** is OPTIONAL for NRC-721 smart contracts (see “caveats”, below). This allows your smart contract to be interrogated for its name and for details about the assets which your NFTs represent.
 
 ```java
 package io.nuls.token.interfaces;
@@ -323,7 +323,7 @@ public interface INRC721Metadata {
 }
 ```
 
-对于NRC-721智能合约，**枚举扩展**是可选的（参见下面的“警告”）。这允许您的合同发布其完整的NFT列表并使其可被发现。
+The **enumeration extension** is OPTIONAL for NRC-721 smart contracts (see “caveats”, below). This allows your contract to publish its full list of NFTs and make them discoverable.
 
 ```java
 package io.nuls.token.interfaces;
@@ -364,59 +364,56 @@ public interface INRC721Enumerable {
 }
 ```
 
-## 合理性
+## Rationale
 
-此智能合约的许多建议用途依赖于跟踪可区分的资产。现有或计划的NFT的示例是Decentraland中的LAND，CryptoPunks中的同名朋友，以及使用DMarket或EnjinCoin等系统的游戏内物品。未来的用途包括跟踪现实世界的资产，如房地产（如Ubitquity或Propy等公司所设想的那样。在这些情况中，这些项目在分类账中不是“集中在一起”，而是每个资产，这一点至关重要。必须拥有单独和原子跟踪的所有权。无论这些资产的性质如何，如果我们拥有允许跨功能资产管理和销售平台的标准化界面，生态系统将更加强大。
-
-
-**NFT标识符**
-
-每个NFT都由`BigInteger`NRC-721智能合约中的唯一ID标识。该识别号码在合同期限内不得更改。该对`(Address contractAddress, BigInteger tokenId)`然后将用于在链上特定资产的全局唯一和完全合格的标识符。虽然一些NRC-721智能合约可能会发现从ID 0开始并且每个新NFT只增加一个是方便的，但是呼叫者不应该假设ID号具有任何特定模式，并且必须将ID视为“黑匣子” ”。另请注意，NFT可能无效（被销毁）。请参阅支持的枚举接口的枚举函数。
+There are many proposed uses of Ethereum smart contracts that depend on tracking distinguishable assets. Examples of existing or planned NFTs are LAND in Decentraland, the eponymous punks in CryptoPunks, and in-game items using systems like DMarket or EnjinCoin. Future uses include tracking real-world assets, like real-estate (as envisioned by companies like Ubitquity or Propy. It is critical in each of these cases that these items are not “lumped together” as numbers in a ledger, but instead each asset must have its ownership individually and atomically tracked. Regardless of the nature of these assets, the ecosystem will be stronger if we have a standardized interface that allows for cross-functional asset management and sales platforms.
 
 
-**转移机制**
-
-NRC-721标准化了安全传递函数`safeTransferFrom`（带有和不带`String`参数的重载方法）和不安全的功能`transferFrom`。转移可以通过以下方式启动：
-
-- NFT的所有者
-- NFT当前经批准的地址
-- NFT当前所有者的授权操作者
-
-另外，授权操作者可以设置NFT的批准地址。这为钱包，经纪人和拍卖应用程序提供了一套强大的工具，可以快速使用*大量*的NFT。
-
-创建NFT（“铸造”）和销毁NFT（“燃烧”）不包括在规范中。您的合同可以通过其他方式实现。
-
-**NRC-165接口**
-
-我们选择标准接口检测（NRC-165）来公开NRC-721智能合约支持的接口。
+**NFT Identifiers**
+Every NFT is identified by a unique `uint256` ID inside the NRC-721 smart contract. This identifying number SHALL NOT change for the life of the contract. The pair `(contract address, uint256 tokenId)` will then be a globally unique and fully-qualified identifier for a specific asset on an NULS chain. While some NRC-721 smart contracts may find it convenient to start with ID 0 and simply increment by one for each new NFT, callers SHALL NOT assume that ID numbers have any specific pattern to them, and MUST treat the ID as a “black box”. Also note that a NFTs MAY become invalid (be destroyed). Please see the enumerations functions for a supported enumeration interface.
 
 
-**气体和复杂性**（关于枚举扩展）
+**Transfer Mechanism**
+ERC-721 standardizes a safe transfer function `safeTransferFrom` (overloaded with and without a `bytes` parameter) and an unsafe function `transferFrom`. Transfers may be initiated by:
 
-该规范设想了管理少量和*任意大量* NFT的实现。如果您的应用程序能够增长，那么请避免在代码中使用for / while循环。这些表明您的合同可能无法扩展，燃气成本将随着时间的推移不断增加。
+- The owner of an NFT
+- The approved address of an NFT
+- An authorized operator of the current owner of an NFT
+  
+Additionally, an authorized operator may set the approved address for an NFT. This provides a powerful set of tools for wallet, broker and auction applications to quickly use a large number of NFTs.
 
-**隐私**
+**NRC-165 Interface**
 
-在激励部分中确定的钱包/经纪人/拍卖者非常需要确定所有者拥有哪些NFT。
-
-考虑一个NFT不可枚举的用例可能很有意思，例如财产所有权的私人注册表或部分私有注册表。但是，无法获得隐私，因为攻击者可以为所有可能的`tokenId`简单地调用`ownerOf`。
-
-**元数据选择**（元数据扩展）
-
-我们在元数据扩展中需要`name`和`symbol`功能。
-我们提醒实现作者，空字符串是一个有效的响应`name`，`symbol`，如果你抗议使用这种机制。我们也提醒大家，任何智能合同可以使用相同的名称和符号作为*你的*合同。客户如何确定哪些NRC-721智能合约是众所周知的（规范的）超出了本标准的范围。
-
-提供了一种将NFT与URI相关联的机制。我们希望许多实现将利用此功能为每个NFT提供元数据，URI可能是可变的（即它会不时变化）。我们考虑了代表房屋所有权的NFT，在这种情况下，关于房屋的元数据（图像，居住者等）可以自然地改变。
-
-元数据作为字符串值返回。
-
-*考虑的替代方案：将每个资产的所有元数据放在区块链上（太贵），使用URL模板查询元数据部分*
+We chose Standard Interface Detection (NRC-165) to expose the interfaces that a NRC-721 smart contract supports.
 
 
-## NFT实现
+**Gas and Complexity**（regarding the enumeration extension）
 
-1. 最基本实现 https://github.com/MIMIEYES/NULS-NRC721-baselib
-2. NRC721Metadata基本功能实现 https://github.com/MIMIEYES/NRC721Metadata
-3. NRC721Enumerable基本功能实现 https://github.com/MIMIEYES/NRC721Enumerable
-4. NRC721Full基本功能实现 https://github.com/MIMIEYES/NRC721Full
-5. NRC721Receiver基本功能实现 https://github.com/MIMIEYES/NRC721Receiver
+This specification contemplates implementations that manage a few and arbitrarily large numbers of NFTs. If your application is able to grow then avoid using for/while loops in your code (see CryptoKitties bounty issue #4). These indicate your contract may be unable to scale and gas costs will rise over time without bound.
+
+**Privacy**
+
+Wallets/brokers/auctioneers identified in the motivation section have a strong need to identify which NFTs an owner owns.
+
+It may be interesting to consider a use case where NFTs are not enumerable, such as a private registry of property ownership, or a partially-private registry. However, privacy cannot be attained because an attacker can simply (!) call `ownerOf` for every possible `tokenId`.
+
+**Metadata Choices** (metadata extension)
+
+We have required `name` and `symbol` functions in the metadata extension.
+We remind implementation authors that the empty string is a valid response to name and symbol if you protest to the usage of this mechanism. We also remind everyone that any smart contract can use the same name and symbol as your contract. How a client may determine which NRC-721 smart contracts are well-known (canonical) is outside the scope of this standard.
+
+A mechanism is provided to associate NFTs with URIs. We expect that many implementations will take advantage of this to provide metadata for each NFT. The image size recommendation is taken from Instagram, they probably know much about image usability. The URI MAY be mutable (i.e. it changes from time to time). We considered an NFT representing ownership of a house, in this case metadata about the house (image, occupants, etc.) can naturally change.
+
+
+Metadata is returned as a string value. Currently this is only usable as calling from web3, not from other contracts. This is acceptable because we have not considered a use case where an on-blockchain application would query such information.
+
+Alternatives considered: put all metadata for each asset on the blockchain (too expensive), use URL templates to query metadata parts (URL templates do not work with all URL schemes, especially P2P URLs), multiaddr network address (not mature enough)
+
+
+## NFT implementation
+
+1. Basic Implementaion https://github.com/MIMIEYES/NULS-NRC721-baselib
+2. NRC721Metadata function implementation https://github.com/MIMIEYES/NRC721Metadata
+3. NRC721Enumerable function implementation  https://github.com/MIMIEYES/NRC721Enumerable
+4. NRC721Full function implementation https://github.com/MIMIEYES/NRC721Full
+5. NRC721Receiver function implementation https://github.com/MIMIEYES/NRC721Receiver

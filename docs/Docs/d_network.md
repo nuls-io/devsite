@@ -1,31 +1,31 @@
-# 网络模块设计文档
+ # Network module design document
 
-## 一、总体描述
+## I. Overall description
 
-### 1.1 模块概述
+### 1.1 Module Overview
 
-#### 1.1.1 为什么要有《网络模块》
+#### 1.1.1 Why do you have a Network Module?
 
-网络模块保障了去中心化节点间的通讯，为NULS基础模块之一，提供最底层的网络通信、节点发现等服务。区块链的网络基础就是Peer to  Peer,即P2P。P2P网络中的所有参与者，可以是提供服务（server），也可以是资源使用者（client）。P2P网络的特点：去中心化、可扩展性、健壮性、高性价比、隐私保护、负载均衡。
+The network module guarantees the communication between the decentralized nodes and provides the lowest level of network communication, node discovery and other services for one of the NULS basic modules.The network foundation of the blockchain is Peer to Peer, or P2P.All participants in the P2P network can be either a service server or a resource user.Features of P2P networks: decentralization, scalability, robustness, cost-effectiveness, privacy protection, and load balancing.
 
-#### 1.1.2 《网络模块》要做什么
+#### 1.1.2 What to do with Network Module
 
-网络模块是整个系统的基础模块，用来管理节点、节点间的连接及连接的状态、数据的发送与接收。网络模块不涉及复杂的业务逻辑。
+The network module is the basic module of the entire system, which is used to manage the connection between nodes, nodes and connections, and the transmission and reception of data.Network modules do not involve complex business logic.
 
-* 接收到的网络消息，根据内核模块中的指令服务映射关系，推送消息相应的处理模块中。
+* Received network messages, according to the instruction service mapping relationship in the kernel module, push the corresponding processing module of the message.
 
-* 开放接口供其他模块封装好的消息调用推送到指定的peer节点以及广播到指定的网络组中。
+* The open interface is used to push the message calls encapsulated by other modules to the specified peer node and broadcast to the specified network group.
 
 
-#### 1.1.3 《网络模块》在系统中的定位
+#### 1.1.3 Positioning of the Network Module in the system
 
-* 网络模块是底层应用模块，任何需要网络通讯的模块都要通过网络模块来进行消息的收发。
-* 网络模块依赖核心模块进行服务接口的治理。
-* 网络模块按网络id（魔法参数） 来进行不同网络的构建。
-* 网络模块在主网链中的节点在进行跨链网络组建时，需要链管理模块提供跨链配置信息。
-* 网络模块在平行链中的节点在进行跨链网络组建时，需要跨链模块提供跨链配置信息。
+* The network module is the underlying application module. Any module that needs network communication must send and receive messages through the network module.
+* The network module relies on the core module for governance of the service interface.
+* The network module builds different networks by network id (magic parameter).
+* When the nodes of the network module in the main network chain are configured for cross-chain networking, the chain management module is required to provide cross-chain configuration information.
+* When a node in a parallel chain of a network module is configured for a cross-chain network, cross-chain configuration information is required for the cross-chain module.
 
-### 1.2 架构图
+### 1.2 Architecture
 
 
 
@@ -33,145 +33,145 @@
 
 
 
-## 二、功能设计
+## II, functional design
 
-### 2.1 功能架构图
+### 2.1 Functional Architecture
 
-   网络模块在业务上功能有：节点管理，节点组管理，p2p网络连接管理，消息的收发管理。
+   The network module has functions in the business: node management, node group management, p2p network connection management, and message transmission and management.
 
-   在内部基础功能含有:模块的状态管理（包含启动与关闭管理），对外的接口提供管理，
+   The internal infrastructure functions include: state management of the module (including startup and shutdown management), and management of external interfaces.
 
-  线程任务管理，数据存储管理等。
+  Thread task management, data storage management, etc.
 
 ![](./image/network-module/network-functions.png)
 
-- 节点管理 Node management 
+- Node management 
 
-  管理所有可连接的、已连接的节点信息、状态，提供节点操作接口
+  Manage all connectable, connected node information, status, and provide node operation interfaces
 
-  - 节点发现
-  - 节点存储
+  - Node discovery
+  - Node storage
 
-- 节点组管理 Node Group management
+- Node Group Management
 
-  管理不同的网络节点，将节点分为不同的集合，每个集合分别管理。每个集合内的节点连接的魔法参数都是相同的，并且和其他集合的魔法参数不同。
+  Manage different network nodes, divide nodes into different collections, and manage each collection separately.The magic parameters of the nodes connected in each set are the same and different from the magic parameters of other sets.
 
-  每个NodeGroup都根据链登记的信息或者自身配置的网络信息进行初始化（魔法参数、节点数量限制等）
+  Each NodeGroup is initialized according to the information registered in the chain or the network information configured by itself (magic parameters, number of nodes, etc.)
 
-  每初始化一个NodeGroup，网络服务都多监听一个MagicNumber。
+  Each time a NodeGroup is initialized, the network service listens for a MagicNumber.
 
-- 连接器管理 Connection management
+- Connector Management Connection management
 
-  - 初始化连接
-    - 链内节点：初始通过种子节点进行连接，通过协议请求peer地址或接收到分享的peer地址后，进行缓存。
-    - 跨链节点：主网被动等待平行链节点的连接。
-  - 连接管理：需要进行节点的可用性探测，心跳维护，有多余可用节点时候，断开种子节点连接。
-  - 连接断开
+  - Initialize the connection
+    - Intra-chain node: Initially connect through the seed node, request the peer address through the protocol or receive the shared peer address, and then cache.
+    - Cross-chain nodes: The primary network passively waits for the connection of parallel chain nodes.
+  - Connection management: Need to perform node availability detection, heartbeat maintenance, and disconnect the seed node when there are redundant nodes available.
+  - Disconnect
 
-- 消息收发管理
+- Messaging management
 
-  1>消息接收 Message receiver
+  1>Message receiving Message receiver
 
-  接收网络节点发送过来的消息，对消息进行判断（判断cmd），根据消息cmd字段，将消息透传到对应的模块服务中。
+  Receiving the message sent by the network node, judging the message (determining cmd), and transparently transmitting the message to the corresponding module service according to the message cmd field.
 
-​      2>  消息发送 Message sender
+2> Message Sending Message sender
 
-​                  a> 对网络组(NodeGroup)广播消息
+a> Broadcast messages to the network group (NodeGroup)
 
-​                  b> 指定peer节点发送消息
+b> Specify the peer node to send messages
 
-- 模块状态管理
+- Module status management
 
-  ​       a>启动，关闭逻辑处理
+  a> start, close the logic processing
 
-​              b>对自身模块状态的维护与管理：管理模块的运行状态，内部功能状态等
+b>Maintenance and management of the status of its own module: management module operation status, internal function status, etc.
 
-​        
+        
 
-- 接口管理
+- Interface management
 
-  a>注册自身接口到NUSTAR模块中
+  a>Register your own interface to the NUSTAR module
 
-  b>同步模块信息与状态到NUSTAR模块中 
+  b> Synchronize module information and status to the NUSTAR module 
 
-  c>获取服务列表到本地模块
+  c>Get the service list to the local module
 
-  d>开放对外接口调用
+  d> open external interface call
 
-- 线程任务管理
+- Thread task management
 
-  a>管理 心跳线程
+  a>Manage heartbeat threads
 
-  b>管理 节点发现/淘汰机制线程
+  b> management node discovery / elimination mechanism thread
 
   
 
-### 2.2 模块服务
+### 2.2 Module Service
 
-#### 2.2.1 网络消息接收
+#### 2.2.1 Network Message Reception
 
-* 功能说明：
+* Function Description:
 
-    接收（外部）网络节点发送过来的消息，对消息进行简单的判断（判断魔法参数），根据消息头含有的command字段，将消息发送到关心的模块服务中。
+    Receiving the message sent by the (external) network node, making a simple judgment on the message (determining the magic parameter), and sending the message to the module service of interest according to the command field contained in the message header.
 
-* 流程描述
+* Process description
 
   ![](./image/network-module/recMessage2.png)
 
-* 消息校验部分：
+* Message verification part:
 
-​        payload校验
+Payload check
 
-​        magicNumber校验
+magicNumber check
 
-* 外部模块提供的接口参数约束
+* Interface parameter constraints provided by external modules
 
-   - method : ***  //同消息头中的CMD指令，约束12字节
+   - method : *** // Same CMD instruction in the message header, constraining 12 bytes
 
    - params
 
 ```
-    0：chainId //链id
-    1：nodeId //节点Id
-    2：message //16进制网络序消息体
+    0: chainId //chain id
+    1:nodeId //nodeId
+    2: message // hexadecimal network sequence message body
     ......
 ```
 
-- 依赖服务
+- Dependent service
 
-​        解析消息头中的command参数，在调用远程接口处理时，依赖内核模块提供的远程的服务接口数据。
+Parsing the command parameter in the message header, relying on the remote service interface data provided by the kernel module when calling the remote interface processing.
 
-  #### 2.2.2网络消息发送
+  #### 2.2.2 Network Message Sending
 
-转发 其他或自身模块封装的消息，含广播消息以及指定节点发送消息。
+Forwards messages encapsulated by other or own modules, including broadcast messages and designated nodes to send messages.
 
-##### 2.2.2.1、广播网络消息
+##### 2.2.2.1, Broadcast Network Message
 
-功能说明：
+Function Description:
 
-   转发 其他或自身模块封装的消息，对外部模块提供转发调用的接口有以下2种情况：
+   Forwarding messages encapsulated by other or own modules, the interface that provides forwarding calls to external modules has the following two cases:
 
-  a> 对NodeGroup（指定某个网络）广播消息。
+  a> Broadcast a message to a NodeGroup (specify a network).
 
-  b> 对NodeGroup（指定某个网络）广播消息，并排除某些节点。
+  b> Broadcast messages to the NodeGroup (specify a network) and exclude certain nodes.
 
-  c> 对NodeGroup（指定某个网络）按指定比例广播消息，并排除某些节点。
+  c> Broadcast a message to the NodeGroup (specify a network) in a specified proportion and exclude certain nodes.
 
-- 流程描述
+- Process description
 
 
 
   ![](./image/network-module/sendMsg1.png)
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
     method : nw_broadcast
 
-    外部模块可以通过该接口去广播消息
+    External modules can broadcast messages through this interface
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -184,18 +184,18 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter    | required | type    |         description         |
     | ----- | ------------ | -------- | ------- | :-------------------------: |
-    | 0     | chainId      | true     | int     |           链标识            |
-    | 1     | excludeNodes | true     | String  |      排除节点,逗号分割      |
-    | 2     | messageBody  | true     | String  |       对象16进制字符        |
-    | 3     | command      | true     | String  |        消息协议指令         |
-    | 4     | isCross      | true     | boolean |         是否是跨链          |
-    | 5     | percent      | false    | int     | 广播发送比例,不填写,默认100 |
+    | 0 | chainId | true | int |
+    | 1 | excludeNodes | true | String | Exclude nodes, comma split |
+    | 2 | messageBody | true | String | Object hexadecimal characters |
+    | 3 | command | true | String | Message Protocol Instructions |
+    | 4 | isCross | true | boolean | Whether it is a cross-chain |
+    | 5 | percent | false | int | Broadcast transmission ratio, do not fill, default 100 |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -223,38 +223,38 @@
     ```
 
 
-- 依赖服务
+- Dependent service
 
-  无
+  no
 
-##### 2.2.2.2、指定节点发送网络消息
+##### 2.2.2.2, the specified node sends a network message
 
-功能说明：
+Function Description:
 
-转发 其他或自身模块封装的消息，可以指定某些节点（可以为1个节点）发送消息。
+Forwarding messages encapsulated by other or own modules, you can specify that certain nodes (which can be 1 node) send messages.
 
-- 流程描述
+- Process description
 
   ![](./image/network-module/sendMsg2.png)
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    外部模块可以通过该接口去广播消息
+    External modules can broadcast messages through this interface
 
     method : nw_sendPeersMsg
 
   ```
-  @Parameter(parameterName = "chainId", requestType = @TypeDescriptor(value = int.class), parameterValidRange = "[1-65535]", parameterDes = "连接的链Id,取值区间[1-65535]"),
-  @Parameter(parameterName = "nodes", requestType = @TypeDescriptor(value = String.class), parameterDes = "指定发送peer节点Id，用逗号拼接的字符串"),
-  @Parameter(parameterName = "messageBody", requestType = @TypeDescriptor(value = String.class), parameterDes = "消息体Hex"),
-  @Parameter(parameterName = "command", requestType = @TypeDescriptor(value = String.class), parameterDes = "消息协议指令")
+  @Parameter(parameterName = "chainId", requestType = @TypeDescriptor(value = int.class), parameterValidRange = "[1-65535]", parameterDes = "linked chain Id, value range [1-65535]"),
+  @Parameter(parameterName = "nodes", requestType = @TypeDescriptor(value = String.class), parameterDes = "specify the send peer node Id, a comma-separated string"),
+  @Parameter(parameterName = "messageBody", requestType = @TypeDescriptor(value = String.class), parameterDes = "message body Hex"),
+  @Parameter(parameterName = "command", requestType = @TypeDescriptor(value = String.class), parameterDes = "message protocol directive")
   ```
 
   
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -265,16 +265,16 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter   | required | type   |    description    |
     | ----- | ----------- | -------- | ------ | :---------------: |
-    | 0     | chainId     | true     | int    |      链标识       |
-    | 1     | nodes       | true     | String | 发送节点,逗号分割 |
-    | 2     | messageBody | true     | String |    16进制字符     |
-    |       | command     | true     | String |       指令        |
+    | 0 | chainId | true | int |
+    | 1 | nodes | true | String | Send node, comma split |
+    | 2 | messageBody | true | String | hexadecimal characters |
+    | | command | true | String |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -299,79 +299,79 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type | description |
     | --------- | ---- | ----------- |
     |           |      |             |
 
-- 依赖服务
+- Dependent service
 
-  无
+  no
 
-#### 2.2.3 创建节点组
+#### 2.2.3 Creating a Node Group
 
-主网链除了自身网络，还存在n个跨链网络，自身网络与跨链网络使用不同的magicNumber.
+In addition to its own network, the main network chain also has n cross-chain networks, and its own network and cross-chain network use different magicNumber.
 
-平行链上除了自身网络，还可以去主网上注册跨链网络，自身网络与跨链网络使用同一个magicNumber。
+In addition to its own network, the parallel chain can also register the cross-chain network on the main network, and its own network and the cross-chain network use the same magicNumber.
 
-节点组就是用来管理不同网络信息的。网络模块通过节点组去隔离维护不同网络。
+Node groups are used to manage different network information.The network module isolates and maintains different networks through node groups.
 
-节点组类型：1>自身网络 2>跨链网络 (主网链跨链网络&平行链跨链网络)
+Node group type: 1> own network 2> cross-chain network (main network chain cross-chain network & parallel chain cross-chain network)
 
-网络模块的创建节点组:
+Create a node group for the network module:
 
-1>自身的配置文件加载创建自身网络组。
+1> The own configuration file is loaded to create its own network group.
 
-2>跨链网络：
+2> Cross-chain network:
 
-​    作为主网链节点，平行链向链管理模块进行注册登记后，系统产生交易验证确认后调用网络模块，产生跨链网络组，之后存储配置，后续模块启动自动加载。
+As the main network link node, after the parallel chain registers with the chain management module, the system generates a transaction verification confirmation and then calls the network module to generate a cross-chain network group, and then stores the configuration, and the subsequent modules start automatic loading.
 
-​    作为平行链节点，由跨链协议模块启动时，跨链协议模块从模块配置中获取跨链配置信息，调用网络模块，
+As a parallel chain node, when started by the cross-chain protocol module, the cross-chain protocol module obtains cross-chain configuration information from the module configuration, and invokes the network module.
 
-网络模块触发跨链 连接。
+The network module triggers a cross-chain connection.
 
-##### 2.2.3.1  自有网络创建节点组
+##### 2.2.3.1 Creating a Node Group from Your Own Network
 
-- 功能说明：
+- Function Description:
 
-    自有网络对应自有chainId，以及一个魔法参数，通过配置初始化创建节点组
+    The own network corresponds to its own chainId, and a magic parameter, through the configuration initialization to create a node group
 
-* 流程描述
+* Process description
 
-   通过配置文件加载创建节点组
+   Create a node group by configuration file loading
 
-* 接口定义
+* Interface definition
 
-​        内部创建，无外部接口。
+Created internally, no external interface.
 
-- 依赖服务
+- Dependent service
 
-​        无
+No
 
-##### 2.2.3.2  创建跨链节点组
+##### 2.2.3.2 Creating a cross-chain node group
 
-- 功能说明：
+- Function Description:
 
-  主网链上的跨链节点组由平行链在主网链进行跨链注册触发。平行链则获得跨链配置信息，由跨链协议来更新自有网络组的跨链状态。
+  The cross-chain node group on the main network chain is triggered by the parallel chain registration in the main network chain.The parallel chain obtains cross-chain configuration information, and the cross-chain status of the own network group is updated by the cross-chain protocol.
 
-* 流程描述
+* Process description
 
-  1>主网链通过 链管理模块调用来触发跨链节点组的创建。
+  1> The main network chain is triggered by the chain management module to trigger the creation of a cross-link node group.
 
-  2>平行链通过跨链协议模块来 更新自有网络组的跨链状态。
+  2> Parallel chains update the cross-chain status of their own network groups through the cross-chain protocol module.
 
  ![](./image/network-module/createNodeGroup.png)
 
-* 接口定义
+* Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    接收外部模块的调用，创建节点组
+    Receive a call to an external module to create a node group
 
     method : nw_createNodeGroup
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -385,19 +385,19 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter         | required | type    |                   description                    |
     | ----- | ----------------- | -------- | ------- | :----------------------------------------------: |
-    | 0     | chainId           | true     | int     |                      链标识                      |
-    | 1     | magicNumber       | true     | long    |                     魔法参数                     |
-    | 2     | maxOut            | true     | int     |                  最大主动连接数                  |
-    | 3     | maxIn             | true     | int     |                  最大被动连接数                  |
-    | 4     | minAvailableCount | true     | int     |                  友链最小连接数                  |
-    | 5     | seedIps           | true     | String  |                种子节点，逗号分割                |
-    | 6     | isMoonNode        | true     | boolean | 是否创建跨链连接组:true 跨链连接，false 普通连接 |
+    | 0 | chainId | true | int |
+    | 1 | magicNumber | true | long | Magic Parameters |
+    | 2 | maxOut | true | int | Maximum active connections |
+    | 3 | maxIn | true | int | Maximum Passive Connections |
+    | 4 | minAvailableCount | true | int | Minimum number of connections in the friend chain |
+    | 5 | seedIps | true | String | seed node, comma split |
+    | 6 | isMoonNode | true | boolean | Whether to create a cross-chain connection group: true cross-chain connection, false normal connection |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -422,40 +422,40 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type | description |
     | --------- | ---- | ----------- |
     |           |      |             |
 
 
-- 依赖服务
+- Dependent service
 
-​       依赖内核模块提供的远程的服务接口数据。
+Relies on remote service interface data provided by the kernel module.
 
-​     
+     
 
-#### 2.2.4 注销节点组
+#### 2.2.4 Logging out the node group
 
-- 功能说明：
+- Function Description:
 
-  接收外部模块的调用，注销跨链节点组。
+  Receive calls from external modules, unregistering cross-chain node groups.
 
-  作为主网链节点，由链管理模块进行注销登记，系统产生交易验证确认后调用。
+  As the main network link node, the chain management module performs deregistration, and the system generates a transaction verification confirmation and then calls it.
 
-- 流程描述
+- Process description
 
    ![](./image/network-module/deleteNodeGroup2.png)
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    接收外部模块的调用，删除节点组
+    Receive calls from external modules, delete node groups
 
     method : nw_delNodeGroup
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -463,13 +463,13 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type | description |
     | ----- | --------- | -------- | ---- | :---------: |
-    | 0     | chainId   | true     | int  |   链标识    |
+    | 0 | chainId | true | int |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -494,7 +494,7 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type | description |
     | --------- | ---- | ----------- |
@@ -502,31 +502,31 @@
 
  
 
-- 依赖服务
+- Dependent service
 
-  依赖内核模块提供的远程的服务接口数据。
+  Relies on remote service interface data provided by the kernel module.
 
 
 
-#### 2.2.5 跨链种子节点提供
+#### 2.2.5 Cross-chain seed node provides
 
-- 功能说明：
+- Function Description:
 
-  种子节点是在网络初始化时候，用于提供peer连接信息的节点。链管理模块在进行链注册时，需要获取主网链上跨链种子节点信息用于初始化连接。
+  The seed node is a node used to provide peer connection information when the network is initialized.When performing chain registration, the chain management module needs to obtain information about the cross-chain seed nodes on the primary network chain for initializing the connection.
 
-- 流程描述
+- Process description
 
-   无
+   no
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    获取卫星链种子节点
+    Obtain satellite chain seed node
 
     method : nw_getSeeds
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -534,13 +534,13 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type | description |
     | ----- | --------- | -------- | ---- | :---------: |
-    | 0     | chainId   | true     | int  |   链标识    |
+    | 0 | chainId | true | int |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -565,37 +565,37 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type   | description          |
     | --------- | ------ | -------------------- |
-    | seedsIps  | String | 种子节点信息逗号分割 |
+    | seedsIps | String | Seed Node Information Comma Separation |
 
-- 依赖服务
+- Dependent service
 
-  依赖内核模块提供的远程的服务接口数据。
+  Relies on remote service interface data provided by the kernel module.
 
 
 
-#### 2.2.6 添加连接节点
+#### 2.2.6 Adding a connection node
 
-- 功能说明：
+- Function Description:
 
-  cmd指令下，对某个网络添加peer连接信息。
+  Under the cmd command, add peer connection information to a network.
 
-- 流程描述
+- Process description
 
-  添加的节点会触发网络连接 流程。
+  The added node triggers the network connection process.
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    添加网络peer节点
+    Add network peer node
 
     method : nw_addNodes
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -605,15 +605,15 @@
            }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type   |        description        |
     | ----- | --------- | -------- | ------ | :-----------------------: |
-    | 0     | chainId   | true     | int    |          链标识           |
-    | 1     | isCross   | true     | int    | 是否跨链：0 非跨链，1跨链 |
-    | 2     | nodes     | true     | String |          节点组           |
+    | 0 | chainId | true | int |
+    | 1 | isCross | true | int | Whether cross-chain: 0 non-cross-chain, 1 cross-chain |
+    | 2 | nodes | true | String | Node Group |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -638,38 +638,38 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type | description |
     | --------- | ---- | ----------- |
     |           |      |             |
 
-- 依赖服务
+- Dependent service
 
-  ​        无
-
-
+  No
 
 
-#### 2.2.7 删除连接节点
 
-- 功能说明：
 
-  cmd指令下，删除某个网络下的peers连接信息。
+#### 2.2.7 Deleting Connection Nodes
 
-- 流程描述
+- Function Description:
 
-  删除节点会触发 网络节点的断开。
+  Under the cmd command, delete the peers connection information under a certain network.
 
-- 接口定义
+- Process description
 
-  - 接口说明
+  Deleting a node triggers the disconnection of the network node.
 
-    删除网络peer节点
+- Interface definition
+
+  - Interface Description
+
+    Delete network peer node
 
     method : nw_delNodes
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -678,14 +678,14 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type   | description |
     | ----- | --------- | -------- | ------ | :---------: |
-    | 0     | chainId   | true     | int    |   链标识    |
-    | 1     | nodes     | true     | String |   节点组    |
+    | 0 | chainId | true | int |
+    | 1 | nodes | true | String | Node Group |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -710,40 +710,40 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type | description |
     | --------- | ---- | ----------- |
     |           |      |             |
 
-- 依赖服务
+- Dependent service
 
-  无
+  no
 
 
-####  2.2.8重连指定网络
+#### 2.2.8 Reconnecting the specified network
 
-- 功能说明：
+- Function Description:
 
-  cmd指令下，对指定的nodeGroup进行网络重新连接
+  Network reconnection of the specified nodeGroup under the cmd command
 
-- 流程描述
+- Process description
 
-  接收指令后，对指定的nodeGroup下的所有peer进行断连接后，重新连接网络。
+  After receiving the command, disconnect all the peers under the specified nodeGroup and reconnect to the network.
 
-  重新刷新nodegroup下peer 连接地址 ，并重启网络连接。
+  Refresh the peer connection address under nodegroup and restart the network connection.
 
-  如果peer连接 为多个 网络业务所有，则只需要取消关联关系，如果只有自身业务使用，则可以断开连接。
+  If the peer connection is owned by multiple network services, you only need to cancel the association. If only the service is used, you can disconnect.
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    重新刷新并连接网络节点
+    Refresh and connect to the network node
 
     method : nw_reconnect
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -751,13 +751,13 @@
         }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type | description |
     | ----- | --------- | -------- | ---- | :---------: |
-    | 0     | chainId   | true     | int  |   链标识    |
+    | 0 | chainId | true | int |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -782,36 +782,36 @@
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter | type | description |
     | --------- | ---- | ----------- |
     |           |      |             |
 
-- 依赖服务
+- Dependent service
 
-  无
+  no
 
 
-#### 2.2.9 获取nodeGroup列表
+#### 2.2.9 Get the list of nodeGroup
 
-- 功能说明：
+- Function Description:
 
-  获取节点管理的所有网络列表。
+  Get a list of all networks managed by the node.
 
-- 流程描述
+- Process description
 
-  无
+  no
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    获取节点组信息
+    Get node group information
 
     method : nw_getGroups
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -820,14 +820,14 @@
      }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type | description |
     | ----- | --------- | -------- | ---- | :---------: |
-    | 0     | startPage | true     | int  |  开始页数   |
-    | 1     | pageSize  | true     | int  | 每页记录数  |
+    | 0 | startPage | true | int | Start Pages |
+    | 1 | pageSize | true | int | Number of records per page |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -848,55 +848,55 @@
         "code":0,
         "result":{
             list:[{
-                chainId：1212, //链id
-                magicNumber：324234,//魔法参数
-                totalCount：2323, //总连接数
-                inCount：22,   //被动连接数
-                outCount：33,  //主动连接数
-                isActive：1，//0未激活，1 已激活
-                isCrossChain:1 //0不是跨链网络，1跨链网络
+                chainId: 1212, //chain id
+                magicNumber: 324234, / / magic parameters
+                totalCount: 2323, // total number of connections
+                inCount: 22, //passive connections
+                outCount: 33, //active connections
+                isActive: 1, / / 0 is not activated, 1 is activated
+                isCrossChain: 1 //0 is not a cross-chain network, 1 cross-chain network
                 },{}
                 ]
         }
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter    | type | description              |
     | ------------ | ---- | ------------------------ |
-    | chainId      | int  | 链id                     |
-    | magicNumber  | int  | 魔法参数                 |
-    | totalCount   | int  | 总连接数                 |
-    | inCount      | int  | 被动连接数               |
-    | outCount     | int  | 主动连接数               |
-    | isActive     | int  | 0未激活，1 已激活        |
-    | isCrossChain | int  | 0不是跨链网络，1跨链网络 |
+    | chainId | int | chain id |
+    | magicNumber | int | Magic Parameters |
+    | totalCount | int | Total connections |
+    | inCount | int | Passive Connections |
+    | outCount | int | Active Connections |
+    | isActive | int | 0 is inactive, 1 is activated |
+    | isCrossChain | int | 0 is not a cross-chain network, 1 cross-chain network |
 
-- 依赖服务
+- Dependent service
 
-​        无
+No
 
 
-#### 2.2.10 获取指定nodeGroup下的连接信息
+#### 2.2.10 Get the connection information under the specified nodeGroup
 
-- 功能说明：
+- Function Description:
 
-  获取指定的网络id下所有节点的信息
+  Get information about all nodes under the specified network id
 
-- 流程描述
+- Process description
 
-  无
+  no
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    获取节点信息
+    Get node information
 
     method : nw_getNodes
 
-  - 请求示例
+  - Request example
 
   ```
   {
@@ -908,17 +908,17 @@
   }
   ```
 
-  - 请求参数说明
+  - Request parameter description
 
   | index | parameter | required | type |          description          |
   | ----- | --------- | -------- | ---- | :---------------------------: |
-  | 0     | chainId   | true     | int  |            网络id             |
-  | 1     | state     | true     | int  | 0所有链接，1已连接，2 未 连接 |
-  | 2     | isCross   | true     | int  |      0普通连接 1跨链连接      |
-  | 3     | startPage | true     | int  |           开始页数            |
-  | 4     | pageSize  | true     | int  |          每页记录数           |
+  | 0 | chainId | true | int | network id |
+  | 1 | state | true | int | 0 all links, 1 connected, 2 not connected |
+  | 2 | isCross | true | int | 0 Normal Connection 1 Cross-Chain Connection |
+  | 3 | startPage | true | int | Start Pages |
+  | 4 | pageSize | true | int | Number of records per page |
 
-  - 返回示例
+  - Return to example
 
   Failed
 
@@ -941,17 +941,17 @@
    "msg" :"xxxxxxxxxxxxxxxxxx",
    "result":{
          list:[{
-                  chainId：122,//链id
+                  chainId: 122, / / chain id
                   nodeId:"20.20.30.10:9902"
-                  magicNumber：134124,//魔法参数
-                  blockHeight：6000,   //区块高度
+                  magicNumber: 134124, / / magic parameters
+                  blockHeight: 6000, //block height
                   blockHash："0020ba3f3f637ef53d025d3a8972462c00e84d9
-                       ea1a960f207778150ffb9f2c173ff",  //区块Hash值
-                  ip："200.25.36.41",//ip地址
+                       Ea1a960f207778150ffb9f2c173ff", //block hash value
+                  Ip: "200.25.36.41", / / ip address
                   port：54,//
-                  state："已连接",
-                  isOut："1", //0被动连接，1主动连接
-                  time："6449878789", //最近连接时间
+                  State: "connected",
+                  isOut: "1", //0 passive connection, 1 active connection
+                  Time: "6449878789", // recent connection time
   	     },{}
   	     ]
       }
@@ -961,50 +961,50 @@
 
 
 
-  - 返回字段说明
+  - Return field description
 
 
 
 | parameter   | type   | description              |
 | ----------- | ------ | ------------------------ |
-| chainId     | int    | 链id                     |
-| nodeId      | String | 节点id                   |
-| magicNumber | int    | 魔法参数                 |
-| blockHeight | long   | 最新区块高度             |
-| blockHash   | String | 最新区块hash             |
-| ip          | String | ip地址                   |
-| port        | int    | 端口号                   |
-| state       | int    | 连接状态 1 连接 0 未连接 |
-| isOut       | int    | 0被动连接，1主动连接     |
-| time        | long   | 最近连接时间             |
+| chainId | int | chain id |
+| nodeId | String | node id |
+| magicNumber | int | Magic Parameters |
+| blockHeight | long | Latest block height|
+| blockHash | String | Latest block hash |
+| ip | String | ip address|
+| port | int | port number |
+| state | int | connection state 1 connection 0 not connected |
+| isOut | int | 0 passive connection, 1 active connection |
+| time | long | Recent connection time |
 
  
 
-- 依赖服务
+- Dependent service
 
-无
+no
 
 
 
-#### 2.2.11  获取指定链网络概要信息
+#### 2.2.11 Get the specified chain network summary information
 
-- 功能说明：
+- Function Description:
 
-  获取指定chainId的网络信息。
+  Get the network information of the specified chainId.
 
-- 流程描述
+- Process description
 
-   无
+   no
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    获取链网络信息
+    Get chain network information
 
     method : nw_getGroupByChainId
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -1012,13 +1012,13 @@
      }
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
     | index | parameter | required | type | description |
     | ----- | --------- | -------- | ---- | :---------: |
-    | 0     | chainId   | true     | int  |    链Id     |
+    | 0 | chainId | true | int | Chain Id |
 
-  - 返回示例
+  - Return to example
 
     Failed
 
@@ -1038,72 +1038,72 @@
      "version": 1.2,
         "code":0,
         "result":{
-                "chainId"：1212, //链id
-                "magicNumber"：324234,//魔法参数
-                "totalCount"：2323, //总连接数
-                "connectCount"：44，//已连接数量
-                "disConnectCount"：32，//未连接数量
-                "inCount"：22,   //被动连接数
-                "outCount"：33,  //主动连接数
-                "connectCrossCount"：44，//已连接跨链数量
-                "disConnectCrossCount"：32，//未连接数量
-                "inCrossCount"：22,   //跨链被动连接数
-                "outCrossCount"：33,  //跨链主动连接数
-                "isActive"：1，//0未激活，1 已激活
-                "isCrossActive":1， //0跨链网络未激活，1跨链激活
-                "isMoonNet":0 //0友链 ，1卫星链
+                "chainId": 1212, //chain id
+                "magicNumber": 324234, / / magic parameters
+                "totalCount": 2323, // total number of connections
+                "connectCount": 44, / / connected number
+                "disConnectCount": 32, / / unconnected quantity
+                "inCount": 22, //passive connections
+                "outCount": 33, //active connections
+                "connectCrossCount": 44, / / connected cross-chain number
+                "disConnectCrossCount": 32, / / unconnected quantity
+                "inCrossCount": 22, // cross-chain passive connections
+                "outCrossCount": 33, / / cross-chain active connections
+                "isActive": 1, / / 0 is not activated, 1 is activated
+                "isCrossActive": 1, //0 cross-chain network is not activated, 1 cross-chain activation
+                "isMoonNet": 0 //0 friend chain, 1 satellite chain
                 }
     }
     ```
 
-  - 返回字段说明
+  - Return field description
 
     | parameter            | type | description                |
     | -------------------- | ---- | -------------------------- |
-    | chainId              | int  | 链id                       |
-    | magicNumber          | int  | 魔法参数                   |
-    | totalCount           | int  | 总连接数                   |
-    | connectCount         | int  | 已连接数量                 |
-    | disConnectCount      | int  | 未连接数量                 |
-    | inCount              | int  | 被动连接数                 |
-    | outCount             | int  | 主动连接数                 |
-    | connectCrossCount    | int  | 跨链已连接数量             |
-    | disConnectCrossCount | int  | 跨链未连接数量             |
-    | inCrossCount         | int  | 跨链被动连接数             |
-    | outCrossCount        | int  | 跨链主动连接数             |
-    | isActive             | int  | 0未激活，1 已激活          |
-    | isCrossActive        | int  | 0跨链网络未激活，1跨链激活 |
-    | isMoonNet            | int  | 0友链 ，1卫星链            |
+    | chainId | int | chain id |
+    | magicNumber | int | Magic Parameters |
+    | totalCount | int | Total connections |
+    | connectCount | int | Connected Quantity |
+    | disConnectCount | int | Unconnected Quantity |
+    | inCount | int | Passive Connections |
+    | outCount | int | Active Connections |
+    | connectCrossCount | int | Cross-chain connected number |
+    | disConnectCrossCount | int | Cross-chain unconnected quantity|
+    | inCrossCount | int | Cross-chain passive connections |
+    | outCrossCount | int | Cross-chain active connections |
+    | isActive | int | 0 is inactive, 1 is activated |
+    | isCrossActive | int | 0 cross-chain network not activated, 1 cross-chain activation|
+    | isMoonNet | int | 0Friend Chain, 1 Satellite Chain |
 
-- 依赖服务
+- Dependent service
 
-​        无
+No
 
 
 
-#### 2.2.12 更新peer连接节点的信息（高度&Hash）
+#### 2.2.12 Updating the information of the peer connection node (height & Hash)
 
-  - 功能说明：
+  - Function Description:
 
-    网络连接，在进行握手连接时带有peer节点的高度与Hash值，后续的peer连接节点的高度与Hash值由外部模块（区块管理模块）进行调用更新。
+    The network connection has the height and hash value of the peer node when the handshake connection is made, and the height and hash value of the subsequent peer connection node are called and updated by the external module (block management module).
 
-  - 流程描述
+  - Process description
 
-      1>节点启动时等待 区块管理接口 初始化完成，然后调用区块管理接口获取最新区块高度及hash值。
+      1> Wait for the block management interface to be initialized when the node starts, and then call the block management interface to get the latest block height and hash value.
 
-      2>握手时将节点相关信息放入Verion协议消息中发送到peer端。
+      2> When the handshake is performed, the node related information is put into the Verion protocol message and sent to the peer.
 
-      3>建立连接后，区块管理模块会调用该接口进行最新区块高度与hash值的更新。
+      3> After the connection is established, the block management module will call the interface to update the latest block height and hash value.
 
-  - 接口定义
+  - Interface definition
 
-    - 接口说明
+    - Interface Description
 
-      区块管理模块 调用进行节点的高度与Hash值的更新。
+      The block management module calls to update the height of the node and the hash value.
 
       method : nw_updateNodeInfo
 
-    - 请求示例
+    - Request example
 
       ```
       {
@@ -1118,16 +1118,16 @@
       }
       ```
 
-    - 请求参数说明
+    - Request parameter description
 
     | index | parameter   | required | type   | description  |
     | ----- | ----------- | -------- | ------ | :----------: |
-    | 0     | chainId     | true     | int    |    网络id    |
-    | 1     | nodeId      | true     | String |  网络节点id  |
-    | 2     | blockHeight | true     | long   |   开始页数   |
-    | 3     | blockHash   | true     | String | 区块最新hash |
+    | 0 | chainId | true | int | network id |
+    | 1 | nodeId | true | String | Network Node id |
+    | 2 | blockHeight | true | long | Start Pages |
+    | 3 | blockHash | true | String | Block Latest Hash |
 
-    - 返回示例
+    - Return to example
 
     Failed
 
@@ -1154,37 +1154,37 @@
     }
     
     ```
-    - 返回字段说明
+    - Return field description
 
 | parameter | type | description |
 | --------- | ---- | ----------- |
 |           |      |             |
 
-- 依赖服务
+- Dependent service
 
-​    无
+No
 
-#### 2.2.13 注册网络协议处理器
+#### 2.2.13 Registering Network Protocol Processor
 
-- 功能说明：
+- Function Description:
 
-  网络模块在接收到对端发送过来的消息后，需要根据 消息协议头中的 cmd 来调用对应模块处理。
+  After receiving the message sent by the peer end, the network module needs to call the corresponding module according to the cmd in the message protocol header.
 
-  cmd与模块的映射关系，需要各个模块在启动时候进行提交注册。
+  The mapping relationship between cmd and module requires each module to submit registration at startup.
 
-- 流程描述
+- Process description
 
-  略
+  slightly
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-     注册远程节点间的消息调用指令
+     Registering a message invocation command between remote nodes
 
     method : nw_protocolRegister
 
-  - 请求示例
+  - Request example
 
     ```
     {
@@ -1197,15 +1197,15 @@
     
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
   | index | parameter    | required | type   | description  |
   | ----- | ------------ | -------- | ------ | :----------: |
-  | 0     | role         | true     | String |   模块角色   |
-  | 1     | protocolCmds | true     | array  | 协议指令数组 |
+  | 0 | role | true | String | Module Role |
+  | 1 | protocolCmds | true | array | Protocol Instruction Array |
   |       |              |          |        |              |
 
-  - 返回示例
+  - Return to example
 
   Failed
 
@@ -1226,52 +1226,52 @@
   
   ```
 
-  - 返回字段说明
+  - Return field description
 
     
 
-- 依赖服务
+- Dependent service
 
-​    无
+No
 
-#### 2.2.14 网络时间获取
+#### 2.2.14 Network time acquisition
 
-- 功能说明：
+- Function Description:
 
-   获取网络时间进行本地时间偏差同步。
+   Get network time for local time offset synchronization.
 
-* 流程描述
+* Process description
 
-  网络模块获取网络上若干服务器的时间，进行偏差计算调整。如果网络时间获取失败，则向10个对等节点发出“时间获取协议”获取对等节点时间 进行偏差计算，如果还无法获取，则直接返回本地时间。
+  The network module obtains the time of several servers on the network and performs offset calculation adjustment.If the network time acquisition fails, the time-acquisition protocol is sent to the 10 peer nodes to obtain the peer node time for the deviation calculation. If it is not available, the local time is directly returned.
 
-  说明：定时进行偏差修正。
+  Description: Deviation correction is performed periodically.
 
-- 接口定义
+- Interface definition
 
-  - 接口说明
+  - Interface Description
 
-    获取网络时间
+    Get network time
 
     method : nw_currentTimeMillis
 
-  - 请求示例
+  - Request example
 
     ```
-    RPC 统一格式
+    Rpc unified format
     ```
 
-  - 请求参数说明
+  - Request parameter description
 
   | index | parameter | required | type | description |
   | ----- | --------- | -------- | ---- | :---------: |
   |       |           |          |      |             |
 
-  - 返回示例
+  - Return to example
 
   Failed
 
   ```
-  RPC 统一格式
+  Rpc unified format
   
   ```
 
@@ -1285,361 +1285,361 @@
   
   ```
 
-  - 返回字段说明
+  - Return field description
 
 | parameter         | type | description                    |
 | ----------------- | ---- | ------------------------------ |
-| currentTimeMillis | long | 1970-01-01至今的差值，单位毫秒 |
+| currentTimeMillis | long | 1970-01-01 The difference so far, in milliseconds |
 
-- 依赖服务
+- Dependent service
 
-​    无
+No
 
-### 2.3 模块内部功能
+### 2.3 Module internal function
 
-#### 2.3.1 模块启动
+#### 2.3.1 Module startup
 
-- 功能说明：
+- Function Description:
 
-  模块启动时，进行配置信息的初始化，注册服务初始化，各个内部功能管理数据库信息的初始化等。
+  When the module is started, the configuration information is initialized, the registration service is initialized, and the initialization of each internal function management database information is performed.
 
-- 流程描述
+- Process description
 
-​        ![](./image/network-module/start.png)
+        ![](./image/network-module/start.png)
 
-​       1>本地进行配置数据加载，数据库节点组及节点信息数据加载。
+1> Local configuration data loading, database node group and node information data loading.
 
-​       2>监听区块管理模块的状态进入初始化完成，接口可调用，则调用获取最新本地节点的区块高度与Hash值。
+2> The state of the listening block management module enters the initialization completion, and the interface can be called, and then the block height and the hash value of the latest local node are acquired.
 
-​       3>初始化完成，进入peer节点连接。
+3> Initialization is complete, enter the peer node connection.
 
-​       4>网络模块在启动连接稳定后，可作为事件发送出去。
+4> After the network connection module is stable, it can be sent out as an event.
 
- 网络模块启动连接稳定的判定条件：x秒内 无新的握手连接产生，x秒内无高度的增长。x=10
+ The network module initiates the connection stability determination condition: no new handshake connection occurs in x seconds, and there is no height increase in x seconds.x=10
 
-​     
+     
 
-- 依赖服务
+- Dependent service
 
-  依赖 核心模块，区块管理模块
+  Dependent on core module, block management module
 
-#### 2.3.2 模块关闭
+#### 2.3.2 Module is off
 
-- 功能说明：
+- Function Description:
 
-   模块关闭时，进行连接的关闭，线程管理的关闭，各个资源的释放，并通知状态给核心接口。
+   When the module is closed, the connection is closed, the thread management is closed, the resources are released, and the status is notified to the core interface.
 
-- 流程描述
+- Process description
 
 ![](./image/network-module/shutdown.png)
 
 
 
-- 依赖服务
+- Dependent service
 
-  无
+  no
 
-#### 2.3.3 peer节点发现
+#### 2.3.3 peer node discovery
 
-- 功能说明：
+- Function Description:
 
-  在网络模块启动后，进行peer节点的获取管理。
+  After the network module is started, the peer node is managed.
 
-  节点获取的途径有：
+  The ways for node acquisition are:
 
-  1>连接向种子节点，并请求地址获取。
+  1> Connect to the seed node and request address acquisition.
 
-  2>接收广播过来的节点消息。
+  2> Receive the broadcasted node message.
 
-  2>跨链网络的连接，比如作为主网链上的节点与平行链的连接，或者平行链上的节点与主网链的连接。
+  2> The connection of the cross-chain network, for example, as a connection between a node on the main network chain and a parallel chain, or a connection between a node on the parallel chain and the main network chain.
 
-- 流程描述
+- Process description
 
 ![](./image/network-module/discoverPeer.png)
 
 
 
-- 依赖服务
+- Dependent service
 
-​          无
+No
 
-#### 2.3.4 网络连接
+#### 2.3.4 Network Connection
 
-- 功能说明：
+- Function Description:
 
-   一个节点即作为client端，主动连接已知的peer节点，同时也是server端，等待peer节点的连接。
+   A node acts as the client and actively connects to the known peer node. It is also the server and waits for the peer node to connect.
 
-  一个连接能够正常工作，需要通过握手协议，即互相发送version协议消息，协议具体定义参看下面的
+  A connection can work normally, and it needs to pass the handshake protocol, that is, send each version protocol message. The specific definition of the protocol is as follows.
 
-  “协议-网络通讯协议部分”。
+  "Protocol - Network Communication Protocol Part".
 
-- 流程描述
+- Process description
 
-​        client在与server完成tcp连接后，需要通过业务version协议握手，只有握手成功的连接才能进行业务转发工作。连接中状态在持续X分钟后无法跃迁到已连接，则主动断开连接。
+After the TCP connection is complete with the server, the client needs to handshake through the service version protocol. Only the connection with successful handshake can forward the service.The state in the connection cannot be transitioned to connected after X minutes, and the connection is actively disconnected.
 
-流程中发送version协议（参看协议的version结构体）：
+The version protocol is sent in the process (see the version structure of the protocol):
 
-1>协议携带了节点的信息，包含：协议的版本信息，本端口的最高区块高度，区块hash值，
+1> The protocol carries the information of the node, including: version information of the protocol, the highest block height of the port, the block hash value,
 
-​       对方节点的外网IP，端口，及跨链服务端口，以及本节点的外网IP，端口，及跨链服务端口。
+The external network ip, port, and cross-chain service port of the other node, as well as the external network ip, port, and cross-chain service port of the node.
 
-2>只有通过version协议，才能建立业务连接，否则等待X=1分钟后将断开连接。
+2> The service connection can be established only through the version protocol, otherwise it will be disconnected after waiting for X=1 minutes.
 
 ![](./image/network-module/connection.png)
 
-- 依赖服务
+- Dependent service
 
 
-#### 2.3.5 心跳检测
+#### 2.3.5 Heartbeat Detection
 
-- 功能说明：
+- Function Description:
 
-  检测连接是否还保持连接。通过client与server的ping-pong消息来进行维持保活。涉及的ping-pong协议定义参看“协议-网络通讯协议部分”
+  Check if the connection is still connected.The keep-alive is maintained by the ping-pong message of the client and the server.Refer to the "Protocol - Network Communication Protocol" section for the definition of the ping-pong protocol involved.
 
-- 流程描述
+- Process description
 
 ![](./image/network-module/pingpong.png)
 
 
 
-- 依赖服务
+- Dependent service
 
 
 
-#### 2.3.6 连接数量验证
+#### 2.3.6 Connection Quantity Verification
 
-- 功能说明：
+- Function Description:
 
-  在建立节点连接时，会进行连接数量，如果达到最大值，则主动断开连接。
+  When a node connection is established, the number of connections is made, and if the maximum is reached, the connection is actively disconnected.
 
-  流程描述
+  Process description
 
-​      ![](./image/network-module/connet-validate.png)
-
-
-
-- 依赖服务
+      ![](./image/network-module/connet-validate.png)
 
 
 
-#### 2.3.7 节点的外网IP存储
+- Dependent service
 
-- 功能说明：
 
-​        一个节点可能存在多个网卡，也可能是在某个局域网内，所以在建立连接时，并不知道自己的外网IP地址。
 
-而节点要广播自己的地址供外网peers节点连接，则需要知道自身的外网IP地址。我们的设计中，节点的外网是通过version协议消息进行携带发出的。
+#### 2.3.7 External ip storage of nodes
 
-- 流程描述
+- Function Description:
 
-    在client接收到version消息时，可以知道自己的IP地址信息。
+A node may have multiple network cards, or it may be in a local area network. Therefore, when establishing a connection, it does not know its own external network ip address.
+
+The node needs to know its own external network IP address to broadcast its own address for the external network peers to connect.In our design, the external network of the node is carried by the version protocol message.
+
+- Process description
+
+    When the client receives the version message, it can know its own IP address information.
 
 ![](./image/network-module/saveNodeIp.png)
 
 
 
-- 依赖服务
+- Dependent service
 
 
 
-#### 2.3.8 节点的外网可连接检测
+#### 2.3.8 Node's external network connection detection
 
-- 功能说明：
+- Function Description:
 
-​        一个节点在建立连接时，可以广播自身的外网IP+port，给其他节点。但若一个节点是在某局域网内，则其外网的IP地址是无法直接去连接通的。因此为了检测节点的外网IP是否可用，可以通过自己的client连接自己的server来判断，如果连接成功，则IP可以用于广播，如果不成功则节点外网IP不能广播给其他节点。
+When a node establishes a connection, it can broadcast its own external network IP+port to other nodes.However, if a node is in a local area network, the IP address of its external network cannot be directly connected.Therefore, in order to detect whether the external IP address of the node is available, you can connect to your own server to determine whether the IP address can be used for broadcast. If the connection is successful, the external IP address of the node cannot be broadcast to other nodes.
 
-- 流程描述
+- Process description
 
-  自我连接可能成功，也可能失败，如果成功则说明外网IP是可达的，便可以在建立连接时广播传递给网络中其他节点，如果不可达，则连接无法建立不用处理。
+  Self-connection may succeed or fail. If it is successful, the external network ip is reachable, and it can be broadcasted to other nodes in the network when the connection is established. If it is unreachable, the connection cannot be established without processing.
 
 ![](./image/network-module/connectSelf.png)
 
 
 
-- 依赖服务
+- Dependent service
 
 
-#### 2.3.9 peer节点的广播
+#### 2.3.9 Broadcasting of the peer node
 
-- 功能说明：
+- Function Description:
 
-  将自身节点广播给网络中其他节点，在设计中，我们将通过组网网络稳定后，促发广播自身外网IP。
+  Broadcast its own node to other nodes in the network. In the design, we will promote the broadcast of its external network ip after the network is stabilized.
 
-- 流程描述
+- Process description
 
 
 ![](./image/network-module/connectSelf-recieve.png)
 
 
 
-- 依赖服务
+- Dependent service
 
-#### 2.3.10 请求/回复 getaddr协议消息
+#### 2.3.10 Request/Reply getaddr Protocol Message
 
-  - 功能说明：
+  - Function Description:
 
-     请求地址协议消息，获取更多的网络连接
+     Request an address protocol message for more network connections
 
-  - 流程描述
+  - Process description
 
-     请求getaddr：
+     Request getaddr:
 
-​         1>网络稳定后，广播给peer连接节点，请求可连接地址列表。
+1> After the network is stable, broadcast to the peer connection node to request a list of connectable addresses.
 
-​      回复 getaddr
+Reply getaddr
 
-​       1>peer跨链连接，主网链回复主网nodeGroup 的地址列表（ IP+跨链端口），平行链回复自有链地址列表(IP+跨链端口)
+1>peer cross-chain connection, the main network chain replies to the address list of the main network nodeGroup (IP+cross-chain port), and the parallel chain replies with its own chain address list (IP+cross-chain port)
 
-​       2>peer自有网络连接，节点则回复地址列表（IP+自有链端口）
+2>peer own network connection, the node will reply to the address list (IP+ own chain port)
 
-  - 依赖服务
-
-
-
-####  2.3.11  发送/接收地址逻辑
-
-- 功能说明：
-
-   接收 网络传送的 addr协议消息处理逻辑
-
-- 流程描述
-
-   发送addr：
-
-​       1>在新节点接入时会向同一nodegroup的其他连接peer广播 addr 消息。
-
-​       2> 在请求getaddr消息时，会得到addr消息回复。
-
-​       接收addr：
-
-​       1>判断地址是否本地已经拥有，如果拥有不转发，获取新增的addr。
-
-​       2>接收到的节点要通过 连接验证后，才能进行转发。
-
-- 依赖服务
-
-
-#### 2.3.12 跨链server端口的传递
-
-- 功能说明：
-
-   一个node可以存在2个角色，一个是维护自有的内部链网络。另一个是作为跨链角色维护跨链网络。
-
-  因此在server定义中我们将这2个网络的端口监听进行区分，以便各自相对独立。自有链定义一个serverPort1，跨链部分定义一个serverPort2.
-
-- 流程描述
-
-  如下图，我们主网链网络与平行链网络产生一个跨链连接，当主网链中有个节点2连接上节点1时，是通过内部服务Port1来建立的连接，而节点1是可以将节点2 发送给 友链的节点A与节点B来进行连接，则此时发送给友链的信息中 应该是serverPort2，因此serverPort2需要再主网链的内部交互中进行传递。我们将该部分数据定义在version协议中进行传递。
-
-​      ![](./image/network-module/crossPortDeliver.png)
-
-* 依赖服务
+  - Dependent service
 
 
 
-## 三、事件说明
+#### 2.3.11 Send/Receive Address Logic
 
-### 3.1 发布的事件
+- Function Description:
 
-​      暂无
+   Receiver protocol message processing logic for receiving network transmission
 
-### 3.2 订阅的事件
+- Process description
 
-​       暂无
+   Send addr:
+
+1> When a new node is accessed, an addr message is broadcast to other peers of the same nodegroup.
+
+2> When the getaddr message is requested, the addr message will be replied.
+
+Receive addr:
+
+1> Determine whether the address is already owned locally. If you do not forward it, get the new addr.
+
+2> The received node can be forwarded only after it has been authenticated by the connection.
+
+- Dependent service
 
 
-## 四、协议
+#### 2.3.12 Cross-chain server port delivery
 
-### 4.1 网络通讯协议
+- Function Description:
+
+   A node can have two roles, one is to maintain its own internal chain network.The other is to maintain a cross-chain network as a cross-chain role.
+
+  Therefore, in the server definition, we distinguish the port listeners of the two networks so that they are relatively independent.The own chain defines a serverPort1, and the cross-chain part defines a serverPort2.
+
+- Process description
+
+  As shown in the figure below, our main network chain network and the parallel chain network generate a cross-chain connection. When there is a node 2 in the main network chain connected to node 1, the connection is established through the internal service Port1, and node 1 can be the node 2 The node A sent to the friend chain and the node B are connected, and the information sent to the friend chain at this time should be serverPort2, so the serverPort2 needs to be transferred in the internal interaction of the main network chain.We define this part of the data in the version protocol for delivery.
+
+      ![](./image/network-module/crossPortDeliver.png)
+
+* Dependent service
+
+
+
+## III. Description of the event
+
+### 3.1 Published events
+
+No
+
+### 3.2 Subscribe to events
+
+No
+
+
+## IV. Agreement
+
+### 4.1 Network Communication Protocol
 
 #### version
 
-用于建立连接(握手)
+Used to establish a connection (handshake)
 
 | Length | Fields       | Type     | Remark                                                       |
 | ------ | ------------ | -------- | ------------------------------------------------------------ |
-| 4      | version      | uint32   | 节点使用的协议版本标识                                       |
-| 20     | addr_you     | byte[20] | 对方网络地址【IP+PORT1+PORT2】PORT2为跨链server端口   如：[10.32.12.25  8003  9003]  16byte+2byte+2byte |
-| 20     | addr_me      | byte[20] | 本节点网络地址【IP+PORT1+PORT2】PORT2为跨链server端口   如：[20.32.12.25 7003 6003]    16byte+2byte+2byte |
-| 4      | block_height | uint32   | 节点高度                                                     |
-| ？     | block_hash   | varInt   | 区块hash                                                     |
-| ??     | extend       | VarByte  | 扩展字段，不超过10个字节？                                   |
+| 4 | version | uint32 | Protocol version identifier used by the node |
+| 20 | addr_you | byte[20] | The other party's network address [IP+PORT1+PORT2] PORT2 is a cross-chain server port such as: [10.32.12.25 8003 9003] 16byte+2byte+2byte |
+| 20 | addr_me | byte[20] | The network address of this node [IP+PORT1+PORT2] PORT2 is a cross-chain server port such as: [20.32.12.25 7003 6003] 16byte+2byte+2byte |
+| 4 | block_height | uint32 | Node Height |
+| ? | block_hash | varInt | Block hash |
+| ?? | extend | VarByte | Extended field, no more than 10 bytes? |
 
 #### verack
 
-用于应答version
+Used to answer version
 
 | Length | Fields   | Type  | Remark                           |
 | ------ | -------- | ----- | -------------------------------- |
-| 1      | ack_code | uint8 | 返回码，1代表正常，2代表连接已满 |
+| 1 | ack_code | uint8 | Return code, 1 for normal, 2 for connection is full |
 
 #### ping
 
-用于维护连接，当一段时间未收到某个节点任何信息后，发送该消息，若能得到pong消息的回馈，则节点依然保持连接，否则关闭连接并删除节点
+Used to maintain the connection. After receiving a message for a certain node for a period of time, the message is sent. If the pong message is received, the node remains connected. Otherwise, the connection is closed and the node is deleted.
 
 | Length | Fields     | Type   | Remark |
 | ------ | ---------- | ------ | ------ |
-| 4      | randomCode | uint32 | 随机数 |
+| 4 | randomCode | uint32 | Random Numbers |
 
 #### pong
 
-用于回应ping
+Used to respond to ping
 
 | Length | Fields     | Type   | Remark |
 | ------ | ---------- | ------ | ------ |
-| 4      | randomCode | uint32 | 随机数 |
+| 4 | randomCode | uint32 | Random Numbers |
 
 #### getaddr
 
-用于请求网络中可用节点的连接信息。
+Used to request connection information for available nodes in the network.
 
 | Length | Fields         | Type   | Remark           |
 | ------ | -------------- | ------ | ---------------- |
-| 2      | chainId        | uint16 | 链id             |
-| 1      | isCrossAddress | uint8  | 是否请求跨链地址 |
+| 2 | chainId | uint16 | Chain id |
+| 1 | isCrossAddress | uint8 | Whether to request a cross-chain address |
 
 #### addr
 
-用于应答getaddr，或向网络中宣告自身的存在，节点接收到该消息后，判断节点是否已知，如果是未知节点，则保存，待验证通过后向网络中传播该地址。
+It is used to answer getaddr, or announce its existence to the network. After receiving the message, the node determines whether the node is known. If it is an unknown node, it saves it and propagates the address to the network after it passes the verification.
 
 | Length | Fields    | Type            | Remark                               |
 | ------ | --------- | --------------- | ------------------------------------ |
-| ??     | addr_list | network address | 每个节点18字节（16字节IP+2字节port） |
+| ?? | addr_list | network address | 18 bytes per node (16 bytes IP + 2 bytes port) |
 
 #### bye
 
- 用于对等连接主动断开连接，拒绝服务对端消息业务
+ Used for peer-to-peer connection to actively disconnect, denial of service peer message service
 
 | Length | Fields  | Type  | Remark   |
 | ------ | ------- | ----- | -------- |
-| 1      | byeCode | uint8 | 预留字段 |
+| 1 | byeCode | uint8 | Reserved Fields |
 
 #### getTime
 
- 用于向对等节点获取时间
+ Used to get time from the peer node
 
 | Length | Fields    | Type   | Remark |
 | ------ | --------- | ------ | ------ |
-| 4      | messageId | uint32 | 请求id |
+| 4 | messageId | uint32 | Request id |
 
  
 
 #### responseTime
 
- 回复对等节点时间
+ Reply to peer node time
 
 | Length | Fields    | Type   | Remark |
 | ------ | --------- | ------ | ------ |
-| 4      | messageId | uint32 | 请求id |
-| 4      | time      | uint32 | 时间值 |
+| 4 | messageId | uint32 | Request id |
+| 4 | time | uint32 | Time Value |
 
  
 
-### 4.2 交易协议
+### 4.2 Trading Agreement
 
-​         暂无
+No
 
-## 五、模块配置
+## 五, module configuration
 
 
 
@@ -1647,23 +1647,23 @@
 [network]
 port=18001
 crossPort=18002
-#魔法参数
+#魔法参
 packetMagic=20190807
-#种子节点
+#籽点
 selfSeedIps=39.98.226.51:18001,47.244.186.65:18001,47.254.234.223:18001,47.74.86.85:18001
-#主网的跨链种子连接节点，供平行链初始连接使用
+#Main-network cross-chain seed connection node for initial connection of parallel chain
 moonSeedIps=39.98.226.51:18002,47.244.186.65:18002,47.254.234.223:18002,47.74.86.85:18002
-#最大入网连接数
+#Maximum number of network connections
 maxInCount=100
-#最大出网连接数
+#Maximum number of outgoing connections
 maxOutCount=20
 ```
 
-## 六、Java特有的设计
+## Six, Java-specific design
 
-[^说明]: 核心对象类定义,存储数据结构，......
+[^Description]: Core object class definition, storage data structure, ...
 
-## 七、补充内容
+## VII, supplementary content
 
-[^说明]: 上面未涉及的必须的内容
+[^Description]: Required content not covered above
 

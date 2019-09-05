@@ -1,50 +1,50 @@
-# 协议升级模块设计文档
+# Upgrade module design document
 
 
-## 一、总体描述
+## I. Overall description
 
-### 1.1 模块概述
+### 1.1 Module Overview
 
-#### 1.1.1 为什么要有《协议升级》模块
+#### 1.1.1 Why should I have the "Protocol Upgrade" module?
 
-​	不同的协议版本支持的交易类型、消息类型不同，为了管理区块链网络的版本，需要提供完善的版本管理功能。
+	Different protocol versions support different transaction types and message types. In order to manage the version of the blockchain network, it is necessary to provide complete version management functions.
 
-#### 1.1.2 《协议升级》要做什么
+#### 1.1.2 What to do in the "Agreement Upgrade"
 
-- 解析区块头中的版本信息，进行动态统计、升级、回退
-- 为其他模块提供版本支持的交易类型、消息类型、版本信息查询服务
+- Parse the version information in the block header for dynamic statistics, upgrade, and rollback
+- Provide transaction support types, message types, and version information query services for other modules
 
-#### 1.1.3 《协议升级》在系统中的定位
+#### 1.1.3 Positioning of the "Protocol Upgrade" in the system
 
-协议升级是底层模块之一，以下分功能讨论模块依赖情况
+Protocol upgrade is one of the underlying modules. The following sub-functions discuss module dependencies.
 
-依赖
+rely
 
-* 区块管理模块-初始化本地协议版本信息
+* Block Management Module - Initialize Local Protocol Version Information
 
-被依赖
+Be dependent
 
-* 所有关心消息处理、交易处理的模块
+* All modules that care about message processing and transaction processing
 
-### 1.2 架构图
+### 1.2 Architecture
 
-​	补充图片
+	Supplementary picture
 
-## 二、功能设计
+## II, functional design
 
-### 2.1 功能架构图
+### 2.1 Functional Architecture
 
-​	补充图片
+	Supplementary picture
 
-### 2.2 模块服务
+### 2.2 Module Service
 
-#### 2.2.1 获取当前主网版本信息
+#### 2.2.1 Obtaining the current main network version information
 
-* 接口说明
+* Interface Description
 
-  根据链ID查询DB得到主网版本信息
+  According to the chain id query db to get the main network version information
 
-* 请求示例
+* Request example
 
     ```
     {
@@ -54,13 +54,13 @@
     }
     ```
 
-* 请求参数说明
+* Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
+| 0 | chainId | true | Long | Chain ID |
 
-* 返回示例
+* Return example
 
     Failed
 
@@ -84,32 +84,32 @@
             "versionInfo": {
                 "major": "1",
                 "minor": "1",
-                "percent": "80",//固定值
-                "slice": "100",//固定值
-                "waitCount": "240"//固定值
+                "percent": "80", / / fixed value
+                "slice": "100", / / fixed value
+                "waitCount": "240"//fixed value
             }
         }
     }
     ```
 
-* 返回字段说明
+* Return field description
   
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| chainId      | Integer | 链ID                                |
-| major | Integer | 主版本号                          |
-| minor | Integer | 次版本号                          |
-| percent | Integer | 有效比例                          |
-| slice | Integer | 最小统计片断长度                    |
-| waitCount | Integer    | 连续确认次数                        |
+| chainId | Integer | Chain ID |
+Major | Integer | Major version number |
+| minor | Integer | Minor version number|
+| percent | Integer | Effective Ratio |
+| slice | Integer | Minimum statistical fragment length |
+| waitCount | Integer | Continuous Confirmation Times |
 
-#### 2.2.2 获取当前本地版本信息
+#### 2.2.2 Obtaining Current Local Version Information
 
-* 接口说明
+* Interface Description
 
-  根据链ID查询DB得到本地版本信息
+  According to the chain id query db to get local version information
 
-* 请求示例
+* Request example
 
     ```
     {
@@ -119,13 +119,13 @@
     }
     ```
 
-* 请求参数说明
+* Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
+| 0 | chainId | true | Long | Chain ID |
 
-* 返回示例 
+* Return example 
 
     Failed
 
@@ -157,17 +157,17 @@
     }
     ```
 
-* 返回字段说明
+* Return field description
 
-    参考2.2.1
+    Reference 2.2.1
 
-    #### 2.2.3 根据区块高度获取版本统计信息
+    #### 2.2.3 Get version statistics based on block height
 
-    - 接口说明
+    - Interface Description
 
-      根据链ID查询DB得到本地版本信息
+      According to the chain id query db to get local version information
 
-    - 请求示例
+    - Request example
 
       ```
       {
@@ -177,14 +177,14 @@
       }
       ```
 
-    - 请求参数说明
+    - Request parameter description
 
     | index | parameter | required | type | description |
     | ----- | --------- | -------- | ---- | :---------: |
-    | 0     | chainId   | true     | Long |    链ID     |
-    | 1     | height    | true     | Long |  区块高度   |
+    | 0 | chainId | true | Long | Chain ID |
+    | 1 | height | true | Long | Block Height |
 
-    - 返回示例 
+    - Return to example 
 
       Failed
 
@@ -216,84 +216,62 @@
       }
       ```
 
-    - 返回字段说明
+    - Return field description
 
-      参考2.2.1
+      Reference 2.2.1
 
-### 2.3 模块内部功能
+### 2.3 Module internal function
 
-#### 2.3.1 模块启动
+#### 2.3.1 Module startup
 
-* 功能说明:
+* Function Description:
 
-  启动协议升级模块
+  Startup protocol upgrade module
 
-* 流程描述
+* Process description
 
-  补充图片
+  Supplementary picture
 
-  1.RPC服务初始化
+  1.rpc service initialization
 
-  2.初始化通用数据库
+  2. Initialize the general database
 
-  3.加载配置信息
+  3. Load configuration information
 
-  4.初始化各链数据库
+  4. Initialize each chain database
 
-  5.等待依赖模块就绪
-* 依赖服务
+  5. Wait for the dependency module to be ready
+* Dependent service
 
-  工具模块、内核模块
+  Tool module, kernel module
 
-#### 2.3.2 版本升级
+#### 2.3.2 Version Upgrade
 
-* 功能说明:
+* Function Description:
 
-    每保存一个区块或者回滚一个区块时，都会读取区块头中的版本号，动态统计版本比例信息，决定是否进行协议升级。主版本号不允许跨版本升级，次版本号允许跨版本升级
+    Each time a block is saved or a block is rolled back, the version number in the block header is read, and the version ratio information is dynamically counted to determine whether to perform protocol upgrade.The major version number does not allow cross-version upgrades, and the minor version number allows cross-version upgrades
 
-* 流程描述
+* Process description
 
-    每100个区块为一个统计区间，统计区块头中版本号的分布比例，并且保存到数据库(key=height, value=版本信息，连续确认次数等等)
+    Each 100 blocks is a statistical interval, and the distribution ratio of the version number in the head of the block is counted and saved to the database (key=height, value=version information, consecutive confirmation times, etc.)
 
-    - 版本占比大于某个阈值(必须大于50%)时，就能确定该统计区间内的版本号，当连续260个统计区间内的占比最大版本号保持连续时，主网执行协议升级。
+    - When the version ratio is greater than a certain threshold (must be greater than 50%), the version number in the statistical interval can be determined. When the maximum version number in consecutive 260 statistical intervals remains continuous, the main network performs protocol upgrade.
 
-    - 如果没有版本号占比大于阈值，沿用当前生效版本号作为当前区间的版本号
+    - If no version number is greater than the threshold, the current effective version number is used as the version number of the current interval.
 
-    - 如果中途有统计区间版本号波动，则重新开始统计
+    - If there is a statistical interval version number fluctuation in the middle, restart statistics
 
-    模拟几种场景：
+    Simulate several scenarios:
 
-    waitCount(连续确认次数)
+    waitCount (continuous confirmation times)
 
-    1. ##### 正常升级(中途统计没有波动)
+    1. ##### Normal upgrade (no fluctuations in midway statistics)
 
-       起始区块高度1000，协议版本号=1.0
+       The starting block height is 1000, the protocol version number = 1.0
 
-       1001-1100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
+       Block statistics in the height range of 1001-1100, accounting for 80% of the block protocol version number = 1.1, waitCount=1
 
-       1101-1200高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=2
-
-       。
-
-       。
-
-       。
-
-       27001-27100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=260
-
-       从27101区块开始新协议生效
-
-    2. ##### 正常升级(中途统计有波动)
-
-       起始区块高度1000，协议版本号=1.0
-
-       1001-1100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
-
-       1101-1200高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=2
-
-       1201-1300高度区间内的区块统计，占比80%的区块协议版本号=1.0，waitCount=0
-
-       1301-1400高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
+       Block statistics in the height range of 1101-1200, accounting for 80% of the block protocol version number = 1.1, waitCount=2
 
        。
 
@@ -301,19 +279,41 @@
 
        。
 
-       27301-27400高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=260
+       Block statistics in the height range of 27001-27100, accounting for 80% of the block protocol version number = 1.1, waitCount=260
 
-       从27401区块开始新协议生效
+       The new agreement will take effect from Block 27101
 
-    3. ##### 异常升级(先回滚，中途统计没有波动)
+    2. ##### Normal upgrade (there is fluctuation in the middle of the statistics)
 
-       主链
+       The starting block height is 1000, the protocol version number = 1.0
 
-       起始区块高度1000，协议版本号=1.0
+       Block statistics in the height range of 1001-1100, accounting for 80% of the block protocol version number = 1.1, waitCount=1
 
-       1001-1100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
+       Block statistics in the height range of 1101-1200, accounting for 80% of the block protocol version number = 1.1, waitCount=2
 
-       1101-1200高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=2
+       Block statistics in the height range of 1201-1300, accounting for 80% of the block protocol version number = 1.0, waitCount=0
+
+       Block statistics in the height range of 1301-1400, accounting for 80% of the block protocol version number = 1.1, waitCount=1
+
+       。
+
+       。
+
+       。
+
+       Block statistics in the height range of 27301-27400, accounting for 80% of the block protocol version number = 1.1, waitCount=260
+
+       The new agreement will take effect from the 27401 block
+
+    3. ##### Abnormal upgrade (first rollback, no fluctuations in the middle of the statistics)
+
+       Main chain
+
+       The starting block height is 1000, the protocol version number = 1.0
+
+       Block statistics in the height range of 1001-1100, accounting for 80% of the block protocol version number = 1.1, waitCount=1
+
+       Block statistics in the height range of 1101-1200, accounting for 80% of the block protocol version number = 1.1, waitCount=2
 
        。
 
@@ -321,95 +321,95 @@
 
        。
 
-       27001-27100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=260
+       Block statistics in the height range of 27001-27100, accounting for 80% of the block protocol version number = 1.1, waitCount=260
 
-       从27101区块开始新协议生效
+       The new agreement will take effect from Block 27101
 
-       分叉链
+       Bifurcation chain
 
-       起始区块高度1000，协议版本号=1.0，分叉高度1211
+       The starting block height is 1000, the protocol version number is 1.0, and the fork height is 1211.
 
-       1001-1100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
+       Block statistics in the height range of 1001-1100, accounting for 80% of the block protocol version number = 1.1, waitCount=1
 
-       1101-1200高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=2
+       Block statistics in the height range of 1101-1200, accounting for 80% of the block protocol version number = 1.1, waitCount=2
 
-       1201-1300高度区间内的区块统计，占比80%的区块协议版本号=1.0，waitCount=0
+       Block statistics in the height range of 1201-1300, accounting for 80% of the block protocol version number = 1.0, waitCount=0
 
-       1301-1400高度区间内的区块统计，占比80%的区块协议版本号=1.0，waitCount=0
+       Block statistics in the height range of 1301-1400, accounting for 80% of the block protocol version number = 1.0, waitCount=0
 
-       分叉链切换第一步
+       Bifurcation chain switching first step
 
-       ​	回滚到分叉点
+       	Roll back to the fork point
 
-       ​	1001-1100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
+       	Block statistics in the height range of 1001-1100, accounting for 80% of the block protocol version number = 1.1, waitCount=1
 
-       ​	1101-1200高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=2
+       	Block statistics in the height range of 1101-1200, accounting for 80% of the block protocol version number = 1.1, waitCount=2
 
-       ​	1201-1211高度区间内的区块统计，区块数量不足100，不统计
+       	Block statistics in the height range of 1201-1211, the number of blocks is less than 100, not counting
 
-       ​	添加新的区块
+       	Add a new block
 
-       ​	1001-1100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=1
+       	Block statistics in the height range of 1001-1100, accounting for 80% of the block protocol version number = 1.1, waitCount=1
 
-       ​	1101-1200高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=2
+       	Block statistics in the height range of 1101-1200, accounting for 80% of the block protocol version number = 1.1, waitCount=2
 
-       ​	1201-1300高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=3
+       	Block statistics in the height range of 1201-1300, accounting for 80% of the block protocol version number = 1.1, waitCount=3
 
-       ​	。
+       	。
 
-       ​	。
+       	。
 
-       ​	。
+       	。
 
-       ​	27001-27100高度区间内的区块统计，占比80%的区块协议版本号=1.1，waitCount=260
+       	Block statistics in the height range of 27001-27100, accounting for 80% of the block protocol version number = 1.1, waitCount=260
 
-       ​	从27101区块开始新协议生效
+       	The new agreement will take effect from Block 27101
 
-    4. ##### 异常升级(先回滚，中途统计有波动)
+    4. ##### Abnormal upgrade (first rollback, fluctuations in the middle of the statistics)
 
-       与第三种情况类似
+       Similar to the third case
 
-* 依赖服务
+* Dependent service
 
-  工具模块的数据库工具
+  Database tool for tool modules
 
-#### 2.3.3 延迟升级
+#### 2.3.3 Delayed upgrade
 
-- 功能说明:
+- Function Description:
 
-  为了处理升级过程中发现新协议有BUG的情况
+  In order to deal with the bug that the new protocol was found during the upgrade process.
 
-- 流程描述
+- Process description
 
-  ​	假定当前版本号为1.0，待升级版本号1.1，但是1.1版本升级过程中发现了BUG
+  	Assume that the current version number is 1.0, and the version number to be upgraded is 1.1, but a bug was found during the 1.1 version upgrade.
 
-  ​	通过降低新协议1.1比例来重置协议升级过程，使得主网版本持续定留在旧版本1.0，修复新协议1.1BUG后，再重启升级过程。
+  	The protocol upgrade process is reset by lowering the proportion of the new protocol 1.1, so that the main network version is kept in the old version 1.0, and after the new protocol 1.1 bug is fixed, the upgrade process is restarted.
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库工具
+  Database tool for tool modules
 
-#### 2.3.4 版本信息推送
+#### 2.3.4 Version Information Push
 
-- 功能说明:
+- Function Description:
 
-  每个统计区间的最后一个区块接收完毕时，主动通知各模块当前生效的协议版本信息，主要是通知交易管理模块有效的交易类型及有效的交易验证器，通知网络模块有效的消息类型及消息处理器。
+  When the last block of each statistical interval is received, the protocol version information currently validated by each module is actively notified, mainly to notify the transaction management module of the valid transaction type and a valid transaction validator, and notify the network module of valid message types and messages. processor.
 
-- 流程描述
+- Process description
 
   
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库工具
+  Database tool for tool modules
 
-## 三、事件说明
+## III. Description of the event
 
-### 3.1 发布的事件
+### 3.1 Published events
 
-#### 3.1.1 协议升级
+#### 3.1.1 Protocol Upgrade
 
-说明:协议版本升级，发布该事件
+Description: The protocol version is upgraded and the event is released.
 
  event_topic : "versionUpadte",
 
@@ -422,59 +422,59 @@ data:{
 }
 ```
 
-### 3.2 订阅的事件
+### 3.2 Subscribe to events
 
-​	略
+	slightly
 
-## 四、协议
+## IV. Agreement
 
-### 4.1 网络通讯协议
+### 4.1 Network Communication Protocol
 
-​	略
+	slightly
 
-### 4.2 消息协议
+### 4.2 Message Protocol
 
-​	略
+	slightly
 
-## 五、模块配置
+## 五, module configuration
 
 ```
 [
   {
     "name": "supportTxTypes",
-    "remark": "支持的交易类型",
+    "remark": "Supported transaction types",
     "readOnly": "true",
     "value": "1,2,3,4,5"
   },
   {
     "name": "supportMessageTypes",
-    "remark": "支持的消息类型",
+    "remark": "Supported message types",
     "readOnly": "true",
     "value": "1,2,3,4,5"
   }
 ]
 ```
 
-## 六、Java特有的设计
+## Six, Java-specific design
 
-- BlockHeader对象新增字段
-> | `字段名称`          | `字段类型` | `说明`     |
+- BlockHeader object added field
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | blockMajor | byte | 区块主版本号 |
-> | blockMinor | byte | 区块次版本号 |
-> | mainnetMajor | byte | 主网主版本号 |
-> | mainnetMinor | byte | 主网次版本号 |
+> | blockMajor | byte | Block major version number |
+> | blockMinor | byte | Block minor version number |
+> | mainnetMajor | byte | main network version number |
+> | mainnetMinor | byte | main network version number |
 
-- BlockChainVersion对象设计
-> | `字段名称`          | `字段类型` | `说明`     |
+- BlockChainVersion object design
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | major       | byte | 主版本号 |
-> | minor | byte | 次版本号 |
+> | major | byte | major version number |
+> | minor | byte | minor version number|
 
-## 七、补充内容
+## VII, supplementary content
 
-1. 不同协议版本的消息是否处理由网络模块判断？还是由各个消息的注册模块判断
-2. 不同协议版本的交易是否处理由交易模块判断？还是由各个交易的注册模块判断
-3. 协议支持的消息类型、交易类型、交易处理器由配置文件初始化？还是由各模块来注册？
-4. 是否允许版本回退？由1.1版本回退到1.0-------------------不予许
-5. 不支持POW
+1. Is the message of different protocol versions processed by the network module or by the registration module of each message?
+2. Is the transaction of different protocol versions handled by the transaction module or by the registration module of each transaction?
+3. Is the message type, transaction type, transaction processor supported by the protocol initialized by the configuration file, or is it registered by each module?
+4. Is the version allowed to roll back? It is not allowed to roll back from version 1.1 to 1.0-------------------
+5. Does not support pow

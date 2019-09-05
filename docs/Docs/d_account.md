@@ -1,303 +1,303 @@
-# 账户模块设计文档
+# Account Module Design Document
 
 
-## 总体概览
+## Overall overview
 
-### 模块概述
+### Module Overview
 
-#### 为什么要有账户模块
+#### Why should I have an account module?
 
-在区块链中地址及其相关信息有着极其重要的作用，关乎着数据安全的问题。而且账户地址的相关信息也是和用户交互最多的部分。虽然整个账户地址信息结构简单，但是功能比较复杂，所以我们独立出一个账户模块，来处理账户地址的相关信息和功能。
+Addresses and their associated information in the blockchain play an extremely important role in relation to data security issues.And the information about the account address is also the part that interacts most with the user.Although the entire account address information structure is simple, but the function is more complicated, so we separate an account module to handle the information and functions of the account address.
 
-#### 账户要做什么
+#### What do you want to do with your account?
 
-账户模块是提供关于账户各项功能的基础性模块。主要对账户的生成、安全和保管、信息的获取等几个方面的功能提供支持，其他模块可以根据账户模块提供的接口来使用账户的各种功能以及获取账户信息，用户或者其他应用可以根据RPC接口对账户进行更加实用性和个性化的操作。账户是基础模块，也是用户数据的载体 。
+The Account Module is the basic module that provides information about the various functions of the account.It mainly supports the functions of account generation, security and custody, and information acquisition. Other modules can use various functions of the account and obtain account information according to the interface provided by the account module. Users or other applications can be based on rpc. The interface makes the account more practical and personalized.The account is the basic module and the carrier of the user data.
 
-- 账户的生成
+- Account generation
 
-  创建账户、导入账户
+  Create an account, import an account
 
-- 账户的安全和保管
+- Account security and custody
 
-  账户的备份、设置账户密码、修改账户密码、移除账户
+  Backup of account, setting account password, modifying account password, removing account
 
-- 账户信息的获取
+- Acquisition of account information
 
-  查询单个账户信息、获取多个账户信息、获取账户地址、查询账户余额、查询账户别名
+  Query individual account information, obtain multiple account information, obtain account address, query account balance, query account alias
 
-- 其他实用性和个性化功能
+- Other usability and personalization features
 
-  设置账户别名、设置账户备注、签名等
+  Set account aliases, set account notes, signatures, etc.
 
-#### 账户在系统中的定位
+#### Account location in the system
 
 ![](./design/account/account-context.png)
 
-账户是底层模块，与账本、共识、交易、内核、事件总线、社区治理模块有依赖关系。
+The account is the underlying module that is dependent on the ledger, consensus, transaction, kernel, event bus, and community governance modules.
 
-1、账户模块依赖账本模块
+1. Account module relies on the ledger module
 
-	ledger模块需要处理本地交易，依赖于账户信息。
+	The ledger module needs to handle local transactions and relies on account information.
 	
-	账户模块需要发起设置别名交易，需要ledger模块支付费用
+	The account module needs to initiate a setup alias transaction, which requires the ledger module to pay the fee.
 	
-	账户余额查询，需要依赖ledger模块
+	Account balance inquiry, need to rely on ledger module
 
-2、账户模块依赖内核模块
-
-```
-上报模块信息、共享数据操作
-```
-
-3、账户模块依赖网络模块
+2, the account module depends on the kernel module
 
 ```
-通过网络模块来接收和发送数据
+Report module information and share data operations
 ```
 
-4、账户模块依赖事件总线模块
+3, the account module depends on the network module
 
 ```
-创建账户、删除账户、修改密码事件通过事件总线模块发送消息
-账户模块并非强依赖事件总线模块，因为即使事件发送失败也不影响业务正常流程
+Receive and send data through a network module
 ```
 
-5、共识模块依赖账户模块
+4, the account module depends on the event bus module
 
 ```
-共识需要账户信息进行打包出块
+Create an account, delete an account, change a password event, send a message through the event bus module
+The account module is not strongly dependent on the event bus module, because even if the event fails to send, it will not affect the normal business process.
 ```
 
-6、交易管理模块依赖账户模块
+5, consensus module dependent account module
 
 ```
-交易管理模块要对交易进行验证，依赖账户中address功能，验证地址是否合法等
+Consensus requires account information to be packaged out
 ```
 
-7、社区治理模块依赖账户模块
+6, the transaction management module depends on the account module
 
 ```
-社区治理需要账户签名
+The transaction management module needs to verify the transaction, rely on the address function in the account, verify whether the address is legal, etc.
 ```
 
-### 架构图
+7, the community governance module depends on the account module
+
+```
+Community governance requires account signature
+```
+
+### Architecture diagram
 
 ![](./design/account/account-module.png)
 
 
 
-1、API：对外提供接口层，提供账户的创建、备份、设置别名等操作；
+1. api: Provides an interface layer externally, providing operations such as creating, backing up, and setting aliases for accounts;
 
-2、业务逻辑层：定义账户、账户地址、别名的功能；
+2, business logic layer: define the account, account address, alias function;
 
-3、数据持久化层：保存账户、别名数据；
+3, data persistence layer: save account, alias data;
 
-## 功能设计
+## feature design
 
-### 功能架构图
+### Functional Architecture
 
 ![](./design/account/account-functions.png)
 
 
 
-### NULS协议地址详解
+### nuls protocol address detailed
 
 #### ECKey  
 
-创建一个NULS地址的第一步，需要获取一个基于椭圆曲线算法的公私钥对。NULS的椭圆曲线参数和比特币一样，使用secp256k1。
+The first step in creating a NULS address is to obtain a public-private key pair based on the elliptic curve algorithm.The elliptic curve parameters of NULS are the same as bitcoin, using secp256k1.
 
-#### 地址格式  
+#### Address Format 
 
 ```
 address = prefix + Base58Encode(chainId+addressType+pkh+xor)
 ```
 
-- address 长度为23
+- address is 23
 
-- chainId为当前链的链id，用于区分不同链的地址
+- chainId is the chain id of the current chain, used to distinguish the addresses of different chains
 
-- addressType地址类型分为 ，1:普通地址，2:智能合约地址，3:多重签名地址。
+- addressType address type is divided into 1: normal address, 2: smart contract address, 3: multi-signature address.
 
-#### 前缀  
+#### prefix 
 
-前缀prefix的存在是为了便于识别、区分不同的链的地址。目前NULS提供了两种prefix的确定方案:
+The prefix prefix exists to facilitate identification and distinguishing addresses of different chains.Currently NULS provides two kinds of prefix determination solutions:
 
-1. 默认设置：NULS保留1为主网chainId，也默认所有chainId为1的地址以NULS开头。保留2为核心测试网的chainId，默认所有chainId为2的地址以tNULS开头。
-2. 通过登记跨链设置前缀：在登记跨链时，需要填写此链的前缀，系统会维护chainId和前缀的对应表，根据对应表生成相应的地址。
-3. 自动计算：其他chainId的地址，NULS提供了统一的算法来计算前缀，具体的计算代码如下：
+1. Default setting: NULS retains 1 as the primary network chainId, and also defaults all addresses with chainId 1 to start with NULS.Reserved 2 is the chainId of the core test network. By default, all addresses with a chainId of 2 start with tNULS.
+2. Set the prefix by registering the cross-chain: When registering the cross-chain, you need to fill in the prefix of the chain. The system maintains the correspondence table between the chainId and the prefix, and generates the corresponding address according to the corresponding table.
+3. Automatic calculation: The address of other chainId, NULS provides a unified algorithm to calculate the prefix, the specific calculation code is as follows:
 
 ```
-//将chainId转换为字节数组，使用base58算法对字节数组进行计算，计算后全部转为大写字母
+/ / Convert the chainId to a byte array, use the base58 algorithm to calculate the byte array, all converted to uppercase letters after calculation
 String prefix = Base58.encode(SerializeUtils.int16ToBytes(chainId)).toUpperCase();
 ```
 
-在前缀和真实地址之间，用一个小写字母进行分隔，便于从地址中提取chainId和验证地址类型及正确性。
-小写字母的选择方式为，提供一个数组，安装字母表的顺序填充小写字母，根据prefix的长度来选择分隔的字母。
+Between the prefix and the real address, separated by a lowercase letter, it is convenient to extract the chainId and verify the address type and correctness from the address.
+The lowercase letters are selected by providing an array, the lowercase letters are filled in the order in which the alphabet is installed, and the separated letters are selected according to the length of the prefix.
 
 ```
-//前缀长度是几个字母，就选择第几个元素为分隔字母。
-//如前缀长度为2，则用b分隔，长度为3用c分隔，长度为4用d分隔，……
+// The prefix length is a few letters, and the first few elements are selected as the separated letters.
+/ / If the prefix length is 2, then separated by b, the length is 3 separated by c, the length is 4 separated by d, ...
 String[] LENGTHPREFIX = new String[]{"", "a", "b", "c", "d", "e"};
 ```
 
-#### 链id  
+#### chain id 
 
-NULS的目标是建立一个多链并行，价值互通的区块链生态网络，在设计之初就为每一条链定义了一个独一无二的ID，2个字节，取值范围1~65535.ChainId是地址中非常重要的数据，是跨链操作的基础。
+The goal of NULS is to establish a multi-chain parallel, value-interoperable blockchain ecosystem. At the beginning of the design, a unique ID, 2 bytes, is defined for each chain, ranging from 1 to 65535. The ChainId is the address. Very important data is the basis for cross-chain operations.
 
-#### 账户类型  
+#### account type 
 
-NULS支持在一个网络内设置不同的账户类型，比如普通地址、合约地址、多签地址等等，开发者可以根据自己的需要进行设计。
-账户类型为1个字节，1~128取值范围
+Nuls supports setting different account types in a network, such as common addresses, contract addresses, multi-sign addresses, etc. Developers can design according to their needs.
+The account type is 1 byte, and the value range is 1~128.
 
-#### 公钥摘要PKH  
+#### Public Key Summary pkh 
 
-ECKey与地址的关联关系就体现在这一部分，NULS的做法是先用Sha-256对公钥进行一次计算，得到的结果再通过 RIPEMD160进行一次计算得到20个字节的结果，就是PKH。
+The relationship between the ECKey and the address is reflected in this part. The NULS method is to first calculate the public key with Sha-256, and the result is calculated by RIPEMD160 to obtain a result of 20 bytes, which is PKH.
 
-#### 校验位  
+#### Check Digit 
 
-NULS在生成字符串格式的地址时会增加一个字节的校验位，计算方式是对前面23个字节（chainId+type+pkh）进行异或得到的。
-校验位不参与序列化。
+NULS adds a one-byte check digit when generating an address in string format, which is obtained by XORing the first 23 bytes (chainId+type+pkh).
+The check digit does not participate in serialization.
 
-#### 生成地址  
+#### Generate Address 
 
-- 序列化地址
+- Serialized address
 
   ```
   address = chainId(2) + type(1) + PKH(20)
   ```
 
-- 固定前缀字符串地址
+- Fixed prefix string address
 
   ```
-  addressString = prefix + 分隔符 + Base58Encode(address+xor)
+  addressString = prefix + separator + Base58Encode(address+xor)
   ```
 
-- 自动前缀字符串地址
+- Automatic prefix string address
 
   ```
-  addressString = Base58Encode(chainId) + 分隔符 + Base58Encode(address+xor)
+  addressString = Base58Encode(chainId) + separator + Base58Encode(address+xor)
   ```
 
-#### 非nuls体系的地址格式  
+#### Address format of non-nuls system 
 
-NULS是一个网络，支持所有区块链的接入，对于和NULS完全不同的地址格式，NULS设计了一个地址转换协议，具体内容如下：
+Nuls is a network that supports access to all blockchains. For completely different address formats than nuls, nuls has designed an address translation protocol. The details are as follows:
 
-复制
+copy
 
 ```
-address = Base58Encode(chainId+原始地址长度+原始地址+xor)
+Address = Base58Encode (chainId + original address length + original address + xor)
 ```
 
-例如：比特币地址，在地址之前追加两个字节的chainId，之后跟随比特币的原始地址，地址解析方式根据链配置决定，确保任何一个地址都可以在NULS获得映射的地址。  
+For example: Bitcoin address, the two-byte chainId is appended before the address, followed by the original address of the bitcoin. The address resolution mode is determined according to the chain configuration, ensuring that any address can obtain the mapped address in NULS. 
 
-### 多重签名账户
+### Multi-Signed Account
 
-参考[多重签名账户文档]()
+Refer to [Multi-Signature Account Document] ()
 
 
 
-## 模块服务
+## Module Service
 
-参考[账户模块RPC-API接口文档](./account.md)
+Refer to [Account Module RPC-API Interface Document] (./account.md)
 
-## 协议
+## Agreement
 
-### 交易业务数据协议
+### Trading Business Data Protocol
 
-* 设置别名
+* Set alias
 
-  * 协议
+  * Agreement
 
-    与通用交易相比，只有类型和txData有区别，具体区别如下
+    Compared with the general transaction, only the type and txData are different, the specific difference is as follows
 
   ```
-  type: n //设置别名交易的类型
+  Type: n //Set the type of alias transaction
   txData:{
-      address:  //VarByte 设置别名的地址
-      alias：   //VarByte 别名字符串转成的字节数组，用UTF-8解码
+      Address: //VarByte Set the address of the alias
+      Alias: //VarByte The byte array into which the alias string is converted, decoded with UTF-8
   }
   ```
 
-  - 别名交易参数
+  - Alias transaction parameters
 
   | Len  | Fields  | Data Type | Remark                                |
   | ---- | ------- | --------- | ------------------------------------- |
-  | 24   | address | byte[]    | 设置别名的地址                        |
-  | 32   | alias   | byte[]    | 别名字符串转成的字节数组，用UTF-8解码 |
+  | 24 | address | byte[] | Set the address of the alias |
+  | 32 | alias | byte[] | Byte array converted from alias string, decoded with UTF-8 |
 
-  * 验证器
-
-  ```
-  1、别名格式合法性验证
-  2、地址必须是卫星链地址，且一个地址只能设置一个别名
-  3、烧毁一个token单位
-  4、交易手续费
-  5、签名：设置的地址、input、签名三者验证
-  ```
-
-  * 处理器
+  * Validator
 
   ```
-  1、资产处理器
-  2、存储alias数据
-  3、更新本地账户信息
+  1, alias format legality verification
+  2, the address must be a satellite chain address, and an address can only set an alias
+  3, burn a token unit
+  4. Transaction fee
+  5, signature: set address, input, signature verification
+  ```
+
+  * processor
+
+  ```
+  1, the asset processor
+  2, store alias data
+  3. Update local account information
   ```
 
 
 
-## Java特有的设计
+## Java-specific design
 
-* Account对象设计
+* Account object design
 
-  该表存储时使用的key：
+  The key used when the table is stored:
 
-  NULS体系：chainId+type+hash160
+  NULS system: chainId+type+hash160
 
-  非NULS体系：chainId+length+address
+  Non-NULS system: chainId+length+address
 
 
-| `字段名称`      | ` type` | `说明`                                      |
+| `field name` | `type` | `description` |
 | :-------------- | :------ | :------------------------------------------ |
-| chainId         | short   | 链ID                                        |
-| address         | String  | 账户地址（Base58(address)+Base58(chainId)） |
-| alias           | String  | 账户别名                                    |
-| status          | Integer | 是否默认账户（不保存）                      |
-| pubKey          | byte[]  | 公匙                                        |
-| priKey          | byte[]  | 私匙-未加密                                 |
-| encryptedPriKey | byte[]  | 已加密私匙                                  |
-| extend          | byte[]  | 扩展数据                                    |
-| remark          | String  | 备注                                        |
-| createTime      | long    | 创建时间                                    |
+| chainId | short | Chain ID |
+| address | String | Account Address (Base58(address)+Base58(chainId)) |
+| alias | String | Account Alias |
+| status | Integer | Default account (not saved) |
+| pubKey | byte[] | Public Key |
+| priKey | byte[] | Private Key - Unencrypted |
+| encryptedPriKey | byte[] | Encrypted Private Key |
+| extend | byte[] | Extended Data |
+| remark | String | Notes |
+| createTime | long | creation time |
 
-* Address对象设计（不持久化存储）
+* Address object design (not persistent storage)
 
-| `字段名称`   | ` type` | `说明`       |
+| `field name` | `type` | `description` |
 | ------------ | ------- | ------------ |
-| chainId      | short   | 链ID         |
-| addressType  | byte    | 地址类型     |
-| hash160      | byte[]  | 公匙hash     |
-| addressBytes | byte[]  | 地址字节数组 |
+| chainId | short | Chain ID |
+| addressType | byte | address type|
+| hash160 | byte[] | public key hash |
+| addressBytes | byte[] | address byte array |
 
-- Alias对象设计
+- Alias object design
 
-  该表存储时使用的key：
+  The key used when the table is stored:
 
-  address和alias分别作为key存储,别名数据存储两份
+  Address and alias are stored as keys respectively, and alias data is stored in two copies.
 
-  需要按照不同的链分别创建不同的别名表
+  Need to create different alias tables according to different chains
 
-| `字段名称` | ` type` | `说明`   |
+| `field name` | `type` | `description` |
 | ---------- | ------- | -------- |
-| address    | byte[]  | 账户地址 |
-| alias      | String  | 账户别名 |
+| address | byte[] | Account Address|
+| alias | String | Account Alias |
 
-- MultiSigAccount对象设计
+- MultiSigAccount object design
 
-| `字段名称` | ` type`      | `说明`             |
+| `field name` | `type` | `description` |
 | ---------- | ------------ | ------------------ |
-| address    | String       | 账户地址           |
-| pubKeyList | List<byte[]> | 需要签名的公钥列表 |
-| minSigns   | long         | 最少签名数         |
+| address | String | Account Address|
+| pubKeyList | List<byte[]> | List of public keys that need to be signed |
+| minSigns | long | Minimum Signatures |
 
 
 

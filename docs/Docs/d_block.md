@@ -1,64 +1,64 @@
-# 区块管理模块设计文档
+# Block Management Module Design Document
 
-## 一、总体描述
+## I. Overall description
 
-### 1.1 模块概述
+### 1.1 Module Overview
 
-#### 1.1.1 为什么要有《区块管理》模块
+#### 1.1.1 Why should I have the "block management" module?
 
-​	区块链上所有交易数据都保存在区块中，所以要有一个模块负责区块的存储与管理，以便其他模块对区块中数据进行验证、业务处理时可以获取到区块。
+	All transaction data in the blockchain is stored in the block, so there is a module responsible for the storage and management of the block, so that other modules can obtain the block when verifying the data in the block and processing the business.
 
-​	区块链程序初次启动时，需要同步网络上的最新区块到本地，这个过程一般耗时较长，且同步未完成时不能发起交易，所以适合由单独模块来完成该工作。
+	When the blockchain program is started for the first time, it is necessary to synchronize the latest block on the network to the local. This process is generally time consuming, and the transaction cannot be initiated when the synchronization is not completed, so it is suitable for the work to be performed by a separate module.
 
-​	综上所述，为其他模块提供统一的区块数据服务是必要的，也能更好地把区块的管理与区块的具体业务进行分离，用到区块的模块不必关心区块的获取细节。
+	In summary, it is necessary to provide a unified block data service for other modules, and it is also better to separate the management of the block from the specific service of the block. The module used in the block does not have to care about the block acquisition. detail.
 
-#### 1.1.2 《区块管理》要做什么
-- 提供api，进行区块存储、查询、回滚的操作
-- 从网络上同步最新区块，验证通过后保存
-- 区块同步、广播、转发消息的处理
-- 分叉区块的判断、存储
-- 孤儿区块的判断、存储
-- 分叉链维护、切换
-- 孤儿链维护、切换
+#### 1.1.2 What to do in Block Management
+- Provide api for block storage, query, rollback operations
+- Synchronize the latest block from the network, save it after saving
+- Block synchronization, broadcast, and forwarding of message processing
+- Judgment and storage of bifurcation blocks
+- Judgment and storage of orphan blocks
+- Forked chain maintenance, switching
+- Orphan chain maintenance, switching
 
-#### 1.1.3 《区块管理》在系统中的定位
+#### 1.1.3 Positioning of "Block Management" in the system
 
-区块管理是底层模块之一，以下分功能讨论模块依赖情况
+Block management is one of the underlying modules. The following sub-functions discuss module dependencies.
 
-依赖
+rely
 
-- 区块同步-依赖网络模块的通讯接口，依赖工具模块的序列化工具
-- 区块存储、回滚-依赖工具模块的数据库存储工具、共识模块、交易管理模块
-- 区块转发-依赖网络模块的广播消息接口
+- Block synchronization - dependent on the communication interface of the network module, relying on the serialization tool of the tool module
+- Block storage, rollback-dependency tool library storage tool, consensus module, transaction management module
+- Block forwarding - Dependent network module broadcast message interface
 
-被依赖
+Be dependent
 
-- 整个系统可以发起交易-区块同步
-- 共识模块:区块详细验证、打包-区块查询、区块保存、区块广播、区块回滚
+- The entire system can initiate transactions - block synchronization
+- Consensus module: block detailed verification, packing - block query, block saving, block broadcasting, block rollback
 
-### 1.2 架构图
+### 1.2 Architecture
 
 ![](./design/block-module/block-module.png)
 
-## 二、功能设计
+## II, functional design
 
-### 2.1 功能架构图
+### 2.1 Functional Architecture
 
 ![](./design/block-module/block-functions.png)
 
-### 2.2 模块服务
+### 2.2 Module Service
 
-#### 2.2.1 获取最新区块高度
+#### 2.2.1 Get the latest block height
 
-#### 2.2.2 获取最新区块头
+#### 2.2.2 Get the latest block header
 
-- 接口说明
+- Interface Description
 
-1. 根据链ID、缓存的最新区块高度查询DB得到最新区块头HASH
-2. 根据HASH查询DB得到区块头byte数组
-3. 反序列化为区块头对象
+1. According to the chain id, the latest block height of the cache, query db to get the latest block header hash
+2. According to the HASH query DB to get the block header byte array
+3. Deserialize to block header object
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -68,13 +68,13 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
+| 0 | chainId | true | Long | Chain ID |
 
-- 返回示例
+- Return to example
 
     Failed
     
@@ -111,34 +111,34 @@
     }
     ```
     
-- 返回字段说明
+- Return field description
   
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| chainId      | Long    | 链ID                                |
-| hash      | String    | 区块HASH                                |
-| preHash   | String    | 上一区块HASH                              |
-| merkleHash   | String    | 区块MerkleHash                              |
-| height   | Long | 区块高度                              |
-| size   | Integer    | 区块大小                              |
-| time   | Long    | 区块打包时间                              |
-| txCount   | Integer    | 交易数                              |
-| packingAddress   | String    | 打包地址                              |
-| reward   | Long    | 共识奖励                              |
-| fee   | Long | 手续费                             |
-| extend   | String   | 扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot                              |
-| scriptSig   | String    | 区块签名                              |
+| chainId | Long | Chain ID |
+| hash | String | Block HASH |
+| preHash | String | Previous Block HASH |
+| merkleHash | String | Block MerkleHash |
+| height | Long | Block Height |
+| size | Integer | Block Size |
+| time | Long | Block Packing Time |
+| txCount | Integer | Number of transactions |
+| packingAddress | String | Packed Address |
+| reward | Long | Consensus Awards |
+| fee | Long | Fees |
+Extend | String | Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot |
+| scriptSig | String | Block Signature |
 
-#### 2.2.3 获取最新区块
+#### 2.2.3 Get the latest block
 
-- 接口说明:
+- Interface Description:
 
-1. 根据链ID获取本地最新区块头
-2. 根据区块头高度查询DB得到交易HASH列表
-3. 根据HASH列表从交易管理模块获取交易数据
-4. 组装成block对象
+1. Get the latest local block header according to the chain id
+2. Query the db according to the block head height to get the transaction hash list.
+3. Get transaction data from the transaction management module according to the hash list
+4. Assembled into block objects
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -148,13 +148,13 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
+| 0 | chainId | true | Long | Chain ID |
 
-- 返回示例 
+- Return to example 
 
     Failed
 
@@ -188,58 +188,58 @@
                 "fee": 0,
                 "extend": xxxxxxx,HEX
                 "scriptSig": "1"
-        	}, //区块头
+        	}, //block header
         	"transactions": [
         	    {
-                    "chainId": "888", //链Id
-                    "height": "1", //区块高度
-                    "hash": "1", //交易HASH
-                    "remark": "1", //交易备注
-                    "size": "1", //交易大小
-                    "time": "1", //交易时间
-                    "type": "1", //交易类型
-                    "transactionSignature": "1", //交易签名
+                    "chainId": "888", //chainId
+                    "height": "1", //block height
+                    "hash": "1", //transaction HASH
+                    "remark": "1", //transaction notes
+                    "size": "1", //transaction size
+                    "time": "1", //transaction time
+                    "type": "1", //transaction type
+                    "transactionSignature": "1", //transaction signature
                     "coinData": {
                         "from" : [
                             {
-                                "fromAssetsChainId":""//资产发行链的id  
-                                "fromAssetsId":""//资产id
-                                "fromAddress":""//转出账户地址
-                                "amount":""//转出金额
-                                "nonce":""//交易顺序号，递增
+                                "fromAssetsChainId":""//id of asset distribution chain 
+                                "fromAssetsId":""//asset id
+                                "fromAddress":""//Transfer account address
+                                "amount": ""//transfer amount
+                                "nonce": ""//transaction sequence number, increment
                             },{...}
                         ]
                         "to" : [
                             {
-                                "toAssetsChainId":""//资产发行链的id  
-                                "toAssetsId":""//资产id
-                                "toAddress":""//转出账户地址
-                                "amount":""//转出金额
+                                "toAssetsChainId":""//id of asset distribution chain 
+                                "toAssetsId":""//asset id
+                                "toAddress": ""//Transfer account address
+                                "amount": ""//transfer amount
                                 "locktime":""
                             },{...}
                         ]
                     }
-                    "txData": XXXX, //交易数据 HEX
+                    "txData": XXXX, //transaction data HEX
         	    },
         	    {...}
-        	] //交易列表
+        	] //Transaction list
         }
     }
     ```
 
-- 返回字段说明
+- Return field description
 
-    略
+    slightly
 
-#### 2.2.4 根据高度获取区块头
+#### 2.2.4 Get the block header according to the height
 
-- 接口说明
+- Interface Description
 
-1. 根据链ID、高度查询DB得到最新区块头HASH
-2. 根据HASH查询DB得到区块头byte数组
-3. 反序列化为区块头对象
+1. According to the chain id, height query db to get the latest block header hash
+2. According to the HASH query DB to get the block header byte array
+3. Deserialize to block header object
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -249,14 +249,14 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
-| 1     | height   | true     | Long  |   区块高度    |
+| 0 | chainId | true | Long | Chain ID |
+| 1 | height | true | Long | Block Height |
 
-- 返回示例
+- Return to example
 
     Failed
     
@@ -293,34 +293,34 @@
     }
     ```
     
-- 返回字段说明
+- Return field description
   
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| chainId      | Long    | 链Id                                |
-| hash      | String    | 区块HASH                                |
-| preHash   | String    | 上一区块HASH                              |
-| merkleHash   | String    | 区块MerkleHash                              |
-| height   | Long | 区块高度                              |
-| size   | Integer    | 区块大小                              |
-| time   | Long    | 区块打包时间                              |
-| txCount   | Integer    | 交易数                              |
-| packingAddress   | String    | 打包地址                              |
-| reward   | Long    | 共识奖励                              |
-| fee   | Long | 手续费                             |
-| extend   | String   | 扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot                              |
-| scriptSig   | String    | 区块签名                              |
+| chainId | Long | Chain Id |
+| hash | String | Block HASH |
+| preHash | String | Previous Block HASH |
+| merkleHash | String | Block MerkleHash |
+| height | Long | Block Height |
+| size | Integer | Block Size |
+| time | Long | Block Packing Time |
+| txCount | Integer | Number of transactions |
+| packingAddress | String | Packed Address |
+| reward | Long | Consensus Awards |
+| fee | Long | Fees |
+Extend | String | Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot |
+| scriptSig | String | Block Signature |
 
-#### 2.2.4 根据高度获取区块
+#### 2.2.4 Get the block according to the height
 
-- 接口说明:
+- Interface Description:
 
-1. 根据链ID、高度获取区块头
-2. 根据区块头高度查询DB得到交易HASH列表
-3. 根据HASH列表从交易管理模块获取交易数据
-4. 组装成block对象
+1. Get the block header according to the chain id and height
+2. Query the db according to the block head height to get the transaction hash list.
+3. Get transaction data from the transaction management module according to the hash list
+4. Assembled into block objects
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -330,14 +330,14 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
-| 1     | height   | true     | Long  |   区块高度    |
+| 0 | chainId | true | Long | Chain ID |
+| 1 | height | true | Long | Block Height |
 
-- 返回示例 
+- Return to example 
 
     Failed
 
@@ -371,57 +371,57 @@
                 "fee": 0,
                 "extend": xxxxxxx,HEX
                 "scriptSig": "1"
-        	}, //区块头
+        	}, //block header
         	"transactions": [
         	    {
-                    "chainId": "888",//链ID
-                    "height": "1", //区块高度
-                    "hash": "1", //交易HASH
-                    "remark": "1", //交易备注
-                    "size": "1", //交易大小
-                    "time": "1", //交易时间
-                    "type": "1", //交易类型
-                    "transactionSignature": "1", //交易签名
+                    "chainId": "888", // chain ID
+                    "height": "1", //block height
+                    "hash": "1", //transaction HASH
+                    "remark": "1", //transaction notes
+                    "size": "1", //transaction size
+                    "time": "1", //transaction time
+                    "type": "1", //transaction type
+                    "transactionSignature": "1", //transaction signature
                     "coinData": {
                         "from" : [
                             {
-                                "fromAssetsChainId":""//资产发行链的id  
-                                "fromAssetsId":""//资产id
-                                "fromAddress":""//转出账户地址
-                                "amount":""//转出金额
-                                "nonce":""//交易顺序号，递增
+                                "fromAssetsChainId":""//id of asset distribution chain 
+                                "fromAssetsId":""//asset id
+                                "fromAddress":""//Transfer account address
+                                "amount": ""//transfer amount
+                                "nonce": ""//transaction sequence number, increment
                             },{...}
                         ]
                         "to" : [
                             {
-                                "toAssetsChainId":""//资产发行链的id  
-                                "toAssetsId":""//资产id
-                                "toAddress":""//转出账户地址
-                                "amount":""//转出金额
-                                "nonce":""//交易顺序号，递增
+                                "toAssetsChainId":""//id of asset distribution chain 
+                                "toAssetsId":""//asset id
+                                "toAddress": ""//Transfer account address
+                                "amount": ""//transfer amount
+                                "nonce": ""//transaction sequence number, increment
                             },{...}
                         ]
                     }
-                    "txData": XXXX, //交易数据 HEX
+                    "txData": XXXX, //transaction data HEX
         	    },
         	    {...}
-        	], //交易列表
+        	], //transaction list
         }
     }
     ```
 
-- 返回字段说明
+- Return field description
 
-    略
+    slightly
 
-#### 2.2.5 根据HASH获取区块头
+#### 2.2.5 Get the block header according to hash
 
-- 接口说明
+- Interface Description
 
-1. 根据链ID、HASH查询DB得到区块头byte数组
-2. 反序列化为区块头对象
+1. According to the chain ID, HASH query DB to get the block header byte array
+2. Deserialize to block header object
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -431,14 +431,14 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
-| 1     | hash   | true     | String  |   区块hash    |
+| 0 | chainId | true | Long | Chain ID |
+| 1 | hash | true | String | Block hash |
 
-- 返回示例
+- Return to example
 
     Failed
     
@@ -475,34 +475,34 @@
     }
     ```
     
-- 返回字段说明
+- Return field description
   
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| chainId      | Long    | 链ID                                |
-| hash      | String    | 区块HASH                                |
-| preHash   | String    | 上一区块HASH                              |
-| merkleHash   | String    | 区块MerkleHash                              |
-| height   | Long | 区块高度                              |
-| size   | Integer    | 区块大小                              |
-| time   | Long    | 区块打包时间                              |
-| txCount   | Integer    | 交易数                              |
-| packingAddress   | String    | 打包地址                              |
-| reward   | Long    | 共识奖励                              |
-| fee   | Long | 手续费                             |
-| extend   | String   | 扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot                              |
-| scriptSig   | String    | 区块签名                              |
+| chainId | Long | Chain ID |
+| hash | String | Block HASH |
+| preHash | String | Previous Block HASH |
+| merkleHash | String | Block MerkleHash |
+| height | Long | Block Height |
+| size | Integer | Block Size |
+| time | Long | Block Packing Time |
+| txCount | Integer | Number of transactions |
+| packingAddress | String | Packed Address |
+| reward | Long | Consensus Awards |
+| fee | Long | Fees |
+Extend | String | Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot |
+| scriptSig | String | Block Signature |
 
-#### 2.2.6 根据HASH获取区块
+#### 2.2.6 Get the block according to the hash
 
-- 接口说明:
+- Interface Description:
 
-1. 根据链ID、hash获取区块头
-2. 根据区块头高度查询DB得到交易HASH列表
-3. 根据HASH列表从交易管理模块获取交易数据
-4. 组装成block对象
+1. Get the block header according to the chain ID and hash
+2. Query the db according to the block head height to get the transaction hash list.
+3. Get transaction data from the transaction management module according to the hash list
+4. Assembled into block objects
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -512,14 +512,14 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
-| 1     | hash   | true     | String  |   区块hash    |
+| 0 | chainId | true | Long | Chain ID |
+| 1 | hash | true | String | Block hash |
 
-- 返回示例 
+- Return to example 
 
     Failed
 
@@ -553,60 +553,60 @@
                 "fee": 0,
                 "extend": xxxxxxx,HEX
                 "scriptSig": "1"
-        	}, //区块头
+        	}, //block header
         	"transactions": [
         	    {
         	        "chainId": "888",
-                    "height": "1", //区块高度
-                    "hash": "1", //交易HASH
-                    "remark": "1", //交易备注
-                    "size": "1", //交易大小
-                    "time": "1", //交易时间
-                    "type": "1", //交易类型
-                    "transactionSignature": "1", //交易签名
+                    "height": "1", //block height
+                    "hash": "1", //transaction HASH
+                    "remark": "1", //transaction notes
+                    "size": "1", //transaction size
+                    "time": "1", //transaction time
+                    "type": "1", //transaction type
+                    "transactionSignature": "1", //transaction signature
                     "coinData": {
                         "from" : [
                             {
-                                "fromAssetsChainId":""//资产发行链的id  
-                                "fromAssetsId":""//资产id
-                                "fromAddress":""//转出账户地址
-                                "amount":""//转出金额
-                                "nonce":""//交易顺序号，递增
+                                "fromAssetsChainId":""//id of asset distribution chain 
+                                "fromAssetsId":""//asset id
+                                "fromAddress":""//Transfer account address
+                                "amount": ""//transfer amount
+                                "nonce": ""//transaction sequence number, increment
                             },{...}
                         ]
                         "to" : [
                             {
-                                "toAssetsChainId":""//资产发行链的id  
-                                "toAssetsId":""//资产id
-                                "toAddress":""//转出账户地址
-                                "amount":""//转出金额
-                                "nonce":""//交易顺序号，递增
+                                "toAssetsChainId":""//id of asset distribution chain 
+                                "toAssetsId":""//asset id
+                                "toAddress": ""//Transfer account address
+                                "amount": ""//transfer amount
+                                "nonce": ""//transaction sequence number, increment
                             },{...}
                         ]
                     }
-                    "txData": XXXX, //交易数据 HEX
+                    "txData": XXXX, //transaction data HEX
         	    },
         	    {...}
-        	], //交易列表
+        	], //transaction list
         }
     }
     ```
 
-- 返回字段说明
+- Return field description
 
-    略
+    slightly
 
-#### 2.2.7 获取某高度区间内区块头
+#### 2.2.7 Getting the block header in a certain height interval
 
-- 接口说明
+- Interface Description
 
-1. 令queryHash=endHash
-2. 根据链ID、queryHash查询DB得到区块头byte数组
-3. 反序列化为区块头对象blockHeader，添加到List中作为返回值
-4. 如果blockHeader.hash!=startHash，令queryHash=blockHeader.preHash，重复第2步
-5. 返回List
+1. make queryHash=endHash
+2. According to the chain ID, queryHash query DB to get the block header byte array
+3. Deserialize to block header object blockHeader, add to List as return value
+4. If blockHeader.hash!=startHash, make queryHash=blockHeader.preHash, repeat step 2
+5. Return to List
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -616,15 +616,15 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
-| 1     | startHeight   | true     | Long  |   起始高度    |
-| 2     | endHeight   | true     | Long  |   结束高度    |
+| 0 | chainId | true | Long | Chain ID |
+| 1 | startHeight | true | Long | Starting height |
+| 2 | endHeight | true | Long | End Height |
 
-- 返回示例
+- Return to example
 
     Failed
     
@@ -666,35 +666,35 @@
     }
     ```
     
-- 返回字段说明
+- Return field description
   
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| chainId      | Long    | 链ID                                |
-| hash      | String    | 区块HASH                                |
-| preHash   | String    | 上一区块HASH                              |
-| merkleHash   | String    | 区块MerkleHash                              |
-| height   | Long | 区块高度                              |
-| size   | Integer    | 区块大小                              |
-| time   | Long    | 区块打包时间                              |
-| txCount   | Integer    | 交易数                              |
-| packingAddress   | String    | 打包地址                              |
-| reward   | Long    | 共识奖励                              |
-| fee   | Long | 手续费                             |
-| extend   | String   | 扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot                              |
-| scriptSig   | String    | 区块签名                              |
+| chainId | Long | Chain ID |
+| hash | String | Block HASH |
+| preHash | String | Previous Block HASH |
+| merkleHash | String | Block MerkleHash |
+| height | Long | Block Height |
+| size | Integer | Block Size |
+| time | Long | Block Packing Time |
+| txCount | Integer | Number of transactions |
+| packingAddress | String | Packed Address |
+| reward | Long | Consensus Awards |
+| fee | Long | Fees |
+Extend | String | Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot |
+| scriptSig | String | Block Signature |
 
-#### 2.2.8 获取某高度区间内区块
+#### 2.2.8 Get the block in a certain height interval
 
-- 接口说明
+- Interface Description
 
-1. 令queryHash=endHash
-2. 根据链ID、queryHash查询DB得到区块byte数组
-3. 反序列化为区块对象block，添加到List中作为返回值
-4. 如果block.hash!=startHash，令queryHash=block.preHash，startHash，重复第2步
-5. 返回List
+1. make queryHash=endHash
+2. According to the chain ID, queryHash query DB to get the block byte array
+3. Deserialize to a block object block, add it to the List as the return value
+4. If block.hash!=startHash, make queryHash=block.preHash, startHash, repeat step 2
+5. Return to List
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -704,15 +704,15 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
 | index | parameter | required | type    | description |
 | ----- | --------- | -------- | ------- | :---------: |
-| 0     | chainId   | true     | Long  |   链ID    |
-| 1     | startHeight   | true     | Long  |   起始高度    |
-| 2     | endHeight   | true     | Long  |   结束高度    |
+| 0 | chainId | true | Long | Chain ID |
+| 1 | startHeight | true | Long | Starting height |
+| 2 | endHeight | true | Long | End Height |
 
-- 返回示例
+- Return to example
 
     Failed
     
@@ -748,41 +748,41 @@
                         "fee": 0,
                         "extend": xxxxxxx,HEX
                         "scriptSig": "1"
-                    }, //区块头
+                    }, //block header
                     "transactions": [
                         {
                             "chainId": "888",
-                            "height": "1", //区块高度
-                            "hash": "1", //交易HASH
-                            "remark": "1", //交易备注
-                            "size": "1", //交易大小
-                            "time": "1", //交易时间
-                            "type": "1", //交易类型
-                            "transactionSignature": "1", //交易签名
+                            "height": "1", //block height
+                            "hash": "1", //transaction HASH
+                            "remark": "1", //transaction notes
+                            "size": "1", //transaction size
+                            "time": "1", //transaction time
+                            "type": "1", //transaction type
+                            "transactionSignature": "1", //transaction signature
                             "coinData": {
                                 "from" : [
                                     {
-                                        "fromAssetsChainId":""//资产发行链的id  
-                                        "fromAssetsId":""//资产id
-                                        "fromAddress":""//转出账户地址
-                                        "amount":""//转出金额
-                                        "nonce":""//交易顺序号，递增
+                                        "fromAssetsChainId":""//id of asset distribution chain 
+                                        "fromAssetsId":""//asset id
+                                        "fromAddress":""//Transfer account address
+                                        "amount": ""//transfer amount
+                                        "nonce": ""//transaction sequence number, increment
                                     },{...}
                                 ]
                                 "to" : [
                                     {
-                                        "toAssetsChainId":""//资产发行链的id  
-                                        "toAssetsId":""//资产id
-                                        "toAddress":""//转出账户地址
-                                        "amount":""//转出金额
-                                        "nonce":""//交易顺序号，递增
+                                        "toAssetsChainId":""//id of asset distribution chain 
+                                        "toAssetsId":""//asset id
+                                        "toAddress": ""//Transfer account address
+                                        "amount": ""//transfer amount
+                                        "nonce": ""//transaction sequence number, increment
                                     },{...}
                                 ]
                             }
-                            "txData": XXXX, //交易数据 HEX
+                            "txData": XXXX, //transaction data HEX
                         },
                         {...}
-                    ], //交易列表
+                    ], //transaction list
                }
             ]
 
@@ -790,33 +790,33 @@
     }
     ```
     
-- 返回字段说明
+- Return field description
   
-    略
+    slightly
 
-#### 2.2.9 接收最新打包区块
+#### 2.2.9 Receiving the latest packaging block
 
-- 接口说明
+- Interface Description
 
-本地节点共识模块打包后，调用此接口保存区块数据
+After the local node consensus module is packaged, call this interface to save the block data.
 
-- 请求示例
+- Request example
 
     ```
     {
       "cmd": "receivePackingBlock",
       "minVersion":"1.1",
       "params": [
-      	blockhex//能用hex就用hex
+      	Blockhex// can use hex with hex
       ]
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
-    略
+    slightly
 
-- 返回示例
+- Return to example
 
     Failed
 
@@ -839,19 +839,19 @@
     }
     ```
 
-- 返回字段说明
+- Return field description
 
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| sync      | String    | 区块是否保存成功                          |
+| sync | String | Whether the block was saved successfully |
 
-#### 2.2.10 运行一条链
+#### 2.2.10 Running a chain
 
-- 接口说明
+- Interface Description
 
-在链工厂发布一条链后，核心模块会调用区块管理模块的该接口，根据chainID初始化区块、分叉链数据库，开启chainID对应的一系列工作线程，并为运行新链做准备。
+After the chain factory releases a chain, the core module calls the interface of the block management module, initializes the block and the forked chain database according to the chainID, starts a series of work threads corresponding to the chainID, and prepares for running the new chain.
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -861,11 +861,11 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
-    略
+    slightly
 
-- 返回示例
+- Return to example
 
     Failed
 
@@ -888,19 +888,19 @@
     }
     ```
 
-- 返回字段说明
+- Return field description
 
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| result      | String    | 新链是否启动成功                          |
+| result | String | Whether the new chain starts successfully |
 
-#### 2.2.11 停止一条链
+#### 2.2.11 Stop a chain
 
-- 接口说明
+- Interface Description
 
-在链工厂停止一条链后，核心模块会调用区块管理模块的该接口，删除该链的缓存区块、分叉链数据，停止chainID对应的一系列工作线程。
+After stopping a chain in the chain factory, the core module will call the interface of the block management module, delete the cache block and the fork chain data of the chain, and stop a series of work threads corresponding to the chainID.
 
-- 请求示例
+- Request example
 
     ```
     {
@@ -910,11 +910,11 @@
     }
     ```
 
-- 请求参数说明
+- Request parameter description
 
-    略
+    slightly
 
-- 返回示例
+- Return to example
 
     Failed
 
@@ -937,317 +937,317 @@
     }
     ```
 
-- 返回字段说明
+- Return field description
 
 | parameter | type      | description                                |
 | --------- | --------- | ------------------------------------------ |
-| result      | String    | 新链是否停止成功                          |
+| result | String | Whether the new chain stops successfully |
 
-### 2.3 模块内部功能
+### 2.3 Module internal function
 
-#### 2.3.1 模块启动
+#### 2.3.1 Module startup
 
-- 功能说明:
+- Function Description:
 
-  启动区块管理模块
+  Boot block management module
 
-- 流程描述
+- Process description
 
 ![](./design/block-module/block-module-boot.png)
 
-- 1.RPC服务初始化
-- 2.初始化通用数据库
-- 3.加载配置信息
-- 4.初始化各链数据库
-- 5.等待依赖模块就绪
-- 6.向网络模块注册消息处理类
-- 7.启动同步区块线程、数据库大小监控线程、分叉链处理线程、孤儿链处理线程、孤儿链维护线程
+- 1.rpc service initialization
+- 2. Initialize the general database
+- 3. Load configuration information
+- 4. Initialize each chain database
+- 5. Wait for the dependent module to be ready
+- 6. Register the message processing class with the network module.
+- 7. Start sync block thread, database size monitor thread, fork chain processing thread, orphan chain processing thread, orphan chain maintenance thread
 
-- 依赖服务
+- Dependent service
 
-  工具模块、内核模块、网络模块、交易管理模块
+  Tool module, kernel module, network module, transaction management module
 
-#### 2.3.2 区块存储
+#### 2.3.2 Block Storage
 
-- 功能说明:
+- Function Description:
 
-    存储主链上区块头数据以及分叉链、孤儿链的完整区块数据
+    Store block header data on the main chain and complete block data of the forked chain or orphan chain
 
-    - 主链存储
+    - Main chain storage
 
-      不同的链存到不同的表，表名加chainID后缀
-              一个完整的区块由区块头和交易组成，区块头与交易分别进行存储。
-      	区块头:(放在区块管理模块)
-                    key(区块高度)-value(区块头hash)              		block-header-index
-                    key(区块头hash)-value(完整的区块头)           	block-header
-      	交易:(放在交易管理模块)
+      Different chains are stored in different tables, table name plus chainID suffix
+              A complete block consists of a block header and a transaction, and the block header is stored separately from the transaction.
+      	Block header: (put in the block management module)
+                    Key (block height) - value (block header hash) 		block-header-index
+                    Key (block header hash)-value (complete block header) 	block-header
+      	Trading: (put in the transaction management module)
 
-    - 分叉链、孤儿链存储
+    - Forked chain, orphan chain storage
 
-      内存中缓存所有分叉链与孤儿链对象(只记录起始高度、起始hash、结束高度、结束hash等关键信息)，在硬盘中缓存全量区块数据，如果需要分叉链切换、清理分叉链等操作，只需读取一次数据库即可
-      	不同链的分叉链集合存在不同的表，表名加chainID后缀，每一个分叉链对象如下:
-      		key(区块hash)-value(完整的区块数据)          	CachedBlock
+      All the forked chains and orphaned chain objects are cached in memory (only the starting height, starting hash, ending height, ending hash, etc.) are recorded, and the full block data is cached in the hard disk. If forked chain switching or cleaning is required For operations such as forks, you only need to read the database once.
+      	Different branches of the bifurcation chain have different tables, the table name plus the chainID suffix, and each bifurcation chain object is as follows:
+      		Key (block hash)-value (complete block data) 	CachedBlock
 
-- 流程描述
+- Process description
 
-    略
+    slightly
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库工具
+  Database tool for tool modules
 
-#### 2.3.3 区块清理
+#### 2.3.3 Block Cleaning
 
-- 功能说明:
+- Function Description:
 
-  为了避免过多垃圾数据占用硬盘空间，对分叉链和孤儿链进行定时清理
+  In order to avoid excessive garbage data occupying hard disk space, timing cleaning of the forked chain and orphan chain
 
-- 流程描述
+- Process description
 
-  1. 按照配置的最大缓存区块数量进行清理，当分叉链+孤儿链缓存的区块数量大于阈值时，进行清理
-  2. 按照分叉链或孤儿链的起始高度与主链的最新高度差进行清理
-  3. 按照孤儿链的年龄进行清理，孤儿链的年龄初始值为0，每经过一次孤儿链维护，但该孤儿链的链首并没有新增合法区块时，该孤儿链年龄加一，当孤儿链年龄大于阈值时，进行清理
+  1. Clean up according to the configured maximum number of cache blocks. When the number of blocks in the forked chain + orphan chain cache is greater than the threshold, clean up.
+  2. Clean up according to the starting height of the bifurcation chain or orphan chain and the latest height difference of the main chain
+  3. According to the age of the orphan chain, the initial age of the orphan chain is 0. After each orphan chain maintenance, but the chain of the orphan chain does not add legal blocks, the orphan chain age is increased by one. Clean up when the orphan chain age is greater than the threshold
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库工具
+  Database tool for tool modules
 
-#### 2.3.4 区块同步
+#### 2.3.4 Block Synchronization
 
-- 功能说明:
+- Function Description:
 
-  系统启动后，维护本地区块数据与网络上大部分节点保持一致。
+  After the system is started, the maintenance of the local block data is consistent with most nodes on the network.
 
-  BlockSynchronizer:统计网络上最新一致高度、检查本地区块是否需要回滚、初始化各种区块同步期间的参数
+  BlockSynchronizer: statistics the latest consistent height on the network, check whether the local block needs to be rolled back, and initialize the parameters during the synchronization of various blocks.
 
-  ​BlockDownloader:从起始高度开始，根据各下载节点的信用值分配下载任务，组装HeightRangeMessage，发送给目标节点
+  BlockDownloader: From the starting height, assign the download task according to the credit value of each download node, assemble the HeightRangeMessage, and send it to the target node.
 
-  ​BlockConsumer:根据高度依次取出缓存Map中的区块，验证并保存，如果某个高度一直取不到，就组装一条HeightMessage，发送给连接到的节点单独获取该高度的区块
+  BlockConsumer: Extracts the blocks in the cached map according to the height, verifies and saves them. If a certain height is not available, assembles a HeightMessage and sends it to the connected node to obtain the block of the height.
 
-- 流程描述
+- Process description
 
-    - 区块同步主流程
+    - Block synchronization main process
 
     ![](./design/block-module/block-synchronization.png)
 
-    - 获取网络上可用节点列表
+    - Get a list of available nodes on the network
 
     ```
-        1. 遍历节点，统计两个MAP，假定每个节点的(最新HASH+最新高度)是key
-        2. 一个以key为主键统计次数
-        3. 一个以key为主键记录持有该key的节点列表
-        4. 最终统计出出现频率最大的key，就获取到当前可信的最新高度与最新hash，以及可信的节点列表
+        1. Traverse the node and count the two MAPs, assuming that each node (the latest HASH+ latest height) is the key
+        2. A key with the key as the number of statistics
+        3. A key is used to record the list of nodes holding the key.
+        4. Finally, the most frequently occurring key is counted, and the current trusted latest height and latest hash, as well as the list of trusted nodes are obtained.
         
-        举个栗子:
-        现在同时连接到10个节点。其中4个节点(A,B,C,D)的最新区块高度是100，最新区块hash是aaa，其中6个节点(E,F,G,H,I,J)的最新区块高度是101，最新区块hash是bbb。
-        最终返回(101，bbb,[E,F,G,H,I,J])。
+        Give a chestnut:
+        Now connect to 10 nodes at the same time.The latest block height of 4 nodes (A, B, C, D) is 100, the latest block hash is aaa, and the latest block height of 6 nodes (E, F, G, H, I, J) Is 101, the latest block hash is bbb.
+        Finally return (101, bbb, [E, F, G, H, I, J]).
     ```
 
-    - 下载区块逻辑
+    - Download block logic
 
     ![](./design/block-module/block-synchronization2.png)
     ```
-        在正式下载区块前，要判断本地与网络是否发生分叉，是否需要回滚。以便找到准确的区块下载高度。
-        以下分情况讨论:
-        取上一步的结果(101，bbb,[E,F,G,H,I,J])，同时LH(N)代表本地第N块的hash，RH(N)代表网络上第N块的hash。
-        1.本地高度100&lt;网络高度101，LH(100)==RH(100)，正常，比远程节点落后，下载区块
-        2.本地高度100&lt;网络高度101，LH(100)!=RH(100)，认为本地分叉，回滚本地区块，如果LH(99)==RH(99)
-        回滚结束，从99块开始下载，如果LH(99)!=RH(99)，继续回滚，重复上述逻辑。但最多回滚10个块就停止，等待下次同步，这样可以避免被恶意节点攻击，大量回滚正常区块。
-        3.本地高度102>网络高度101，LH(101)==RH(101)，正常，比远程节点领先，无需下载区块
-        4.本地高度102>网络高度101，LH(101)!=RH(101)，认为本地分叉，先一次性回滚到高度与远程一致，重复场景2
-        5.本地高度101=网络高度101，LH(101)==RH(101)，正常，与远程节点一致，无需下载区块
-        6.本地高度101=网络高度101，LH(101)!=RH(101)，认为本地分叉，重复场景2
+        Before the block is officially downloaded, it is necessary to determine whether there is a fork between the local and the network, and whether it needs to be rolled back.In order to find the exact block download height.
+        The following discussion is divided into:
+        Take the result of the previous step (101, bbb, [E, F, G, H, I, J]), while LH(N) represents the hash of the local Nth block, and RH(N) represents the hash of the Nth block on the network. .
+        1. Local height 100 &lt; network height 101, LH (100) == RH (100), normal, behind the remote node, download block
+        2. Local height 100 &lt; network height 101, LH (100)! = RH (100), think local fork, roll back the local block, if LH (99) == RH (99)
+        At the end of the rollback, download from 99 blocks. If lh(99)!=rh(99), continue to roll back and repeat the above logic.However, if you roll back 10 blocks at most, it will stop and wait for the next synchronization. This will avoid being attacked by malicious nodes and roll back normal blocks in large quantities.
+        3. Local height 102> network height 101, lh (101) == rh (101), normal, leading than the remote node, no need to download the block
+        4. Local height 102> network height 101, lh(101)!=rh(101), think local fork, first roll back to height and remotely, repeat scene 2
+        5. Local height 101 = network height 101, lh (101) == rh (101), normal, consistent with the remote node, no need to download the block
+        6. Local height 101 = network height 101, lh (101)! = rh (101), think local fork, repeat scene 2
         
-        场景1、2需要额外从节点下载与本地高度一致的区块，进行hash判断
-        上述需要回滚的场景，要满足可用节点数(10个)>配置，一致可用节点数(6个)占比超80%两个条件，避免节点太少导致频繁回滚。以上两个条件都不满足，清空已连接节点，重新获取可用节点。
+        Scenes 1, 2 need to download additional blocks from the node that are consistent with the local height, and perform hash judgment.
+        In the scenario that needs to be rolled back, the number of available nodes (10) > configuration, the number of consistent available nodes (6) accounted for more than 80%, and avoiding too few nodes leads to frequent rollback.The above two conditions are not met, empty the connected nodes, and re-acquire the available nodes.
      
-        真正下载区块时，举个例子:
-        当前高度100，网络高度500，可用节点12个，一致可用节点10个，每个节点初始下载区块2个，下载时缓存队列最多允许缓存100个区块
-        伪代码表示
-        	空闲的下载节点队列：nodes(每个下载节点会有初始下载信用值，每下载成功一次信用值增加，信用最大值为初始值的2倍)
-        	下载到的区块缓存队列：queue
-            下载起始高度：startHeight = 101;
-            下载结束高度：netLatestHeight = 500;
+        When actually downloading a block, give an example:
+        The current height is 100, the network height is 500, 12 nodes are available, 10 nodes are consistently available, and each node initially downloads 2 blocks. When downloading, the cache queue allows up to 100 blocks to be cached.
+        Pseudo code representation
+        	Idle download node queue: nodes (each download node will have an initial download credit value, the credit value increases every time the download is successful, and the credit maximum is twice the initial value)
+        	Block cache queue downloaded to: queue
+            Download starting height: startHeight = 101;
+            Download end height: netLatestHeight = 500;
             while (startHeight &lt;= netLatestHeight) {
                     while (queue.size() > 100) {
                         BlockDownloader wait！ cached queue size beyond config
                     }
-                    获取一个可用节点
-                    根据节点下载信用值计算本次下载区块数量为size
-                    提交异步下载任务
+                    Get an available node
+                    Calculate the number of download blocks according to the node download credit value as size
+                    Submit an asynchronous download task
                     startHeight += size;
             }
-    如果某节点下载失败，则由其他节点代为下载
-    考虑下载过程中，网络上其他节点还会继续生成新区块。下载结束后，需要判断本地最新区块高度与网上最新一致高度是否相同，如果相同，标志区块同步结束，如果不相同，则需要继续下载
+    If a node fails to download, it is downloaded by other nodes.
+    Considering that during the download process, other nodes on the network will continue to generate new blocks.After the download is completed, it is necessary to judge whether the latest block height in the local area is the same as the latest matching height on the network. If they are the same, the flag block synchronization ends. If they are not the same, you need to continue downloading.
     ```
 
-    - 从节点下载某高度区间内的区块
+    - Download blocks from a height interval from the node
 
     ![](./design/block-module/block-synchronization3.png)
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具、RPC工具
+  Database module tool for tool module, rpc tool
 
-#### 2.3.5 区块基础验证
+#### 2.3.5 Block Basic Verification
 
-- 功能说明:
+- Function Description:
 
-  验证区块自身数据正确性,下载过程中验证，验证通过说明区块数据本身没有问题，验证失败则丢弃该区块
+  Verify the correctness of the block's own data, verify during the download process, verify that there is no problem with the block data itself, and discard the block if the verification fails.
 
-- 流程描述
+- Process description
 
-    - 区块基本验证
+    - Block basic verification
     
     ![](./design/block-module/block-basic-validation.png)
     
-    - 区块头验证
+    - Block header verification
     
     ![](./design/block-module/block-basic-validation1.png)
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-#### 2.3.6 分叉区块、孤儿区块验证
+#### 2.3.6 Bifurcation block, orphan block verification
 
-- 功能说明:
+- Function Description:
 
-  验证区块上下文正确性，下载完成后验证，验证通过说明该区块与主链相连，验证失败说明该区块分叉，进入分叉链处理逻辑
+  Verify the correctness of the block context. After the download is completed, the verification is verified. The verification indicates that the block is connected to the main chain. The verification failure indicates that the block is bifurcated and enters the forked chain processing logic.
 
-- 流程描述
+- Process description
 
-  - 分叉区块、孤儿区块验证
-  - 区块B与链A的关系有四种：
-  - 1.B是A上重复的区块
-  - 2.B是A上分叉的区块
-  - 3.B能直接连到A
-  - 4.B与A没有任何关联关系
-  - 以上四种关系适用于主链、分叉链、孤儿链
+  - Forked block, orphan block verification
+  - There are four relationships between block b and chain a:
+  - 1.b is a duplicate block on a
+  - 2.b is a forked block on a
+  - 3.b can connect directly to a
+  - 4.b has no association with a
+  - The above four relationships apply to the main chain, the bifurcation chain, the orphan chain
     
 
-  高度差1000以内缓存到磁盘，磁盘空间做大小限制，超出高度则丢弃，缓存空间满则按加入缓存时间顺序清理分叉链。
-  如果是正常运行时，收到其他节点转发的区块，发现分叉了要通知共识模块给生成这个区块的节点红牌惩罚，系统启动后的同步过程中不做这个判断
+  The height difference is cached to disk within 1000. The disk space is limited in size. If the height exceeds the height, it is discarded. When the cache space is full, the fork chain is cleared in the order of adding cache time.
+  If it is in normal operation, it receives the block forwarded by other nodes, and finds that the fork module has to notify the consensus module to give the red card penalty for the node that generated the block. This judgment is not made during the synchronization process after the system is started.
 
   ![](./design/block-module/block-fork.png)
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-#### 2.3.7 分叉链管理
+#### 2.3.7 Fork Chain Management
 
-- 功能说明:
+- Function Description:
 
-  判断分叉链与主链是否需要进行切换
+  Determine if the fork chain and the main chain need to be switched
 
-- 流程描述
-  - 找出最大高度差，与链切换阈值对比，大于阈值则进行链切换
-      - 找到主链与最长分叉链的分叉点，同时找出链切换路径
-      - 回滚主链区块，回滚掉的区块组成新的分叉链链接到原主链
-      - 依次添加切换路径上的分叉链的区块
-      - 切换完成
+- Process description
+  - Find the maximum height difference, compared to the chain switching threshold, and chain switching if it is greater than the threshold
+      - Find the bifurcation point of the main chain and the longest bifurcation chain, and find the chain switching path
+      - Roll back the main chain block, roll back the block to form a new fork chain link to the original main chain
+      - Add blocks of the forked chain on the switching path in turn
+      - Switch completed
 
 ![](./design/block-module/block-fork-chain.png)
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-#### 2.3.8 孤儿链管理
+#### 2.3.8 Orphan Chain Management
 
-- 功能说明:
+- Function Description:
 
-    用来进行孤儿链与分叉链、主链的相连、分叉操作
+    Used to connect orphan chains to bifurcation chains, main chains, and fork operations
 
-- 流程描述
+- Process description
 
-    链与链之间的关系就三种，相连、分叉、重复。
+    There are three kinds of relationships between chains and chains, which are connected, bifurcated and repeated.
     
- 1.  标记(变更链属性阶段)
- 主链、分叉链、孤儿链分别对应MASTER，FORK，ORPHAN三种最终类别
-     - 如果孤儿链与主链相连，暂时标记孤儿链为MASTER_APPEND，标记孤儿链的子链为MASTER_FORK
-     - 如果孤儿链与主链重复，暂时标记孤儿链为MASTER_DUPLICATE，标记孤儿链的子链为MASTER_FORK
-     - 如果孤儿链与主链分叉，暂时标记孤儿链为MASTER_FORK，标记孤儿链的子链为FORK_FORK
-     - 如果孤儿链与分叉链相连，暂时标记孤儿链为FORK_APPEND，标记孤儿链的子链为FORK_FORK
-     - 如果孤儿链与分叉链重复，暂时标记孤儿链为FORK_DUPLICATE，标记孤儿链的子链为FORK_FORK
-     - 如果孤儿链与分叉链分叉，暂时标记孤儿链为FORK_FORK，标记孤儿链的子链为FORK_FORK
-     - 如果孤儿链与孤儿链相连，暂时标记孤儿链为ORPHAN_APPEND，标记孤儿链的子链为ORPHAN_FORK
-     - 如果孤儿链与孤儿链重复，暂时标记孤儿链为ORPHAN_DUPLICATE，标记孤儿链的子链为ORPHAN_FORK
-     - 如果孤儿链与孤儿链分叉，暂时标记孤儿链为ORPHAN_FORK，标记孤儿链的子链为ORPHAN_FORK
-     - 如果孤儿链经过上述流程标志未变，说明它与其他链没有关联，标志依然为ORPHAN
+ 1. Mark (change chain attribute stage)
+ The main chain, the bifurcation chain, and the orphan chain correspond to the three final categories of master, fork, orphan.
+     - If the orphan chain is connected to the main chain, temporarily mark the orphan chain as master_append, and mark the subchain of the orphan chain as master_fork
+     - If the orphan chain is duplicated with the main chain, temporarily mark the orphan chain as master_duplicate, and mark the subchain of the orphan chain as master_fork
+     - If the orphan chain is bifurcated with the main chain, temporarily mark the orphan chain as master_fork, and mark the sub-chain of the orphan chain as fork_fork
+     - If the orphan chain is connected to the forked chain, temporarily mark the orphan chain as fork_append, and mark the child chain of the orphan chain as fork_fork
+     - If the orphan chain and the bifurcation chain are repeated, temporarily mark the orphan chain as fork_duplicate, and mark the sub-chain of the orphan chain as fork_fork
+     - If the orphan chain and the bifurcation chain are forked, temporarily mark the orphan chain as fork_fork, and mark the child chain of the orphan chain as fork_fork
+     - If the orphan chain is connected to the orphan chain, temporarily mark the orphan chain as orphan_append, and mark the child chain of the orphan chain as orphan_fork
+     - If the orphan chain is repeated with the orphan chain, temporarily mark the orphan chain as orphan_duplicate, and mark the child chain of the orphan chain as orphan_fork
+     - If the orphan chain and the orphan chain are forked, temporarily mark the orphan chain as orphan_fork, and mark the child chain of the orphan chain as orphan_fork
+     - If the orphan chain has not changed through the above process, it is not associated with other chains, the flag is still orphan
 
- 2.  复制、清除
-     - 如果标记为与主链重复,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.MASTER_FORK
-     - 如果标记为与主链相连,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.MASTER_FORK
-     - 如果标记为从主链分叉,orphanChain不会复制到新的孤儿链集合,但是会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK
-     - 如果标记为与分叉链重复,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK
-     - 如果标记为与分叉链相连,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK
-     - 如果标记为从分叉链分叉,orphanChain不会复制到新的孤儿链集合,但是会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK
-     - 如果标记为与孤儿链重复,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.ORPHAN_FORK
-     - 如果标记为与孤儿链相连,不会复制到新的孤儿链集合,所有orphanChain的直接子链会复制到新的孤儿链集合,类型不变
-     - 如果标记为与孤儿链分叉,会复制到新的孤儿链集合,所有orphanChain的直接子链会复制到新的孤儿链集合,类型不变
-     - 如果标记为孤儿链(未变化),或者从孤儿链分叉,复制到新的孤儿链集合
+ 2. Copy, clear
+     - If marked as duplicated with the main chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the bifurcation chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.MASTER_FORK
+     - If marked as connected to the main chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the bifurcation chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.MASTER_FORK
+     - If marked as bifurcated from the main chain, orphanChain will not be copied to the new orphan chain collection, but will enter the bifurcation chain collection, and the direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK
+     - If marked as duplicated with a forked chain, orphanChain will not be copied to the new orphaned chain set, nor will it enter the forked chain set. The direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK
+     - If marked as connected to a forked chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the forked chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK
+     - If marked as bifurcated from the forked chain, orphanChain will not be copied to the new orphaned chain set, but will enter the forked chain set, and the direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK
+     - If marked as repeating with an orphan chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the forked chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.ORPHAN_FORK
+     - If marked as connected to an orphan chain, will not be copied to the new orphan chain collection, all orphanChain's direct sub-chain will be copied to the new orphan chain collection, the type is unchanged
+     - If marked as bifurcated with an orphan chain, it will be copied to the new orphan chain collection, and all orphanChain's direct sub-chains will be copied to the new orphan chain collection with the same type
+     - If marked as an orphan chain (not changed), or forked from an orphan chain, copy to a new orphan chain set
       
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-#### 2.3.9 孤儿链维护
+#### 2.3.9 Orphan chain maintenance
 
-- 功能说明:
+- Function Description:
 
-    定时尝试在孤儿链的链首请求增加区块，维护失败孤儿链年龄加一。
+    Timing attempts to increase the block at the beginning of the chain of the orphan chain, maintaining the age of the failed orphan chain plus one.
 
-- 流程描述
+- Process description
 
-    遍历所有孤儿链，取链上起始区块的preHash，组装成HashMessage发往当前可用节点中的任意一个，等待异步返回结果。
+    Iterate through all the orphan chains, take the preHash of the starting block on the chain, assemble it into a HashMessage and send it to any of the currently available nodes, waiting for the result to be returned asynchronously.
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-#### 2.3.10 转发区块
+#### 2.3.10 Forwarding block
 
-- 功能说明:
+- Function Description:
 
-    非出块节点验证完区块后执行转发流程
+    The non-exit node performs the forwarding process after verifying the block
 
-- 流程描述
+- Process description
 
-1. 使用blockHash组装HashMessage，发送给目标节点
-2. 目标节点收到HashMessage后，取出hash判断是否重复，如果不重复，使用hash组装HashMessage发给源节点
-3. 源节点收到GetSmallBlockMessage后，取出hash，查询SmallBlock并组装SmallBlockMessage，发给目标节点
-4. 后续交互流程参考广播区块
+1. Assemble the HashMessage using blockHash and send it to the target node.
+2. After receiving the HashMessage, the target node fetches the hash to determine whether it is duplicated. If it is not repeated, use hash to assemble the HashMessage and send it to the source node.
+3. After receiving the GetSmallBlockMessage, the source node takes the hash, queries the SmallBlock, and assembles the SmallBlockMessage, and sends it to the target node.
+4. Subsequent interaction process reference broadcast block
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-#### 2.3.11 广播区块
+#### 2.3.11 Broadcast Block
 
-- 功能说明:
+- Function Description:
 
-  出块的节点执行广播流程
+  Outgoing node performs broadcast process
 
-- 流程描述
+- Process description
 
-  - 接收共识模块的打包区块，验证成功后，根据Block组装SmallBlockMessage并广播给连接到的节点
-  - 目标节点收到消息后根据txHashList判断哪些交易本地没有,再组装HashListMessage发给源节点
-  - 源节点收到信息后按照hashlist组装TxGroupMessage,返回给目标节点
-  - 至此完整区块数据已经发送给目标节点。
+  - Receive the packaging block of the consensus module. After the verification is successful, assemble the SmallBlockMessage according to the Block and broadcast it to the connected node.
+  - After receiving the message, the target node determines which transactions are not locally based on txHashList, and then assembles the HashListMessage to the source node.
+  - After receiving the information, the source node assembles the TxGroupMessage according to the hashlist and returns it to the target node.
+  - At this point the complete block data has been sent to the target node.
 
-- 依赖服务
+- Dependent service
 
-  工具模块的数据库存储工具
+  Database storage tool for tool modules
 
-## 三、事件说明
+## III. Description of the event
 
-### 3.1 发布的事件
+### 3.1 Published events
 
-#### 3.1.1 同步完成
+#### 3.1.1 Synchronization completed
 
-说明:同步完成，本地区块高度与网络高度一致时，发布该事件
+Description: The synchronization is completed. When the height of the area is the same as the height of the network, the event is released.
 
  event_topic : "bl_blockSyncComplete",
 
@@ -1259,9 +1259,9 @@ data:{
 }
 ```
 
-#### 3.1.2 保存区块
+#### 3.1.2 Saving Blocks
 
-说明:每保存一个区块，发布该事件，初次同步时不发该事件
+Description: This event is posted every time a block is saved, and is not sent during the initial synchronization.
 
  event_topic : "bl_saveBlock",
 
@@ -1273,9 +1273,9 @@ data:{
 }
 ```
 
-#### 3.1.3 回滚区块
+#### 3.1.3 Rollback block
 
-说明:每回滚一个区块，发布该事件   
+Description: Publish this event each time you roll back a block 
 
  event_topic : "bl_rollbackBlock",
 
@@ -1287,259 +1287,259 @@ data:{
 }
 ```
 
-### 3.2 订阅的事件
+### 3.2 Subscribe to events
 
-​	略
+	slightly
 
-## 四、协议
+## IV. Agreement
 
-### 4.1 网络通讯协议
+### 4.1 Network Communication Protocol
 
-​	参见网络模块
+	See network module
 
-### 4.2 消息协议
+### 4.2 Message Protocol
 
-#### 4.2.1 区块高度信息HeightMessage
+#### 4.2.1 Block Height Information HeightMessage
 
-- 消息说明:用于"区块同步"过程中重试下载
+- Message description: Retry download during "block synchronization"
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   getBlockH
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
-| 64   | heighrt | int64  | 区块高度    |
+| 64 | heighrt | int64 | Block Height |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-    - 根据区块高度查询完整区块并发送给目标节点
-    - 如果没有该高度的区块，返回空消息
+    - Query the complete block according to the block height and send it to the target node
+    - If there is no block of this height, an empty message is returned
 
-#### 4.2.2 单个摘要消息HashMessage
+#### 4.2.2 Single Summary Message HashMessage
 
-- 消息说明:用于"转发区块","孤儿链维护"功能
+- Message description: for "forward block", "orphan chain maintenance" function
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   forward,getBlock,getsBlock
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
-| 32     | hash  | byte[]  | 交易hash  |
+| 32 | hash | byte[] | Trading hash |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-    - 转发SmallBlock的hash
-    - 根据hash获取SmallBlock
-    - 根据hash获取完整区块
+    - Forward the hash of SmallBlock
+    - Get SmallBlock based on hash
+    - Get the full block based on hash
 
-#### 4.2.3 摘要列表消息HashListMessage
+#### 4.2.3 Summary List Message HashListMessage
 
-- 消息说明:用于"转发区块"功能
+- Message description: for "forward block" function
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   getTxs
 
-- 消息的格式（messageBody） 
+- The format of the message (messageBody) 
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
-| 32     | blockHash            | byte[]    | 区块hash           |
-| ?     | hashLength      | VarInt    | 数组长度           |
-| 32     | hash        | byte[]    | 交易hash           |
+| 32 | blockHash | byte[] | Block hash |
+| ? | hashLength | VarInt | Array Length |
+| 32 | hash | byte[] | Trading hash |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-1. 根据chainID、hash获取Transaction列表
-2. 组装TxGroupMessage，并发送给源节点
+1. Obtain the Transaction List based on chainID and hash
+2. Assemble the TxGroupMessage and send it to the source node
 
-#### 4.2.4 区块广播消息SmallBlockMessage
+#### 4.2.4 Block Broadcast Message SmallBlockMessage
 
-- 消息说明:用于"转发区块"、"广播区块"功能
+- Message description: for "forwarding block", "broadcast block" function
 
-- 消息类型（short）
+- Message type (short)
 
   sBlock
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
 | ?     | preHash         | byte[]    | preHash           |
 | ?     | merkleHash      | byte[]    | merkleHash           |
-| 32     | time          | Uint32    | 时间           |
-| 32     | height      | Uint32    | 区块高度           |
-| 32     | txCount      | Uint32    | 交易数           |
-| ?     | extendLength| VarInt    | extend数组长度           |
+| 32 | time | Uint32 | Time |
+| 32 | height | Uint32 | Block Height |
+| 32 | txCount | Uint32 | Number of Transactions |
+| ? | extendLength| VarInt | extend array length |
 | ?     | extend      | byte[]    | extend           |
-| 32     | publicKeyLength      | Uint32    | 公钥数组长度           |
-| ?     | publicKey      | byte[]    | 公钥           |
-| ?     | signBytesLength| VarInt    | 签名数组长度           |
-| ?     | signBytes      | byte[]    | 签名           |
-| ?     | txHashListLength| VarInt    | 交易hash列表数组长度           |
-| ?     | txHashLength| VarInt    | 交易hash数组长度           |
-| ?     | txHash      | byte[]    | 交易hash           |
+| 32 | publicKeyLength | Uint32 | Public Key Array Length |
+| ? | publicKey | byte[] | Public Key |
+| ? | signBytesLength| VarInt | Signature Array Length |
+| ? | signBytes | byte[] | Signature|
+| ? | txHashListLength| VarInt | Transaction hash list array length |
+| ? | txHashLength| VarInt | Trading hash array length |
+| ? | txHash | byte[] | Trading hash |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-    - 判断区块时间戳是否大于(当前时间+10s)，如果大于这个时间，则判定为恶意提前出块，忽略该消息
-    - 根据chainID、区块hash判断消息是否重复，如果重复，则忽略该消息(这里要求维护一个集合,按照chainID分类储存收到的区块hash)
-    - 根据chainID、区块hash在DB中查询本地是否已经有该区块，如果已经有了，则忽略该消息
-    - 验证区块头，验证失败，则忽略该消息
-    - 取txHashList，判断那些tx本地没有，组装HashListMessage，发给源节点，获取没有的那些交易信息
-    - 如果交易都有，组放入缓存队列，等待验证线程验证后存储
+    - Determine whether the block timestamp is greater than (current time +10s). If it is greater than this time, it is determined to be maliciously prematurely out of the block, ignoring the message.
+    - According to the chainID and the block hash, it is judged whether the message is repeated. If it is repeated, the message is ignored (it is required to maintain a set and store the received block hash according to the chainID).
+    - Query the DB according to the chainID and the block hash to see if the block already exists in the local area. If it already exists, ignore the message.
+    - Verify the block header, if the verification fails, ignore the message
+    - Take txHashList, determine that tx is not local, assemble HashListMessage, send it to the source node, and get those transaction information that is not available.
+    - If the transaction is available, the group is placed in the cache queue, waiting for the verification thread to verify and store
 
-#### 4.2.5 高度区间消息HeightRangeMessage
+#### 4.2.5 Height interval message HeightRangeMessage
 
-- 消息说明:用于"同步区块"功能
+- Message description: for "sync block" function
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   getBlocks
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
-| 64   | startHeight  | int64  | 起始高度           |
-| 64   | endHeight  | int64 | 结束高度           |
+| 64 | startHeight | int64 | Starting height |
+| 64 | endHeight | int64 | End Height |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-    - chainID、高度参数验证
-    - 从startHeight开始查找Block,组装BlockMessage，发给目标节点
-    - 查找到endHeight为止，组装CompleteMessage(true)，发给目标节点
-    - 中途查找失败，组装CompleteMessage(false)，发给目标节点
+    - chainID, height parameter verification
+    - Find the Block from startHeight, assemble the BlockMessage, and send it to the target node.
+    - As soon as the endHeight is found, assemble CompleteMessage(true) and send it to the target node.
+    - Midway lookup failed, assemble CompleteMessage(false), and send it to the target node
 
-#### 4.2.6 完整的区块消息BlockMessage
+#### 4.2.6 Complete block message BlockMessage
 
-- 消息说明:用于"区块同步"
+- Message description: for "block synchronization"
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   block
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
 | 32     | requestHash         | byte[]    | requestHash           |
-| 32     | preHash         | byte[]    | 上一个区块的hash           |
+| 32 | preHash | byte[] | hash of the previous block |
 | 32     | merkleHash      | byte[]    | merkleHash           |
-| 32     | time          | Uint32    | 时间           |
-| 32     | height      | Uint32    | 区块高度           |
-| 32     | txCount      | Uint32    | 交易数           |
-| ?     | extendLength| VarInt    | extend数组长度           |
+| 32 | time | Uint32 | Time |
+| 32 | height | Uint32 | Block Height |
+| 32 | txCount | Uint32 | Number of Transactions |
+| ? | extendLength| VarInt | extend array length |
 | ?     | extend      | byte[]    | extend           |
-| 32     | publicKeyLength      | Uint32    | 公钥数组长度           |
-| ?     | publicKey      | byte[]    | 公钥           |
-| ?     | signBytesLength| VarInt    | 签名数组长度           |
-| ?     | signBytes      | byte[]    | 区块签名           |
-| 16     | type      | uint16    | 交易类型           |
-| 32   | time      | uint32  | 交易时间           |
-| ?     | remarkLength| VarInt    | 备注数组长度           |
-| ?     | remark      | byte[]    | 备注           |
-| ?     | txDataLength| VarInt    | 交易数据数组长度           |
-| ?     | txData      | byte[]    | 交易数据           |
-| ?     | coinDataLength| VarInt    | CoinData数组长度           |
+| 32 | publicKeyLength | Uint32 | Public Key Array Length |
+| ? | publicKey | byte[] | Public Key |
+| ? | signBytesLength| VarInt | Signature Array Length |
+| ? | signBytes | byte[] | Block Signature |
+| 16 | type | uint16 | Transaction Type |
+| 32 | time | uint32 | Trading Hours |
+| ? | remarkLength| VarInt | Remarks Array Length |
+| ? | remark | byte[] | Notes |
+| ? | txDataLength| VarInt | Transaction Data Array Length |
+| ? | txData | byte[] | Trading Data |
+| ? | coinDataLength| VarInt | CoinData array length |
 | ?     | coinData      | byte[]    | CoinData           |
-| ?     | txSignLength| VarInt    | 交易签名数组长度           |
-| ?     | txSign      | byte[]    | 交易签名           |
-| 1     | syn  | byte      | 是否是为区块同步请求的区块           |
+| ? | txSignLength| VarInt | Transaction Signature Array Length |
+| ? | txSign | byte[] | Transaction Signature |
+| 1 | syn | byte | Whether it is a block for block synchronization request |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-    - 如果syn==true,把区块放入同步的缓存map中,并增加同步区块字节数
-    - 如果syn==false,放入单个区块缓存中
+    - If syn==true, put the block into the synchronized cache map and increase the number of sync block bytes
+    - Put in a single block cache if syn==false
 
-#### 4.2.7 请求完成消息CompleteMessage
+#### 4.2.7 Request completion message CompleteMessage
 
-- 消息说明:通用消息，用于异步请求，标志异步请求处理结束。
+- Message Description: A generic message for asynchronous requests that marks the end of asynchronous request processing.
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   complete
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
 | 32     | Hash         | byte[]    | Hash           |
-| 1     | success  | byte      | 成功标志           |
+| 1 | success | byte | success logo|
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-1. 根据chainID、nodeId把对应节点的工作标志设置为空闲。
+1. Set the working flag of the corresponding node to idle according to the chainID and nodeId.
 
-#### 4.2.8 交易列表的消息TxGroupMessage
+#### 4.2.8 Transaction List Message TxGroupMessage
 
-- 消息说明:用于"转发区块"
+- Message description: for "forwarding blocks"
 
-- 消息类型（cmd）
+- Message type (cmd)
 
   txs
 
-- 消息的格式（messageBody）
+- The format of the message (messageBody)
 
 | Length | Fields  | Type      | Remark         |
 | ------ | ------- | --------- | -------------- |
 | 32   | blockHash | byte[]    | blockHash  |
-| ?     | txCount   | VarInt    | 交易数           |
-| 16     | type      | uint16    | 交易类型           |
-| 32   | time      | uint32  | 交易时间           |
-| ?     | remarkLength| VarInt    | 备注数组长度           |
-| ?     | remark      | byte[]    | 备注           |
-| ?     | txDataLength| VarInt    | 交易数据数组长度           |
-| ?     | txData      | byte[]    | 交易数据           |
-| ?     | coinDataLength| VarInt    | CoinData数组长度           |
+| ? | txCount | VarInt | Number of transactions |
+| 16 | type | uint16 | Transaction Type |
+| 32 | time | uint32 | Trading Hours |
+| ? | remarkLength| VarInt | Remarks Array Length |
+| ? | remark | byte[] | Notes |
+| ? | txDataLength| VarInt | Transaction Data Array Length |
+| ? | txData | byte[] | Trading Data |
+| ? | coinDataLength| VarInt | CoinData array length |
 | ?     | coinData      | byte[]    | CoinData           |
-| ?     | txSignLength| VarInt    | 交易签名数组长度           |
-| ?     | txSign      | byte[]    | 交易签名           |
+| ? | txSignLength| VarInt | Transaction Signature Array Length |
+| ? | txSign | byte[] | Transaction Signature |
 
-- 消息的验证
+- Verification of the message
 
-    略
+    slightly
 
-- 消息的处理逻辑
+- Message processing logic
 
-    - 如果已经收到完整的区块，忽略该消息
-    - 如果收到部分区块，还缺失交易，则组装完整区块并保存
+    - Ignore the message if I have received the full block
+    - If a partial block is received and the transaction is missing, the complete block is assembled and saved
 
-## 五、模块配置
+## 五, module configuration
 
 ```
 {
@@ -1572,51 +1572,51 @@ data:{
 }
 ```
 
-## 六、Java特有的设计
+## Six, Java-specific design
 
-- Block对象设计
-> | `字段名称`          | `字段类型` | `说明`     |
+- Block object design
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | blockHeader        | BlockHeader     | 区块头   |
-> | transactions | List&lt;Transaction>     | 交易列表 |
+> | blockHeader | BlockHeader | Block Head |
+> | transactions | List&lt;Transaction> | Trading List|
 
-- SmallBlock对象设计
-> | `字段名称`          | `字段类型` | `说明`     |
+- SmallBlock object design
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | blockHeader             | BlockHeader     | 区块头   |
-> | transactions | List&lt;String>     | 所有交易HASH列表 |
-> | subTxList | List&lt;Transaction>     | 其他节点一定没有的交易(如共识奖励交易、红黄牌交易等) |
+> | blockHeader | BlockHeader | Block Head |
+> | transactions | List&lt;String> | All Trading HASH List |
+> | subTxList | List&lt;Transaction> | Transactions that other nodes must not have (such as consensus reward transactions, red and yellow cards, etc.) |
 
-- BlockHeader对象设计
-> | `字段名称`          | `字段类型` | `说明`     |
+- BlockHeader object design
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | hash             | String     | 区块HASH   |
-> | preHash             | String     | 上一区块HASH   |
-> | merkleHash             | String     | 区块MerkleHash   |
-> | height             | int     | 区块高度   |
-> | time             | long     | 区块打包时间   |
-> | txCount             | short     | 交易数   |
-> | extend             | byte[]     | 扩展字段   |
-> | blockSignature             | BlockSignature     | 区块签名   |
+> | hash | String | Block HASH |
+> | preHash | String | Previous Block HASH |
+> | merkleHash | String | Block MerkleHash |
+> | height | int | Block Height |
+> | time | long | Block packing time |
+> | txCount | short | Number of transactions |
+> | extend | byte[] | extended field|
+> | blockSignature | BlockSignature | Block Signature |
 
-- BlockSignature对象设计
-> | `字段名称`          | `字段类型` | `说明`     |
+- BlockSignature object design
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | signData            | String     | 区块签名   |
-> | publicKey           | byte[]     | 公钥 |
+> | signData | String | Block Signature |
+> | publicKey | byte[] | Public Key |
 
-- Chain对象设计
-> | `字段名称`          | `字段类型` | `说明`     |
+- Chain object design
+> | `field name` | `field type` | `description` |
 > | ------------------- | ---------- | ---------- |
-> | parent              | Chain     | 父链   |
-> | sons                | SortedSet&lt;Chain>     | 子链集合 |
-> | chainId             | int     | 链ID   |
-> | previousHash        | NulsDigestData     | 链上起始区块的previousHash   |
-> | startHeight         | long     | 链起始高度   |
-> | startHashCode       | int     | 链起始hash转换int(排序用)   |
-> | endHeight           | long     | 链结束高度   |
-> | hashList            | LinkedList     | 链上区块hash列表   |
-> | type                | ChainTypeEnum     | 链类型   |
-> | age                 | AtomicInteger     | 链年龄(孤儿链清理使用)   |
+> | parent | Chain | parent chain |
+> | sons | SortedSet&lt;Chain> | Sub-chain Collection|
+> | chainId | int | Chain ID |
+> | previousHash | NulsDigestData | previousHash of the starting block on the chain |
+> | startHeight | long | chain start height |
+> | startHashCode | int | chain start hash conversion int (sort) |
+> | endHeight | long | chain end height |
+> | hashList | LinkedList | Chain block hash list|
+> | type | ChainTypeEnum | Chain Type |
+> | age | AtomicInteger | Chain age (orphan chain cleanup use) |
 
-## 七、补充内容
+## VII, supplementary content

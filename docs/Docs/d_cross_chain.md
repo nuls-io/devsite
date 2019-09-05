@@ -1,385 +1,385 @@
-# 跨链模块设计文档
+Cross link module design document
 
 
-## 总体描述
+## Overall description
 
-### 模块概述
+### Module Overview
 
-####  1 为什么要有《跨链》模块
+#### 1 Why do you have a "cross-chain" module?
 
-​	在NULS2.0的生态体系中允许多个不同协议的平行链同时运行交互，由于不同平行链间协议不同，所以他们之间的协议交互需要由NULS主网来中转，跨链模块就是用于将本链协议转换为NULS主网协议和将接收到的NULS主网协议转换为本链协议的功能模块。
+	In the nuls2.0 ecosystem, multiple parallel links of different protocols are allowed to run at the same time. Because different parallel chain protocols are different, the protocol interaction between them needs to be transferred by the nuls main network. The cross-chain module is used to The link protocol is converted into a nuls main network protocol and a functional module that converts the received nuls main network protocol into the chain protocol.
 
-#### 2《跨链》要做什么
+#### 2What to do with "cross-chain"
 
-- 发起跨链交易，将跨链交易转换为主网协议交易
-- 跨链交易链内拜占庭签名
-- 广播跨链相关交易
-- 跨链交易协议转换
-- 链外跨链交易拜占庭验证
-- 链外资产管理
-- 跨链验证人维护
-- 验证人变更维护
+- Initiate cross-chain transactions to convert cross-chain transactions into primary network transactions
+- Byzantine signature in a cross-chain trading chain
+- Broadcast cross-chain related transactions
+- Cross-chain trading protocol conversion
+- Byzantine verification of out-of-chain cross-chain trading
+- Out-of-chain asset management
+- Cross-chain certifier maintenance
+- Verifier change maintenance
 
-#### 3《跨链》在系统中的定位
+#### 3 "cross-chain" positioning in the system
 
-​	在NULS2.0的生态体系中，跨链模块主要负责跨链交易的发起，验证，协议转换，链外资产维护，验证人变更维护等。
+	In the nuls2.0 ecosystem, the cross-chain module is mainly responsible for the initiation, verification, protocol conversion, out-of-chain asset maintenance, and certifier change maintenance of cross-chain transactions.
 
-依赖模块
+Dependent module
 
-* 交易管理模块
-* 网络模块
-* 共识模块
-* 链管理模块（主网需要依赖，平行链不需要依赖）
-* 账本模块
+* Transaction management module
+* Network module
+* Consensus module
+* Chain management module (main network needs to depend, parallel chain does not need to rely on)
+* Account module
 
-## 模块配置
+## Module Configuration
 
 ```
-minNodeAmount              平行链与主网跨链交互时，最少需要连接的主网节点数
-maxNodeAmount              一个节点最多连接的跨链节点数
-sendHeight                 跨链交易打包之后需要多少个区块确认
-byzantineRatio             本链跨链交易签名拜占庭比例（这个值必须大于等于在主网注册本链时填写的							   本链签名拜占庭比例）
-crossSeedIps               主网跨链种子节点
-verifiers                  主网验证人初始列表，该值为主网种子节点出块地址列表
-mainByzantineRatio         主网跨链交易签名拜占庭比例（这个值必须小于等于主网配链内跨链签名拜占庭比                            例）
-maxSignatureCount          主网设置的最大拜占庭签名数量
+minNodeAmount The number of primary network nodes that need to be connected at least when the parallel chain interacts with the primary network.
+maxNodeAmount The maximum number of cross-chain nodes connected to a node
+sendHeight How many block confirmations are needed after the cross-chain transaction is packaged
+byzantineRatio This chain cross-chain transaction signature Byzantine proportion (this value must be greater than or equal to the time when the main network is registered in the chain							   The chain signature Byzantine ratio)
+crossSeedIps main network cross-chain seed node
+Verifiers primary network certifier initial list, this value is the primary network seed node outbound address list
+mainByzantineRatio main network cross-chain transaction signature Byzantine ratio (this value must be less than or equal to the cross-chain signature Byzantine ratio in the main network distribution chain)
+maxSignatureCount The maximum number of Byzantine signatures set by the primary network
 ```
 
-## 功能设计
+## feature design
 
-###  功能架构图
+### Functional Architecture
 
 ![](design/cross-chain/cross_chain_functions.png)
 
-### 核心流程
+### Core Process
 
-#### 1.初始化链
+#### 1.Initialization chain
 
-模块启动时需要读取已存在的所有链的配置信息来对各条链进行初始化，第一次将启动配置的默认链。
+When the module starts, it needs to read the configuration information of all the existing chains to initialize each chain. The default chain of the configuration will be started for the first time.
 
-- 初始化链的基本信息
+- Basic information about the initialization chain
 
-  加载链的配置信息，初始化运行链时的各种标识、状态等。
+  Load chain configuration information, initialize various logos, status, etc. when running the chain.
 
-- 初始化链RocksDB表
+- Initialize the chain RocksDB table
 
-  创建链运行时的各项数据存储的DB表。
+  Create a db table for each data store in the chain runtime.
 
-- 初始化链的日志
+- Initialize the log of the chain
 
-  创建链的各个打印日志对象。
+  Create individual print log objects for the chain.
 
-- 向依赖模块注册相关信息
+- Register relevant information with the dependency module
 
-  向交易模块注册本模块的交易，向网络注册本模块的协议，激活跨链网络，向账户模块注册链地址前缀
+  Register the transaction of this module with the transaction module, register the protocol of this module with the network, activate the cross-chain network, and register the chain address prefix with the account module.
 
-- 初始化链的缓存
+- Initialize the chain's cache
 
-  创建链运行时的缓存和队列。
+  Create a cache and queue for the chain runtime.
 
-- 初始化链任务调度器及工作线程
+- Initialize chain task scheduler and worker thread
 
-  创建链运行时的各种定时任务及线程。
+  Create various timing tasks and threads for the chain runtime.
 
-#### 2.注册链
+#### 2.Registration chain
 
-平行链要实现跨链功能，首先需要在NULS主网注册本链信息（本链魔法参数，验证人列表，跨链资产信息等）
+Parallel chain to achieve cross-chain function, you first need to register the chain information in the nuls main network (this chain magic parameters, certifier list, cross-chain asset information, etc.)
 
-#### 3.初始化验证人
+#### 3. Initialize the verifier
 
-平行链在主网注册跨链交易后需要同步主网当前的验证人列表，也需要将本链当前的验证人列表同步给主网
+After the parallel chain registers the cross-chain transaction on the main network, it needs to synchronize the current certifier list of the main network, and also needs to synchronize the current certifier list of the chain to the main network.
 
 ![](./design/cross-chain/VerifireInit.jpg)
 
-##### 3.1主网验证人初始化
+##### 3.1 Main network certifier initialization
 
-- 主网创建初始化验证人列表交易
-- 在链内发起种子节点签名拜占庭验证
-- 拜占庭验证通过后将交易广播给注册链
+- The main network creates an initial certifier list transaction
+- Initiating seed node signature in the chain Byzantine verification
+- Bypassing the transaction to the registration chain after Byzantine verification
 
-##### 3.2平行链验证人初始化
+##### 3.2 Parallel Chain Verifier Initialization
 
-- 收到主网发送过来的初始化验证人列表交易
-- 用本链配置的主网初始化验证人列表对该交易做签名拜占庭验证
-- 验证通过之刷新本链主网初始化验证人列表
-- 创建一笔初始化本链验证人列表交易
-- 在链内发起种子节点签名拜占庭验证
-- 拜占庭验证通过之后将交易广播给主网
+- Received an initial certifier list transaction sent from the main network
+- Sign the transaction with the main network initialization certifier list configured by this chain. Byzantine verification
+- Verify that the main chain initialization certifier list is refreshed by the main chain
+- Create an initial chain certifier list transaction
+- Initiating seed node signature in the chain Byzantine verification
+- After the Byzantine verification is passed, the transaction is broadcast to the main network
 
-##### 3.3主网更新注册链验证人列表
+##### 3.3 Main network update registration chain certifier list
 
-- 收到注册链发送过来的初始化验证人列表交易
-- 用注册链注册时填写的初始化验证人列表对该交易做签名拜占庭验证
-- 验证通过则更新注册链验证人列表
+- Received an initial certifier list transaction sent from the registration chain
+- Sign the transaction by signing Byzantine verification with the list of initial certifiers filled in when registering with the registration chain
+- Verify the registration chain certifier list by verification
 
-#### 4.验证人变更
+#### 4.Verifier change
 
-当平行链有新的验证人加入或有验证人退出时需要将新增和注销的验证人信息广播通知主网，同样的当主网有新的验证人加入或有验证人注销时，需要将新增的和注销的验证人信息广播通知所有平新链
+When a new certifier joins or a certifier exits in the parallel chain, the new and revoked certifier information broadcast needs to be notified to the main network. Similarly, when the new certifier joins or the certifier cancels, the new network needs to be added. Increased and cancelled certifier information broadcasts all flat new chains
 
-##### 4.1主网验证人变更
+##### 4.1 Main network certifier change
 
 ![](./design/cross-chain/MainNet-VerifierChange.jpg)
 
-- 主网有验证人增加或验证人注销
-- 创建验证人变更交易（包含新增和注销的验证人列表）
-- 发起链内拜占庭签名验证
-- 拜占庭验证通过，将主网验证人变更信息广播给所有在主网注册跨链的平行链
-- 平行链收到主网验证人变更交易后，验证主网验证人变更交易，验证通过后更新本链主网验证人列表
+- The main network has a certifier added or the certifier is logged off
+- Create a certifier change transaction (including a list of certifiers added and logged out)
+- Initiating in-chain Byzantine signature verification
+- Byzantine verification pass, broadcast the main network certifier change information to all parallel chains registered on the main network
+- After receiving the change transaction of the main network certifier, the parallel chain verifies that the main network certifier changes the transaction, and updates the list of the main network certifier after the verification is passed.
 
-##### 4.2平行链验证人变更
+##### 4.2 Parallel Chain Verifier Change
 
-- 平行链有验证人增加或验证人注销
-- 创建验证人变更交易（包含新增和注销的验证人列表）
-- 发起链内拜占庭签名验证
-- 拜占庭验证通过，将平行链验证人变更信息广播给主网
-- 主网收到平行链验证人变更交易并验证平行链验证人变更交易，验证通过，更新平新链验证人列表
+- Parallel chain with certifier added or verified person logged off
+- Create a certifier change transaction (including a list of certifiers added and logged out)
+- Initiating in-chain Byzantine signature verification
+- Byzantine verification passed, broadcast parallel chain certifier change information to the main network
+- The main network receives the parallel chain certifier change transaction and verifies the parallel chain certifier change transaction, validates the pass, and updates the Pingxin chain certifier list
 
-#### 5.创建跨链转账交易
+#### 5. Create cross-chain transfer transactions
 
-跨链转账交易手续费需要消耗NULS，所以平行链账户在发起跨链转账交易时需要确保账户有足够的NULS。
+Cross-chain transfer transaction fees consume nuls, so parallel chain accounts need to ensure that the account has enough nuls when initiating cross-chain transfer transactions.
 
-##### 5.1主网转平行链
+##### 5.1 Main network to parallel chain
 
 ![](./design/cross-chain/Main-Parallel-Ctx.jpg)
 
-###### 5.1.1主网流程
+###### 5.1.1 Main network process
 
-- 发起跨链转账交易
-- 验证跨链转账交易，包括接收链是已注册跨链，转账账户NULS是否足够支付手续费等
-- 验证通过之后，发起链内签名拜占庭
-- 拜占庭验证通过之后，将跨链转账交易广播给接收链
+- Initiate cross-chain transfer transactions
+- Verify cross-chain transfer transactions, including whether the receiving chain is registered cross-chain, whether the transfer account nuls is sufficient to pay fees, etc.
+- After the verification is passed, initiate the in-chain signature Byzantium
+- After the Byzantine verification is passed, the cross-chain transfer transaction is broadcast to the receiving chain
 
-###### 5.1.2接收链流程
+###### 5.1.2 Receiving chain process
 
-- 接收链接收到主网广播过来的跨链转账交易，
-- 对主网广播的跨链转账交易做签名拜占庭验证
-- 验证通过后，将主网协议跨链交易转换为本链协议跨链交易，发送交易模块处理，交易模块处理完成时候，则等待交易被打包
+- Receive the link to receive the cross-chain transfer transaction broadcasted by the main network.
+- Signature of cross-chain transfer transactions for main network broadcasts by Byzantine verification
+- After the verification is passed, the main network protocol cross-chain transaction is converted into the chain protocol cross-chain transaction, and the transaction module is processed. When the transaction module is processed, the transaction is packaged.
 
-##### 5.2平行链转主网
+##### 5.2 Parallel chain transfer main network
 
 ![](./design/cross-chain/Parallel-Main-Ctx.jpg)
 
-###### 5.2.1发起链流程
+###### 5.2.1 Initiating chain process
 
-- 发起跨链转账交易
-- 验证跨链转账交易，包括本链是否已注册跨链，接收链是都注册跨链，转账账户NULS是否足够支付手续费等
-- 验证通过之后，发起链内签名拜占庭
-- 拜占庭验证通过之后，将本链协议跨链转交易转换为主网协议跨链转账交易广播给主网
+- Initiate cross-chain transfer transactions
+- Verify cross-chain transfer transactions, including whether the chain is registered cross-chain, receive chain is registered cross-chain, transfer account nuls is enough to pay fees, etc.
+- After the verification is passed, initiate the in-chain signature Byzantium
+- After the Byzantine verification is passed, the chain link trans-transaction is converted into a main network protocol cross-chain transfer transaction broadcast to the main network
 
-###### 5.2.2主网流程
+###### 5.2.2 Main network process
 
-- 主网接收到平行链广播过来的跨链转账交易后对平行链广播的跨链转账交易做签名拜占庭验证
-- 验证通过后，则发送交易模块处理，交易模块处理完成时候，则等待交易被打包
+- The main network receives the cross-chain transfer transaction of the parallel chain broadcast after the cross-chain transfer transaction broadcasted by the parallel chain, and signs the Byzantine verification.
+- After the verification is passed, the transaction module is processed. When the transaction module is processed, the transaction is packaged.
 
-##### 5.3平行链A转平行链B
+##### 5.3 Parallel chain a to parallel chain b
 
 ![](./design/cross-chain/Parallel-Parallel-Ctx.jpg)
 
-###### 5.3.1发起链流程
+###### 5.3.1 Initiating chain process
 
-- 发起跨链转账交易
-- 验证跨链转账交易，包括本链是否已注册跨链，接收链是都注册跨链，转账账户NULS是否足够支付手续费等
-- 验证通过之后，发起链内签名拜占庭
-- 拜占庭验证通过之后，将本链协议跨链转交易转换为主网协议跨链转账交易广播给主网
+- Initiate cross-chain transfer transactions
+- Verify cross-chain transfer transactions, including whether the chain is registered cross-chain, receive chain is registered cross-chain, transfer account nuls is enough to pay fees, etc.
+- After the verification is passed, initiate the in-chain signature Byzantium
+- After the Byzantine verification is passed, the chain link trans-transaction is converted into a main network protocol cross-chain transfer transaction broadcast to the main network
 
-###### 5.3.2主网流程
+###### 5.3.2 Main network process
 
-- 主网接收到平行链广播过来的跨链转账交易后对平行链广播的跨链转账交易做签名拜占庭验证
-- 验证通过后，则发送交易模块处理，交易模块处理完成时候，则等待交易被打包
-- 判断主网是否为接收链，如果主网不为接收链，则将收到的跨链转账交易已有的签名列表清空，并在主网链内对该交易发起签名拜占庭
-- 主网链内签名拜占庭完成，将主网链内拜占庭后的跨链交易广播给接收链
+- The main network receives the cross-chain transfer transaction of the parallel chain broadcast after the cross-chain transfer transaction broadcasted by the parallel chain, and signs the Byzantine verification.
+- After the verification is passed, the transaction module is processed. When the transaction module is processed, the transaction is packaged.
+- Determine whether the main network is the receiving chain. If the main network is not the receiving chain, clear the existing signature list of the cross-chain transfer transaction and sign the transaction in the main network chain. Byzantium
+- The signature in the main network chain is completed by Byzantium, and the cross-chain transaction after Byzantine in the main network chain is broadcast to the receiving chain.
 
-###### 5.3.3接收链流程
+###### 5.3.3 Receiving chain process
 
-- 接收链接收到主网广播过来的跨链转账交易，
-- 对主网广播的跨链转账交易做签名拜占庭验证
-- 验证通过后，将主网协议跨链交易转换为本链协议跨链交易，发送交易模块处理，交易模块处理完成时候，则等待交易被打包
+- Receive the link to receive the cross-chain transfer transaction broadcasted by the main network.
+- Signature of cross-chain transfer transactions for main network broadcasts by Byzantine verification
+- After the verification is passed, the main network protocol cross-chain transaction is converted into the chain protocol cross-chain transaction, and the transaction module is processed. When the transaction module is processed, the transaction is packaged.
 
-#### 6.链内签名拜占庭流程
+#### 6. Intra-chain signature Byzantine process
 
-- 新建跨链交易，判断本地节点是否为验证人节点
-- 如果本地是验证人节点，则对跨链交易签名并将签名广播给链内其他节点
-- 收集本链验证人对跨链交易的签名
-- 当收集的签名数量 >= 最小拜占庭签名数（本链当前验证人数量 * 本链配置的签名拜占庭比例）时，剔除无效签名（不是本链当前验证人的签名）后，如果有效签名 >= 最小签名数量，则表示跨链交易的链内签名拜占庭完成
+- Create a new cross-chain transaction to determine if the local node is a certifier node
+- If the local is a certifier node, sign the cross-chain transaction and broadcast the signature to other nodes in the chain
+- Collect signatures of cross-chain transactions by this chain certifier
+- When the number of signatures collected >= minimum number of Byzantine signatures (the number of current certifiers in the chain * the signature Byzantine ratio of the current chain configuration), after invalid signatures (not the signature of the current certifier of the chain), if valid signatures >= The minimum number of signatures indicates that the in-chain signature of the cross-chain transaction is completed by Byzantium
 
-#### 7.接收到跨链交易签名拜占庭验证流程
+#### 7. Receive cross-chain transaction signature Byzantine verification process
 
-- 接收到其他链广播的跨链交易
-- 验证跨链交易签名正确性
-- 查询发送链的验证人列表及签名拜占庭比例信息
-- 验证跨链交易签名数量 >= 发送链最小拜占庭签名数量（验证人数量 *  拜占庭比例）
-- 验证跨链交易签名是否为验证人签名
-- 如果以上几条都验证通过则表示接收的跨链交易签名拜占庭验证通过
-
-
-
-## 模块服务
-
-参考[跨链模块RPC-API接口文档](./i_cross-chain.md)
+- Cross-chain transactions that receive other chain broadcasts
+- Verify the correctness of cross-chain transaction signatures
+- Query the certifier list of the sending chain and the signature Byzantine ratio information
+- Verify the number of cross-chain transaction signatures >= Number of minimum Byzantine signatures in the delivery chain (number of verifiers * Byzantine ratio)
+- Verify that the cross-chain transaction signature is a certifier signature
+- If the above several are verified, the received cross-chain transaction signature is verified by Byzantium.
 
 
-## 协议
+
+## Module Service
+
+Refer to [cross-chain module RPC-API interface documentation] (./i_cross-chain.md)
+
+
+## Agreement
 
 ### 1.BroadCtxHashMessage
 
-- 消息说明：跨链广播跨链交易Hash
+- Message description: Cross-chain broadcast cross-chain trading Hash
 
 - cmd:recvCtxHash
 
   | Length | Fields      | Type   | Remark               |
   | ------ | ----------- | ------ | -------------------- |
-  | ?      | convertHash | byte[] | 主网协议跨链交易hash |
+  | ? | convertHash | byte[] | main network protocol cross-chain transaction hash |
 
 ### 2.BroadCtxSignMessage
 
-- 消息说明：广播跨链交易签名给链内其他节点
+- Message description: Broadcast cross-chain transaction signature to other nodes in the chain
 
 - cmd:recvCtxSign
 
   | Length | Fields    | Type   | Remark               |
   | ------ | --------- | ------ | -------------------- |
-  | ?      | localHash | byte[] | 本链协议跨链交易hash |
-  | ？     | signature | byte[] | 跨链交易签名         |
+  | ? | localHash | byte[] | This chain protocol cross-chain trading hash |
+  | ? | signature | byte[] | Cross-chain transaction signature|
 
 ### 3.GetCtxMessage
 
-- 消息说明：向本链其他节点获取完整跨链交易
+- Message description: Get complete cross-chain transactions from other nodes in the chain
 
 - cmd:getCtx
 
   | Length | Fields      | Type   | Remark               |
   | ------ | ----------- | ------ | -------------------- |
-  | ?      | requestHash | byte[] | 本链协议跨链交易hash |
+  | ? | requestHash | byte[] | This chain protocol cross-chain trading hash |
 
 ### 4.GetOtherCtxMessage
 
-- 消息说明：向发送链获取完整跨链交易
+- Message description: Get complete cross-chain transactions from the sending chain
 
 - cmd:getOtherCtx
 
   | Length | Fields      | Type   | Remark               |
   | ------ | ----------- | ------ | -------------------- |
-  | ?      | requestHash | byte[] | 主网协议跨链交易hash |
+  | ? | requestHash | byte[] | main network protocol cross-chain transaction hash |
 
 ### 5.NewCtxMessage
 
-- 消息说明：接收到链内其他节点发送的完整跨链交易
+- Message description: Received a complete cross-chain transaction sent by other nodes in the chain
 
 - cmd:recvCtx
 
   | Length | Fields      | Data Type | Remark                         |
   | ------ | ----------- | --------- | ------------------------------ |
-  | 2      | type        | uint16    | 交易类型                       |
-  | 4      | time        | uint32    | 交易时间                       |
-  | ？     | txData      | VarByte   | 交易数据，存放原跨链交易的Hash |
-  | ？     | coinData    | VarByte   | 交易输入和输出                 |
-  | ？     | remark      | VarString | 备注                           |
-  | ？     | scriptSig   | VarByte   | 数字脚本与交易签名             |
-  | ?      | requestHash | byte[]    | 主网协议跨链交易hash           |
+  | 2 | type | uint16 | Transaction Type |
+  | 4 | time | uint32 | Trading Hours |
+  | ? | txData | VarByte | Transaction data, store the original cross-chain transaction Hash |
+  | ? | coinData | VarByte | Transaction Inputs and Outputs |
+  | ? | remark | VarString | Notes |
+  | ? | scriptSig | VarByte | Digital Scripting and Transaction Signature |
+  | ? | requestHash | byte[] | main network protocol cross-chain transaction hash |
 
 ### 6.NewOtherCtxMessage
 
-- 消息说明：接收到其他链节点发送的完整跨链交易
+- Message description: Received a complete cross-chain transaction sent by other chain nodes
 
 - cmd:recvOtherCtx
 
   | Length | Fields      | Data Type | Remark                         |
   | ------ | ----------- | --------- | ------------------------------ |
-  | 2      | type        | uint16    | 交易类型                       |
-  | 4      | time        | uint32    | 交易时间                       |
-  | ？     | txData      | VarByte   | 交易数据，存放原跨链交易的Hash |
-  | ？     | coinData    | VarByte   | 交易输入和输出                 |
-  | ？     | remark      | VarString | 备注                           |
-  | ？     | scriptSig   | VarByte   | 数字脚本与交易签名             |
-  | ?      | requestHash | byte[]    | 主网协议跨链交易hash           |
+  | 2 | type | uint16 | Transaction Type |
+  | 4 | time | uint32 | Trading Hours |
+  | ? | txData | VarByte | Transaction data, store the original cross-chain transaction Hash |
+  | ? | coinData | VarByte | Transaction Inputs and Outputs |
+  | ? | remark | VarString | Notes |
+  | ? | scriptSig | VarByte | Digital Scripting and Transaction Signature |
+  | ? | requestHash | byte[] | main network protocol cross-chain transaction hash |
 
 ### 7.GetCtxStateMessage
 
-- 消息说明：其他链节点向本节点查询跨链交易处理状态
+- Message description: Other chain nodes query the node for cross-chain transaction processing status
 
 - cmd:getCtxState
 
   | Length | Fields      | Type   | Remark               |
   | ------ | ----------- | ------ | -------------------- |
-  | ?      | requestHash | byte[] | 主网协议跨链交易hash |
+  | ? | requestHash | byte[] | main network protocol cross-chain transaction hash |
 
 ### 8.CtxStateMessage
 
-- 消息说明：接收到跨链交易处理结果返回值
+- Message description: Received cross-chain transaction processing result return value
 
 - cmd:recvCtxState
 
   | Length | Fields       | Type   | Remark                                            |
   | ------ | ------------ | ------ | ------------------------------------------------- |
-  | ?      | requestHash  | byte[] | 主网协议跨链交易hash                              |
-  | 1      | handleResult | byte   | 跨链交易处理结果0未确认 1主网已确认 2接收链已确认 |
+  | ? | requestHash | byte[] | main network protocol cross-chain transaction hash |
+  | 1 | handleResult | byte | Cross-chain transaction processing result 0 unconfirmed 1 main network confirmed 2 receiving chain confirmed |
 
 ### 9.GetCirculationMessage
 
-- 消息说明：平行链节点收到主网节点发送的查询本链资产消息
+- Message description: The parallel chain node receives the query attribute information message sent by the primary network node.
 
 - cmd:getCirculat
 
   | Length | Fields   | Type   | Remark                                         |
   | ------ | -------- | ------ | ---------------------------------------------- |
-  | ?      | assetIds | String | 需要查询的平行链资产ID（多个资产ID用逗号分隔） |
+  | ? | assetIds | String | Parallel chain asset IDs that need to be queried (multiple asset IDs separated by commas) |
 
 ### 10.CirculationMessage
 
-- 消息说明：主网收到平行链资产消息
+- Message description: The main network receives the parallel chain asset message
 
 - cmd:recvCirculat
 
   | Length | Fields          |  Type   | Remark                          |
   | ------ | --------------- | :-----: | ------------------------------- |
-  | ?      | circulationList | VarByte | 平行链资产列表List&lt;Circulation> |
+  | ? | circulationList | VarByte | Parallel Chain Asset List List&lt;Circulation> |
 
 - Circulation
 
   | Length | Fields          | Type       | Remark   |
   | ------ | --------------- | ---------- | -------- |
-  | 2      | assetId         | uint16     | 资产ID   |
-  | ?      | availableAmount | BigInteger | 可用资产 |
-  | ?      | freeze          | BigInteger | 冻结资产 |
+  | 2 | assetId | uint16 | Asset ID |
+  | ? | availableAmount | BigInteger | Available Assets |
+  | ? | freeze | BigInteger | Freeze assets |
 
 ### 11.GetRegisteredChainMessage
 
-- 消息说明：平行链向主网查询所有已注册跨链的链信息
+- Message description: Parallel chain queries the main network for all registered chain links
 - cmd:getChains
 
 
 
 ### 12.RegisteredChainMessage
 
-- 消息说明：平行链接收到主网返回的已注册跨链的链信息
+- Message description: Parallel link receives the information of the registered cross-chain chain returned by the main network
 
 - cmd:recvRegChain
 
   | Length | Fields        |  Type   | Remark                            |
   | ------ | ------------- | :-----: | --------------------------------- |
-  | ?      | chainInfoList | VarByte | 已注册跨链的链列表List&lt;ChainInfo> |
+  | ? | chainInfoList | VarByte | List of registered cross-chain chains List&lt;ChainInfo> |
 
 - ChainInfo
 
   | Length |         Fields          |   Type    |         Remark          |
   | :----: | :---------------------: | :-------: | :---------------------: |
-  |   2    |         chainId         |  uint16   |          链ID           |
-  |   ?    |        chainName        | VarString |         链名称          |
-  |   2    |   minAvailableNodeNum   |  uint16   |     跨链最小链接数      |
-  |   2    |    maxSignatureCount    |  uint16   | 签名拜占庭最大签名数量  |
-  |   2    | signatureByzantineRatio |  uint16   |     签名拜占庭比例      |
-  |   ?    |      addressPrefix      | VarString |        地址前缀         |
-  |   4    |      registerTime       |  uint32   |        注册时间         |
-  |   ?    |      assetInfoList      |  VarByte  | 资产列表List&lt;AssetInfo> |
-  |   ?    |      verifierList       |  VarByte  |  验证人列表Set&lt;String>  |
+  | 2 | chainId | uint16 | Chain ID |
+  | ? | chainName | VarString | Chain Name|
+  | 2 | minAvailableNodeNum | uint16 | Cross-chain minimum link count |
+  | 2 | maxSignatureCount | uint16 | Signature Byzantium Maximum Signatures |
+  | 2 | signatureByzantineRatio | uint16 | Signature Byzantine Scale |
+  | ? | addressPrefix | VarString | Address Prefix |
+  | 4 | registerTime | uint32 | Registration Time |
+  | ? | assetInfoList | VarByte | Asset List List&lt;AssetInfo> |
+  | ? | verifierList | VarByte | Validator List Set&lt;String> |
 
 - AssetInfo
 
   | Length |    Fields     |  Type   |  Remark  |
   | :----: | :-----------: | :-----: | :------: |
-  |   2    |    assetId    | uint16  |  资产id  |
-  |   ？   |    symbol     | String  | 资产符号 |
-  |   ？   |   assetName   | String  | 资产名称 |
-  |   2    |    usable     | boolean | 是否可用 |
-  |   2    | decimalPlaces | uint16  | 资产精度 |
+  | 2 | assetId | uint16 | Asset id |
+  | ? | symbol | String | Asset Symbol |
+  | ? | assetName | String | Asset Name|
+  | 2 | usable | boolean | Available |
+  | 2 | decimalPlaces | uint16 | Asset Precision |
 

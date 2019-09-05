@@ -1,119 +1,119 @@
-# 账本模块设计文档
+# Design document of ledger module
 
-## 一、总体描述
+## I. Overall description
 
-### 1.1 模块概述
+### 1.1 Module Overview
 
-#### 1.1.1 为什么要有《账本模块》
+#### 1.1.1 Why do you have a "book module"?
 
-> 账本模块是区块链的数据中枢，所有账户的余额、交易都保存在账本模块中,
-  每一个全网节点上都会保存一个全网账本，保证了数据的完整、公开、透明,同时保证了数据不可篡改、可追溯
+> The ledger module is the data hub of the blockchain. The balances and transactions of all accounts are saved in the ledger module.
+  A network-wide account book is saved on each network node to ensure complete, open and transparent data, while ensuring that data cannot be tampered and traceable.
 
-#### 1.1.2 《账本模块》要做什么
+#### 1.1.2 What should be done in the "book module"
 
-> 为组装交易提供数据支撑,主要就是记账和查账,验证交易的合法性,如:是否有充足的余额，是否重复支付(双花)
+> Provide data support for assembly transactions, mainly accounting and auditing, verify the legality of the transaction, such as: whether there is sufficient balance, whether to repeat payment (double flower)
 
-#### 1.1.3 《账本模块》在系统中的定位
+#### 1.1.3 Positioning of the "book module" in the system
 
-> 账本模块是数据中枢,保存系统所有存在交易的结果数据,它不依赖任何业务模块,其他模块按需依赖它。
-#### 1.1.4 《账本模块》中名词解释
-- 交易的随机数（nonce,一个32位hash值）
-  - nonce：与此地址发送的交易数量相等的标量值，用户发起的每一笔交易中都会包含该nonce。
-  - 在该账户每笔交易都需要保存前一笔交易的nonce(hash)
-  - 严格地说，nonce是始发地址的一个属性（它只在发送地址的上下文中有意义）。但是，该nonce并未作为账户状态的一部分显式存储在区块链中。
-  - nonce值也用于防止帐户余额的错误计算。例如，假设一个账户有10个NULS的余额，并且签署了两个交易，都花费6个NULS，分别具有nonce 1和nonce 2。这两笔交易中哪一笔有效？在区块链分布式系统中，节点可能无序地接收交易。nonce强制任何地址的交易按顺序处理，不管间隔时间如何，无论节点接收到的顺序如何。这样，所有节点都会计算相同的余额。支付6以太币的交易将被成功处理，账户余额减少到4 ether。无论什么时候收到，所有节点都认为与带有nonce 2的交易无效。如果一个节点先收到nonce 2的交易，会持有它，但在收到并处理完nonce 1的交易之前不会验证它。
-  - 使用nonce确保所有节点计算相同的余额，并正确地对交易进行排序，相当于比特币中用于防止“双重支付”的机制。但是，因为以太坊跟踪账户余额并且不会单独跟踪独立的币（在比特币中称为UTXO），所以只有在账户余额计算错误时才会发生“双重支付”。nonce机制可以防止这种情况发生。
+> The ledger module is the data hub, which stores the result data of all existing transactions in the system. It does not depend on any business modules, and other modules depend on it as needed.
+#### 1.1.4 Explanation of terms in "book module"
+- The random number of the transaction (nonce, a 32-bit hash value)
+  - nonce: A scalar value equal to the number of transactions sent at this address, which will be included in every transaction initiated by the user.
+  - Each transaction in the account needs to save the nonce (hash) of the previous transaction
+  - Strictly speaking, a nonce is an attribute of the originating address (it only makes sense in the context of the sending address).However, the nonce is not explicitly stored in the blockchain as part of the account status.
+  - The nonce value is also used to prevent incorrect calculation of account balances.For example, suppose an account has 10 NULS balances and signs two transactions, all of which cost 6 NULS with nonce 1 and nonce 2, respectively.Which of these two transactions is valid? In a blockchain distributed system, nodes may receive transactions out of order.Nonce forces transactions of any address to be processed in order, regardless of the interval, regardless of the order in which the nodes receive.This way, all nodes will calculate the same balance.Payments for 6 Ethereum will be processed successfully and the account balance will be reduced to 4 ether.Whenever it is received, all nodes consider it invalid with a transaction with nonce 2.If a node receives a nonce 2 transaction first, it will hold it, but will not verify it until it receives and processes the nonce 1 transaction.
+  - Use nonce to ensure that all nodes calculate the same balance and sort the transactions correctly, which is equivalent to the mechanism used in Bitcoin to prevent "double payment".However, because Ethereum tracks account balances and does not track individual coins separately (called UTXO in Bitcoin), "double payments" only occur when the account balance is incorrectly calculated.The nonce mechanism can prevent this from happening.
   
-### 1.2 架构图
-> 账本的核心还是资产管理和记账管理。
+### 1.2 Architecture
+> The core of the books is asset management and bookkeeping management.
 
 ![ledger-arch.png](image/ledger/ledger-arch.png)
 
-## 二、功能设计
+## II, functional design
 
-### 2.1 功能架构图
+### 2.1 Functional Architecture
 ![ledger-functions.png](image/ledger/ledger-functions.png)
 
-### 2.2 模块服务
-#### 2.2.1 账本模块的系统服务
+### 2.2 Module Service
+#### 2.2.1 System Service of the Book Module
 ![ledger-service.png](image/ledger/ledger-service.png)
 
-> 账本模块提供的RPC的接口调用,详细接口请参照接口设计部分。
+> The interface of rpc provided by the ledger module. For detailed interface, please refer to the interface design section.
 
-#### 2.2.2 修改系统运行参数
+#### 2.2.2 Modifying system operating parameters
 
-> 只依赖核心系统，核心系统可以对事件模块系统的启动，停止，参数修改等，
+> Only rely on the core system, the core system can start, stop, modify parameters, etc. of the event module system,
 
-### 2.3 模块内部功能
-#### 2.3.1 热(在线)交易处理
+### 2.3 Module internal function
+#### 2.3.1 Hot (online) transaction processing
 
-> 模块内部工能主要包含,资产管理,获取账户地址余额和nonce,验证交易coinData。
+> Module internal work mainly includes asset management, obtaining account address balance and nonce, and verifying transaction coinData.
 
-- 资产管理
-  - 账户的总资产
-  - 可用资产
-  - 冻结资产,对于有锁定的资产,需要单独记录以及锁定的资产信息，包含链ID,资产ID,资产金额，锁定时间，锁定高度等
-  - 资产解锁流程,当用户的锁定资产时间或者高度达到解锁条件，账本会把该资产信息解锁，累计到可用余额，并删除本地数据的资产锁定记录。
-  - 多资产情况，需要加入chainId.
-- 获取账户地址余额和nonce
-  - 获取账户地址余额
-  - 获取账户地址nonce(该nonce是一个交易hash值的后八位，意味着第一个交易的nonce是0.以后该账户的每一笔支出交易都会包含前一笔交易的nonce值 )
-- 验证交易
-  - 双花验证(nonce机制阻止双重支付)
-  - 交易创建者验证,验证交易发出者是否拥有足够的余额,验证交易创建者的nonce是否合法
-  - 连续交易验证
-- 功能接口管理(rpc)
-  - 提供给其他模块使用的rpc接口
+- asset Management
+  - Total assets of the account
+  - Available assets
+  - Freeze assets. For locked assets, separate record and locked asset information, including chain id, asset id, asset amount, lock time, lock height, etc.
+  - In the asset unlocking process, when the user's locked asset time or height reaches the unlocking condition, the account will unlock the asset information, accumulate the available balance, and delete the asset lock record of the local data.
+  - Multi-asset situation, need to join chainId.
+- Get account address balance and nonce
+  - Get account address balance
+  - Get the account address nonce (the nonce is the last eight digits of a transaction hash value, meaning that the nonce of the first transaction is 0. Each future transaction of the account will contain the nonce value of the previous transaction)
+- Verify the transaction
+  - Double flower verification (nonce mechanism prevents double payment)
+  - Transaction creator verification, verifying that the issuer of the transaction has sufficient balance to verify that the nonce of the transaction creator is legal
+  - Continuous transaction verification
+- Function Interface Management (rpc)
+  - rpc interface for use by other modules
   
-#### 2.3.2 冷(离线)交易处理
-> 冷钱包就是不连网的钱包，也叫离线钱包。热钱包就是保持联网上线的钱包，也就是在线钱包。冷钱包不联网会比热钱包更安全。
+#### 2.3.2 Cold (offline) transaction processing
+> A cold wallet is an unconnected wallet, also called an offline wallet.A hot wallet is a wallet that keeps online, that is, an online wallet.Cold wallets are not more secure than hot wallets.
 
-> 由于冷钱包只对交易信息进行签名,在通过热钱包传输签名后的hex字符串到服务端, 然后服务端再进行统一的交易处理, 所以客户端就需要做到离线签名的功能,
-> 离线交易系统中维护nonce的存储信息，使用一个nonce之后，在业务系统中对nonce进行保存处理。
+> Since the cold wallet only signs the transaction information, the signed hex string is transmitted to the server through the hot wallet, and then the server performs unified transaction processing, so the client needs to perform the offline signature function.
+> The offline transaction system maintains the storage information of the nonce. After using a nonce, the nonce is saved in the business system.
 
-> 离线交易大部分都是有交易所自己处理,我们需要存储全网账户的账本数据
+> Most offline transactions are handled by the exchange itself, we need to store the account data of the entire network account
 
-### 2.4 账本流程
-#### 2.4.1 转账交易流程
+### 2.4 Bookkeeping Process
+#### 2.4.1 Transfer Transaction Process
 
-  - 用户输入转账的地址和转入的地址和转出的金额
-  - 系统通过转出的地址的私钥对转账信息进行签名（用于证明这笔交易确实有本人发起）
-  - 系统对交易信息进行验证
-    - 余额验证
-    - 手续费验证
-    - nonce连续性验证
-    - 签名与input账户验证
-  - 把这笔交易入到本地的TxPool中（就是账本未确认交易池）
-  - 把交易信息广播给其它节点
-  - 打包区块,验证区块
-  - 确认交易
-    - 更新相关(转入或者转出)的所有账户的余额
-    - 更新账户资产对应的nonce
+  - User enters the address of the transfer and the transferred address and the transferred amount
+  - The system signs the transfer information by the private key of the transferred address (used to prove that the transaction was actually initiated by me)
+  - The system verifies the transaction information
+    - Balance verification
+    - Fee verification
+    - nonce continuity verification
+    - Signature and input account verification
+  - Put this transaction into the local TxPool (that is, the account unconfirmed trading pool)
+  - Broadcast transaction information to other nodes
+  - Packing blocks, verifying blocks
+  - Confirm transaction
+    - Update the balance of all accounts related to (transfer or transfer)
+    - Update the nonce corresponding to the account asset
 
-#### 2.4.2 普通交易流程(参考实例)
+#### 2.4.2 Ordinary transaction process (reference example)
 
 ![eth-transaction-flow.png](image/ledger/eth-transaction-flow.png)
 
-#### 2.4.3 交易验证流程
+#### 2.4.3 Transaction Verification Process
 
 ![trx-validate-flow.png](image/ledger/trx-validate-flow.png)
 
-## 三、接口设计
+## III. Interface Design
 
-###   3.1 模块核心交互接口
+### 3.1 Module core interaction interface
 
-#### 3.1.1  获取账户余额
+#### 3.1.1 Get account balance
 
 > cmd: getBalance
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段         | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------------ | :------: | -------: | ---------------: |
-| chainId      |    Y     |      int | 接口调用链的链id |
-| address      |    Y     |   String | 要查询余额的地址 |
-| assetChainId |    Y     |      int |   资产发起的链ID |
-| assetId      |    Y     |      int |           资产ID |
+| chainId | Y | int | Chain id of interface call chain |
+| address | Y | String | To find the address of the balance |
+| assetChainId | Y | int | Asset-initiated chain ID |
+| assetId | Y | int | Asset ID |
 
 ```json
 {
@@ -125,7 +125,7 @@
 }
 ```
 
-##### 返回值说明 (response)
+##### Return value description (response)
 
 ```json
 { 
@@ -135,27 +135,27 @@
 }
 ```
 
-> 说明: 1NULS=10^8Na
+> Description: 1NULS=10^8Na
 
-| 字段      |  数据类型  |                            描述信息 |
+| Field | Data Type | Description Information |
 | --------- | :--------: | ----------------------------------: |
-| available | BigInteger |                            可用余额 |
-| freeze    | BigInteger |                            冻结余额 |
-| total     | BigInteger | 总资产余额 total = available+freeze |
+| available | BigInteger | Available balances |
+| freeze | BigInteger | Freeze balance |
+| total | BigInteger | Total Asset Balance total = available+freeze |
 
-#### 3.1.2 获取当前账户nonce值
+#### 3.1.2 Get the current account nonce value
 
 > cmd: getNonce
 >
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段         | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------------ | :------: | -------: | ---------------: |
-| chainId      |    Y     |      int | 接口调用链的链id |
-| address      |    Y     |   String | 要查询余额的地址 |
-| assetChainId |    Y     |   String |   资产发起的链ID |
-| assetId      |    Y     |      int |           资产ID |
+| chainId | Y | int | Chain id of interface call chain |
+| address | Y | String | To find the address of the balance |
+| assetChainId | Y | String | Asset-initiated chain ID |
+| assetId | Y | int | Asset ID |
 
 ```json
 {
@@ -167,7 +167,7 @@
 }
 ```
 
-##### 返回值说明 (response)
+##### Return value description (response)
 
 ```json
 {
@@ -178,25 +178,25 @@
 
 
 
-| 字段      | 数据类型 |                         描述信息 |
+| Field | Data Type | Description Information |
 | --------- | :------: | -------------------------------: |
-| nonce     |  String  |                 上笔支出交易hash |
-| nonceType |   int    | 1上笔交易已确认，0上笔交易未确认 |
+| nonce | String | On the expense trading hash |
+| nonceType | int | 1The transaction was confirmed, 0 the transaction was not confirmed |
 
 
 
-#### 3.1.3 获取余额与nonce值
+#### 3.1.3 Obtaining the balance and nonce value
 
 > cmd: getBalanceNonce
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段         | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------------ | :------: | -------: | ---------------: |
-| chainId      |    Y     |      int | 接口调用链的链id |
-| address      |    Y     |   String | 要查询余额的地址 |
-| assetChainId |    Y     |   String |   资产发起的链ID |
-| assetId      |    Y     |   String |           资产ID |
+| chainId | Y | int | Chain id of interface call chain |
+| address | Y | String | To find the address of the balance |
+| assetChainId | Y | String | Asset-initiated chain ID |
+| assetId | Y | String | Asset ID |
 
 ```json
 {
@@ -208,7 +208,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -217,22 +217,22 @@
 }
 ```
 
-| 字段      |  数据类型  |                                          描述信息 |
+| Field | Data Type | Description Information |
 | --------- | :--------: | ------------------------------------------------: |
-| available | BigInteger |                                      用户可用余额 |
-| nonce     |   String   |    账户的随机值,保存用户上一笔交易的hash 前byte。 |
-| nonceType |    int     | 1 ：nonce 取自已确认交易，0 ：nonce取自未确认交易 |
+| available | BigInteger | User Available Balance |
+| nonce | String | The random value of the account, which holds the hash of the hash of the user's previous transaction.|
+| nonceType | int | 1 :nonce taken from confirmed transaction, 0 :nonce taken from unconfirmed transaction|
 
-#### 3.1.4  验证coinData
+#### 3.1.4 Verifying coinData
 
 > cmd: verifyCoinData
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段    | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------- | :------: | -------: | ---------------: |
-| chainId |    Y     |      int | 接口调用链的链id |
-| txHex   |    Y     |   String |     交易16进制流 |
+| chainId | Y | int | Chain id of interface call chain |
+| txHex | Y | String | Trading hex stream |
 
 ```json
 {
@@ -241,30 +241,30 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
-失败下情况下，统一返回fail错误码。
-成功下：
+In the case of failure, the fail error code is returned uniformly.
+Successfully:
 {
     "orphan":true
 }
 ```
 
-| 字段   | 数据类型 |   描述信息    |
+| Field | Data Type | Description Information |
 | ------ | :------: | :-----------: |
-| orphan | boolean  | true 孤儿交易 |
+Orphan | boolean | true orphan trading|
 
 
-#### 3.1.5   批量校验通知
+#### 3.1.5 Batch verification notice
 
 > cmd: bathValidateBegin
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段    | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------- | :------: | -------: | ---------------: |
-| chainId |    Y     |      int | 接口调用链的链Id |
+| chainId | Y | int | Chain Id of Interface Call Chain |
 
 ```json
 {
@@ -272,7 +272,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -280,20 +280,20 @@
 }
 ```
 
-| 字段  | 数据类型 |     描述信息 |
+| Field | Data Type | Description Information |
 | ----- | :------: | -----------: |
-| value |   int    | 1成功，0失败 |
+| value | int | 1 successful, 0 failed |
 
-#### 3.1.6 提交未确认交易
+#### 3.1.6 Submitting unconfirmed transactions
 
 > cmd: commitUnconfirmedTx
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段    | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------- | :------: | -------: | ---------------: |
-| chainId |    Y     |      int | 接口调用链的链Id |
-| txHex   |    Y     |   String |     交易16进制流 |
+| chainId | Y | int | Chain Id of Interface Call Chain |
+| txHex | Y | String | Trading hex stream |
 
 ```json
 {
@@ -302,31 +302,31 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
-失败下情况下，统一返回fail错误码。
+In the case of failure, the fail error code is returned uniformly.
 
-成功下：
+Successfully:
 {
     "orphan":true
 }
 ```
 
-| 字段   | 数据类型 |    描述信息     |
+| Field | Data Type | Description Information |
 | ------ | :------: | :-------------: |
-| orphan | boolean  | true 为孤儿交易 |
+Orphan | boolean | true for orphan trading|
 
-#### 3.1.7  批量提交未确认交易
+#### 3.1.7 Submitting unconfirmed transactions in bulk
 
 > cmd: commitBatchUnconfirmedTxs
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段    | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------- | :------: | -------: | ---------------: |
-| chainId |    Y     |      int | 接口调用链的链Id |
-| txList  |    Y     |   String |    交易Hex值列表 |
+| chainId | Y | int | Chain Id of Interface Call Chain |
+| txList | Y | String | Trading Hex Value List |
 
 ```json
 {
@@ -335,7 +335,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -344,24 +344,24 @@
 }
 ```
 
-| 字段   |   数据类型   |     描述信息     |
+| Field | Data Type | Description Information |
 | ------ | :----------: | :--------------: |
-| orphan | List&lt;String> | 返回孤儿交易列表 |
-| fail   | List&lt;String> | 返回失败交易列表 |
+| orphan | List&lt;String> | Return to orphaned transaction list|
+| fail | List&lt;String> | Return failed list |
 
 
 
-#### 3.1.8 提交区块交易
+#### 3.1.8 Submitting block transactions
 
 > cmd: commitBlockTxs
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段        | 是否必填 | 数据类型 |              描述信息 |
+| Field | Required | Data Type | Description |
 | ----------- | :------: | -------: | --------------------: |
-| chainId     |    Y     |      int |      接口调用链的链Id |
-| txHexList   |    Y     |    array | 交易列表 交易16进制流 |
-| blockHeight |    Y     |     long |              区块高度 |
+| chainId | Y | int | Chain Id of Interface Call Chain |
+| txHexList | Y | array | Trading List Transactions hex stream |
+| blockHeight | Y | long | Block Height |
 
 ```json
 {
@@ -371,7 +371,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -379,22 +379,22 @@
 }
 ```
 
-| 字段  | 数据类型 |            描述信息 |
+| Field | Data Type | Description Information |
 | ----- | :------: | ------------------: |
-| value |   int    | true成功，false失败 |
+| value | int | true success, false failure |
 
 
 
-#### 3.1.9  回滚未确认交易
+#### 3.1.9 Rolling back unconfirmed transactions
 
 > cmd: rollBackUnconfirmTx
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段    | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ------- | :------: | -------: | ---------------: |
-| chainId |    Y     |      int | 接口调用链的链Id |
-| txHex   |    Y     |   String |     交易16进制流 |
+| chainId | Y | int | Chain Id of Interface Call Chain |
+| txHex | Y | String | Trading hex stream |
 
 ```json
 {
@@ -403,7 +403,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -411,20 +411,20 @@
 }
 ```
 
-| 字段  | 数据类型 |     描述信息 |
+| Field | Data Type | Description Information |
 | ----- | :------: | -----------: |
-| value |   int    | 1成功，0失败 |
+| value | int | 1 successful, 0 failed |
 
-#### 3.1.10  回滚区块交易
+#### 3.1.10 Rollback block trading
 
 > cmd: rollBackBlockTxs
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段        | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ----------- | :------: | -------: | ---------------: |
-| chainId     |    Y     |      int | 接口调用链的链Id |
-| blockHeight |    Y     |     long |         区块高度 |
+| chainId | Y | int | Chain Id of Interface Call Chain |
+| blockHeight | Y | long | Block Height |
 
 ```json
 {
@@ -433,7 +433,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -441,21 +441,21 @@
 }
 ```
 
-| 字段  | 数据类型 |     描述信息 |
+| Field | Data Type | Description Information |
 | ----- | :------: | -----------: |
-| value |   int    | 1成功，0失败 |
+| value | int | 1 successful, 0 failed |
 
-#### 3.1.11  整区块校验
+#### 3.1.11 Entire block check
 
 > cmd: blockValidate
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段        | 是否必填 | 数据类型 |         描述信息 |
+| Field | Required | Data Type | Description |
 | ----------- | :------: | -------: | ---------------: |
-| chainId     |    Y     |      int | 接口调用链的链Id |
-| txList      |    Y     |   String |    交易Hex值列表 |
-| blockHeight |    Y     |     long |         区块高度 |
+| chainId | Y | int | Chain Id of Interface Call Chain |
+| txList | Y | String | Trading Hex Value List |
+| blockHeight | Y | long | Block Height |
 
 ```json
 {
@@ -465,7 +465,7 @@
 }
 ```
 
-##### 返回值说明：(response)
+##### Return value description: (response)
 
 ```json
 {
@@ -473,24 +473,24 @@
 }
 ```
 
-| 字段  | 数据类型 |       描述信息       |
+| Field | Data Type | Description Information |
 | ----- | :------: | :------------------: |
-| value | boolean  | true成功，false 失败 |
+| value | boolean | true success, false failure |
 
 
 
-### 3.2 其他接口
+### 3.2 Other interfaces
 
-#### 3.2.1 根据资产id获取资产信息
+#### 3.2.1 Obtain asset information based on asset id
 > cmd: getAsset
 
-##### 参数说明 (request)
+##### Parameter Description (request)
 
-| 字段      |      是否可选  | 数据类型 |  描述信息 |
+| Field | Optional | Data Type | Description Information |
 |----------|:-------------:|--------:|--------:|
-| chainId | Y | int | 接口调用所在链链Id |
-| assetChainId |  Y | int |资产发起链的链ID |
-| assetId |  Y | int |资产ID |
+| chainId | Y | int | The chain where the interface is called Id |
+| assetChainId | Y | int | Chain ID of the asset origination chain |
+| assetId | Y | int | Asset ID |
 
 ```json
 {
@@ -499,7 +499,7 @@
   "assetId": 41
 }
 ```
-##### 返回值说明 (response)
+##### Return value description (response)
 
 ```json
 {
@@ -514,53 +514,53 @@
 }
 ```
 
-| 字段   |      数据类型      |  描述信息 |
+| Field | Data Type | Description Information |
 |----------|:-------------:|------:|
-| chainId | int | 发起调用的链ID |
-| assetChainId | int | 资产发起的链链id |
-| assetId | int | 资产ID |
-| balance.available |  BigInteger | 可用余额 |
-| balance.freeze |  BigInteger | 冻结余额 |
-| balance.total |  BigInteger | 总资产余额 total = available+freeze  |
+| chainId | int | Chain ID to initiate the call |
+| assetChainId | int | Asset-initiated chain id |
+| assetId | int | Asset ID |
+| balance.available | BigInteger | Available Balances |
+| balance.freeze | BigInteger | Freeze Balance |
+| balance.total | BigInteger | Total Asset Balance total = available+freeze |
 
 
 
-## 四、事件说明
+## IV. Description of the event
 
-> 不依赖任何事件
+> does not depend on any events
 
-## 五、协议
+## 五, Agreement
 
-### 5.1 网络通讯协议
+### 5.1 Network Communication Protocol
 
-无
+no
 
-### 5.2 交易协议
+### 5.2 Trading Agreement
 
-无
+no
 
-## 六、模块配置
-### 6.1 配置说明
+## 六, Module Configuration
+### 6.1 Configuration Instructions
 
-### 6.2 模块依赖关系
+### 6.2 Module Dependencies
 
-- 内核模块
-  - 模块注册
+- Kernel module
+  - Module registration
 
-  - 模块注销
+  - Module logout
 
-  - 模块状态上报（心跳）
+  - Module status escalation (heartbeat)
 
-  - 服务接口数据获取及定时更新
-- 网络模块
+  - Service interface data acquisition and timing update
+- Network module
   
 
-## 七、Java特有的设计
+## VII, Java-specific design
 
-> 核心对象类定义,存储数据结构，......
+> Core object class definition, storing data structures, ...
 
-## 八、补充内容
+## 八, supplementary content
 
-### 参考资料文献资料
-- [精通以太坊-第七章 交易](https://github.com/inoutcode/ethereum_book/blob/master/%E7%AC%AC%E4%B8%83%E7%AB%A0.asciidoc)
+### References Literature
+- [Proficient in Ethereum - Chapter 7 Transaction] (https://github.com/inoutcode/ethereum_book/blob/master/%E7%AC%AC%E4%B8%83%E7%AB%A0.asciidoc)
 

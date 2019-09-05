@@ -1,1003 +1,1003 @@
-# POC共识模块
+# poc Consensus Module
 
-## 为什么要有共识模块
-众所周知，区块链的核心是共识机制。和传统互联网的cliet-server架构不同，区块链的节点是对等的，没有中心，大家权利一样；所以为了使数据达到一致性，让一个没有中心的网络维护一套大家都认同的账本，这就是共识机制的作用。
-从广义上来说，共识机制就是区块链每个节点共同遵守的规则或算法，是实现互信的基础，如此才能实现去中心化的无监管，维持整个平台的正常运转。
-从狭义来说，共识机制决定了每个节点对区块链上交易的验证和确认的机制。
+## Why do you have a consensus module?
+As we all know, the core of the blockchain is the consensus mechanism.Unlike the traditional Internet's clipet-server architecture, the nodes of the blockchain are peer-to-peer, without the center, and everyone has the same rights; so in order to make the data consistent, let a network without a center maintain a set of books that everyone agrees with. This is the role of the consensus mechanism.
+Broadly speaking, the consensus mechanism is the rule or algorithm that each node of the blockchain adheres to, and is the basis for mutual trust, so that decentralized unsupervised can be realized and the normal operation of the entire platform can be maintained.
+In a narrow sense, the consensus mechanism determines the mechanism by which each node verifies and validates transactions on the blockchain.
 
-## 共识模块要做什么
+## What does the consensus module do?
 
-区块链的每次交易，都必须获得每个节点的认可，只有全网都达成共识后，交易才算完成。就好像民主选举中，投票方式或规则必须被全民认可，基于此才能完成选举。而在区块链中，共识机制的主要表现就是激励制度，也就是给矿工的奖励。在共识机制的保障下，每个矿工都能获得奖励，整个区块链才能有序的运转，提供公平、透明及互信的环境。因此共识模块就需要提供特定的算法来维持，即共识算法。
+Every transaction in the blockchain must be approved by each node. Only after the whole network has reached a consensus, the transaction is completed.It is like in a democratic election, the voting method or rules must be recognized by the whole people, based on which the election can be completed.In the blockchain, the main performance of the consensus mechanism is the incentive system, which is the reward for the miners.Under the guarantee of the consensus mechanism, every miner can be rewarded, and the entire blockchain can operate in an orderly manner, providing a fair, transparent and trusting environment.Therefore, the consensus module needs to provide a specific algorithm to maintain, that is, the consensus algorithm.
 
-公链共识机制有多种，主流的有POW、POS、DPOS。NULS主网采用自主原创的POC（Proof Of Credit）共识机制，一种继承了Dpos共识机制的安全性和高效率，同时在协作方面进行了非常大的改进，可以看成是一种升级版的Dpos。
+There are many public chain consensus mechanisms, and the mainstream is POW, POS, and DPOS.The NULS main network adopts the self-originated POC (Proof Of Credit) consensus mechanism, which inherits the security and high efficiency of the Dpos consensus mechanism. At the same time, it has made great improvements in collaboration, which can be regarded as an upgraded version. Dpos.
 
-## POC共识模块职责：
+## poc Consensus Module Responsibilities:
 
-- 区块同步后的合法性验证
-- 创建共识节点、委托参与共识、取消委托、注销共识节点★
-- 共识节点打包出块
-- 网络维护激励的发放
-- 作恶节点惩罚★
+- Legality verification after block synchronization
+- Create consensus nodes, delegate participation consensus, cancel delegation, and cancel consensus nodes ★
+- Consensus node packs out blocks
+- Disbursement of network maintenance incentives
+- Do evil node punishment ★
   
-  > 不同的共识机制其共识算法不尽相同，有标记★的为POC共识特有
+  > Different consensus mechanisms have different consensus algorithms, and there are tags that are unique to the poc consensus.
 
-## 《共识模块》在系统中的定位
+## "Consensus Module" positioning in the system
 
-共识模块在系统中是比较核心的一块，主要负责打包交易出块，验证区块头，管理系统中的共识节点信息，委托信息，处罚信息等。
+The consensus module is a relatively core piece in the system. It is mainly responsible for packing transactions, verifying block headers, managing consensus node information in the management system, entrusting information, and penalizing information.
 
 
-## 接口列表
+## Interface List
 ### createAgentValid
 create agent transaction validate
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链id  |  是   |
-| tx      | string | 交易   |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Transactions | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| -------- |
-| value | boolean | 创建节点验证结果 |
+| value | boolean | Create Node Verification Results |
 
 ### stopAgentValid
 stop agent transaction validate
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链id  |  是   |
-| tx      | string | 交易   |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Transactions | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---------- |
-| value | boolean | 停止节点交易验证结果 |
+| value | boolean | Stop node transaction verification result |
 
 ### depositValid
 deposit agent transaction validate
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链id  |  是   |
-| tx      | string | 交易   |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Transactions | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| -------- |
-| value | boolean | 委托交易验证结果 |
+| value | boolean | Trusted Transaction Verification Results |
 
 ### withdrawValid
 withdraw deposit agent transaction validate
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链id  |  是   |
-| tx      | string | 交易   |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Transactions | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---------- |
-| value | boolean | 退出共识交易验证结果 |
+| value | boolean | Exit Consensus Transaction Verification Results |
 
 ### cs\_runChain
 Running a sub chain 1.0
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId | string |      |  是   |
+| chainId | string | | yes |
 
-#### 返回值
-无返回值
+#### return value
+No return value
 
 ### cs\_getAgentChangeInfo
 get seed nodes list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId | string |      |  是   |
+| chainId | string | | yes |
 
-#### 返回值
-无返回值
+#### return value
+No return value
 
 ### cs\_addEvidenceRecord
-链分叉证据记录/add evidence record
+Chain evidence record /add evidence record
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名            |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------------- |:------:| ------ |:----:|
-| chainId        |  int   | 链id    |  是   |
-| blockHeader    | string | 分叉区块头一 |  是   |
-| evidenceHeader | string | 分叉区块头二 |  是   |
+| chainId | int | chain id | yes |
+| blockHeader | string | Forked block head one | Yes |
+| evidenceHeader | string | bifurcation block header 2 | yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 处理结果 |
+| value | boolean | Processing Results |
 
 ### cs\_doubleSpendRecord
-双花交易记录/double spend transaction record 
+Double flower transaction record / double spend transaction record 
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链id  |  是   |
-| block   | string | 区块信息 |  是   |
-| tx      | string | 分叉交易 |  是   |
+| chainId | int | chain id | yes |
+| block | string | Block Information | Yes |
+| tx | string | Fork Trading | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 处理结果 |
+| value | boolean | Processing Results |
 
 ### cs\_getWholeInfo
-查询全网共识数据/query the consensus information of the whole network
+Query the consensus information of the whole network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名                    |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ---------------------- |:------:| ---------- |
-| agentCount             |  int   | 节点数量       |
-| totalDeposit           | string | 总委托两       |
-| rewardOfDay            | string | 当天共识奖励总量   |
-| consensusAccountNumber |  int   | 参与共识人数     |
-| packingAgentCount      |  int   | 当前轮次出块节点数量 |
+| agentCount | int | Number of nodes |
+| totalDeposit | string | total delegate two |
+| rewardOfDay | string | Total Consensus Bonus for the day |
+| consensusAccountNumber | int | Number of participants in consensus |
+| packingAgentCount | int | Current round out block number |
 
 ### cs\_getInfo
-查询指定账户共识数据/query consensus information for specified accounts
+Query specific account consensus data for specified accounts
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链id  |  是   |
-| address | string | 账户地址 |  是   |
+| chainId | int | chain id | yes |
+| address | string | account address | yes |
 
-#### 返回值
-| 字段名            |  字段类型  | 参数描述      |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------- |:------:| --------- |
-| agentCount     |  int   | 节点数量      |
-| totalDeposit   | string | 参与共识的总金额  |
-| joinAgentCount |  int   | 参与共识节点的数量 |
-| usableBalance  | string | 可用余额      |
-| reward         | string | 获得的共识奖励   |
-| rewardOfDay    | string | 当天获得的共识奖励 |
-| agentHash      | string | 创建的节点HASH |
+| agentCount | int | Number of nodes |
+| totalDeposit | string | Total amount of participation in consensus |
+| joinAgentCount | int | Number of participating consensus nodes |
+| usableBalance | string | Available balances |
+| reward | string | Consensus Awards |
+| rewardOfDay | string | Consensus Awards received on the day |
+| agentHash | string | created node HASH |
 
 ### cs\_getPublishList
-查询红黄牌记录/query punish list
+Query red and yellow card records /query punish list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述                    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ----------------------- |:----:|
-| chainId |  int   | 链id                     |  是   |
-| address | string | 地址                      |  是   |
-| type    |  int   | 惩罚类型 0红黄牌记录 1红牌记录 2黄牌记录 |  是   |
+| chainId | int | chain id | yes |
+| address | string | address | yes |
+| type | int | penalty type 0 red and yellow card record 1 red card record 2 yellow card record | yes |
 
-#### 返回值
-| 字段名          |      字段类型       | 参数描述      |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------ |:---------------:| --------- |
-| redPunish    | list&lt;string> | 获得的红牌列表   |
-| yellowPunish | list&lt;string> | 获得的黄牌惩罚列表 |
+RedPunish | list&lt;string> | List of red cards obtained |
+| yellowPunish | list&lt;string> | Get the yellow card penalty list |
 
 ### cs\_getRoundInfo
-获取当前轮次信息/get current round information
+Get current round information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名                                                                                                            |          字段类型           | 参数描述                                  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------------------------------------------------------------------------------------------------- |:-----------------------:| ------------------------------------- |
-| totalWeight                                                                                                    |         double          | 当前轮次总权重                               |
-| index                                                                                                          |          long           | 轮次下标                                  |
-| startTime                                                                                                      |          long           | 轮次开始时间                                |
-| endTime                                                                                                        |          long           | 轮次结束时间                                |
-| memberCount                                                                                                    |           int           | 本轮次出块节点数                              |
-| memberList                                                                                                     |     list&lt;object>     | 本轮次出块成员信息                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundIndex                                                     |          long           | 轮次下标                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundStartTime                                                 |          long           | 轮次开始时间                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingIndexOfRound                                            |           int           | 该节点在本轮次中第几个出块                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent                                                          |         object          | 共识节点信息                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentAddress   |         byte[]          | 节点地址                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingAddress |         byte[]          | 出块地址                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewardAddress  |         byte[]          | 奖励地址                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit        |       biginteger        | 保证金                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commissionRate |          byte           | 佣金比例                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time           |          long           | 创建时间                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight    |          long           | 所在区块高度                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight      |          long           | 节点注销高度                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status         |           int           | 状态，0:待共识 unConsensus, 1:共识中 consensus |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creditVal      |         double          | 信誉值                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalDeposit   |       biginteger        | 节点总委托金额                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash         |        nulshash         | 创建该节点的交易HASH                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memberCount    |           int           | 参与共识人数                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alais          |         string          | 节点别名                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;depositList                                                    |     list&lt;object>     | 当前节点委托信息                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit        |       biginteger        | 委托金额                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentHash      |        nulshash         | 委托的节点HASH                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address        |         byte[]          | 委托账户                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time           |          long           | 委托时间                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status         |           int           | 状态                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash         |        nulshash         | 委托交易HASH                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight    |          long           | 委托交易被打包的高度                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight      |          long           | 退出委托高度                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sortValue                                                      |         string          | 排序值                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packStartTime                                                  |          long           | 当前节点开始出块时间                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packEndTime                                                    |          long           | 当前节点出块结束时间                            |
-| preRound                                                                                                       | object&lt;meetinground> | 上一轮信息                                 |
-| myMember                                                                                                       |         object          | 当前节点出块信息                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundIndex                                                     |          long           | 轮次下标                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundStartTime                                                 |          long           | 轮次开始时间                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingIndexOfRound                                            |           int           | 该节点在本轮次中第几个出块                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent                                                          |         object          | 共识节点信息                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentAddress   |         byte[]          | 节点地址                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingAddress |         byte[]          | 出块地址                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewardAddress  |         byte[]          | 奖励地址                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit        |       biginteger        | 保证金                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commissionRate |          byte           | 佣金比例                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time           |          long           | 创建时间                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight    |          long           | 所在区块高度                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight      |          long           | 节点注销高度                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status         |           int           | 状态，0:待共识 unConsensus, 1:共识中 consensus |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creditVal      |         double          | 信誉值                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalDeposit   |       biginteger        | 节点总委托金额                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash         |        nulshash         | 创建该节点的交易HASH                          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memberCount    |           int           | 参与共识人数                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alais          |         string          | 节点别名                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;depositList                                                    |     list&lt;object>     | 当前节点委托信息                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit        |       biginteger        | 委托金额                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentHash      |        nulshash         | 委托的节点HASH                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address        |         byte[]          | 委托账户                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time           |          long           | 委托时间                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status         |           int           | 状态                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash         |        nulshash         | 委托交易HASH                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight    |          long           | 委托交易被打包的高度                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight      |          long           | 退出委托高度                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sortValue                                                      |         string          | 排序值                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packStartTime                                                  |          long           | 当前节点开始出块时间                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packEndTime                                                    |          long           | 当前节点出块结束时间                            |
+| totalWeight | double | current round total weight |
+| index | long | Round subscript|
+| startTime | long | Round start time |
+| endTime | long | Round end time |
+| memberCount | int | Number of nodes in this round |
+| memberList | list&lt;object> | This round of member information |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundIndex | long | Round subscript|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundStartTime | long | Round start time|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingIndexOfRound | int | The node is the first in this round |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent | object | Consensus Node Information |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentAddress | byte[] | Node Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingAddress | byte[] | Block Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewardAddress | byte[] | Reward Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit | biginteger | Margin |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commissionRate | byte | Commission Ratio|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time | long | creation time|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight | long |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight | long | Node Logout Height|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status | int | Status, 0: Consensus unConsensus, 1: Consensus Consensus |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creditVal | double | Reputation Value|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalDeposit | biginteger | Total node commission amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | nulshash | Create this node's transaction HASH |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memberCount | int |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alais | string | node alias|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;depositList | list&lt;object> | Current node delegation information|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit | biginteger |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentHash | nulshash | Delegate Node HASH |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address | byte[] |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time | long |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status | int | Status|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | nulshash | Commissioning HASH |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight | long | The height of the delegated transaction is packaged|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight | long | Exit delegate height|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sortValue | string | Sort Value|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packStartTime | long | Current node starts to block time |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packEndTime | long | Current Node Out End Time |
+| preRound | object&lt;meetinground> | Last round of information|
+| myMember | object | current node block information |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundIndex | long | Round subscript|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;roundStartTime | long | Round start time|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingIndexOfRound | int | The node is the first in this round |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agent | object | Consensus Node Information |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentAddress | byte[] | Node Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packingAddress | byte[] | Block Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;rewardAddress | byte[] | Reward Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit | biginteger | Margin |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;commissionRate | byte | Commission Ratio|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time | long | creation time|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight | long |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight | long | Node Logout Height|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status | int | Status, 0: Consensus unConsensus, 1: Consensus Consensus |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;creditVal | double | Reputation Value|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalDeposit | biginteger | Total node commission amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | nulshash | Create this node's transaction HASH |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;memberCount | int |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alais | string | node alias|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;depositList | list&lt;object> | Current node delegation information|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;deposit | biginteger |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;agentHash | nulshash | Delegate Node HASH |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address | byte[] |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time | long |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;status | int | Status|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | nulshash | Commissioning HASH |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight | long | The height of the delegated transaction is packaged|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delHeight | long | Exit delegate height|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sortValue | string | Sort Value|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packStartTime | long | Current node starts to block time |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;packEndTime | long | Current Node Out End Time |
 
 ### cs\_getRoundMemberList
-查询指定区块所在轮次的成员列表/Query the membership list of the specified block's rounds
+Query the membership list of the specified block's rounds
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------- |:----:|
-| chainId |  int   | 链id     |  是   |
-| extend  | string | 区块头扩展信息 |  是   |
+| chainId | int | chain id | yes |
+| extend | string | Block header extension information | Yes |
 
-#### 返回值
-| 字段名             |      字段类型       | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:---------------:| ---------- |
-| packAddressList | list&lt;string> | 当前伦次出块地址列表 |
+| packAddressList | list&lt;string> | Current list of outgoing addresses |
 
 ### cs\_getConsensusConfig
-获取共识模块配置信息/get consensus config
+Get consensus module configuration information / get consensus config
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名             |  字段类型   | 参数描述              |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:-------:| ----------------- |
-| seedNodes       | string  | 种子节点列表            |
-| inflationAmount | integer | 委托金额最大值           |
-| agentAssetId    | integer | 共识资产ID            |
-| agentChainId    | integer | 共识资产链ID           |
-| awardAssetId    | integer | 奖励资产ID（共识奖励为本链资产） |
+| seedNodes | string | seed node list|
+| inflationAmount | integer |
+| agentAssetId | integer | Consensus Asset ID |
+| agentChainId | integer | Consensus Asset Chain ID |
+| awardAssetId | integer | Reward Asset ID (Consensus Reward for this Chain Asset) |
 
 ### cs\_runMainChain
 run main chain 1.0
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId | string |      |  是   |
+| chainId | string | | yes |
 
-#### 返回值
-无返回值
+#### return value
+No return value
 
 ### cs\_stopChain
 stop a chain 1.0
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId | string |      |  是   |
+| chainId | string | | yes |
 
-#### 返回值
-无返回值
+#### return value
+No return value
 
 ### cs\_getAgentList
-查询当前网络中的共识节点列表/Query the list of consensus nodes in the current network
+Query the list of consensus nodes in the current network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:------:| ---- |:----:|
-| chainId    |  int   | 链id  |  是   |
-| pageNumber |  int   | 页码   |  否   |
-| pageSize   |  int   | 每页大小 |  否   |
-| keyWord    | string | 关键字  |  否   |
+| chainId | int | chain id | yes |
+| pageNumber | int | Page Number | No |
+| pageSize | int | per page size | no |
+| keyWord | string | Keywords | No |
 
-#### 返回值
-| 字段名            |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------- |:------:| ---------- |
-| agentHash      | string | 节点HASH     |
-| agentAddress   | string | 节点地址       |
-| packingAddress | string | 节点出块地址     |
-| rewardAddress  | string | 节点奖励地址     |
-| deposit        | string | 抵押金额       |
-| commissionRate |  byte  | 佣金比例       |
-| agentName      | string | 节点名称       |
-| agentId        | string | 节点ID       |
-| introduction   | string | 节点简介       |
-| time           |  long  | 节点创建时间     |
-| blockHeight    |  long  | 节点打包高度     |
-| delHeight      |  long  | 节点失效高度     |
-| status         |  int   | 状态         |
-| creditVal      | double | 信誉值        |
-| totalDeposit   | string | 总委托金额      |
-| txHash         | string | 创建节点交易HASH |
-| memberCount    |  int   | 委托人数       |
-| version        | string | 版本         |
+| agentHash | string | Node HASH |
+| agentAddress | string | node address |
+| packingAddress | string | Node Outbound Address |
+| rewardAddress | string | Node Reward Address |
+| deposit | string | Mortgage Amount |
+| commissionRate | byte | Commission Ratio |
+| agentName | string | node name|
+| agentId | string | node ID |
+| introduction | string | Node Introduction|
+| time | long | node creation time |
+| blockHeight | long | Node Packing Height |
+| delHeight | long | Node Failure Height |
+| status | int | Status |
+| creditVal | double | Reputation Value |
+| totalDeposit | string | Total Delegate Amount |
+| txHash | string | Create Node Trading HASH |
+| memberCount | int | Number of delegates |
+| version | string | version|
 
 ### cs\_stopAgent
-注销节点/stop agent
+Logout node/stop agent
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:------:| ---- |:----:|
-| chainId  |  int   | 链id  |  是   |
-| address  | string | 节点地址 |  是   |
-| password | string | 密码   |  是   |
+| chainId | int | chain id | yes |
+| address | string | node address | yes |
+| password | string | password | yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ---------- |
-| txHash | string | 停止节点交易HASH |
+| txHash | string | Stop Node Trading HASH |
 
 ### cs\_createAgent
-创建节点交易/create agent transaction
+Create node transaction / create agent transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名            |  参数类型  | 参数描述        | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------------- |:------:| ----------- |:----:|
-| chainId        |  int   | 链id         |  是   |
-| agentAddress   | string | 节点地址        |  是   |
-| packingAddress | string | 节点出块地址      |  是   |
-| rewardAddress  | string | 奖励地址,默认节点地址 |  否   |
-| commissionRate |  int   | 佣金比例        |  是   |
-| deposit        | string | 抵押金额        |  是   |
-| password       | string | 密码          |  是   |
+| chainId | int | chain id | yes |
+| agentAddress | string | node address | yes |
+| packingAddress | string | Node Block Address | Yes |
+| rewardAddress | string | reward address, default node address | no |
+| commissionRate | int | Commission Ratio | Yes |
+| deposit | string | Mortgage amount | Yes |
+| password | string | password | yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ---------- |
-| txHash | string | 创建节点交易HASH |
+| txHash | string | Create Node Trading HASH |
 
 ### cs\_getAgentInfo
-查询指点节点节点详细信息/Query pointer node details
+Query pointing node details / Query pointer node details
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:------:| ------ |:----:|
-| chainId   |  int   | 链id    |  是   |
-| agentHash | string | 节点HASH |  是   |
+| chainId | int | chain id | yes |
+| agentHash | string | Node HASH | Yes |
 
-#### 返回值
-| 字段名            |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------- |:------:| ---------- |
-| agentHash      | string | 节点HASH     |
-| agentAddress   | string | 节点地址       |
-| packingAddress | string | 节点出块地址     |
-| rewardAddress  | string | 节点奖励地址     |
-| deposit        | string | 抵押金额       |
-| commissionRate |  byte  | 佣金比例       |
-| agentName      | string | 节点名称       |
-| agentId        | string | 节点ID       |
-| introduction   | string | 节点简介       |
-| time           |  long  | 节点创建时间     |
-| blockHeight    |  long  | 节点打包高度     |
-| delHeight      |  long  | 节点失效高度     |
-| status         |  int   | 状态         |
-| creditVal      | double | 信誉值        |
-| totalDeposit   | string | 总委托金额      |
-| txHash         | string | 创建节点交易HASH |
-| memberCount    |  int   | 委托人数       |
-| version        | string | 版本         |
+| agentHash | string | Node HASH |
+| agentAddress | string | node address |
+| packingAddress | string | Node Outbound Address |
+| rewardAddress | string | Node Reward Address |
+| deposit | string | Mortgage Amount |
+| commissionRate | byte | Commission Ratio |
+| agentName | string | node name|
+| agentId | string | node ID |
+| introduction | string | Node Introduction|
+| time | long | node creation time |
+| blockHeight | long | Node Packing Height |
+| delHeight | long | Node Failure Height |
+| status | int | Status |
+| creditVal | double | Reputation Value |
+| totalDeposit | string | Total Delegate Amount |
+| txHash | string | Create Node Trading HASH |
+| memberCount | int | Number of delegates |
+| version | string | version|
 
 ### cs\_getAgentStatus
-查询指定共识节点状态/query the specified consensus node status 1.0
+Query the specified consensus node status / query the specified consensus node status 1.0
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:------:| ------ |:----:|
-| chainId   |  int   | 链id    |  是   |
-| agentHash | string | 节点HASH |  是   |
+| chainId | int | chain id | yes |
+| agentHash | string | Node HASH | Yes |
 
-#### 返回值
-| 字段名    | 字段类型 | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:----:| ---- |
-| status | byte | 节点状态 |
+| status | byte | Node Status |
 
 ### cs\_updateAgentConsensusStatus
-修改节点共识状态/modifying the Node Consensus State
+Modify node consensus state /modifying the Node Consensus State
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述                    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ----------------------- |
-| N/A | void | 无特定返回值，无错误则表示节点共识状态修改成功 |
+N/A | void | No specific return value, no error means the node consensus state was modified successfully |
 
 ### cs\_updateAgentStatus
-修改节点打包状态/modifying the Packing State of Nodes
+Modify the Packing State of Nodes
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
-| status  | int  | 节点状态 |  是   |
+| chainId | int | chain id | yes |
+| status | int | Node Status | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述                    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ----------------------- |
-| N/A | void | 无特定返回值，无错误则表示节点打包状态修改成功 |
+N/A | void | No specific return value, no error means the node packing status is modified successfully |
 
 ### cs\_getNodePackingAddress
-获取当前节点出块地址/Get the current node's out-of-block address
+Get the current node out address/Get the current node's out-of-block address
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名         |  字段类型  | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------- |:------:| -------- |
-| packAddress | string | 当前节点出块地址 |
+| packAddress | string | current node block address |
 
 ### cs\_getAgentAddressList
-获取当前网络共识节点出块地址列表或则查询最近N个区块的出块地址/Get all node out-of-block addresses or specify N block out-of-block designations
+Get the current network consensus node outbound address list or query the nearest N blocks outbound address/Get all node out-of-block addresses or specify N block out-of-block designations
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名         |  字段类型  | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------- |:------:| ------ |
-| packAddress | string | 共识节点列表 |
+| packAddress | string | Consensus Node List |
 
 ### cs\_getPackerInfo
-获取当前节点的出块账户信息/modifying the Packing State of Nodes
+Get the current node's outbound account information /modifying the Packing State of Nodes
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名             |      字段类型       | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:---------------:| -------- |
-| address         |     string      | 当前节点出块地址 |
-| password        |     string      | 当前节点密码   |
-| packAddressList | list&lt;string> | 当前打包地址列表 |
+| address | string | current node block address |
+| password | string | current node password|
+| packAddressList | list&lt;string> | Current Packed Address List|
 
 ### cs\_getSeedNodeInfo
-获取种子节点信息/get seed node info
+Get seed node information / get seed node info
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
+| chainId | int | chain id | yes |
 
-#### 返回值
-| 字段名             |      字段类型       | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:---------------:| -------- |
-| address         |     string      | 当前节点出块地址 |
-| password        |     string      | 当前节点密码   |
-| packAddressList | list&lt;string> | 当前打包地址列表 |
+| address | string | current node block address |
+| password | string | current node password|
+| packAddressList | list&lt;string> | Current Packed Address List|
 
 ### cs\_stopContractAgent
-智能合约注销节点/contract stop agent
+Smart contract logout node/contract stop agent
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述          | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------------- |:----:|
-| chainId         |  int   | 链id           |  是   |
-| contractAddress | string | 合约地址          |  是   |
-| contractSender  | string | 合约调用者地址       |  是   |
-| contractBalance | string | 合约地址的当前余额     |  是   |
-| contractNonce   | string | 合约地址的当前nonce值 |  是   |
-| blockTime       |  long  | 当前打包的区块时间     |  是   |
+| chainId | int | chain id | yes |
+| contractAddress | string | contract address | yes |
+| contractSender | string | contract caller address | yes |
+| contractBalance | string | Current balance of contract address | Yes |
+| contractNonce | string | current nonce value of the contract address | Yes |
+| blockTime | long | Current packed block time | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ----------- |
-| 返回值 | list&lt;string> | 返回交易HASH和交易 |
+| Return value | list&lt;string> | Return transaction HASH and transaction |
 
 ### cs\_createContractAgent
-智能合约创建节点/contract create agent
+Smart contract creation node / contract create agent
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述          | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------------- |:----:|
-| chainId         |  int   | 链id           |  是   |
-| packingAddress  | string | 出块地址          |  是   |
-| deposit         | string | 抵押金额          |  是   |
-| commissionRate  | string | 佣金比例          |  是   |
-| contractAddress | string | 合约地址          |  是   |
-| contractSender  | string | 合约调用者地址       |  是   |
-| contractBalance | string | 合约地址的当前余额     |  是   |
-| contractNonce   | string | 合约地址的当前nonce值 |  是   |
-| blockTime       |  long  | 当前打包的区块时间     |  是   |
+| chainId | int | chain id | yes |
+| packingAddress | string | Block Address | Yes |
+| deposit | string | Mortgage amount | Yes |
+| commissionRate | string | commission ratio | yes |
+| contractAddress | string | contract address | yes |
+| contractSender | string | contract caller address | yes |
+| contractBalance | string | Current balance of contract address | Yes |
+| contractNonce | string | current nonce value of the contract address | Yes |
+| blockTime | long | Current packed block time | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ----------- |
-| 返回值 | list&lt;string> | 返回交易HASH和交易 |
+| Return value | list&lt;string> | Return transaction HASH and transaction |
 
 ### cs\_contractDeposit
-智能合约委托共识/contract deposit agent transaction
+Smart contract delegation
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述          | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------------- |:----:|
-| chainId         |  int   | 链id           |  是   |
-| agentHash       | string | 委托的节点HASH     |  是   |
-| deposit         | string | 委托金额          |  是   |
-| contractAddress | string | 合约地址          |  是   |
-| contractSender  | string | 合约调用者地址       |  是   |
-| contractBalance | string | 合约地址的当前余额     |  是   |
-| contractNonce   | string | 合约地址的当前nonce值 |  是   |
-| blockTime       |  long  | 当前打包的区块时间     |  是   |
+| chainId | int | chain id | yes |
+| agentHash | string | delegate node HASH | yes |
+| deposit | string | commission amount | yes |
+| contractAddress | string | contract address | yes |
+| contractSender | string | contract caller address | yes |
+| contractBalance | string | Current balance of contract address | Yes |
+| contractNonce | string | current nonce value of the contract address | Yes |
+| blockTime | long | Current packed block time | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ----------- |
-| 返回值 | list&lt;string> | 返回交易HASH和交易 |
+| Return value | list&lt;string> | Return transaction HASH and transaction |
 
 ### cs\_contractWithdraw
-智能合约退出共识/contract withdraw deposit agent transaction
+Smart contract withdrawal agreement
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述          | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------------- |:----:|
-| chainId         |  int   | 链id           |  是   |
-| joinAgentHash   | string | 节点HASH        |  是   |
-| contractAddress | string | 合约地址          |  是   |
-| contractSender  | string | 合约调用者地址       |  是   |
-| contractBalance | string | 合约地址的当前余额     |  是   |
-| contractNonce   | string | 合约地址的当前nonce值 |  是   |
-| blockTime       |  long  | 当前打包的区块时间     |  是   |
+| chainId | int | chain id | yes |
+| joinAgentHash | string | Node HASH | Yes |
+| contractAddress | string | contract address | yes |
+| contractSender | string | contract caller address | yes |
+| contractBalance | string | Current balance of contract address | Yes |
+| contractNonce | string | current nonce value of the contract address | Yes |
+| blockTime | long | Current packed block time | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ----------- |
-| 返回值 | list&lt;string> | 返回交易HASH和交易 |
+| Return value | list&lt;string> | Return transaction HASH and transaction |
 
 ### cs\_getContractDepositInfo
-智能合约查询指定账户委托信息/Intelligent Contract Query for Assigned Account Delegation Information
+Intelligent Contract Query for Assigned Account Delegation Information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------- |:----:|
-| chainId         |  int   | 链id     |  是   |
-| joinAgentHash   | string | 节点HASH  |  是   |
-| contractAddress | string | 合约地址    |  是   |
-| contractSender  | string | 合约调用者地址 |  是   |
+| chainId | int | chain id | yes |
+| joinAgentHash | string | Node HASH | Yes |
+| contractAddress | string | contract address | yes |
+| contractSender | string | contract caller address | yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ---- |
-| 返回值 | list&lt;string> | 委托信息 |
+| Return value | list&lt;string> | Delegation information|
 
 ### cs\_getContractAgentInfo
-智能合约节点/contract get agent info
+Smart contract node / contract get agent info
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------- |:----:|
-| chainId         |  int   | 链id     |  是   |
-| agentHash       | string | 节点HASH  |  是   |
-| contractAddress | string | 合约地址    |  是   |
-| contractSender  | string | 合约调用者地址 |  是   |
+| chainId | int | chain id | yes |
+| agentHash | string | Node HASH | Yes |
+| contractAddress | string | contract address | yes |
+| contractSender | string | contract caller address | yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ---- |
-| 返回值 | list&lt;string> | 节点信息 |
+| return value | list&lt;string> | node information|
 
 ### cs\_triggerCoinBaseContract
-交易模块触发CoinBase智能合约/trigger coin base contract
+Trading module triggers CoinBase smart contract/trigger coin base contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| --------- |:----:|
-| chainId     |  int   | 链id       |  是   |
-| tx          | string | 交易信息      |  是   |
-| blockHeader | string | 区块头       |  是   |
-| stateRoot   | string | stateRoot |  是   |
+| chainId | int | chain id | yes |
+| tx | string | Trading Information | Yes |
+| blockHeader | string | Block Head | Yes |
+| stateRoot | string | stateRoot | yes |
 
-#### 返回值
-| 字段名   |  字段类型  | 参数描述      |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:------:| --------- |
 | value | string | stateRoot |
 
 ### cs\_chainRollBack
-区块回滚/chain rollback
+Block rollback/chain rollback
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| -------- |:----:|
-| chainId | int  | 链id      |  是   |
-| height  | int  | 区块回滚到的高度 |  是   |
+| chainId | int | chain id | yes |
+| height | int | Height the block is rolled back to | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------ |
-| value | boolean | 区块回滚结果 |
+| value | boolean | Block Rollback Results |
 
 ### cs\_addBlock
-接收并缓存新区块/Receiving and caching new blocks
+Receive and cache new blocks/Receiving and caching new blocks
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链id  |  是   |
-| blockHeader | string | 区块头  |  是   |
+| chainId | int | chain id | yes |
+| blockHeader | string | Block Head | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| -------- |
-| value | boolean | 接口执行成功与否 |
+| value | boolean | Interface execution success or not |
 
 ### cs\_receiveHeaderList
-接收并缓存区块列表/Receive and cache block lists
+Receive and cache block list/Receive and cache block lists
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |  参数类型  | 参数描述  | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:------:| ----- |:----:|
-| chainId    |  int   | 链id   |  是   |
-| headerList | string | 区块头列表 |  是   |
+| chainId | int | chain id | yes |
+| headerList | string | block header list | yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| -------- |
-| value | boolean | 是否成功接收处理 |
+| value | boolean | Whether to receive processing successfully |
 
 ### cs\_validBlock
-验证区块/verify block correctness
+Verification block /verify block correctness
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:------:| ---- |:----:|
-| chainId  |  int   | 链id  |  是   |
-| download |  int   | 区块状态 |  是   |
-| block    | string | 区块信息 |  是   |
+| chainId | int | chain id | yes |
+| download | int | Block Status | Yes |
+| block | string | Block Information | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 验证结果 |
+| value | boolean | Verify Results |
 
 ### cs\_createMultiAgent
-多签账户创建节点/Multi-Sign Account create agent transaction
+Multi-Sign Account Create Agent transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名            |  参数类型  | 参数描述        | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------------- |:------:| ----------- |:----:|
-| chainId        |  int   | 链id         |  是   |
-| agentAddress   | string | 节点地址(多签地址)  |  是   |
-| packingAddress | string | 节点出块地址      |  是   |
-| rewardAddress  | string | 奖励地址,默认节点地址 |  否   |
-| commissionRate |  int   | 佣金比例        |  是   |
-| deposit        | string | 抵押金额        |  是   |
-| password       | string | 签名账户密码      |  是   |
-| signAddress    | string | 签名账户地址      |  是   |
+| chainId | int | chain id | yes |
+| agentAddress | string | node address (multiple signing address) | yes |
+| packingAddress | string | Node Block Address | Yes |
+| rewardAddress | string | reward address, default node address | no |
+| commissionRate | int | Commission Ratio | Yes |
+| deposit | string | Mortgage amount | Yes |
+| password | string | Signature Account Password | Yes |
+| signAddress | string | Signature Account Address | Yes |
 
-#### 返回值
-| 字段名       |  字段类型   | 参数描述                                  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:-------:| ------------------------------------- |
-| tx        | string  | 完整交易序列化字符串,如果交易没达到最小签名数可继续签名          |
-| txHash    | string  | 交易hash                                |
-| completed | boolean | true:交易已完成(已广播),false:交易没完成,没有达到最小签名数 |
+| tx | string | Complete transaction serialization string, continue signature if the transaction does not reach the minimum number of signatures |
+| txHash | string | Trading hash |
+| completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### cs\_stopMultiAgent
-多签账户注销节点/Multi-Sign Account stop agent
+Multi-Sign Account Stop Agent
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---------- |:----:|
-| chainId     |  int   | 链id        |  是   |
-| address     | string | 节点地址(多签地址) |  是   |
-| password    | string | 签名账户密码     |  是   |
-| signAddress | string | 签名账户地址     |  是   |
+| chainId | int | chain id | yes |
+| address | string | node address (multiple signing address) | yes |
+| password | string | Signature Account Password | Yes |
+| signAddress | string | Signature Account Address | Yes |
 
-#### 返回值
-| 字段名       |  字段类型   | 参数描述                                  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:-------:| ------------------------------------- |
-| tx        | string  | 完整交易序列化字符串,如果交易没达到最小签名数可继续签名          |
-| txHash    | string  | 交易hash                                |
-| completed | boolean | true:交易已完成(已广播),false:交易没完成,没有达到最小签名数 |
+| tx | string | Complete transaction serialization string, continue signature if the transaction does not reach the minimum number of signatures |
+| txHash | string | Trading hash |
+| completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### cs\_multiDeposit
-多签账户委托共识/Multi-Sign Account deposit agent transaction
+Multi-Sign Account deposit agent transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ------ |:----:|
-| chainId     |  int   | 链id    |  是   |
-| address     | string | 多签账户地址 |  是   |
-| agentHash   | string | 节点HASH |  是   |
-| deposit     | string | 委托金额   |  是   |
-| password    | string | 签名账户密码 |  是   |
-| signAddress | string | 签名账户地址 |  是   |
+| chainId | int | chain id | yes |
+| address | string | Multi-Sign Account Address | Yes |
+| agentHash | string | Node HASH | Yes |
+| deposit | string | commission amount | yes |
+| password | string | Signature Account Password | Yes |
+| signAddress | string | Signature Account Address | Yes |
 
-#### 返回值
-| 字段名       |  字段类型   | 参数描述                                  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:-------:| ------------------------------------- |
-| tx        | string  | 完整交易序列化字符串,如果交易没达到最小签名数可继续签名          |
-| txHash    | string  | 交易hash                                |
-| completed | boolean | true:交易已完成(已广播),false:交易没完成,没有达到最小签名数 |
+| tx | string | Complete transaction serialization string, continue signature if the transaction does not reach the minimum number of signatures |
+| txHash | string | Trading hash |
+| completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### cs\_multiWithdraw
-多签账户退出共识/Multi-Sign Account withdraw deposit agent transaction
+Multi-Sign Account withdraw deposit agent transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---------- |:----:|
-| chainId     |  int   | 链id        |  是   |
-| address     | string | 多签账户地址     |  是   |
-| txHash      | string | 加入共识交易HASH |  是   |
-| password    | string | 签名账户密码     |  是   |
-| signAddress | string | 签名账户地址     |  是   |
+| chainId | int | chain id | yes |
+| address | string | Multi-Sign Account Address | Yes |
+| txHash | string | Join the consensus transaction HASH | Yes |
+| password | string | Signature Account Password | Yes |
+| signAddress | string | Signature Account Address | Yes |
 
-#### 返回值
-| 字段名       |  字段类型   | 参数描述                                  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:-------:| ------------------------------------- |
-| tx        | string  | 完整交易序列化字符串,如果交易没达到最小签名数可继续签名          |
-| txHash    | string  | 交易hash                                |
-| completed | boolean | true:交易已完成(已广播),false:交易没完成,没有达到最小签名数 |
+| tx | string | Complete transaction serialization string, continue signature if the transaction does not reach the minimum number of signatures |
+| txHash | string | Trading hash |
+| completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### cs\_random\_seed\_count
-根据高度和原始种子个数生成一个随机种子并返回
+Generate a random seed based on the height and the number of original seeds and return
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型  | 参数描述         | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:------:| ------------ |:----:|
-| chainId   |  int   | 链id          |  是   |
-| height    |  long  | 最大高度         |  是   |
-| count     |  int   | 原始种子个数       |  是   |
-| algorithm | string | 算法标识：SHA3... |  是   |
+| chainId | int | chain id | yes |
+| height | long | maximum height | yes |
+| count | int | Number of original seeds | Yes |
+Algorithm | string | Algorithm ID: SHA3... | Yes |
 
-#### 返回值
-| 字段名       |  字段类型  | 参数描述    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:------:| ------- |
-| seed      | string | 生成的随机种子 |
-| algorithm | string | 算法标识    |
-| count     |  int   | 原始种子个数  |
+| seed | string | generated random seed |
+| algorithm | string | Algorithm ID|
+| count | int | Number of original seeds |
 
 ### cs\_random\_seed\_height
-根据高度区间生成一个随机种子并返回
+Generate a random seed based on the height interval and return
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述         | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ------------ |:----:|
-| chainId     |  int   | 链id          |  是   |
-| startHeight |  long  | 起始高度         |  是   |
-| endHeight   |  long  | 截止高度         |  是   |
-| algorithm   | string | 算法标识：SHA3... |  是   |
+| chainId | int | chain id | yes |
+| startHeight | long | starting height | yes |
+| endHeight | long | cutoff height | yes |
+Algorithm | string | Algorithm ID: SHA3... | Yes |
 
-#### 返回值
-| 字段名       |  字段类型  | 参数描述    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:------:| ------- |
-| seed      | string | 生成的随机种子 |
-| algorithm | string | 算法标识    |
-| count     |  int   | 原始种子个数  |
+| seed | string | generated random seed |
+| algorithm | string | Algorithm ID|
+| count | int | Number of original seeds |
 
 ### cs\_random\_raw\_seeds\_count
-根据高度查找原始种子列表并返回
+Find the original seed list based on height and return
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链id  |  是   |
-| height  | long | 起始高度 |  是   |
-| count   | int  | 截止高度 |  是   |
+| chainId | int | chain id | yes |
+| height | long | starting height | yes |
+| count | int | Cutoff Height | Yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ---- |
-| 返回值 | list&lt;string> |      |
+| Return value | list&lt;string> | |
 
 ### cs\_random\_raw\_seeds\_height
-根据高度区间查询原始种子列表并返回
+Query the original seed list based on the height interval and return
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:----:| ---- |:----:|
-| chainId     | int  | 链id  |  是   |
-| startHeight | long | 起始高度 |  是   |
-| endHeight   | long | 截止高度 |  是   |
+| chainId | int | chain id | yes |
+| startHeight | long | starting height | yes |
+| endHeight | long | cutoff height | yes |
 
-#### 返回值
-| 字段名 |      字段类型       | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:---------------:| ---- |
-| 返回值 | list&lt;string> |      |
+| Return value | list&lt;string> | |
 
 ### cs\_getDepositList
-查询指定账户或指定节点的委托信息/Query delegation information for a specified account or node
+Query delegation information for a specified account or a specified node
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:------:| ------ |:----:|
-| chainId    |  int   | 链id    |  是   |
-| pageNumber |  int   | 页码     |  是   |
-| pageSize   |  int   | 每页数量   |  是   |
-| address    | string | 账户地址   |  是   |
-| agentHash  | string | 节点HASH |  是   |
+| chainId | int | chain id | yes |
+| pageNumber | int | Page Number | Yes |
+| pageSize | int | per page | yes |
+| address | string | account address | yes |
+| agentHash | string | Node HASH | Yes |
 
-#### 返回值
-| 字段名          |  字段类型  | 参数描述              |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------ |:------:| ----------------- |
-| deposit      | string | 委托金额              |
-| agentHash    | string | 节点HASH            |
-| address      | string | 账户地址              |
-| time         |  long  | 委托时间              |
-| txHash       | string | 委托交易HASH          |
-| blockHeight  |  long  | 委托交易被打包高度         |
-| delHeight    |  long  | 退出委托高度            |
-| status       |  int   | 节点状态 0:待共识, 1:已共识 |
-| agentName    | string | 节点名称              |
-| agentAddress | string | 节点地址              |
+| deposit | string |
+| agentHash | string | Node HASH |
+| address | string | Account Address|
+| time | long | delegation time |
+| txHash | string | Commissioned Trading HASH |
+| blockHeight | long | Delegate transaction is packaged height|
+| delHeight | long | Exit delegate height |
+| status | int | Node Status 0: To be Consensus, 1: Consensus |
+| agentName | string | node name|
+| agentAddress | string | node address |
 
 ### cs\_depositToAgent
-创建委托交易/deposit agent transaction
+Create a delegate transaction /deposit agent transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:------:| ------ |:----:|
-| chainId   |  int   | 链id    |  是   |
-| address   | string | 账户地址   |  是   |
-| agentHash | string | 节点HASH |  是   |
-| deposit   | string | 委托金额   |  是   |
-| password  | string | 账户密码   |  是   |
+| chainId | int | chain id | yes |
+| address | string | account address | yes |
+| agentHash | string | Node HASH | Yes |
+| deposit | string | commission amount | yes |
+| password | string | account password | yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ---------- |
-| txHash | string | 加入共识交易Hash |
+| txHash | string | Join Consensus Trading Hash |
 
 ### cs\_withdraw
-退出委托交易/withdraw deposit agent transaction
+Exit commission transaction /withdraw deposit agent transaction
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      |  参数类型  | 参数描述       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:------:| ---------- |:----:|
-| chainId  |  int   | 链id        |  是   |
-| address  | string | 账户地址       |  是   |
-| txHash   | string | 加入共识交易HASH |  是   |
-| password | string | 账户密码       |  是   |
+| chainId | int | chain id | yes |
+| address | string | account address | yes |
+| txHash | string | Join the consensus transaction HASH | Yes |
+| password | string | account password | yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ---------- |
-| txHash | string | 退出共识交易Hash |
+| txHash | string | Exit Consensus Trading Hash |
 

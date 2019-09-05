@@ -1,352 +1,352 @@
-# 链管理模块
+Chain management module
 
-## 为什么要有《链管理》模块
+## Why should I have the Chain Management module?
 
-在NULS 1.0中，只有一条链（NULS主网），因此不需要链管理模块。
+In nuls 1.0, there is only one chain (nuls main network), so no chain management module is needed.
 
-在NULS 2.0中，NULS主网上可以注册其他友链信息，包括:        
+In nuls 2.0, the nuls main network can register other friend information, including: 
 
-- NULS生态圈中的链：与NULS主网使用同一套代码衍生出来。
-- 其他链：比特币、以太坊等
+- Chains in the nuls ecosystem: Derived from the same set of code as the nuls main network.
+- Other chains: Bitcoin, Ethereum, etc.
 
-《链管理》模块用来管理所有加入NULS主网的友链的信息
+The Chain Management module is used to manage all the friends that join the nuls main network.
 
-名词解释：
+Glossary:
 
-- NULS主网：不同于NULS 1.0，是独立运行的另一条链，也称之为NULS 2.0。
-  《链管理》是NULS主网的其中一个模块
-- 友链：在NULS主网上注册的其他链
+- nuls main network: Unlike nuls 1.0, it is another chain that runs independently, also known as nuls 2.0.
+  "Chain Management" is one of the modules of the nuls main network.
+- Friends of the chain: other chains registered on the nuls main network
 
-假设1：友链A，其拥有资产A
+Hypothesis 1: Friendship chain a, which owns assets a
 
-假设2：友链B，其拥有资产B
+Hypothesis 2: Friendship chain b, which owns assets b
 
-- 跨链交易：
-  - 友链A把资产A转到友链B
-  - 友链B内部转移资产A
-  - 友链B把资产A转回到友链A
-  - 友链B把资产A转到其他友链（C,D等）
-- 非跨链交易：
-  - 友链A内部转移资产A
-  - 友链B内部转移资产B
+- Cross-chain trading:
+  - Friend chain a transfers asset a to friend chain b
+  - Friends of the chain b internal transfer assets a
+  - Friends chain b turns asset a back to friend chain a
+  - Friendship b transfers asset a to other friends (c, d, etc.)
+- Non-chain trades:
+  - Friends of the chain a internal transfer of assets a
+  - Friends of the chain b internal transfer assets b
 
-备注：不论链内资产，还是链外资产，只要资产跨链进行交易，就需要主网进行确认。
+Remarks: Regardless of the assets in the chain or the assets outside the chain, as long as the assets are traded across the chain, the main network needs to be confirmed.
 
-## 《链管理》要做什么
+## "Chain Management" What to do
 
-《链管理》模块用来管理加入NULS主网的链的基本信息，包括：
+The Chain Management module is used to manage the basic information of the chain that joins the nuls main network, including:
 
-* 注册一条新的友链
-* 销毁已经存在的友链
-* 查询友链信息
-* 特定友链增加资产类型
-* 特定友链销毁资产类型
-* 跨链资产校验
+* Register a new friend chain
+* Destroy existing friendship chains
+* Query friend information
+* Increase the asset type for a specific friend chain
+* Specific friend chain destruction asset type
+* Cross-chain asset verification
 
-## 《链管理》在系统中的定位
+## "Chain Management" positioning in the system
 
-《链管理》强依赖的模块：
+The module that Chain Management relies heavily on:
 
-- 核心模块
-- 网络模块
-- 交易管理模块
-- 账本模块
+- Core module
+- Network module
+- Transaction management module
+- Account module
 
-《链管理》弱依赖的模块：
+"chain management" weakly dependent modules:
 
-- 事件总线模块
+- Event bus module
 
 
 
-## 接口列表
+## Interface List
 ### cm\_chainReg
-链注册-用于平行链的跨链注册
+Chain registration - cross-chain registration for parallel chains
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名                 |      参数类型       | 参数描述                    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------------- |:---------------:| ----------------------- |:----:|
-| chainId             |       int       | 资产链Id,取值区间[3-65535]     |  是   |
-| chainName           |     string      | 链名称                     |  是   |
-| addressType         |       int       | 1 使用NULS框架构建的链 生态内，2生态外 |  是   |
-| addressPrefix       |     string      | 链地址前缀,1-5字符             |  是   |
-| magicNumber         |      long       | 网络魔法参数                  |  是   |
-| minAvailableNodeNum |       int       | 最小连接数                   |  是   |
-| assetId             |       int       | 资产Id,取值区间[1-65535]      |  是   |
-| symbol              |     string      | 资产符号                    |  是   |
-| assetName           |     string      | 资产名称                    |  是   |
-| initNumber          |     string      | 资产初始值                   |  是   |
-| decimalPlaces       |      short      | 资产小数点位数                 |  是   |
-| address             |     string      | 创建交易的账户地址               |  是   |
-| password            |     string      | 账户密码                    |  是   |
-| verifierList        | list&lt;string> | 验证者名单列表                 |  是   |
-| signatureBFTRatio   |     integer     | 拜占庭比例,大于等于该值为有效确认       |  是   |
-| maxSignatureCount   |     integer     | 最大签名数量,限制验证者签名列表的最大数    |  是   |
+| chainId | int | Asset Chain Id, Value Range [3-65535] | Yes |
+| chainName | string | chain name | yes |
+| addressType | int | 1 Chain ecology built using the NULS framework, 2 ecological outside | Yes |
+| addressPrefix | string | chain address prefix, 1-5 characters | yes |
+| magicNumber | long | Network Magic Parameters | Yes |
+minAvailableNodeNum | int | Minimum number of connections | Yes |
+| assetId | int | Asset Id, value range [1-65535] | Yes |
+| symbol | string | Asset Symbol | Yes |
+| assetName | string | asset name | yes |
+| initNumber | string | Asset Initial Value | Yes |
+| decimalPlaces | short | Asset Decimal Places | Yes |
+| address | string | Create an account address for the transaction | Yes |
+| password | string | account password | yes |
+| verifierList | list&lt;string> | List of verifiers list | Yes |
+| signatureBFTRatio | integer | Byzantine scale, greater than or equal to the value of valid confirmation | Yes |
+| maxSignatureCount | integer | Maximum number of signatures, limiting the maximum number of certifier signature lists | Yes |
 
-#### 返回值
-| 字段名                  |  字段类型  | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------- |:------:| -------------- |
-| txHash               | string | 交易hash值        |
-| mainNetVerifierList  | string | 主网验证人列表,逗号分隔   |
-| mainNetCrossSeedList | string | 主网验种子节点列表,逗号分隔 |
+| txHash | string | Trading hash value |
+| mainNetVerifierList | string | main network certifier list, comma separated |
+| mainNetCrossSeedList | string | main network check seed node list, comma separated |
 
 ### cm\_chainActive
-链更新激活-用于平行链的跨链更新激活（激活之前注销的链）
+Chain Update Activation - Cross-chain update activation for parallel chains (activation of previously unregistered chains)
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名                 |      参数类型       | 参数描述                    | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------------- |:---------------:| ----------------------- |:----:|
-| chainId             |       int       | 资产链Id,取值区间[1-65535]     |  是   |
-| chainName           |     string      | 链名称                     |  是   |
-| addressType         |       int       | 1 使用NULS框架构建的链 生态内，2生态外 |  是   |
-| addressPrefix       |     string      | 链地址前缀,1-5字符             |  是   |
-| magicNumber         |      long       | 网络魔法参数                  |  是   |
-| minAvailableNodeNum |       int       | 最小连接数                   |  是   |
-| assetId             |       int       | 资产Id,取值区间[1-65535]      |  是   |
-| symbol              |     string      | 资产符号                    |  是   |
-| assetName           |     string      | 资产名称                    |  是   |
-| initNumber          |     string      | 资产初始值                   |  是   |
-| decimalPlaces       |      short      | 资产小数点位数                 |  是   |
-| address             |     string      | 创建交易的账户地址               |  是   |
-| password            |     string      | 账户密码                    |  是   |
-| verifierList        | list&lt;string> | 验证者名单列表                 |  是   |
-| signatureBFTRatio   |     integer     | 拜占庭比例,大于等于该值为有效确认       |  是   |
-| maxSignatureCount   |     integer     | 最大签名数量,限制验证者签名列表的最大数    |  是   |
+| chainId | int | Asset Chain Id, Value Range [1-65535] | Yes |
+| chainName | string | chain name | yes |
+| addressType | int | 1 Chain ecology built using the NULS framework, 2 ecological outside | Yes |
+| addressPrefix | string | chain address prefix, 1-5 characters | yes |
+| magicNumber | long | Network Magic Parameters | Yes |
+minAvailableNodeNum | int | Minimum number of connections | Yes |
+| assetId | int | Asset Id, value range [1-65535] | Yes |
+| symbol | string | Asset Symbol | Yes |
+| assetName | string | asset name | yes |
+| initNumber | string | Asset Initial Value | Yes |
+| decimalPlaces | short | Asset Decimal Places | Yes |
+| address | string | Create an account address for the transaction | Yes |
+| password | string | account password | yes |
+| verifierList | list&lt;string> | List of verifiers list | Yes |
+| signatureBFTRatio | integer | Byzantine scale, greater than or equal to the value of valid confirmation | Yes |
+| maxSignatureCount | integer | Maximum number of signatures, limiting the maximum number of certifier signature lists | Yes |
 
-#### 返回值
-| 字段名                      |  字段类型  | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------------------ |:------:| -------------- |
-| txHash                   | string | 交易hash值        |
-| mainNetVerifierSeeds     | string | 主网验证人种子列表,逗号分隔 |
-| mainNetCrossConnectSeeds | string | 主网验种子节点列表,逗号分隔 |
+| txHash | string | Trading hash value |
+mainNetVerifierSeeds | string | Main Authenticator Seed List, Comma Separated |
+| mainNetCrossConnectSeeds | string | main network check seed node list, comma separated |
 
 ### cm\_getChainsSimpleInfo
-获取跨链已注册链列表
+Get a list of cross-chain registered chains
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-| 字段名        |     字段类型     | 参数描述          |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ---------- |:------------:| ------------- |
-| chainInfos | list&lt;map> | 返回链及资产的简要信息列表 |
+| chainInfos | list&lt;map> | List of brief information about chains and assets |
 
 ### getCrossChainInfos
-获取跨链注册资产信息
+Get cross-chain registered asset information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-| 字段名                                                                 |      字段类型       | 参数描述         |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------------------------------------------------------------- |:---------------:| ------------ |
-| chainInfos                                                          | list&lt;object> | 已注册的链与资产信息列表 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainId             |       int       | 链id          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainName           |     string      | 链名称          |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minAvailableNodeNum |       int       | 最小连接数        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetInfoList       |      list       | 资产信息列表       |
+| chainInfos | list&lt;object> | List of Registered Chains and Assets |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainId | int | chain id |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainName | string | Chain Name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minAvailableNodeNum | int | Minimum number of connections |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetInfoList | list | Asset Information List|
 
 ### cm\_chain
-查看链信息
+View chain information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ------------------- |:----:|
-| chainId | int  | 资产链Id,取值区间[1-65535] |  是   |
+| chainId | int | Asset Chain Id, Value Range [1-65535] | Yes |
 
-#### 返回值
-| 字段名                      |  字段类型   | 参数描述                         |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------------------ |:-------:| ---------------------------- |
-| chainId                  |   int   | 链id                          |
-| chainName                | string  | 链名称                          |
-| addressType              | string  | 地址类型（1：Nuls生态，2：其他）          |
-| addressPrefix            | string  | 地址前缀                         |
-| magicNumber              |  long   | 魔法参数                         |
-| minAvailableNodeNum      |   int   | 最小可用节点数                      |
-| txConfirmedBlockNum      |   int   | 交易确认区块数                      |
-| isDelete                 | boolean | 是否已注销                        |
-| createTime               |  long   | 创建时间                         |
-| regAddress               | string  | 注册链时使用的地址                    |
-| regTxHash                | string  | 注册链时的交易哈希                    |
-| regAssetId               |   int   | 注册链时添加的资产序号                  |
-| selfAssetKeyList         |  list   | 本链创建的所有资产，Key=chaiId_assetId |
-| totalAssetKeyList        |  list   | 链上流通的所有资产，Key=chaiId_assetId |
-| verifierList             |  list   | 验证人列表                        |
-| signatureByzantineRatio  |   int   | 拜占庭比例                        |
-| maxSignatureCount        |   int   | 最大签名数量                       |
-| mainNetVerifierSeeds     | string  | 主网验证人列表,逗号分隔                 |
-| mainNetCrossConnectSeeds | string  | 跨链提供的主网连接种子,逗号分隔             |
-| enable                   | boolean | 是否可用                         |
+| chainId | int | chain id |
+| chainName | string | chain name|
+| addressType | string | Address Type (1: Nuls Ecology, 2: Other) |
+| addressPrefix | string | address prefix |
+| magicNumber | long | Magic Parameters |
+| minAvailableNodeNum | int | Minimum Available Nodes |
+| txConfirmedBlockNum | int | Number of transaction confirmation blocks |
+| isDelete | boolean | Whether it has been logged out |
+| createTime | long | creation time |
+| regAddress | string | Address used when registering the chain |
+| regTxHash | string | Trading hashes when registering chains |
+| regAssetId | int | Asset number added when registering the chain |
+| selfAssetKeyList | list | All assets created by this chain, Key=chaiId_assetId |
+| totalAssetKeyList | list | All assets circulating in the chain, Key=chaiId_assetId |
+| verifierList | list | Authenticator List |
+| signatureByzantineRatio | int | Byzantine Scale |
+| maxSignatureCount | int | Maximum number of signatures |
+| mainNetVerifierSeeds | string | main network certifier list, comma separated |
+| mainNetCrossConnectSeeds | string | The main network connection seed provided by the chain, separated by commas |
+| enable | boolean | Available |
 
 ### cm\_getCirculateChainAsset
-查询资产信息
+Query asset information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名              |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------------- |:------:| -------------------- |:----:|
-| circulateChainId | string | 运行的链ID,取值区间[1-65535] |  是   |
-| assetChainId     | string | 资产链Id,取值区间[1-65535]  |  是   |
-| assetId          | string | 资产Id,取值区间[1-65535]   |  是   |
+| circulateChainId | string | Chain ID of the run, value range [1-65535] | Yes |
+| assetChainId | string | Asset Chain Id, Value Range [1-65535] | Yes |
+| assetId | string | Asset Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名              |    字段类型    | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ---------------- |:----------:| ------ |
-| circulateChainId |  integer   | 运行的链ID |
-| assetChainId     |  integer   | 资产链ID  |
-| assetId          |  integer   | 资产ID   |
-| initNumber       | biginteger | 初始资产数量 |
-| chainAssetAmount | biginteger | 现有资产数量 |
+| circulateChainId | integer | Chain ID of Run |
+| assetChainId | integer | Asset Chain ID |
+| assetId | integer | Asset ID |
+| initNumber | biginteger | Initial Asset Quantity |
+| chainAssetAmount | biginteger | Current Assets |
 
 ### cm\_assetCirculateCommit
-查询资产信息
+Query asset information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |      参数类型       | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:---------------:| -------------------- |:----:|
-| chainId     |       int       | 运行的链ID,取值区间[1-65535] |  是   |
-| txList      | list&lt;string> | 交易Hex值列表             |  是   |
-| blockHeader |     string      | 区块头Hex值              |  是   |
+| chainId | int | Chain ID of the run, value range [1-65535] | Yes |
+| txList | list&lt;string> | Trading Hex Value List | Yes |
+| blockHeader | string | Block Header Hex Value | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即提交成功 |
+| N/A | void | No specific return value, submitted without success |
 
 ### cm\_assetCirculateRollBack
-查询资产信息
+Query asset information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |      参数类型       | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:---------------:| -------------------- |:----:|
-| chainId     |       int       | 运行的链ID,取值区间[1-65535] |  是   |
-| txList      | list&lt;string> | 交易Hex值列表             |  是   |
-| blockHeader |     string      | 区块头Hex值              |  是   |
+| chainId | int | Chain ID of the run, value range [1-65535] | Yes |
+| txList | list&lt;string> | Trading Hex Value List | Yes |
+| blockHeader | string | Block Header Hex Value | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即验证成功 |
+| N/A | void | No specific return value, no validation is successful |
 
 ### updateChainAsset
-查询资产信息
+Query asset information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |     参数类型     | 参数描述                | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------------:| ------------------- |:----:|
-| chainId |     int      | 资产链ID,取值区间[1-65535] |  是   |
-| assets  | list&lt;int> | 资产id列表              |  是   |
+| chainId | int | Asset Chain ID, Value Range [1-65535] | Yes |
+| assets | list&lt;int> | Asset id list | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即验证成功 |
+| N/A | void | No specific return value, no validation is successful |
 
 ### cm\_assetCirculateValidator
-查询资产信息
+Query asset information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| -------------------- |:----:|
-| chainId | string | 运行的链ID,取值区间[1-65535] |  是   |
-| tx      | string | 交易Hex值               |  是   |
+| chainId | string | chain ID of the run, value range [1-65535] | Yes |
+| tx | string | Trading Hex Value | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即验证成功 |
+| N/A | void | No specific return value, no validation is successful |
 
 ### cm\_assetReg
-资产注册
+Asset registration
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名           |    参数类型    | 参数描述                | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------- |:----------:| ------------------- |:----:|
-| chainId       |    int     | 资产链Id,取值区间[1-65535] |  是   |
-| assetId       |    int     | 资产Id,取值区间[1-65535]  |  是   |
-| symbol        |   string   | 资产符号                |  是   |
-| assetName     |   string   | 资产名称                |  是   |
-| initNumber    | biginteger | 资产初始值               |  是   |
-| decimalPlaces |   short    | 资产小数点位数             |  是   |
-| address       |   string   | 创建交易的账户地址           |  是   |
-| password      |   string   | 账户密码                |  是   |
+| chainId | int | Asset Chain Id, Value Range [1-65535] | Yes |
+| assetId | int | Asset Id, value range [1-65535] | Yes |
+| symbol | string | Asset Symbol | Yes |
+| assetName | string | asset name | yes |
+| initNumber | biginteger | Asset Initial Value | Yes |
+| decimalPlaces | short | Asset Decimal Places | Yes |
+| address | string | Create an account address for the transaction | Yes |
+| password | string | account password | yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ------- |
-| txHash | string | 交易hash值 |
+| txHash | string | Trading hash value |
 
 ### cm\_assetDisable
-资产注销
+Asset write-off
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      |  参数类型  | 参数描述                | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:------:| ------------------- |:----:|
-| chainId  |  int   | 资产链Id,取值区间[1-65535] |  是   |
-| assetId  |  int   | 资产Id,取值区间[1-65535]  |  是   |
-| address  | string | 创建交易的账户地址           |  是   |
-| password | string | 账户密码                |  是   |
+| chainId | int | Asset Chain Id, Value Range [1-65535] | Yes |
+| assetId | int | Asset Id, value range [1-65535] | Yes |
+| address | string | Create an account address for the transaction | Yes |
+| password | string | account password | yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ------- |
-| txHash | string | 交易hash值 |
+| txHash | string | Trading hash value |
 
 ### cm\_asset
-资产注册信息查询
+Asset registration information inquiry
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述                | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ------------------- |:----:|
-| chainId | int  | 资产链Id,取值区间[1-65535] |  是   |
-| assetId | int  | 资产Id,取值区间[1-65535]  |  是   |
+| chainId | int | Asset Chain Id, Value Range [1-65535] | Yes |
+| assetId | int | Asset Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名 |    字段类型     | 参数描述  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:-----------:| ----- |
-|     | regassetdto | 返回链信息 |
+| | regassetdto | Return chain information|
 
 ### cm\_getChainAsset
-资产查看
+Asset view
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          | 参数类型 | 参数描述                | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:----:| ------------------- |:----:|
-| chainId      | int  | 运行链Id,取值区间[1-65535] |  是   |
-| assetChainId | int  | 资产链Id,取值区间[1-65535] |  是   |
-| assetId      | int  | 资产Id,取值区间[1-65535]  |  是   |
+| chainId | int | Run Chain Id, Value Range [1-65535] | Yes |
+| assetChainId | int | Asset Chain Id, Value Range [1-65535] | Yes |
+| assetId | int | Asset Id, value range [1-65535] | Yes |
 
-#### 返回值
-| 字段名          |    字段类型    | 参数描述  |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------ |:----------:| ----- |
-| chainId      |  integer   | 运行链Id |
-| assetChainId |  integer   | 资产链id |
-| assetId      |  integer   | 资产id  |
-| asset        | biginteger | 资产值   |
+| chainId | integer | Run Chain Id |
+| assetChainId | integer | Asset Chain id |
+| assetId | integer | Asset id |
+| asset | biginteger | Asset Value |
 

@@ -1,69 +1,61 @@
----
-title: NULS Protocol Address
-categories:
-  - nuls
-tags:
-  - Protocol
-date: 2019-06-16 15:21:14
----
+
 # NULS Protocol Address
 ## ECKey
-创建一个NULS地址的第一步，需要获取一个基于椭圆曲线算法的公私钥对。NULS的椭圆曲线参数和比特币一样，使用secp256k1。
+The first step in creating a NULS address is to obtain a public-private key pair based on the elliptic curve algorithm. The elliptic curve parameters of NULS are the same as bitcoin, using secp256k1.
 ```
-Secp256k1为基于Fp有限域上的椭圆曲线，由于其特殊构造的特殊性，其优化后的实现比其他曲线性能上可以特高30％，有明显以下两个优点：
-1）占用很少的带宽和存储资源，密钥的长度很短。
-2）让所有的用户都可以使用同样的操作完成域运算。
-                                        --引用自网络
+Secp256k1 is based on the elliptic curve on the Fp finite field. Due to the special construction of its special structure, its optimized implementation can be 30% higher than other curves. It has the following two advantages:
+1) Occupy a small amount of bandwidth and storage resources, the length of the key is very short.
+2) Let all users use the same operation to complete the domain operation.
+                                        -- Quoted from the network
 ```
-## 地址格式
-NULS的地址格式如下：
+## address format
+The address format of NULS is as follows:
 ```
-address = prefix + Base58Encode(chainId+addressType+pkh+xor)
+Address = prefix + Base58Encode(chainId+addressType+pkh+xor)
 ```
-### 前缀
-前缀的存在是为了便于识别、区分不同的链的地址。目前NULS提供了两种prefix的确定方案：
-1. 默认设置：NULS保留1为主网chainId，也默认所有chainId为1的地址以NULS开头。保留2为核心测试网的chainId，默认所有chainId为2的地址以tNULS开头。
-2. 通过登记跨链设置前缀：在登记跨链时，需要填写此链的前缀，系统会维护chainId和前缀的对应表，根据对应表生成相应的地址。目前Samos项目已沟通确认使用chainId=3，前缀为SMOS的地址格式。
-3. 自动计算：其他chainId的地址，NULS提供了统一的算法来计算前缀，具体的计算代码如下：
+### prefix
+The prefix exists to facilitate identification and to distinguish the addresses of different chains. Currently NULS provides two kinds of prefix determination solutions:
+1. Default setting: NULS retains 1 as the primary network chainId, and also defaults all addresses with chainId 1 to start with NULS. Reserved 2 is the chainId of the core test network. By default, all addresses with a chainId of 2 start with tNULS.
+2. Set the prefix by registering the cross-chain: When registering the cross-chain, you need to fill in the prefix of the chain. The system maintains the correspondence table between the chainId and the prefix, and generates the corresponding address according to the corresponding table. At present, the Samos project has communicated to confirm the use of chainId=3, prefixed with SMOS address format.
+3. Automatic calculation: The address of other chainId, NULS provides a unified algorithm to calculate the prefix, the specific calculation code is as follows:
 ```
-//将chainId转换为字节数组，使用base58算法对字节数组进行计算，计算后全部转为大写字母
+/ / Convert the chainId to a byte array, use the base58 algorithm to calculate the byte array, all converted to uppercase letters after calculation
 String prefix = Base58.encode(SerializeUtils.int16ToBytes(chainId)).toUpperCase();
 ```
-在前缀和真实地址之间，用一个小写字母进行分隔，便于从地址中提取chainId和验证地址类型及正确性。
-小写字母的选择方式为，提供一个数组，安装字母表的顺序填充小写字母，根据prefix的长度来选择分隔的字母。
+Between the prefix and the real address, separated by a lowercase letter, it is convenient to extract the chainId and verify the address type and correctness from the address.
+The lowercase letters are selected by providing an array, the lowercase letters are filled in the order in which the alphabet is installed, and the separated letters are selected according to the length of the prefix.
 ```
-//前缀长度是几个字母，就选择第几个元素为分隔字母。
-//如前缀长度为2，则用b分隔，长度为3用c分隔，长度为4用d分隔，……
+// The prefix length is a few letters, and the first few elements are selected as the separated letters.
+/ / If the prefix length is 2, then separated by b, the length is 3 separated by c, the length is 4 separated by d, ...
 String[] LENGTHPREFIX = new String[]{"", "a", "b", "c", "d", "e"};
 ```
-### 链id
-NULS的目标是建立一个多链并行，价值互通的区块链生态网络，在设计之初就为每一条链定义了一个独一无二的ID，2个字节，取值范围1~65535.ChainId是地址中非常重要的数据，是跨链操作的基础。
-### 账户类型
-NULS支持在一个网络内设置不同的账户类型，比如普通地址、合约地址、多签地址等等，开发者可以根据自己的需要进行设计。
-账户类型为1个字节，1~128取值范围
-### 公钥摘要PKH
-ECKey与地址的关联关系就体现在这一部分，NULS的做法是先用Sha-256对公钥进行一次计算，得到的结果再通过 RIPEMD160进行一次计算得到20个字节的结果，就是PKH。
-### 校验位
-NULS在生成字符串格式的地址时会增加一个字节的校验位，计算方式是对前面23个字节（chainId+type+pkh）进行异或得到的。
-校验位不参与序列化。
-### 生成地址
-* 序列化地址
+### chain id
+The goal of NULS is to establish a multi-chain parallel, value-interoperable blockchain ecosystem. At the beginning of the design, a unique ID, 2 bytes, is defined for each chain, ranging from 1 to 65535. The ChainId is the address. Very important data is the basis for cross-chain operations.
+### account type
+NULS supports setting different account types in a network, such as common addresses, contract addresses, multi-sign addresses, etc. Developers can design according to their needs.
+The account type is 1 byte, and the value range is 1~128.
+### Public Key Summary PKH
+The relationship between the ECKey and the address is reflected in this part. The NULS method uses the Sha-256 to calculate the public key first, and the result is calculated by RIPEMD160 to obtain a result of 20 bytes, which is PKH.
+### Check Digit
+NULS adds a one-byte check digit when generating an address in string format, which is obtained by XORing the first 23 bytes (chainId+type+pkh).
+The check digit does not participate in serialization.
+### Generate Address
+* Serialized address
 ```
-address = chainId(2) + type(1) + PKH(20)
+Address = chainId(2) + type(1) + PKH(20)
 ```
-* 固定前缀字符串地址
+* Fixed prefix string address
 ```
-addressString = prefix + 分隔符 + Base58Encode(address+xor)
+addressString = prefix + separator + Base58Encode(address+xor)
 ```
-* 自动前缀字符串地址
+* Automatic prefix string address
 ```
-addressString = Base58Encode(chainId) + 分隔符 + Base58Encode(address+xor)
+addressString = Base58Encode(chainId) + separator + Base58Encode(address+xor)
 ```
-## 非nuls体系的地址格式
-NULS是一个网络，支持所有区块链的接入，对于和NULS完全不同的地址格式，NULS设计了一个地址转换协议，具体内容如下：
+## Non-nuls system address format
+NULS is a network that supports access to all blockchains. For a completely different address format from NULS, NULS has designed an address translation protocol, as follows:
 
 ```
-address = Base58Encode(chainId+原始地址长度+原始地址+xor)
+Address = Base58Encode (chainId + original address length + original address + xor)
 ```
-例如：比特币地址，在地址之前追加两个字节的chainId，之后跟随比特币的原始地址，地址解析方式根据链配置决定，确保任何一个地址都可以在NULS获得映射的地址。
-
+For example: Bitcoin address, the two-byte chainId is appended before the address, followed by the original address of the bitcoin. The address resolution mode is determined according to the chain configuration, ensuring that any address can obtain the mapped address in NULS.

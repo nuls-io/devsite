@@ -1,793 +1,793 @@
-# 智能合约模块
-## 模块概述
-- NULS智能合约采用了模块化设计的创新理念，并将其加入NULS的模块仓库，使得开发者在搭链时，可以直接选取NULS智能合约模块，就可以完成相关配置。
-- NULS智能合约实现了分钟级别部署，在开发者编写完智能合约之后，可以快速在链上进行部署。
-- NULS智能合约的NVM是基于JVM实现，NULS智能合约解释器将无缝支持JVM体系编程语言，并将陆续支持其他主流编程语言，应用开发者可以使用自己熟悉的语言，设计NULS智能合约。
-- 通过这样的创新设计思维，NULS希望让智能合约的开发、部署和调用能够更加的便捷化，从而增加开发者对应用开发的兴趣，在不久的将来，能够打造一个丰富的智能合约库。
+#智能合同模块
+## Module Overview
+- nuls smart contract adopts the innovative concept of modular design and adds it to the module warehouse of nuls, so that developers can directly select the nuls smart contract module when they are connected, and then complete the relevant configuration.
+- The nuls smart contract implements a minute-level deployment that can be quickly deployed on the chain after the developer has written the smart contract.
+- nvs smart contract nvm is based on jvm implementation, nuls smart contract interpreter will seamlessly support jvm system programming language, and will continue to support other mainstream programming languages, application developers can use their familiar language to design nuls smart contract.
+- Through such innovative design thinking, nuls hopes to make the development, deployment and invocation of smart contracts more convenient, thus increasing the developer's interest in application development, and in the near future, can build a rich intelligent contract library.
 
-## 接口列表
+## Interface List
 ### sc\_batch\_begin
-执行合约一个批次的开始通知，生成当前批次的信息/batch begin
+Execute the start notification of a batch of the contract, generate the information of the current batch /batch begin
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名            |  参数类型  | 参数描述         | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------------- |:------:| ------------ |:----:|
-| chainId        | string | 链id          |  是   |
-| blockHeight    | string | 当前打包的区块高度    |  是   |
-| blockTime      | string | 当前打包的区块时间    |  是   |
-| packingAddress | string | 当前打包的区块打包地址  |  是   |
-| preStateRoot   | string | 上一个stateRoot |  是   |
+| chainId | string | chain id | yes |
+| blockHeight | string | The current packaged block height | Yes |
+| blockTime | string | Current packed block time | Yes |
+| packingAddress | string | currently packaged block packed address | Yes |
+| preStateRoot | string | previous stateRoot | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### sc\_batch\_before\_end
-交易模块打包完交易，在做统一验证前，通知合约模块，合约模块停止接收交易，开始异步处理这个批次的结果/batch before end
+The transaction module packages the transaction, notifies the contract module before doing the unified verification, the contract module stops receiving the transaction, and starts to process the result of the batch asynchronously/batch before end
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| --------- |:----:|
-| chainId     | string | 链id       |  是   |
-| blockHeight | string | 当前打包的区块高度 |  是   |
+| chainId | string | chain id | yes |
+| blockHeight | string | The current packaged block height | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述                                                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------------------------------------------- |
-| N/A | void | 无特定返回值，没有错误即成功，如果返回错误，则废弃这个批次，批次内已执行的合约交易退还到待打包交易队列中 |
+N/A | void | No specific return value, no error is successful, if an error is returned, the batch is discarded, and the executed contract transaction in the batch is returned to the queue to be packaged |
 
 ### sc\_batch\_end
-通知当前批次结束并返回结果/batch end
+Notify the current batch to end and return the result /batch end
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| --------- |:----:|
-| chainId     | string | 链id       |  是   |
-| blockHeight | string | 当前打包的区块高度 |  是   |
+| chainId | string | chain id | yes |
+| blockHeight | string | The current packaged block height | Yes |
 
-#### 返回值
-| 字段名       |      字段类型       | 参数描述                                   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:---------------:| -------------------------------------- |
-| stateRoot |     string      | 当前stateRoot                            |
-| txList    | list&lt;string> | 合约新生成的交易序列化字符串列表(可能有合约转账、合约共识、合约返回GAS) |
+| stateRoot | string | current stateRoot |
+| txList | list&lt;string> | List of newly generated transaction serialization strings for contracts (may have contract transfers, contractual consensus, contract returns to GAS) |
 
 ### sc\_package\_batch\_end
-打包结束 - 通知当前批次结束并返回结果/batch end
+End of packaging - notify the current batch to end and return the result /batch end
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| --------- |:----:|
-| chainId     | string | 链id       |  是   |
-| blockHeight | string | 当前打包的区块高度 |  是   |
+| chainId | string | chain id | yes |
+| blockHeight | string | The current packaged block height | Yes |
 
-#### 返回值
-| 字段名       |      字段类型       | 参数描述                                   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------- |:---------------:| -------------------------------------- |
-| stateRoot |     string      | 当前stateRoot                            |
-| txList    | list&lt;string> | 合约新生成的交易序列化字符串列表(可能有合约转账、合约共识、合约返回GAS) |
+| stateRoot | string | current stateRoot |
+| txList | list&lt;string> | List of newly generated transaction serialization strings for contracts (may have contract transfers, contractual consensus, contract returns to GAS) |
 
 ### sc\_contract\_offline\_tx\_hash\_list
-返回指定区块中合约生成交易（合约返回GAS交易除外）的hash列表（合约新生成的交易除合约返回GAS交易外，不保存到区块中，合约模块保存了这些交易和指定区块的关系）/contract offline tx hash list
+Returns the hash list of the contract generation transaction (except the contract return GAS transaction) in the specified block (the newly generated transaction of the contract is not saved in the block except the contract returns to the GAS transaction, and the contract module saves the relationship between these transactions and the specified block. )/contract offline tx hash list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:------:| ------ |:----:|
-| chainId   | string | 链id    |  是   |
-| blockHash | string | 区块hash |  是   |
+| chainId | string | chain id | yes |
+| blockHash | string | block hash | yes |
 
-#### 返回值
-| 字段名  |      字段类型       | 参数描述                       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ---- |:---------------:| -------------------------- |
-| list | list&lt;string> | 合约交易序列化字符串列表(可能有合约转账、合约共识) |
+| list | list&lt;string> | List of contract transaction serialization strings (possibly contract transfer, contract consensus) |
 
 ### sc\_initial\_account\_token
-初始化账户token信息，节点导入账户时调用/initial account token
+Initialize the account token information, and call /initial account token when the node imports the account.
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId | string | 链id  |  是   |
-| address | string | 账户地址 |  是   |
+| chainId | string | chain id | yes |
+| address | string | account address | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### sc\_register\_cmd\_for\_contract
-其他模块向合约模块注册可被合约调用的命令，注册后，可在合约代码内调用注册的命令/register cmd for contract
+Other modules register the contract module with commands that can be called by the contract. After registration, the registered command /register cmd for contract can be called within the contract code.
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------ |:----:|
-| chainId         | string | 链id    |  是   |
-| moduleCode      | string | 模块代码   |  是   |
-| cmdRegisterList | string | 注册信息列表 |  是   |
+| chainId | string | chain id | yes |
+| moduleCode | string | module code | yes |
+| cmdRegisterList | string | Registration Information List | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### sc\_trigger\_payable\_for\_consensus\_contract
-共识奖励收益地址是合约地址时，会触发合约的_payable(String[][] args)方法，参数是节点收益地址明细<br>args[0] = new String[]{address, amount}<br>...<br>/trigger payable for consensus contract
+When the consensus reward income address is the contract address, the contract's _payable(String[][] args) method is triggered. The parameter is the node revenue address detail<br>args[0] = new String[]{address, amount}<br >...<br>/trigger payable for consensus contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述                     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ------------------------ |:----:|
-| chainId         | string | 链id                      |  是   |
-| stateRoot       | string | 当前的stateRoot             |  是   |
-| blockHeight     | string | 当前打包的区块高度                |  是   |
-| contractAddress | string | 合约地址                     |  是   |
-| tx              | string | 当前打包区块中的CoinBase交易序列化字符串 |  是   |
+| chainId | string | chain id | yes |
+| stateRoot | string | current stateRoot | yes |
+| blockHeight | string | The current packaged block height | Yes |
+| contractAddress | string | contract address | yes |
+| tx | string | CoinBase transaction serialization string in the current packaging block | Yes |
 
-#### 返回值
-| 字段名   |  字段类型  | 参数描述          |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:------:| ------------- |
-| value | string | 变化后的stateRoot |
+| value | string | changed stateRoot |
 
 ### sc\_invoke\_contract
-批次通知开始后，一笔一笔执行合约/invoke contract one by one
+After the batch notification begins, an execution contract /invoke contract one by one
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述           | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| -------------- |:----:|
-| chainId | string | 链id            |  是   |
-| tx      | string | 交易序列化的HEX编码字符串 |  是   |
+| chainId | string | chain id | yes |
+| tx | string | Transaction serialized HEX encoded string | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述                          |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ----------------------------- |
-| N/A | void | 无特定返回值，没有错误即成功，如果返回错误，则丢弃这笔交易 |
+N/A | void | No specific return value, no error is successful, if an error is returned, the transaction is discarded |
 
 ### sc\_constructor
 contract code constructor
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |  参数类型  | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:------:| -------------------- |:----:|
-| chainId      |  int   | 链ID                  |  是   |
-| contractCode | string | 智能合约代码(字节码的Hex编码字符串) |  是   |
+| chainId | int | Chain ID | Yes |
+ContractCode | string | Smart Contract Code (Hex encoded string of bytecode) | Yes |
 
-#### 返回值
-| 字段名                                                                                                      |      字段类型       | 参数描述               |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------------------------------------------------------------------------------------------- |:---------------:| ------------------ |
-| constructor                                                                                              |     object      | 合约构造函数详情           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name                                                     |     string      | 方法名称               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc                                                     |     string      | 方法描述               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args                                                     | list&lt;object> | 方法参数列表             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type     |     string      | 参数类型               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name     |     string      | 参数名称               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required |     boolean     | 是否必填               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returnArg                                                |     string      | 返回值类型              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view                                                     |     boolean     | 是否视图方法（调用此方法数据不上链） |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event                                                    |     boolean     | 是否是事件              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable                                                  |     boolean     | 是否是可接受主链资产转账的方法    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable                                         |     boolean     | 方法返回值是否JSON序列化     |
-| nrc20                                                                                                    |     boolean     | 是否是NRC20合约         |
+Constructor | object | contract constructor details|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | method name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc | string | Method Description|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | list&lt;object> | Method parameter list|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type | string | Parameter Type|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | Parameter Name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required | boolean | Required |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returnArg | string | Return value type|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view | boolean | Whether view method (calling this method data is not on the chain) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event | boolean | Whether it is an event|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable | boolean | Is it acceptable to transfer the main chain asset |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable | boolean | Method Returns whether JSON is serialized |
+| nrc20 | boolean | Is it a NRC20 contract|
 
 ### sc\_delete
 delete contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| --------- |:----:|
-| chainId         |  int   | 链id       |  是   |
-| sender          | string | 交易创建者账户地址 |  是   |
-| password        | string | 交易账户密码    |  是   |
-| contractAddress | string | 合约地址      |  是   |
-| remark          | string | 交易备注      |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| password | string | Trading Account Password | Yes |
+| contractAddress | string | contract address | yes |
+| remark | string | Transaction Notes | No|
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ----------- |
-| txHash | string | 删除合约的交易hash |
+| txHash | string | delete contract transaction hash |
 
 ### sc\_create
-发布合约/create contract
+Release contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |   参数类型   | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:--------:| -------------------- |:----:|
-| chainId      |   int    | 链id                  |  是   |
-| sender       |  string  | 交易创建者账户地址            |  是   |
-| password     |  string  | 账户密码                 |  是   |
-| alias        |  string  | 合约别名                 |  是   |
-| gasLimit     |   long   | GAS限制                |  是   |
-| price        |   long   | GAS单价                |  是   |
-| contractCode |  string  | 智能合约代码(字节码的Hex编码字符串) |  是   |
-| args         | object[] | 参数列表                 |  否   |
-| remark       |  string  | 交易备注                 |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| password | string | account password | yes |
+| alias | string | contract alias | yes |
+| gasLimit | long | GAS Limit | Yes |
+| price | long | GAS unit price | Yes |
+ContractCode | string | Smart Contract Code (Hex encoded string of bytecode) | Yes |
+| args | object[] | List of parameters | No |
+| remark | string | Transaction Notes | No|
 
-#### 返回值
-| 字段名             |  字段类型  | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:------:| ----------- |
-| txHash          | string | 发布合约的交易hash |
-| contractAddress | string | 生成的合约地址     |
+| txHash | string | publish contract trading hash |
+| contractAddress | string | generated contract address |
 
 ### sc\_transfer
-从账户地址向合约地址转账(主链资产)/transfer NULS from sender to contract address
+Transfer from account address to contract address (main chain asset) /transfer NULS from sender to contract address
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名       |    参数类型    | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------- |:----------:| --------- |:----:|
-| chainId   |    int     | 链id       |  是   |
-| address   |   string   | 转出者账户地址   |  是   |
-| toAddress |   string   | 转入的合约地址   |  是   |
-| password  |   string   | 转出者账户密码   |  是   |
-| amount    | biginteger | 转出的主链资产金额 |  是   |
-| remark    |   string   | 交易备注      |  否   |
+| chainId | int | chain id | yes |
+| address | string | Transferring Account Address | Yes |
+| toAddress | string | Transferred contract address | Yes |
+| password | string | Transferring Account Password | Yes |
+| amount | biginteger | Transferred main chain asset amount | Yes |
+| remark | string | Transaction Notes | No|
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ------ |
-| txHash | string | 交易hash |
+| txHash | string | Trading hash |
 
 ### sc\_validate\_create
-验证发布合约/validate create contract
+Verify release contract /validate create contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |   参数类型   | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:--------:| -------------------- |:----:|
-| chainId      |   int    | 链id                  |  是   |
-| sender       |  string  | 交易创建者账户地址            |  是   |
-| gasLimit     |   long   | GAS限制                |  是   |
-| price        |   long   | GAS单价                |  是   |
-| contractCode |  string  | 智能合约代码(字节码的Hex编码字符串) |  是   |
-| args         | object[] | 参数列表                 |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| gasLimit | long | GAS Limit | Yes |
+| price | long | GAS unit price | Yes |
+ContractCode | string | Smart Contract Code (Hex encoded string of bytecode) | Yes |
+| args | object[] | List of parameters | No |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即验证成功 |
+| N/A | void | No specific return value, no validation is successful |
 
 ### sc\_validate\_call
 validate call contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| gasLimit        |    long    | GAS限制                                    |  是   |
-| price           |    long    | GAS单价                                    |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| value | biginteger | The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill BigInteger.ZERO | Yes |
+| gasLimit | long | GAS Limit | Yes |
+| price | long | GAS unit price | Yes |
+| contractAddress | string | contract address | yes |
+| methodName | string | contract method | yes |
+| methodDesc | string | Contract method description, if the method in the contract is not overloaded, this parameter can be empty | No |
+| args | object[] | List of parameters | No |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即验证成功 |
+| N/A | void | No specific return value, no validation is successful |
 
 ### sc\_validate\_delete
 validate delete contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述      | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| --------- |:----:|
-| chainId         |  int   | 链id       |  是   |
-| sender          | string | 交易创建者账户地址 |  是   |
-| contractAddress | string | 合约地址      |  是   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| contractAddress | string | contract address | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述             |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| ---------------- |
-| N/A | void | 无特定返回值，没有错误即验证成功 |
+| N/A | void | No specific return value, no validation is successful |
 
 ### sc\_contract\_result
 contract result
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
-| chainId |  int   | 链id    |  是   |
-| hash    | string | 交易hash |  是   |
+| chainId | int | chain id | yes |
+| hash | string | transaction hash | yes |
 
-#### 返回值
-| 字段名                                                                                                   |      字段类型       | 参数描述                                        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------------------------------------------------------------------------------------------------- |:---------------:| ------------------------------------------- |
-| success                                                                                               |     boolean     | 合约执行是否成功                                    |
-| errorMessage                                                                                          |     string      | 执行失败信息                                      |
-| contractAddress                                                                                       |     string      | 合约地址                                        |
-| result                                                                                                |     string      | 合约执行结果                                      |
-| gasLimit                                                                                              |      long       | GAS限制                                       |
-| gasUsed                                                                                               |      long       | 已使用GAS                                      |
-| price                                                                                                 |      long       | GAS单价                                       |
-| totalFee                                                                                              |     string      | 交易总手续费                                      |
-| txSizeFee                                                                                             |     string      | 交易大小手续费                                     |
-| actualContractFee                                                                                     |     string      | 实际执行合约手续费                                   |
-| refundFee                                                                                             |     string      | 合约返回的手续费                                    |
-| value                                                                                                 |     string      | 调用者向合约地址转入的主网资产金额，没有此业务时则为0                 |
-| stackTrace                                                                                            |     string      | 异常堆栈踪迹                                      |
-| transfers                                                                                             | list&lt;object> | 合约转账列表（从合约转出）                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash                                                |     string      | 合约生成交易：合约转账交易hash                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 转出的合约地址                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                 |     string      | 转账金额                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs                                               | list&lt;object> | 转入的地址列表                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to    |     string      | 转入地址                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value |     string      | 转入金额                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                           |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）         |
-| events                                                                                                | list&lt;string> | 合约事件列表                                      |
-| tokenTransfers                                                                                        | list&lt;object> | 合约token转账列表                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                       |     string      | 合约地址                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 付款方                                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to                                                    |     string      | 收款方                                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                 |     string      | 转账金额                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name                                                  |     string      | token名称                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol                                                |     string      | token符号                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimals                                              |      long       | token支持的小数位数                                |
-| invokeRegisterCmds                                                                                    | list&lt;object> | 合约调用外部命令的调用记录列表                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdName                                               |     string      | 命令名称                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args                                                  |       map       | 命令参数，参数不固定，依据不同的命令而来，故此处不作描述，结构为 {参数名称=参数值} |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdRegisterMode                                       |     string      | 注册的命令模式（QUERY\_DATA or NEW\_TX）             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newTxHash                                             |     string      | 生成的交易hash（当调用的命令模式是 NEW\_TX 时，会生成交易）        |
-| contractTxList                                                                                        | list&lt;string> | 合约生成交易的序列化字符串列表                             |
-| remark                                                                                                |     string      | 备注                                          |
+| success | boolean | Successful contract execution |
+| errorMessage | string | Execution failure information |
+| contractAddress | string | contract address|
+| result | string | Contract execution result |
+| gasLimit | long | GAS Limit |
+| gasUsed | long | GAS has been used |
+| price | long | GAS unit price|
+| totalFee | string | Total transaction fee |
+| txSizeFee | string | Transaction Size Fee |
+| actualContractFee | string | Actual execution contract fee |
+| refundFee | string | Contract return fee |
+| value | string | The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, it is 0 |
+| stackTrace | string | Exception Stack Trace |
+| transfers | list&lt;object> | Contract Transfer List (from contract) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | string | Contract Generation Transaction: Contract Transfer Transaction hash |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from | string | Transferred contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs | list&lt;object> | Transferred Address List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to | string |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash | string | Call contract transaction hash (source transaction hash, contract transaction derived from calling contract transaction) |
+| events | list&lt;string> | Contract Event List|
+| tokenTransfers | list&lt;object> | Contract Token Transfer List |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | Contract Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from | string | Payment Party|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to | string | Payee |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | token name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol | string | token symbol|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimals | long | Number of decimal places supported by token|
+| invokeRegisterCmds | list&lt;object> | Contract Call List of Calls to External Commands |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdName | string | command name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | map | Command parameters, parameters are not fixed, according to different commands, so not described here, the structure is {parameter name=parameter value} |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdRegisterMode | string | Registered Command Mode (QUERY\_DATA or NEW\_TX) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newTxHash | string | generated transaction hash (when the command mode called is NEW\_TX, the transaction is generated) |
+| contractTxList | list&lt;string> | List of serialized strings for contract generation transactions |
+| remark | string | Notes |
 
 ### sc\_contract\_result\_list
 contract result list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      |      参数类型       | 参数描述     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:---------------:| -------- |:----:|
-| chainId  |       int       | 链id      |  是   |
-| hashList | list&lt;string> | 交易hash列表 |  是   |
+| chainId | int | chain id | yes |
+| hashList | list&lt;string> | Trading hash list | Yes |
 
-#### 返回值
-| 字段名                                                                                                                                                   |      字段类型       | 参数描述                                        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- |:---------------:| ------------------------------------------- |
-| hash1 or hash2 or hash3...                                                                                                                            |     object      | 以交易hash列表中的hash值作为key，这里的key name是动态的       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success                                                                                               |     boolean     | 合约执行是否成功                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errorMessage                                                                                          |     string      | 执行失败信息                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                                                                       |     string      | 合约地址                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result                                                                                                |     string      | 合约执行结果                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit                                                                                              |      long       | GAS限制                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasUsed                                                                                               |      long       | 已使用GAS                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price                                                                                                 |      long       | GAS单价                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalFee                                                                                              |     string      | 交易总手续费                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txSizeFee                                                                                             |     string      | 交易大小手续费                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actualContractFee                                                                                     |     string      | 实际执行合约手续费                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refundFee                                                                                             |     string      | 合约返回的手续费                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                                                                 |     string      | 调用者向合约地址转入的主网资产金额，没有此业务时则为0                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stackTrace                                                                                            |     string      | 异常堆栈踪迹                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfers                                                                                             | list&lt;object> | 合约转账列表（从合约转出）                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash                                                |     string      | 合约生成交易：合约转账交易hash                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 转出的合约地址                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                 |     string      | 转账金额                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs                                               | list&lt;object> | 转入的地址列表                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to    |     string      | 转入地址                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value |     string      | 转入金额                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                           |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;events                                                                                                | list&lt;string> | 合约事件列表                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenTransfers                                                                                        | list&lt;object> | 合约token转账列表                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                       |     string      | 合约地址                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 付款方                                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to                                                    |     string      | 收款方                                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                 |     string      | 转账金额                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name                                                  |     string      | token名称                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol                                                |     string      | token符号                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimals                                              |      long       | token支持的小数位数                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invokeRegisterCmds                                                                                    | list&lt;object> | 合约调用外部命令的调用记录列表                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdName                                               |     string      | 命令名称                                        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args                                                  |       map       | 命令参数，参数不固定，依据不同的命令而来，故此处不作描述，结构为 {参数名称=参数值} |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdRegisterMode                                       |     string      | 注册的命令模式（QUERY\_DATA or NEW\_TX）             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newTxHash                                             |     string      | 生成的交易hash（当调用的命令模式是 NEW\_TX 时，会生成交易）        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractTxList                                                                                        | list&lt;string> | 合约生成交易的序列化字符串列表                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                                                                |     string      | 备注                                          |
+| hash1 or hash2 or hash3... | object | Use the hash value in the transaction hash list as the key, where the key name is dynamic |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success | boolean | Successful contract execution |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errorMessage | string | Execution Failure Information |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | Contract Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result | string | Contract execution results|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit | long | GAS Limit |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasUsed | long | GAS has been used |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price | long | GAS unit price|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalFee | string | Total Transaction Fees |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txSizeFee | string | Transaction Size Fees |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actualContractFee | string | Actual Execution Contract Fee |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refundFee | string | Fees returned by the contract|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | The amount of the primary network asset that the caller transferred to the contract address, or 0 if there is no such service |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stackTrace | string | Exception Stack Trace |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfers | list&lt;object> | Contract Transfer List (from contract) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | string | Contract Generation Transaction: Contract Transfer Transaction hash |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from | string | Transferred contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs | list&lt;object> | Transferred Address List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to | string | transfer address |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash | string | Call contract transaction hash (source transaction hash, contract transaction is called Contract trading is derived) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;events | list&lt;string> | Contract Event List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenTransfers | list&lt;object> | Contract Token Transfer List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from|string|payment |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to | string | Payee |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | token name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol | string | token symbol|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimals | long | Number of decimal places supported by token |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invokeRegisterCmds | list&lt;object> | Contract Call List of Calls for External Commands |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdName | string | command name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | map | command parameters, parameters are not fixed, depending on different commands Therefore, it is not described here, and the structure is {parameter name=parameter value} |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdRegisterMode | string | Registered Command Mode (QUERY\_DATA or NEW\_TX) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newTxHash | string | generated transaction hash (when the command mode is called NEW\ When _TX, a transaction will be generated) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractTxList | list&lt;string> | Serialized String List for Contract Generation Transactions |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark | string | Notes |
 
 ### sc\_imputed\_create\_gas
-预估发布合约消耗的GAS/imputed create gas
+Estimated GAS/imputed create gas consumed by the release contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名          |   参数类型   | 参数描述                 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:--------:| -------------------- |:----:|
-| chainId      |   int    | 链id                  |  是   |
-| sender       |  string  | 交易创建者账户地址            |  是   |
-| contractCode |  string  | 智能合约代码(字节码的Hex编码字符串) |  是   |
-| args         | object[] | 参数列表                 |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+ContractCode | string | Smart Contract Code (Hex encoded string of bytecode) | Yes |
+| args | object[] | List of parameters | No |
 
-#### 返回值
-| 字段名      | 字段类型 | 参数描述              |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------- |:----:| ----------------- |
-| gasLimit | long | 消耗的gas值，执行失败返回数值1 |
+| gasLimit | long | The consumed gas value, the execution failed to return the value 1 |
 
 ### sc\_imputed\_call\_gas
 imputed call gas
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| value | biginteger | The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill BigInteger.ZERO | Yes |
+| contractAddress | string | contract address | yes |
+| methodName | string | contract method | yes |
+| methodDesc | string | Contract method description, if the method in the contract is not overloaded, this parameter can be empty | No |
+| args | object[] | List of parameters | No |
 
-#### 返回值
-| 字段名      | 字段类型 | 参数描述              |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------- |:----:| ----------------- |
-| gasLimit | long | 消耗的gas值，执行失败返回数值1 |
+| gasLimit | long | The consumed gas value, the execution failed to return the value 1 |
 
 ### sc\_token\_transfer
-NRC20-token转账/transfer NRC20-token from address to toAddress
+NRC20-token transfer/transfer NRC20-token from address to toAddress
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |    参数类型    | 参数描述         | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:----------:| ------------ |:----:|
-| chainId         |    int     | 链id          |  是   |
-| address         |   string   | 转出者账户地址      |  是   |
-| toAddress       |   string   | 转入地址         |  是   |
-| contractAddress |   string   | token合约地址    |  是   |
-| password        |   string   | 转出者账户密码      |  是   |
-| amount          | biginteger | 转出的token资产金额 |  是   |
-| remark          |   string   | 交易备注         |  否   |
+| chainId | int | chain id | yes |
+| address | string | Transferring Account Address | Yes |
+| toAddress | string | Transfer to address | Yes |
+| contractAddress | string | token contract address | Yes |
+| password | string | Transferring Account Password | Yes |
+| amount | biginteger | Amount of transferred token assets | Yes |
+| remark | string | Transaction Notes | No|
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ------ |
-| txHash | string | 交易hash |
+| txHash | string | Trading hash |
 
 ### sc\_token\_balance
-NRC20代币余额详情/NRC20-token balance
+NRC20 token balance details / NRC20-token balance
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ---- |:----:|
-| chainId         |  int   | 链ID  |  是   |
-| contractAddress | string | 合约地址 |  是   |
-| address         | string | 账户地址 |  是   |
+| chainId | int | Chain ID | Yes |
+| contractAddress | string | contract address | yes |
+| address | string | account address | yes |
 
-#### 返回值
-| 字段名             |  字段类型  | 参数描述                    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:------:| ----------------------- |
-| contractAddress | string | 合约地址                    |
-| name            | string | token名称                 |
-| symbol          | string | token符号                 |
-| amount          | string | token数量                 |
-| decimals        |  long  | token支持的小数位数            |
-| blockHeight     |  long  | 合约创建时的区块高度              |
-| status          |  int   | 合约状态(0-不存在, 1-正常, 2-终止) |
+| contractAddress | string | contract address|
+| name | string | token name|
+| symbol | string | token symbol|
+| amount | string | token quantity|
+| decimals | long | Number of decimal places supported by token |
+| blockHeight | long | Block Height at Contract Creation |
+| status | int | Contract Status (0-None, 1-Normal, 2-End) |
 
 ### sc\_invoke\_view
 invoke view contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |   参数类型   | 参数描述                       | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:--------:| -------------------------- |:----:|
-| chainId         |   int    | 链id                        |  是   |
-| contractAddress |  string  | 合约地址                       |  是   |
-| methodName      |  string  | 合约方法                       |  是   |
-| methodDesc      |  string  | 合约方法描述，若合约内方法没有重载，则此参数可以为空 |  否   |
-| args            | object[] | 参数列表                       |  否   |
+| chainId | int | chain id | yes |
+| contractAddress | string | contract address | yes |
+| methodName | string | contract method | yes |
+| methodDesc | string | Contract method description, if the method in the contract is not overloaded, this parameter can be empty | No |
+| args | object[] | List of parameters | No |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述      |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| --------- |
-| result | string | 视图方法的调用结果 |
+| result | string | Call result of view method |
 
 ### sc\_contract\_info
-合约信息详情/contract info
+Contract information details / contract info
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:------:| ---- |:----:|
-| chainId         |  int   | 链ID  |  是   |
-| contractAddress | string | 合约地址 |  是   |
+| chainId | int | Chain ID | Yes |
+| contractAddress | string | contract address | yes |
 
-#### 返回值
-| 字段名                                                                                                      |      字段类型       | 参数描述                                       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------------------------------------------------------------------------------------------- |:---------------:| ------------------------------------------ |
-| createTxHash                                                                                             |     string      | 发布合约的交易hash                                |
-| address                                                                                                  |     string      | 合约地址                                       |
-| creater                                                                                                  |     string      | 合约创建者地址                                    |
-| alias                                                                                                    |     string      | 合约别名                                       |
-| createTime                                                                                               |      long       | 合约创建时间（单位：秒）                               |
-| blockHeight                                                                                              |      long       | 合约创建时的区块高度                                 |
-| directPayable                                                                                            |     boolean     | 是否接受直接转账                                   |
-| tokenType                                                                                                |       int       | token类型, 0 - 非token, 1 - NRC20, 2 - NRC721 |
-| nrc20                                                                                                    |     boolean     | 是否是NRC20合约                                 |
-| nrc20TokenName                                                                                           |     string      | NRC20-token名称                              |
-| nrc20TokenSymbol                                                                                         |     string      | NRC20-token符号                              |
-| decimals                                                                                                 |      long       | NRC20-token支持的小数位数                         |
-| totalSupply                                                                                              |     string      | NRC20-token发行总量                            |
-| status                                                                                                   |     string      | 合约状态（not_found, normal, stop）              |
-| method                                                                                                   | list&lt;object> | 合约方法列表                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name                                                     |     string      | 方法名称                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc                                                     |     string      | 方法描述                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args                                                     | list&lt;object> | 方法参数列表                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type     |     string      | 参数类型                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name     |     string      | 参数名称                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required |     boolean     | 是否必填                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returnArg                                                |     string      | 返回值类型                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view                                                     |     boolean     | 是否视图方法（调用此方法数据不上链）                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event                                                    |     boolean     | 是否是事件                                      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable                                                  |     boolean     | 是否是可接受主链资产转账的方法                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable                                         |     boolean     | 方法返回值是否JSON序列化                             |
+| createTxHash | string | publish contract trading hash |
+| address | string | contract address|
+| creater | string | contract creator address |
+| alias | string | contract alias |
+| createTime | long | contract creation time (unit: second) |
+| blockHeight | long | Block Height at Contract Creation |
+| directPayable | boolean | Accept direct transfer |
+| tokenType | int | token type, 0 - non-token, 1 - NRC20, 2 - NRC721 |
+| nrc20 | boolean | Is it a NRC20 contract|
+| nrc20TokenName | string | NRC20-token name|
+| nrc20TokenSymbol | string | NRC20-token symbol|
+| decimals | long | Number of decimal places supported by NRC20-token |
+| totalSupply | string | NRC20-token Distribution Total |
+| status | string | contract status (not_found, normal, stop) |
+| method | list&lt;object> | Contract Method List |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | method name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc | string | Method Description|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | list&lt;object> | Method parameter list|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type | string | Parameter Type|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | Parameter Name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required | boolean | Required |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returnArg | string | Return value type|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view | boolean | Whether view method (calling this method data is not on the chain) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event | boolean | Whether it is an event|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable | boolean | Is it acceptable to transfer the main chain asset |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable | boolean | Method Returns whether JSON is serialized |
 
 ### sc\_contract\_tx
-合约交易/contract tx
+Contract transaction / contract tx
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
-| chainId |  int   | 链id    |  是   |
-| hash    | string | 交易hash |  是   |
+| chainId | int | chain id | yes |
+| hash | string | transaction hash | yes |
 
-#### 返回值
-| 字段名                                                                                                                                                             |      字段类型       | 参数描述                                                    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |:---------------:| ------------------------------------------------------- |
-| hash                                                                                                                                                            |     string      | 交易hash                                                  |
-| type                                                                                                                                                            |     integer     | 交易类型                                                    |
-| time                                                                                                                                                            |      long       | 交易时间                                                    |
-| blockHeight                                                                                                                                                     |      long       | 区块高度                                                    |
-| fee                                                                                                                                                             |     string      | 交易手续费                                                   |
-| value                                                                                                                                                           |     string      | 交易金额                                                    |
-| remark                                                                                                                                                          |     string      | 备注                                                      |
-| scriptSig                                                                                                                                                       |     string      | 签名信息                                                    |
-| status                                                                                                                                                          |     integer     | 交易状态（0 - 确认中，1 - 已确认）                                   |
-| confirmCount                                                                                                                                                    |      long       | 交易确认次数                                                  |
-| size                                                                                                                                                            |       int       | 交易大小                                                    |
-| inputs                                                                                                                                                          | list&lt;object> | 交易输入集合                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address                                                                                                         |     string      | 输入地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId                                                                                                   |       int       | 资产链ID                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId                                                                                                        |       int       | 资产ID                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount                                                                                                          |     string      | 花费金额                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nonce                                                                                                           |     string      | 地址的账本nonce值                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locked                                                                                                          |      byte       | 解锁交易的标签（0 - 非解锁交易，1 - 解锁交易）                             |
-| outputs                                                                                                                                                         | list&lt;object> | 交易输出集合                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address                                                                                                         |     string      | 输出地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId                                                                                                   |       int       | 资产链ID                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId                                                                                                        |       int       | 资产ID                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount                                                                                                          |     string      | 输出金额                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime                                                                                                        |      long       | 锁定时间                                                    |
-| txData                                                                                                                                                          |       map       | 合约交易业务数据                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data                                                                                                            |     object      | 根据合约交易类型反映不同的业务数据（这里为了描述四种情况，四种业务放在一起描述，实际上不同时存在，只存在一个） |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create                                                          |     object      | 发布合约交易的业务数据                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender          |     string      | 交易创建者地址                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress |     string      | 创建的合约地址                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alias           |     string      | 合约别名                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hexCode         |     string      | 智能合约代码(字节码的Hex编码字符串)                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit        |      long       | GAS限制                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price           |      long       | GAS单价                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args            |   string[][]    | 参数列表                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call                                                            |     object      | 调用合约交易的业务数据                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender          |     string      | 交易创建者地址                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress |     string      | 合约地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value           |     string      | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit        |      long       | GAS限制                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price           |      long       | GAS单价                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methodName      |     string      | 合约方法                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methodDesc      |     string      | 合约方法描述，若合约内方法没有重载，则此参数可以为空                              |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args            |   string[][]    | 参数列表                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete                                                          |     object      | 删除合约交易的业务数据                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender          |     string      | 交易创建者地址                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress |     string      | 合约地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfer                                                        |     object      | 合约转账交易的业务数据                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash     |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress |     string      | 合约地址                                                    |
-| contractResult                                                                                                                                                  |     object      | 合约执行结果                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success                                                                                                         |     boolean     | 合约执行是否成功                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errorMessage                                                                                                    |     string      | 执行失败信息                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                                                                                 |     string      | 合约地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result                                                                                                          |     string      | 合约执行结果                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit                                                                                                        |      long       | GAS限制                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasUsed                                                                                                         |      long       | 已使用GAS                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price                                                                                                           |      long       | GAS单价                                                   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalFee                                                                                                        |     string      | 交易总手续费                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txSizeFee                                                                                                       |     string      | 交易大小手续费                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actualContractFee                                                                                               |     string      | 实际执行合约手续费                                               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refundFee                                                                                                       |     string      | 合约返回的手续费                                                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                                                                           |     string      | 调用者向合约地址转入的主网资产金额，没有此业务时则为0                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stackTrace                                                                                                      |     string      | 异常堆栈踪迹                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfers                                                                                                       | list&lt;object> | 合约转账列表（从合约转出）                                           |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash                                                          |     string      | 合约生成交易：合约转账交易hash                                       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                            |     string      | 转出的合约地址                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                           |     string      | 转账金额                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs                                                         | list&lt;object> | 转入的地址列表                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to              |     string      | 转入地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value           |     string      | 转入金额                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                                     |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;events                                                                                                          | list&lt;string> | 合约事件列表                                                  |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenTransfers                                                                                                  | list&lt;object> | 合约token转账列表                                             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                                 |     string      | 合约地址                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                            |     string      | 付款方                                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to                                                              |     string      | 收款方                                                     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value                                                           |     string      | 转账金额                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name                                                            |     string      | token名称                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol                                                          |     string      | token符号                                                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimals                                                        |      long       | token支持的小数位数                                            |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invokeRegisterCmds                                                                                              | list&lt;object> | 合约调用外部命令的调用记录列表                                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdName                                                         |     string      | 命令名称                                                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args                                                            |       map       | 命令参数，参数不固定，依据不同的命令而来，故此处不作描述，结构为 {参数名称=参数值}             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdRegisterMode                                                 |     string      | 注册的命令模式（QUERY\_DATA or NEW\_TX）                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newTxHash                                                       |     string      | 生成的交易hash（当调用的命令模式是 NEW\_TX 时，会生成交易）                    |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractTxList                                                                                                  | list&lt;string> | 合约生成交易的序列化字符串列表                                         |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                                                                          |     string      | 备注                                                      |
+| hash | string | transaction hash |
+| type | integer | Transaction Type |
+| time | long | Trading Hours |
+| blockHeight | long | Block Height |
+| fee | string | transaction fee |
+| value | string | transaction amount |
+| remark | string | Notes |
+| scriptSig | string | Signature Information |
+| status | integer | Transaction Status (0 - Confirmation, 1 - Confirmed) |
+| confirmCount | long | Transaction Confirmation Times |
+| size | int | Transactions Size|
+| inputs | list&lt;object> | Transaction Input Collection |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address | string | Enter address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId | int | Asset Chain ID |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId | int | Asset ID |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount | string | Spend Amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nonce | string | address book's nonce value|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;locked | byte | Unlock the deal's tag (0 - non-unlocked deal, 1 - unlock deal) |
+|outputs | list&lt;object> | Trade Output Collection |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address | string | output address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId | int | Asset Chain ID |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId | int | Asset ID |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount | string | Output Amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime | long | Lock Time |
+| txData | map | Contract Trading Business Data |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;data | object | Reflect different business data according to the contract transaction type (here, in order to describe the four cases, the four services are described together, in fact not at the same time) Exist, there is only one) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;create | object | Publish business data for contract transactions |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender | string | Transaction Creator Address |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | created contract address |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;alias | string | contract alias |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hexCode | string | Smart Contract Code (Hex encoded string of bytecode) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit | long | GAS Limit |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price | long | GAS unit price|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | string[][] | Parameter List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;call | object | Calling Business Data for Contract Transactions |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender | string | Transaction Creator Address |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill in BigInteger.ZERO |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit | long | GAS Limit |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price | long | GAS unit price|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methodName | string | contract method|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;methodDesc | string | Contract method description, if the method in the contract is not overloaded, this parameter can be empty |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | string[][] | Parameter List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;delete | object | Delete business data for contract transactions |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;sender | string | Transaction Creator Address |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfer | object | Business Data for Contract Transfer Transactions |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash | string | call contract transaction hash (source transaction hash, contract transaction is derived from calling contract transaction) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | contract address|
+| contractResult | object | Contract execution results |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;success | boolean | Successful contract execution |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;errorMessage | string | Execution Failure Information |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | Contract Address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;result | string | Contract execution results|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasLimit | long | GAS Limit |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;gasUsed | long | GAS has been used |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price | long | GAS unit price|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;totalFee | string | Total Transaction Fees |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txSizeFee | string | Transaction Size Fees |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;actualContractFee | string | Actual Execution Contract Fee |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;refundFee | string | Fees returned by the contract|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | The amount of the primary network asset that the caller transferred to the contract address, or 0 if there is no such service |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;stackTrace | string | Exception Stack Trace |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transfers | list&lt;object> | Contract Transfer List (from contract) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHash | string | Contract Generation Transaction: Contract Transfer Transaction hash |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from | string | Transferred contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs | list&lt;object> | Transferred Address List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to | string | transfer address |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash | string | Call contract transaction hash (source transaction hash, contract transaction is called Contract trading is derived) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;events | list&lt;string> | Contract Event List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenTransfers | list&lt;object> | Contract Token Transfer List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress | string | contract address|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from|string|payment |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;to | string | Payee |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value | string | Transfer amount|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | token name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol | string | token symbol|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimals | long | Number of decimal places supported by token |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;invokeRegisterCmds | list&lt;object> | Contract Call List of Calls for External Commands |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdName | string | command name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | map | command parameters, parameters are not fixed, depending on different commands Therefore, it is not described here, and the structure is {parameter name=parameter value} |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;cmdRegisterMode | string | Registered Command Mode (QUERY\_DATA or NEW\_TX) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;newTxHash | string | generated transaction hash (when the command mode is called NEW\ When _TX, a transaction will be generated) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractTxList | list&lt;string> | Serialized String List for Contract Generation Transactions |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark | string | Notes |
 
 ### sc\_token\_assets\_list
-token资产集合/token assets list
+Token asset collection/token assets list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:------:| ---- |:----:|
-| chainId    |  int   | 链ID  |  是   |
-| address    | string | 账户地址 |  是   |
-| pageNumber |  int   | 页码   |  否   |
-| pageSize   |  int   | 每页大小 |  否   |
+| chainId | int | Chain ID | Yes |
+| address | string | account address | yes |
+| pageNumber | int | Page Number | No |
+| pageSize | int | per page size | no |
 
-#### 返回值
-| 字段名             |  字段类型  | 参数描述                    |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:------:| ----------------------- |
-| contractAddress | string | 合约地址                    |
-| name            | string | token名称                 |
-| symbol          | string | token符号                 |
-| amount          | string | token数量                 |
-| decimals        |  long  | token支持的小数位数            |
-| blockHeight     |  long  | 合约创建时的区块高度              |
-| status          |  int   | 合约状态(0-不存在, 1-正常, 2-终止) |
+| contractAddress | string | contract address|
+| name | string | token name|
+| symbol | string | token symbol|
+| amount | string | token quantity|
+| decimals | long | Number of decimal places supported by token |
+| blockHeight | long | Block Height at Contract Creation |
+| status | int | Contract Status (0-None, 1-Normal, 2-End) |
 
 ### sc\_token\_transfer\_list
-token转账交易列表/token transfer list
+Token transfer transaction list/token transfer list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:------:| ---- |:----:|
-| chainId    |  int   | 链ID  |  是   |
-| address    | string | 账户地址 |  是   |
-| pageNumber |  int   | 页码   |  否   |
-| pageSize   |  int   | 每页大小 |  否   |
+| chainId | int | Chain ID | Yes |
+| address | string | account address | yes |
+| pageNumber | int | Page Number | No |
+| pageSize | int | per page size | no |
 
-#### 返回值
-| 字段名             |  字段类型  | 参数描述                           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:------:| ------------------------------ |
-| contractAddress | string | 合约地址                           |
-| from            | string | 付款方                            |
-| to              | string | 收款方                            |
-| value           | string | 转账金额                           |
-| time            |  long  | 交易时间                           |
-| status          |  byte  | 交易状态（0 - 确认中， 1 - 已确认， 2 - 失败） |
-| txHash          | string | 交易hash                         |
-| blockHeight     |  long  | 区块高度                           |
-| name            | string | token名称                        |
-| symbol          | string | token符号                        |
-| decimals        |  long  | token支持的小数位数                   |
-| info            | string | token资产变动信息                    |
+| contractAddress | string | contract address|
+| from | string | Payment Party|
+| to | string | Receiver |
+| value | string | Transfer amount |
+| time | long | Trading Hours |
+| status | byte | Transaction Status (0 - Confirmation, 1 - Confirmed, 2 - Failed) |
+| txHash | string | Trading hash |
+| blockHeight | long | Block Height |
+| name | string | token name|
+| symbol | string | token symbol|
+| decimals | long | Number of decimal places supported by token |
+| info | string | token asset change information|
 
 ### sc\_account\_contracts
-账户的合约地址列表/account contract list
+Account's contract address list / account contract list
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名        |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ---------- |:------:| ---- |:----:|
-| chainId    |  int   | 链ID  |  是   |
-| address    | string | 账户地址 |  是   |
-| pageNumber |  int   | 页码   |  否   |
-| pageSize   |  int   | 每页大小 |  否   |
+| chainId | int | Chain ID | Yes |
+| address | string | account address | yes |
+| pageNumber | int | Page Number | No |
+| pageSize | int | per page size | no |
 
-#### 返回值
-| 字段名             |  字段类型  | 参数描述                                                   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --------------- |:------:| ------------------------------------------------------ |
-| contractAddress | string | 合约地址                                                   |
-| createTime      |  long  | 合约创建时间                                                 |
-| height          |  long  | 合约创建时区块高度                                              |
-| confirmCount    |  long  | 合约创建确认次数                                               |
-| alias           | string | 合约别名                                                   |
-| status          |  int   | 合约状态（0 - 不存在或者创建中, 1 - 正常, 2 - 已删除, 3 - 创建失败, 4 - 锁定中） |
-| msg             | string | 合约创建失败的错误信息                                            |
+| contractAddress | string | contract address|
+| createTime | long | contract creation time |
+| height | long | block height at contract creation |
+| confirmCount | long | Contract Creation Confirmation Times |
+| alias | string | contract alias |
+| status | int | Contract Status (0 - does not exist or is created, 1 - normal, 2 - deleted, 3 - failed to create, 4 - locked) |
+| msg | string | Error message for contract creation failure |
 
 ### sc\_upload
-合约代码jar包上传/upload
+Contract code jar package upload /upload
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述                                         | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| -------------------------------------------- |:----:|
-| chainId     |  int   | 链id                                          |  是   |
-| jarFileData | string | 文件描述和文件字节流转换Base64编码字符串（文件描述和Base64字符串以逗号隔开） |  是   |
+| chainId | int | chain id | yes |
+| jarFileData | string | File description and file byte stream conversion Base64 encoded string (file description and Base64 string separated by commas) | Yes |
 
-#### 返回值
-| 字段名                                                                                                      |      字段类型       | 参数描述                 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | -------------------------------------------------------------------------------------------------------- |:---------------:| -------------------- |
-| constructor                                                                                              |     object      | 合约构造函数详情             |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name                                                     |     string      | 方法名称                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc                                                     |     string      | 方法描述                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args                                                     | list&lt;object> | 方法参数列表               |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type     |     string      | 参数类型                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name     |     string      | 参数名称                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required |     boolean     | 是否必填                 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returnArg                                                |     string      | 返回值类型                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view                                                     |     boolean     | 是否视图方法（调用此方法数据不上链）   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event                                                    |     boolean     | 是否是事件                |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable                                                  |     boolean     | 是否是可接受主链资产转账的方法      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable                                         |     boolean     | 方法返回值是否JSON序列化       |
-| isNrc20                                                                                                  |     boolean     | 是否是NRC20合约           |
-| code                                                                                                     |     string      | 智能合约代码(字节码的Hex编码字符串) |
+Constructor | object | contract constructor details|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | method name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;desc | string | Method Description|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;args | list&lt;object> | Method parameter list|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type | string | Parameter Type|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;name | string | Parameter Name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;required | boolean | Required |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;returnArg | string | Return value type|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;view | boolean | Whether view method (calling this method data is not on the chain) |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;event | boolean | Whether it is an event|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable | boolean | Is it acceptable to transfer the main chain asset |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable | boolean | Method Returns whether JSON is serialized |
+| isNrc20 | boolean | Is it a NRC20 contract|
+| code | string | Smart Contract Code (Hex encoded string of bytecode) |
 
 ### sc\_call
 call contract
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| password        |   string   | 调用者账户密码                                  |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| gasLimit        |    long    | GAS限制                                    |  是   |
-| price           |    long    | GAS单价                                    |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
-| remark          |   string   | 交易备注                                     |  否   |
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| password | string | caller account password | yes |
+| value | biginteger | The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill BigInteger.ZERO | Yes |
+| gasLimit | long | GAS Limit | Yes |
+| price | long | GAS unit price | Yes |
+| contractAddress | string | contract address | yes |
+| methodName | string | contract method | yes |
+| methodDesc | string | Contract method description, if the method in the contract is not overloaded, this parameter can be empty | No |
+| args | object[] | List of parameters | No |
+| remark | string | Transaction Notes | No|
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述        |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ----------- |
-| txHash | string | 调用合约的交易hash |
+| txHash | string | Call contract trading hash |
 

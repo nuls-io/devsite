@@ -43,54 +43,76 @@ module.exports = {
                             collapsable:false,
                             children: [
                             '',
-                            'howToContribute'
+                            'g_contribute',
+                            'g_linux_tutorial',
+                            'g_transaction'
                             ]
                         }
                     ],
                     "/Docs/":[
-                        {
-                            title: 'Design',
+                        {   
+                            title: 'Module Design',
                             collapsable:false,
                             children: [
-                            'quickStart'
+                             "d_network",
+                             "d_ledger",
+                             "d_chain_manager",
+                             "d_account",
+                             "d_transaction",
+                             "d_cross_chain",
+                             "d_consensus",
+                             "d_public_service",
+                             "d_block",
+                             "d_protocol_update",
+                             'd_address'
                             ]
                         },
-                        {
-                            title: 'API',
+                        {   
+                            title: 'Interface',
                             collapsable:false,
                             children: [
-                            'quickStart'
+                            'i_rpc_protocol',
+                            "i_public_service",
+                            "i_nuls-api_JSONRPC",
+                            "i_nuls-api_RESTFUL",
+                            "i_account",
+                            "i_chain-manager",
+                            "i_cross-chain",
+                            "i_network",
+                            "i_block",
+                            "i_transaction",
+                            "i_consensus",
+                            "i_smart-contract",
+                            "i_ledger"
                             ]
                         },
                         {
                             title: 'ChainBox',
                             collapsable:false,
                             children: [
-                            
-                            'developeModule',
-                            'encryptedMessageDesign',
-                            'chainBoxGuide',
-                            
+                            'c_chain_box',
+                            'c_module',
+                            'c_message_module',
                             ]
                         },
                         {
                             title: 'Smart Contract',
                             collapsable:false,
                             children: [
-                            'smartContractManual',
-                            'mavenPackage',
-                            'NRC-20TokenStandard',
-                            'NRC-721',
-                            'smartContractFee',
+                            's_manual',
+                            's_tools',
+                            's_nrc20',
+                            's_nrc721',                            
+                            's_offline_assembly',
+                            's_advance'
                             ]
-                        }, 
-                        {
-                            title: 'SDK',
-                            collapsable:false,
-                            children: [
-                            'quickStart'
-                            ]
-                        },
+                        },  
+                        // {   
+                        //     title: 'SDK',
+                        //     collapsable:false,
+                        //     children: [
+                        //     ]
+                        // },
                     ]
                 }
             },
@@ -113,10 +135,11 @@ module.exports = {
                             children: [
                             '',
                             // 'contribute',
-                            'transaction',
-                            'linux_tutorial',
-                            'explorer',
-                            'multi_sign_account',
+                            '',
+                            'g_ontribute',
+                            'g_linux_tutorial',
+                            'g_contribute',
+                            'g_multi_sign_account'
                             
                             // 'joinCCC',
                             

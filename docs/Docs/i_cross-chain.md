@@ -1,413 +1,413 @@
-# 跨链模块
+Cross link module
 
 
 
-## 接口列表
+## Interface List
 ### createCrossTx
-创建跨链转账交易/Creating Cross-Chain Transfer Transactions
+Create cross-chain transfer transaction/Creating Cross-Chain Transfer
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名                                                           |    参数类型    | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------------------------------------------------------- |:----------:| ------ |:----:|
-| chainId                                                       |    int     | 链ID    |  是   |
-| listFrom                                                      |    list    | 转出信息列表 |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address       |   string   | 账户地址   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId |  integer   | 资产链ID  |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId      |  integer   | 资产ID   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount        | biginteger | 转出金额   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password      |   string   | 账户密码   |  是   |
-| listTo                                                        |    list    | 转如信息列表 |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address       |   string   | 账户地址   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId |  integer   | 资产链ID  |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId      |  integer   | 资产ID   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount        | biginteger | 转出金额   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password      |   string   | 账户密码   |  是   |
-| remark                                                        |   string   | 备注     |  否   |
+| chainId | int | Chain ID | Yes |
+| listFrom | list | Roll out information list | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address | string | Account Address| Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId | integer | Asset Chain ID | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId | integer | Asset ID | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount | biginteger | Transfer Amount | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password | string | Account Password | Yes |
+| listTo | list | Go to information list | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address | string | Account Address| Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsChainId | integer | Asset Chain ID | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetsId | integer | Asset ID | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount | biginteger | Transfer Amount | Yes |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password | string | Account Password | Yes |
+| remark | string | Notes | No |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述     |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| -------- |
-| txHash | string | 跨链交易HASH |
+| txHash | string | Cross-chain trading HASH |
 
 ### newApiModuleCrossTx
-接收API_MODULE组装的跨链交易/Receiving cross-chain transactions assembled by API_MODULE
+Receive API_MODULE assembled cross-chain transactions/Receiving cross-chain transactions assembled by API_MODULE
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链ID  |  是   |
-| tx      | string | 交易   |  是   |
+| chainId | int | Chain ID | Yes |
+| tx | string | Transactions | Yes |
 
-#### 返回值
-| 字段名    |  字段类型  | 参数描述   |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------ |:------:| ------ |
-| txHash | string | 交易Hash |
+| txHash | string | Trading Hash |
 
 ### getCrossTxState
-查询跨链交易处理状态/get cross transaction process state
+Query cross-transaction transaction state
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述   | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
-| chainId |  int   | 链ID    |  是   |
-| txHash  | string | 交易HASH |  是   |
+| chainId | int | Chain ID | Yes |
+| txHash | string | Trading HASH | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---------- |
-| value | boolean | 跨链交易是否处理完成 |
+| value | boolean | Cross-chain transaction is processed |
 
 ### getRegisteredChainInfoList
-查询在主网上注册跨链的链信息/Query for cross-chain chain information registered on the main network
+Query for cross-chain chain information registered on the main network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-无参数
+#### parameter list
+No parameters
 
-#### 返回值
-| 字段名                                                                                                           |      字段类型       | 参数描述      |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ------------------------------------------------------------------------------------------------------------- |:---------------:| --------- |
-| list                                                                                                          | list&lt;object> | 已注册跨链的链信息 |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainId                                                       |       int       | 链ID       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainName                                                     |     string      | 链名称       |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minAvailableNodeNum                                           |       int       | 最小链接数     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxSignatureCount                                             |       int       | 最大签名数     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signatureByzantineRatio                                       |       int       | 签名拜占庭比例   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressPrefix                                                 |     string      | 链账户前缀     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetInfoList                                                 | list&lt;object> | 链资产列表     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetId       |       int       | 资产ID      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol        |     string      | 资产符号      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetName     |     string      | 资产名称      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;usable        |     boolean     | 是否可用      |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimalPlaces |       int       | 精度        |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verifierList                                                  |       set       | 验证人列表     |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;registerTime                                                  |      long       | 注册时间      |
+| list | list&lt;object> | Registered chain information across links |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainId | int | Chain ID |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainName | string | Chain Name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;minAvailableNodeNum | int | Minimum number of links |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;maxSignatureCount | int | Maximum Signatures|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;signatureByzantineRatio | int | Signature Byzantine Proportion|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressPrefix | string | Chain Account Prefix|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetInfoList | list&lt;object> | Chain Asset List|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetId | int | Asset ID |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;symbol | string | Asset Symbol|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetName | string | Asset Name|
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;usable | boolean | Availability |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;decimalPlaces | int | Precision |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;verifierList | set | Verifier List |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;registerTime | long | Registration Time|
 
 ### getByzantineCount
-查询当前签名拜占庭最小通过数量/查询当前签名拜占庭最小通过数量
+Query current signature Byzantine minimum pass number / query current signature Byzantium minimum pass number
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名   | 字段类型 | 参数描述       |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:----:| ---------- |
-| value | int  | 当前拜占庭最小签名数 |
+| value | int | Current Byzantine Minimum Signature Number |
 
 ### getChains
 cancel Cross Chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### registerCrossChain
-链注册跨链/register Cross Chain
+Chain registration cross-chain / register Cross Chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名                 |  参数类型  | 参数描述  | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------------- |:------:| ----- |:----:|
-| chainId             |  int   | 链ID   |  是   |
-| chainName           | string | 链名称   |  是   |
-| minAvailableNodeNum |  int   | 最小链接数 |  是   |
-| assetInfoList       | string | 资产列表  |  是   |
-| registerTime        |  long  | 链注册时间 |  是   |
+| chainId | int | Chain ID | Yes |
+| chainName | string | chain name | yes |
+minAvailableNodeNum | int | Minimum number of links | Yes |
+| assetInfoList | string | Asset List | Yes |
+RegisterTime | long | Chain Registration Time | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 处理结果 |
+| value | boolean | Processing Results |
 
 ### cancelCrossChain
-指定链资产退出跨链/Specified Chain Assets Exit Cross Chain
+Specified chain asset exits cross-chain/Specified Chain Assets Exit Cross Chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
-| assetId | int  | 资产ID |  是   |
+| chainId | int | Chain ID | Yes |
+| assetId | int | Asset ID | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 处理结果 |
+| value | boolean | Processing Results |
 
 ### crossChainRegisterChange
-跨链注册信息变更/Registered Cross Chain change
+Cross-chain registration information change / Registered Cross Chain change
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     | 参数类型 | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:----:| ---- |:----:|
-| chainId | int  | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvCirculat
-接收其他链节点发送的资产信息/Receiving asset information sent by other link nodes
+Receiving asset information sent by other chain nodes/Receiving asset information sent by other link nodes
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### registerAsset
-链注册跨链/register Cross Chain
+Chain registration cross-chain / register Cross Chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名           |  参数类型   | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------- |:-------:| ---- |:----:|
-| chainId       |   int   | 链ID  |  是   |
-| assetId       |   int   | 资产ID |  是   |
-| symbol        | string  | 资产符号 |  是   |
-| assetName     | string  | 资产名称 |  是   |
-| usable        | boolean | 是否可用 |  是   |
-| decimalPlaces |   int   | 精度   |  是   |
+| chainId | int | Chain ID | Yes |
+| assetId | int | Asset ID | Yes |
+| symbol | string | Asset Symbol | Yes |
+| assetName | string | asset name | yes |
+| usable | boolean | Available | Yes |
+| decimalPlaces | int | Precision | Yes |
 
-#### 返回值
-| 字段名   |  字段类型   | 参数描述 |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ---- |
-| value | boolean | 处理结果 |
+| value | boolean | Processing Results |
 
 ### getFriendChainCirculate
-获取友链资产信息/Access to Friendship Chain Asset Information
+Get Friendship Chain Asset Information
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名      |  参数类型  | 参数描述             | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:------:| ---------------- |:----:|
-| chainId  |  int   | 链ID              |  是   |
-| assetIds | string | 资产ID，多个资产ID用逗号分隔 |  是   |
+| chainId | int | Chain ID | Yes |
+| assetIds | string | Asset ID, multiple asset IDs separated by commas | Yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### newBlockHeight
-链区块高度变更/receive new block height
+Chain block height change /receive new block height
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名     |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ---- |:----:|
-| chainId |  int   | 链ID  |  是   |
-| height  | string | 链ID  |  是   |
+| chainId | int | Chain ID | Yes |
+| height | string | chain ID | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvCtxState
-跨链交易处理状态消息/receive cross transaction state
+Cross-chain transaction processing status message /receive cross transaction state
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvCtx
-接收本链节点广播的完整交易/Complete Transaction for Receiving Broadcast from Local Chain Nodes
+Receive Transaction Transaction for Receiving Broadcast from Local Chain Nodes
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvOtherCtx
-接收跨链节点广播的完整交易/Receiving Complete Transactions for Cross-Chain Node Broadcasting
+Receiving Cross-Chain Node Broadcasting Complete Transaction/Receiving Complete Transactions for Cross-Chain Node Broadcasting
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### getCtxState
-获取跨链交易处理状态/Getting the state of cross-chain transaction processing
+Get the state of cross-chain transaction processing
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvRegChain
-接收到主网返回的已注册跨链交易的链信息/Receiving chain information of registered cross-chain transactions returned from the main network
+Receiving chain information of registered cross-chain transactions returned from the main network
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### getCirculat
-查询本链资产信息消息/get chain circulation
+Query the asset information message /get chain circulation
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvCtxSign
-接收链内节点广播的交易签名/Transaction signature for broadcasting in receiving chain
+Transaction signature for broadcasting in receiving chain
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### getCtx
-链内节点向本节点获取完成跨链交易/The intra-chain node acquires and completes the cross-chain transaction from its own node
+The intra-chain node acquires and completes the cross-chain transaction from its own node
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### getOtherCtx
-跨链节点向本节点获取完整交易/Cross-chain nodes obtain complete transactions from their own nodes
+Cross-chain nodes obtain complete transactions from their own nodes
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
 ### recvCtxHash
-接收跨链节点广播的交易Hash/Transaction Hash receiving cross-link node broadcasting
+Receive Hash/Transaction Hash receiving cross-link node broadcasting
 #### scope:public
 #### version:1.0
 
-#### 参数列表
-| 参数名         |  参数类型  | 参数描述 | 是否非空 |
+#### parameter list
+| Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ---- |:----:|
-| chainId     |  int   | 链ID  |  是   |
-| nodeId      | string | 节点IP |  是   |
-| messageBody | string | 消息体  |  是   |
+| chainId | int | Chain ID | Yes |
+| nodeId | string | node IP | yes |
+| messageBody | string | message body | yes |
 
-#### 返回值
-| 字段名 | 字段类型 | 参数描述           |
+#### return value
+| Field Name | Field Type | Parameter Description |
 | --- |:----:| -------------- |
-| N/A | void | 无特定返回值，没有错误即成功 |
+| N/A | void | No specific return value, no error is successful |
 
