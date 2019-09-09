@@ -1,6 +1,6 @@
  # Network module design document
 
-## I. Overall description
+## Overall description
 
 ### 1.1 Module Overview
 
@@ -33,7 +33,7 @@ The network module is the basic module of the entire system, which is used to ma
 
 
 
-## II, functional design
+## Functional design
 
 ### 2.1 Functional Architecture
 
@@ -141,7 +141,7 @@ magicNumber check
 
 Parsing the command parameter in the message header, relying on the remote service interface data provided by the kernel module when calling the remote interface processing.
 
-  #### 2.2.2 Network Message Sending
+#### 2.2.2 Network Message Sending
 
 Forwards messages encapsulated by other or own modules, including broadcast messages and designated nodes to send messages.
 
@@ -1537,7 +1537,7 @@ Receive addr:
 
 
 
-## III. Description of the event
+## Description of the event
 
 ### 3.1 Published events
 
@@ -1548,7 +1548,7 @@ No
 No
 
 
-## IV. Agreement
+## Agreement
 
 ### 4.1 Network Communication Protocol
 
@@ -1639,7 +1639,7 @@ It is used to answer getaddr, or announce its existence to the network. After re
 
 No
 
-## 五, module configuration
+## Module configuration
 
 
 
@@ -1659,11 +1659,11 @@ maxInCount=100
 maxOutCount=20
 ```
 
-## Six, Java-specific design
+## Java-specific design
 
 [^Description]: Core object class definition, storage data structure, ...
 
-## VII, supplementary content
+## Supplementary content
 
 [^Description]: Required content not covered above
 

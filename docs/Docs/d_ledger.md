@@ -1,6 +1,6 @@
 # Design document of ledger module
 
-## I. Overall description
+## Overall description
 
 ### 1.1 Module Overview
 
@@ -29,7 +29,7 @@
 
 ![ledger-arch.png](image/ledger/ledger-arch.png)
 
-## II, functional design
+## Functional design
 
 ### 2.1 Functional Architecture
 ![ledger-functions.png](image/ledger/ledger-functions.png)
@@ -98,7 +98,7 @@
 
 ![trx-validate-flow.png](image/ledger/trx-validate-flow.png)
 
-## III. Interface Design
+##  Interface Design
 
 ### 3.1 Module core interaction interface
 
@@ -525,11 +525,11 @@ Orphan | boolean | true for orphan trading|
 
 
 
-## IV. Description of the event
+##  Description of the event
 
 > does not depend on any events
 
-## 五, Agreement
+##  Agreement
 
 ### 5.1 Network Communication Protocol
 
@@ -539,7 +539,7 @@ no
 
 no
 
-## 六, Module Configuration
+##  Module Configuration
 ### 6.1 Configuration Instructions
 
 ### 6.2 Module Dependencies
@@ -555,11 +555,11 @@ no
 - Network module
   
 
-## VII, Java-specific design
+##  Java-specific design
 
 > Core object class definition, storing data structures, ...
 
-## 八, supplementary content
+##  Supplementary content
 
 ### References Literature
 - [Proficient in Ethereum - Chapter 7 Transaction] (https://github.com/inoutcode/ethereum_book/blob/master/%E7%AC%AC%E4%B8%83%E7%AB%A0.asciidoc)

@@ -1,6 +1,6 @@
 # Block Management Module Design Document
 
-## I. Overall description
+##  Overall description
 
 ### 1.1 Module Overview
 
@@ -40,7 +40,7 @@ Be dependent
 
 ![](./design/block-module/block-module.png)
 
-## II, functional design
+## functional design
 
 ### 2.1 Functional Architecture
 
@@ -1241,7 +1241,7 @@ After stopping a chain in the chain factory, the core module will call the inter
 
   Database storage tool for tool modules
 
-## III. Description of the event
+## Description of the event
 
 ### 3.1 Published events
 
@@ -1291,7 +1291,7 @@ data:{
 
 	slightly
 
-## IV. Agreement
+## Agreement
 
 ### 4.1 Network Communication Protocol
 
@@ -1539,7 +1539,7 @@ data:{
     - Ignore the message if I have received the full block
     - If a partial block is received and the transaction is missing, the complete block is assembled and saved
 
-## 五, module configuration
+## Module configuration
 
 ```
 {
@@ -1572,7 +1572,7 @@ data:{
 }
 ```
 
-## Six, Java-specific design
+## Java-specific design
 
 - Block object design
 > | `field name` | `field type` | `description` |
@@ -1619,4 +1619,4 @@ data:{
 > | type | ChainTypeEnum | Chain Type |
 > | age | AtomicInteger | Chain age (orphan chain cleanup use) |
 
-## VII, supplementary content
+## Supplementary content

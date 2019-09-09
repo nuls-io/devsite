@@ -43,9 +43,10 @@ module.exports = {
                             collapsable:false,
                             children: [
                             '',
+                            'g_transaction',
                             'g_contribute',
                             'g_linux_tutorial',
-                            'g_transaction'
+                            
                             ]
                         }
                     ],
@@ -130,19 +131,14 @@ module.exports = {
                 sidebar: {
                     "/zh/Guide/":[
                         {
-                            title: 'Guide',
+                            title: '指南',
                             collapsable:false,
                             children: [
                             '',
-                            // 'contribute',
-                            '',
-                            'g_ontribute',
-                            'g_linux_tutorial',
+                            'g_transaction',
                             'g_contribute',
+                            'g_linux_tutorial',
                             'g_multi_sign_account'
-                            
-                            // 'joinCCC',
-                            
                             ]
                         }
                     ],

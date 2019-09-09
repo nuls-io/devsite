@@ -1,4 +1,4 @@
-# 接口交互格式与规范 JSON-RPC
+# Interface interaction format and specification json-rpc
 
 ## Request Body
 
@@ -10,13 +10,13 @@
 }
 ```
 
-- 请求参数
+- Request parameters
 
-| 参数        | 必选  | 类型   | 说明           |
+| Parameters | Required | Type | Description|
 | ----------- | ----- | ------ | -------------- |
-| cmd         | true  | string | 执行的 Command |
-| params      | true  | array  | 命令参数表     |
-| min_version | false | float  | 兼容的最低版本 |
+| cmd | true | string | Execute Command |
+Params | true | array | Command Parameter Table |
+| min_version | false | float | compatible minimum version |
 
 ## Response Body
 
@@ -30,13 +30,13 @@
 }
 ```
 
-- 响应参数
+- Response parameters
 
-| 参数   | 必选 | 类型   | 说明                                    |
+| Parameters | Required | Type | Description|
 | :----- | :--- | :----- | --------------------------------------- |
-| code   | ture | int    | 请求想要状态，成功返回0。否则返回错误码 |
-| msg    | true | string | 用户友好的请求执行结果描述              |
-| result | true | object | 方法返回值                              |
+| code | ture | int | Request the desired state, returning 0 successfully.Otherwise return error code|
+| msg | true | string | User-Friendly Request Execution Result Description |
+| result | true | object | method return value |
 
 ## Error Code
 

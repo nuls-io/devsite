@@ -1,6 +1,6 @@
-Design document of management chain module
+# Chain Management Module Design Document
 
-## I. Overall description
+## Overall description
 
 ### 1.1 Module Overview
 
@@ -85,7 +85,7 @@ The module that Chain Management relies heavily on:
 
 
 
-## II, functional design
+## Functional design
 
 ### 2.1 Functional Architecture
 
@@ -915,7 +915,7 @@ No
 
    no
 
-## 3, event description
+##  Event description
 
 [^Description]: Try to avoid communication by using events in business processes
 
@@ -927,7 +927,7 @@ No
 
 
 
-## 4, Agreement
+##  Agreement
 
 ### 4.1 Network Communication Protocol
 
@@ -1008,7 +1008,7 @@ txData definition:
 
 
 
-## 六, Module Configuration
+##  Module Configuration
 
 [^Description]: This module must have configuration items
 
@@ -1042,11 +1042,11 @@ nuls_asset_symbol = NULS
 
 
 
-## VII, Java-specific design
+##  Java-specific design
 
 [^Description]: Core object class definition, storage data structure, ...
 
-## 八, supplementary content
+##  Supplementary content
 
 [^Description]: Required content not covered above
 
