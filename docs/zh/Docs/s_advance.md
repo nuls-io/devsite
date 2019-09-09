@@ -2,11 +2,66 @@
 
 ## 合约NULS资产转出的交易说明
 
+**交易类型 txType = 18**
+
+### 转出实现方式
+
+在合约SDK中，Address对象中有一个方法
+
+```java
+/**
+ * 合约向该地址转账
+ *
+ * @param value 转账金额（多少Na）
+ */
+public native void transfer(BigInteger value);
+```
+当智能合约的方法内执行了此方法，则合约会转移相应的资产到指定的Address中，示例如下:
+
+```java
+// 根据账户地址实例化一个Address对象
+Address recipient = new Address("NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw");
+// 转移18个NULS到这个账户地址
+recipient.transfer(BigInteger.valueOf(1800000000L));
+
+```
+
+### 结果查询
+
 如果从合约地址转走NULS，那么会在合约的执行结果中体现，结果中的`transfers`数组对象中展示了每一笔合约转账，这里展示的数据仅是合约转账交易的概要信息。
 
-`block`中不会包含这类交易，因为它不在节点网络上广播，它是vm生成的数据，每一个得到智能合约交易的节点去执行，把执行结果保存在自己的节点上，当一个区块中所有的合约交易执行完后，会产生一个`stateRoot`，这个`stateRoot`会在`block`里广播出来。
+示例: 截取合约执行结果的`transfers`数组对象，如下
 
-合约NULS资产转出交易没有签名，由每个节点验证区块时生成这类交易，另外，这类交易也不在广播数据的范围内，需要从另外的接口调取，详细数据请通过 **以下接口** 来得到交易的_序列化字符串_数据。
+```json
+"transfers": [
+    {
+        // 合约NULS资产转出交易hash
+        "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
+        "from": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
+        "value": "1800000000",
+        "outputs": [
+            {
+                "to": "NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw",
+                "value": "1800000000"
+            }
+        ],
+        // 调用合约交易hash
+        "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
+    }
+]
+```
+
+### 完整交易序列化数据查询
+
+#### 交易背景
+
+<b style="color:red">注意：`block`中不会包含这类交易，因为它不在节点网络上广播。</b> 
+
+每一个得到智能合约交易的节点执行智能合约，把执行结果保存在自己的节点上，当一个区块中所有的合约交易执行完后，会产生一个`stateRoot`，这个`stateRoot`会在`block`里广播出来。
+
+#### 查询方式
+
+完整交易序列化数据也包含在合约执行结果中，结果中的`contractTxList`数组对象会包含本次合约执行后生成的合约NULS资产转出交易
 
 以下是包含合约NULS资产转出交易的执行结果
 
@@ -24,10 +79,11 @@
 "id":1234
 }
 ```
->
-> 获取合约的执行结果
 
-以下结果中，`contractTxList`即是本次合约执行后生成的交易，注意：这个结构里不限于合约NULS资产转出交易，根据业务的不同会生成不同的合约NULS资产转出交易，比如合约共识交易 --> [智能合约共识交易说明](./consensusTransaction.html)
+
+以下结果中，`contractTxList`会包含本次合约执行后生成的交易
+
+> 注意：这个结构里不限于合约NULS资产转出交易，根据业务的不同会生成不同的合约交易，比如合约共识交易 --> [智能合约共识交易说明](./consensusTransaction.html)
 
 ```json
 {
@@ -37,7 +93,7 @@
         "data": {
             "success": true,
             "errorMessage": null,
-            "contractAddress": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
+            "contractAddress": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
             "result": "multyForAddress: 888634777633",
             "gasLimit": 200000,
             "gasUsed": 20038,
@@ -51,16 +107,12 @@
             "transfers": [
                 {
                     "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
-                    "from": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
-                    "value": "200000000",
+                    "from": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
+                    "value": "1800000000",
                     "outputs": [
                         {
-                            "to": "tNULSeBaMp9wC9PcWEcfesY7YmWrPfeQzkN1xL",
-                            "value": "100000000"
-                        },
-                        {
-                            "to": "tNULSeBaMshNPEnuqiDhMdSA4iNs6LMgjY6tcL",
-                            "value": "100000000"
+                            "to": "NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw",
+                            "value": "1800000000"
                         }
                     ],
                     "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
@@ -81,7 +133,11 @@
 
 ## 智能合约手续费
 
-### 1. 智能合约费用收取的规则，如何计费？接口调用者付多少钱？都是由谁收到了这些费用？
+### 1. 智能合约手续费由谁支付？
+
+发布合约、调用合约、删除合约，都由发起交易的地址支付手续费，合约地址本身不支付手续费。
+
+### 2. 智能合约费用收取的规则，如何计费？接口调用者付多少钱？都是由谁收到了这些费用？
 
 在主链上，多出三个类型的交易，`创建智能合约`, `调用智能合约`, `删除智能合约`
 
@@ -108,7 +164,12 @@ public static final int STACK = 2;//栈操作
 public static final int STORE = 1;//把栈顶的值存入本地变量
 public static final int ARRAYSTORE = 5;//把栈项的值存到数组里
 public static final int TRANSFER = 1000;//转账交易
-
+public static final int SHA3 = 500;//SHA3调用
+public static final int VERIFY_SIGNATURE = 500;//验证签名
+public static final int RANDOM_COUNT_SEED = 5000;//根据高度和原始种子个数生成一个随机种子
+public static final int RANDOM_HEIGHT_SEED = 5000;//根据高度区间生成一个随机种子
+public static final int OBJ_TO_JSON = 2000;//对象转换成json
+public static final int INVOKE_EXTERNAL_METHOD = 5000;//调用虚拟机外部方法(其他模块注册的方法)
 ```
     
 * 一次智能合约总手续费
