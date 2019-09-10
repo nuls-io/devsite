@@ -1,6 +1,6 @@
 # Advanced Description
 
-## Contract nuls assets transferred out of the transaction description
+## Contract transfers NULS out
 
 **Transaction type txType = 18**
 
