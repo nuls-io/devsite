@@ -166,7 +166,7 @@ public interface Contract {
 <dependency>
     <groupId>io.nuls.sdk</groupId>
     <artifactId>sdk-contract-vm</artifactId>
-    <version>2.0-beta1</version>
+    <version>LATEST</version>
 </dependency>
 ```
 
@@ -880,26 +880,5 @@ public void transferToContractTest(String storedData) {
 ```
 
 The contract uses the `Msg.value()` to get the NULS that the caller transferred to the contract. The unit is Na, as in the above code.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

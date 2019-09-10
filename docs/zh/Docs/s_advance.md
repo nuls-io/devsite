@@ -33,6 +33,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 示例: 截取合约执行结果的`transfers`数组对象，如下
 
 ```json
+{
 "transfers": [
     {
         // 合约NULS资产转出交易hash
@@ -49,6 +50,8 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
         "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
     }
 ]
+}
+
 ```
 
 ### 完整交易序列化数据查询
@@ -227,7 +230,7 @@ public interface Contract {
 <dependency>
     <groupId>io.nuls.sdk</groupId>
     <artifactId>sdk-contract-vm</artifactId>
-    <version>2.0-beta1</version>
+    <version>LATEST</version>
 </dependency>
 ```
 
