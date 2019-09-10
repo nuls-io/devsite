@@ -818,14 +818,18 @@ public @interface JSONSerializable {
 
 ## 6. Main RPC interface of smart contract
 
-In the NULS 2.0 module [NULS-SDK-PROVIDER] (https://github.com/nuls-io/nuls-sdk-provider/blob/master/README.md), we provide most of the commonly used APIs. Please refer to the Smart Contracts section of this document.
+In the NULS 2.0 module `NULS-API`, we provide most of the commonly used APIs. Please refer to the Smart Contracts section of this document.
+
+[NULS-API_JSONRPC](./i_nuls-api_JSONRPC.html)
+
+[NULS-API_RESTFUL](./i_nuls-api_RESTFUL.html)
 
 
 ## 7. Some instructions for the delivery of smart contract method parameters
 
 
 If the methods of smart contract include the parameter of  `array type`, please use the following method to transfer parameters
-> Refer to the [vote contract] (https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26) code for the `create` method
+> Refer to the [vote contract](https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26) code for the `create` method
 
 ```json
 {

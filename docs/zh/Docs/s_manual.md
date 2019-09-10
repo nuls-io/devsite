@@ -817,7 +817,11 @@ public @interface JSONSerializable {
 
 ## 6. 智能合约主要的API
 
-在NULS2.0模块[NULS-SDK-PROVIDER](https://github.com/nuls-io/nuls-sdk-provider/blob/master/README.md)中，我们提供了大部分常用的API，请参考该文档中智能合约部分。
+在NULS2.0模块`NULS-API`中，我们提供了大部分常用的API，请参考该文档中智能合约部分。
+
+[NULS-API_JSONRPC](./i_nuls-api_JSONRPC.html)
+
+[NULS-API_RESTFUL](./i_nuls-api_RESTFUL.html)
 
 ## 7. 智能合约方法参数传递的一些说明
 
