@@ -2,7 +2,7 @@
 home: true
 heroImage: /icon.png
 actionText: Quick Start →
-actionLink: /zh/Guide/
+actionLink: /Guide/
 features:
 - title: Modular
   details: Encapsulate complex underlying technology and divide the blockchain system into completely independent business modules

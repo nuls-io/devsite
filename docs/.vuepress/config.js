@@ -21,7 +21,7 @@ module.exports = {
     ['link', { rel: 'icon', href: "/icon.png" }]
     ],
     themeConfig : {
-        repo: 'nuls-io/devsite/tree/dev',
+        repo: 'nuls-io/devsite/',
         editLinks: true,
         docsDir: 'docs',
         docsBranch: 'dev',
