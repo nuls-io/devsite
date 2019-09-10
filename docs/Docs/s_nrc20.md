@@ -155,4 +155,5 @@ public ApprovalEvent(@Required Address owner, @Required Address spender, @Requir
 ## Implementation
 
 #### Example implementations are available at
-- https://github.com/nuls-io/nuls-contracts/tree/master/nrc20
+
+[NRC20-Token](https://github.com/CCC-NULS/NRC20-Token)

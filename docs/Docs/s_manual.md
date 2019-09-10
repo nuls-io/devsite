@@ -21,7 +21,7 @@ The main features provided by the NULS Smart Contract Development Tool:
 * Create a new NULS smart contract Maven project
 * Provide visual pages to compile, package, deploy contracts, call contracts, query contract related data
 
-> [Documentation for building a NULS smart contract Development Tool](/NULS2.0/mavenPackage.html)
+> [Documentation for building a NULS smart contract Development Tool](./s_tools.html)
 
 ## 3. NULS smart contract specifications and syntax
 

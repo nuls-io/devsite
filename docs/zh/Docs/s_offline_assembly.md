@@ -866,7 +866,7 @@ async function createContract(pri, pub, createAddress, assetsChainId, assetsId) 
 
 ### 2.2 调用合约
 
-请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCall.js#L67`
+请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCall.js#L75`
 
 _**核心代码片段:**_
 
