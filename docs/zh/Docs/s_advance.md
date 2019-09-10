@@ -292,7 +292,7 @@ public class Utils {
     > 合约调用此方法时，传递的参数类型都是`String`类型
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:--------:|:--------:|
     |packingAddress    |打包地址     |String     |AddressTool.getStringAddressByBytes(byte[])|略|
     |deposit    |保证金     |String     |BigInteger - toString|略|
     |commissionRate    |佣金比例     |String     |Byte - toString|范围[10,100]|
@@ -302,7 +302,7 @@ public class Utils {
     > 返回值类型是 **`String`** 字符串类型
     
     |描述 |字符串转换逻辑    |
-    |:--:|:--:|
+    |:---------:|:---------:|
     |交易hash     |略|
 
 - 示例
@@ -328,7 +328,7 @@ public class Utils {
     > 合约调用此方法时，传递的参数类型都是`String`类型
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash    |创建合约共识节点交易hash     |String     |略|略|
     |deposit    |委托金额     |String     |BigInteger - toString|略|
 
@@ -337,7 +337,7 @@ public class Utils {
     > 返回值类型是 **`String`** 字符串类型
     
     |描述 |字符串转换逻辑    |
-    |:--:|:--:|
+    |:---------:|:---------:|
     |交易hash     |略|
     
 - 示例
@@ -363,7 +363,7 @@ public class Utils {
     > 合约调用此方法时，传递的参数类型都是`String`类型
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash    |加入共识时的交易hash     |String     |略|略|
 
 - 返回值说明
@@ -371,7 +371,7 @@ public class Utils {
     > 返回值类型是 **`String`** 字符串类型
     
     |描述 |字符串转换逻辑    |
-    |:--:|:--:|
+    |:---------:|:---------:|
     |交易hash     |略|
 
 - 示例
@@ -403,7 +403,7 @@ public class Utils {
     > 返回值类型是 **`String`** 字符串类型
     
     |描述 |字符串转换逻辑    |
-    |:--:|:--:|
+    |:---------:|:---------:|
     |交易hash     |略|
 
 - 示例
@@ -425,7 +425,7 @@ public class Utils {
     > 合约调用此方法时，传递的参数类型都是`String`类型
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash    |加入共识时的交易hash     |String     |略|略|
 
 - 返回值说明
@@ -433,7 +433,7 @@ public class Utils {
     > 返回值类型是 **`String[]`** 字符串数组类型
     
     |index  |描述 |字符串转换逻辑    |
-    |:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|
     |0    | agentHash     |略|
     |1    | agentAddress     |AddressTool.getStringAddressByBytes(byte[])|
     |2    | joinAddress     |AddressTool.getStringAddressByBytes(byte[])|
@@ -467,7 +467,7 @@ public class Utils {
     > 合约调用此方法时，传递的参数类型都是`String`类型
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash    |创建合约共识节点交易hash     |String     |略|略|
 
 - 返回值说明
@@ -475,7 +475,7 @@ public class Utils {
     > 返回值类型是 **`String[]`** 字符串数组类型
     
     |index  |描述 |中文描述   |字符串转换逻辑    |
-    |:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|
     |0    | agentAddress     |创建节点的地址   |AddressTool.getStringAddressByBytes(byte[])|
     |1    | packingAddress     |打包地址    |AddressTool.getStringAddressByBytes(byte[])|
     |2    | rewardAddress     |奖励地址 |AddressTool.getStringAddressByBytes(byte[])|
@@ -506,8 +506,8 @@ public class Utils {
 
 ```json
 {
-    "success": true, `合约执行是否成功`,
-    "errorMessage": null, `失败原因 - string, eg. not enough gas`,
+    "success": true, //合约执行是否成功,
+    "errorMessage": null, //失败原因 - string, eg. not enough gas,
     "contractAddress": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
     "result": "multyForAddress: 888634777633",
     "gasLimit": 200000,
@@ -517,10 +517,10 @@ public class Utils {
     "txSizeFee": "100000",
     "actualContractFee": "500950",
     "refundFee": "4499050",
-    "value": 10000000000, `合约调用者向合约地址转入的NULS，没有此业务时是0`
-    "stackTrace": null, `失败的异常堆栈信息 - string, 执行失败也不一定有`,
+    "value": 10000000000, //合约调用者向合约地址转入的NULS，没有此业务时是0
+    "stackTrace": null, //失败的异常堆栈信息 - string, 执行失败也不一定有,
     "transfers": [
-        `这是是指合约地址转出主网币(NULS)的交易信息，与token无关，与token无关，与token无关，正常情况下，token转账的合约交易不会有此类交易，以下是示例`
+        //这是是指合约地址转出主网币(NULS)的交易信息，与token无关，与token无关，与token无关，正常情况下，token转账的合约交易不会有此类交易，以下是示例
         {
             "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
             "from": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
@@ -539,14 +539,14 @@ public class Utils {
         }
     ],
     "events": [
-        `合约内发送的事件信息 - 按token合约标准来说，一笔合约token转账会发送相应的一笔名为TransferEvent的事件信息，支持一次合约调用交易内进行多笔token转账`
-        `返回的事件内容结构是JSON结构`
+        //合约内发送的事件信息 - 按token合约标准来说，一笔合约token转账会发送相应的一笔名为TransferEvent的事件信息，支持一次合约调用交易内进行多笔token转账
+        //返回的事件内容结构是JSON结构`
         "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}"
     ],
     "tokenTransfers": [
-        `针对以上token转账事件(TransferEvent)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol, decimals`
-        `注意1：这里的value是合约token数值转换后的去小数化存储值，同以太坊token方式`
-        `注意2: 产生的token转账的合约地址不一定是当前调用的合约，所以在这个数据结构里有contractAddress属性，它不是冗余字段`
+        //针对以上token转账事件(TransferEvent)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol, decimals
+        //注意1：这里的value是合约token数值转换后的去小数化存储值，同以太坊token方式
+        //注意2: 产生的token转账的合约地址不一定是当前调用的合约，所以在这个数据结构里有contractAddress属性，它不是冗余字段
         {
             "contractAddress": "TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA",
             "from": "TTasNs8MGGGaFT9hd9DLmkammYYv69vs",
@@ -558,7 +558,7 @@ public class Utils {
         }
     ],
     "invokeRegisterCmds": [
-        `合约创建共识，调用的外部命令记录`
+        //合约创建共识，调用的外部命令记录
         {
             "cmdName": "cs_createContractAgent",
             "args": {
@@ -577,7 +577,7 @@ public class Utils {
         }
     ],
     "contractTxList": [
-        `当前执行智能合约后生成的交易`
+        //当前执行智能合约后生成的交易
         "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
         "1400bf6b285d006600204aa9d1010000000000000000000000000000000000000000000000000000020002f246b18e8c697f00ed9bd22696998e469d3f824b020001d7424d91c83566eb94233b5416f2aa77709c03e1020002f246b18e8c697f00ed9bd22696998e469d3f824b648c0117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff00"
     ],
@@ -597,9 +597,8 @@ public class Utils {
 
     > **`创建共识节点的地址`、`共识奖励地址`固定为`当前合约地址`**
     
-    
-    |名称  |描述     |类型    |是否可选    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|
+    |名称      |描述        |类型      |是否可选       |备注       |
+    |:--------:|:--------:|:--------:|:---------:|:---------:|
     |packingAddress    |打包地址     |byte[]     |是      |方法调用必填|
     |deposit    |保证金     |BigInteger     |是      |方法调用必填|
     |commissionRate    |佣金比例     |byte     |是      |方法调用必填 - 范围[10,100]|
@@ -611,7 +610,7 @@ public class Utils {
     > **共识模块向智能合约模块注册的创建合约共识节点的交易命令信息**
 
     |模块代码  |cmd名称     |注册类型   |参数名称列表 |返回值类型    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus    | cs_createContractAgent |0(NEW_TX)|List.of("packingAddress","deposit","commissionRate")|1(STRING_ARRAY)     |创建共识节点|
     
 - 交易类型 
@@ -625,7 +624,7 @@ public class Utils {
     > 调用此方法时，共识模块此命令将收到以下参数
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |packingAddress    |打包地址     |String     |AddressTool.getStringAddressByBytes(byte[])|略|
     |deposit    |保证金     |String     |BigInteger - toString|略|
     |commissionRate    |佣金比例     |String     |Byte - toString|范围[10,100]|
@@ -641,14 +640,14 @@ public class Utils {
     - 智能合约虚拟机收到的是**`String[]`** 字符串数组类型
     
         |index  |描述 |字符串转换逻辑    |
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0    |交易hash     |略|
         |1    |交易序列化字符串     |RPCUtil.encode(byte[])|
     
     - 调用者收到的是**`String`** 字符串类型
 
         |描述 |字符串转换逻辑    |
-        |:--:|:--:|
+        |:---------:|:---------:|
         |交易hash     |略|
 
 #### 1.2 合约委托共识节点
@@ -658,7 +657,7 @@ public class Utils {
     > **`委托地址`固定为`当前合约地址`**
     
     |名称  |描述     |类型    |是否可选    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash    |创建合约共识节点交易hash     |String     |是      |方法调用必填|
     |deposit    |委托金额     |BigInteger     |是      |方法调用必填|
     |address    |委托地址     |byte[]     |**否**      |底层默认为**`当前合约地址`**|
@@ -668,7 +667,7 @@ public class Utils {
     > **共识模块向智能合约模块注册的创建合约委托共识节点的交易命令信息**
     
     |模块代码  |cmd名称     |注册类型   |参数名称列表 |返回值类型    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus    | cs_contractDeposit |0(NEW_TX)|List.of("agentHash","deposit")|1(STRING_ARRAY)     |委托共识节点|
 
 - 交易类型 
@@ -682,7 +681,7 @@ public class Utils {
     > 调用此方法时，共识模块此命令将收到以下参数
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash    |创建合约共识节点交易hash     |String     |略|略|
     |deposit    |委托金额     |String     |BigInteger - toString|略|
     |chainId    |当前链ID     |int     |-|底层提供参数|
@@ -697,14 +696,14 @@ public class Utils {
     - 智能合约虚拟机收到的是**`String[]`** 字符串数组类型
     
         |index  |描述 |字符串转换逻辑    |
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0    |交易hash     |略|
         |1    |交易序列化字符串     |RPCUtil.encode(byte[])|
     
     - 调用者收到的是**`String`** 字符串类型
 
         |描述 |字符串转换逻辑    |
-        |:--:|:--:|
+        |:---------:|:---------:|
         |交易hash     |略|
 
 #### 1.3 合约退出共识节点
@@ -714,7 +713,7 @@ public class Utils {
     > **`创建节点的地址`固定为`当前合约地址`**
     
     |名称  |描述     |类型    |是否可选    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash    |加入共识时的交易hash     |String     |是      |方法调用必填|
     |agentAddress    |创建节点的地址     |byte[]     |**否**      |底层默认为**`当前合约地址`**|
 
@@ -723,7 +722,7 @@ public class Utils {
     > **共识模块向智能合约模块注册的创建合约退出共识节点的交易命令信息**
     
     |模块代码  |cmd名称     |注册类型   |参数名称列表 |返回值类型    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus    | cs_contractWithdraw |0(NEW_TX)|List.of("joinAgentHash")|1(STRING_ARRAY)     |退出委托共识节点|
 
 - 交易类型 
@@ -737,7 +736,7 @@ public class Utils {
     > 调用此方法时，共识模块此命令将收到以下参数
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash    |加入共识时的交易hash     |String     |略|略|
     |chainId    |当前链ID     |int     |-|底层提供参数|
     |contractAddress    |合约地址     |String     |AddressTool.getStringAddressByBytes(byte[])|底层提供参数|
@@ -749,14 +748,14 @@ public class Utils {
     - 智能合约虚拟机收到的是**`String[]`** 字符串数组类型
     
         |index  |描述 |字符串转换逻辑    |
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0    |交易hash     |略|
         |1    |交易序列化字符串     |RPCUtil.encode(byte[])|
     
     - 调用者收到的是**`String`** 字符串类型
 
         |描述 |字符串转换逻辑    |
-        |:--:|:--:|
+        |:---------:|:---------:|
         |交易hash     |略|
     
     
@@ -767,7 +766,7 @@ public class Utils {
     > **`创建节点的地址`固定为`当前合约地址`**
     
     |名称  |描述     |类型    |是否可选    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentAddress    |创建节点的地址     |byte[]     |**否**      |底层默认为**`当前合约地址`**|
 
 - 注册信息
@@ -775,7 +774,7 @@ public class Utils {
     > **共识模块向智能合约模块注册的创建合约注销共识节点的交易命令信息**
     
     |模块代码  |cmd名称     |注册类型   |参数名称列表 |返回值类型    |备注    |
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus    |cs_stopContractAgent     |0(NEW_TX)|`empty list`|1(STRING_ARRAY)     |注销共识节点|
 
 - 交易类型 
@@ -789,7 +788,7 @@ public class Utils {
     > 调用此方法时，共识模块此命令将收到以下参数
     
     |名称  |描述     |类型   |合约转换`String`逻辑    |备注|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |chainId    |当前链ID     |int     |-|底层提供参数|
     |contractAddress    |合约地址     |String     |AddressTool.getStringAddressByBytes(byte[])|底层提供参数|
     |contractSender    |合约调用者地址     |String     |AddressTool.getStringAddressByBytes(byte[])|底层提供参数|
@@ -800,14 +799,14 @@ public class Utils {
     - 智能合约虚拟机收到的是**`String[]`** 字符串数组类型
     
         |index  |描述 |字符串转换逻辑    |
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0    |交易hash     |略|
         |1    |交易序列化字符串     |RPCUtil.encode(byte[])|
     
     - 调用者收到的是**`String`** 字符串类型
 
         |描述 |字符串转换逻辑    |
-        |:--:|:--:|
+        |:---------:|:---------:|
         |交易hash     |略|
     
 
