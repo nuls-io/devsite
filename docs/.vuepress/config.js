@@ -46,7 +46,7 @@ module.exports = {
                             'g_transaction',
                             'g_contribute',
                             'g_linux_tutorial',
-                            
+                            'g_multi_sign_account'
                             ]
                         }
                     ],
