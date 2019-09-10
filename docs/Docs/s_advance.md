@@ -80,10 +80,14 @@ The following is the result of the execution of the contract nuls asset transfer
 }
 ```
 
+<<<<<<< HEAD
 
 In the following results, `contractTxList` will contain the transaction generated after the execution of this contract.
 
 > Note: This structure is not limited to contract NULS asset transfer transactions, different contract transactions will be generated according to different business, such as contract consensus transaction --> [Smart Contract Consensus Transaction Description] (./consensusTransaction.html)
+=======
+In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to the contract NULS asset transfer transaction, and different contract NULS asset transfer transactions will be generated according to different business, such as contract consensus. Trading --> [Smart Contract Consensus Transaction Description](./consensusTransaction.html)
+>>>>>>> febc3aaf7100522c6518e55bb40c840791032322
 
 ```json
 {
@@ -218,7 +222,7 @@ public interface Contract {
 <dependency>
     <groupId>io.nuls.sdk</groupId>
     <artifactId>sdk-contract-vm</artifactId>
-    <version>2.0-beta1</version>
+    <version>LATEST</version>
 </dependency>
 ```
 
@@ -283,7 +287,7 @@ public class Utils {
     > When the contract calls this method, the parameter types passed are `String` type
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |packingAddress |Package Address|String |AddressTool.getStringAddressByBytes(byte[])|Slightly|
     |deposit |Margin |String |BigInteger - toString|Slightly|
     |commissionRate | Commission Ratio | String | Byte - toString | Range [10,100]|
@@ -293,7 +297,7 @@ public class Utils {
     > Return value type is **`String`** string type
     
     |Description|String Conversion Logic|
-    |:--:|:--:|
+    |:---------:|:---------:|
     |transaction hash | slightly |
 
 - example
@@ -319,7 +323,7 @@ public class Utils {
     > When the contract calls this method, the parameter types passed are `String` type
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash |Create contract consensus node transaction hash |String |略|略|
     |deposit |trust amount|String |BigInteger - toString|略|
 
@@ -328,7 +332,7 @@ public class Utils {
     > Return value type is **`String`** string type
     
     |Description|String Conversion Logic|
-    |:--:|:--:|
+    |:---------:|:---------:|
     |transaction hash | slightly |
     
 - example
@@ -354,7 +358,7 @@ public class Utils {
     > When the contract calls this method, the parameter types passed are `String` type
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash | Trading when joining consensus = hash | slightly | slightly |
 
 - Return value description
@@ -362,7 +366,7 @@ public class Utils {
     > Return value type is **`String`** string type
     
     |Description|String Conversion Logic|
-    |:--:|:--:|
+    |:---------:|:---------:|
     |transaction hash | slightly |
 
 - example
@@ -394,7 +398,7 @@ public class Utils {
     > Return value type is **`String`** string type
     
     |Description|String Conversion Logic|
-    |:--:|:--:|
+    |:---------:|:---------:|
     |transaction hash | slightly |
 
 - example
@@ -416,7 +420,7 @@ public class Utils {
     > When the contract calls this method, the parameter types passed are `String` type
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash | Trading when joining consensus = hash | slightly | slightly |
 
 - Return value description
@@ -424,7 +428,7 @@ public class Utils {
     > Return value type is **`String[]`** string array type
     
     |index |Description|String Conversion Logic|
-    |:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|
     |0 | agentHash | Slightly |
     |1    | agentAddress     |AddressTool.getStringAddressByBytes(byte[])|
     |2    | joinAddress     |AddressTool.getStringAddressByBytes(byte[])|
@@ -458,7 +462,7 @@ public class Utils {
     > When the contract calls this method, the parameter types passed are `String` type
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash |Create contract consensus node transaction hash |String |略|略|
 
 - Return value description
@@ -466,7 +470,7 @@ public class Utils {
     > Return value type is **`String[]`** string array type
     
     |index |Description|Chinese description|String conversion logic|
-    |:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|
     |0 | agentAddress |Create node address|AddressTool.getStringAddressByBytes(byte[])|
     |1 | packingAddress |Package Address|AddressTool.getStringAddressByBytes(byte[])|
     |2 | rewardAddress |Reward Address|AddressTool.getStringAddressByBytes(byte[])|
@@ -497,8 +501,8 @@ public class Utils {
 
 ```json
 {
-    "success": true, `Contract execution is successful`,
-    "errorMessage": null, `failure reason - string, eg. not enough gas`,
+    "success": true, //Contract execution is successful,
+    "errorMessage": null, //failure reason - string, eg. not enough gas,
     "contractAddress": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
     "result": "multyForAddress: 888634777633",
     "gasLimit": 200000,
@@ -508,10 +512,10 @@ public class Utils {
     "txSizeFee": "100000",
     "actualContractFee": "500950",
     "refundFee": "4499050",
-    "value": 10000000000, `The NULS that the contract caller transferred to the contract address, 0 if there is no such service.
-    "stackTrace": null, `failed exception stack information - string, execution failure does not necessarily have `,
+    "value": 10000000000, //The NULS that the contract caller transferred to the contract address, 0 if there is no such service.
+    "stackTrace": null, //failed exception stack information - string, execution failure does not necessarily have ,
     "transfers": [
-        `This refers to the transaction information of the contract address transferred out of the main network currency (NULS), which has nothing to do with the token, has nothing to do with the token, and has nothing to do with the token. Under normal circumstances, the contract transaction of the token transfer will not have such a transaction. The following is an example. `
+        //This refers to the transaction information of the contract address transferred out of the main network currency (NULS), which has nothing to do with the token, has nothing to do with the token, and has nothing to do with the token. Under normal circumstances, the contract transaction of the token transfer will not have such a transaction. The following is an example. 
         {
             "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
             "from": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
@@ -530,14 +534,14 @@ public class Utils {
         }
     ],
     "events": [
-        `Event information sent within the contract - According to the token contract standard, a contract token transfer will send a corresponding event message called TransferEvent, which supports multiple token transfer within one contract call transaction.
-        `The event content structure returned is the json structure.
+        //Event information sent within the contract - According to the token contract standard, a contract token transfer will send a corresponding event message called TransferEvent, which supports multiple token transfer within one contract call transaction.
+        //The event content structure returned is the json structure.
         "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}"
     ],
     "tokenTransfers": [
-        `Data processing for the above token transfer event (TransferEvent), supplementing the basic information of the contract in which the token transfer occurred - name, symbol, decimals`
-        `Note 1: The value here is the decimal value storage value after the conversion of the contract token value, with the Ethereum token method.
-        `Note 2: The contract address of the generated token transfer is not necessarily the contract currently called, so there is a contractAddress attribute in this data structure, which is not a redundant field.
+        //Data processing for the above token transfer event (TransferEvent), supplementing the basic information of the contract in which the token transfer occurred - name, symbol, decimals
+        //Note 1: The value here is the decimal value storage value after the conversion of the contract token value, with the Ethereum token method.
+        //Note 2: The contract address of the generated token transfer is not necessarily the contract currently called, so there is a contractAddress attribute in this data structure, which is not a redundant field.
         {
             "contractAddress": "TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA",
             "from": "TTasNs8MGGGaFT9hd9DLmkammYYv69vs",
@@ -549,7 +553,7 @@ public class Utils {
         }
     ],
     "invokeRegisterCmds": [
-        `Contract to create consensus, call external command record`
+        //Contract to create consensus, call external command record
         {
             "cmdName": "cs_createContractAgent",
             "args": {
@@ -568,7 +572,7 @@ public class Utils {
         }
     ],
     "contractTxList": [
-        `The transaction generated after the current execution of the smart contract`
+        //The transaction generated after the current execution of the smart contract
         "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
         "1400bf6b285d006600204aa9d1010000000000000000000000000000000000000000000000000000020002f246b18e8c697f00ed9bd22696998e469d3f824b020001d7424d91c83566eb94233b5416f2aa77709c03e1020002f246b18e8c697f00ed9bd22696998e469d3f824b648c0117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff00"
     ],
@@ -588,9 +592,8 @@ The Consensus Module provides four contract-related consensus transactions. When
 
     > **`Create consensus node address`, `consensus reward address` fixed to `current contract address`**
     
-    
     |Name|Description|Type|Optional|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |packingAddress |package address|byte[] |y|method call required |
     |deposit | margin | BigInteger | yes | method call required |
     |commissionRate | commission ratio | byte | yes | method call required - range [10,100]|
@@ -602,7 +605,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > ** Consensus module registration command information for the contract consensus node registered with the smart contract module**
 
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus | cs_createContractAgent |0(NEW_TX)|List.of("packingAddress","deposit","commissionRate")|1(STRING_ARRAY) |Create Consensus Node|
     
 - Transaction Type 
@@ -616,7 +619,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > When calling this method, the consensus module will receive the following parameters for this command
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |packingAddress |Package Address|String |AddressTool.getStringAddressByBytes(byte[])|Slightly|
     |deposit |Margin |String |BigInteger - toString|Slightly|
     |commissionRate | Commission Ratio | String | Byte - toString | Range [10,100]|
@@ -632,14 +635,14 @@ The Consensus Module provides four contract-related consensus transactions. When
     - The smart contract virtual machine receives the **`String[]`** string array type
     
         |index |Description|String Conversion Logic|
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0 | Trading hash | Slightly |
         |1 |Transaction Serialization String|RPCUtil.encode(byte[])|
     
     - The caller receives a **`String`** string type
 
         |Description|String Conversion Logic|
-        |:--:|:--:|
+        |:---------:|:---------:|
         |transaction hash | slightly |
 
 #### 1.2 Contract delegation consensus node
@@ -649,7 +652,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > **`Delegation Address` is fixed to `current contract address`**
     
     |Name|Description|Type|Optional|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash |Create contract consensus node transaction hash |String |Yes |Method call required |
     |deposit |dealer amount|BigInteger |yes|method call required|
     |address |trust address|byte[] |**no** |The underlying default is **`current contract address`**|
@@ -659,7 +662,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > ** Consensus module registration command information for the contract creation consensus node registered with the smart contract module**
     
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus | cs_contractDeposit |0(NEW_TX)|List.of("agentHash","deposit")|1(STRING_ARRAY) |Delegate Consensus Node|
 
 - Transaction Type 
@@ -673,7 +676,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > When calling this method, the consensus module will receive the following parameters for this command
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentHash |Create contract consensus node transaction hash |String |略|略|
     |deposit |trust amount|String |BigInteger - toString|略|
     |chainId |current chain ID |int |-|lower layer provides parameters|
@@ -688,14 +691,14 @@ The Consensus Module provides four contract-related consensus transactions. When
     - The smart contract virtual machine receives the **`String[]`** string array type
     
         |index |Description|String Conversion Logic|
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0 | Trading hash | Slightly |
         |1 |Transaction Serialization String|RPCUtil.encode(byte[])|
     
     - The caller receives a **`String`** string type
 
         |Description|String Conversion Logic|
-        |:--:|:--:|
+        |:---------:|:---------:|
         |transaction hash | slightly |
 
 #### 1.3 Contract Exit Consensus Node
@@ -705,7 +708,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > **`Create node's address` is fixed to `current contract address`**
     
     |Name|Description|Type|Optional|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash |Transaction hash when joining consensus |String |Yes |Method call required |
     |agentAddress |Create node address|byte[] |**No** |The underlying default is **`current contract address`**|
 
@@ -714,7 +717,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > ** Consensus module registration contract information registered with the smart contract module to exit the consensus node **
     
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus | cs_contractWithdraw |0(NEW_TX)|List.of("joinAgentHash")|1(STRING_ARRAY) |Exit the delegate consensus node|
 
 - Transaction Type 
@@ -728,7 +731,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > When calling this method, the consensus module will receive the following parameters for this command
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |joinAgentHash | Trading when joining consensus = hash | slightly | slightly |
     |chainId |current chain ID |int |-|lower layer provides parameters|
     |contractAddress |Contract Address|String |AddressTool.getStringAddressByBytes(byte[])|The underlying provides parameters|
@@ -740,14 +743,14 @@ The Consensus Module provides four contract-related consensus transactions. When
     - The smart contract virtual machine receives the **`String[]`** string array type
     
         |index |Description|String Conversion Logic|
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0 | Trading hash | Slightly |
         |1 |Transaction Serialization String|RPCUtil.encode(byte[])|
     
     - The caller receives a **`String`** string type
 
         |Description|String Conversion Logic|
-        |:--:|:--:|
+        |:---------:|:---------:|
         |transaction hash | slightly |
     
     
@@ -758,7 +761,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > **`Create node's address` is fixed to `current contract address`**
     
     |Name|Description|Type|Optional|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |agentAddress |Create node address|byte[] |**No** |The underlying default is **`current contract address`**|
 
 - registration message
@@ -766,7 +769,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > **Consultation module registration contract cancellation agreement node transaction command information registered with the smart contract module**
     
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
     |consensus |cs_stopContractAgent |0(NEW_TX)|`empty list`|1(STRING_ARRAY) |Logout Consensus Node|
 
 - Transaction Type 
@@ -780,7 +783,7 @@ The Consensus Module provides four contract-related consensus transactions. When
     > When calling this method, the consensus module will receive the following parameters for this command
     
     |Name|Description|Type|Contract Conversion `String` Logic|Remarks|
-    |:--:|:--:|:--:|:--:|:--:|
+    |:---------:|:---------:|:---------:|:---------:|:---------:|
     |chainId |current chain ID |int |-|lower layer provides parameters|
     |contractAddress |Contract Address|String |AddressTool.getStringAddressByBytes(byte[])|The underlying provides parameters|
     |contractSender |Contract caller address|String |AddressTool.getStringAddressByBytes(byte[])|The underlying provides parameters|
@@ -791,14 +794,14 @@ The Consensus Module provides four contract-related consensus transactions. When
     - The smart contract virtual machine receives the **`String[]`** string array type
     
         |index |Description|String Conversion Logic|
-        |:--:|:--:|:--:|
+        |:---------:|:---------:|:---------:|
         |0 | Trading hash | Slightly |
         |1 |Transaction Serialization String|RPCUtil.encode(byte[])|
     
     - The caller receives a **`String`** string type
 
         |Description|String Conversion Logic|
-        |:--:|:--:|
+        |:---------:|:---------:|
         |transaction hash | slightly |
     
 
@@ -825,7 +828,7 @@ The following is the result of the execution of the contract internal transfer t
 >
 > Get the execution result of the contract
 
-In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to contract consensus transactions, and different contract internal transactions will be generated according to different business, such as contract NULS asset transfer transaction-- > [Smart Contract NULS Asset Transfer Transaction Instructions] (./assetsOff.html)
+In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to contract consensus transactions, and different contract internal transactions will be generated according to different business, such as contract NULS asset transfer transaction-- > [Smart Contract NULS Asset Transfer Transaction Instructions](./assetsOff.html)
 
 ```json
 {
@@ -933,26 +936,5 @@ public void transferToContractTest(String storedData) {
 ```
 
 The contract uses the `Msg.value()` to get the NULS that the caller transferred to the contract. The unit is Na, as in the above code.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

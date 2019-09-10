@@ -192,13 +192,13 @@ For example: Bitcoin address, the two-byte chainId is appended before the addres
 
 ### Multi-Signed Account
 
-Refer to [Multi-Signature Account Document] ()
+Refer to [Multi-Signature Account Document]()
 
 
 
 ## Module Service
 
-Refer to [Account Module RPC-API Interface Document] (./account.md)
+Refer to [Account Module RPC-API Interface Document](./account.md)
 
 ## Agreement
 

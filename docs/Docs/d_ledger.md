@@ -562,5 +562,5 @@ no
 ##  Supplementary content
 
 ### References Literature
-- [Proficient in Ethereum - Chapter 7 Transaction] (https://github.com/inoutcode/ethereum_book/blob/master/%E7%AC%AC%E4%B8%83%E7%AB%A0.asciidoc)
+- [Proficient in Ethereum - Chapter 7 Transaction](https://github.com/inoutcode/ethereum_book/blob/master/%E7%AC%AC%E4%B8%83%E7%AB%A0.asciidoc)
 

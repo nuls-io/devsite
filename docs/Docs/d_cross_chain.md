@@ -215,7 +215,7 @@ Cross-chain transfer transaction fees consume nuls, so parallel chain accounts n
 
 ## Module Service
 
-Refer to [cross-chain module RPC-API interface documentation] (./i_cross-chain.md)
+Refer to [cross-chain module RPC-API interface documentation](./i_cross-chain.md)
 
 
 ## Agreement

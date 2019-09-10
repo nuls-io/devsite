@@ -4,4 +4,4 @@ yarn && yarn run build
 mv docs/.vuepress/dist ./docker/dist
 cd docker
 docker build -t doc_site .
-rm -rf dist
+#rm -rf dist

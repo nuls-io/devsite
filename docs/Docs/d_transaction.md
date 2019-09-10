@@ -92,7 +92,7 @@ When the module starts, it needs to read the configuration information of all th
 
 #### Collecting and processing transaction processes
 
-![New transaction processing flow] (./design/tx/new-tx.png)
+![New transaction processing flow](./design/tx/new-tx.png)
 
 - Collect newly created transactions for each module of this node
 
@@ -241,7 +241,7 @@ Serialize the transaction except for sigData to get a complete byte array.The da
 
 ## Module Service
 
-Refer to [Transaction Management Module RPC-API Interface Document] (./transaction.md)
+Refer to [Transaction Management Module RPC-API Interface Document](./transaction.md)
 
 
 

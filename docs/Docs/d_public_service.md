@@ -66,7 +66,7 @@ SyncBlockTask: Timing task for sync block
 
 ## module rpc interface
 
-Refer to [NULS2.0-API Interface Document] (./account.md)
+Refer to [NULS2.0-API Interface Document](./account.md)
 
  
 
