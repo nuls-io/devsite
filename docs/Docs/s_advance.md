@@ -822,6 +822,69 @@ In the following results, `contractTxList` is the transaction generated after th
 }
 ```
 
+## Transaction instructions for transferring contracts to nuls assets
+
+Ordinary account address, to the contract into the nuls, must be achieved through the `call contract' transaction
+
+** Call contract parameter list**
+ 
+| Parameter Name | Parameter Type | Parameter Description | Required |
+| --------------- |:----------:| ---------------------------------------- |:----:|
+| chainId | int | chain id | yes |
+| sender | string | Transaction Creator Account Address | Yes |
+| password | string | caller account password | yes |
+| value | biginteger | The amount of the primary network asset that the caller transferred to the contract address. If there is no such service, fill BigInteger.ZERO | Yes |
+| gasLimit | long | GAS Limit | Yes |
+| price | long | GAS unit price | Yes |
+| contractAddress | string | contract address | yes |
+| methodName | string | contract method | yes |
+| methodDesc | string | Contract method description, if the method in the contract is not overloaded, this parameter can be empty | No |
+| args | object[] | List of parameters | No |
+| remark | string | Transaction Notes | No|
+
+### Transfer to implementation
+
+You can transfer the contract to NULS by filling in the corresponding amount in the `value` of the calling contract parameter.
+
+Example of nuls-api restful request method:
+
+```json
+{
+  "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
+  "gasLimit" : 20000,
+  "price" : 25,
+  "password" : "nuls123456",
+  "remark" : null,
+  "contractAddress" : "tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K",
+  // Fill in the NULS to be transferred here, the unit is Na
+  "value" : 3600000000,
+  "methodName" : "transferToContractTest",
+  "methodDesc" : null,
+  "args" : [ "method parameter"]
+}
+```
+In the above example, the general account `tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG` transferred 36 NULS to the contract address `tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K`.
+
+<b style="color:red">Note: The contract method invoked must be marked with a Payable annotation, otherwise the system will directly reject the transaction.</b>
+
+Contract code - method implementation is as follows
+
+```java
+/**
+ * Mark @Payable method to pass NULS amount when calling
+ */
+@Payable
+public void transferToContractTest(String storedData) {
+    // The NULS that the caller transferred to the contract, the unit is Na
+    BigInteger value = Msg.value();
+}
+```
+
+The contract uses the `Msg.value()` to get the NULS that the caller transferred to the contract. The unit is Na, as in the above code.
+
+
+
+
 
 
 

@@ -882,6 +882,67 @@ public class Utils {
     }
 }
 ```
+## 向合约转入NULS资产的交易说明
+
+普通账户地址，往合约转入NULS，都要通过`调用合约`交易来实现
+
+**调用合约参数列表**
+ 
+| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
+| --------------- |:----------:| ---------------------------------------- |:----:|
+| chainId         |    int     | 链id                                      |  是   |
+| sender          |   string   | 交易创建者账户地址                                |  是   |
+| password        |   string   | 调用者账户密码                                  |  是   |
+| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
+| gasLimit        |    long    | GAS限制                                    |  是   |
+| price           |    long    | GAS单价                                    |  是   |
+| contractAddress |   string   | 合约地址                                     |  是   |
+| methodName      |   string   | 合约方法                                     |  是   |
+| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
+| args            |  object[]  | 参数列表                                     |  否   |
+| remark          |   string   | 交易备注                                     |  否   |
+
+### 转入实现方式
+
+在调用合约参数的`value`中填入相应金额，就可以向合约转入NULS
+
+NULS-API RESTFUL请求方式示例:
+
+```json
+{
+  "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
+  "gasLimit" : 20000,
+  "price" : 25,
+  "password" : "nuls123456",
+  "remark" : null,
+  "contractAddress" : "tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K",
+  // 这里填入要转入的NULS，单位是Na
+  "value" : 3600000000,
+  "methodName" : "transferToContractTest",
+  "methodDesc" : null,
+  "args" : [ "method parameter"]
+}
+```
+上述示例中，普通账户`tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG`向合约地址`tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K`转入了36个NULS
+
+<b style="color:red">注意：调用的合约方法必须标注Payable注解，否则，系统会直接拒绝这笔交易。</b>
+
+合约代码 - 方法实现如下
+
+```java
+/**
+ * 标记@Payable的方法，才能在调用时候传入NULS金额
+ */
+@Payable
+public void transferToContractTest(String storedData) {
+    // 调用者向合约转入的NULS，单位是Na
+    BigInteger value = Msg.value();
+}
+```
+
+合约中通过`Msg.value()`获取本次调用者向合约转入的NULS，单位是Na，如上述代码。
+
+
 
 
 

@@ -1,4 +1,4 @@
-# public-service module Design Document
+# Public-service module Design Document
 
 ## Overall overview
 

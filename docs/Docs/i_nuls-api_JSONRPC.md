@@ -1,4 +1,4 @@
-# NULS2.0 API-JSONRPC
+# API-JSONRPC
 
 **NULS customized the NULS2.0 wallet version required for docking. The docking wallet embeds the `NULS-API` module. The module encapsulates the NULS-SDK function, uses the HTTP protocol to access the interface, and supports `JSON-RPC`. And `Restful` two formats.**
 
