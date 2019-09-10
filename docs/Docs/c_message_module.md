@@ -69,7 +69,7 @@ The message content is stored after encryption, so decryption is required for re
 2. Decrypt the message title and content with the decrypted reading permission `key`.
 
 #### Reading the Inbox or Outbox messageing list
-Find the file with the same name as the account address in the `sender` and `recipient` folders, read the hash by line, and then use the hash to get the message details through [Decrypt message information] (#Decrypt message information), and finally assemble the list.
+Find the file with the same name as the account address in the `sender` and `recipient` folders, read the hash by line, and then use the hash to get the message details through [Decrypt message information](#Decrypt message information), and finally assemble the list.
 
 ### Charging fees
 The fee payment is achieved by verifying that the CoinData of the transaction of binding messagebox and sending message contains the specified amount of assets transferred to the specified black hole address (fee address).

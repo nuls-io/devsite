@@ -704,7 +704,7 @@ The txList stores a list of Transaction objects. Each item is a serialized Trans
 The rules for reading data in a byte array are as follows:
 1. 2 bytes store unsigned 16-bit int to save the transaction type.
 2. 4 bytes store unsigned 32-bit int to save transaction timestamp (January 1, 1970 to the current number of seconds)
-3. Variable length type storage remark string, see [variable length type reading method] (# variable length type storage structure)
+3. Variable length type storage remark string, see [variable length type reading method](#Variable Length Type Storage Structure)
 4. Become a type store txData string, business custom, but still need to be converted into a byte array.
 5. The variable length type stores the coinData string, which is the hexadecimal string after the serialData object is serialized. See [CoinData Deserialization Method](#CoinData)
 6. The variable length type stores the transaction signature string, which is a hexadecimal string serialized by the TransactionSignature object.
@@ -753,7 +753,7 @@ Serialization rules:
 2. Public key data (length is obtained according to 1)
 3. Variable length type stores signature data.
 
-##### <span id="Variable Type Storage Structure"> Variable Length Type Storage Structure</span>
+##### <span id="Variable Length Type Storage Structure"> Variable Length Type Storage Structure</span>
 The variable length type consists of two parts. The first part is the length of the byte occupied by the varint type storage data, and the second part is the data part. The way to read the variable length type structure is to read the varint data first and read the corresponding length of the business data.
 1. [varint](https://learnmeabitcoin.com/glossary/varint) type stores the length of the byte array.
 2. Convert the business data into a byte array and store it.

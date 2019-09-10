@@ -303,8 +303,8 @@ NULS2.0采用微服务架构，模块之间使用[websocket](https://zh.wikipedi
         "TimeZone": "9",
         "MessageType": "NegotiateConnection",
         "MessageData": {
-            "Abbreviation": "ledger",   #模块name
-            "ProtocolVersion": "0.1",   #协议版本号
+            "Abbreviation": "ledger",   //模块name
+            "ProtocolVersion": "0.1",   //协议版本号
             "CompressionAlgorithm": "zlib",
             "CompressionRate": "0"
         }

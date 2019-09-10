@@ -130,7 +130,7 @@ The above is a functional analysis of the implementation of the consensus module
 
 The consensus module is the core module of the blockchain. Due to the different consensus mechanisms, the services provided by the outside are not the same.The module service will describe in detail the services shared by the consensus module and the services specific to the poc mechanism.
 
-Refer to [Consensus Module RPC-API Interface Document] (./consensus.md)
+Refer to [Consensus Module RPC-API Interface Document](./consensus.md)
 
 ### 2.3 Module internal function
 

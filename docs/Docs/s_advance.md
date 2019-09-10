@@ -27,7 +27,7 @@ The following is the result of the execution of the contract nuls asset transfer
 >
 > Get the execution result of the contract
 
-In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to the contract NULS asset transfer transaction, and different contract NULS asset transfer transactions will be generated according to different business, such as contract consensus. Trading --> [Smart Contract Consensus Transaction Description] (./consensusTransaction.html)
+In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to the contract NULS asset transfer transaction, and different contract NULS asset transfer transactions will be generated according to different business, such as contract consensus. Trading --> [Smart Contract Consensus Transaction Description](./consensusTransaction.html)
 
 ```json
 {
@@ -772,7 +772,7 @@ The following is the result of the execution of the contract internal transfer t
 >
 > Get the execution result of the contract
 
-In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to contract consensus transactions, and different contract internal transactions will be generated according to different business, such as contract NULS asset transfer transaction-- > [Smart Contract NULS Asset Transfer Transaction Instructions] (./assetsOff.html)
+In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to contract consensus transactions, and different contract internal transactions will be generated according to different business, such as contract NULS asset transfer transaction-- > [Smart Contract NULS Asset Transfer Transaction Instructions](./assetsOff.html)
 
 ```json
 {
