@@ -8,8 +8,9 @@ This section is a guide for the use of the full node wallet for the Linux versio
 
 | Versions |    Date    | Contents |
 | :------: | :--------: | :------: |
-|  V1.0.0  | 2018-03-18 |  alpha   |
-|  V1.1.0  | 2019-07-08 |   Beta   |
+|  V0.9.0  | 2018-03-18 |  alpha   |
+|  V0.9.1  | 2019-07-08 |   Beta   |
+|  V1.0.0  | 2019-09-08 |   Mainnet|
 
 ## Preparation
 
