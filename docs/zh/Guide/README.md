@@ -15,11 +15,11 @@ NULS于创立之初，即已提出模块化思维与多链并行基本架构，N
 ## 白皮书
 NULS白皮书是一个权威性的报告，它指出了NULS的目标是什么，以及我们打算如何实现它
 
-[查看白皮书了解更多](https://nuls.io/api/v1/download/files/papers/white/NULS_whitepaper_zh_V1.0.pdf)
+[查看白皮书了解更多](https://nuls.io/wp-content/uploads/2019/06/NULS_Whitepaper_zh_2.0.pdf)
 
 ## 黄皮书
 
 NULS黄皮书是白皮书的技术详解版本，它深入研究了NULS的各个方面
 
 
-[查看黄皮书了解更多](https://nuls.io/api/v1/download/files/papers/yellow/NulsYellowpaper1.1.pdf)
+[查看黄皮书了解更多](https://nuls.io/wp-content/uploads/2019/06/NulsYellowpaper1.1.pdf)
