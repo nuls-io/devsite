@@ -18,7 +18,7 @@ module.exports = {
         }
     },
     head:[
-    ['link', { rel: 'icon', href: "/icon.png" }]
+    ['link', { rel: 'icon', href: "/favicon.ico" }]
     ],
     themeConfig : {
         repo: 'nuls-io/devsite/',
@@ -43,6 +43,7 @@ module.exports = {
                             collapsable:false,
                             children: [
                             '',
+                            'g_quickstart',
                             'g_transaction',
                             'g_contribute',
                             'g_linux_tutorial',
@@ -136,6 +137,7 @@ module.exports = {
                             collapsable:false,
                             children: [
                             '',
+                            'g_quickstart',
                             'g_transaction',
                             'g_contribute',
                             'g_linux_tutorial',
