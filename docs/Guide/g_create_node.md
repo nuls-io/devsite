@@ -2,6 +2,8 @@
 
 ## Download Install Node Wallet
 
+**Note:** Pls be sure to open the 8001 and 8002 ports of the server, otherwise the network will be unstable. 
+
 The user downloads the node wallet compression package (linux version, windows version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and uploads it to the server for decompression (the Chinese language is not included in the path).
 
 ![20190912110813](./g_create_node/20190912110813.png)
