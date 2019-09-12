@@ -1,6 +1,17 @@
-# Interface interaction format and specification json-rpc
+# Interface interact
 
-## Request Body
+## Public API Service
+
+| Domain        | Service Specification  | 
+| ----------- | ----- | 
+| https://api.nuls.io  | nuls-api Service  | 
+| https://apiserver.nuls.io | Public Service  | 
+| https://public1.nuls.io | Public Service  | 
+| https://v1.api.nuls.io  | 1.0 Public Service  | 
+
+## Interface format
+
+### Request Body
 
 ```json
 {
@@ -18,7 +29,7 @@
 Params | true | array | Command Parameter Table |
 | min_version | false | float | compatible minimum version |
 
-## Response Body
+### Response Body
 
 - success
 
@@ -38,9 +49,9 @@ Params | true | array | Command Parameter Table |
 | msg | true | string | User-Friendly Request Execution Result Description |
 | result | true | object | method return value |
 
-## Error Code
+### Error Code
 
-### JSON RPC Standard errors
+#### JSON RPC Standard errors
 
 | Code      | Possible Return message | Description                                                  |
 | --------- | ----------------------- | ------------------------------------------------------------ |
@@ -57,7 +68,7 @@ Params | true | array | Command Parameter Table |
 | 10        | Execution error         | Will contain a subset of custom errors in the data field. See below. |
 | 11 to 100 | `Server error`          | Reserved for implementation-defined server-errors.           |
 
-### Custom error fields
+#### Custom error fields
 
 Custom error `10` can contain custom error(s) to further explain what went wrong.
 

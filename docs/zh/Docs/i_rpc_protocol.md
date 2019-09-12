@@ -1,6 +1,17 @@
-# 接口交互格式与规范 JSON-RPC
+# 接口交互
 
-## Request Body
+## 公开接口
+
+| 域名        | 服务说明  | 
+| ----------- | ----- | 
+| https://api.nuls.io  | nuls-api 服务  | 
+| https://apiserver.nuls.io | Public Service 服务 | 
+| https://public1.nuls.io | Public Service 服务 | 
+| https://v1.api.nuls.io  | 1.0 Public Service 服务 | 
+
+##  JSON-RPC格式与规范
+
+### Request Body
 
 ```json
 {
@@ -18,7 +29,7 @@
 | params      | true  | array  | 命令参数表     |
 | min_version | false | float  | 兼容的最低版本 |
 
-## Response Body
+### Response Body
 
 - success
 
@@ -38,9 +49,9 @@
 | msg    | true | string | 用户友好的请求执行结果描述              |
 | result | true | object | 方法返回值                              |
 
-## Error Code
+### Error Code
 
-### JSON RPC Standard errors
+#### JSON RPC Standard errors
 
 | Code      | Possible Return message | Description                                                  |
 | --------- | ----------------------- | ------------------------------------------------------------ |
@@ -57,7 +68,7 @@
 | 10        | Execution error         | Will contain a subset of custom errors in the data field. See below. |
 | 11 to 100 | `Server error`          | Reserved for implementation-defined server-errors.           |
 
-### Custom error fields
+#### Custom error fields
 
 Custom error `10` can contain custom error(s) to further explain what went wrong.
 
