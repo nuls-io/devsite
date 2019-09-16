@@ -24,7 +24,7 @@ module.exports = {
         repo: 'nuls-io/devsite/',
         editLinks: true,
         docsDir: 'docs',
-        docsBranch: 'dev',
+        docsBranch: 'master',
         sidebarDepth: 2,
         lastUpdated: 'Last Updated',
         locales: {
