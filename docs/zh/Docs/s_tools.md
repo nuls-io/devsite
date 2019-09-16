@@ -20,7 +20,7 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 2、在IntelliJ IDEA中选择新建maven项目，然后按下图（图1）的操作顺序将NULS智能合约Maven archetype添加到IDEA中。在添加archetype时参数如下：
 
      GroupId：io.nuls.v2
-     ArtifactId: nuls-smartcontract-archetype 
+     ArtifactId: nuls-smartcontract-archetype
      Version: 0.13
 
 ![图1](../../Docs/mavenPackage/create_archetype.png)
