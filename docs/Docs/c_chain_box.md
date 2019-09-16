@@ -613,7 +613,7 @@ After the execution is completed, the directory 'java-module' is created in the 
 ### Module debugging method
 In the module development process, you need to coordinate with the chainbox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interface. The program is deployed to production when finished; the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
 1. The packaged executable program should be placed in the outer directory of the module development directory.
-2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (Using Java as an example).
+2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (using java as an example):
 
 ```
 [Core]
