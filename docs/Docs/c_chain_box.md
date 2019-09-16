@@ -160,7 +160,7 @@ NULS WALLET IS RUNNING
 ==========================
 ```
 
-### 6 Start creating blocks, and other housekeeping:
+### 6 Start creating blocks, and other housekeeping
 
 Now that the node is started, also referred to as the 'seed node', we need to import the default block address of the seed node so that the node can begin to produce blocks.
 
