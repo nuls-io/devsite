@@ -160,7 +160,7 @@ NULS WALLET IS RUNNING
 ==========================
 ```
 
-### 7 Start creating blocks, and other housekeeping:
+### 6 Start creating blocks, and other housekeeping:
 
 Now that the node is started, also referred to as the 'seed node', we need to import the default block address of the seed node so that the node can begin to produce blocks.
 
@@ -611,9 +611,9 @@ tools -t java-module
 ```
 After the execution is completed, the directory 'java-module' is created in the current directory, and the common development tools can be imported to start the development business. There will be corresponding usage documents in each template.
 ### Module debugging method
-In the module development process, you need to coordinate with the chainbox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interfut program is deployed to the productionOOnce finished, the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
+In the module development process, you need to coordinate with the chainbox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interface. The program is deployed to production when finished; the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
 1. The packaged executable program should be placed in the outer directory of the module development directory.
-2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (take java as an example)
+2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (Using Java as an example).
 
 ```
 [Core]
@@ -663,7 +663,7 @@ no
 ##### Example
 
 ```
-doto
+tools -l
 ```
 ### Integrating modules into the NULS 2.0 runtime environment
 #### Command: tools -p &lt;module folder>
@@ -700,7 +700,7 @@ When the block is rolled back, the callback function will be triggered. The busi
 #### Deserialization, [Common Agreement](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-EN/h.%E9%80%9A%E7%94%A8%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1v1.3.md)
 The data of the two parameters txList and blockHeader are transmitted in the form of hexadecimal data. First, the hexadecimal is converted into a byte array, and then deserialized into structured data according to different rules.
 ##### [Transaction](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/data/Transaction.java)
-The txList stores a list of Transaction objects. Each item is a serialized Transaction object into a hexadecimal string. Deserialize txList first from [General Protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md) takes the value of the txList parameter, which is a string array of json, and then iterates through the array to get the serialized value of a single Transaction object. Convert the serialized value to a byte array. Then take the corresponding data values ​​one by one from the byte array.
+The txList stores a list of Transaction objects. Each item is a serialized Transaction object into a hexadecimal string. Deserializing txList first from [General Protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md) takes the value of the txList parameter, which is a string array of json, and then iterates through the array to get the serialized value of a single Transaction object. Convert the serialized value to a byte array. Then take the corresponding data values ​​one by one from the byte array.
 The rules for reading data in a byte array are as follows:
 1. 2 bytes store unsigned 16-bit int to save the transaction type.
 2. 4 bytes store unsigned 32-bit int to save transaction timestamp (January 1, 1970 to the current number of seconds)
@@ -722,14 +722,14 @@ The CoinData object stores the relationship between the deposit and withdrawal o
 3. 2 bytes store unsigned 16-bit int to save the asset id.
 4. 32 bytes store the numeric data of the BigInteger type to save the amount of gold assets.
 5. Variable length type storage account nonce value.
-6. 1 byte storage lock status (for consensus)
+6. 1 byte storage lock status (for consensus).
 
 ##### <span id="CoinTo">[CoinTo](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/data/CoinTo.java)</span>
 1. Variable length type storage account address. [Address Serialization Code](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/basic/AddressTool.java )
 2. 2 bytes store unsigned 16-bit int to save the asset chain id.
 3. 2 bytes store unsigned 16-bit int to save the asset id.
 4. 32 bytes store the numeric data of the BigInteger type to save the amount of gold assets.
-5. 8 bytes store signed 64-bit long save lock time (time to lock assets)
+5. 8 bytes store signed 64-bit long save lock time (time to lock assets).
 
 ##### <span id="TransactionSignature">[TransactionSignature](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/signture/TransactionSignature.java)</span>
 There will be multiple signatures in front of the transaction, so the TransactionSignature stores the list of signature data. Multiple signatures are stored sequentially in a byte array. In the case of deserialization, it is rotated in turn.
@@ -750,7 +750,7 @@ Serialization rules:
 
 ##### <span id="BlockSignature">[BlockSignature](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/signture/BlockSignature.java)</span>
 1. 1 byte stores the public key length.
-2. Public key data (length is obtained according to 1)
+2. Public key data (length is obtained according to 1).
 3. Variable length type stores signature data.
 
 ##### <span id="Variable Length Type Storage Structure"> Variable Length Type Storage Structure</span>
@@ -762,14 +762,14 @@ The variable length type consists of two parts. The first part is the length of 
 
 
 ### Module Template List
-* [java module development template](https://github.com/nuls-io/nuls-module-template-java)
+* [Java Module Development Template](https://github.com/nuls-io/nuls-module-template-java)
 * [Blockchain Browser Template](https://github.com/nuls-io/nuls-module-explorer)
 
 ### <span id="doclist">Document List</span>
-* [Java module development template usage documentation](https://github.com/nuls-io/nuls-module-template-java)
+* [Java Module development template usage documentation](https://github.com/nuls-io/nuls-module-template-java)
 * [Encrypted Mail Sample Module Design Document](https://github.com/CQBeer/nuls-chainbox/blob/master/example/%E6%A8%A1%E5%9D%97%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3.md)
 * [Account Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/account.md)
-* [book module RPC interface document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/ledger.md)
+* [Book module RPC interface document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/ledger.md)
 * [Transaction Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/transaction.md)
 * [Block module RPC interface document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/block.md)
 * [Consensus Module RPC Interface Document](https://github.com/nuls-io/nuls-chainbox/blob/master/document/consensus.md)
