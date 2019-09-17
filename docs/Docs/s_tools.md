@@ -20,7 +20,7 @@ The maven archetype also integrates an offline smart contract client. After the 
 2、Select the new maven project in IntelliJ IDEA and add the NULS smart contract Maven archetype to IDEA in the order shown below (Figure 1). The parameters when adding archetype are as follows:
 
      GroupId：io.nuls.v2
-     ArtifactId: nuls-smartcontract-archetype 
+     ArtifactId: nuls-smartcontract-archetype
      Version: 0.13
 
 ![图1](./mavenPackage/create_archetype.png)
