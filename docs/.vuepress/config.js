@@ -47,6 +47,7 @@ module.exports = {
                             'g_transaction',
                             'g_contribute',
                             'g_create_node',
+                            'g_pocm',
                             'g_docker',
                             'g_linux_tutorial',
                             'g_multi_sign_account'
@@ -143,6 +144,7 @@ module.exports = {
                             'g_transaction',
                             'g_contribute',
                             'g_create_node',
+                            'g_pocm',
                             'g_docker',
                             'g_linux_tutorial',
                             'g_multi_sign_account'
