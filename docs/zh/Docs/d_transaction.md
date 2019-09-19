@@ -241,8 +241,7 @@ froms-tos剩余的部分就是手续费（模型中支持多种资产缴纳手�
 
 ## 模块服务
 
-参考[交易管理模块RPC-API接口文档](./transaction.md)
-
+参考[交易管理模块RPC-API接口文档](https://docs.nuls.io/zh/Docs/i_transaction.html)
 
 
 ## 网络消息体协议 

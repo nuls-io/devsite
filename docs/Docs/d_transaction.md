@@ -241,7 +241,7 @@ Serialize the transaction except for sigData to get a complete byte array.The da
 
 ## Module Service
 
-Refer to [Transaction Management Module RPC-API Interface Document](./transaction.md)
+Refer to [Transaction Management Module RPC-API Interface Document](https://docs.nuls.io/Docs/i_transaction.html)
 
 
 
