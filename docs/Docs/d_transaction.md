@@ -198,24 +198,24 @@ Tos://List<CoinTo> format
 
 Note: Support multiple accounts to transfer different assets to different accounts in the same transaction.
 
-CoinFrom structure [40]
+CoinFrom structure [70]
 
 ```
-Address: //byte[24] account address 
+address: //byte[24] account address 
 assetsChainId://uint16 asset distribution chain
-idassetsId: //uint16 asset
-Idalu: //uint128, the number of transfers
-Nonce : //byte[8] transaction sequence number, the last 8 bytes of the hash of the previous transaction
-Locked : //byte Whether it is locked (locktime: -1), 1 means lock, 0 means non-lock
+assetsId: //uint16 asset
+amount: //uint128, the number of transfers
+nonce : //byte[8] transaction sequence number, the last 8 bytes of the hash of the previous transaction
+locked : //byte Whether it is locked (locktime: -1), 1 means lock, 0 means non-lock
 ```
 
-CoinTo structure [44]
+CoinTo structure [68]
 
 ```
-Address: //byte[24], destination address
+address: //byte[24], destination address
 assetsChainId://uint16 asset distribution chain
-idassetsId: //uint16 asset
-Idalu : //uint128, transfer amount
+assetsId: //uint16 asset
+amount : //uint128, transfer amount
 lockTime://uint32, unlock height or unlock time, -1 is permanent lock
 ```
 
