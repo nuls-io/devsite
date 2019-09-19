@@ -1,6 +1,6 @@
 # Smart contract offline assembly
 
-**Smart Contracts There are three types of transactions to be assembled, namely `Publish Contract`, `Call Contract`, `Delete Contract`. The following will introduce the offline assembly methods of these three transactions using `Java` language and `JavaScript` language respectively. **
+**Smart Contracts There are three types of transactions to be assembled, namely `Publish Contract`, `Call Contract`, `Delete Contract`. The following will introduce the offline assembly methods of these three transactions using `Java` language and `JavaScript` language respectively.**
 
 > **`nrc20 contract code `** is used as an example in the documentation
 
