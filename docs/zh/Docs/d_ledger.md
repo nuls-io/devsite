@@ -150,12 +150,13 @@
 
 ##### 参数说明 (request)
 
-| 字段         | 是否必填 | 数据类型 |         描述信息 |
-| ------------ | :------: | -------: | ---------------: |
-| chainId      |    Y     |      int | 接口调用链的链id |
-| address      |    Y     |   String | 要查询余额的地址 |
-| assetChainId |    Y     |   String |   资产发起的链ID |
-| assetId      |    Y     |      int |           资产ID |
+| 字段         | 是否必填 | 数据类型 |                                          描述信息 |
+| ------------ | :------: | -------: | ------------------------------------------------: |
+| chainId      |    Y     |      int |                                  接口调用链的链id |
+| address      |    Y     |   String |                                  要查询余额的地址 |
+| assetChainId |    Y     |   String |                                    资产发起的链ID |
+| assetId      |    Y     |      int |                                            资产ID |
+| isConfirmed  |    N     |  boolean | 选填项,默认false. 填true,则必须从已确认交易里获取 |
 
 ```json
 {
@@ -191,12 +192,13 @@
 
 ##### 参数说明 (request)
 
-| 字段         | 是否必填 | 数据类型 |         描述信息 |
-| ------------ | :------: | -------: | ---------------: |
-| chainId      |    Y     |      int | 接口调用链的链id |
-| address      |    Y     |   String | 要查询余额的地址 |
-| assetChainId |    Y     |   String |   资产发起的链ID |
-| assetId      |    Y     |   String |           资产ID |
+| 字段         | 是否必填 | 数据类型 |                                          描述信息 |
+| ------------ | :------: | -------: | ------------------------------------------------: |
+| chainId      |    Y     |      int |                                  接口调用链的链id |
+| address      |    Y     |   String |                                  要查询余额的地址 |
+| assetChainId |    Y     |   String |                                    资产发起的链ID |
+| assetId      |    Y     |   String |                                            资产ID |
+| isConfirmed  |    N     |  boolean | 选填项,默认false. 填true,则必须从已确认交易里获取 |
 
 ```json
 {
