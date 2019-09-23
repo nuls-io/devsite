@@ -2,6 +2,11 @@
 
 The SCO platform allows projects to use smart-contract based POCM (Proof of Credit Mining) to create a SCO (Staked Coin Output) node. NULS holders can stake into the projects' SCO nodes and receive the newly-generated project tokens, instead of their usual NULS staking rewards. The SCO project node continuously earns the NULS staking rewards that would otherwise be rewarded to the NULS stakers, and projects can use the rewards to bootstrap and help fund development. The SCO platform and POCM allow this same functionality to be used with any public chain or assets in any blockchain ecosystem
 
+## Test environment
+POCM is a decentralized product based on smart contracts. Users (especially project issuers) can familiarize it with the operational process in the test environment, avoiding misuse and causing asset losses.
+
+Test environment address: [http://beta.pocm.nuls.io/](http://beta.pocm.nuls.io/)
+
 ## NULS holders
 
 You can stake your NULS to the project you like, and then you can get Token from the project, and the NULS used for staking will not be lost. The steps of NULS holder participation on the POCM platform are as follows:
@@ -40,7 +45,11 @@ Click the [Select Item] menu on the pocm platform, enter the page, click the [Is
 
 ### Issued Token
 
-Click the [Issue Token] menu on the POCM platform, enter the page, fill in the form with the token information to issue your own nrc-20 Token (please note the exact name and symbol of the token are consistent with the basic information)
+After submitting the basic information, the project team should send an email to pen@nuls.io, which contains the following contents:
+- project name
+- provide an account address (please take care of the private key of the address) for subsequent publishing of POCM contracts
+
+Upon confirmation of the reply, users can import the account on POCM platform and enter the [user center] page to issue POCM contracts
 
 ![image-20190917112104017](./g_pocm/project2.png)
 
