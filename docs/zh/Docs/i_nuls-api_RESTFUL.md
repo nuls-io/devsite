@@ -107,16 +107,16 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
 
      添加请求头 Content-Type: application/json;charset=UTF-8
      
-     其余请参考 [RESTFUL 接口文档](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_RESTFUL.md)
+     其余请参考 [RESTFUL 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
 
 
 ## 接口调试
 
 我们提供了`Postman`接口调式工具的导入文件(`JSON-RPC`和`RESTFUL`)，导入后，即可调试接口
 
-[JSON-PRC 接口调试-POSTMAN导入文件](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_Postman_JSONRPC.json)
+[JSON-PRC 接口调试-POSTMAN导入文件](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_JSONRPC.json)
 
-[RESTFUL 接口调试-POSTMAN导入文件](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
+[RESTFUL 接口调试-POSTMAN导入文件](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
 
 
 

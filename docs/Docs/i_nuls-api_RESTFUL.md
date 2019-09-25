@@ -107,16 +107,16 @@ Take a transfer transaction as an example: tx.type = 2
 
      Add request header Content-Type: application/json;charset=UTF-8
      
-     For the rest, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_RESTFUL.md)
+     For the rest, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
 
 
 ## Interface debugging
 
 We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interface tuning tool. After importing, you can debug the interface.
 
-[JSON-PRC Interface Debugging - POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_Postman_JSONRPC.json)
+[JSON-PRC Interface Debugging - POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_JSONRPC.json)
 
-[RESTFUL Interface Debugging - POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
+[RESTFUL Interface Debugging - POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
 
 
 
