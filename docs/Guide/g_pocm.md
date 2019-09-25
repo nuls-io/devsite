@@ -5,7 +5,9 @@ The SCO platform allows projects to use smart-contract based POCM (Proof of Cred
 ## Test environment
 POCM is a decentralized product based on smart contracts. Users (especially project issuers) can familiarize it with the operational process in the test environment, avoiding misuse and causing asset losses.
 
-Test environment address: [http://beta.pocm.nuls.io/](http://beta.pocm.nuls.io/)
+- POCM test environment：[http://beta.pocm.nuls.io/](http://beta.pocm.nuls.io/)
+- Light wallet test environment：[https://beta.wallet.nuls.io](https://beta.wallet.nuls.io)
+- Explorer test environment:[http://beta.nulscan.io/](http://beta.nulscan.io/)
 
 ## NULS holders
 
@@ -13,7 +15,7 @@ You can stake your NULS to the project you like, and then you can get Token from
 
 ### Participate POCM
 
-On the pocm platform, click the [Select Item] menu, enter the page and select the approved item, click to enter the item details page.
+On the [pocm platform](https://pocm.nuls.io/), click the [Select Item] menu, enter the page and select the approved item, click to enter the item details page.
 
 ![image-20190917134751446](./g_pocm/user1.png)
 
@@ -35,7 +37,7 @@ The user can continue to participate in the pocm of a certain item in the projec
 
 ## Project team
 
-You can use POCM (SCO distribution platform) to attract NULS community members as the first group of supporters, continue to obtain NULS consensus reward as the project development fund, and get full empowerment of NULS community and ecology.The steps to participate are as follows:
+You can use [POCM (SCO distribution platform) ](https://pocm.nuls.io/) to attract NULS community members as the first group of supporters, continue to obtain NULS consensus reward as the project development fund, and get full empowerment of NULS community and ecology.The steps to participate are as follows:
 
 ### Submit basic information
 
@@ -65,7 +67,7 @@ Fill the form and publish the contract according to the project team's own POCM 
 
 ### Transfer the token to the contract
 
- Import the address holding the token into the wallet, go to the [ Contract ] page, find the token and click [ call ]
+ Import the address holding the token into the [wallet](https://wallet.nuls.io/), go to the [ Contract ] page, find the token and click [ call ]
 
 ![image-20190917114719872](./g_pocm/project5.png)
 
