@@ -53,7 +53,7 @@ The third parameter indicates whether to start the smart contract client when pa
 
 ### Packing NULS Smart Contracts
 
-After completing the development of the smart contract, the smart contract is packaged through the “mvn clean pakcage” command or IDEA's maven plugin. After the package is completed, the offline smart contract client will be launched, and the developer can deploy and invoke the smart contract on this client.
+After completing the development of the smart contract, the smart contract is packaged through the “mvn clean package” command or IDEA's maven plugin. After the package is completed, the offline smart contract client will be launched, and the developer can deploy and invoke the smart contract on this client.
 
 ### Deployment contract
 

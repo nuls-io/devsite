@@ -1,10 +1,10 @@
 # 高级说明
 
-## 合约NULS资产转出的交易说明
+## 一、合约NULS资产转出的交易说明
 
 **交易类型 txType = 18**
 
-### 转出实现方式
+### 1. 转出实现方式
 
 在合约SDK中，Address对象中有一个方法
 
@@ -26,7 +26,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 
 ```
 
-### 结果查询
+### 2. 结果查询
 
 如果从合约地址转走NULS，那么会在合约的执行结果中体现，结果中的`transfers`数组对象中展示了每一笔合约转账，这里展示的数据仅是合约转账交易的概要信息。
 
@@ -54,7 +54,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 
 ```
 
-### 完整交易序列化数据查询
+### 3. 完整交易序列化数据查询
 
 #### 交易背景
 
@@ -134,7 +134,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 ```
 
 
-## 智能合约手续费
+## 二、智能合约手续费
 
 ### 1. 智能合约手续费由谁支付？
 
@@ -194,7 +194,7 @@ public static final int INVOKE_EXTERNAL_METHOD = 5000;//调用虚拟机外部方
     
     区块打包者收到了第一、二部分费用，合约调用者收到第三部分费用
 
-## 触发payable方法的场景
+## 三、触发payable方法的场景
 
 在`vm-sdk`中，对于`Contract#payable`有这样的描述
 
@@ -234,7 +234,7 @@ public interface Contract {
 </dependency>
 ```
 
-### 一、官方钱包转账功能，账户地址向合约地址转账时触发
+### 1. 官方钱包转账功能，账户地址向合约地址转账时触发
 
 触发`payable()`无参方法
 
@@ -242,7 +242,7 @@ public interface Contract {
 
 组装成调用合约交易，默认调用合约的`_payable()`方法
 
-### 二、共识节点奖励地址是合约地址，当前节点出块时触发
+### 2. 共识节点奖励地址是合约地址，当前节点出块时触发
 
 触发`_payable(String[][] args)`有参方法，参数是当前区块 _**所有**_ 奖励地址明细 eg. [[address, amount], [address, amount], ...]
 
@@ -250,7 +250,7 @@ public interface Contract {
 
 共识模块判断CoinBase交易中的奖励地址有合约地址时，调用此合约的`_payable(String[][] args)`方法，并把相应的收益金额转向此合约地址
 
-### 三、委托地址是合约地址，出块奖励中有当前合约地址时触发
+### 3. 委托地址是合约地址，出块奖励中有当前合约地址时触发
 
 触发`_payable(String[][] args)`有参方法，参数 _**是且只是**_ 当前合约地址和奖励金额(只有这一个元素) eg. [[address, amount]]
 
@@ -258,12 +258,12 @@ public interface Contract {
 
 共识模块判断CoinBase交易中的奖励地址有合约地址时，调用此合约的`_payable(String[][] args)`方法，并把相应的收益金额转向此合约地址
 
-### 四、用户直接调用合约的`_payable()`方法时触发
+### 4. 用户直接调用合约的`_payable()`方法时触发
 
 ### 注意: `_payable(String[][] args)`方法是系统调用方法，用户无法调用
 
 
-## 合约调用外部命令说明
+## 四、合约调用外部命令说明
 
 ```java
 public class Utils {
@@ -503,9 +503,9 @@ public class Utils {
     String statusOfContractAgent = contractAgentInfo[9];     
     ```
     
-## 执行结果说明
+## 五、执行结果说明
 
-### 执行结果说明
+### 1. 执行结果说明
 
 ```json
 {
@@ -588,7 +588,7 @@ public class Utils {
 }
 ```
 
-## 合约共识交易说明
+## 六、合约共识交易说明
 
 共识模块提供了四种与合约相关的共识交易，在模块启动时向合约模块注册创建四种合约共识交易的命令，使合约模块能够调用，使之可以创建与注销共识节点、委托与取消委托共识节点
 
@@ -884,7 +884,7 @@ public class Utils {
     }
 }
 ```
-## 向合约转入NULS资产的交易说明
+## 七、向合约转入NULS资产的交易说明
 
 普通账户地址，往合约转入NULS，都要通过`调用合约`交易来实现
 
@@ -904,7 +904,7 @@ public class Utils {
 | args            |  object[]  | 参数列表                                     |  否   |
 | remark          |   string   | 交易备注                                     |  否   |
 
-### 转入实现方式
+### 1. 转入实现方式
 
 在调用合约参数的`value`中填入相应金额，就可以向合约转入NULS
 

@@ -801,7 +801,7 @@ public DeleteContractTransaction newDeleteTx(int chainId, int assetsId, BigInteg
 
 > In this language, we have developed js-sdk, which has implemented offline assembly smart contract trading.
 
-**GitHub address: ** [NULS-v2-JS-SDK](https://github.com/nuls-io/nuls-v2-js-sdk)
+**GitHub address:** [NULS-v2-JS-SDK](https://github.com/nuls-io/nuls-v2-js-sdk)
 
 ### 2.1 Creating a contract
 

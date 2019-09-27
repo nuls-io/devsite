@@ -1,10 +1,10 @@
 # Advanced Description
 
-## Contract transfers NULS out
+## I. Contract transfers NULS out
 
 **Transaction type txType = 18**
 
-#### Transfer out implementation
+### 1. Transfer out implementation
 
 In the contract SDK, there is a method in the Address object.
 
@@ -26,7 +26,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 
 ```
 
-#### Results query
+### 2. Results query
 
 If NULS is transferred from the contract address, it will be reflected in the execution result of the contract. Each contract transfer is displayed in the `transfers` array object in the result. The data displayed here is only the summary information of the contract transfer transaction.
 
@@ -51,15 +51,15 @@ Example: The `transfers` array object that intercepts the contract execution res
 ]
 ```
 
-#### Complete transaction serialization data query
+### 3.Complete transaction serialization data query
 
-##### Trading background
+#### Trading background
 
 <b style="color:red">Note: This type of transaction is not included in `block` because it is not broadcast on the node network.</b> 
 
 Each node that receives the smart contract transaction executes the smart contract and saves the execution result on its own node. When all the contract transactions in a block are executed, a `stateRoot` will be generated. This `stateRoot` will be in the `block. `Broadcast.
 
-##### inquiry mode
+#### inquiry mode
 
 The complete transaction serialization data is also included in the contract execution result. The `contractTxList` array object in the result will contain the contract NULS asset transfer transaction generated after the execution of this contract.
 
@@ -135,11 +135,15 @@ In the following results, `contractTxList` is the transaction generated after th
 ```
 
 
-## Smart Contract Fee
+## II. Smart Contract Fee
 
-### 1. How to charge for smart contract fees, how to charge? How much does the interface caller pay? Who received these fees?
+### 1. Who pays for the smart contract fee?
 
-In the main chain, there are three more types of transactions, `Create Smart Contracts`, `Invoke Smart Contracts`, `Delete Smart Contracts'.
+When `Create Smart Contracts`, `Call Smart Contracts`, `Delete Smart Contracts`, the handling fee is paid by the address at which the transaction is initiated, and the contract address itself does not pay the handling fee.
+
+### 2. How to charge for smart contract fees, how to charge? How much does the interface caller pay? Who received these fees?
+
+In the main chain, there are three more types of transactions, `Create Smart Contracts`, `Call Smart Contracts`, `Delete Smart Contracts`.
 
 The difference between the three transactions and other transactions such as `transfer" lies in the execution of one smart contract, so the execution of smart contracts is also one of the charging standards. 
 
@@ -186,7 +190,7 @@ Public static final int TRANSFER = 1000;//transfer transaction
     
     The block packer receives the first and second part of the fee, and the contract caller receives the third part of the fee.
 
-## Triggering the scene of the payable method
+## III. Triggering the scene of the payable method
 
 In `vm-sdk`, there is such a description for `Contract#payable`
 
@@ -226,19 +230,19 @@ public interface Contract {
 </dependency>
 ```
 
-### First, the official wallet transfer function, triggered when the account address is transferred to the contract address
+### 1. the official wallet transfer function, triggered when the account address is transferred to the contract address
 
 Trigger `payable()` no argument method
 
-**System underlying implementation principle: **
+**System underlying implementation principle:**
 
 Assembled into a call contract transaction, the default call to the contract's `_payable()` method
 
-### Second, the consensus node reward address is the contract address, triggered when the current node is out of the block.
+### 2. the consensus node reward address is the contract address, triggered when the current node is out of the block.
 
 Trigger `_payable(String[][] args)` has a parameter method, the parameter is the current block _** all **_ reward address details eg. [[address, amount], [address, amount], ...]
 
-**System underlying implementation principle: **
+**System underlying implementation principle:**
 
 When the consensus module determines that the reward address in the CoinBase transaction has a contract address, the `_payable(String[][] args)` method of the contract is invoked, and the corresponding revenue amount is transferred to the contract address.
 
@@ -246,16 +250,16 @@ When the consensus module determines that the reward address in the CoinBase tra
 
 Trigger `_payable(String[][] args)` has a parameter method, the parameter _** is and is only **_ current contract address and bonus amount (only this one element) eg. [[address, amount]]
 
-**System underlying implementation principle: **
+**System underlying implementation principle:**
 
 When the consensus module determines that the reward address in the CoinBase transaction has a contract address, the `_payable(String[][] args)` method of the contract is invoked, and the corresponding revenue amount is transferred to the contract address.
 
-### IV. Triggered when the user directly calls the `_payable()` method of the contract
+### 4. Triggered when the user directly calls the `_payable()` method of the contract
 
 ### Note: The `_payable(String[][] args)` method is a system call method that the user cannot call.
 
 
-## Contract Call External Command Description
+## IV. Contract Call External Command Description
 
 ```java
 public class Utils {
@@ -495,9 +499,9 @@ public class Utils {
     String statusOfContractAgent = contractAgentInfo[9];     
     ```
     
-## Execution result description
+## V. Execution result description
 
-### Description of execution results
+### 1. Description of execution results
 
 ```json
 {
@@ -580,7 +584,7 @@ public class Utils {
 }
 ```
 
-## Contract Consensus Transaction Description
+## VI. Contract Consensus Transaction Description
 
 The Consensus Module provides four contract-related consensus transactions. When the module starts, it registers with the contract module to create four contract consensus transactions, so that the contract module can be called, so that it can create and cancel the consensus node, delegate and cancel the delegation consensus. node
 
@@ -602,7 +606,7 @@ The Consensus Module provides four contract-related consensus transactions. When
 
 - registration message
 
-    > ** Consensus module registration command information for the contract consensus node registered with the smart contract module**
+    > **Consensus module registration command information for the contract consensus node registered with the smart contract module**
 
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
     |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
@@ -659,7 +663,7 @@ The Consensus Module provides four contract-related consensus transactions. When
 
 - registration message
 
-    > ** Consensus module registration command information for the contract creation consensus node registered with the smart contract module**
+    > **Consensus module registration command information for the contract creation consensus node registered with the smart contract module**
     
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
     |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
@@ -714,7 +718,7 @@ The Consensus Module provides four contract-related consensus transactions. When
 
 - registration message
 
-    > ** Consensus module registration contract information registered with the smart contract module to exit the consensus node **
+    > **Consensus module registration contract information registered with the smart contract module to exit the consensus node**
     
     |Module Code|cmd Name|Registration Type|Parameter Name List|Return Value Type|Remarks|
     |:---------:|:---------:|:---------:|:---------:|:---------:|:---------:|
@@ -877,7 +881,7 @@ In the following results, `contractTxList` is the transaction generated after th
 }
 ```
 
-## Transaction instructions for transferring contracts to nuls assets
+## VII. Transaction instructions for transferring contracts to nuls assets
 
 Ordinary account address, to the contract into the nuls, must be achieved through the `call contract' transaction
 
@@ -897,7 +901,7 @@ Ordinary account address, to the contract into the nuls, must be achieved throug
 | args | object[] | List of parameters | No |
 | remark | string | Transaction Notes | No|
 
-### Transfer to implementation
+### 1. Transfer to implementation
 
 You can transfer the contract to NULS by filling in the corresponding amount in the `value` of the calling contract parameter.
 

@@ -38,7 +38,7 @@ Offline interface: NULS 2.0 provides a NULS-API tool for [offline operation](htt
 
 	NULS 2.0 supports each chain in addition to the default assets, dynamically add assets according to business needs.Each asset of each chain is distinguished by a composite primary key of the chain ID and the asset ID.For example, NULS of the NULS main network, chainId=1, assetId=1
 
-** Type value of the transaction: **
+**Type value of the transaction:**
 
 	NULS2.0 has multiple transactions by default. Each transaction has different functions. When calling the interface to query the transaction details, the type field can be used to distinguish different transaction types. The following are the enumeration values of the transaction type:
 
