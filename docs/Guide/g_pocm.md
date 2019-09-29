@@ -109,3 +109,12 @@ Select the contract's `removeAgent` method, enter the node's hash value, click [
 ![image-20190917120103974](./g_pocm/project10.png)
 
 On the next version of the POCM product, you will be able to delete nodes directly on the [User Center] page. Please wait patiently.
+
+## Consensus node
+
+As a consensus node On the NULS network, you can work with the project team. The way is: Project team can can add your node as the running node of the project on POCM platform, so that the NULS delegate by the users into the project contract will be automatically stake to your node. Node can obtain the following two parts of rewards
+
+- the node's staking will increase, so the node will receive more NULS commissions
+- node [create address] will receive tokens from the project, the number of tokens is directly proportional to the deposit of the node, the detailed formula is: the number of tokens obtained by the node = your node deposit/(the total number of NULS delegate to the project by the user * 0.9 + the total amount of deposits of all nodes running on the project) * the total number of tokens distributed by the project 
+
+**receive tokens distributed by the project:** import the create address of the node on POCM platform, then enter [user center] and click [receive rewards] on the right side of the list,then you can see tokens on your wallet asset page
