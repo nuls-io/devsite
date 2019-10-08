@@ -27,9 +27,9 @@ For usage information about public-service, consult the [Public-Service Interfac
 
 ### Functional Architecture
 
-Here is the four services provided by public-service via the [api-module]( https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-public-service/documents/img/public-service-functions.png).  The value of this diagram is to give the reader an idea of the services provided and what can be requested within each service.
+Here is the four services provided by public-service via the [api-module]( *** address required/img/public-service-functions.png).  The value of this diagram is to give the reader an idea of the services provided and what can be requested within each service.
 
-Please note, the english version is being created. In the meantime the four services are Data Analysis, Data Storage, Data Statistics, and Query Information/Details.
+
 
 
 
