@@ -2,10 +2,10 @@
 
 ## Introduction
 
-Each NULS 2.0 node can optionally provide a set of API interfaces for obtaining historical blockchain data from nodes. The interface is provided through [JSON-RPC](https://www.jsonrpc.org/specification), and the underlying layer communicates using HTTP protocol.
-Historical blockchain data, is data collected from each completed block since the node was started. This interface does not update blockchain data.  (nuls-api updates blockchain data.)
+Each NULS 2.0 node can optionally provide a set of API interfaces for obtaining blockchain data from nodes. The interface is provided through [JSON-RPC](https://www.jsonrpc.org/specification), and the underlying layer communicates using HTTP protocol.
+Blockchain data is data collected from each completed block since the node was started. This interface does not update blockchain data.  (nuls-api updates blockchain data.)
 
-For more information about public-service consult the [Public-Service Module Design Document](https://docs.nuls.io/Docs/d_public_service.html#module-overview).
+For more information about public-service consult the [Public-Service Module Design Document](https://docs.nuls.io/Docs/d_public_service.html).
 
 
 ## Installation
@@ -22,7 +22,7 @@ Installation instructions:
 
 2.enter: cd wallet
 
-3.Add public-service
+3.Add the public-service module
 
 
 ```
@@ -54,7 +54,7 @@ rpcPort=18003
 
 9.Ensure that all processes have started: ./check-status
 
-10.After step 9 is complete, the node is running successfully.   The node has begun to parse the synchronized blocks and store the collected data in the mongo database. You can confirm that mongo and public-service are working by checking: Logs/public-service/public-service.log.  
+After the node has successfulluy started, the node will parse the current block and store the collected data in the mongo database. You can confirm that mongo and public-service are working by checking: Logs/public-service/public-service.log.  
 
 List the public-service log to confirm that the database daemon mongo is receiving information from public-service. The log will report the connection and display information to confirm that public-service is processing the blocks.
  
