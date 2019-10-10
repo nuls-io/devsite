@@ -7,7 +7,7 @@
 
 #### Why should I have an account module?
 
-Addresses and their associated information in the blockchain play an extremely important role in relation to data security issues.And the information about the account address is also the part that interacts most with the user.Although the entire account address information structure is simple, but the function is more complicated, so we separate an account module to handle the information and functions of the account address.
+Addresses and their associated information in the blockchain play an extremely important role in relation to data security issues. And the information about the account address is also the part that interacts most with the user. Although the entire account address information structure is simple, the function is more complicated, so we separate the account module to handle the information and functions of the account address.
 
 #### What do you want to do with your account?
 
@@ -86,11 +86,11 @@ Community governance requires account signature
 
 
 
-1. api: Provides an interface layer externally, providing operations such as creating, backing up, and setting aliases for accounts;
+1. api: provides an interface layer externally, providing operations such as creating, backing up, and setting aliases for accounts.
 
-2, business logic layer: define the account, account address, alias function;
+2. business logic layer: define the account, account address, alias function.
 
-3, data persistence layer: save account, alias data;
+3. data persistence layer: save account, alias data.
 
 ## feature design
 
