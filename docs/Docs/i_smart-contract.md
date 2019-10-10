@@ -1,13 +1,13 @@
-#智能合同模块
+#Smart contract module
 ## Module Overview
-- nuls smart contract adopts the innovative concept of modular design and adds it to the module warehouse of nuls, so that developers can directly select the nuls smart contract module when they are connected, and then complete the relevant configuration.
+- The nuls smart contract adopts the innovative concept of modular design and adds it to the nuls module warehouse. Developers can directly select the nuls smart contract module when they are connected, and then complete the relevant configuration.
 - The nuls smart contract implements a minute-level deployment that can be quickly deployed on the chain after the developer has written the smart contract.
 - nvs smart contract nvm is based on jvm implementation, nuls smart contract interpreter will seamlessly support jvm system programming language, and will continue to support other mainstream programming languages, application developers can use their familiar language to design nuls smart contract.
-- Through such innovative design thinking, nuls hopes to make the development, deployment and invocation of smart contracts more convenient, thus increasing the developer's interest in application development, and in the near future, can build a rich intelligent contract library.
+- Through such innovative design thinking, nuls hopes to make the development, deployment and invocation of smart contracts more convenient. In a short timeframe a developer can build a rich, intelligent contract library.
 
 ## Interface List
 ### sc\_batch\_begin
-Execute the start notification of a batch of the contract, generate the information of the current batch /batch begin
+Execute the start notification of a batch of the contract, generate the information of the current batch /batch begin.
 #### scope:public
 #### version:1.0
 
