@@ -1,21 +1,21 @@
 # account module
 ## Module Overview
-The Account Module is the basic module that provides information about the various functions of the account.It mainly supports the functions of account generation, security and custody, and information acquisition. Other modules can use various functions of the account and obtain account information according to the interface provided by the account module. Users or other applications can be based on rpc. The interface makes the account more practical and personalized.The account is the basic module and the carrier of the user data.
-## Interface function
+The Account Module is the basic module that provides information about the various functions of the account. It mainly supports the functions of account generation, security and custody, and information acquisition. Other modules can use various functions of the account and obtain account information according to the interface provided by the account module. Users or other applications can be based on rpc. The interface makes the account more practical and personalized. The account is the basic module and the carrier of the user data.
+## Interface functions
 - Account generation
-- Create an account, import an account
+- Import an account
 - Account security and custody
-- Backup of account, setting account password, modifying account password, removing account
-- Acquisition of account information
-- Query individual account information, obtain multiple account information, obtain account address, check account balance, and query account alias
+- Backup account, set account password, modify account password, remove account
+- Query and acquire account information
+- Obtain multiple account information, obtain account address, check account balance, and query account alias
 - Other useful and personalized features to set account aliases, set account notes, verify account encryption, sign, verify account address format, verify account password is correct, etc.
 
 
 ## Interface List
 ### ac\_removeAccount
-Remove specified account/Remove specified account
-#### scope:public
-#### version:1.0
+Remove specified account.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -30,9 +30,9 @@ Remove specified account/Remove specified account
 | value | boolean | success |
 
 ### ac\_getAccountList
-Get all account collections and put them in the cache /query all account collections and put them in cache
-#### scope:public
-#### version:1.0
+Get or query all account collections and put them in the cache.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -49,9 +49,9 @@ Get all account collections and put them in the cache /query all account collect
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encryptedPrikeyHex | string | Encrypted Private Key |
 
 ### ac\_signDigest
-Data digest signature / Data digest signature
-#### scope:public
-#### version:1.0
+Data digest signature.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -67,9 +67,9 @@ Data digest signature / Data digest signature
 | signature | string | Post-Signature Data |
 
 ### ac\_getAccountByAddress
-Get account information by address /get account info according to address
-#### scope:public
-#### version:1.0
+Get account information by address.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -86,9 +86,9 @@ Get account information by address /get account info according to address
 | encryptedPrikeyHex | string | Encrypted Private Key |
 
 ### ac\_signBlockDigest
-Block data digest signature
-#### scope:public
-#### version:1.0
+Block data digest signature.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -105,8 +105,8 @@ Block data digest signature
 
 ### ac\_setRemark
 Set up a note for the account / Set remark for accounts
-#### scope:public
-#### version:1.0
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -121,8 +121,8 @@ Set up a note for the account / Set remark for accounts
 | value | boolean | success |
 
 ### ac\_importAccountByPriKey
-Import account based on private key /Import accounts by private key
-#### scope:public
+Import account via private key.
+#### scope: public
 #### version:1.0
 
 #### parameter list
@@ -139,9 +139,9 @@ Import account based on private key /Import accounts by private key
 | address | string | Imported account address|
 
 ### ac\_createOfflineAccount
-Create an offline account, the account will not be saved to the database, and will return all information to the account / create an offline account, which is not saved to the database and will directly return all information to the account.
-#### scope:public
-#### version:1.0
+Create an offline account. The account will not be saved to the database, and will return all information to the account.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -164,9 +164,9 @@ Create an offline account, the account will not be saved to the database, and wi
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark | string | Account Notes |
 
 ### ac\_createContractAccount
-Create smart contract account /create smart contract account
-#### scope:public
-#### version:1.0
+Create smart contract account.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -179,9 +179,9 @@ Create smart contract account /create smart contract account
 | address | string | Smart Contract Address |
 
 ### ac\_getEncryptedAddressList
-Get a list of locally encrypted accounts
-#### scope:public
-#### version:1.0
+Get a list of locally encrypted accounts.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -194,9 +194,9 @@ Get a list of locally encrypted accounts
 | list | list&lt;string> | Return to account address collection|
 
 ### ac\_getAddressList
-Paging query account address list
-#### scope:public
-#### version:1.0
+Get the account address list by paging query.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -211,9 +211,9 @@ Paging query account address list
 | Return value | list&lt;string> | Returns a Page object, account collection|
 
 ### ac\_getPriKeyByAddress
-Inquire the account's private key according to the address by the account address and password
-#### scope:public
-#### version:1.0
+Get the account's private key via the address and password.
+#### scope :public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -229,9 +229,10 @@ Inquire the account's private key according to the address by the account addres
 | pubKey | string | public key |
 
 ### ac\_getAllPriKey
-Get all local account account private keys, you must ensure that all account passwords are consistent. If the passwords in the local accounts are inconsistent, the error message will be returned / Get the all local private keys. if the password in the local account is different, the error message will be Returned.
-#### scope:public
-#### version:1.0
+Get all local account private keys. You must ensure that all account passwords are consistent. If the passwords in the local accounts are inconsistent, an error message will be returned.
+
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -245,9 +246,9 @@ Get all local account account private keys, you must ensure that all account pas
 | list | list&lt;string> | Private Key Collection |
 
 ### ac\_importAccountByKeystore
-Import account/Import accounts by AccountKeyStore according to AccountKeyStore
-#### scope:public
-#### version:1.0
+Import account/accounts by AccountKeyStore according to AccountKeyStore.
+#### scope :public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -263,9 +264,9 @@ Import account/Import accounts by AccountKeyStore according to AccountKeyStore
 | address | string | Imported account address|
 
 ### ac\_exportKeyStoreJson
-Export AccountKeyStore string /export account KeyStore json
-#### scope:public
-#### version:1.0
+Export AccountKeyStore string, export account KeyStore json
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -281,8 +282,8 @@ Export AccountKeyStore string /export account KeyStore json
 
 ### ac\_exportAccountKeyStore
 Account backup, export AccountKeyStore string /export account KeyStore
-#### scope:public
-#### version:1.0
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -298,11 +299,11 @@ Account backup, export AccountKeyStore string /export account KeyStore
 | path | string | The address of the actual backup file |
 
 ### ac\_updatePassword
-Modify the account password by the original password
-#### scope:public
-#### version:1.0
+Modify the account password by using the original password.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ----- |:----:|
 | chainId | int | chain id | yes |
@@ -310,17 +311,17 @@ Modify the account password by the original password
 | password | string | old password | yes |
 | newPassword | string | Account New Password | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------ |
 | value | boolean | Whether to set success |
 
 ### ac\_updateOfflineAccountPassword
-Offline account change password /Offer account change password
-#### scope:public
-#### version:1.0
+Offline account change password
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ----------- |:------:| ----- |:----:|
 | chainId | int | chain id | yes |
@@ -329,15 +330,15 @@ Offline account change password /Offer account change password
 | newPassword | string | Account New Password | Yes |
 | priKey | string | Account Private Key | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | --------------- |:------:| ---------- |
 | encryptedPriKey | string | Returns the modified private key |
 
 ### ac\_validationPassword
-Verify that the account password is correct / Verify that the account password is correct
-#### scope:public
-#### version:1.0
+Verify that the account password is correct.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -346,34 +347,34 @@ Verify that the account password is correct / Verify that the account password i
 | address | string | account address | yes |
 | password | string | account password | yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | ----- |:-------:| -------- |
 | value | boolean | Is the account password correct?
 
 ### ac\_verifySignData
-Verify Data Signature / Verification Data Signature
-#### scope:public
-#### version:1.0
+Verify Data Signature.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------ |:------:| ----- |:----:|
 | pubKey | string | Account Public Key | Yes |
 | sig | string | Signature | Yes |
 | data | string | to be signed data | yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | --------- |:-------:| ------ |
 | signature | boolean | Signature is correct |
 
 ### ac\_createAccount
-Create a specified number of accounts / create a specified number of accounts
-#### scope:public
-#### version:1.0
+Create a specified number of accounts.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:------:| --------- |:----:|
 | chainId | int | chain id | yes |
@@ -386,9 +387,9 @@ Create a specified number of accounts / create a specified number of accounts
 | list | list&lt;string> | Created account address collection|
 
 ### ac\_getPubKey
-According to the account address and password, query the account public key / Get the account's public key
-#### scope:public
-#### version:1.0
+Using the account address and password, get the account's public key.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -403,9 +404,9 @@ According to the account address and password, query the account public key / Ge
 | pubKey | string | public key |
 
 ### ac\_getAliasByAddress
-Get the alias based on the address /get the alias by address
-#### scope:public
-#### version:1.0
+Get the alias using the address.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -420,8 +421,8 @@ Get the alias based on the address /get the alias by address
 
 ### ac\_setAlias
 Set the alias of account
-#### scope:public
-#### version:1.0
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -437,9 +438,9 @@ Set the alias of account
 | txHash | string | set alias transaction hash |
 
 ### ac\_isAliasUsable
-Check if the alias is available /check whether the account is usable
-#### scope:public
-#### version:1.0
+Check if the alias is available and usable.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -453,9 +454,9 @@ Check if the alias is available /check whether the account is usable
 | value | boolean | Is the alias available?
 
 ### ac\_getAllAddressPrefix
-Get the address prefix of all chains
-#### scope:public
-#### version:1.0
+Get the address prefix of all chains.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 No parameters
@@ -467,9 +468,9 @@ No parameters
 | addressPrefix | string | address prefix |
 
 ### ac\_getAddressPrefixByChainId
-Get the address prefix by chain id
-#### scope:public
-#### version:1.0
+Get the address prefix by chain id.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -484,8 +485,8 @@ Get the address prefix by chain id
 
 ### ac\_addAddressPrefix
 Add an address prefix, the chain management module will call the interface
-#### scope:public
-#### version:1.0
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -500,9 +501,9 @@ Add an address prefix, the chain management module will call the interface
 | N/A | void | No specific return value, no error is successful |
 
 ### ac\_transfer
-Create a general transfer transaction / create transfer transaction
-#### scope:public
-#### version:1.0
+Create a general transfer transaction.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -530,9 +531,9 @@ Create a general transfer transaction / create transfer transaction
 | value | string | transaction hash |
 
 ### ac\_createMultiSignTransfer
-Create a multi-signal address transfer transaction /create multi sign transfer
-#### scope:public
-#### version:1.0
+Create a multi-signal address transfer transaction.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -561,11 +562,11 @@ Create a multi-signal address transfer transaction /create multi sign transfer
 | completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### ac\_signMultiSignTransaction
-Multi-sign transaction signature / sign MultiSign Transaction
-#### scope:public
-#### version:1.0
+Sign a signature to a MultiSign Transaction.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:------:| ------- |:----:|
 | chainId | int | chain id | yes |
@@ -573,7 +574,7 @@ Multi-sign transaction signature / sign MultiSign Transaction
 | signAddress | string | Signature Account Address | Yes |
 | signPassword | string | Signature Account Password | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | --------- |:-------:| ------------------------------------- |
 | tx | string | Complete transaction serialization string, continue signature if the transaction does not reach the minimum number of signatures |
@@ -581,26 +582,26 @@ Multi-sign transaction signature / sign MultiSign Transaction
 | completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### ac\_createMultiSignAccount
-Create a multi-sign account /create a multi sign account
-#### scope:public
-#### version:1.0
+Create a multi-sign account.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | -------- |:---------------:| ------------------------------- |:----:|
 | chainId | int | chain id | yes |
 | pubKeys | list&lt;string> | Public key collection (public key of any common address or common account address present in the current node) | Yes |
 minSigns | int | Minimum Signature | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | ------- |:------:| ------ |
 | address | string | Multi-Sign Account Address|
 
 ### ac\_removeMultiSignAccount
-Remove multi-sign account /remove the multi sign account
-#### scope:public
-#### version:1.0
+Remove a multi-sign account.
+#### scope: public
+#### version: 1.0
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
@@ -608,17 +609,17 @@ Remove multi-sign account /remove the multi sign account
 | chainId | int | chain id | yes |
 | address | string | Multi-Sign Account Address | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------ |
 | value | boolean | Whether to remove success|
 
 ### ac\_setMultiSignAlias
-Set the alias of multi sign account
-#### scope:public
-#### version:1.0
+Set the alias of a multi-signature account.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------------ |:------:| ---------------------- |:----:|
 | chainId | int | chain id | yes |
@@ -635,34 +636,34 @@ Set the alias of multi sign account
 | completed | boolean | true: the transaction is complete (broadcast), false: the transaction is not completed, the minimum number of signatures has not been reached |
 
 ### ac\_getMultiSignAccount
-Get a full multi-signature account by searching for a multi-signature account
-#### scope:public
-#### version:1.0
+Get a full multi-signature account by searching for a multi-signature account.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ------ |:----:|
 | chainId | int | chain id | yes |
 | address | string | Multi-Sign Account Address | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ------------ |
 | value | string | Multi-Sign Account Serialization Data String |
 
 ### ac\_isMultiSignAccountBuilder
-Verify that one of the creators of the multi-signed account /Whether it is multiSign account Builder
-#### scope:public
-#### version:1.0
+Verify that one of the creators of the multi-signed account is an account Builder.
+#### scope: public
+#### version: 1.0
 
-#### parameter list
+#### parameter list:
 | Parameter Name | Parameter Type | Parameter Description | Is Not Empty |
 | ------- |:------:| ----------------- |:----:|
 | chainId | int | chain id | yes |
 | address | string | Multi-Sign Account Address | Yes |
 | pubKey | string | creator public key or address already present at the current node | Yes |
 
-#### return value
+#### return value:
 | Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------------ |
 | value | boolean | Whether to sign one of the creators of the account |
