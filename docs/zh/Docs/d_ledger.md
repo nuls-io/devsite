@@ -27,16 +27,16 @@
 ### 1.2 架构图
 > 账本的核心还是资产管理和记账管理。
 
-![ledger-arch.png](image/ledger/ledger-arch.png)
+![ledger-arch.png](./image/ledger/ledger-arch.png)
 
 ## 二、功能设计
 
 ### 2.1 功能架构图
-![ledger-functions.png](image/ledger/ledger-functions.png)
+![ledger-functions.png](./image/ledger/ledger-functions.png)
 
 ### 2.2 模块服务
 #### 2.2.1 账本模块的系统服务
-![ledger-service.png](image/ledger/ledger-service.png)
+![ledger-service.png](./image/ledger/ledger-service.png)
 
 > 账本模块提供的RPC的接口调用,详细接口请参照接口设计部分。
 
@@ -92,11 +92,11 @@
 
 #### 2.4.2 普通交易流程(参考实例)
 
-![eth-transaction-flow.png](image/ledger/eth-transaction-flow.png)
+![eth-transaction-flow.png](./image/ledger/eth-transaction-flow.png)
 
 #### 2.4.3 交易验证流程
 
-![trx-validate-flow.png](image/ledger/trx-validate-flow.png)
+![trx-validate-flow.png](./image/ledger/trx-validate-flow.png)
 
 ## 三、接口设计
 

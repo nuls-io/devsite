@@ -27,16 +27,16 @@
 ### 1.2 Architecture
 > The core of the books is asset management and bookkeeping management.
 
-![ledger-arch.png](image/ledger/ledger-arch.png)
+![ledger-arch.png](./image/ledger/ledger-arch.png)
 
 ## Functional design
 
 ### 2.1 Functional Architecture
-![ledger-functions.png](image/ledger/ledger-functions.png)
+![ledger-functions.png](./image/ledger/ledger-functions.png)
 
 ### 2.2 Module Service
 #### 2.2.1 System Service of the Book Module
-![ledger-service.png](image/ledger/ledger-service.png)
+![ledger-service.png](./image/ledger/ledger-service.png)
 
 > The interface of rpc provided by the ledger module. For detailed interface, please refer to the interface design section.
 
@@ -92,11 +92,11 @@
 
 #### 2.4.2 Ordinary transaction process (reference example)
 
-![eth-transaction-flow.png](image/ledger/eth-transaction-flow.png)
+![eth-transaction-flow.png](./image/ledger/eth-transaction-flow.png)
 
 #### 2.4.3 Transaction Verification Process
 
-![trx-validate-flow.png](image/ledger/trx-validate-flow.png)
+![trx-validate-flow.png](./image/ledger/trx-validate-flow.png)
 
 ##  Interface Design
 
