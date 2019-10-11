@@ -2,14 +2,14 @@
 
 ## 1. Summary
 
-Nuls is a customizable blockchain infrastructure and a global blockchain open source community project. Nuls consists of micro-kernels and functional modules to weaken the new thinking of the main chain, through the stripping of events and services, to achieve a highly modular underlying architecture, providing intelligent contracts, multi-chain parallel, cross-chain consensus and other operational mechanisms. This article discusses the details of the smart contract section.
+Nuls is a customizable blockchain infrastructure and a global blockchain open source community project. Nuls consists of micro-kernels and modules. Through the reorganization of events and services we have achieved a highly modular underlying architecture. This includes intelligent contracts, multi-chain parallels, cross-chain consensus and other operational mechanisms. This document covers some the details of the smart contract.
 
 ## 2. Purpose
 
-The nuls smart contract module (hereinafter referred to as the contract module) mainly solves the following problems:
+The nuls smart contract module (also referred to as the contract module) mainly solves the following problems:
 
 * **Programmable Environment**: Provides a smart contract programming environment based on the Nuls blockchain.
-* **Lightweight Virtual Machine**: Provides a lightweight virtual machine NulsVM and all the byte instructions needed to perform smart contract execution. Lightweight guarantees can be started quickly and run quickly, and virtual machines like JVM or .Net are not suitable.
+* **Lightweight Virtual Machine**: Provides a lightweight virtual machine Nuls VM and all the byte instructions needed to perform smart contract execution. Lightweight guarantees can be started quickly and run quickly, and virtual machines like JVM or .Net are not suitable.
 * **Isolation operation**: The operating environment of each virtual machine is isolated, which guarantees security.
 * **Support for high-level languages**: Supports the syntax of various high-level languages to write smart contracts directly.
 * **Ecological integrity**: Provides a variety of tools and complete documentation, gradually reducing the difficulty of writing smart contracts.
@@ -17,17 +17,17 @@ The nuls smart contract module (hereinafter referred to as the contract module) 
 
 ## 3. Related items
 
-In the field of development, it is important to remember that “repetition of invention wheels” is particularly important on the shoulders of giants. The blockchain industry itself is also an open shared and shared virtuous ecology. Therefore, when designing the smart contract module, we also need to learn and learn from the successful smart contract design.
+In software development, it is important to remember that “repetition of invention wheels” is particularly important on the shoulders of giants. The blockchain industry itself encourages an open, shared and virtuous ecology. When designing the smart contract module, we needed to learn from the successful smart contract designers.
 
-The first reference is of course Ethereum. Ethereum's smart contract is currently the most widely used. Many projects, including Nuls, use Ethereum's ERC20 standard to issue TOKEN through smart contracts. Ethereum’s virtual machine is also the object of learning and learning from multiple projects. Even like the quantum chain, it is the complete Fork virtual machine code of Ethereum. It supports the operation of Ethereum smart contract on the UTXO model through the concept of account layer. Very creative and bold ideas.
+The first reference is of course Ethereum. Ethereum's smart contract is currently the most widely used. Many projects, including Nuls, use Ethereum's ERC20 standard to issue TOKEN through smart contracts. Ethereum’s virtual machine is also the object of learning. Like the quantum chain, it is the complete Fork virtual machine code of Ethereum. It supports the operation of Ethereum smart contract on the UTXO model through the concept of account layer. Very creative and bold ideas.
 
-Ethereum's smart contract is to build its world state through the account model, record and execute world state changes through transaction messages and state transition functions. This design is very subtle and groundbreaking.
+Ethereum's smart contract is to build its world state through the account model, and record and execute world state changes through transaction messages and state transition functions. This design is very subtle and groundbreaking.
 
-Then refer to the Corda project of R3 organization. Based on Java construction, the Java virtual machine is directly used in the smart contract, and the smart contract logic is realized by implementing the preset Java interface, but compared with Ethereum, Its application area determines that its smart contracts only focus on "validation" rather than Ethereum's versatile smart contract platform.
+Then we look to the Corda project of R3 organization. Based on Java construction, the Java virtual machine is directly used in the smart contract, and the smart contract logic is realized by implementing the preset Java interface. Compared with Ethereum, its application area determines that its smart contracts only focus on "validation" rather than Ethereum's versatile smart contract platform.
 
-Then there is the super-book project. The concept of the super-book is similar to that of the Nuls. It is modular, loosely coupled, and pluggable. The interesting part of its smart contract design is to put the contract into the docker. Executed in a separate container, the currently supported high-level languages are Java and Go. However, this is one of its drawbacks, because the docker startup is very fast, but it is very time consuming compared to the lightweight VMs of other blockchains. However, this is also related to the application prospects that are not defined as public chains. The more suitable areas are the alliance and private chain environment of enterprises and institutions.
+Then there is the super-book project. The concept of the super-book is similar to that of the Nuls. It is modular, loosely coupled, and pluggable. The interesting part of its smart contract design is to put the contract into Docker. Executed in a separate container, the currently supported high-level languages are Java and Go. However, this is one of its drawbacks, because Docker startup is very fast, but it is very time consuming compared to the lightweight VMs of other blockchains. However, this is also related to the application prospects that are not defined as public chains. The more suitable areas are the alliance and private chain environment of enterprises and institutions.
 
-There is also a multi-asset concept project than the original chain project. The bottom layer runs a multi-asset utxo model, so its smart contract innovatively uses the utxo collection as the storage unit of its world state. The effective organization of the utxo model is very useful.
+There is also a multi-asset concept project than the original chain project. The bottom layer runs a multi-asset UTXO model, so its smart contract innovatively uses the UTXO collection as the storage unit of its world state. The effective organization of the UTXO model is very useful.
 
 Finally, neo, neo, as one of the early companies involved in the blockchain industry in China, has many ideas and characteristics of its own, and the ideas on the smart contract module are also very innovative, especially the high-level language part which has its own through the modern mainstream high-level language itself. The characteristics of the virtual machine, using the high-level language bytecode to the blockchain bytecode direct conversion, brings a lot of possibilities for the expansion of high-level languages.
 
@@ -39,7 +39,7 @@ Interacting with the contract is done by sending a special transaction to the co
 
 When the contract is executed, the virtual machine loads the bytecode compiled into the contract code and executes the program according to the contract code. After the execution is completed, the state of the entire contract storage changes, and the hashes of these changes are stored in the chain. The contract can be used as a software library for another contract, that is, the contract itself can call another contract. Before the virtual machine executes the contract, it will parse the contract content and load the relevant contract ahead of time. At the same time, the execution efficiency is improved by the cache technology.
 
-Each bytecode command executed by the virtual machine will charge a certain fee according to the amount of calculation. This is called GAS in Ethereum, and Nuls retains this design concept. Each instruction is billed according to the length of its operation. At the same time, in order to ensure efficiency, there is an upper limit for the billing of the entire contract. After the upper limit is exceeded, the contract will fail to execute and the status will be rolled back, but the cost already consumed will not be returned. .If the submitted fee has not been fully consumed after the execution is completed, the remaining portion will be returned to the contract caller. The reason for setting the cost cap is also to eliminate the problem of infinite loop calls.
+Each bytecode command executed by the virtual machine will charge a certain fee according to the amount of calculation. This is called GAS in Ethereum, and Nuls retains this design concept. Each instruction is billed according to the length of its operation. At the same time, in order to ensure efficiency, there is an upper limit for the billing of the entire contract. After the upper limit is exceeded, the contract will fail to execute and the status will be rolled back, but the cost already consumed will not be returned. If the submitted fee has not been fully consumed after the execution is completed, the remaining portion will be returned to the contract caller. The reason for setting the cost cap is also to eliminate the problem of infinite loop calls.
 
 The contract is written to support high-level languages. Java is the first supported language to be used when the contract module is online. The languages on the JVM, such as Kotlin, Scala, and Groovy, will be quickly supported. We also welcome community contributions. A high level language support.
 
@@ -84,9 +84,9 @@ The above picture shows the overall architecture of the smart contract. The core
 
 ### 4.3 Future direction
 
-Although the state of the world only increases the part of the change, its storage capacity will still accumulate relatively large, so in the future, a snapshot method may be implemented to compress all data with a certain history into the latest state, and all the changes before this state. They are all cleaned up.
+Although the state of the world only increases part of the change, its storage capacity will still accumulate relatively large. So in the future, a snapshot method may be implemented to compress all data with a certain history into the latest state, and all the changes before this state. They will be cleaned up.
 
-Will provide support for light nodes, Nuls users do not need to obtain a complete world state history, just need to get the latest world state, which will make the amount of data less pitiful than the full world state, large Some of the pcs are perfectly balanced.
+We will provide support for light nodes. Nuls users do not need to obtain a complete world state history, rather just get the latest world state.
 
 ## 5. Nuls virtual machine
 
@@ -148,11 +148,11 @@ The contract transaction has several parameters.
 * gas limit: upper limit of gas usage, this limit is reached, if the transaction has not been completed, the conversion of the state change will be canceled.
 * data: Pass in the specified parameter, data is a hexadecimal encoding structure.
 
-### 7.1 Deployment contract
+### 7.1 Deploying a contract
 
-A deployment contract is also known as a contract creation. The contract is deployed in the storage module of Nuls. The contract module provides complete encapsulation and integration of the storage module. The developer of the contract does not need to directly access the storage module. It only needs to be provided to the tools provided by the contract module.
+Deploying a contract is also known as a contract creation. The contract is deployed in the storage module of Nuls. The contract module provides complete encapsulation and integration of the storage module. The developer of the contract does not need to directly access the storage module. It only needs to be provided to the tools provided by the contract module.
 
-The deployment contract is also a message call. It needs to pay fees. The cost refers to the previous section. When the contract is created, it will receive parameters such as sender, contract code and GAS limit. The contract module will open a separate storage area in the storage module and assign a separate hash address, and generate a contract account with a transaction count of 0. The hash root will be empty. In the account layer section, the output of this transaction is a result of a balance of 0, except for the transaction fee charged by the miner. That is, the contract is not allowed to transfer the contract when it is created.
+Deploying a contract is also a message call. It needs to pay fees. The cost refers to the previous section. When the contract is created, it will receive parameters such as sender, contract code and GAS limit. The contract module will open a separate storage area in the storage module and assign a separate hash address, and generate a contract account with a transaction count of 0. The hash root will be empty. In the account layer section, the output of this transaction is a result of a balance of 0, except for the transaction fee charged by the miner. That is, the contract is not allowed to transfer the contract when it is created.
 
 The contract has an initialization method that will be executed immediately after the contract is successfully created. If the user has calculated in the initialization method, please give enough GAS fee. If the GAS is insufficient, the initialization will fail, and the contract creation will fail. The initialization and destruction of the contract as its life cycle function will only be called once, and any subsequent calls will throw an exception.
 
@@ -193,7 +193,7 @@ In the future, we will support more advanced languages, including but not limite
 The high-level language supported here is only the support of its syntax - not all the features of the language. We have removed instructions and features in order to keep the virtual machine simple and efficient. The following features are not supported:
 
 * Multi-threading: Multi-threading increases the complexity of virtual machine execution and increases the complexity of the writer. In the Nuls virtual machine, there is no multi-threaded bytecode support.
-* Loading a three-party library: This will cause too many classes to be loaded into the virtual machine, increasing the computational complexity and reducing the execution efficiency. We recommend that the author only copy the required function methods directly into the contract. In a Nuls virtual machine, too much code can cause an exception.
+* Loading a three-party library: This will cause too many classes to be loaded into the virtual machine, increasing the computational complexity, and reducing execution efficiency. We recommend that the author only copy the required function methods directly into the contract. In a Nuls virtual machine, too much code can cause an exception.
 
 ### 8.3 Examples
 
@@ -215,7 +215,7 @@ There are some contract examples on Github:
 
 ## 9. Developer Documentation
 
-Developing a smart contract program requires an understanding of the API, SDK, and Java language provided by the contract module. We recommend Intellij IDEA. The following resources can help developers develop Nuls smart contract applications better and more efficiently.
+Developing a smart contract program requires an understanding of the API, SDK, and Java language provided by the contract module. We recommend Intellij IDEA. The following resources can help developers develop Nuls smart contract applications better and more efficiently:
 
 * [Contract Development Manual](https://docs.nuls.io/zh/Nuls2.0/smartContractManual.html)
 * [Contract Development Tools](https://docs.nuls.io/zh/Nuls2.0/mavenPackage.html)
