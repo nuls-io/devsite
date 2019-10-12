@@ -884,6 +884,7 @@ public class Utils {
     }
 }
 ```
+
 ## 七、向合约转入NULS资产的交易说明
 
 普通账户地址，往合约转入NULS，都要通过`调用合约`交易来实现
@@ -944,7 +945,161 @@ public void transferToContractTest(String storedData) {
 
 合约中通过`Msg.value()`获取本次调用者向合约转入的NULS，单位是Na，如上述代码。
 
+## 八、如何调试智能合约
 
+合约SDK提供了DebugEvent，合约执行失败也能看到这个事件的数据，使用它来调试合约
+
+### 1. 调试方式
+
+编写合约时，使用`emit(new DebugEvent("name", "desc"))`事件发送出来，合约发布到后，调用此合约方法，若执行成功，则合约执行结果中会展示debugEvent数据，若执行失败，则返回的错误数据中会展示debugEvent数据。
+
+<b style="color:red">注意：每一次调用合约，最多支持展示10个DebugEvent，超过的部分会被智能合约虚拟机忽略。</b>
+
+### 2. 合约代码示例
+
+```java
+/**
+ * 调用成功的示例(测试网)
+ */
+public Object clinitTest() {
+    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
+    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
+    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
+    int qwe = 123;
+    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
+    return temp;
+}
+
+/**
+ * 调用失败的示例(测试网)
+ */
+public Object clinitTestRevert() {
+    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
+    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
+    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
+    int qwe = 123;
+    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
+    // 失败
+    Utils.revert("revert");
+    return temp;
+}
+```
+
+### 3. 执行失败的示例
+
+执行失败时，会在错误信息中展示出debugEvent的数据
+
+如上述合约中，我们在`clinitTestRevert`方法中使用`revert("revert")`使这个调用一定执行失败，模拟执行失败情况下返回DebugEvent事件数据。
+
+#### 3.1 页面调用失败返回的错误数据
+
+![](./debugcontract/debugcontract.png)
+
+#### 3.2 `NULS-API RESTFUL`方式调用失败返回的错误数据
+
+`http://beta.api.nuls.io/api/contract/call`
+
+```json
+{
+    "sender" : "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
+    "gasLimit" : 200000,
+    "price" : 25,
+    "password" : "abc123456",
+    "remark" : "remark-restful-call",
+    "contractAddress" : "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+    "value" : 0,
+    "methodName" : "clinitTestRevert",
+    "methodDesc" : null,
+    "args" : null
+}
+```
+
+```json
+{
+    "success": false,
+    "data": {
+        "code": "err_0014",
+        "msg": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]"
+    }
+}
+```
+
+#### 3.3 `NULS-API JSONRPC`方式调用失败返回的错误数据
+
+`http://beta.api.nuls.io/jsonrpc`
+
+```json
+{
+    "jsonrpc":"2.0",
+    "method":"contractCall",
+    "params":[2,
+                "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
+                "abc123456",
+                0,
+                200000,
+                25,
+                "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+                "clinitTestRevert",
+                null,
+                [],
+                "remark-jsonrpc-call"],
+    "id":1234
+}
+```
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": "1234",
+    "error": {
+        "code": "err_0014",
+        "message": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]",
+        "data": null
+    }
+}
+```
+
+### 4. 执行成功的示例
+
+执行成功的情况，在合约执行结果中，也会展示debugEvent的数据
+
+http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636ee2438671746332125ac6e44ae409
+
+```json
+{
+    "success": true,
+    "data": {
+        "flag": true,
+        "data": {
+            "success": true,
+            "errorMessage": null,
+            "contractAddress": "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+            "result": "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+            "gasLimit": 6081,
+            "gasUsed": 4054,
+            "price": 25,
+            "totalFee": "252025",
+            "txSizeFee": "100000",
+            "actualContractFee": "101350",
+            "refundFee": "50675",
+            "value": "0",
+            "stackTrace": null,
+            "transfers": [],
+            "events": [
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"TempEvent\",\"payload\":{\"temp\":\"123\"}}"
+            ],
+            "debugEvents": [
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}",
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}"
+            ],
+            "tokenTransfers": [],
+            "invokeRegisterCmds": [],
+            "contractTxList": [],
+            "remark": "call"
+        }
+    }
+}
+```
 
 
 
