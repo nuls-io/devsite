@@ -2,48 +2,130 @@
 
 ## Introduction
 
-Each NULS2.0 node can optionally provide a set of API interfaces for obtaining visualized blockchain data from nodes, greatly facilitating the development of blockchain applications. The interface is provided through [JSON-RPC](http://wiki.geekdream.com/Specification/json-rpc_2.0.html), and the underlying layer communicates using HTTP protocol.
+Each NULS 2.0 node can optionally provide a set of API interfaces for obtaining blockchain data from nodes. The interface is provided through [JSON-RPC](https://www.jsonrpc.org/specification), and the underlying layer communicates using HTTP protocol.
+Blockchain data is data collected from each completed block since the node was started. This interface does not update blockchain data.  (nuls-api updates blockchain data.)
 
-To start a node with RPC services, the following steps are needed: 
+For more information about public-service consult the [Public-Service Module Design Document](https://docs.nuls.io/Docs/d_public_service.html).
 
-- Get wallet
 
-option 1: Download a full-node wallet that provides RPC services (the download address is to be filled after the official launch)
+## Installation
+To begin development with Public Service select one of the following two options:
 
-option 2: Get the latest source code of the master branch on https://github.com/nuls-io/nuls-v2 and execute the following commands to manually package the full node wallet:
+1. Get a wallet: Download the full-node (non-light) [wallet for linux](https://github.com/nuls-io/nuls-v2).
+2. Install [ChainBox](https://docs.nuls.io/Docs/c_chain_box.html).
+
+#Option 1: Wallet for Linux
+
+Installation instructions:
+
+1.enter: git clone https://github.com/nuls-io/nuls-v2 wallet
+
+2.enter: cd wallet
+
+3.Add the public-service module
+
 
 ```
 
-/ package-a api-module
-/ package
+./package -a public-service  
+./package
+
+```
+4.Install the mongoDB database. Public-service will not start if the database is not running. There is an option in the code to use a different database.
+
+5.enter: cd NULS_Wallet
+
+6.enter: ./start
+
+7.The file nuls.ncf has been created.  Locate the "[public-service]" section in the file nuls.ncf, and add any information that is missing from the example below.  At the time of writing this document, the only entry to be modified is the rpcPort entry. Note, the content of nuls.ncf is not case sensitive.
 
 ```
 
-- The node server needs to install the mongoDB database
-- Modify the [api-module] part in file module.ncf as follows:
-
-```
-
-[api-module]
+[public-service]
 # database URL address
 DatabaseUrl = 127.0.0.1
-
 # Database port 
 DatabasePort = 27017
-```
-
-After the configuration, run the node program, and the client will parse the synchronized blocks and stores them in mongoDB.
-
-
-## Listening Port
-
-The default port is 18003. You can modify the [api-module] part in file module.ncf as follows:
-
-```
-[api-module]
-# rpc port of api-module to serve outside 
+#public-service module external rpc port number 
 rpcPort=18003
 ```
+
+8.Start the wallet: ./start
+
+9.Ensure that all processes have started: ./check-status
+
+After the node has successfulluy started, the node will parse the current block and store the collected data in the mongo database. You can confirm that mongo and public-service are working by checking: Logs/public-service/public-service.log.  
+
+List the public-service log to confirm that the database daemon mongo is receiving information from public-service. The log will report the connection and display information to confirm that public-service is processing the blocks.
+ 
+
+```
+cd Logs/public-service
+# you are now located at: /.../NULS_WALLET/Logs/public-service
+
+head -5 public-service.log
+2019-10-04 02:37:50,345 INFO [public-service-main] - io.nuls.api.db.mongo.MongoDBService.afterPropertiesSet(MongoDBService.java:82):------connect mongodb use time:2916
+2019-10-04 02:38:28,130 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2483-----txCount:1-----use:1735-----
+2019-10-04 02:38:28,152 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2484-----txCount:1-----use:11-----
+2019-10-04 02:38:46,383 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2485-----txCount:1-----use:8-----
+2019-10-04 02:38:56,381 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2486-----txCount:1-----use:9-----
+```    
+
+
+# Option 2: Chainbox
+
+Installation instructions:
+
+1.Follow steps 1 and 2 of ChainBox instructions.  
+
+2.Add public-service
+
+```
+
+./tools -a public-service  
+
+```
+
+3.Install the mongoDB database. Public-service will not start if the database is not running. There is an option in the code to use a differnt database.
+
+4.Do steps 3 and 4 of ChainBox installation.
+
+5.Append the file default-config.ncf with the following lines:
+
+```
+
+[public-service]
+# database URL address
+DatabaseUrl = 127.0.0.1
+# Database port 
+DatabasePort = 27017
+#public-service module external rpc port number 
+rpcPort=18003
+```
+
+6.Complete steps 5, 6, 7 of the ChainBox installation
+
+7.After step 7 the ChainBox installation is complete, and the node is running successfully.   The node has begun to parse the synchronized blocks and store the collected data in the mongo database. You can confirm that mongo and public-service are working by checking: Logs/public-service/public-service.log.  
+
+List the public-service log to confirm that the database daemon mongo is receiving information from public-service. The log will report the connection and display information to confirm that public-service is processing the blocks.
+ 
+
+```
+cd Logs/public-service
+# you are now located at: /.../NULS_WALLET/Logs/public-service
+
+head -5 public-service.log
+2019-10-04 02:37:50,345 INFO [public-service-main] - io.nuls.api.db.mongo.MongoDBService.afterPropertiesSet(MongoDBService.java:82):------connect mongodb use time:2916
+2019-10-04 02:38:28,130 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2483-----txCount:1-----use:1735-----
+2019-10-04 02:38:28,152 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2484-----txCount:1-----use:11-----
+2019-10-04 02:38:46,383 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2485-----txCount:1-----use:8-----
+2019-10-04 02:38:56,381 INFO [pool-3-thread-3] - io.nuls.api.service.SyncService.syncNewBlock(SyncService.java:107):-----height finish:2486-----txCount:1-----use:9-----
+```    
+
+## Listening Port
+5. The default port for public-service is 18003. 
+
+
 
 ## Interface Description
 
@@ -51,7 +133,52 @@ rpcPort=18003
 
 UTF-8
 
-### Remote Protocol Call
+## interview method -- JSON call details
+
+- **`json-rpc` access method**
+
+     Add request header Content-Type: application/json;charset=UTF-8
+     
+     HttpMethod: POST
+     
+     URL: http://{ip}:{port} 
+     
+        Example: http://127.0.0.1:18003
+        
+        
+Example json data request: 
+     
+```json
+{
+  "jsonrpc":"2.0",
+  "method": "methodCMD", //interface name
+  "params":[], //All interface parameters are passed as arrays, and the order of the parameters cannot be changed. If the parameters are not required, they must also be filled in null placeholders.
+  "id":1234
+}
+```
+        
+Usage example using linux command curl, issued to a chainbox instance.:   
+ 
+ ```
+
+\> curl -s -X POST -H 'Content-Type: application/json' --data '{"jsonrpc":"2.0","method":"getChainInfo","params”:[], “id":1234}' http://127.0.0.1:18003
+
+{"jsonrpc":"2.0","id":"null","result":{"chainId":2,"chainName":"nuls2","defaultAsset":{"key":"2-1","chainId":2,"assetId":1,"symbol":"NULS","decimals":8,"initCoins":0,"address":null,"status":1},"assets":[{"key":"2-1","chainId":2,"assetId":1,"symbol":"NULS","decimals":8,"initCoins":0,"address":null,"status":1}],"seeds":["tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp"],"status":1,"new":false}}
+
+
+```
+
+When using Postman:
+1. type the URL of the API (http://127.0.0.1:18003)
+2. Change method to POST. 
+3. In the parameter section click on "raw" and select format as "JSON" and add the json request in the testarea provided.
+4. In the headers section add "Content-Type" as header and "application/json;charset=UTF-8" as the value.
+5. Test by comparing the output to the curl output.     
+     
+
+
+
+### Remote Procedure Call Examples
 
 JSON-RPC
 
@@ -59,7 +186,7 @@ JSON-RPC
 {
 	"jsonrpc":"2.0",
 	"method":"getChainInfo",		//interface name
-	"params":[],					//all parameters of the interface passed in an array, and the order of parameters cannot be changed
+	"params":[],					//all interface parameters are passed in array mode, and the order of parameters cannot be changed.
 	"id":1234
 }
 ```
@@ -90,9 +217,10 @@ Abnormal return
 }
 ```
 
+## Sample Calls
 ### Token Swap
 
-It involves the interface with tokens. To avoid losing decimal precision of the token amount in parameters and return, they are unified into BigInteger format. Since the decimal of the NULS main network is 8 bits, the interface layer all right shift 8 bits, that is 100,000,000 = 1 NULS.
+It involves the interface with tokens. To avoid losing decimal precision, the NULS token value is stored in JAVA BigInteger format. The interface layer shifts the token value 8 bits, to take advantage of the extra precision, such that 1 NULS = 100,000,000.
 
 ### Return Definition
 
@@ -251,7 +379,7 @@ accountLedgerInfo: {
 }
 ```
 
-#### Consensus Information (consensusInfo)
+#### Consensus Node Information (consensusInfo)
 
 ```
  {
@@ -307,7 +435,7 @@ depositInfo:{
 
 
 
-## Interface List
+## Calls Categorized by Blockchain Function
 
 ### Chain Related [chain]
 
@@ -354,11 +482,11 @@ Request：
 {
     "jsonrpc":"2.0",
     "method":"getInfo",
-    "params":[chainId],
+    "params":[2],
     "id":1234
 }
-//parameter description
-chainId: int									//chain id
+//parameter description is the value of chainId (value is 2 i standard ChainBox installation)
+chainId: int	//chain id
 ```
 
 Return：
@@ -399,8 +527,8 @@ Request：
     "params":[chainId],
     "id":1234
 }
-//parameter description
-chainId: int									//chain id
+//parameter description is the value of chainId (value is 2 in standard ChainBox installation)
+chainId: int	//chain id
 ```
 
 Return：
@@ -431,8 +559,8 @@ Request：
     "params":[chainId],
     "id":1234
 }
-//parameter description
-chainId: int									//chain id
+//parameter description is the value of chainId (value is 2 in standard ChainBox installation)
+chainId: int	//chain id
 ```
 
 Return：
@@ -456,9 +584,11 @@ Request：
     "params":[chainId, blockHeight],
     "id":1234
 }
-//parameter description
-chainId: int									 //chain id
-blockHeight：long								//block height
+//parameter description is the value of chainId (value is 2 in standard ChainBox installation)
+chainId: int	//chain id
+blockHeight：lonbg  //block height   note, you can use the height listed in the previous command
+
+for example "params": [2,18869]
 ```
 
 Return：
@@ -610,6 +740,7 @@ Request：
 //parameter description
 chainId: int									//chain id
 address: string									//account address
+For example:  "params": [2,"tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD"]
 ```
 
 Return：
@@ -1042,7 +1173,7 @@ Return：
 }
 ```
 
-#### Query whether transation assembled offline is valid
+#### Query whether transaction assembled offline is valid
 
 Request：
 
@@ -1129,13 +1260,13 @@ Return：
           "pageSize": 10,
           "totalCount": 1,
           "list": [
-               {conesnsusInfo}
+               {consensusInfo}
           ]
      }
 }
 ```
 
-#### Get all consensus nodes（including those who have quit or have been fined by red card）
+#### Get all consensus nodes（including those that have quit or have been fined by red card）
 
 Request：
 
@@ -1163,7 +1294,7 @@ Return：
           "pageSize": 10,
           "totalCount": 1,
           "list": [
-               {conesnsusInfo}
+               {consensusInfo}
           ]
      }
 }
@@ -1226,7 +1357,7 @@ Return：
 {
      "jsonrpc": "2.0",
      "id": 1234,
-     "result": {conesnsusInfo}
+     "result": {consensusInfo}
 }
 ```
 
@@ -1452,7 +1583,7 @@ pageNumber:int									//page index
 pageSize:int									//item count displayed in each page, ranging from 1 to 1000
 ```
 
-Ruturn：
+Return：
 
 ```
 {

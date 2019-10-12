@@ -941,4 +941,162 @@ public void transferToContractTest(String storedData) {
 
 The contract uses the `Msg.value()` to get the NULS that the caller transferred to the contract. The unit is Na, as in the above code.
 
+## VIII、how to debug smart contracts
 
+The contract SDK provides a DebugEvent. If the contract fails to execute, you can see the data of this event. Use it to debug the contract.
+
+### 1. Debugging way
+
+When writing a contract, use the `emit(new DebugEvent("name", "desc"))` event to send it. After the contract is released, the contract method is called. 
+
+If the execution is successful, the debugEvent data will be displayed in the contract execution result. 
+
+If the execution fails, the debug event data will be displayed in the returned error data.
+
+<b style="color:red">Note: Each time you call a contract, you can display up to 10 DebugEvents, and the excess will be ignored by the Smart Contract VM. </b>
+
+### 2. Contract code example
+
+```java
+/**
+ * Example of successful call (test network)
+ */
+public Object clinitTest() {
+    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
+    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
+    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
+    int qwe = 123;
+    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
+    return temp;
+}
+
+/**
+ * Example of call failure (test net)
+ */
+public Object clinitTestRevert() {
+    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
+    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
+    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
+    int qwe = 123;
+    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
+    // failed
+    Utils.revert("revert");
+    return temp;
+}
+```
+
+### 3.  Example of execution failure
+       
+When the execution fails, the debugEvent data is displayed in the error message.
+
+As in the above contract, we use `revert("revert")` in the `clinitTestRevert` method to make this call fail to execute, and return the DebugEvent event data if the simulation fails.
+
+#### 3.1 Error data returned by page call failure
+
+![](../zh/Docs/debugcontract/debugcontract.png)
+
+#### 3.2 `NULS-API RESTFUL` mode call failed error data returned
+
+`http://beta.api.nuls.io/api/contract/call`
+
+```json
+{
+    "sender" : "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
+    "gasLimit" : 200000,
+    "price" : 25,
+    "password" : "abc123456",
+    "remark" : "remark-restful-call",
+    "contractAddress" : "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+    "value" : 0,
+    "methodName" : "clinitTestRevert",
+    "methodDesc" : null,
+    "args" : null
+}
+```
+
+```json
+{
+    "success": false,
+    "data": {
+        "code": "err_0014",
+        "msg": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]"
+    }
+}
+```
+
+#### 3.3 `NULS-API JSONRPC` mode call failed error data returned
+
+`http://beta.api.nuls.io/jsonrpc`
+
+```json
+{
+    "jsonrpc":"2.0",
+    "method":"contractCall",
+    "params":[2,
+                "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
+                "abc123456",
+                0,
+                200000,
+                25,
+                "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+                "clinitTestRevert",
+                null,
+                [],
+                "remark-jsonrpc-call"],
+    "id":1234
+}
+```
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": "1234",
+    "error": {
+        "code": "err_0014",
+        "message": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]",
+        "data": null
+    }
+}
+```
+
+### 4. Example of successful execution
+
+In the case of successful execution, the data of the debugEvent will also be displayed in the contract execution result.
+
+http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636ee2438671746332125ac6e44ae409
+
+```json
+{
+    "success": true,
+    "data": {
+        "flag": true,
+        "data": {
+            "success": true,
+            "errorMessage": null,
+            "contractAddress": "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+            "result": "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+            "gasLimit": 6081,
+            "gasUsed": 4054,
+            "price": 25,
+            "totalFee": "252025",
+            "txSizeFee": "100000",
+            "actualContractFee": "101350",
+            "refundFee": "50675",
+            "value": "0",
+            "stackTrace": null,
+            "transfers": [],
+            "events": [
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"TempEvent\",\"payload\":{\"temp\":\"123\"}}"
+            ],
+            "debugEvents": [
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}",
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}"
+            ],
+            "tokenTransfers": [],
+            "invokeRegisterCmds": [],
+            "contractTxList": [],
+            "remark": "call"
+        }
+    }
+}
+```
