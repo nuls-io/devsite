@@ -8,6 +8,20 @@ The NULS smart contract Maven-archetype is a smart contract Maven project templa
 
 The maven archetype also integrates an offline smart contract client. After the smart contract is packaged through maven, the offline smart contract client is automatically launched, and the developer deploys the smart contract and the contract method call on the client.
 
+### Development Environment
+
+1. Install JDK8
+
+2. Install IntelliJ IDEA
+
+3. JDK operating environment for project
+    
+       JDK please select JDK8 when creating a new project
+
+4. IntelliJ IDEA's Maven plugin JDK runtime environment
+
+       Open IntelliJ IDEA Settings -> Build, Execution, Deployment -> Build Tools -> Maven -> Runner
+       JRE please choose JDK8
 
 ### New NULS Smart Contract Maven Project
 
@@ -94,7 +108,7 @@ Before the smart contract is deployed and released, the account address must be 
 
 #### Service List
 
-All service nodes are displayed in the service list. The service node refers to the URL address of the NULS API module. When the service address is not selected, http://apitn1.nulscan.io is used by default. The operation page is as shown in the following figure.
+All service nodes are displayed in the service list. The service node refers to the URL address of the NULS API module. When the service address is not selected, http://beta.public1.nuls.io is used by default. The operation page is as shown in the following figure.
 
 ![](./mavenPackage/vdz2UUE.png)
 ![](./mavenPackage/7cxoYNz.png)

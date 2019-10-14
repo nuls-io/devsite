@@ -8,6 +8,21 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 该maven archetype还集成了离线智能合约客户端，在通过maven打包智能合约之后，会自动启动该离线智能合约客户端，开发者在此客户端上进行智能合约的部署和合约方法调用。
 
+### 开发环境
+
+1、安装JDK8
+
+2、安装IntelliJ IDEA
+
+3、工程JDK运行环境
+
+    新建工程时JDK请选择JDK8
+
+4、IntelliJ IDEA的Maven插件JDK运行环境
+
+    打开IntelliJ IDEA设置 -> Settings -> Build,Execution,Deployment -> Build Tools -> Maven -> Runner
+    
+    JRE请选择JDK8
 
 ### 新建NULS智能合约Maven工程
 
@@ -94,7 +109,7 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 #### 服务节点
 
-服务节点是指NULS API模块的URL地址，当不选择服务地址时，默认使用http://apitn1.nulscan.io，操作页面如下图所示。
+服务节点是指NULS API模块的URL地址，当不选择服务地址时，默认使用http://beta.public1.nuls.io，操作页面如下图所示。
 
 ![](./mavenPackage/P3rRa4L.png)
 
