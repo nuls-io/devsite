@@ -1,5 +1,15 @@
 # Smart contract offline assembly
 
+## Prerequisites
+
+- Users: Create a transaction without using the node API, ie: The user whose private key is saved locally
+
+- The difference between offline and online
+     
+    - Offline: The private key is saved locally
+    
+    - Online: The private key is saved on the node
+
 **Smart Contracts There are three types of transactions to be assembled, namely `Publish Contract`, `Call Contract`, `Delete Contract`. The following will introduce the offline assembly methods of these three transactions using `Java` language and `JavaScript` language respectively.**
 
 > **`nrc20 contract code `** is used as an example in the documentation
