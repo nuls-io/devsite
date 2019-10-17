@@ -75,7 +75,7 @@ Go to the calling page and select the `transfer` method of the token contract.
 
 ![image-20190917114912986](./g_pocm/project6.png)
 
-Fill in the POCM contract address that has been successfully issued, and then fill in the number of Tokens transferred (because of the calculation unit, you need to add 8 zero after the actual number  and finally click [ call ]
+Fill in the POCM contract address that has been successfully issued, and then fill in the number of Tokens transferred (because of the calculation unit, you need to add n zero after the actual number,n = the decimal of the token you issued ） and finally click [ call ]
 
 ![image-20190917115135644](./g_pocm/project7.png)
 
