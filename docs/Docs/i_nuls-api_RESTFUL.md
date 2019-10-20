@@ -42,38 +42,41 @@ Nuls 2.0 supports each chain in addition to the default assets, dynamically add 
 
 Nuls 2.0 has multiple transactions by default. Each transaction has different functions. When calling the interface to query the transaction details, the type field can be used to distinguish different transaction types. The following are the enumeration values of the transaction type:
 
-```
-int COIN_BASE = 1;						// coinBase block reward
-int TRANSFER = 2;						// transfer
-int ACCOUNT_ALIAS = 3;					/ / Set the account alias
-int REGISTER_AGENT = 4;					// New consensus node
-int DEPOSIT = 5;						// Entrusted to participate in the consensus
-int CANCEL_DEPOSIT = 6;					// cancel the delegate consensus
-int YELLOW_PUNISH = 7;					// yellow card
-int RED_PUNISH = 8;						// red card
-int STOP_AGENT = 9;						// Unregister the consensus node
-int CROSS_CHAIN = 10;					// Cross-chain transfer
-int REGISTER_CHAIN_AND_ASSET = 11;		// registration chain
-int DESTROY_CHAIN_AND_ASSET = 12;		// Logout chain
-int ADD_ASSET_TO_CHAIN = 13;			// Add an asset to the chain
-int REMOVE_ASSET_FROM_CHAIN = 14;		// Delete the assets on the chain
-int CREATE_CONTRACT = 15;				// Create a smart contract
-int CALL_CONTRACT = 16;					/ / Call smart contract
-int DELETE_CONTRACT = 17;				// delete the smart contract
-int CONTRACT_TRANSFER = 18;				// Internal transfer of the contract
-int CONTRACT_RETURN_GAS = 19;			// Contract execution fee refund
-int CONTRACT_CREATE_AGENT = 20;			// contract new consensus node
-int CONTRACT_DEPOSIT = 21;				// Contract commissioned to participate in the consensus
-int CONTRACT_CANCEL_DEPOSIT = 22;		// Contract cancellation commission consensus
-int CONTRACT_STOP_AGENT = 23;			// Contract cancellation consensus node
-int VERIFIER_CHANGE = 24;				// certifier change
-```
 
+
+| Value | Description |
+| --- | --- |                     
+| int COIN_BASE \= 1;		| coinBase block reward |
+| int TRANSFER \= 2;		| transfer |
+| int ACCOUNT_ALIAS \= 3;		| Set the account alias |
+| int REGISTER_AGENT \= 4;	| New consensus node |
+|int DEPOSIT = 5;						| Entrusted to participate in the consensus
+|int CANCEL_DEPOSIT = 6;					| cancel the delegate consensus
+|int YELLOW_PUNISH = 7;					| yellow card
+|int RED_PUNISH = 8;						| red card
+|int STOP_AGENT = 9;						| Unregister the consensus node
+|int CROSS_CHAIN = 10;					| Cross-chain transfer
+|int REGISTER_CHAIN_AND_ASSET = 11;		| registration chain
+|int DESTROY_CHAIN_AND_ASSET = 12;		| Logout chain
+|int ADD_ASSET_TO_CHAIN = 13;			| Add an asset to the chain
+|int REMOVE_ASSET_FROM_CHAIN = 14;		| Delete the assets on the chain
+|int CREATE_CONTRACT = 15;				| Create a smart contract
+|int CALL_CONTRACT = 16;					| Call smart contract
+|int DELETE_CONTRACT = 17;				| delete the smart contract
+|int CONTRACT_TRANSFER = 18;				| Internal transfer of the contract
+|int CONTRACT_RETURN_GAS = 19;			| Contract execution fee refund
+|int CONTRACT_CREATE_AGENT = 20;			| contract new consensus node
+|int CONTRACT_DEPOSIT = 21;				| Contract commissioned to participate in the consensus
+|int CONTRACT_CANCEL_DEPOSIT = 22;		| Contract cancellation commission consensus
+|int CONTRACT_STOP_AGENT = 23;			| Contract cancellation consensus node
+|int VERIFIER_CHANGE = 24;				| certifier change
+
+&nbsp;
 **From and to:** of the transaction
 
 Take a transfer transaction as an example: tx.type = 2
 
-From is the transferor of the transfer transaction, each from a certain amount of assets transferred as a transferor, wherein the nonce value will change after each transfer, you can get the current latest nonce value by calling the query account balance interface.
+From is the transferer of the transfer transaction, each from a certain amount of assets transferred as a transferer, wherein the nonce value will change after each transfer, you can get the current latest nonce value by calling the query account balance interface.
 
 To is the recipient of the transfer transaction, each to is regarded as the recipient receives the amount of an asset, where lockTime is the lock time.When the lock time is greater than 0, it means that the real time exceeds this value, the asset can be used normally; when lockTime = -1, it means permanent lock, special transaction is needed to unlock, such as participation in the consensus and cancellation of the consensus .
 
@@ -130,21 +133,12 @@ We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interfac
 ######Parameter list
 - No parameters
 
-#####Return valuess
-| Field Name | Field Type | Parameter Description |
-| --------------- |:------:| ------------ |
-| chainId | string | ID of this chain |
-| assetId | string | ID of the default primary asset of this chain |
-| inflationAmount | string | The initial number of default primary assets for this chain |
-| agentChainId | string | Chain ID of the chain consensus asset |
-| agentAssetId | string | ID of the chain consensus asset |
-
- 
-
-### 1.1 Creating accounts in batches
+#####Return values
+| Field Name | Field Type | Parameter Description || --------------- |:------:| ------------ || chainId | string | ID of this chain || assetId | string | ID of the default primary asset of this chain || inflationAmount | string | The initial number of default primary assets for this chain || agentChainId | string | Chain ID of the chain consensus asset || agentAssetId | string | ID of the chain consensus asset |### 1.1 Creating accounts in batches
 #### Cmd: /api/account
 - The created account exists in the local wallet
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data: 
 ```json
@@ -170,7 +164,7 @@ We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interfac
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -215,21 +209,24 @@ _**request form data:**_
 | Field Name | Field Type | Parameter Description |
 | ----- |:-------:| ------ |
 | value | boolean | Whether to modify successfully |
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
 ### 1.3 Export account private key
 #### Cmd: /api/account/prikey/{address}
 - Only the private key of the existing account of the local wallet can be exported**_
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data: 
 ```json
@@ -241,8 +238,8 @@ slightly
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | -------------------------------------------------------- |:-------------------:| -------- |:----:|
-| address | string | account address | yes |
-| form | accountpasswordform | Account Password Information Form | Yes |
+| &emsp; address | string | account address | yes |
+| &emsp; form | accountpasswordform | Account Password Information Form | Yes |
 | &emsp; password | string | Password | Yes |
 
 #####Return values
@@ -274,7 +271,8 @@ _**request form data:**_
 ### 1.4 Importing an account based on a private key
 #### Cmd: /api/account/import/pri
 - When importing the private key, you need to enter the password to encrypt the plaintext private key
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -288,7 +286,7 @@ _**request form data:**_
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | --------------------------------------------------------- |:-------------------------:| ------------------------------ |:----:|
-| form | accountprikeypasswordform | Import account form based on private key | Yes |
+| &emsp; form | accountprikeypasswordform | Import account form based on private key | Yes |
 | &emsp; priKey | string | Private Key | Yes |
 | &emsp; password | string | Password | Yes |
 | &emsp; overwrite | boolean | Whether to overwrite the account: false: Do not overwrite import, true: Overwrite import | Yes |
@@ -300,7 +298,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -324,33 +322,40 @@ _**request form data:**_
 ### 1.5 Importing accounts based on keyStore
 #### Cmd: /api/account/import/keystore
 - Import account according to keyStore
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | -------------------------------------------------------- |:-----------:| ---------- |:----:|
 | Import account based on private key | inputstream | Import account form based on private key | Yes |
-| &emsp; Import accounts based on private key | inputstream | Import account form based on private key | Yes |
+| Import accounts based on private key | inputstream | Import account form based on private key | Yes |
 
 #####Return values
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ---- |
 | value | string | Account Address|
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
+
 
 ### 1.6 Importing accounts based on the keystore file path
 #### Cmd: /api/account/import/keystore/path
 - Import account according to the keystore file path
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -364,7 +369,7 @@ slightly
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | --------------------------------------------------------- |:-------------------------:| ------------------------------ |:----:|
-| form | accountkeystoreimportform | Import account form based on keystore file path | Yes |
+| &emsp; form | accountkeystoreimportform | Import account form based on keystore file path | Yes |
 | &emsp; path | string | local keystore file path | Yes |
 | &emsp; password | string | Password | Yes |
 | &emsp; overwrite | boolean | Whether to overwrite the account: false: Do not overwrite import, true: Overwrite import | Yes |
@@ -373,12 +378,16 @@ slightly
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ---- |
 | value | string | Account Address|
+
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
+-->
+
 ```json
 {
   "path" : "e:\\tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG.keystore",
@@ -400,7 +409,8 @@ _**request form data:**_
 ### 1.7 Importing accounts based on keystore strings
 #### Cmd: /api/account/import/keystore/json
 - Import account based on keystore string
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -435,7 +445,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -464,7 +474,8 @@ _**request form data:**_
 ### 1.8 Account backup, export the AccountKeyStore file to the specified directory
 #### Cmd: /api/account/export/{address}
 - Account backup, export AccountKeyStore file to the specified directory
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -478,7 +489,7 @@ _**request form data:**_
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | -------------------------------------------------------- |:---------------------:| -------------- |:----:|
 | address | string | account address | yes |
-| form | accountkeystorebackup | keystone export information form | Yes |
+| &emsp;form | accountkeystorebackup | keystone export information form | Yes |
 | &emsp; password | string | Password | Yes |
 | &emsp; path | string | File Path | Yes |
 
@@ -512,7 +523,8 @@ _**request form data:**_
 ### 1.9 Account Settings Alias
 #### Cmd: /api/account/alias
 - The alias format is a combination of 1-20 digits lowercase letters and numbers. Setting an alias will destroy 1 nuls
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -526,7 +538,7 @@ _**request form data:**_
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | -------------------------------------------------------- |:------------:| -------- |:----:|
-| form | setaliasform | Account Settings Alias Form | Yes |
+| &emsp;form | setaliasform | Account Settings Alias Form | Yes |
 | &emsp; address | string | Account Address| Yes |
 | &emsp; alias | string | alias | yes |
 | &emsp; password | string | Account Password | Yes |
@@ -535,21 +547,24 @@ _**request form data:**_
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ----------- |
 | value | string | set the hash of the alias transaction |
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
 ### 1.10 Querying account balance
 #### Cmd: /api/accountledger/balance/{address}
 - According to the asset chain ID and asset ID, query the balance and nonce value of the corresponding assets of the chain account
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -608,28 +623,32 @@ _**request form data:**_
 ### 1.11 Verify that the address format is correct
 #### Cmd: /api/account/address/validate
 - Verify that the address format is correct
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Parameter list
 No parameters
 
 #####Return values
 No return value
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
 ### 1.12 Offline - Create an account in bulk
 #### Cmd: /api/account/offline
 - The created account will not be saved to the wallet, and the interface directly returns the keystore information of the account
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -643,7 +662,7 @@ slightly
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | -------------------------------------------------------- |:-----------------:| ---------- |:----:|
-| form | accountcreateform | Offline Batch Create Account Form | Yes |
+| &emsp;form | accountcreateform | Offline Batch Create Account Form | Yes |
 | &emsp; count | int | New Account Quantity | Yes |
 | &emsp; prefix | string | address prefix | no|
 | &emsp; password | string | Account Password | Yes |
@@ -659,7 +678,7 @@ slightly
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -686,7 +705,8 @@ _**request form data:**_
 ### 1.13 Obtaining the account clear text private key offline
 #### Cmd: /api/account/priKey/offline
 - Obtain the account clear text private key offline
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -700,7 +720,7 @@ _**request form data:**_
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | --------------------------------------------------------------- |:-------------:| ------------ |:----:|
-| form | getprikeyform | Get the account clear text private key form offline | Yes |
+| &emsp;form | getprikeyform | Get the account clear text private key form offline | Yes |
 | &emsp; address | string | Account Address| Yes |
 | &emsp; encryptedPriKey | string | Account Ciphertext Private Key | Yes |
 | &emsp; password | string | Account Password | Yes |
@@ -712,7 +732,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -766,19 +786,20 @@ _**request form data:**_
 #### Example request data: (section not complete)
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
 ---------------------------->
 
 ### 1.15 Multiple Account Summary Signature
 #### Cmd: /api/account/multi/sign
 - Multi-account transfer transaction for signature offline assembly. When calling interface, parameters can pass address and private key, or pass address and encrypted private key and encrypted password
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -796,7 +817,7 @@ slightly
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | ------------------------------------------------------------------------------------------------------------------- |:---------------:| ----------- |:----:|
-| form | multisignform | Multiple Account Summary Signature Form | Yes |
+| &emsp;form | multisignform | Multiple Account Summary Signature Form | Yes |
 | &emsp; dtoList | list&lt;object> | keystore collection | Yes |
 | &emsp;  address | string | address|
 | &emsp;  priKey | string | Clear Text Private Key | No|
@@ -812,7 +833,7 @@ slightly
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -841,7 +862,8 @@ _**request form data:**_
 ### 1.16 Clear text private key digest signature
 #### Cmd: /api/account/priKey/sign
 - Clear text private key summary signature
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -855,7 +877,7 @@ _**request form data:**_
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | ------------------------------------------------------- |:--------------:| ----------- |:----:|
-| form | prikeysignform | Clear Text Private Key Summary Signature Form | Yes |
+| &emsp;form | prikeysignform | Clear Text Private Key Summary Signature Form | Yes |
 | &emsp; txHex | string | Transaction Serialization Hex String | Yes |
 | &emsp; address | string | Account Address| Yes |
 | &emsp; priKey | string | Account Clear Text Private Key | Yes |
@@ -868,7 +890,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -893,7 +915,8 @@ _**request form data:**_
 ### 1.17 ciphertext private key digest signature
 #### Cmd: /api/account/encryptedPriKey/sign
 - ciphertext private key digest signature
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -908,7 +931,7 @@ _**request form data:**_
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | --------------------------------------------------------------- |:-----------------------:| ----------- |:----:|
-| form | encryptedprikeysignform | ciphertext private key summary signature form | Yes |
+| &emsp;form | encryptedprikeysignform | ciphertext private key summary signature form | Yes |
 | &emsp; txHex | string | Transaction Serialization Hex String | Yes |
 | &emsp; address | string | Account Address| Yes |
 | &emsp; encryptedPriKey | string | Account Ciphertext Private Key | Yes |
@@ -922,7 +945,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -948,7 +971,8 @@ _**request form data:**_
 ### 1.18 Creating a multi-signed account
 #### Cmd: /api/account/multiSign/create
 - Create a multi-sign account based on the public key of multiple accounts, minSigns the minimum number of signatures required to create a transaction for a multi-signed account
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -961,7 +985,7 @@ _**request form data:**_
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | -------------------------------------------------------- |:--------------------------:| -------- |:----:|
-| form | multisignaccountcreateform | Create a multi-sign account form | Yes |
+| &emsp;form | multisignaccountcreateform | Create a multi-sign account form | Yes |
 | &emsp; pubKeys | list&lt;string> | Account Public Key Collection | Yes |
 | &emsp; minSigns | int | Minimum Signatures | Yes |
 
@@ -969,21 +993,24 @@ _**request form data:**_
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ----- |
 | value | string | Account address |
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
 ### 1.19 Creating an alias transaction offline
 #### Cmd: /api/account/aliasTx/create
 - Create a multi-sign account based on the public key of multiple accounts, minSigns the minimum number of signatures required to create a transaction for a multi-signed account
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -1009,21 +1036,24 @@ slightly
 | ----- |:------:| ------------ |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization hex string |
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
 ### 1.20 Multi-signed account offline creation set alias transaction
 #### Cmd: /api/account/multiSign/aliasTx/create
 - Multi-signed account offline creation set alias transaction 
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -1053,21 +1083,24 @@ slightly
 | ----- |:------:| ------------ |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization hex string |
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
 ### 1.21 Get the account address format based on the private key
 #### Cmd: /api/account/address/priKey
 - Get account address format based on private key
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -1079,24 +1112,29 @@ slightly
 #####Parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | ------------------------------------------------------ |:----------:| ------ |:----:|
-| form | prikeyform | private key form | yes |
+| &emsp;form | prikeyform | private key form | yes |
 | &emsp; priKey | string | Account Clear Text Private Key | Yes |
 
 #####Return values
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ---- |
 | value | string | Account Address|
+<!--
+
+<!--
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
 
+-->
 ### 2.1 Query block header according to block height
 #### Cmd: /api/block/header/height/{height}
 - Query block header according to block height 
@@ -1254,7 +1292,7 @@ No parameters
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
@@ -1295,7 +1333,7 @@ No parameters
 #####Return values
 | Field Name | Field Type | Parameter Description |
 | ------------------------------------------------------------------------------------------------------------- |:---------------:| ----------------------------------------- |
-| header | object | block header information, only return the corresponding partial data |
+| &emsp; header | object | block header information, only return the corresponding partial data |
 | &emsp; hash | string | hash value of block |
 | &emsp; preHash | string | hash value of the previous block|
 | &emsp; merkleHash | string | Merkel hash |
@@ -1313,7 +1351,7 @@ No parameters
 | &emsp; blockVersion | short | The version of the block, which can be understood as the version of the local wallet |
 | &emsp; stateRoot | string | Smart Contract World Status Root |
 | &emsp; txHashList | list&lt;string> | Block packed transaction hash collection|
-| txs | list&lt;object> | Trading List|
+| &emsp; txs | list&lt;object> | Trading List|
 | &emsp; hash | string | trading hash value|
 | &emsp; type | int | Transaction Type|
 | &emsp; time | string | Trading Hours |
@@ -1340,7 +1378,7 @@ No parameters
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
@@ -1447,7 +1485,7 @@ no
 | &emsp; blockVersion | short | The version of the block, which can be understood as the version of the local wallet |
 | &emsp; stateRoot | string | Smart Contract World Status Root |
 | &emsp; txHashList | list&lt;string> | Block packed transaction hash collection|
-| txs | list&lt;object> | Trading List|
+| &emsp; txs | list&lt;object> | Trading List|
 | &emsp; hash | string | trading hash value|
 | &emsp; type | int | Transaction Type|
 | &emsp; time | string | Trading Hours |
@@ -1581,7 +1619,7 @@ no
 | &emsp; blockVersion | short | The version of the block, which can be understood as the version of the local wallet |
 | &emsp; stateRoot | string | Smart Contract World Status Root |
 | &emsp; txHashList | list&lt;string> | Block packed transaction hash collection|
-| txs | list&lt;object> | Trading List|
+| &emsp; txs | list&lt;object> | Trading List|
 | &emsp; hash | string | trading hash value|
 | &emsp; type | int | Transaction Type|
 | &emsp; time | string | Trading Hours |
@@ -1599,7 +1637,7 @@ no
 | &emsp;  amount | string | Quantity |
 | &emsp;  nonce | string | Hex string for account nonce value, preventing double-flower trading, Take the last 8 bytes of a transaction hash |
 | &emsp;  locked | byte | 0 normal trade, -1 unlocked trade (exit consensus, Exit commission) |
-| &emsp; to | list&lt;object> | Output|
+| &emsp;  to | list&lt;object> | Output|
 | &emsp;  address | string | Account Address|
 | &emsp;  assetsChainId | int | id of asset distribution chain |
 | &emsp;  assetsId | int | Asset id |
@@ -1716,7 +1754,7 @@ no
 
 ### 2.8 Serializing strings based on block hash query block
 #### Cmd: /api/block/serialization/hash/{hash}
-- Contains all transaction information packaged by the block. This interface returns more data and is cautiously called **_
+- Contains all transaction information packaged by the block. This interface returns more data and is cautiously called
 #### HttpMethod: GET
 
 #####Parameter list
@@ -1824,7 +1862,8 @@ no
 ### 3.2 Verifying the transaction
 #### Cmd: /api/accountledger/transaction/validate
 - Verify offline assembled transaction, verify successful return of transaction hash value, failure returns error message
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -1846,7 +1885,7 @@ no
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -1868,7 +1907,8 @@ _**request form data:**_
 ### 3.3 Broadcast Trading
 #### Cmd: /api/accountledger/transaction/broadcast
 - Broadcast offline assembly transaction, successfully returns true, failure returns error message
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -1891,7 +1931,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -1914,7 +1954,8 @@ _**request form data:**_
 ### 3.4 Single transfer
 #### Cmd: /api/accountledger/transfer
 _**Detailed Description: Initiate a single account single asset transfer transaction
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -1944,7 +1985,7 @@ _**Detailed Description: Initiate a single account single asset transfer transac
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -1970,7 +2011,8 @@ _**request form data:**_
 ### 3.5 Offline assembly transfer transaction
 #### Cmd: /api/accountledger/createTransferTxOffline
 _**Detailed Description: Offline transfer transactions based on inputs and outputs for single or multiple account transfer transactions.The transaction fee is the sum of the main assets of the chain in the inputs, minus the sum of the main assets of the chain in the output
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2019,7 +2061,7 @@ TransferDto | transferdto | Transfer Transaction Form | Yes |
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2056,7 +2098,8 @@ _**request form data:**_
 ### 3.6 Calculate the commission fee for creating a transfer transaction offline
 #### Cmd: /api/accountledger/calcTransferTxFee
 - Calculate the commission fee required to create a transfer transaction offline
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2086,7 +2129,7 @@ TransferTxFeeDto | transfertxfeedto | Transfer transaction fee | Yes |
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2112,7 +2155,8 @@ _**request form data:**_
 ### 3.7 Multi-signed account offline assembly transfer transaction
 #### Cmd: /api/accountledger/createMultiSignTransferTxOffline
 _**Detailed Description: Offline transfer transactions based on inputs and outputs for single or multiple account transfer transactions.The transaction fee is the sum of the main assets of the chain in the inputs, minus the sum of the main assets of the chain in the output
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2162,21 +2206,26 @@ TransferDto | multisigntransferdto | Multi-Sign Account Transfer Transaction For
 | ----- |:------:| ------------ |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization hex string |
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
 
 ### 3.8 Calculate the commission required to create a multi-sign account transfer transaction offline
 #### Cmd: /api/accountledger/calcMultiSignTransferTxFee
 - Calculate the commission fee for offline multi-sign account transfer transactions
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2203,21 +2252,26 @@ MultiSignTransferTxFeeDto | multisigntransfertxfeedto | Multi-Sign Account Trans
 | Field Name | Field Type | Parameter Description |
 | ----- |:------:| ----- |
 | value | string | transaction fee |
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
 
 ### 4.1 Publishing contract
 #### Cmd: /api/contract/create
 - Release contract
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2254,7 +2308,7 @@ slightly
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2284,7 +2338,8 @@ _**request form data:**_
 ### 4.2 Calling the contract
 #### Cmd: /api/contract/call
 - Call contract 
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2324,7 +2379,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2355,7 +2410,8 @@ _**request form data:**_
 ### 4.3 Deleting a contract
 #### Cmd: /api/contract/delete
 - Delete contract
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2383,7 +2439,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2408,7 +2464,8 @@ _**request form data:**_
 ### 4.4 Contract Token Transfer
 #### Cmd: /api/contract/tokentransfer
 - Contract token transfer
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2440,7 +2497,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2467,7 +2524,8 @@ _**request form data:**_
 ### 4.5 Contract transaction from account address to contract address transfer (main chain asset)
 #### Cmd: /api/contract/transfer2contract
 - Contract transaction from account address to contract address transfer (main chain asset)
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2497,7 +2555,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -2866,7 +2924,8 @@ no
 ### 4.9 Get the list of smart contract execution results
 #### Cmd: /api/contract/result/list
 - Get smart contract execution result list
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -2925,7 +2984,7 @@ Get the list of smart contract execution results | contractresultlistform | Get 
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3025,7 +3084,8 @@ _**request form data:**_
 ### 4.10 Get Contract Code Constructor
 #### Cmd: /api/contract/constructor
 - Get contract code constructor
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3059,7 +3119,7 @@ Constructor | object | contract constructor details|
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3106,7 +3166,8 @@ _**request form data:**_
 ### 4.11 Get information about the specified function of the published contract
 #### Cmd: /api/contract/method
 - Get information about the specified function of the published contract
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3142,7 +3203,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3196,7 +3257,8 @@ _**request form data:**_
 ### 4.12 Get the list of parameter types for the specified function of the published contract
 #### Cmd: /api/contract/method/argstypes
 - Get a list of parameter types for the specified function of the published contract
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3222,7 +3284,7 @@ Get the list of parameter types for the specified function of the published cont
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3244,7 +3306,8 @@ _**request form data:**_
 ### 4.13 Verifying the release contract
 #### Cmd: /api/contract/validate/create
 - Verify the release contract
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3276,7 +3339,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3302,7 +3365,8 @@ _**request form data:**_
 ### 4.14 Verifying the call contract
 #### Cmd: /api/contract/validate/call
 - Verify call contract 
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3340,7 +3404,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3376,7 +3440,8 @@ _**request form data:**_
 ### 4.15 Verify the deletion of the contract
 #### Cmd: /api/contract/validate/delete
 - Verify delete contract 
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3402,7 +3467,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3425,7 +3490,8 @@ _**request form data:**_
 ### 4.16 Estimating the release of the contract transaction gas
 #### Cmd: /api/contract/imputedgas/create
 - Estimate the release of the contract transaction gas
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3451,7 +3517,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3475,7 +3541,8 @@ _**request form data:**_
 ### 4.17 Estimating the gas that calls the contract transaction
 #### Cmd: /api/contract/imputedgas/call
 - Estimate the gas** of the contract transaction
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3507,7 +3574,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3534,7 +3601,8 @@ _**request form data:**_
 ### 4.18 Calling the contract without the chain method
 #### Cmd: /api/contract/view
 - Call contract not chained method
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3562,7 +3630,7 @@ Call contract not linked method | contractviewcall | Call contract not on the ch
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3587,7 +3655,8 @@ _**request form data:**_
 ### 4.19 Offline Assembly - Publish Contract Transactions
 #### Cmd: /api/contract/create/offline
 - Offline assembly - release contract transaction
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3627,7 +3696,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3659,7 +3728,8 @@ _**request form data:**_
 ### 4.20 Offline Assembly - Calling a contract transaction
 #### Cmd: /api/contract/call/offline
 - Offline assembly - Calling contract transactions
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3702,7 +3772,7 @@ Call Contract Offline Trading | contractcalloffline | Call Contract Offline Trad
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3735,7 +3805,8 @@ _**request form data:**_
 ### 4.21 Offline Assembly - Delete Contract Transactions
 #### Cmd: /api/contract/delete/offline
 - Offline assembly - delete contract transaction
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3766,7 +3837,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3793,7 +3864,8 @@ _**request form data:**_
 ### 4.22 Offline Assembly - Contract Token Transfer Transaction
 #### Cmd: /api/contract/tokentransfer/offline
 - Offline assembly - contract token transfer transaction
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3830,7 +3902,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3860,7 +3932,8 @@ _**request form data:**_
 ### 4.23 Offline Assembly - Contract transactions from account address to contract address transfer (main chain asset)
 #### Cmd: /api/contract/transfer2contract/offline
 - Offline assembly - contract transaction from account address to contract address (main chain asset)
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3895,7 +3968,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3924,7 +3997,8 @@ _**request form data:**_
 ### 5.1 Creating a consensus node
 #### Cmd: /api/consensus/agent
 - Create consensus node
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -3956,7 +4030,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -3983,7 +4057,8 @@ _**request form data:**_
 ### 5.2 Logout Consensus Node
 #### Cmd: /api/consensus/agent/stop
 - Logout consensus node
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4007,7 +4082,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4030,7 +4105,8 @@ _**request form data:**_
 ### 5.3 Entrusted to participate in the consensus
 #### Cmd: /api/consensus/deposit
 - Entrusted participation in consensus
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4058,7 +4134,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4083,7 +4159,8 @@ _**request form data:**_
 ### 5.4 Exit Consensus
 #### Cmd: /api/consensus/withdraw
 - Exit consensus
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4109,7 +4186,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4185,7 +4262,8 @@ no
 ### 5.6 Offline Assembly - Create Consensus Node Transactions
 #### Cmd: /api/consensus/agent/offline
 - The assets required to participate in the consensus can be obtained through the query chain information interface (agentChainId and agentAssetId)
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4229,7 +4307,7 @@ ConsensusDto | consensusdto | Create consensus node form offline | Yes |
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4263,7 +4341,8 @@ _**request form data:**_
 ### 5.7 Offline Assembly - Unregister Consensus Node Transaction
 #### Cmd: /api/consensus/agent/stop/offline
 - The StopDepositDto information of the assembly transaction can be obtained by querying the node's delegate consensus list, and the input nonce value can be empty 
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4310,7 +4389,7 @@ StopConsensusDto | stopconsensusdto | Offline Logout Consensus Node Form | Yes |
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4355,7 +4434,8 @@ _**request form data:**_
 ### 5.8 Offline Assembly - Entrusted to participate in consensus transactions
 #### Cmd: /api/consensus/deposit/offline
 - The assets required to participate in the consensus can be obtained through the query chain information interface (agentChainId and agentAssetId)
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4395,7 +4475,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4427,7 +4507,8 @@ _**request form data:**_
 ### 5.9 Offline Assembly - Exit Consensus Trading
 #### Cmd: /api/consensus/withdraw/offline
 - The input data of the interface is the output data of the trusted consensus transaction, and the nonce value can be empty
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4467,7 +4548,7 @@ _**request form data:**_
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 ```json
@@ -4499,7 +4580,8 @@ _**request form data:**_
 ### 5.10 Multi-Sign Account Offline Assembly - Create Consensus Node Transaction
 #### Cmd: /api/consensus/multiSign/agent/offline
 - The assets required to participate in the consensus can be obtained through the query chain information interface (agentChainId and agentAssetId)
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4538,21 +4620,26 @@ MultiSignConsensusDto | multisignconsensusdto | Multi-Sign Account Offline Creat
 | ----- |:------:| -------- |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization String |
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
 
 ### 5.11 Offline Assembly - Multi-Sign Account Entrusted to Participate in Consensus Trading
 #### Cmd: /api/consensus/multiSign/deposit/offline
 - The assets required to participate in the consensus can be obtained through the query chain information interface (agentChainId and agentAssetId)
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4587,21 +4674,26 @@ MultiSignDepositDto | multisigndepositdto | Multi-Sign Account Offline Delegate 
 | ----- |:------:| -------- |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization String |
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
 
 ### 5.12 Offline Assembly - Multi-Sign Account Exit Consensus Transaction
 #### Cmd: /api/consensus/multiSign/withdraw/offline
 - The input data of the interface is the output data of the trusted consensus transaction, and the nonce value can be empty
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4636,21 +4728,26 @@ slightly
 | ----- |:------:| -------- |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization String |
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
 
 ### 5.13 Offline Assembly - Multi-Sign Account Deregistration Consensus Node Transaction
 #### Cmd: /api/consensus/multiSign/agent/stop/offline
 - The StopDepositDto information of the assembly transaction can be obtained by querying the node's delegate consensus list, and the input nonce value can be empty 
-#### HttpMethod: POST
+#####HttpMethod: POST
+
 
 #####Form json data
 ```json
@@ -4689,14 +4786,18 @@ slightly
 | ----- |:------:| -------- |
 | hash | string | transaction hash |
 | txHex | string | Transaction Serialization String |
+<!--
+
 #### Example request data: 
 
 _**request path:**_
-slightly
+[TBD]
 
 _**request form data:**_
 no
 
 #####Example response data: 
-slightly
+[TBD]
+-->
+
 
