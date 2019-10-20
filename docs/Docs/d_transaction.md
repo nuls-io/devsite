@@ -7,7 +7,7 @@
 
 #### Why are there trading modules?
 
-	In the nuls2.0 ecosystem, trades flow between chains or chains, and the nodes of each chain not only deal with transactions within the chain, but also deal with cross-chain transactions, so each node needs to be processed. The trades are more and more complex and more complex, so we need a single but separate module to handle the various transactions.From the architectural design of nuls2.0, we need a separate module to handle the collection, verification, storage and forwarding of transactions. For all transactions, these functions are shared and unified, so we put the transaction Management runs as a standalone module.
+In the Nuls 2.0 ecosystem, trades flow between chains and chains. The nodes of each chain not only deal with transactions within the chain, but also deal with cross-chain transactions, so each node needs to be processed. The trades are more and more complex, so we need a single but separate module to handle the various transactions. From the architectural design of Nuls 2.0, we need a separate module to handle the collection, verification, storage and forwarding of transactions. For all transactions, these functions are shared and unified, so transaction management runs as a standalone module.
 
 #### What does the trading module do?
 
@@ -66,27 +66,27 @@ When the module starts, it needs to read the configuration information of all th
 
 - Basic information about the initialization chain
 
-  	Load chain configuration information, initialize various logos, status, etc. when running the chain.
+Load chain configuration information, initialize various logos, status, etc. when running the chain.
 
 - Initialize the chain RocksDB table
 
-  	Create a db table for each data store in the chain runtime.
+Create a db table for each data store in the chain runtime.
 
 - Initialize the log of the chain
 
-  	Create individual print log objects for the chain.
+Create individual print log objects for the chain.
 
 - Initialize the chain's cache
 
-  	Create a cache and queue for the chain runtime.
+  Create a cache and queue for the chain runtime.
 
 - Initialize transactions in the chain trading module, such as cross-chain trading
 
-  	The cross-chain transaction in the registration transaction module will maintain a Map with the transaction type as the key and the transaction registration object as the value. The transaction registration object contains the API name of the transaction validator, the transaction service submission interface, and the transaction service rollback interface. And some information about the transaction itself.
+The cross-chain transaction in the registration transaction module will maintain a Map with the transaction type as the key and the transaction registration object as the value. The transaction registration object contains the API name of the transaction validator, the transaction service submission interface, and the transaction service rollback interface. And some information about the transaction itself.
 
 - Initialize the chain task scheduler
 
-  	Create various timing tasks for the chain runtime
+Create various timing tasks for the chain runtime
 
   
 
@@ -96,9 +96,9 @@ When the module starts, it needs to read the configuration information of all th
 
 - Collect newly created transactions for each module of this node
 
-  	The nodes of nuls2.0 are modular, so the node is a whole composed of multiple core modules, and the transaction module acts as the transaction processing center of the node, but it is not the assembler of all the transactions of the node. The various transactions of the node are Created by the corresponding individual function modules.Therefore, the primary task of the trading module is to collect the transactions assembled by each module.
+The nodes of Nuls 2.0 are modular, so the node is a whole composed of multiple core modules, and the transaction module acts as the transaction processing center of the node, but it is not the assembler of all the transactions of the node. The various transactions of the node are Created by the corresponding individual function modules. Therefore, the primary task of the trading module is to collect the transactions assembled by each module.
 
-    	The function module performs transaction assembly according to the data provided by the user. After the assembly is completed, the transaction verifier is first executed to verify the basic data and business data of the transaction, and then the account book is verified by the account book module, and the transaction is directly sent to the transaction module through the verified transaction. Do the following, then wait for the next step.
+The function module performs transaction assembly according to the data provided by the user. After the assembly is completed, the transaction verifier is first executed to verify the basic data and business data of the transaction, and then the account book is verified by the account book module, and the transaction is directly sent to the transaction module through the verified transaction. Do the following, then wait for the next step.
 
   - db unconfirmed storage
   - Consensus node puts the transaction into the queue to be packaged
@@ -108,18 +108,18 @@ When the module starts, it needs to read the configuration information of all th
 
 - Collect transactions broadcast by other nodes
 
-  	The transactions broadcast by other nodes will be sent by means of network messages. The first is the hash of the transaction, and the transaction management module will send a message requesting the complete transaction before receiving the complete transaction.
+The transactions broadcast by other nodes will be sent by means of network messages. The first is the hash of the transaction, and the transaction management module will send a message requesting the complete transaction before receiving the complete transaction.
 
-    	Since the node is a whole composed of modules, within the node, the modules are trusted, and the nodes are not trusted. Therefore, unlike the new transaction of the receiving module, when the transaction module receives the transactions of other nodes. When the transaction is rigorously verified, then wait for the next step.
+Since the node is a whole composed of modules, within the node, the modules are trusted, and the nodes are not trusted. Therefore, unlike the new transaction of the receiving module, when the transaction module receives the transactions of other nodes. When the transaction is rigorously verified, then wait for the next step.
 
-  - Deduplication (validation in unconfirmed and confirmed databases)
+  - De-duplication (validation in unconfirmed and confirmed databases)
   - Call the validator corresponding to the transaction for verification
   - Call the ledger for verification
   - db unconfirmed storage
   - Consensus node puts the transaction into the queue to be packaged
   - Forward to other nodes
 
-  Only transactions that are not verified by an orphan transaction are temporarily placed in the orphan pool for processing, and all other unverified transactions are discarded.
+ Only transactions that are not verified by an orphan transaction are temporarily placed in the orphan pool for processing, and all other unverified transactions are discarded.
 
 > Orphan transactions: It means that the transaction data can be verified. The transaction nonce value is not used by other transactions, but it cannot be connected to an existing transaction and will be judged as an orphan transaction.
 
@@ -127,32 +127,34 @@ When the module starts, it needs to read the configuration information of all th
 
 #### Node packing new block transactions
 
-	Only the consensus node will have the process of packaging the new zone fast transaction. The order of the transaction module to start packaging the new block transaction is issued by the consensus module. The consensus provides the execution deadline of the assembly transaction, and the total capacity of the current block can be packaged. It is packaged by the trading module.
-	
-	When the trading module packs the block transaction, the transaction is first taken out from the PackablePool to be packaged queue (first in, first out), and then the book is verified by the book module for the transaction, and the book is verified in batches, in order to reduce the inter-module in the bulk transaction. RPC call.For the stability of the network, the number of transactions in a block is limited. In the case of not including system transactions, the default is one block with a maximum of 10,000 transactions.
-	
-	Transactions that fail to pass the book verification and confirmed transactions will not be placed in the packageable transaction set (if it is an orphan transaction, it will be re-inserted into the queue to be packaged, in order to prevent the occurrence of permanent orphan transactions, duplicates are taken out and Putting it back into the system, the number of times it will be replaced will be limited)
-	
-	After the book verification, if it is a smart contract transaction, you need to execute the smart contract, and then group the transaction according to the module registered by the transaction. After the reserved unified verification time threshold is reached, stop the transaction from the queue and stop the transaction. The group, respectively, calls the unified verifier of each module to verify and detect the transaction.
-	
-	If there is a transaction that fails verification in the unified verification phase of the module, the transaction will be removed from the set of packaged transactions that are taken out. If it is an orphan transaction, it will still be re-entered into the queue to be packaged, and all the packaged transactions can be packaged. The packaged full validation logic will be re-executed until all transactions have been uniformly verified by each module.If you have executed a smart contract transaction, you will go to the smart contract module to get the smart contract result, and add the newly generated transaction to the packageable transaction combined with the end of the team, and then return all the transactions to the consensus module for packaging.
+Only the consensus node will have the process of packaging the new zone fast transaction. The order of the transaction module to start packaging the new block transaction is issued by the consensus module. The consensus provides the execution deadline of the assembly transaction, and the total capacity of the current block can be packaged. It is packaged by the trading module.
 
-> - In the process of packaging new block transactions, if the latest local height changes, that is, the new block is received and saved successfully, then the package is abandoned, all the retrieved transactions are put back into the package to be packaged, and then the new zone is restarted. Block trading package.
+When the trading module packs the block transaction, the transaction is first taken out from the PackablePool to be packaged queue (first in, first out), and then the book is verified by the book module for the transaction, and the book is verified in batches, in order to reduce the inter-module in the bulk transaction. RPC call. For the stability of the network, the number of transactions in a block is limited. In the case of not including system transactions, the default is one block with a maximum of 10,000 transactions.
+
+Transactions that fail to pass the book verification and confirmed transactions will not be placed in the packageable transaction set (if it is an orphan transaction, it will be re-inserted into the queue to be packaged, in order to prevent the occurrence of permanent orphan transactions, duplicates are taken out and Putting it back into the system, the number of times it will be replaced will be limited)
+
+After the book verification, if it is a smart contract transaction, you need to execute the smart contract, and then group the transaction according to the module registered by the transaction. After the reserved unified verification time threshold is reached, stop the transaction from the queue and stop the transaction. The group, respectively, calls the unified verifier of each module to verify and detect the transaction.
+
+If there is a transaction that fails verification in the unified verification phase of the module, the transaction will be removed from the set of packaged transactions that are taken out. If it is an orphan transaction, it will still be re-entered into the queue to be packaged, and all the packaged transactions can be packaged. The packaged full validation logic will be re-executed until all transactions have been uniformly verified by each module.If you have executed a smart contract transaction, you will go to the smart contract module to get the smart contract result, and add the newly generated transaction to the packageable transaction combined with the end of the team, and then return all the transactions to the consensus module for packaging.
+
+> - In the process of packaging new block transactions, if the latest local height changes, that is, the new block is received and saved successfully, then the package is abandoned, all the retrieved transactions are put back into the package to be packaged, and then the new zone is restarted. 
+
+Block trading package
 > - When packaging a new block transaction, if the execution time exceeds the deadline, the consensus will assemble a new block with no transactions.
 
 
 
 #### Verifying transactions in blocks
 
-	The verification block transaction is one of the processes of the block module processing the new block. The transaction module obtains all the transactions in a complete block, firstly takes out the transaction in turn, and performs basic verification on the transaction, and then calls the book to verify; if not The cross-chain transaction generated by the chain also checks the cross-chain verification result of the cross-chain transaction; if it is a smart contract transaction, it needs to execute a smart contract, and then compare the existing result with the newly generated result, and finally group, The module unified verifier is called for verification; if one of the verifications fails, the entire block transaction fails to be verified, and the direct return fails.
-	
-	If the received block contains cross-chain transactions, the results of the cross-chain verification need to be verified during verification.
+The verification block transaction is one of the processes of the block module processing the new block. The transaction module obtains all the transactions in a complete block, firstly takes out the transaction in turn, and performs basic verification on the transaction, and then calls the book to verify; if not The cross-chain transaction generated by the chain also checks the cross-chain verification result of the cross-chain transaction; if it is a smart contract transaction, it needs to execute a smart contract, and then compare the existing result with the newly generated result, and finally group, The module unified verifier is called for verification; if one of the verifications fails, the entire block transaction fails to be verified, and the direct return fails.
+
+If the received block contains cross-chain transactions, the results of the cross-chain verification need to be verified during verification.
 
 
 
 #### Saving transactions in blocks
 
-	The transaction of saving the block is one of the processes of the block module processing block. The data of the block name has passed the verification and enters the save phase. When the transaction is saved, all the transactions are first saved to the confirmed DB database; then all the calls are respectively called. The business submission interface of the transaction performs processing on the transaction business data; then submits to the account book module, submits the account book and the nonce value; finally deletes the corresponding transaction from the unconfirmed DB.If an operation fails in the middle, the process that has been successfully operated will be rolled back.
+The transaction of saving the block is one of the processes of the block module processing block. The data of the block name has passed the verification and enters the save phase. When the transaction is saved, all the transactions are first saved to the confirmed DB database; then all the calls are respectively called. The business submission interface of the transaction performs processing on the transaction business data; then submits to the account book module, submits the account book and the nonce value; finally deletes the corresponding transaction from the unconfirmed DB.If an operation fails in the middle, the process that has been successfully operated will be rolled back.
 
 > The process of rolling back block trading is to execute the process of saving block transactions in reverse order.
 
@@ -175,8 +177,9 @@ Nuls uses a common transaction protocol format and consists of the following fie
 
 **type**
 
-Used to distinguish different business transactions, each module can register multiple transaction types, each transaction type can have different verification logic and processing logic.The value ranges from 1 to 65535.
+Used to distinguish different business transactions, each module can register multiple transaction types, each transaction type can have different verification logic and processing logic. The value ranges from 1 to 65535.
 Different transaction types should not be set to duplicate types, and the system does not allow duplicate types to be registered.
+
 System support for extensions: types greater than 100
 
 **time** 
@@ -185,7 +188,7 @@ The time of the transaction, accurate to the second, is not mandatory, the value
 
 **txData**  
 
-Used to extend business data, the account does not verify txData content, and any data can be stored here.Currently, the business data in the transaction type built into NULS is stored in the txData field.After registering the transaction type, the business module provides three interfaces to validate and process the data in txData (verifyTx, commitTx, rollbackTx).
+Used to extend business data, the account does not verify txData content, and any data can be stored here .Currently, the business data in the transaction type built into NULS is stored in the txData field.After registering the transaction type, the business module provides three interfaces to validate and process the data in txData (verifyTx, commitTx, rollbackTx).
 
 **CoinData**  
 
