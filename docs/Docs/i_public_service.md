@@ -54,7 +54,7 @@ rpcPort=18003
 
 9.Ensure that all processes have started: ./check-status
 
-After the node has successfulluy started, the node will parse the current block and store the collected data in the mongo database. You can confirm that mongo and public-service are working by checking: Logs/public-service/public-service.log.  
+After the node has successfully started, the node will parse the current block and store the collected data in the mongo database. You can confirm that mongo and public-service are working by checking: Logs/public-service/public-service.log.  
 
 List the public-service log to confirm that the database daemon mongo is receiving information from public-service. The log will report the connection and display information to confirm that public-service is processing the blocks.
  
