@@ -45,7 +45,7 @@ The multi-signature address transfer transaction in NULS 2.0 is consistent with 
 After the multi-signal transaction is assembled, it is generally necessary to hand over the transaction data to each multi-sign account controller to sign the transaction separately, so that the minimum signature number of the multi-sign account is satisfied, and finally complete and legal transaction data is obtained.The multi-signing transaction signature interface of nuls2.0 automatically verifies whether the transaction reaches the minimum number of signatures after each execution of the signature, to decide whether to send and broadcast the transaction, without the user separately broadcasting the transaction. 
 - When multiple people sign, the next signer only needs to get the value of tx in the return value. 
 
-**Set alias **, **Create node **, **delegate **, **Exit delegate **, **Stop node ** transaction is basically the same as ordinary account transaction, but the signature method is different.
+**Set alias**, **Create node**, **delegate**, **Exit delegate**, **Stop node** transaction is basically the same as ordinary account transaction, but the signature method is different.
 
 ## interface
 ### ac_createMultiSignAccount

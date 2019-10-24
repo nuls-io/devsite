@@ -6,15 +6,13 @@ NULS smart contract is developed with Java, and it operates in NULS virtual mach
 
 ## 2. Development environment
 
-### 2.1 Setup of NULS wallet
+### 2.1 Setup of JDK 8
 
-### 2.2 Setup of JDK 8
-
-### 2.3 Setup of IntelliJ IDEA
+### 2.2 Setup of IntelliJ IDEA
 
 NULS smart contract adopts IntelliJ IDEA as development tool
 
-### 2.4 NULS Smart Contract Development Tool
+### 2.3 NULS Smart Contract Development Tool
 
 The main features provided by the NULS Smart Contract Development Tool:
 

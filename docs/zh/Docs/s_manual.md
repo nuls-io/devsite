@@ -6,15 +6,13 @@ NULS智能合约使用Java进行开发，合约运行在NULS虚拟机中。合�
 
 ## 2. 开发环境
 
-### 2.1 安装NULS钱包
+### 2.1 安装JDK 8
 
-### 2.2 安装JDK 8
-
-### 2.3 安装IntelliJ IDEA
+### 2.2 安装IntelliJ IDEA
 
 Nuls智能合约使用的开发工具为IntelliJ IDEA。
 
-### 2.4 NULS智能合约开发工具
+### 2.3 NULS智能合约开发工具
 
 NULS智能合约开发工具提供的主要功能：
 

@@ -351,7 +351,7 @@ tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 
 Query account information with the account address
 
-- ** command: getaccount &lt;address&gt;**
+- **command: getaccount &lt;address&gt;**
 
 | Parameter       | Description               |
 | --------------- | :------------------------ |
@@ -396,7 +396,7 @@ nuls>>> getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
 
 Query the account list with the paging parameters and return all accounts in descending order by creation time.
 
-- ** command: getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;**
+- **command: getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;**
 
 | Parameter          | Description                                        |
 | ------------------ | -------------------------------------------------- |
