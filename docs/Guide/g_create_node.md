@@ -1,8 +1,14 @@
 # Create a node
 
-## Download Install Node Wallet
+## NULS recommends creating your node for the Test Network first.
 
-**Note:** Pls be sure to open the 8001 and 8002 ports of the server, otherwise the network will be unstable. 
+You have the option to install and run your node in the Nuls test network or the Nuls production network, Mainnet.  Nuls strongly recommends that FIRST you run your node in test. After you experience the installation and management of your node in test, you are ready to re-install for the mainnet.
+
+For the test network, make sure to open the server ports 18001 and 18002.
+For the Mainnet, make sure to open the server ports  8001 and 8002. 
+If these ports are not open, your node will not successfully communicate with the blockchain.
+
+## Download Install Node Wallet
 
 The user downloads the node wallet compression package (linux version, windows version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and uploads it to the server for decompression (the Chinese language is not included in the path).
 
