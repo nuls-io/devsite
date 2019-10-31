@@ -29,7 +29,7 @@ Online interface: The wallet must operate normally and be able to connect to oth
 
 Offline interface: NULS 2.0 provides a NULS-API tool for [offline operation](http://nuls-usa-west.oss-us-west-1.aliyuncs.com/beta3/nuls-sdk-Provider-offline.tar.gz) .No need to install a wallet, you can run independently on a server that is not connected to the network.The user receives the relevant parameters by calling the offline interface, and obtains the return value, and the corresponding data is not stored in the wallet.For example, creating an account offline, offline assembly transfer transactions, offline signatures, and the like.
 
-## interview method -- JSON call details
+## interface method -- JSON call details
 
 - **`json-rpc` access method**
 Example json data request: 
@@ -139,7 +139,7 @@ Take a transfer transaction as an example: tx.type = 2
 
 <<<<<<< HEAD
 =======
-## interview method
+## interface method
 
 - **`json-rpc` access method**
 

@@ -25,7 +25,7 @@ Mainnet nuls accounts are prefixed with: NULS
 
 # Step 1 - Setup
 
-## Step 1 - Setup your server 
+## Step 1A - Setup your server 
 Choose a cloud provider.  At this time known cloud services with good record running nodes are:  hetzner,  ovh, aws lightsailing. Also you can consult the telegram channel Nuls node owners.
 
 Here is the configuration NULS recommends ***:  
@@ -33,9 +33,9 @@ Here is the configuration NULS recommends ***:
 - 4 cores (8 cores recommended, future proof),
 - 200 GB hard disk
 
-We recommend Linux: CentOS 7, OpenSuse, Ubuntu, Fedora    What Window Server OS are you running?
+We recommend Linux: CentOS 7, OpenSuse, Ubuntu, Fedora, Windows ***
 
-## Step 1 - setup your accounts
+## Step 1B - setup your accounts
 For your node you will need 3 NULS accounts.
 
 
