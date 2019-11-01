@@ -35,7 +35,7 @@ The maven archetype also integrates an smart contract client. After the smart co
 
      GroupId：io.nuls.v2
      ArtifactId: nuls-smartcontract-archetype
-     Version: 0.13
+     Version: 1.0.0
 
 ![图1](./mavenPackage/create_archetype.png)
 
