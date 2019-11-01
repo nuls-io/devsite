@@ -1,33 +1,85 @@
-# Community governance Tutorial
-The user opens the community management and enters the login page. The address can be imported through the keystore file or private key. Or a new address can be created.
-![](./g_governance/1.png)
+# Community Governance Tutorial
+
+1. Click the community management tab and enter the login page. Import your address using the keystore file or private key, or create a new address.
+
+![img](./g_governance/1.png) 
+
+ 
+
+ 
+
 ## Voting Right
-After the user imports the address, you can view the ticket rights of the changed address.1NULS=1 Vote,Users can set other addresses as proxy addresses, and the proxy uses its own ticket rights.(Enter an address or alias)
-![](./g_governance/2.png)
+
+After importing the address, users can view the number of votes available to the changed address. 1NULS=1 Vote. Users can set other addresses as proxy addresses, and the proxy uses its own ticket rights. (Enter an address or alias)
+
+ 
+
 In addition, the user can also cancel the proxy actively after setting the address of the proxy.
-![](./g_governance/3.png)
-If other users set your address as agent, then the user can view them in my agent, and also can cancel the operation to cancel the voting agent for other users.
-![](./g_governance/4.png)
+
+ 
+
+If other users set your address as agent, then the user can view them in my agent, and also can cancel the operation to void the voting agent for other users.
+
+![1572588048180](./g_governance/3.png)
+
 ## Council
-Normal users can go to the council to apply for a councilor(Technical councilor: The address balance cannot be less than 25000 NULS,Management and Operation councilor:The address balance cannot be less than 50000 NULS),the number of the Councilor are limited,it is 11.Including 3 technical councilors,4 management councilors and 4 operation councilors.The top rankings of all types of councilors are formal ,others are candidates.
-![](./g_governance/5.png)
-Council voting:Each account can vote for up to 11 councilors, at least 0,After voting, if you want to cancel in batches, uncheck the click to vote.
-![](./g_governance/6.png)
-Users can also go to the councilors details pages to vote or cancel the vote.
-![](./g_governance/7.png)
-![](./g_governance/8.png)
+
+Normal users can go to the council to apply to become a councilor (Technical Councilor: The address balance cannot be less than 25000 NULS, Management and Operation Councilor address balance cannot be less than 50000 NULS) The number of Councilors are limited to 11 total;  3 technical councilors, 4 management councilors and 4 operation councilors. The candidates are listed from top to bottom according to the number of votes, in each of three categories that reflect the three types of councilors.
+
+![img](./g_governance/4.png) 
+
+ 
+
+**Council Voting**: Each account can vote for up to 11 councilors and a minimum of 0. After voting, if you want to cancel in batches, uncheck the boxes.
+
+![img](./g_governance/5.png) 
+
+Users can also go to the councilors details pages to vote or cancel their vote.
+
+![img](./g_governance/6.png) 
+
+ 
+
+![img](./g_governance/7.png) 
+
+ 
+
 ## Proposal
-Each user can create a proposal with multiple types of proposals. When the proposal is created, you can choose whether you can change the voting or not.
-![](./g_governance/9.png)
-Council members can review or reject the application proposals,(When all the councilors reject the proposal, the proposal cannot enter the voting stage, and it will shows review refuses.)
-![](./g_governance/10.png)
-Any user can vote on the voting proposal or update the vote
-![](./g_governance/11.png)
-![](./g_governance/12.png)
+
+Each user can create a vote with multiple types of proposals. When the proposal is created, you can choose whether the voting option can be changed or not.
+
+![img](./g_governance/8.png) 
+
+ 
+
+Council members can review or reject the application proposals, (When all the councilors reject the proposal, the proposal cannot enter the voting stage, and it will show a review of the refusals.)
+
+![img](./g_governance/9.png) 
+
+Any user can vote on a proposal or update their vote.
+
+![img](./g_governance/10.png) 
+
+ 
+
+![img](./g_governance/11.png) 
+
 ## Voting
-Any user can create a normal vote (mortgage 10NULS),single or multiple selection both can be set , and the number of options and content are customized, You can also choose whether you can update your vote within a limited time.In addition, you can also associate proposals that are being voted on.
-![](./g_governance/13.png)
-![](./g_governance/14.png)
+
+Any user can create a normal vote (this temporarily locks 10 NULS), and single or multiple selections both can be set. The number of options and content can be customized. You can also choose whether to update your vote within a limited time. In addition, you can also associate various proposals that are being voted on.
+
+![img](./g_governance/12.png) 
+
+![img](./g_governance/13.png) 
+
+![img](./g_governance/14.png) 
+
 ## User Center
-The user center can be enter and view all the votes , the title can jump to the voting details.
-![](./g_governance/15.png)
+
+ The user center can be used to view the votes and lists the titles to all of the current votes. Click on a title to get more detail about the vote.
+
+![img](./g_governance/15.png) 
+
+ 
+
+ 
