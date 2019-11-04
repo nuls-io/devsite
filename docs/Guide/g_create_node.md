@@ -8,13 +8,19 @@ For the test network, make sure to open the server ports 18001 and 18002.
 For the Mainnet, make sure to open the server ports  8001 and 8002. 
 If these ports are not open, your node will not successfully communicate with the blockchain.
 
-## Download Install Node Wallet
+## Step 1 - Use the Create Node checklist
 
-1. Download the zipped node wallet package (linux version, windows version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases). For test download the beta version.
+Use the Create Node Checklist inconjunction with this document. The checklist informs you about the requirements for the node creation, and provides a summary of the required steps. 
+
+## Step 2 - Download and Install the Node Wallet
+
+1. Download the zipped node wallet package (linux version, windows version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases). Download the Testnet or Mainnet version.
 
 2. For linux:
 
-The installation does not require root. This example includes the creation of the user nuls.
+The installation does not require root. Asd per linux standards, it is recommended not to install as root. 
+
+The following example includes the creation of the user nuls, and the installation as the user nuls.
 
  ```
 antares:~ # useradd -m -d /home/nuls nuls
@@ -27,8 +33,9 @@ nuls@antares:~> pwd
 /home/nuls
 nuls@antares:~>
  ```
-Depending on the platform and test/mainnet you are using, download latest version of  'Linux Node Wallet' or 'Windows Node Wallet' from    https://github.com/nuls-io/nuls-v2/releases
-Here is a linux example: 
+Download the latest version of  'Linux Node Wallet' or 'Windows Node Wallet' from [GitHub](https://github.com/nuls-io/nuls-v2/releases).
+
+There is more than one way to download, here is a linux example: 
 
  ```
 nuls@antares:~> wget -c http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.1/NULS_Wallet_linux64_v2.1.0_beta.tar.gz
@@ -45,7 +52,8 @@ nuls@antares:~> wget -c http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.1/NULS
  
  nuls@antares:~>
  ```
-Then, untar, cd to newly created dirtectory, and start your wallet.:
+Then, untar; cd to newly created directory; and start your wallet/node.
+Note the commands start and stop, start and stop your wallet/node (the base for your node service).
 
 ```
 nuls@antares:~> tar -xzvf NULS_Wallet_linux64_v2.1.0_beta.tar.gz
@@ -74,11 +82,11 @@ qt.network.ssl: Incompatible version of OpenSSL
 
 nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta>
 ```
-Note, you may have some extraneous messages, such as the ones listed in this example.  Continue with the  creation of the beta node, and check with telegram "nuls node owners" for feedback.  If you are creating a mainnet node and the messages are unfamiliar to you, consult telegram "nuls node owners" before proceeding.
+Note, you may have some extraneous messages, such as the ones listed in this example.  Continue with the  creation of the  node, and check with telegram "nuls node owners" for feedback.  If you are creating a mainnet node and the messages are unfamiliar to you, consult telegram "nuls node owners" before proceeding.
 
 User the command "./check-status" to confirm the node has started.
 
-After the node has started, Enter "./cmd" and check to see id the node has 
+After the node has started, Enter "./cmd" and check to see if the node is working as expected. i.e you can issue cli commands to the node.
 ```
 nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta> ./cmd
 JAVA_HOME:/home/nuls/NULS_Wallet_linux64_v2.1.0_beta/Libraries/JAVA/JRE/11.0.2
@@ -127,30 +135,130 @@ Windows users double-click **start.bat** in the folder to start the wallet. Afte
 ![20190912104042](./g_create_node/20190912104042.png)
 
 
-## Wait for your node to sync with the blockchain
+## Step 2 - Wait for your node to sync with the blockchain
 
 Here we deviate between test and mainnet.
 
 For test, you wait.  It's going to be at least one or two hours. ***
 
-For the mainnet, you can download the 
-Download 'Data Package' from the same link as step 5] , this will help to speed up the synchronization process. Copy this file inside directory created in step 7] and uncompress it
+For the mainnet, you can download the "Data Package" from the same link as you used for your node/wallet download: [GitHub](https://github.com/nuls-io/nuls-v2/releases).
+This will help to speed up the synchronization process. Copy this file inside directory created in step 7] and uncompress it
 
-9] Move the compressed files to Download directory ( step 4] )
 
-10] Inside application directory start the command line:  ./cmd
+
+```
+antares:/home/kathy # su - nuls
+nuls@antares:~> ls
+]  bin  NULS_Wallet_linux64_v2.1.0_beta  NULS_Wallet_linux64_v2.1.0_beta.tar.gz  pwd  wget
+
+nuls@antares:~> wget -c http://nuls-cn.oss-cn-hangzhou.aliyuncs.com/data/data-281818.zip
+--2019-11-04 01:16:08--  http://nuls-cn.oss-cn-hangzhou.aliyuncs.com/data/data-281818.zip
+Resolving nuls-cn.oss-cn-hangzhou.aliyuncs.com (nuls-cn.oss-cn-hangzhou.aliyuncs.com)... 118.31.219.209
+Connecting to nuls-cn.oss-cn-hangzhou.aliyuncs.com (nuls-cn.oss-cn-hangzhou.aliyuncs.com)|118.31.219.209|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 341679794 (326M) [application/octet-stream]
+Saving to: ‘data-281818.zip’
+
+data-281818.zip           100%[==================================>] 325.85M  1.11MB/s    in 4m 43s
+
+2019-11-04 01:20:51 (1.15 MB/s) - ‘data-281818.zip’ saved [341679794/341679794]
+
+nuls@antares:~> ls
+data-281818.zip   NULS_Wallet_linux64_v2.1.0_beta.tar.gz  NULS_Wallet_linux64_v2.1.0_beta  
+nuls@antares:~>
+                
+
+
+```
+
+1. Copy the zipped data file to the wallet directory.
+2. Notice the size of the directory call 'data'.  (It will be 0 or 4 bytes.)
+3. Unzip the data.zip file.
+4. The 'data' directory is now large and contains the unzipped data.
+
+```
+nuls@antares:~> cp data-281818.zip  NULS_Wallet_linux64_v2.1.0
+nuls@antares:~> cd NULS_Wallet_linux64_v2.1.0
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> ls
+check-status  create-address   func                Logs      start      stop-dev
+cmd           data             genesis-block.json  Modules   start-dev  test
+cmd.bat       data-281818.zip  Libraries           nuls.ncf  stop
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> unzip data-281818.zip
+Archive:  data-281818.zip
+   creating: data/smart-contract/
+   creating: data/transaction/
+   creating: data/consensus/
+   .....
+   
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> ls
+check-status  create-address   func                Logs      start      stop-dev
+cmd           data             genesis-block.json  Modules   start-dev  test
+cmd.bat       data-281818.zip  Libraries           nuls.ncf  stop
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> du -s data
+701764	data
+   
+
+```
+
+Start you node:
+
+```
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> ./start
+
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> ./check-status
+==================MODULE PROCESS====================
+account PROCESS IS START
+...
+transaction STATE IS RUNNING
+==================NULS WALLET STATE=================
+==========================
+NULS WALLET IS RUNNING
+==========================
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0>
+
+```
+
+Start the cli interface.
+
+```
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0> ./cmd
+JAVA_HOME:/home/nuls/NULS_Wallet_linux64_v2.1.0/Libraries/JAVA/JRE/11.0.2
+java version "11.0.2" 2019-01-15 LTS
+Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
+
+/home/nuls/NULS_Wallet_linux64_v2.1.0/nuls.ncf
+Service Manager URL: ws://127.0.0.1:7771
+
+ __    __ __    __ __        ______          ______          ______  __       ______
+/  \  /  /  |  /  /  |      /      \        /      \        /      \/  |     /      |
+$$  \ $$ $$ |  $$ $$ |     /$$$$$$  |      /$$$$$$  |      /$$$$$$  $$ |     $$$$$$/
+$$$  \$$ $$ |  $$ $$ |     $$ \__$$/       $$____$$ |      $$ |  $$/$$ |       $$ |
+$$$$  $$ $$ |  $$ $$ |     $$      \        /    $$/       $$ |     $$ |       $$ |
+$$ $$ $$ $$ |  $$ $$ |      $$$$$$  |      /$$$$$$/        $$ |   __$$ |       $$ |
+$$ |$$$$ $$ \__$$ $$ |_____/  \__$$ |      $$ |_____       $$ \__/  $$ |_____ _$$ |_
+$$ | $$$ $$    $$/$$       $$    $$/       $$       |      $$    $$/$$       / $$   |
+$$/   $$/ $$$$$$/ $$$$$$$$/ $$$$$$/        $$$$$$$$/        $$$$$$/ $$$$$$$$/$$$$$$/
+
+Module:cmd-client
+
+waiting nuls-wallet base module ready
+ 2 3nuls-wallet base module ready
+nuls>>>
+
+```
 
 ## How to confirm your node has sync'd with the test/ mainnet chain
 
-Use the command "network info" to determine if the sync has completed or how close yo uare to a complete sync/
+Use the command "network info" to determine if the sync has completed or how close you are to completing the sync.
 ```
 nuls>>> network info
 {
-  "localBestHeight" : 4219,
-  "netBestHeight" : 338394,
-  "timeOffset" : -1,
+  "localBestHeight" : 337342,
+  "netBestHeight" : 463046,
+  "timeOffset" : 18,
   "inCount" : 0,
-  "outCount" : 13
+  "outCount" : 20
 }
 nuls>>>
 
@@ -159,14 +267,13 @@ The sync is complete when the localBestHeight is equal to the netBestHeight.
 Here is an example. 
 
 ```
-
 nuls>>> network info
 {
-  "localBestHeight" : 347027,
-  "netBestHeight" : 347027,
-  "timeOffset" : -4,
-  "inCount" : 34,
-  "outCount" : 8
+  "localBestHeight" : 463191,
+  "netBestHeight" : 463191,
+  "timeOffset" : 2,
+  "inCount" : 0,
+  "outCount" : 20
 }
 nuls>>>
 ```
@@ -174,10 +281,10 @@ nuls>>>
 
 ## Import your Packing Account
 
-Once your node has sync'd with the blockchain, import the packing account.  The password indicate to the node that this account is the "package account".
+Once your node has sync'd with the blockchain, import the packing account.  Your package account must have the password "nuls123456". That password indicates to the node that this account is the "package account".
 
 Import the packing address using the import command, and provide the private key.
-A successfuil import will display your packing address, after the import is complete.
+A successful import will display your packing address, after the import is complete.
 
 
 ```
@@ -205,7 +312,7 @@ The user creates a consensus node on the light wallet (the reward address can be
 
 ## Participation
 
-The user opens the light wallet or [web wallet](wallet.nuls.io), imports the 1.0 private key or keystore file, enters the consensus page, selects the node to commission
+The user opens the light wallet or [web wallet](wallet.nuls.io), imports  private key or keystore file, enters the consensus page, selects the node to stake.
 
 ![20190912110124](./g_create_node/20190912110124.png)
 
