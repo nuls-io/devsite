@@ -89,7 +89,7 @@ POCM是一个基于智能合约的去中心化产品，用户（尤其是项目�
 
 在POCM平台上，POCM合约会将用户抵押给合约的NULS委托给你所添加的共识节点，合约地址将会收到通过委托产生的委托者奖励，合约的创建地址有权限将委托者奖励转出，转出方法为在钱包的【合约】页面中调用`transferConsensusRewardByOwner`方法
 
-![image-20190917120103974](./g_pocm/project11.png)
+![image-20190917120103974](./g_pocm/project.png)
 
 **节点的来源有两种方式：**
 - 自己[创建节点](https://docs.nuls.io/zh/Guide/g_pocm.html)，使用该方式，项目方可以同时收到共识节点佣金和委托者奖励
