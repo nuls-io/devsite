@@ -10,13 +10,15 @@ If these ports are not open, your node will not successfully communicate with th
 
 ## Step 1 - Use the Create Node checklist
 
-Use the Create Node Checklist inconjunction with this document. The checklist informs you about the requirements for the node creation, and provides a summary of the required steps. 
+Use the Create Node Checklist in conjunction with this document. The checklist informs you about the requirements for the node creation, and provides a summary of the required steps. 
 
 ## Step 2 - Download and Install the Node Wallet
 
 1. Download the zipped node wallet package (linux version, windows version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases). Download the Testnet or Mainnet version.
 
-2. For linux:
+![20190912110813](./g_create_node/20190912110813.png)
+
+#  Linux Installation
 
 The installation does not require root. Asd per linux standards, it is recommended not to install as root. 
 
@@ -82,9 +84,9 @@ qt.network.ssl: Incompatible version of OpenSSL
 
 nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta>
 ```
-Note, you may have some extraneous messages, such as the ones listed in this example.  Continue with the  creation of the  node, and check with telegram "nuls node owners" for feedback.  If you are creating a mainnet node and the messages are unfamiliar to you, consult telegram "nuls node owners" before proceeding.
+Note, you may have some extraneous messages, such as the ones listed in this example.  Continue with the  creation of the  node, and check with the telegram  channel "nuls node owners" for feedback.  If you are creating a mainnet node and the messages are unfamiliar to you, consult telegram "nuls node owners" before proceeding.
 
-User the command "./check-status" to confirm the node has started.
+Use the command "./check-status" to confirm the node has started.
 
 After the node has started, Enter "./cmd" and check to see if the node is working as expected. i.e you can issue cli commands to the node.
 ```
@@ -115,10 +117,8 @@ nuls>>>
 
 ```
 
+Here is another Linux example of installation and start:
 
-
-
-![20190912110813](./g_create_node/20190912110813.png)
 
 The linux user starts the wallet with the **./start** command. After each module starts successfully, the command line is entered through the **./cmd** command. After the block is synchronized to the latest height, other operations can be performed.
 
@@ -126,7 +126,7 @@ The linux user starts the wallet with the **./start** command. After each module
 
 ![20190912103641](./g_create_node/20190912103641.png)
 
-3. For windows:
+# Windows Installation
 
 Windows users double-click **start.bat** in the folder to start the wallet. After the module is successfully started, double-click **cmd.bat** to enter the command line. After the block is synchronized to the latest height, other operations can be performed.
 
@@ -142,7 +142,7 @@ Here we deviate between test and mainnet.
 For test, you wait.  It's going to be at least one or two hours. ***
 
 For the mainnet, you can download the "Data Package" from the same link as you used for your node/wallet download: [GitHub](https://github.com/nuls-io/nuls-v2/releases).
-This will help to speed up the synchronization process. Copy this file inside directory created in step 7] and uncompress it
+This will significantly speed up the synchronization process. 
 
 
 
@@ -200,7 +200,7 @@ nuls@antares:~/NULS_Wallet_linux64_v2.1.0> du -s data
 
 ```
 
-Start you node:
+Start your node:
 
 ```
 nuls@antares:~/NULS_Wallet_linux64_v2.1.0> ./start
@@ -297,6 +297,12 @@ tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
 # The password for the imported address must be nuls123456
 # You will be asked to enter the password twice
 ```
+
+## After importing the packing address, your node is listed as a consensus node.
+
+Go to the [test wallet](https://beta.wallet.nuls.io) or [mainnet wallet](https://.wallet.nuls.io), select the consensus option.
+
+Your  node is now listed.  It will be listed with a deposit of 20000 NULS and staking of 0 NULS. When you clink on the node you found, it will display  page and list your create (agent), reward, and packing address. Record your Node name.  (Note: you can change your node name by adding an alias to your agent account. Once you add the alias, you cannot change the alias.)
 ## Download Light Wallet Installation -- Required to define consensus node
 
 Users download and open the light wallet (windows version, mac version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and connect to the node service.
@@ -305,8 +311,9 @@ Users download and open the light wallet (windows version, mac version) from [Gi
 
 ## Creating a consensus node
 
-The user creates a consensus node on the light wallet (the reward address can be the same as the creation address, or it can be another address, the package address cannot be the creation address and reward address, the deposit is 20000-200000, the commission ratio is 10-100 integer)
+The user creates a consensus node on the light wallet (the reward address can be the same as the creation address, or it can be another address, the package address cannot be the creation address and reward address, the deposit is 20000-200000, the commission ratio is an integer value from 10-100 representing the comission percentage.)
 
+Note: the English option is available in the upper left.
 ![20190912105332](./g_create_node/20190912105332.png)
 
 

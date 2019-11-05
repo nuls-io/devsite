@@ -8,7 +8,7 @@ This is a checklist to insure that all steps are followed.
 
 
 ## Test environment
-POCM is a decentralized product based on smart contracts. Users (especially project issuers) can familiarize it with the operational process in the test environment, avoiding misuse and causing asset losses.
+POCM is based on smart contracts. Users and POCM Administrator(s) can familiarize themselves with the POCM operational process in the test environment, avoiding misuse and confusion in the mainnet environment.
 
 - POCM test environment：[http://beta.pocm.nuls.io/](http://beta.pocm.nuls.io/)
 - Light wallet test environment：[https://beta.wallet.nuls.io](https://beta.wallet.nuls.io)
@@ -27,7 +27,9 @@ POCM can use an existing node or a new node.  Multiple nodes can be associate wi
 
 If you are creating a new node and a new pocm, you can create your node and pocm in any order.
 
-Your POCM requires one account. Your POCM will have one POCM contract and one token contract.  Your POCM will be the creater of both contracts.
+For setup: create your POCM account.
+
+Your POCM requires one account. Your POCM will have one POCM contract and one token contract.  Your POCM account will be the creater of both contracts.
 Fund you POCM account with at least 100 nuls for the POCM setup.
 
 Before proceeding, it is recommended that you review the [POCM Tutorial](https://docs.nuls.io/Guide/g_pocm.html).
@@ -35,15 +37,15 @@ Before proceeding, it is recommended that you review the [POCM Tutorial](https:/
 # Step 2 -- Submit Your Project Information
 
 Prior to submitting your project:
-- In order to fully utilize the POCM opportunity, NULS recommends that you discuss with your NULS partnership coordinator.
--Insure that you fully understand the information basic information required,  the token information required, and the token disbursement details.
+- In order to fully utilize the POCM opportunity, NULS recommends that you discuss project details with your NULS partnership coordinator.
+- Insure that you fully understand the basic information required,  the token information required, and the token disbursement details.
 
 [Create and submit your Project](https://docs.nuls.io/Guide/g_pocm.html#submit-basic-information).
 
 
-After submitting the basic information, the project team should send an email to pen@nuls.io, which contains the following contents:
+After submitting the basic information, the project team must send an email to pen@nuls.io, which contains the following contents:
 - project name
-- provide an account address (please take care of the private key of the address) for subsequent publishing of POCM contracts
+- POCM account 
 
 Upon confirmation of the reply, proceed to the next step.
 
@@ -62,24 +64,24 @@ Congradulations! you have created your token contract.
 # Step 4 -- Document your Token contract
 
 To get your token contract: 
-- import your POCM account in the [test](https://beta.wallet.nuls.io) or  [mainnet](https://wallet.nuls.io) light wallet. 
+- import your POCM account in the [test wallet](https://beta.wallet.nuls.io) or  [mainnet wallet](https://wallet.nuls.io). 
 - Select "Contracts"
-- You token contract is identified by the name nrc_20 or nrc_721
+- Your token contract is identified by the name nrc_20 or nrc_721
 - Record your token contract address
 - You can view more details about your contract by selecting the contract address.
 
 # Step 5 -- Setup your POCM contract
 
 - Go to  [test](https://beta.pocm.nuls.io/) or  [mainnet](https://pocm.nuls.io/) POCM platform.
-- If you are already logged in, you will see a display of your project and  a form to update.  The form requires your Token contract address. If tou are not logged in, login using your POCM account.
+- If you are already logged in, you will see a display of your project and  a form to update.  The form requires your Token contract address. If you are not logged in, login using your POCM account.
 - Continue at [Issue POCM Contract](https://docs.nuls.io/Guide/g_pocm.html#issue-pocm-contract).
 
 Congradulations! you have created your POCM contract.  Your project will be viewable via "Select Project".
 
 # Step 6 -- Document your POCM contract
 
-To get your token contract: 
-- import your POCM account in the [test](https://beta.wallet.nuls.io) or  [mainnet](https://wallet.nuls.io) light wallet. 
+To get your pocm contract: 
+- import your POCM account in the [test wallet](https://beta.wallet.nuls.io) or  [mainnet wallet](https://wallet.nuls.io). 
 - Select "Contracts"
 - You POCM contract is identified by the name that is a concatenation of your token and "pocm".
 - Record your pocm contract address
@@ -90,4 +92,16 @@ To get your token contract:
 - Follow the directions below.  When you get to the place where you enter a NULS address in the "to" field, the va,ue oyu enter is your POCM contract address.
 - Continue at [Transfer the token to the contract](https://docs.nuls.io/Guide/g_pocm.html#transfer-the-token-to-the-contract).
 
-Congradulations! You have completed your POCM creation. 
+Congradulations! You have completed your POCM creation. Now, lets see it in action.
+
+# Step 8 -- Stake/Invest in your POCM
+
+A POCM inventor will login to the POCM platform, using an account that they will to use to fund their inventment and to receive their investment rewards.
+Continue at [Participate POCM](https://docs.nuls.io/Guide/g_pocm.html#participate-pocm).
+
+# Step 9 -- Receive the Rewards of your Investment
+
+Rewards are available for every 5 blocks that are processed. The investor can select to receive the accumulated rewards at any time.
+Continue at [Receiving Awards](https://docs.nuls.io/Guide/g_pocm.html#receiving-rewards).
+
+Note: you can receive all types of nrc-20 and nrc-721 plus NULS tokens with the same account address.  You can examine the contents of your rewards account by importing your rewards account into your wallet and selecting assets. You can transfer any of your assets to other NULS accounts.
