@@ -1,4 +1,4 @@
-# Create an NULS Node
+# NULS Node Checklist
 
 #####If this is your first time to create an SCO a node:
 ##### NULS recommends creating your node for the Test Network first.
@@ -34,8 +34,8 @@ Here is the configuration NULS recommends ***:
 - 200 GB hard disk
 
 At this time, the recommended configuration will give you an "over configured" node server. "Over configured" is what you want in a node server, for the following reasons:
-1. Your node server needs to have the capability to provide instant high performance when it is required to process a block.  If your node cannot provide that, your node's created rating will drop. Your node will be less attractive to new stakers.
-2. You are not going to be monitoring your node all the time. You wany ytour nodew t obe able to respond to an increase in performance demand with you having to make any changes/adjustments.
+1. Your node server needs to have the capability to provide instant high performance when it is required to process a block.  If your node cannot provide that, your node's credit rating will drop, and yourt node will be less attractive to stakers.
+2. You are not going to be monitoring your node all the time. You want your node to be able to respond to an increase in performance demand without you having to make any changes/adjustments.
 
 We recommend Linux: CentOS 7, OpenSuse, Ubuntu, Fedora, Windows ***
 
@@ -66,4 +66,8 @@ For test: you can request nuls for the agent account by contacting Kathy Norman.
 
 At the end of this step you will have an active consensus node on test or mainnet.
 
-# Step 2 -- following the instructions for the section "Create a Node"
+# Step 4 -- Staking your node
+
+If you objective is to create a POCM node, please proceed to the POCM checklist.  
+
+The objective of this steps is to stake your node, preferably with increments of 
