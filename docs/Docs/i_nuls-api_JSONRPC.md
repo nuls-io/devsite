@@ -9,7 +9,7 @@
 
 ## Settings
 
-	The default port number for the `NULS-API` module is 18004, which can be modified in the nuls.ncf configuration file (for the engtire wallet chainbox) or the module.ncf configuration file (for the individual module), as follows:
+The default port number for the `NULS-API` module is 18004, which can be modified in the nuls.ncf configuration file (for the engtire wallet chainbox) or the module.ncf configuration file (for the individual module), as follows:
 
 ```
 [nuls-API]
@@ -19,7 +19,7 @@ server_port=18004
 
 ## Description
 
-	In order to better understand the related business of nuls2.0, and the meaning of the return value of the interface, do some explanation here in advance.
+In order to better understand the related business of nuls2.0, and the meaning of the return value of the interface, do some explanation here in advance.
 
 ### Online & Offline
 
@@ -55,7 +55,7 @@ Usage example using linux command curl, issued to a chainbox instance.:
 ```
 
 When using Postman:
-1. type the URL of the API (http://127.0.0.1:18003)
+1. Type the URL of the API (http://127.0.0.1:18003)
 2. Change method to POST. 
 3. In the parameter section click on "raw" and select format as "JSON" and add the json request in the testarea provided.
 4. In the headers section add "Content-Type" as header and "application/json;charset=UTF-8" as the value.
@@ -63,11 +63,11 @@ When using Postman:
      
 
 
-- **`restful` access method**
+## RESTful access method
 
-     Add request header Content-Type: application/json;charset=UTF-8
+Add request header Content-Type: application/json;charset=UTF-8
      
-     For the rest, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_RESTFUL.md)
+For the REST access method, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_RESTFUL.md).
 
 ## Interface debugging
 
@@ -79,25 +79,19 @@ We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interfac
 
 
 
-
-
-
-
-
-
 ### Field Description
 
 **chain's chainId:**
 
-	Nuls2.0 supports multi-chain parallel and cross-chain transfer. Each chain is distinguished by chain id. The chain id of the nuls main network is 1, and the chain id of the nuls test network is 2.
+Nuls 2.0 supports multi-chain parallel and cross-chain transfer. Each chain is distinguished by chain id. The chain id of the nuls main network is 1, and the chain id of the nuls test network is 2.
 
 **Chain assets:**
 
-	NULS 2.0 supports each chain in addition to the default assets, dynamically add assets according to business needs.Each asset of each chain is distinguished by a composite primary key of the chain ID and the asset ID.For example, NULS of the NULS main network, chainId=1, assetId=1
+NULS 2.0 supports each chain in addition to the default assets, dynamically add assets according to business needs.Each asset of each chain is distinguished by a composite primary key of the chain ID and the asset ID.For example, NULS of the NULS main network, chainId=1, assetId=1
 
 **Type value of the transaction:**
 
-	NULS2.0 has multiple transactions by default. Each transaction has different functions. When calling the interface to query the transaction details, the type field can be used to distinguish different transaction types. The following are the enumeration values of the transaction type:
+NULS2.0 has multiple transactions by default. Each transaction has different functions. When calling the interface to query the transaction details, the type field can be used to distinguish different transaction types. The following are the enumeration values of the transaction type:
 
 ```
 int COIN_BASE = 1;						// coinBase block reward
@@ -130,11 +124,10 @@ int VERIFIER_CHANGE = 24;				// certifier change
 
 Take a transfer transaction as an example: tx.type = 2
 
-	From is the transferor of the transfer transaction, each from a certain amount of assets transferred as a transferor, wherein the nonce value will change after each transfer, you can get the current latest nonce value by calling the query account balance interface.
+From is the transferer of the transfer transaction, each from a certain amount of assets transferred as a transferor, wherein the nonce value will change after each transfer, you can get the current latest nonce value by calling the query account balance interface.
 
-	To is the recipient of the transfer transaction, each to is regarded as the recipient receives the amount of an asset, where lockTime is the lock time.When the lock time is greater than 0, it means that the real time exceeds this value, the asset can be used normally; when lockTime = -1, it means permanent lock, special transaction is needed to unlock, such as participation in the consensus and cancellation of the consensus .
-
-	Transaction fee = the sum of the main assets of the chain - the sum of the main assets of the chain
+To is the recipient of the transfer transaction, each to is regarded as the recipient receives the amount of an asset, where lockTime is the lock time.When the lock time is greater than 0, it means that the real time exceeds this value, the asset can be used normally; when lockTime = -1, it means permanent lock, special transaction is needed to unlock, such as participation in the consensus and cancellation of the consensus .
+Transaction fee = the sum of the main assets of the chain - the sum of the main assets of the chain
 
 
 <<<<<<< HEAD
@@ -148,8 +141,8 @@ Take a transfer transaction as an example: tx.type = 2
      HttpMethod: POST
      
      URL: http://{ip}:{port}/jsonrpc 
-     
-        Example: http://127.0.0.1:18004/jsonrpc
+   
+     Example: http://127.0.0.1:18004/jsonrpc
      
      Request data format: 
      
@@ -164,9 +157,9 @@ Take a transfer transaction as an example: tx.type = 2
 
 - **`restful` access method**
 
-     Add request header Content-Type: application/json;charset=UTF-8
+Add request header Content-Type: application/json;charset=UTF-8
      
-     For the rest, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
+For the rest, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
 
 ## Interface debugging
 
@@ -177,7 +170,6 @@ We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interfac
 [RESTFUL Interface Debugging - POSTMAN Import File](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_Postman_RESTFUL.json)
 
 
->>>>>>> 11e7759b4ef944852805c356843223411e218461
 
 ## Interface List
 ### 0.1 Get information about the chain, where the consensus asset is the asset that needs to be used when creating a consensus node transaction and creating a delegation consensus transaction for this chain.
