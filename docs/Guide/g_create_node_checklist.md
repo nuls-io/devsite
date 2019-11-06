@@ -1,35 +1,35 @@
-# NULS Node Checklist
+# Create NULS Node Checklist
 
-If this is your first time to create an SCO node: NULS recommends creating your node for the Test Network first.
-If you are creating an POCM node, NULS insists that you create your node for the Test Network first. (The author of this checklist promises, that you will save yourself frustration and headache.)
+If this is your first time to create an SCO node, NULS recommends creating your node for the Testnet first.
+If you are creating an POCM node, NULS insists that you create your node for the Testnet first. 
 
-For the test network, make sure to open the server ports 18001 and 18002.
+For the testnet, make sure to open the server ports 18001 and 18002.
 For the Mainnet, make sure to open the server ports  8001 and 8002. 
 If these ports are not open, your node will not successfully communicate with the blockchain.
 # Step 0 - Test and Mainnet reference details
 
 
-Test net:
+Testnet:
 - Light wallet test environment：[https://beta.wallet.nuls.io](https://beta.wallet.nuls.io)
-- Explorer test environment:[http://beta.nulscan.io/](http://beta.nulscan.io/)
+- Explorer test environment: [http://beta.nulscan.io/](http://beta.nulscan.io/)
 - POCM test environment：[http://beta.pocm.nuls.io/](http://beta.pocm.nuls.io/)
 
 Mainnet:
 - Light wallet test environment：[https://wallet.nuls.io](https://wallet.nuls.io)
-- Explorer test environment:[http://nulscan.io/](http://nulscan.io/)
+- Explorer test environment: [http://nulscan.io/](http://nulscan.io/)
 - POCM test environment：[http://pocm.nuls.io/](http://pocm.nuls.io/)
 
-Test nuls accounts are prefixed with: tNULS
-Mainnet nuls accounts are prefixed with: NULS
+Test nuls accounts are prefixed with "tNULS".
+Mainnet nuls accounts are prefixed with "NULS".
 
 
 
 ## Step 1 - Setup your server 
-Choose a cloud provider.  At this time known cloud services with good record running nodes are:  hetzner,  ovh, aws lightsailing. Also you can consult the telegram channel Nuls node owners.
+Choose a cloud provider.  Known cloud services with a good record hosting NULS nodes are:  hetzner,  ovh, aws lightsailing. Also you can consult the Telegram channel "Nuls node owners".
 
 Here is the configuration NULS recommends ***:  
-- 16GB RAM minimum, 
-- 4 deadicated cores,
+- 16GB RAM minimum 
+- 4 deadicated cores
 - 200 GB hard disk
 
 At this time, the recommended configuration will give you an "over configured" node server. "Over configured" is what you want in a node server, for the following reasons:
@@ -43,7 +43,7 @@ For your node you will need 3 NULS accounts.
 
 
 1. Agent account - the agent account contains the nuls required to initiate the SCO, which is 20,000 nuls. ***
-2. Rewards account - he rewards account will contain the income from your node, so it is currently empty.
+2. Rewards account - the rewards account will contain the income from your node, so it is currently empty.
 3. Package account -  sometimes called packer.  Every time a block is “packed” it must be signed.  The package account is used to do that. Notice the package account has a different password. When we install your SCO on the main net it will have a tough password, but for test it has a default password.
 
 
@@ -58,15 +58,15 @@ For test: you can issue a request including the account(s) to the URL https://nu
 
 # Step 3 -- following the instructions for the section "Create a Node"
 
-1. For the test network, make sure to open the server ports 18001 and 18002.
+1. For the Testnet, make sure to open the server ports 18001 and 18002.
    For the Mainnet, make sure to open the server ports  8001 and 8002. 
    If these ports are not open, your node will not successfully communicate with the blockchain.
-2. For the Mainnet, follow the instructions 
+2. For the Mainnet, follow the instructions ******
 
-At the end of this step you will have an active consensus node on test or mainnet.
+At the end of this step you will have an active consensus node on testnet or mainnet.
 
 # Step 4 -- Staking your node
 
-If you objective is to create a POCM node, please proceed to the POCM checklist.  
+If your objective is to create a POCM node, please proceed to the POCM checklist.  
 
-The objective of this steps is to stake your node, preferably with increments of 
+The objective of this step is to stake your node, eith increments of 20,000 NULS. 
