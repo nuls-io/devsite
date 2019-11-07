@@ -279,12 +279,12 @@ Usage: ./tools
    -o <folder path> specifies the output directory
    -h View help
 ```
-The following '-n' 'tools' option checks the current environment, then pulls NULS2.0 code from the github repository, executes 'package' to complete the NULS2.0 compilation and packaging, and writes the runnable program and support directories to the NULS_WALLET directory.
+The following `tools -p` option checks the current environment, then pulls NULS2.0 code from the github repository, executes 'package' to complete the NULS2.0 compilation and packaging, and writes the runnable program and support directories to the NULS_WALLET directory.
 
 ```
-tools -n
+tools -p
 ```
-When you see the following, 'tools -n' has successfully completed:
+When you see the following, `tools -p` has successfully completed:
 ```
 ============ .../.NULS2.0/NULS-WALLET-RUNTIME PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
 ```
@@ -636,13 +636,13 @@ StopScript=stop # Stop the module script (stop must be in the outer directory)
 ## Appendix
 ### <span id="cmd-doc">tools script manual</span>
 ### Getting the NULS2.0 runtime environment
-#### Command: tools -n
+#### Command: tools -p
 #### parameter list
 no
 #### Example
 
 ```
-tools -n
+tools -p
 ```
 ### Get the specified language module development template
 #### Command: tools -t &lt;language> [out folder]
