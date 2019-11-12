@@ -216,8 +216,8 @@ Github上里面有一些合约示例。
 
 开发智能合约程序需要了解合约模块提供的API，SDK，Java语言。使用的开发工具推荐Intellij IDEA。下面一些资源可以帮助开发者更好、更高效的开发NULS智能合约应用。
 
-* [合约开发手册](https://docs.nuls.io/zh/NULS2.0/smartContractManual.html)
-* [合约开发工具](https://docs.nuls.io/zh/NULS2.0/mavenPackage.html)
+* [合约开发手册](https://docs.nuls.io/zh/Docs/s_manual.html)
+* [合约开发工具](https://docs.nuls.io/zh/Docs/s_tools.html)
 
 ## 引用
 
