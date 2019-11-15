@@ -107,6 +107,8 @@ On the POCM platform, click [User Center], enter the page and click [Add Node] t
 
 After the node is successfully added, the POCM contract will stake the NULS of the user delegated to the added nodes in turn. If there are multiple nodes, the order of staking is the order of adding the nodes.
 
+### Remove a node
+
 If you need to delete an added node, you need to enter the [Contract] page of the wallet (the operation address should be which creates the POCM contract), find the POCM contract, click [call]
 ![image-20190917120103974](./g_pocm/project9.png)
 

@@ -117,6 +117,8 @@ nuls>>>
 
 ```
 
+
+
 Here is another Linux example of installation and start:
 
 
@@ -135,7 +137,7 @@ Windows users double-click **start.bat** in the folder to start the wallet. Afte
 ![20190912104042](./g_create_node/20190912104042.png)
 
 
-## Step 2 - Wait for your node to sync with the blockchain
+## Step 3 - Wait for your node to sync with the blockchain
 
 Here we deviate between test and mainnet.
 
@@ -248,7 +250,7 @@ nuls>>>
 
 ```
 
-## How to confirm your node has sync'd with the test/ mainnet chain
+## Step 4 - How to confirm your node has sync'd with the test/ mainnet chain
 
 Use the command "network info" to determine if the sync has completed or how close you are to completing the sync.
 ```
@@ -279,7 +281,7 @@ nuls>>>
 ```
 
 
-## Import your Packing Account
+## Step 5 - Import your Packing Account
 
 Once your node has sync'd with the blockchain, import the packing account.  Your package account must have the password "nuls123456". That password indicates to the node that this account is the "package account".
 
@@ -298,18 +300,36 @@ tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
 # You will be asked to enter the password twice
 ```
 
-## After importing the packing address, your node is listed as a consensus node.
+## Step 6 - After importing the packing address, your node is listed as a consensus node.
 
 Go to the [test wallet](https://beta.wallet.nuls.io) or [mainnet wallet](https://.wallet.nuls.io), select the consensus option.
 
 Your  node is now listed.  It will be listed with a deposit of 20000 NULS and staking of 0 NULS. When you clink on the node you found, it will display  page and list your create (agent), reward, and packing address. Record your Node name.  (Note: you can change your node name by adding an alias to your agent account. Once you add the alias, you cannot change the alias.)
+
 ## Download Light Wallet Installation -- Required to define consensus node
 
 Users download and open the light wallet (windows version, mac version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and connect to the node service.
 
 ![20190912110930](./g_create_node/20190912110930.png)
 
-## Creating a consensus node
+## Step 7 - Shutting down your node
+
+To stop your node, enter the cli command "stopagent". Upon successful execution of the command the hash of the transaction is returned.
+
+```
+
+nuls>>> stopagent tNULSeBaMnNZHHLwae8UAouJiro6URjwMkkMHv
+Enter your account password********
+"4adc8971bd9930e3b335a3a9aa1f4b35503f8ae05568a4548fb0822e6e070846"
+nuls>>>
+
+```
+
+Your node will no longer be listed as a consensus node by the nulscan.io facility.
+All NULS staked to the node will be refunded. The initial deposit by the node creator is locked for 72 hours, and then refunded to the agent address.
+
+
+## Exampler of creating a consensus node
 
 The user creates a consensus node on the light wallet (the reward address can be the same as the creation address, or it can be another address, the package address cannot be the creation address and reward address, the deposit is 20000-200000, the commission ratio is an integer value from 10-100 representing the comission percentage.)
 
@@ -317,10 +337,64 @@ Note: the English option is available in the upper left.
 ![20190912105332](./g_create_node/20190912105332.png)
 
 
-## Participation
+## Participation -- example of staking
 
 The user opens the light wallet or [web wallet](wallet.nuls.io), imports  private key or keystore file, enters the consensus page, selects the node to stake.
 
 ![20190912110124](./g_create_node/20190912110124.png)
 
+## Familarize yourself with the node cli
 
+It is recommended that you familarize yourself with the [cli](https://docs.nuls.io/Guide/g_linux_tutorial.html), command line interface. 
+
+All/most functions can be done by a GUI wallet or nulsscan.io.  However the cli provides information in a compact manner that is easy to copy and save.  Also, actions can be performed faster since you are not waiting for a GUI interface to refresh.
+
+To list all command catagories, enter "help".
+
+
+
+```
+
+nuls>>> help
+parameter error
+args incorrect:
+help [-a | group | command]
+	OPTIONS:
+	[-a] show all commands and options of command - optional
+	[group] show commands and options of this group. group list: [account, consensus, ledger, transaction, block, smart_contract, cross_chain, system]
+	[command] shwo this command info
+
+```
+
+
+To obtain a summary of commands for a specific group, enter "help <command group>".
+
+```
+nuls>>> help consensus
+
+
+--------------------------------------------------
+group : consensus
+--------------------------------------------------
+
+createagent <agentAddress> <packingAddress> <commissionRate> <deposit> [rewardAddress] --create a agent
+	OPTIONS:
+	<agentAddress>   agent owner address   -required
+	<packingAddress>    packing address    -required
+	<commissionRate>    commission rate (10~100), you can have up to 2 valid digits after the decimal point  -required
+	<deposit>   amount you want to deposit, you can have up to 8 valid digits after the decimal point -required
+	[rewardAddress]  Billing address    -not required
+...
+stopagent <address> -- stop the agent
+	OPTIONS:
+	<address> account address of the agent -required
+...
+withdrawformultisign <address> <txHash> [sign address]-- withdraw the agent
+	OPTIONS:
+	<address>   address -required
+	<txHash>    your deposit transaction hash  -required
+	[sign address] first sign address -- not required
+nuls>>>
+
+
+```

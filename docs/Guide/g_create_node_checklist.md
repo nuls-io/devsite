@@ -65,8 +65,18 @@ For test: you can issue a request including the account(s) to the URL https://nu
 
 At the end of this step you will have an active consensus node on testnet or mainnet.
 
-# Step 4 -- Staking your node
+# Step 4 -- Assigning a name to your node
+
+Your consensus node is assigned an eight character name.  You can search for your node using that name.
+
+By assigning an alias for your agent address, you have assigned a name to your node. You can only assign an alias one time.
+You can assign the alias using your wallet or the cli.
+
+You can asdign an alias at any time.
+
+# Step 5 -- Staking your node
 
 If your objective is to create a POCM node, please proceed to the POCM checklist.  
 
-The objective of this step is to stake your node, eith increments of 20,000 NULS. 
+The objective of this step is to stake your node, with increments of 20,000 NULS. Note, the minimum stake amount for a pocm is sdert my the pocm owner.
+
