@@ -1,4 +1,5 @@
 # Chain Factory Tutorial
+Welcome to Chain Factory.  We are very proud of Chain Factory, the ability to create a blockchain designed for your application and business needs. The core of our blockchain is Nulstar. The Nulstar design enables us to provide to you a blockchain where only the modules you need are assembled to form your blockchain. Across time, as our modules/services grow,  the variety of blockchains and blockchain characteristics will expand, perhaps, beyond what we can imagine today.  As you use your blockchain, please consult the telegram channel NULS Support (https://t.me/NulsSupport)  for questions or feedback. We look forward to hearing from you. 
 ## Build blockchain
 ### Select module
 In the chain factory, the modules are divided into the required modules and the optional modules. The system has already helped the user to select all the required modules. The user needs to select the optional modules according to the actual business scenarios.After the selection is completed, click [Submit Module Information]
