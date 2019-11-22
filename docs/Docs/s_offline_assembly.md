@@ -98,7 +98,7 @@ _**Response:**_
 }
 ```
 
-#### 1.1.2) Assemble parameter data according to constructor parameters** (if there is no parameter function, skip this step)**
+#### 1.1.2) Assemble parameter data according to constructor parameters(**if there is no parameter function, skip this step**)
 
 - Assemble the argument types of the constructor into a string array
   
@@ -386,7 +386,7 @@ The transaction that assembles the call contract needs to interact with apiModul
 
 **Initial data: `Transaction creator address`, `contract address`, `The amount of the main network asset transferred by the caller to the contract address `, `call method name `, `call method description `, `call method parameters `, `Transaction notes`**
 
-#### 1.2.1) Call the interface to get the list of parameter types of the contract method** (If you cache the details of all the methods of the contract, you can extract the parameter type list of the method from the cached method, skip this step)**
+#### 1.2.1) Call the interface to get the list of parameter types of the contract method(**If you cache the details of all the methods of the contract, you can extract the parameter type list of the method from the cached method, skip this step**)
 
 > The role of this step is to get an array of parameter types of the method. For specific filtering data, please see `1.2.2`
 

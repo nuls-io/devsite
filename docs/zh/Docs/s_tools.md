@@ -109,7 +109,7 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 #### 服务节点
 
-服务节点是指NULS API模块的URL地址，当不选择服务地址时，默认使用http://beta.public1.nuls.io，操作页面如下图所示。
+服务节点是指NULS Public-Service模块的URL地址，当不选择服务地址时，默认使用官方提供的测试网的Public-Service服务`http://beta.public1.nuls.io`，操作页面如下图所示。
 
 ![](./mavenPackage/P3rRa4L.png)
 

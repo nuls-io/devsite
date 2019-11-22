@@ -108,7 +108,7 @@ Before the smart contract is deployed and released, the account address must be 
 
 #### Service List
 
-All service nodes are displayed in the service list. The service node refers to the URL address of the NULS API module. When the service address is not selected, http://beta.public1.nuls.io is used by default. The operation page is as shown in the following figure.
+All service nodes are displayed in the service list. The service node refers to the URL address of the NULS Public-Service module. When the service address is not selected, by default, the officially provided test network's Public-Service service `http://beta.public1.nuls.io`. The operation page is as shown in the following figure.
 
 ![](./mavenPackage/vdz2UUE.png)
 ![](./mavenPackage/7cxoYNz.png)
