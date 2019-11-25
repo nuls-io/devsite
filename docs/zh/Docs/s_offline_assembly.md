@@ -14,7 +14,259 @@
 
 > 文档中使用 **`NRC20合约代码`** 作为示例
 
-## 1. Java
+## 1. Java SDK
+
+### 1.1 引入Mavan依赖
+
+```xml
+<!-- JDK11环境下 -->
+<dependency>
+    <groupId>io.nuls.v2</groupId>
+    <artifactId>sdk4j</artifactId>
+    <version>1.0.7.RELEASE</version>
+</dependency>
+
+<!-- JDK8环境下 -->
+<dependency>
+    <groupId>io.nuls.v2</groupId>
+    <artifactId>sdk4j-jdk8</artifactId>
+    <version>1.0.7.RELEASE</version>
+</dependency>
+```
+
+### 1.2 SDK初始化
+
+```java
+// 测试网SDK初始化
+NulsSDKBootStrap.initTest("http://beta.api.nuls.io/");
+```
+
+```java
+// 主网SDK初始化
+NulsSDKBootStrap.initMain("https://api.nuls.io/");
+```
+
+### 1.3 发布合约离线交易
+
+```java
+public void createTxOffline() throws JsonProcessingException {
+    String sender = this.sender;
+    String alias = "nrc20_token";
+    String contractCode = "504b03040a0000080000....";
+    Object[] args = new Object[]{"air", "AIR", 10000, 2};
+    String remark = "remark_test";
+
+    // 在线接口(可跳过) - 验证发布合约的合法性，可不验证
+    ContractValidateCreateForm vForm = new ContractValidateCreateForm();
+    vForm.setSender(sender);
+    vForm.setContractCode(contractCode);
+    vForm.setArgs(args);
+    vForm.setGasLimit(MAX_GASLIMIT);
+    vForm.setPrice(CONTRACT_MINIMUM_PRICE);
+    Result vResult = NulsSDKTool.validateContractCreate(vForm);
+    Assert.assertTrue(vResult.toString(), vResult.isSuccess());
+    Map vMap = (Map) vResult.getData();
+    boolean success = (boolean) vMap.get("success");
+    Assert.assertTrue((String) vMap.get("msg"), success);
+
+    // 在线接口(可跳过) - 估算发布合约需要的GAS，可不估算，离线写一个合理的值
+    ImputedGasContractCreateForm iForm = new ImputedGasContractCreateForm();
+    iForm.setSender(sender);
+    iForm.setContractCode(contractCode);
+    iForm.setArgs(args);
+    Result iResult = NulsSDKTool.imputedContractCreateGas(iForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(iResult), iResult.isSuccess());
+    Map result = (Map) iResult.getData();
+    Long gasLimit = Long.valueOf(result.get("gasLimit").toString());
+
+    // 在线接口(可跳过) - 获取代码的构造函数，生成参数类型的数组，若已知类型，自行编写类型数组，可不调用此接口
+    Result<ContractConstructorInfoDto> constructorR = NulsSDKTool.getConstructor(contractCode);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(constructorR), constructorR.isSuccess());
+    ContractConstructorInfoDto dto = constructorR.getData();
+    String[] argsType = dto.getConstructor().argsType2Array();
+
+    // 在线接口(不可跳过，一定要调用的接口) - 获取账户余额信息
+    Result accountBalanceR = NulsSDKTool.getAccountBalance(sender, 2, 1);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(accountBalanceR), accountBalanceR.isSuccess());
+    Map balance = (Map) accountBalanceR.getData();
+    BigInteger senderBalance = new BigInteger(balance.get("available").toString());
+    String nonce = balance.get("nonce").toString();
+
+    // 离线接口 - 组装发布合约的离线交易
+    Result<Map> txOfflineR = NulsSDKTool.createContractTxOffline(sender, senderBalance, nonce, alias, contractCode, gasLimit, args, argsType, remark);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(txOfflineR), txOfflineR.isSuccess());
+    Map map = txOfflineR.getData();
+    String txHex = (String) map.get("txHex");
+    String hash = (String) map.get("hash");
+    String contractAddress = (String) map.get("contractAddress");
+
+    // 离线接口 - 签名交易
+    Result<Map> signTxR = NulsSDKTool.sign(txHex, sender, priKey);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(signTxR), signTxR.isSuccess());
+    Map resultData = signTxR.getData();
+    String _hash = (String) resultData.get("hash");
+    Assert.assertEquals("hash不一致", hash, _hash);
+    String signedTxHex = (String) resultData.get("txHex");
+
+    // 在线接口 - 广播交易
+    Result<Map> broadcastTxR = NulsSDKTool.broadcast(signedTxHex);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(broadcastTxR), broadcastTxR.isSuccess());
+    Map data = broadcastTxR.getData();
+    String hash1 = (String) data.get("hash");
+    Assert.assertEquals("hash不一致", hash, hash1);
+    System.out.println(String.format("hash: %s, contractAddress: %s", hash, contractAddress));
+}
+
+```
+
+### 1.4 调用合约离线交易
+
+```java
+public void callTxOffline() throws JsonProcessingException {
+    int chainId = SDKContext.main_chain_id;
+    String sender = this.sender;
+    BigInteger value = BigInteger.ZERO;
+    String contractAddress = "tNULSeBaN3xDUFWonWsfsuG4kJKy2WajtjZbuB";
+    String methodName = "transfer";
+    String methodDesc = "";
+    Object[] args = new Object[]{"tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD", 3800};
+    String remark = "remark_call_test";
+
+    // 在线接口(可跳过) - 验证调用合约的合法性，可不验证
+    ContractValidateCallForm validateCallForm = new ContractValidateCallForm();
+    validateCallForm.setSender(sender);
+    validateCallForm.setValue(value.longValue());
+    validateCallForm.setGasLimit(MAX_GASLIMIT);
+    validateCallForm.setPrice(CONTRACT_MINIMUM_PRICE);
+    validateCallForm.setContractAddress(contractAddress);
+    validateCallForm.setMethodName(methodName);
+    validateCallForm.setMethodDesc(methodDesc);
+    validateCallForm.setArgs(args);
+    Result vResult = NulsSDKTool.validateContractCall(validateCallForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(vResult), vResult.isSuccess());
+    Map map = (Map) vResult.getData();
+    boolean success = (boolean) map.get("success");
+    Assert.assertTrue((String) map.get("msg"), success);
+
+    // 在线接口(可跳过) - 估算调用合约需要的GAS，可不估算，离线写一个合理的值
+    ImputedGasContractCallForm iForm = new ImputedGasContractCallForm();
+    iForm.setSender(sender);
+    iForm.setValue(value);
+    iForm.setContractAddress(contractAddress);
+    iForm.setMethodName(methodName);
+    iForm.setMethodDesc(methodDesc);
+    iForm.setArgs(args);
+    Result iResult = NulsSDKTool.imputedContractCallGas(iForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(iResult), iResult.isSuccess());
+    Map result = (Map) iResult.getData();
+    Long gasLimit = Long.valueOf(result.get("gasLimit").toString());
+
+    int assetChainId = SDKContext.nuls_chain_id;
+    int assetId = SDKContext.nuls_asset_id;
+    // 在线接口(可跳过) - 生成参数类型的数组，若已知类型，自行编写类型数组，可不调用此接口
+    String[] argsType = null;
+    if (args != null && args.length > 0) {
+        ContractMethodForm cFrom = new ContractMethodForm();
+        cFrom.setContractAddress(contractAddress);
+        cFrom.setMethodName(methodName);
+        cFrom.setMethodDesc(methodDesc);
+        Result cResult = NulsSDKTool.getContractMethodArgsTypes(cFrom);
+        Assert.assertTrue(JSONUtils.obj2PrettyJson(cResult), cResult.isSuccess());
+        List<String> list  = (List<String>) cResult.getData();
+        int size = list.size();
+        argsType = new String[size];
+        argsType = list.toArray(argsType);
+    }
+
+    // 在线接口(不可跳过，一定要调用的接口) - 获取账户余额信息
+    Result accountBalanceR = NulsSDKTool.getAccountBalance(sender, 2, 1);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(accountBalanceR), accountBalanceR.isSuccess());
+    Map balance = (Map) accountBalanceR.getData();
+    BigInteger senderBalance = new BigInteger(balance.get("available").toString());
+    String nonce = balance.get("nonce").toString();
+
+    // 离线接口 - 组装调用合约的离线交易
+    Result<Map> txOfflineR = NulsSDKTool.callContractTxOffline(sender, senderBalance, nonce, value, contractAddress, gasLimit, methodName, methodDesc, args, argsType, remark);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(txOfflineR), txOfflineR.isSuccess());
+    Map txMap = txOfflineR.getData();
+    String txHex = (String) txMap.get("txHex");
+    String hash = (String) txMap.get("hash");
+
+    // 离线接口 - 签名交易
+    Result<Map> signTxR = NulsSDKTool.sign(txHex, sender, priKey);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(signTxR), signTxR.isSuccess());
+    Map resultData = signTxR.getData();
+    String _hash = (String) resultData.get("hash");
+    Assert.assertEquals("hash不一致", hash, _hash);
+    String signedTxHex = (String) resultData.get("txHex");
+
+    // 在线接口 - 广播交易
+    Result<Map> broadcaseTxR = NulsSDKTool.broadcast(signedTxHex);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(broadcaseTxR), broadcaseTxR.isSuccess());
+    Map data = broadcaseTxR.getData();
+    String hash1 = (String) data.get("hash");
+    Assert.assertEquals("hash不一致", hash, hash1);
+    System.out.println(String.format("hash: %s", hash));
+}
+
+```
+
+### 1.5 删除合约离线交易
+
+```java
+public void deleteTxOffline() throws JsonProcessingException {
+
+    int chainId = SDKContext.main_chain_id;
+    String sender = this.sender;
+    String contractAddress = "tNULSeBaN2YfwVSBCwf35CgD5HtKa5gYGmLgCK";
+    String remark = "remark_delete_test";
+
+    // 在线接口(可跳过）- 验证删除合约的合法性，可不验证
+    ContractValidateDeleteForm dForm = new ContractValidateDeleteForm();
+    dForm.setSender(sender);
+    dForm.setContractAddress(contractAddress);
+    Result vResult = NulsSDKTool.validateContractDelete(dForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(vResult), vResult.isSuccess());
+    Map map = (Map) vResult.getData();
+    boolean success = (boolean) map.get("success");
+    Assert.assertTrue((String) map.get("msg"), success);
+
+    // 在线接口(不可跳过，一定要调用的接口) - 获取账户余额信息
+    int assetChainId = SDKContext.nuls_chain_id;
+    int assetId = SDKContext.nuls_asset_id;
+    Result accountBalanceR = NulsSDKTool.getAccountBalance(sender, 2, 1);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(accountBalanceR), accountBalanceR.isSuccess());
+    Map balance = (Map) accountBalanceR.getData();
+    BigInteger senderBalance = new BigInteger(balance.get("available").toString());
+    String nonce = balance.get("nonce").toString();
+
+    // 离线接口 - 组装删除合约的离线交易
+    Result<Map> txOffline = NulsSDKTool.deleteContractTxOffline(sender, senderBalance, nonce, contractAddress, remark);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(txOffline), txOffline.isSuccess());
+    Map txMap = txOffline.getData();
+    String txHex = (String) txMap.get("txHex");
+    String hash = (String) txMap.get("hash");
+
+    // 离线接口 - 签名交易
+    Result<Map> signTxR = NulsSDKTool.sign(txHex, sender, priKey);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(signTxR), signTxR.isSuccess());
+    Map resultData = signTxR.getData();
+    String _hash = (String) resultData.get("hash");
+    Assert.assertEquals("hash不一致", hash, _hash);
+    String signedTxHex = (String) resultData.get("txHex");
+
+    // 在线接口 - 广播交易
+    Result<Map> broadcastTxR = NulsSDKTool.broadcast(signedTxHex);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(broadcastTxR), broadcastTxR.isSuccess());
+    Map data = broadcastTxR.getData();
+    String hash1 = (String) data.get("hash");
+    Assert.assertEquals("hash不一致", hash, hash1);
+    System.out.println(String.format("hash: %s", hash));
+}
+
+```
+
+## 2. Java - 离线组装合约交易代码详解
 
 ```java
 // 主链的ID，示例中使用2
@@ -23,7 +275,7 @@ int chainId = 2;
 int assetsId = 1;
 ```
 
-### 1.1 发布合约的交易
+### 2.1 发布合约的交易
 
 组装发布合约的交易需要与apiModule交互四次
 
@@ -34,7 +286,7 @@ int assetsId = 1;
 
 **最初数据: `交易创建者地址`, `合约代码字节码的Hex字符串`, `合约别名`, `交易备注`**
 
-#### 1.1.1) 调用接口获取合约代码构造函数
+#### 2.1.1) 调用接口获取合约代码构造函数
 
 - 接口: getContractConstructor
 - 参数: chainId, contractCode
@@ -98,7 +350,7 @@ _**Response:**_
 }
 ```
 
-#### 1.1.2) 根据构造函数参数组装参数数据(**若是无参函数，则跳过此步**)
+#### 2.1.2) 根据构造函数参数组装参数数据(**若是无参函数，则跳过此步**)
 
 - 把构造函数的参数类型组装成一个字符串数组
   
@@ -131,7 +383,7 @@ _**Response:**_
     String[][] finalArgs = ContractUtil.twoDimensionalArray(args, argTypes);
     ```
 
-#### 1.1.3) 调用接口验证发布合约的合法性
+#### 2.1.3) 调用接口验证发布合约的合法性
 
 - 接口: validateContractCreate
 - 参数: chainId, sender, gasLimit, price, contractCode, args
@@ -178,7 +430,7 @@ _**Response:**_
 
 > `success`是`true`时，表示验证通过，否则，`success`是`false`, `msg`是错误信息
 
-#### 1.1.4) 调用接口预估发布合约需要的GAS
+#### 2.1.4) 调用接口预估发布合约需要的GAS
 
 - 接口: imputedContractCreateGas
 - 参数: chainId, sender, contractCode, args
@@ -224,7 +476,7 @@ Long gasLimit = (Long) result.get("gasLimit");
 
 
 
-#### 1.1.5) 随机生成一个智能合约地址
+#### 2.1.5) 随机生成一个智能合约地址
 
 ```java
 Address contract = AccountTool.createContractAddress(chainId);
@@ -232,7 +484,7 @@ byte[] contractAddressBytes = contract.getAddressBytes();
 // String contractAddress = contract.toString();
 ```
 
-#### 1.1.6) 通过以上5步获取的数据，组装交易的txData
+#### 2.1.6) 通过以上5步获取的数据，组装交易的txData
 
 ```java
 // 交易创建者的地址
@@ -255,7 +507,7 @@ if (finalArgs != null) {
 }
 ```
 
-#### 1.1.7) 调用接口获取交易创建者的nonce值
+#### 2.1.7) 调用接口获取交易创建者的nonce值
 
 - 接口: getAccountBalance
 - 参数: chainId, assetChainId, assetId, address
@@ -307,7 +559,7 @@ BigInteger senderBalance = new BigInteger(result.get("balance").toString());
 String nonce = result.get("nonce").toString();
 ```
 
-#### 1.1.8) 通过以上7步获取的数据，组装发布合约的交易对象
+#### 2.1.8) 通过以上7步获取的数据，组装发布合约的交易对象
 
 ```java
 public CreateContractTransaction newCreateTx(int chainId, int assetsId, BigInteger senderBalance, String nonce, CreateContractData createContractData, String remark) {
@@ -367,7 +619,7 @@ private int calcSize(NulsData nulsData) {
 
 ```
 
-#### 1.1.9) 签名交易、广播交易（略）
+#### 2.1.9) 签名交易、广播交易（略）
 
 
 
@@ -375,7 +627,7 @@ private int calcSize(NulsData nulsData) {
 
 
 
-### 1.2 调用合约的交易
+### 2.2 调用合约的交易
 
 组装调用合约的交易需要与apiModule交互三`or`四次
 
@@ -386,7 +638,7 @@ private int calcSize(NulsData nulsData) {
 
 **最初数据: `交易创建者地址`,`合约地址`,`调用者向合约地址转入的主网资产金额`,`调用方法名`,`调用方法的描述`, `调用方法的参数`, `交易备注`**
 
-#### 1.2.1) 调用接口获取合约方法的参数类型列表**(若缓存了合约所有方法的详情，可从缓存的方法中提取方法的参数类型列表，则跳过此步)**
+#### 2.2.1) 调用接口获取合约方法的参数类型列表**(若缓存了合约所有方法的详情，可从缓存的方法中提取方法的参数类型列表，则跳过此步)**
 
 > 这一步的作用是得到方法的参数类型数组，具体筛选的数据请查看`1.2.2`
 
@@ -427,7 +679,7 @@ _**Response:**_
 }
 ```
 
-#### 1.2.2) 根据函数参数组装参数数据(**若是无参函数，则跳过此步**)
+#### 2.2.2) 根据函数参数组装参数数据(**若是无参函数，则跳过此步**)
 
 - 把函数的参数类型组装成一个字符串数组
   
@@ -456,7 +708,7 @@ _**Response:**_
     String[][] finalArgs = ContractUtil.twoDimensionalArray(args, argTypes);
     ```
 
-#### 1.2.3) 调用接口验证调用合约的合法性
+#### 2.2.3) 调用接口验证调用合约的合法性
 
 - 接口: validateContractCall
 - 参数: chainId, sender, value, gasLimit, price, contractAddress, methodName, methodDesc, args
@@ -509,7 +761,7 @@ _**Response:**_
 
 > `success`是`true`时，表示验证通过，否则，`success`是`false`, `msg`是错误信息
 
-#### 1.2.4) 调用接口预估调用合约需要的GAS
+#### 2.2.4) 调用接口预估调用合约需要的GAS
 
 - 接口: imputedContractCallGas
 - 参数: chainId, sender, value, contractAddress, methodName, methodDesc, args
@@ -555,7 +807,7 @@ _**Response:**_
 
 ```
 
-#### 1.2.5) 通过以上4步获取的数据，组装交易的txData
+#### 2.2.5) 通过以上4步获取的数据，组装交易的txData
 
 ```java
 // 交易创建者的地址
@@ -583,7 +835,7 @@ if (finalArgs != null) {
 
 ```
 
-#### 1.2.6) 调用接口获取交易创建者的nonce值
+#### 2.2.6) 调用接口获取交易创建者的nonce值
 
 - 接口: getAccountBalance
 - 参数: chainId, assetChainId, assetId, address
@@ -634,7 +886,7 @@ BigInteger senderBalance = new BigInteger(result.get("balance").toString());
 String nonce = result.get("nonce").toString();
 ```
 
-#### 1.2.7) 通过以上6步获取的数据，组装发布合约的交易对象
+#### 2.2.7) 通过以上6步获取的数据，组装发布合约的交易对象
 
 ```java
 public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger senderBalance, String nonce, CallContractData callContractData, String remark) {
@@ -658,7 +910,7 @@ public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger s
 
 ```
 
-#### 1.2.8) 签名交易、广播交易（略）
+#### 2.2.8) 签名交易、广播交易（略）
 
 
 
@@ -667,7 +919,7 @@ public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger s
 
 
 
-### 1.3 删除合约的交易
+### 2.3 删除合约的交易
 
 组装删除合约的交易需要与apiModule交互两次
 
@@ -676,7 +928,7 @@ public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger s
 
 **最初数据: `交易创建者地址`,`合约地址`**
 
-#### 1.3.1) 调用接口验证删除合约的合法性
+#### 2.3.1) 调用接口验证删除合约的合法性
 
 - 接口: validateContractDelete
 - 参数: chainId, sender, contractAddress
@@ -716,7 +968,7 @@ _**Response:**_
 > `success`是`true`时，表示验证通过，否则，`success`是`false`, `msg`是错误信息
 
 
-#### 1.3.2) 组装交易的txData
+#### 2.3.2) 组装交易的txData
 
 ```java
 // 交易创建者的地址
@@ -728,7 +980,7 @@ deleteContractData.setSender(senderBytes);
 
 ```
 
-#### 1.3.3) 调用接口获取交易创建者的nonce值
+#### 2.3.3) 调用接口获取交易创建者的nonce值
 
 - 接口: getAccountBalance
 - 参数: chainId, assetChainId, assetId, address
@@ -779,7 +1031,7 @@ BigInteger senderBalance = new BigInteger(result.get("balance").toString());
 String nonce = result.get("nonce").toString();
 ```
 
-#### 1.3.4) 通过以上3步获取的数据，组装发布合约的交易对象
+#### 2.3.4) 通过以上3步获取的数据，组装发布合约的交易对象
 
 ```java
 public DeleteContractTransaction newDeleteTx(int chainId, int assetsId, BigInteger senderBalance, String nonce, DeleteContractData deleteContractData, String remark) {
@@ -803,17 +1055,17 @@ public DeleteContractTransaction newDeleteTx(int chainId, int assetsId, BigInteg
 
 ```
 
-#### 1.3.5) 签名交易、广播交易（略）
+#### 2.3.5) 签名交易、广播交易（略）
 
 
 
-## 2. JavaScript
+## 3. JavaScript SDK
 
 > 本语言里，我们已经开发了JS-SDK，内部已经实现离线组装智能合约交易
 
 **GitHub地址:** [NULS-v2-JS-SDK](https://github.com/nuls-io/nuls-v2-js-sdk)
 
-### 2.1 创建合约
+### 3.1 创建合约
 
 请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCreate.js#L77`
 
@@ -874,7 +1126,7 @@ async function createContract(pri, pub, createAddress, assetsChainId, assetsId) 
 
 ```
 
-### 2.2 调用合约
+### 3.2 调用合约
 
 请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCall.js#L75`
 
@@ -943,7 +1195,7 @@ let contractCall = {
 
 ```
 
-### 2.3 删除合约
+### 3.3 删除合约
 
 请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractDelete.js#L33`
 

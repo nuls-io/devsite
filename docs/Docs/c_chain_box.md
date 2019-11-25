@@ -70,12 +70,15 @@ The `NULS-WALLET` folder will be created in the `chainbox` directory. It contain
 
 If multiple nodes are deployed on different machines, it is recommended to modify the following two parameters in the `NULS-WALLET/.default-config.ncf` configuration file.
 
- ```
+```
 # Minimum number of linking nodes. If the number of linking nodes is lower than this parameter, it will continue to wait.
 minNodeAmount=0
 
 # Seed node block address
 seedNodes=tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
+
+# Seed node block address password
+password=nuls123456
 ```
 
 
