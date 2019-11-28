@@ -51,6 +51,7 @@ module.exports = {
                             'g_deploy_public_service',
                             'g_pocm',
                             'g_governance',
+                            'g_factory',
                             'g_docker',
                             'g_linux_tutorial',
                             'g_multi_sign_account'
@@ -151,6 +152,7 @@ module.exports = {
                             'g_deploy_public_service',
                             'g_pocm',
                             'g_governance',
+                            'g_factory',
                             'g_docker',
                             'g_linux_tutorial',
                             'g_multi_sign_account'

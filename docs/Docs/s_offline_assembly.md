@@ -10,11 +10,263 @@
     
     - Online: The private key is saved on the node
 
-**Smart Contracts There are three types of transactions to be assembled, namely `Publish Contract`, `Call Contract`, `Delete Contract`. The following will introduce the offline assembly methods of these three transactions using `Java` language and `JavaScript` language respectively.**
+**Smart Contracts There are three types of transactions to be assembled, namely `Create Contract`, `Call Contract`, `Delete Contract`. The following will introduce the offline assembly methods of these three transactions using `Java` language and `JavaScript` language respectively.**
 
 > **`nrc20 contract code `** is used as an example in the documentation
 
-## 1. Java
+## 1. Java SDK
+
+### 1.1 Add Mavan Dependence
+
+```xml
+<!-- JDK11 -->
+<dependency>
+    <groupId>io.nuls.v2</groupId>
+    <artifactId>sdk4j</artifactId>
+    <version>1.0.7.RELEASE</version>
+</dependency>
+
+<!-- JDK8 -->
+<dependency>
+    <groupId>io.nuls.v2</groupId>
+    <artifactId>sdk4j-jdk8</artifactId>
+    <version>1.0.7.RELEASE</version>
+</dependency>
+```
+
+### 1.2 SDK initial
+
+```java
+// test net SDK initial
+NulsSDKBootStrap.initTest("http://beta.api.nuls.io/");
+```
+
+```java
+// main net SDK initial
+NulsSDKBootStrap.initMain("https://api.nuls.io/");
+```
+
+### 1.3 Create contract transaction
+
+```java
+public void createTxOffline() throws JsonProcessingException {
+    String sender = this.sender;
+    String alias = "nrc20_token";
+    String contractCode = "504b03040a0000080000....";
+    Object[] args = new Object[]{"air", "AIR", 10000, 2};
+    String remark = "remark_test";
+
+    // online interface (skipable) - Verify the legality of creating the contract, you can skip verification
+    ContractValidateCreateForm vForm = new ContractValidateCreateForm();
+    vForm.setSender(sender);
+    vForm.setContractCode(contractCode);
+    vForm.setArgs(args);
+    vForm.setGasLimit(MAX_GASLIMIT);
+    vForm.setPrice(CONTRACT_MINIMUM_PRICE);
+    Result vResult = NulsSDKTool.validateContractCreate(vForm);
+    Assert.assertTrue(vResult.toString(), vResult.isSuccess());
+    Map vMap = (Map) vResult.getData();
+    boolean success = (boolean) vMap.get("success");
+    Assert.assertTrue((String) vMap.get("msg"), success);
+
+    // online interface (skipable) - Estimate the GAS required to create the contract, you can skip estimate, write a reasonable value offline
+    ImputedGasContractCreateForm iForm = new ImputedGasContractCreateForm();
+    iForm.setSender(sender);
+    iForm.setContractCode(contractCode);
+    iForm.setArgs(args);
+    Result iResult = NulsSDKTool.imputedContractCreateGas(iForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(iResult), iResult.isSuccess());
+    Map result = (Map) iResult.getData();
+    Long gasLimit = Long.valueOf(result.get("gasLimit").toString());
+
+    // online interface (skipable) - Get the constructor of the code, generate an array of parameter types, if you know the type, write the type array yourself, you can not call this interface
+    Result<ContractConstructorInfoDto> constructorR = NulsSDKTool.getConstructor(contractCode);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(constructorR), constructorR.isSuccess());
+    ContractConstructorInfoDto dto = constructorR.getData();
+    String[] argsType = dto.getConstructor().argsType2Array();
+
+    // online interface (not skipable, must be called) - Get account balance information
+    Result accountBalanceR = NulsSDKTool.getAccountBalance(sender, 2, 1);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(accountBalanceR), accountBalanceR.isSuccess());
+    Map balance = (Map) accountBalanceR.getData();
+    BigInteger senderBalance = new BigInteger(balance.get("available").toString());
+    String nonce = balance.get("nonce").toString();
+
+    // offline interface - Assembling an offline transaction that create a contract
+    Result<Map> txOfflineR = NulsSDKTool.createContractTxOffline(sender, senderBalance, nonce, alias, contractCode, gasLimit, args, argsType, remark);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(txOfflineR), txOfflineR.isSuccess());
+    Map map = txOfflineR.getData();
+    String txHex = (String) map.get("txHex");
+    String hash = (String) map.get("hash");
+    String contractAddress = (String) map.get("contractAddress");
+
+    // offline interface - Signature transaction
+    Result<Map> signTxR = NulsSDKTool.sign(txHex, sender, priKey);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(signTxR), signTxR.isSuccess());
+    Map resultData = signTxR.getData();
+    String _hash = (String) resultData.get("hash");
+    Assert.assertEquals("Hash inconsistent", hash, _hash);
+    String signedTxHex = (String) resultData.get("txHex");
+
+    // online interface - Broadcast transaction
+    Result<Map> broadcastTxR = NulsSDKTool.broadcast(signedTxHex);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(broadcastTxR), broadcastTxR.isSuccess());
+    Map data = broadcastTxR.getData();
+    String hash1 = (String) data.get("hash");
+    Assert.assertEquals("Hash inconsistent", hash, hash1);
+    System.out.println(String.format("hash: %s, contractAddress: %s", hash, contractAddress));
+}
+
+```
+
+### 1.4 Call contract transaction
+
+```java
+public void callTxOffline() throws JsonProcessingException {
+    int chainId = SDKContext.main_chain_id;
+    String sender = this.sender;
+    BigInteger value = BigInteger.ZERO;
+    String contractAddress = "tNULSeBaN3xDUFWonWsfsuG4kJKy2WajtjZbuB";
+    String methodName = "transfer";
+    String methodDesc = "";
+    Object[] args = new Object[]{"tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD", 3800};
+    String remark = "remark_call_test";
+
+    // online interface (skipable) - Verify the legality of calling the contract, you can skip verification
+    ContractValidateCallForm validateCallForm = new ContractValidateCallForm();
+    validateCallForm.setSender(sender);
+    validateCallForm.setValue(value.longValue());
+    validateCallForm.setGasLimit(MAX_GASLIMIT);
+    validateCallForm.setPrice(CONTRACT_MINIMUM_PRICE);
+    validateCallForm.setContractAddress(contractAddress);
+    validateCallForm.setMethodName(methodName);
+    validateCallForm.setMethodDesc(methodDesc);
+    validateCallForm.setArgs(args);
+    Result vResult = NulsSDKTool.validateContractCall(validateCallForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(vResult), vResult.isSuccess());
+    Map map = (Map) vResult.getData();
+    boolean success = (boolean) map.get("success");
+    Assert.assertTrue((String) map.get("msg"), success);
+
+    // online interface (skipable) - Estimate the GAS required to call the contract, you can skip estimate, write a reasonable value offline
+    ImputedGasContractCallForm iForm = new ImputedGasContractCallForm();
+    iForm.setSender(sender);
+    iForm.setValue(value);
+    iForm.setContractAddress(contractAddress);
+    iForm.setMethodName(methodName);
+    iForm.setMethodDesc(methodDesc);
+    iForm.setArgs(args);
+    Result iResult = NulsSDKTool.imputedContractCallGas(iForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(iResult), iResult.isSuccess());
+    Map result = (Map) iResult.getData();
+    Long gasLimit = Long.valueOf(result.get("gasLimit").toString());
+
+    int assetChainId = SDKContext.nuls_chain_id;
+    int assetId = SDKContext.nuls_asset_id;
+    // online interface (skipable) - Generate an array of parameter types. If the type is known, write the type array yourself, you can not call this interface.
+    String[] argsType = null;
+    if (args != null && args.length > 0) {
+        ContractMethodForm cFrom = new ContractMethodForm();
+        cFrom.setContractAddress(contractAddress);
+        cFrom.setMethodName(methodName);
+        cFrom.setMethodDesc(methodDesc);
+        Result cResult = NulsSDKTool.getContractMethodArgsTypes(cFrom);
+        Assert.assertTrue(JSONUtils.obj2PrettyJson(cResult), cResult.isSuccess());
+        List<String> list  = (List<String>) cResult.getData();
+        int size = list.size();
+        argsType = new String[size];
+        argsType = list.toArray(argsType);
+    }
+
+    // online interface (not skipable, must be called) - Get account balance information
+    Result accountBalanceR = NulsSDKTool.getAccountBalance(sender, 2, 1);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(accountBalanceR), accountBalanceR.isSuccess());
+    Map balance = (Map) accountBalanceR.getData();
+    BigInteger senderBalance = new BigInteger(balance.get("available").toString());
+    String nonce = balance.get("nonce").toString();
+
+    // offline interface - Assembling an offline transaction that call a contract
+    Result<Map> txOfflineR = NulsSDKTool.callContractTxOffline(sender, senderBalance, nonce, value, contractAddress, gasLimit, methodName, methodDesc, args, argsType, remark);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(txOfflineR), txOfflineR.isSuccess());
+    Map txMap = txOfflineR.getData();
+    String txHex = (String) txMap.get("txHex");
+    String hash = (String) txMap.get("hash");
+
+    // offline interface - Signature transaction
+    Result<Map> signTxR = NulsSDKTool.sign(txHex, sender, priKey);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(signTxR), signTxR.isSuccess());
+    Map resultData = signTxR.getData();
+    String _hash = (String) resultData.get("hash");
+    Assert.assertEquals("Hash inconsistent", hash, _hash);
+    String signedTxHex = (String) resultData.get("txHex");
+
+    // online interface - Broadcast transaction
+    Result<Map> broadcastTxR = NulsSDKTool.broadcast(signedTxHex);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(broadcastTxR), broadcastTxR.isSuccess());
+    Map data = broadcastTxR.getData();
+    String hash1 = (String) data.get("hash");
+    Assert.assertEquals("Hash inconsistent", hash, hash1);
+    System.out.println(String.format("hash: %s", hash));
+}
+
+```
+
+### 1.5 Delete contract transaction
+
+```java
+public void deleteTxOffline() throws JsonProcessingException {
+
+    int chainId = SDKContext.main_chain_id;
+    String sender = this.sender;
+    String contractAddress = "tNULSeBaN2YfwVSBCwf35CgD5HtKa5gYGmLgCK";
+    String remark = "remark_delete_test";
+
+    // online interface (skipable) - Verify the legality of deleting the contract, you can skip verification
+    ContractValidateDeleteForm dForm = new ContractValidateDeleteForm();
+    dForm.setSender(sender);
+    dForm.setContractAddress(contractAddress);
+    Result vResult = NulsSDKTool.validateContractDelete(dForm);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(vResult), vResult.isSuccess());
+    Map map = (Map) vResult.getData();
+    boolean success = (boolean) map.get("success");
+    Assert.assertTrue((String) map.get("msg"), success);
+
+    // online interface (not skipable, must be called) - Get account balance information
+    int assetChainId = SDKContext.nuls_chain_id;
+    int assetId = SDKContext.nuls_asset_id;
+    Result accountBalanceR = NulsSDKTool.getAccountBalance(sender, 2, 1);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(accountBalanceR), accountBalanceR.isSuccess());
+    Map balance = (Map) accountBalanceR.getData();
+    BigInteger senderBalance = new BigInteger(balance.get("available").toString());
+    String nonce = balance.get("nonce").toString();
+
+    // offline interface - Assembling an offline transaction that delete a contract
+    Result<Map> txOffline = NulsSDKTool.deleteContractTxOffline(sender, senderBalance, nonce, contractAddress, remark);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(txOffline), txOffline.isSuccess());
+    Map txMap = txOffline.getData();
+    String txHex = (String) txMap.get("txHex");
+    String hash = (String) txMap.get("hash");
+
+    // offline interface - Signature transaction
+    Result<Map> signTxR = NulsSDKTool.sign(txHex, sender, priKey);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(signTxR), signTxR.isSuccess());
+    Map resultData = signTxR.getData();
+    String _hash = (String) resultData.get("hash");
+    Assert.assertEquals("Hash inconsistent", hash, _hash);
+    String signedTxHex = (String) resultData.get("txHex");
+
+    // online interface - Broadcast transaction
+    Result<Map> broadcastTxR = NulsSDKTool.broadcast(signedTxHex);
+    Assert.assertTrue(JSONUtils.obj2PrettyJson(broadcastTxR), broadcastTxR.isSuccess());
+    Map data = broadcastTxR.getData();
+    String hash1 = (String) data.get("hash");
+    Assert.assertEquals("Hash inconsistent", hash, hash1);
+    System.out.println(String.format("hash: %s", hash));
+}
+
+```
+
+## 2. Java - Offline assembly contract transaction code detailed explanation
 
 ```java
 // The id of the main chain, 2 in the example
@@ -23,7 +275,7 @@ int chainId = 2;
 int assetsId = 1;
 ```
 
-### 1.1 Publishing a contract
+### 2.1 Create contract transaction
 
 The transaction for assembling the release contract needs to interact with the apiModule four times.
 
@@ -34,7 +286,7 @@ The transaction for assembling the release contract needs to interact with the a
 
 **Initial data: `transaction creator address`, `contract code bytecode Hex string`, `contract alias`, `transaction comment`**
 
-#### 1.1.1) Calling the interface to get the contract code constructor
+#### 2.1.1) Calling the interface to get the contract code constructor
 
 - Interface: getContractConstructor
 - Parameters: chainId, contractCode
@@ -98,7 +350,7 @@ _**Response:**_
 }
 ```
 
-#### 1.1.2) Assemble parameter data according to constructor parameters** (if there is no parameter function, skip this step)**
+#### 2.1.2) Assemble parameter data according to constructor parameters(**if there is no parameter function, skip this step**)
 
 - Assemble the argument types of the constructor into a string array
   
@@ -131,7 +383,7 @@ _**Response:**_
     String[][] finalArgs = ContractUtil.twoDimensionalArray(args, argTypes);
     ```
 
-#### 1.1.3) Calling the interface to verify the legality of the release contract
+#### 2.1.3) Calling the interface to verify the legality of the release contract
 
 - Interface: validateContractCreate
 - Parameters: chainId, sender, gasLimit, price, contractCode, args
@@ -178,7 +430,7 @@ _**Response:**_
 
 > `success` is `true`, indicating that the validation passed, otherwise, `success` is `false`, `msg` is the error message
 
-#### 1.1.4) Calling the interface to estimate the gas required for the release contract
+#### 2.1.4) Calling the interface to estimate the gas required for the release contract
 
 - Interface: imputedContractCreateGas
 - Parameters: chainId, sender, contractCode, args
@@ -224,7 +476,7 @@ Long gasLimit = (Long) result.get("gasLimit");
 
 
 
-#### 1.1.5) Randomly generate a smart contract address
+#### 2.1.5) Randomly generate a smart contract address
 
 ```java
 Address contract = AccountTool.createContractAddress(chainId);
@@ -232,7 +484,7 @@ byte[] contractAddressBytes = contract.getAddressBytes();
 // String contractAddress = contract.toString();
 ```
 
-#### 1.1.6) Through the data obtained in the above 5 steps, assemble the transaction txData
+#### 2.1.6) Through the data obtained in the above 5 steps, assemble the transaction txData
 
 ```java
 // The address of the transaction creator
@@ -255,7 +507,7 @@ if (finalArgs != null) {
 }
 ```
 
-#### 1.1.7) Call the interface to get the nonce value of the transaction creator
+#### 2.1.7) Call the interface to get the nonce value of the transaction creator
 
 - Interface: getAccountBalance
 - Parameters: chainId, assetChainId, assetId, address
@@ -307,7 +559,7 @@ BigInteger senderBalance = new BigInteger(result.get("balance").toString());
 String nonce = result.get("nonce").toString();
 ```
 
-#### 1.1.8) By the data obtained in the above 7 steps, assemble the transaction object of the release contract
+#### 2.1.8) By the data obtained in the above 7 steps, assemble the transaction object of the release contract
 
 ```java
 public CreateContractTransaction newCreateTx(int chainId, int assetsId, BigInteger senderBalance, String nonce, CreateContractData createContractData, String remark) {
@@ -367,7 +619,7 @@ private int calcSize(NulsData nulsData) {
 
 ```
 
-#### 1.1.9) Signature transaction, broadcast transaction (omitted)
+#### 2.1.9) Signature transaction, broadcast transaction (omitted)
 
 
 
@@ -375,7 +627,7 @@ private int calcSize(NulsData nulsData) {
 
 
 
-### 1.2 Calling a contract transaction
+### 2.2 Call contract transaction
 
 The transaction that assembles the call contract needs to interact with apiModule three times or three times.
 
@@ -386,7 +638,7 @@ The transaction that assembles the call contract needs to interact with apiModul
 
 **Initial data: `Transaction creator address`, `contract address`, `The amount of the main network asset transferred by the caller to the contract address `, `call method name `, `call method description `, `call method parameters `, `Transaction notes`**
 
-#### 1.2.1) Call the interface to get the list of parameter types of the contract method** (If you cache the details of all the methods of the contract, you can extract the parameter type list of the method from the cached method, skip this step)**
+#### 2.2.1) Call the interface to get the list of parameter types of the contract method(**If you cache the details of all the methods of the contract, you can extract the parameter type list of the method from the cached method, skip this step**)
 
 > The role of this step is to get an array of parameter types of the method. For specific filtering data, please see `1.2.2`
 
@@ -427,7 +679,7 @@ _**Response:**_
 }
 ```
 
-#### 1.2.2) Assemble parameter data according to function parameters** (if there is no parameter function, skip this step)**
+#### 2.2.2) Assemble parameter data according to function parameters** (if there is no parameter function, skip this step)**
 
 - Assemble the parameter types of the function into a string array
   
@@ -456,7 +708,7 @@ _**Response:**_
     String[][] finalArgs = ContractUtil.twoDimensionalArray(args, argTypes);
     ```
 
-#### 1.2.3) Calling the interface to verify the legality of the calling contract
+#### 2.2.3) Calling the interface to verify the legality of the calling contract
 
 - Interface: validateContractCall
 - Parameters: chainId, sender, value, gasLimit, price, contractAddress, methodName, methodDesc, args
@@ -509,7 +761,7 @@ _**Response:**_
 
 > `success` is `true`, indicating that the validation passed, otherwise, `success` is `false`, `msg` is the error message
 
-#### 1.2.4) Calling the interface to estimate the gas required to call the contract
+#### 2.2.4) Calling the interface to estimate the gas required to call the contract
 
 - Interface: imputedContractCallGas
 - Parameters: chainId, sender, value, contractAddress, methodName, methodDesc, args
@@ -555,7 +807,7 @@ _**Response:**_
 
 ```
 
-#### 1.2.5) The data obtained by the above 4 steps, assembly transaction txData
+#### 2.2.5) The data obtained by the above 4 steps, assembly transaction txData
 
 ```java
 // The address of the transaction creator
@@ -583,7 +835,7 @@ if (finalArgs != null) {
 
 ```
 
-#### 1.2.6) Call the interface to get the nonce value of the transaction creator
+#### 2.2.6) Call the interface to get the nonce value of the transaction creator
 
 - Interface: getAccountBalance
 - Parameters: chainId, assetChainId, assetId, address
@@ -634,7 +886,7 @@ BigInteger senderBalance = new BigInteger(result.get("balance").toString());
 String nonce = result.get("nonce").toString();
 ```
 
-#### 1.2.7) By the data obtained in the above 6 steps, assemble the transaction object of the release contract
+#### 2.2.7) By the data obtained in the above 6 steps, assemble the transaction object of the release contract
 
 ```java
 public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger senderBalance, String nonce, CallContractData callContractData, String remark) {
@@ -658,7 +910,7 @@ public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger s
 
 ```
 
-#### 1.2.8) Signature transaction, broadcast transaction (omitted)
+#### 2.2.8) Signature transaction, broadcast transaction (omitted)
 
 
 
@@ -667,7 +919,7 @@ public CallContractTransaction newCallTx(int chainId, int assetsId, BigInteger s
 
 
 
-### 1.3 Deleting contract transactions
+### 2.3 Delete contract transaction
 
 The deal to assemble and delete the contract needs to interact with the apiModule twice.
 
@@ -676,7 +928,7 @@ The deal to assemble and delete the contract needs to interact with the apiModul
 
 **Initial data: `Transaction creator address`, `contract address`**
 
-#### 1.3.1) Calling the interface to verify the legality of the deleted contract
+#### 2.3.1) Calling the interface to verify the legality of the deleted contract
 
 - Interface: validateContractDelete
 - Parameters: chainId, sender, contractAddress
@@ -716,7 +968,7 @@ _**Response:**_
 > `success` is `true`, indicating that the validation passed, otherwise, `success` is `false`, `msg` is the error message
 
 
-#### 1.3.2) Assembly transaction txData
+#### 2.3.2) Assembly transaction txData
 
 ```java
 // The address of the transaction creator
@@ -728,7 +980,7 @@ deleteContractData.setSender(senderBytes);
 
 ```
 
-#### 1.3.3) Call the interface to get the nonce value of the transaction creator
+#### 2.3.3) Call the interface to get the nonce value of the transaction creator
 
 - Interface: getAccountBalance
 - Parameters: chainId, assetChainId, assetId, address
@@ -779,7 +1031,7 @@ BigInteger senderBalance = new BigInteger(result.get("balance").toString());
 String nonce = result.get("nonce").toString();
 ```
 
-#### 1.3.4) By the data obtained in the above 3 steps, assemble the transaction object of the release contract
+#### 2.3.4) By the data obtained in the above 3 steps, assemble the transaction object of the release contract
 
 ```java
 public DeleteContractTransaction newDeleteTx(int chainId, int assetsId, BigInteger senderBalance, String nonce, DeleteContractData deleteContractData, String remark) {
@@ -803,17 +1055,17 @@ public DeleteContractTransaction newDeleteTx(int chainId, int assetsId, BigInteg
 
 ```
 
-#### 1.3.5) Signature transaction, broadcast transaction (omitted)
+#### 2.3.5) Signature transaction, broadcast transaction (omitted)
 
 
 
-## 2. JavaScript
+## 3. JavaScript SDK
 
 > In this language, we have developed js-sdk, which has implemented offline assembly smart contract trading.
 
 **GitHub address:** [NULS-v2-JS-SDK](https://github.com/nuls-io/nuls-v2-js-sdk)
 
-### 2.1 Creating a contract
+### 3.1 Create contract transaction
 
 Please refer to `https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCreate.js#L77`
 
@@ -874,7 +1126,7 @@ async function createContract(pri, pub, createAddress, assetsChainId, assetsId) 
 
 ```
 
-### 2.2 Calling the contract
+### 3.2 Call contract transaction
 
 Please refer to `https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCall.js#L67`
 
@@ -943,7 +1195,7 @@ let contractCall = {
 
 ```
 
-### 2.3 Deleting a contract
+### 3.3 Delete contract transaction
 
 Please refer to `https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractDelete.js#L33`
 

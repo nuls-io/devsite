@@ -217,8 +217,8 @@ There are some contract examples on Github:
 
 Developing a smart contract program requires an understanding of the API, SDK, and Java language provided by the contract module. We recommend Intellij IDEA. The following resources can help developers develop Nuls smart contract applications better and more efficiently:
 
-* [Contract Development Manual](https://docs.nuls.io/zh/Nuls2.0/smartContractManual.html)
-* [Contract Development Tools](https://docs.nuls.io/zh/Nuls2.0/mavenPackage.html)
+* [Contract Development Manual](https://docs.nuls.io/Docs/s_manual.html)
+* [Contract Development Tools](https://docs.nuls.io/Docs/s_tools.html)
 
 ## References
 

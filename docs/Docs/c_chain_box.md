@@ -70,12 +70,15 @@ The `NULS-WALLET` folder will be created in the `chainbox` directory. It contain
 
 If multiple nodes are deployed on different machines, it is recommended to modify the following two parameters in the `NULS-WALLET/.default-config.ncf` configuration file.
 
- ```
+```
 # Minimum number of linking nodes. If the number of linking nodes is lower than this parameter, it will continue to wait.
 minNodeAmount=0
 
 # Seed node block address
 seedNodes=tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
+
+# Seed node block address password
+password=nuls123456
 ```
 
 
@@ -279,12 +282,12 @@ Usage: ./tools
    -o <folder path> specifies the output directory
    -h View help
 ```
-The following '-n' 'tools' option checks the current environment, then pulls NULS2.0 code from the github repository, executes 'package' to complete the NULS2.0 compilation and packaging, and writes the runnable program and support directories to the NULS_WALLET directory.
+The following `tools -p` option checks the current environment, then pulls NULS2.0 code from the github repository, executes 'package' to complete the NULS2.0 compilation and packaging, and writes the runnable program and support directories to the NULS_WALLET directory.
 
 ```
-tools -n
+tools -p
 ```
-When you see the following, 'tools -n' has successfully completed:
+When you see the following, `tools -p` has successfully completed:
 ```
 ============ .../.NULS2.0/NULS-WALLET-RUNTIME PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
 ```
@@ -636,13 +639,13 @@ StopScript=stop # Stop the module script (stop must be in the outer directory)
 ## Appendix
 ### <span id="cmd-doc">tools script manual</span>
 ### Getting the NULS2.0 runtime environment
-#### Command: tools -n
+#### Command: tools -p
 #### parameter list
 no
 #### Example
 
 ```
-tools -n
+tools -p
 ```
 ### Get the specified language module development template
 #### Command: tools -t &lt;language> [out folder]

@@ -1,6 +1,282 @@
 # 高级说明
 
-## 一、合约NULS资产转出的交易说明
+## 一、智能合约手续费
+
+### 1. 智能合约手续费由谁支付？
+
+发布合约、调用合约、删除合约，都由发起交易的地址支付手续费，合约地址本身不支付手续费。
+
+### 2. 智能合约费用收取的规则，如何计费？接口调用者付多少钱？都是由谁收到了这些费用？
+
+在主链上，多出三个类型的交易，`创建智能合约`, `调用智能合约`, `删除智能合约`
+
+三个交易与其他交易如`转账`不同的地方就在于多出一个智能合约的执行，因此智能合约的执行也是收费标准之一 
+
+* 智能合约收费计算方式
+
+```java
+public static final int COMPARISON = 1;//比较字节码
+public static final int CONSTANT = 1;//简单数值类型字节码
+public static final int LDC = 1;//数值常量，字符串常量（长度 * LDC）
+public static final int CONTROL = 5;//控制字节码
+public static final int TABLESWITCH = 2;//switch字节码（大小 * TABLESWITCH）
+public static final int LOOKUPSWITCH = 2;//switch字节码（大小 * LOOKUPSWITCH）
+public static final int CONVERSION = 1;//数值转换
+public static final int EXTENDED = 1;//null判断
+public static final int MULTIANEWARRAY = 1;//多维数组（大小 * MULTIANEWARRAY）
+public static final int LOAD = 1;//把本地变量送到栈顶
+public static final int ARRAYLOAD = 5;//把数组的某项送到栈顶
+public static final int MATH = 1;//数学操作及移位操作
+public static final int REFERENCE = 10;//对象相关操作
+public static final int NEWARRAY = 1;//一维数组（大小 * NEWARRAY）
+public static final int STACK = 2;//栈操作
+public static final int STORE = 1;//把栈顶的值存入本地变量
+public static final int ARRAYSTORE = 5;//把栈项的值存到数组里
+public static final int TRANSFER = 1000;//转账交易
+public static final int SHA3 = 500;//SHA3调用
+public static final int VERIFY_SIGNATURE = 500;//验证签名
+public static final int RANDOM_COUNT_SEED = 5000;//根据高度和原始种子个数生成一个随机种子
+public static final int RANDOM_HEIGHT_SEED = 5000;//根据高度区间生成一个随机种子
+public static final int OBJ_TO_JSON = 2000;//对象转换成json
+public static final int INVOKE_EXTERNAL_METHOD = 5000;//调用虚拟机外部方法(其他模块注册的方法)
+```
+    
+* 一次智能合约总手续费
+
+    一次合约交易的总手续费由三部分构成
+    - 第一部分是交易大小产生的手续费，根据字节大小计算 -> 0.001NULS/KB，既是每1000个字节收取0.001个NULS，交易大小不足1000个字节的，按0.001个NULS收费
+    
+    - 第二部分是合约执行消耗的GAS*Price，Price是单价，意思是每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na
+    > 举例说明，某次合约执行消耗了20000Gas，设定的单价是30Na/Gas, 那么这次消耗的Na就是`20000 * 30 = 600000`，既是0.006NULS
+    
+    - 第三部分是调用者设定的GasLimit没有被当次合约执行消耗完，剩余的Gas，这部分Gas会以合约GAS返还交易返还
+    > 举例说明，延续上个栗子，当次合约设置的GasLimit是30000Gas，而合约执行消耗了20000Gas，那么剩余了10000Gas，这10000Gas换算成Na就是`10000 * 30 = 300000`，既是0.003NULS，那么这0.003NULS会在当前打包区块的合约GAS返还交易中返还给合约调用者
+    
+* 合约调用者付多少钱？
+
+    在合约交易中合约调用者付了第一、二、三部分，实际上合约调用者付了第一、二部分，因为第三部分会在当前打包区块的合约GAS返还交易中返还给合约调用者
+
+* 谁收到了这些费用？
+    
+    区块打包者收到了第一、二部分费用，合约调用者收到第三部分费用
+    
+## 二、如何调试智能合约
+
+合约SDK提供了DebugEvent，合约执行失败也能看到这个事件的数据，使用它来调试合约
+
+### 1. 调试方式
+
+编写合约时，使用`emit(new DebugEvent("name", "desc"))`事件发送出来，合约发布到后，调用此合约方法，若执行成功，则合约执行结果中会展示debugEvent数据，若执行失败，则返回的错误数据中会展示debugEvent数据。
+
+<b style="color:red">注意：每一次调用合约，最多支持展示10个DebugEvent，超过的部分会被智能合约虚拟机忽略。</b>
+
+### 2. 合约代码示例
+
+```java
+/**
+ * 调用成功的示例(测试网)
+ */
+public Object clinitTest() {
+    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
+    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
+    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
+    int qwe = 123;
+    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
+    return temp;
+}
+
+/**
+ * 调用失败的示例(测试网)
+ */
+public Object clinitTestRevert() {
+    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
+    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
+    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
+    int qwe = 123;
+    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
+    // 失败
+    Utils.revert("revert");
+    return temp;
+}
+```
+
+### 3. 执行失败的示例
+
+执行失败时，会在错误信息中展示出debugEvent的数据
+
+如上述合约中，我们在`clinitTestRevert`方法中使用`revert("revert")`使这个调用一定执行失败，模拟执行失败情况下返回DebugEvent事件数据。
+
+#### 3.1 页面调用失败返回的错误数据
+
+![](./debugcontract/debugcontract.png)
+
+#### 3.2 `NULS-API RESTFUL`方式调用失败返回的错误数据
+
+`http://beta.api.nuls.io/api/contract/call`
+
+```json
+{
+    "sender" : "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
+    "gasLimit" : 200000,
+    "price" : 25,
+    "password" : "abc123456",
+    "remark" : "remark-restful-call",
+    "contractAddress" : "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+    "value" : 0,
+    "methodName" : "clinitTestRevert",
+    "methodDesc" : null,
+    "args" : null
+}
+```
+
+```json
+{
+    "success": false,
+    "data": {
+        "code": "err_0014",
+        "msg": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]"
+    }
+}
+```
+
+#### 3.3 `NULS-API JSONRPC`方式调用失败返回的错误数据
+
+`http://beta.api.nuls.io/jsonrpc`
+
+```json
+{
+    "jsonrpc":"2.0",
+    "method":"contractCall",
+    "params":[2,
+                "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
+                "abc123456",
+                0,
+                200000,
+                25,
+                "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+                "clinitTestRevert",
+                null,
+                [],
+                "remark-jsonrpc-call"],
+    "id":1234
+}
+```
+
+```json
+{
+    "jsonrpc": "2.0",
+    "id": "1234",
+    "error": {
+        "code": "err_0014",
+        "message": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]",
+        "data": null
+    }
+}
+```
+
+### 4. 执行成功的示例
+
+执行成功的情况，在合约执行结果中，也会展示debugEvent的数据
+
+http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636ee2438671746332125ac6e44ae409
+
+```json
+{
+    "success": true,
+    "data": {
+        "flag": true,
+        "data": {
+            "success": true,
+            "errorMessage": null,
+            "contractAddress": "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
+            "result": "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
+            "gasLimit": 6081,
+            "gasUsed": 4054,
+            "price": 25,
+            "totalFee": "252025",
+            "txSizeFee": "100000",
+            "actualContractFee": "101350",
+            "refundFee": "50675",
+            "value": "0",
+            "stackTrace": null,
+            "transfers": [],
+            "events": [
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"TempEvent\",\"payload\":{\"temp\":\"123\"}}"
+            ],
+            "debugEvents": [
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}",
+                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}"
+            ],
+            "tokenTransfers": [],
+            "invokeRegisterCmds": [],
+            "contractTxList": [],
+            "remark": "call"
+        }
+    }
+}
+```
+
+## 三、向合约转入NULS资产的交易说明
+
+普通账户地址，往合约转入NULS，都要通过`调用合约`交易来实现
+
+**调用合约参数列表**
+ 
+| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
+| --------------- |:----------:| ---------------------------------------- |:----:|
+| chainId         |    int     | 链id                                      |  是   |
+| sender          |   string   | 交易创建者账户地址                                |  是   |
+| password        |   string   | 调用者账户密码                                  |  是   |
+| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
+| gasLimit        |    long    | GAS限制                                    |  是   |
+| price           |    long    | GAS单价                                    |  是   |
+| contractAddress |   string   | 合约地址                                     |  是   |
+| methodName      |   string   | 合约方法                                     |  是   |
+| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
+| args            |  object[]  | 参数列表                                     |  否   |
+| remark          |   string   | 交易备注                                     |  否   |
+
+### 1. 转入实现方式
+
+在调用合约参数的`value`中填入相应金额，就可以向合约转入NULS
+
+NULS-API RESTFUL请求方式示例:
+
+```json
+{
+  "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
+  "gasLimit" : 20000,
+  "price" : 25,
+  "password" : "nuls123456",
+  "remark" : null,
+  "contractAddress" : "tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K",
+  // 这里填入要转入的NULS，单位是Na
+  "value" : 3600000000,
+  "methodName" : "transferToContractTest",
+  "methodDesc" : null,
+  "args" : [ "method parameter"]
+}
+```
+上述示例中，普通账户`tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG`向合约地址`tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K`转入了36个NULS
+
+<b style="color:red">注意：调用的合约方法必须标注Payable注解，否则，系统会直接拒绝这笔交易。</b>
+
+合约代码 - 方法实现如下
+
+```java
+/**
+ * 标记@Payable的方法，才能在调用时候传入NULS金额
+ */
+@Payable
+public void transferToContractTest(String storedData) {
+    // 调用者向合约转入的NULS，单位是Na
+    BigInteger value = Msg.value();
+}
+```
+
+合约中通过`Msg.value()`获取本次调用者向合约转入的NULS，单位是Na，如上述代码。
+
+## 四、合约NULS资产转出的交易说明
 
 **交易类型 txType = 18**
 
@@ -133,68 +409,92 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 }
 ```
 
+## 五、合约执行结果说明
 
-## 二、智能合约手续费
+### 1. 合约执行结果说明
 
-### 1. 智能合约手续费由谁支付？
-
-发布合约、调用合约、删除合约，都由发起交易的地址支付手续费，合约地址本身不支付手续费。
-
-### 2. 智能合约费用收取的规则，如何计费？接口调用者付多少钱？都是由谁收到了这些费用？
-
-在主链上，多出三个类型的交易，`创建智能合约`, `调用智能合约`, `删除智能合约`
-
-三个交易与其他交易如`转账`不同的地方就在于多出一个智能合约的执行，因此智能合约的执行也是收费标准之一 
-
-* 智能合约收费计算方式
-
-```java
-public static final int COMPARISON = 1;//比较字节码
-public static final int CONSTANT = 1;//简单数值类型字节码
-public static final int LDC = 1;//数值常量，字符串常量（长度 * LDC）
-public static final int CONTROL = 5;//控制字节码
-public static final int TABLESWITCH = 2;//switch字节码（大小 * TABLESWITCH）
-public static final int LOOKUPSWITCH = 2;//switch字节码（大小 * LOOKUPSWITCH）
-public static final int CONVERSION = 1;//数值转换
-public static final int EXTENDED = 1;//null判断
-public static final int MULTIANEWARRAY = 1;//多维数组（大小 * MULTIANEWARRAY）
-public static final int LOAD = 1;//把本地变量送到栈顶
-public static final int ARRAYLOAD = 5;//把数组的某项送到栈顶
-public static final int MATH = 1;//数学操作及移位操作
-public static final int REFERENCE = 10;//对象相关操作
-public static final int NEWARRAY = 1;//一维数组（大小 * NEWARRAY）
-public static final int STACK = 2;//栈操作
-public static final int STORE = 1;//把栈顶的值存入本地变量
-public static final int ARRAYSTORE = 5;//把栈项的值存到数组里
-public static final int TRANSFER = 1000;//转账交易
-public static final int SHA3 = 500;//SHA3调用
-public static final int VERIFY_SIGNATURE = 500;//验证签名
-public static final int RANDOM_COUNT_SEED = 5000;//根据高度和原始种子个数生成一个随机种子
-public static final int RANDOM_HEIGHT_SEED = 5000;//根据高度区间生成一个随机种子
-public static final int OBJ_TO_JSON = 2000;//对象转换成json
-public static final int INVOKE_EXTERNAL_METHOD = 5000;//调用虚拟机外部方法(其他模块注册的方法)
+```json
+{
+    "success": true, //合约执行是否成功,
+    "errorMessage": null, //失败原因 - string, eg. not enough gas,
+    "contractAddress": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
+    "result": "multyForAddress: 888634777633",
+    "gasLimit": 200000,
+    "gasUsed": 20038,
+    "price": 25,
+    "totalFee": "5100000",
+    "txSizeFee": "100000",
+    "actualContractFee": "500950",
+    "refundFee": "4499050",
+    "value": 10000000000, //合约调用者向合约地址转入的NULS，没有此业务时是0
+    "stackTrace": null, //失败的异常堆栈信息 - string, 执行失败也不一定有,
+    "transfers": [
+        //这是是指合约地址转出主网币(NULS)的交易信息，与token无关，与token无关，与token无关，正常情况下，token转账的合约交易不会有此类交易，以下是示例
+        {
+            "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
+            "from": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
+            "value": "200000000",
+            "outputs": [
+                {
+                    "to": "tNULSeBaMp9wC9PcWEcfesY7YmWrPfeQzkN1xL",
+                    "value": "100000000"
+                },
+                {
+                    "to": "tNULSeBaMshNPEnuqiDhMdSA4iNs6LMgjY6tcL",
+                    "value": "100000000"
+                }
+            ],
+            "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
+        }
+    ],
+    "events": [
+        //合约内发送的事件信息 - 按token合约标准来说，一笔合约token转账会发送相应的一笔名为TransferEvent的事件信息，支持一次合约调用交易内进行多笔token转账
+        //返回的事件内容结构是JSON结构`
+        "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}"
+    ],
+    "tokenTransfers": [
+        //针对以上token转账事件(TransferEvent)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol, decimals
+        //注意1：这里的value是合约token数值转换后的去小数化存储值，同以太坊token方式
+        //注意2: 产生的token转账的合约地址不一定是当前调用的合约，所以在这个数据结构里有contractAddress属性，它不是冗余字段
+        {
+            "contractAddress": "TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA",
+            "from": "TTasNs8MGGGaFT9hd9DLmkammYYv69vs",
+            "to": "TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG",
+            "value": "1000",
+            "name": "a",
+            "symbol": "a",
+            "decimals": 8
+        }
+    ],
+    "invokeRegisterCmds": [
+        //合约创建共识，调用的外部命令记录
+        {
+            "cmdName": "cs_createContractAgent",
+            "args": {
+                "contractBalance": "2030000000000",
+                "commissionRate": "100",
+                "chainId": 2,
+                "deposit": "2000000000000",
+                "contractAddress": "tNULSeBaMzZedU4D3xym1JcyNa5sqtuFku8AKm",
+                "contractNonce": "0000000000000000",
+                "blockTime": 1562564381,
+                "packingAddress": "tNULSeBaMtEPLXxUgyfnBt9bpb5Xv84dyJV98p",
+                "contractSender": "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG"
+            },
+            "cmdRegisterMode": "NEW_TX",
+            "newTxHash": "a8eae11b52990e39c9d3233ba1d2c8827336d261c0f14aca43dd4f06435dfaba"
+        }
+    ],
+    "contractTxList": [
+        //当前执行智能合约后生成的交易
+        "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
+        "1400bf6b285d006600204aa9d1010000000000000000000000000000000000000000000000000000020002f246b18e8c697f00ed9bd22696998e469d3f824b020001d7424d91c83566eb94233b5416f2aa77709c03e1020002f246b18e8c697f00ed9bd22696998e469d3f824b648c0117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff00"
+    ],
+    "remark": "call"
+}
 ```
-    
-* 一次智能合约总手续费
 
-    一次合约交易的总手续费由三部分构成
-    - 第一部分是交易大小产生的手续费，根据字节大小计算 -> 0.001NULS/KB，既是每1000个字节收取0.001个NULS，交易大小不足1000个字节的，按0.001个NULS收费
-    
-    - 第二部分是合约执行消耗的GAS*Price，Price是单价，意思是每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na
-    > 举例说明，某次合约执行消耗了20000Gas，设定的单价是30Na/Gas, 那么这次消耗的Na就是`20000 * 30 = 600000`，既是0.006NULS
-    
-    - 第三部分是调用者设定的GasLimit没有被当次合约执行消耗完，剩余的Gas，这部分Gas会以合约GAS返还交易返还
-    > 举例说明，延续上个栗子，当次合约设置的GasLimit是30000Gas，而合约执行消耗了20000Gas，那么剩余了10000Gas，这10000Gas换算成Na就是`10000 * 30 = 300000`，既是0.003NULS，那么这0.003NULS会在当前打包区块的合约GAS返还交易中返还给合约调用者
-    
-* 合约调用者付多少钱？
-
-    在合约交易中合约调用者付了第一、二、三部分，实际上合约调用者付了第一、二部分，因为第三部分会在当前打包区块的合约GAS返还交易中返还给合约调用者
-
-* 谁收到了这些费用？
-    
-    区块打包者收到了第一、二部分费用，合约调用者收到第三部分费用
-
-## 三、触发payable方法的场景
+## 六、触发payable方法的场景
 
 在`vm-sdk`中，对于`Contract#payable`有这样的描述
 
@@ -263,7 +563,7 @@ public interface Contract {
 ### 注意: `_payable(String[][] args)`方法是系统调用方法，用户无法调用
 
 
-## 四、合约调用外部命令说明
+## 七、合约调用外部命令说明
 
 ```java
 public class Utils {
@@ -503,92 +803,7 @@ public class Utils {
     String statusOfContractAgent = contractAgentInfo[9];     
     ```
     
-## 五、执行结果说明
-
-### 1. 执行结果说明
-
-```json
-{
-    "success": true, //合约执行是否成功,
-    "errorMessage": null, //失败原因 - string, eg. not enough gas,
-    "contractAddress": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
-    "result": "multyForAddress: 888634777633",
-    "gasLimit": 200000,
-    "gasUsed": 20038,
-    "price": 25,
-    "totalFee": "5100000",
-    "txSizeFee": "100000",
-    "actualContractFee": "500950",
-    "refundFee": "4499050",
-    "value": 10000000000, //合约调用者向合约地址转入的NULS，没有此业务时是0
-    "stackTrace": null, //失败的异常堆栈信息 - string, 执行失败也不一定有,
-    "transfers": [
-        //这是是指合约地址转出主网币(NULS)的交易信息，与token无关，与token无关，与token无关，正常情况下，token转账的合约交易不会有此类交易，以下是示例
-        {
-            "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
-            "from": "tNULSeBaN1rhd9k9eqNkvwC9HXBWLQ79dRuy81",
-            "value": "200000000",
-            "outputs": [
-                {
-                    "to": "tNULSeBaMp9wC9PcWEcfesY7YmWrPfeQzkN1xL",
-                    "value": "100000000"
-                },
-                {
-                    "to": "tNULSeBaMshNPEnuqiDhMdSA4iNs6LMgjY6tcL",
-                    "value": "100000000"
-                }
-            ],
-            "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
-        }
-    ],
-    "events": [
-        //合约内发送的事件信息 - 按token合约标准来说，一笔合约token转账会发送相应的一笔名为TransferEvent的事件信息，支持一次合约调用交易内进行多笔token转账
-        //返回的事件内容结构是JSON结构`
-        "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}"
-    ],
-    "tokenTransfers": [
-        //针对以上token转账事件(TransferEvent)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol, decimals
-        //注意1：这里的value是合约token数值转换后的去小数化存储值，同以太坊token方式
-        //注意2: 产生的token转账的合约地址不一定是当前调用的合约，所以在这个数据结构里有contractAddress属性，它不是冗余字段
-        {
-            "contractAddress": "TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA",
-            "from": "TTasNs8MGGGaFT9hd9DLmkammYYv69vs",
-            "to": "TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG",
-            "value": "1000",
-            "name": "a",
-            "symbol": "a",
-            "decimals": 8
-        }
-    ],
-    "invokeRegisterCmds": [
-        //合约创建共识，调用的外部命令记录
-        {
-            "cmdName": "cs_createContractAgent",
-            "args": {
-                "contractBalance": "2030000000000",
-                "commissionRate": "100",
-                "chainId": 2,
-                "deposit": "2000000000000",
-                "contractAddress": "tNULSeBaMzZedU4D3xym1JcyNa5sqtuFku8AKm",
-                "contractNonce": "0000000000000000",
-                "blockTime": 1562564381,
-                "packingAddress": "tNULSeBaMtEPLXxUgyfnBt9bpb5Xv84dyJV98p",
-                "contractSender": "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG"
-            },
-            "cmdRegisterMode": "NEW_TX",
-            "newTxHash": "a8eae11b52990e39c9d3233ba1d2c8827336d261c0f14aca43dd4f06435dfaba"
-        }
-    ],
-    "contractTxList": [
-        //当前执行智能合约后生成的交易
-        "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
-        "1400bf6b285d006600204aa9d1010000000000000000000000000000000000000000000000000000020002f246b18e8c697f00ed9bd22696998e469d3f824b020001d7424d91c83566eb94233b5416f2aa77709c03e1020002f246b18e8c697f00ed9bd22696998e469d3f824b648c0117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff00"
-    ],
-    "remark": "call"
-}
-```
-
-## 六、合约共识交易说明
+## 八、合约共识交易说明
 
 共识模块提供了四种与合约相关的共识交易，在模块启动时向合约模块注册创建四种合约共识交易的命令，使合约模块能够调用，使之可以创建与注销共识节点、委托与取消委托共识节点
 
@@ -885,221 +1100,7 @@ public class Utils {
 }
 ```
 
-## 七、向合约转入NULS资产的交易说明
 
-普通账户地址，往合约转入NULS，都要通过`调用合约`交易来实现
-
-**调用合约参数列表**
- 
-| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
-| --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| password        |   string   | 调用者账户密码                                  |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| gasLimit        |    long    | GAS限制                                    |  是   |
-| price           |    long    | GAS单价                                    |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
-| remark          |   string   | 交易备注                                     |  否   |
-
-### 1. 转入实现方式
-
-在调用合约参数的`value`中填入相应金额，就可以向合约转入NULS
-
-NULS-API RESTFUL请求方式示例:
-
-```json
-{
-  "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
-  "gasLimit" : 20000,
-  "price" : 25,
-  "password" : "nuls123456",
-  "remark" : null,
-  "contractAddress" : "tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K",
-  // 这里填入要转入的NULS，单位是Na
-  "value" : 3600000000,
-  "methodName" : "transferToContractTest",
-  "methodDesc" : null,
-  "args" : [ "method parameter"]
-}
-```
-上述示例中，普通账户`tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG`向合约地址`tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K`转入了36个NULS
-
-<b style="color:red">注意：调用的合约方法必须标注Payable注解，否则，系统会直接拒绝这笔交易。</b>
-
-合约代码 - 方法实现如下
-
-```java
-/**
- * 标记@Payable的方法，才能在调用时候传入NULS金额
- */
-@Payable
-public void transferToContractTest(String storedData) {
-    // 调用者向合约转入的NULS，单位是Na
-    BigInteger value = Msg.value();
-}
-```
-
-合约中通过`Msg.value()`获取本次调用者向合约转入的NULS，单位是Na，如上述代码。
-
-## 八、如何调试智能合约
-
-合约SDK提供了DebugEvent，合约执行失败也能看到这个事件的数据，使用它来调试合约
-
-### 1. 调试方式
-
-编写合约时，使用`emit(new DebugEvent("name", "desc"))`事件发送出来，合约发布到后，调用此合约方法，若执行成功，则合约执行结果中会展示debugEvent数据，若执行失败，则返回的错误数据中会展示debugEvent数据。
-
-<b style="color:red">注意：每一次调用合约，最多支持展示10个DebugEvent，超过的部分会被智能合约虚拟机忽略。</b>
-
-### 2. 合约代码示例
-
-```java
-/**
- * 调用成功的示例(测试网)
- */
-public Object clinitTest() {
-    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
-    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
-    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
-    int qwe = 123;
-    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
-    return temp;
-}
-
-/**
- * 调用失败的示例(测试网)
- */
-public Object clinitTestRevert() {
-    Address temp = new Address("tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD");
-    String asd = "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD";
-    Utils.emit(new DebugEvent("clinitTest log", "asd is " + asd));
-    int qwe = 123;
-    Utils.emit(new DebugEvent("clinitTest log 1", "temp is " + temp));
-    // 失败
-    Utils.revert("revert");
-    return temp;
-}
-```
-
-### 3. 执行失败的示例
-
-执行失败时，会在错误信息中展示出debugEvent的数据
-
-如上述合约中，我们在`clinitTestRevert`方法中使用`revert("revert")`使这个调用一定执行失败，模拟执行失败情况下返回DebugEvent事件数据。
-
-#### 3.1 页面调用失败返回的错误数据
-
-![](./debugcontract/debugcontract.png)
-
-#### 3.2 `NULS-API RESTFUL`方式调用失败返回的错误数据
-
-`http://beta.api.nuls.io/api/contract/call`
-
-```json
-{
-    "sender" : "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
-    "gasLimit" : 200000,
-    "price" : 25,
-    "password" : "abc123456",
-    "remark" : "remark-restful-call",
-    "contractAddress" : "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
-    "value" : 0,
-    "methodName" : "clinitTestRevert",
-    "methodDesc" : null,
-    "args" : null
-}
-```
-
-```json
-{
-    "success": false,
-    "data": {
-        "code": "err_0014",
-        "msg": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":201112,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]"
-    }
-}
-```
-
-#### 3.3 `NULS-API JSONRPC`方式调用失败返回的错误数据
-
-`http://beta.api.nuls.io/jsonrpc`
-
-```json
-{
-    "jsonrpc":"2.0",
-    "method":"contractCall",
-    "params":[2,
-                "tNULSeBaMiKUm9zpU1bhXeaaZt2AdLgPTs3T28",
-                "abc123456",
-                0,
-                200000,
-                25,
-                "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
-                "clinitTestRevert",
-                null,
-                [],
-                "remark-jsonrpc-call"],
-    "id":1234
-}
-```
-
-```json
-{
-    "jsonrpc": "2.0",
-    "id": "1234",
-    "error": {
-        "code": "err_0014",
-        "message": "contract error - revert, debugEvents: [{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}, {\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194030,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}]",
-        "data": null
-    }
-}
-```
-
-### 4. 执行成功的示例
-
-执行成功的情况，在合约执行结果中，也会展示debugEvent的数据
-
-http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636ee2438671746332125ac6e44ae409
-
-```json
-{
-    "success": true,
-    "data": {
-        "flag": true,
-        "data": {
-            "success": true,
-            "errorMessage": null,
-            "contractAddress": "tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR",
-            "result": "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD",
-            "gasLimit": 6081,
-            "gasUsed": 4054,
-            "price": 25,
-            "totalFee": "252025",
-            "txSizeFee": "100000",
-            "actualContractFee": "101350",
-            "refundFee": "50675",
-            "value": "0",
-            "stackTrace": null,
-            "transfers": [],
-            "events": [
-                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"TempEvent\",\"payload\":{\"temp\":\"123\"}}"
-            ],
-            "debugEvents": [
-                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log\",\"desc\":\"asd is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}",
-                "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}"
-            ],
-            "tokenTransfers": [],
-            "invokeRegisterCmds": [],
-            "contractTxList": [],
-            "remark": "call"
-        }
-    }
-}
-```
 
 
 
