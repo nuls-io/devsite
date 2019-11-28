@@ -356,7 +356,7 @@ Finally, when the transaction is added to the block and the block has been confi
 The above are the core steps required for  new transaction type. The three interfaces for verifying transactions, saving business data, and rolling back business data are implemented by the business module.
 
 ### Communicate with other modules
-NULS 2.0 uses a microservices architecture, and modules communicate using [websocket](https://zh.wikipedia.org/wiki/WebSocket). The links to all modules are governed by Nulstar and the process is as follows:
+NULS 2.0 uses a microservices architecture, and modules communicate using [websocket](https://en.wikipedia.org/wiki/WebSocket). The links to all modules are governed by Nulstar and the process is as follows:
 
 ![](./chainbox/pic01.jpg)
 
@@ -700,7 +700,7 @@ When the block is rolled back, the callback function will be triggered. The busi
 | txList | list | Trading List |
 | blockHeader | object | block header |
 
-#### Deserialization, [Common Agreement](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-EN/h.%E9%80%9A%E7%94%A8%E5%8D%8F%E8%AE%AE%E8%AE%BE%E8%AE%A1v1.3.md)
+#### Deserialization, [Common Agreement]()
 The data of the two parameters txList and blockHeader are transmitted in the form of hexadecimal data. First, the hexadecimal is converted into a byte array, and then deserialized into structured data according to different rules.
 ##### [Transaction](https://github.com/nuls-io/nuls-v2/blob/master/common/nuls-base/src/main/java/io/nuls/base/data/Transaction.java)
 The txList stores a list of Transaction objects. Each item is a serialized Transaction object into a hexadecimal string. Deserializing txList first from [General Protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md) takes the value of the txList parameter, which is a string array of json, and then iterates through the array to get the serialized value of a single Transaction object. Convert the serialized value to a byte array. Then take the corresponding data values ​​one by one from the byte array.
