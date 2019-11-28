@@ -8,7 +8,6 @@ For the Mainnet, make sure to open the server ports  8001 and 8002.
 If these ports are not open, your node will not successfully communicate with the blockchain.
 # Step 0 - Test and Mainnet reference details
 
-
 Testnet:
 - Light wallet test environment：[https://beta.wallet.nuls.io](https://beta.wallet.nuls.io)
 - Explorer test environment: [http://beta.nulscan.io/](http://beta.nulscan.io/)
