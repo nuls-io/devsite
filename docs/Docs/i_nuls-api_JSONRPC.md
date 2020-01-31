@@ -69,6 +69,7 @@ Add request header Content-Type: application/json;charset=UTF-8
      
 For the REST access method, please refer to the [RESTFUL interface documentation](https://github.com/nuls-io/nuls-v2/blob/release/module/nuls-api/documents/nuls-api_RESTFUL.md).
 
+
 ## Interface debugging
 
 We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interface tuning tool. After importing, you can debug the interface.
@@ -130,9 +131,7 @@ To is the recipient of the transfer transaction, each to is regarded as the reci
 Transaction fee = the sum of the main assets of the chain - the sum of the main assets of the chain
 
 
-<<<<<<< HEAD
-=======
-## interface method
+## Interface method
 
 - **`json-rpc` access method**
 
