@@ -2,7 +2,7 @@
 Welcome to Chain Factory.  We are very proud of Chain Factory, the ability to create a blockchain designed for your application and business needs. The core of our blockchain is Nulstar. The Nulstar design enables us to provide to you a blockchain where only the modules you need are assembled to form your blockchain. Across time, as our modules/services grow,  the variety of blockchains and blockchain characteristics will expand, perhaps, beyond what we can imagine today.  As you use your blockchain, please consult the telegram channel NULS Support (https://t.me/NulsSupport)  for questions or feedback. We look forward to hearing from you. 
 ## Build blockchain
 ### Select module
-In the chain factory, the modules are divided into the required modules and the optional modules. The system has already helped the user to select all the required modules. The user needs to select the optional modules according to the actual business scenarios.After the selection is completed, click [Submit Module Information]
+In the chain factory, the modules are divided into the required modules and the optional modules. The system has already helped the user to select all the required modules. The user needs to select the optional modules according to the actual business scenarios. After the selection is completed, click [Submit Module Information]
 
 ![image-20191107173132004](./g_factory/1.png)
 
@@ -14,10 +14,10 @@ Fill in the basic information of the chain, such as name, logo and inflation rul
 
 ### Configuring Genesis Blocks
 
-The system automatically generates a series of Genesis block addresses, and the user needs to fill in the initial number assigned to each address.There are two points in the process of completing this step that require special attention from the user.
+The system automatically generates a series of Genesis block addresses, and the user needs to fill in the initial number assigned to each address. There are two points in the process of completing this step that require special attention from the user.
 
 - The sum of the number of passes assigned to each address must be equal to the total circulation filled in the basic information
-- After filling in, the user needs to click [Backup Address Private Key] to download all address private keys and save them.This part of the information will not be saved, so if the user loses the private key, the system will not be able to retrieve it.
+- After filling in, the user needs to click [Backup Address Private Key] to download all address private keys and save them. This part of the information will not be saved, so if the user loses the private key, the system will not be able to retrieve it.
 
 ![image-20191107173925575](./g_factory/3.png)
 
@@ -49,11 +49,11 @@ After submitting the order and paying for nuls, the system will start assembling
 
 1. If the user selected any  optional modules, the user will receive two downloadable compressed tar files. One file is prefixed with "normal" and the other is prefixed with "pro". The "normal" is the no-option  blockchain, and the "pro" is the blockchain containing the selected optional modules. 
 
-2. Store the blockchain tar file(s), the Genesis file and the Seed file(s) in a safe location.  If the user selects the Public-service module, you need to follow the steps to start the data service node, wallet and browser.
+2. Store the blockchain tar file(s), the Genesis file and the Seed file(s) in a safe location. If the user selects the Public-service module, you need to follow the steps to start the data service node, wallet and browser.
 
 3. The blockchain  runs on a linux server. The ports 18001-18006 must be open for:  communication with other nodes (18001), cross-chain (18002), public-service (18003), nuls-api(18004), NULS explorer (18005), and NULS web wallet (18006).
 
-4. The blockchain will not work as expected until the tokens contained in the address affiliated with the genesis block are unlocked.  THe lock is enabled in the Chain Factory "Configure Genesis Block" section.  The file "GenesisAddressList.txt" contains the lock information.
+4. The blockchain will not work as expected until the tokens contained in the address affiliated with the genesis block are unlocked.  THe lock is enabled in the Chain Factory "Configure Genesis Block" section. The file "GenesisAddressList.txt" contains the lock information.
 
 ```
 kathy@ubuntu-8gb-nbg1-1:~/spacechain2$ cat GenesisAddressList.txt
@@ -117,7 +117,7 @@ MongoDB sets the default name, does not set a password, starts by creating a new
 
 Download and install mongo in its owns directory.
 
-To bypass creating a mongod configuration file (which requires different syntax for different Linux OS), start mongod with all options recommended by NULS.  For example:
+To bypass creating a mongod configuration file (which requires different syntax for different Linux OS), start mongod with all options recommended by NULS. For example:
 
 ```
 kathy@ubuntu-8gb-nbg1-1:~$ cd mongodb
@@ -145,7 +145,7 @@ cd NULS_Wallet/
 ```
 ### Step 4 -- Start your Blockchain
 
-Before starting your blockchain, make the following change to the nuls configuration file.  The configurstion file is either "nuls.ncf" or ".default-config.ncf".  (Notice default-config.ncf is a hidden file.)
+Before starting your blockchain, make the following change to the nuls configuration file. The configurstion file is either "nuls.ncf" or ".default-config.ncf".  (Notice default-config.ncf is a hidden file.)
 
 Change "minNodeAmount=2"  to "minNodeAmount=0".  "minNodeAmount" will occur twice in the configuration file.   Change the "minNodeAmount" under the "block" category.
 
@@ -174,7 +174,7 @@ genesisBlockPath=genesis-block.json
 ```
 
 
-After entering the wallet directory (NULS_Wallet) , execute the `./start-dev` command to start the wallet, and the `./check-status` command to check the wallet startup status.
+After entering the wallet directory (NULS_Wallet), execute the `./start-dev` command to start the wallet, and the `./check-status` command to check the wallet startup status.
 
 
 ```
@@ -195,7 +195,7 @@ kathy@ubuntu-8gb-nbg1-1:~/spacechain/NULS_Wallet$
 
 ```
 
-Use the command ./check-status to confirm that the blockchain has started.  Check-status will loop, checking the all the states of the modules that comprise your blockchain. It may take more than a minute for all modules to fully start. The final output should look like this:
+Use the command ./check-status to confirm that the blockchain has started. Check-status will loop, checking the all the states of the modules that comprise your blockchain. It may take more than a minute for all modules to fully start. The final output should look like this:
 
 ```
 ./check-status
@@ -223,7 +223,7 @@ kathy@ubuntu-8gb-nbg1-1:~/spacechain2/NULS_Wallet$
 ```
 At this point your blockchain is running.
 
-If you have not successfully started MongoDB, your blockchain may be successfully running without the public-service module.  Check-status will display this output:
+If you have not successfully started MongoDB, your blockchain may be successfully running without the public-service module. Check-status will display this output:
 
 ```
 ==================MODULE PROCESS====================
@@ -282,7 +282,7 @@ nuls>>>
 ### Step 5 -- Import the private key of the Seed
 After the wallet is successfully started, there is one more step for your blockchain to be viable.
 
-Copy the private key contained in your SeedAddressList.txt file.  The private key is identified by "pri".
+Copy the private key contained in your SeedAddressList.txt file. The private key is identified by "pri".
 
 ```
 kathy@ubuntu-8gb-nbg1-1:~/spacechain2/NULS_Wallet$ cat SeedAddressList.txt
@@ -290,7 +290,7 @@ kathy@ubuntu-8gb-nbg1-1:~/spacechain2/NULS_Wallet$ cat SeedAddressList.txt
 
 ```
 
-Import the private key.  You will be prompted for the password.  The password is "nuls123456".  Note, there is no quotes in the password.
+Import the private key. You will be prompted for the password. The password is "nuls123456". Note, there is no quotes in the password.
 
 ```
 nuls>>> import 2779fbbc237225a6f5bbaae542a474f7d862f392b5b157787ab8eda25b41006c5
@@ -322,9 +322,9 @@ nuls>>>
 ```
 
 
-- Access to the block's block browser via **ip:8005**
+- Access to the block's block browser via **ip:18005**
 
-- **ip:8006**Access to the web wallet of the chain. In the web wallet, you can connect to the chain by adding a node service (**http://{ip}:8003/**):
+- **ip:18006**Access to the web wallet of the chain. In the web wallet, you can connect to the chain by adding a node service (**http://{ip}:18006/**):
 
 ![image-20191107185135316](./g_factory/7.png)
 
