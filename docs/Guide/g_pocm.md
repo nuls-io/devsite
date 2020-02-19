@@ -45,13 +45,19 @@ Click the [Select Item] menu on the pocm platform, enter the page, click the [Is
 
 ![image-20190917111842631](./g_pocm/project1.png)
 
+The following step is critical.
+
+```
+After submitting the basic information, the project team must send an email to pen@nuls.io, containing the following information:
+- project name
+- an account address  for subsequent publishing of POCM contracts.  This account is referred to as the POCM account for the project. (Please take care of the private key of the address.)
+  
+The project team cannot move forward with their POCM project until NULS replies to their email confirming that their project has been approved.
+```
+
 ### Issued Token
 
-After submitting the basic information, the project team should send an email to pen@nuls.io, which contains the following contents:
-- project name
-- provide an account address (please take care of the private key of the address) for subsequent publishing of POCM contracts
-
-Upon confirmation of the reply, users can import the account on POCM platform and enter the [user center] page to issue POCM contracts
+After receiving confirmation from NULS that their project has been approved, users can import their POCM  account to the POCM platform and enter the [user center] page to issue POCM contracts.
 
 ![image-20190917112104017](./g_pocm/project2.png)
 
@@ -61,7 +67,7 @@ After the basic information is approved, the project team needs to provide an ac
 
 ![image-20190917112918386](./g_pocm/project3.png)
 
-Fill the form and publish the contract according to the project team's own POCM distribution rules
+Fill the form and publish the contract according to the project team's own POCM distribution rules.
 
 ![image-20190917114302953](./g_pocm/project4.png)
 
@@ -102,6 +108,8 @@ On the POCM platform, click [User Center], enter the page and click [Add Node] t
 ![image-20190917120103974](./g_pocm/project8.png)
 
 After the node is successfully added, the POCM contract will stake the NULS of the user delegated to the added nodes in turn. If there are multiple nodes, the order of staking is the order of adding the nodes.
+
+### Remove a node
 
 If you need to delete an added node, you need to enter the [Contract] page of the wallet (the operation address should be which creates the POCM contract), find the POCM contract, click [call]
 ![image-20190917120103974](./g_pocm/project9.png)

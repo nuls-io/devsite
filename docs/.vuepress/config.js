@@ -213,6 +213,7 @@ module.exports = {
                             's_manual',
                             's_tools',
                             's_nrc20',
+                            's_nrc20_integrate',
                             's_nrc721',                            
                             's_offline_assembly',
                             's_advance'

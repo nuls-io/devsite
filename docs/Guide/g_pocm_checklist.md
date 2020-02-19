@@ -105,3 +105,6 @@ Rewards are available for every 5 blocks that are processed. The investor can se
 Please following the directions in this link: [Receiving Awards](https://docs.nuls.io/Guide/g_pocm.html#receiving-rewards).
 
 Note: you can receive all types of nrc-20 and nrc-721 plus NULS tokens with the same account address.  You can examine the contents of your rewards account by importing your rewards account into your wallet and selecting assets. You can transfer any of your assets to other NULS accounts.
+
+# Step 9 -- Remove your node from POCM
+Please following the directions in this link: [Remove a pocm node](https://docs.nuls.io/Guide/g_pocm.html#remove-a-node).
