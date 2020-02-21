@@ -84,14 +84,14 @@ txType=16
     <dependency>
         <groupId>io.nuls.v2</groupId>
         <artifactId>sdk4j</artifactId>
-        <version>1.0.6.RELEASE</version>
+        <version>1.0.8.RELEASE</version>
     </dependency>
     
     <!-- JDK8环境下 -->
     <dependency>
         <groupId>io.nuls.v2</groupId>
         <artifactId>sdk4j-jdk8</artifactId>
-        <version>1.0.6.RELEASE</version>
+        <version>1.0.8.RELEASE</version>
     </dependency>
     ```
     
