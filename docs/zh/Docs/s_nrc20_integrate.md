@@ -123,10 +123,10 @@ txType=16
         for(Map<String, Object> tokenTransfer : tokenTransfers) {
             // NRC20合约地址
             String contractAddress = tokenTransfer.get("contractAddress").toString();
-            // token转出地址
-            String from = tokenTransfer.get("from").toString();
-            // token转入地址
-            String to = tokenTransfer.get("to").toString();
+            // token转出地址, 请自行做空值校验
+            String from = (String) tokenTransfer.get("from");
+            // token转入地址, 请自行做空值校验
+            String to = (String) tokenTransfer.get("to");
             // token转移数量
             BigInteger value = new BigInteger(tokenTransfer.get("value").toString());
             // token全称
@@ -165,6 +165,8 @@ txType=16
 
 **<b style="color:red">注意2:</b> 产生的token转账的合约地址<b style="color:red">不一定是当前调用的合约</b>，所以在这个数据结构里有contractAddress属性，它不是冗余字段**
 
+**<b style="color:red">注意3:</b> 在交易所正常业务上看，from地址和to地址不会出现空值，但由于一些NRC20发行者的特殊业务，可能会出现空值，所以，<b style="color:red">from地址和to地址，请做空值校验</b>**
+
 ### 4. 名词解释
 
 |名词 |描述    |
@@ -179,7 +181,7 @@ txType=16
 
 ### 5. 根据`tokenTransfers`数组对象，处理业务相关数据
 
-- 请根据对象中的`contractAddress`定位NRC20资产，由于存在合约内部可以调用另外的合约的场景，所以直接根据合约调用交易里的合约地址来锁定NRC20资产是不准确的。
+- 请根据`tokenTransfers`数组对象中的`contractAddress`定位NRC20资产，由于存在合约内部可以调用另外的合约的场景，所以直接根据合约调用交易里的合约地址来锁定NRC20资产是不准确的。
 
 
 
