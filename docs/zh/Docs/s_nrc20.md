@@ -26,7 +26,7 @@ token的接口标准
 
 返回令牌的名称 - 例如 `"MyToken"`.
 
-``` java
+```java
 @View
 public String name();
 ```
@@ -36,7 +36,7 @@ public String name();
 
 返回令牌的符号 - 例如 "MT".
 
-``` java
+```java
 @View
 public String symbol();
 ```
@@ -49,7 +49,7 @@ public String symbol();
 
 - 例如`decimals = 2`, 通过`balanceOf`方法获取一个用户的token余额，`balance = 1230`, 那么此用户的真实token数量为`balance / (10 ^ 2) = balance / 100 = 12.3`。
 
-``` java
+```java
 @View
 public int decimals();
 ```
@@ -59,7 +59,7 @@ public int decimals();
 
 返回总令牌供应量。
 
-``` js
+```java
 @View
 public BigInteger totalSupply();
 ```
@@ -70,7 +70,7 @@ public BigInteger totalSupply();
 
 返回地址为“owner”的帐户余额。
 
-``` java
+```java
 @View
 public BigInteger balanceOf(@Required Address owner);
 ```
@@ -85,7 +85,7 @@ public BigInteger balanceOf(@Required Address owner);
 
 注意 0值的传输必须被视为正常传输并触发`TransferEvent`事件。
 
-``` java
+```java
 public boolean transfer(@Required Address to, @Required BigInteger value);
 ```
 
@@ -99,7 +99,7 @@ public boolean transfer(@Required Address to, @Required BigInteger value);
 
 注意 0值的传输必须被视为正常传输并触发传输事件。
 
-``` java
+```java
 public boolean transferFrom(@Required Address from, @Required Address to, @Required BigInteger value);
 ```
 
@@ -109,7 +109,7 @@ public boolean transferFrom(@Required Address from, @Required Address to, @Requi
 
 `transferFrom`的授权机制，允许`spender`多次支配您的帐户，最高达`value`金额。 如果再次调用此函数，它将以`value`覆盖当前的余量。
 
-``` java
+```java
 public boolean approve(@Required Address spender, @Required BigInteger value);
 ```
 
@@ -119,7 +119,7 @@ public boolean approve(@Required Address spender, @Required BigInteger value);
 返回`spender`被允许从`owner`提取的金额。
 Returns the amount which `spender` is still allowed to withdraw from `owner`.
 
-``` java
+```java
 @View
 public BigInteger allowance(@Required Address owner, @Required Address spender);
 ```
@@ -135,7 +135,7 @@ public BigInteger allowance(@Required Address owner, @Required Address spender);
 
 创建新令牌的令牌合同应该在创建令牌时将`from`地址设置为`null`触发`TransferEvent`事件。
 
-``` java
+```java
 public TransferEvent(Address from, @Required Address to, @Required BigInteger value)
 ```
 
@@ -145,7 +145,7 @@ public TransferEvent(Address from, @Required Address to, @Required BigInteger va
 
 当任何成功调用`approve(@Required Address spender, @Required BigInteger value)`后，必须被触发。
 
-``` java
+```java
 public ApprovalEvent(@Required Address owner, @Required Address spender, @Required BigInteger value)
 ```
 

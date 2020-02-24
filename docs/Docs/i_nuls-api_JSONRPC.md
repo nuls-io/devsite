@@ -172,12 +172,15 @@ We provide the import files (`JSON-RPC` and `RESTFUL`) of the `Postman` interfac
 ## Interface List
 
 ### 1.0 Get information 
+
 Get information about the chain, where the consensus asset is the asset that needs to be used when creating a consensus node transaction and creating a delegation consensus transaction for this chain.
 
 #### Cmd: info
+
 _**Detailed description: Get information about the chain, where the consensus asset is the asset that needs to be used when creating a consensus node transaction and creating a delegation consensus transaction for the chain**_
 
 #### parameter list
+
 No parameters
 
 #### return value
@@ -1855,7 +1858,7 @@ ContractCode | string | Smart Contract Code (Hex encoded string of bytecode) | Y
 
 ### 4.2 Calling the contract
 #### Cmd: contractCall
-_**Detailed description: Call contract **_
+_**Detailed description: Call contract**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -2649,7 +2652,7 @@ _**Detailed description: Get contract method information**_
 
 ### 4.12 Get Contract Method Parameter Type
 #### Cmd: getContractMethodArgsTypes
-_**Detailed description: Get contract method parameter type **_
+_**Detailed description: Get contract method parameter type**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -2725,7 +2728,7 @@ ContractCode | string | Smart Contract Code (Hex encoded string of bytecode) | Y
 
 ### 4.14 Verifying the call contract
 #### Cmd: validateContractCall
-_**Detailed description: Verify call contract **_
+_**Detailed description: Verify call contract**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -2769,7 +2772,7 @@ _**Detailed description: Verify call contract **_
 
 ### 4.15 Verify the deletion of the contract
 #### Cmd: validateContractDelete
-_**Detailed description: Verify delete contract **_
+_**Detailed description: Verify delete contract**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -3024,7 +3027,7 @@ _**Detailed description: Offline - Call contract**_
 
 ### 4.21 Offline - Delete contract
 #### Cmd: contractDeleteOffline
-_**Detailed description: Offline - delete contract **_
+_**Detailed description: Offline - delete contract**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -3408,7 +3411,7 @@ ConsensusDto | consensusdto | Create consensus node form offline | Yes |
 
 ### 5.7 Offline Assembly - Unregister Consensus Node
 #### Cmd: stopAgentOffline
-_**Detailed description: The StopDepositDto information of the assembly transaction can be obtained by querying the node's delegate consensus list, and the input nonce value can be empty **_
+_**Detailed description: The StopDepositDto information of the assembly transaction can be obtained by querying the node's delegate consensus list, and the input nonce value can be empty**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -3613,7 +3616,7 @@ slightly
 
 ### 5.11 Offline Assembly - Multi-Sign Account Cancellation Consensus Node
 #### Cmd: multiSignStopAgentOffline
-_**Detailed description: The StopDepositDto information of the assembly transaction can be obtained by querying the node's delegate consensus list, and the input nonce value can be empty **_
+_**Detailed description: The StopDepositDto information of the assembly transaction can be obtained by querying the node's delegate consensus list, and the input nonce value can be empty**_
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |
@@ -3680,7 +3683,7 @@ slightly
 
 ### 5.13 Offline Assembly - Multi-Sign Account Exit Consensus
 #### Cmd: multiSignWithdrawOffline
-_**Detailed description: Offline assembly - Multi-sign account withdrawal consensus **
+_**Detailed description: Offline assembly - Multi-sign account withdrawal consensus**
 
 #### parameter list
 | Parameter Name | Parameter Type | Parameter Description | Required |

@@ -220,7 +220,7 @@ http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636e
 
 Ordinary account address, to the contract into the nuls, must be achieved through the `call contract' transaction
 
-** Call contract parameter list**
+**Call contract parameter list**
  
 | Parameter Name | Parameter Type | Parameter Description | Required |
 | --------------- |:----------:| ---------------------------------------- |:----:|
@@ -548,7 +548,7 @@ Assembled into a call contract transaction, the default call to the contract's `
 
 ### 2. the consensus node reward address is the contract address, triggered when the current node is out of the block.
 
-Trigger `_payable(String[][] args)` has a parameter method, the parameter is the current block _** all **_ reward address details eg. [[address, amount], [address, amount], ...]
+Trigger `_payable(String[][] args)` has a parameter method, the parameter is the current block _**all**_ reward address details eg. [[address, amount], [address, amount], ...]
 
 **System underlying implementation principle:**
 
@@ -556,7 +556,7 @@ When the consensus module determines that the reward address in the CoinBase tra
 
 ### 3. The entrusted address is the contract address, which is triggered when there is a current contract address in the block reward.
 
-Trigger `_payable(String[][] args)` has a parameter method, the parameter _** is and is only **_ current contract address and bonus amount (only this one element) eg. [[address, amount]]
+Trigger `_payable(String[][] args)` has a parameter method, the parameter _**is and is only**_ current contract address and bonus amount (only this one element) eg. [[address, amount]]
 
 **System underlying implementation principle:**
 
