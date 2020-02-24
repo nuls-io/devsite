@@ -43,7 +43,11 @@ public String symbol();
 
 #### decimals
 
-返回令牌使用的小数位数 - 例如“8”表示将令牌数量除以“100000000”以获得其用户表示。
+返回令牌使用的小数位数 
+
+用于将程序返回的token数字除以`10`的`decimals`次幂(10 ^ decimals)，以获得其真实数量
+
+- 例如`decimals = 2`, 通过`balanceOf`方法获取一个用户的token余额，`balance = 1230`, 那么此用户的真实token数量为`balance / (10 ^ 2) = balance / 100 = 12.3`。
 
 ``` java
 @View
@@ -91,7 +95,7 @@ public boolean transfer(@Required Address to, @Required BigInteger value);
 
 从地址`from`发送数量为`value`的token到地址`to`,必须触发`TransferEvent`事件。
 
-`transferFrom`方法用于提取工作流，允许合同代您转移token。这可以用于例如允许合约代您转让代币和/或以子货币收取费用。除了`from`帐户已经通过某种机制(比如调用`approve(@Required Address spender, @Required BigInteger value)`)故意地授权消息的发送者之外，否则该函数应该`revert`。
+`transferFrom`方法用于代理转账，允许token拥有者授权其他用户代理自己的token。`from`帐户必须调用`approve(@Required Address spender, @Required BigInteger value)`)授权给代理账户。
 
 注意 0值的传输必须被视为正常传输并触发传输事件。
 
@@ -103,7 +107,7 @@ public boolean transferFrom(@Required Address from, @Required Address to, @Requi
 
 #### approve
 
-允许`spender`多次支配您的帐户，最高达`value`金额。 如果再次调用此函数，它将以`value`覆盖当前的余量。
+`transferFrom`的授权机制，允许`spender`多次支配您的帐户，最高达`value`金额。 如果再次调用此函数，它将以`value`覆盖当前的余量。
 
 ``` java
 public boolean approve(@Required Address spender, @Required BigInteger value);
@@ -112,7 +116,7 @@ public boolean approve(@Required Address spender, @Required BigInteger value);
 
 #### allowance
 
-返回`spender`仍然被允许从`owner`提取的金额。
+返回`spender`被允许从`owner`提取的金额。
 Returns the amount which `spender` is still allowed to withdraw from `owner`.
 
 ``` java
