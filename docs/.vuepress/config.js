@@ -150,6 +150,7 @@ module.exports = {
                             'g_create_node',
                             'g_upgrade_node',
                             'g_deploy_public_service',
+                            'g_integrate_nabox',
                             'g_pocm',
                             'g_governance',
                             'g_factory',
