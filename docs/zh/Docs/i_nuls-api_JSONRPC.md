@@ -67,6 +67,7 @@ int CONTRACT_DEPOSIT = 21;				// 合约委托参与共识
 int CONTRACT_CANCEL_DEPOSIT = 22;		// 合约取消委托共识
 int CONTRACT_STOP_AGENT = 23;			// 合约注销共识节点
 int VERIFIER_CHANGE = 24;				// 验证人变更
+int VERIFIER_INIT = 25;                 //验证人初始化
 ```
 
 **交易的from和to：**
@@ -88,7 +89,7 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
      
      HttpMethod: POST
      
-     URL: http://{ip}:{port}/jsonrpc 
+     URL: http://${ip}:${port}/jsonrpc 
      
         示例: http://127.0.0.1:18004/jsonrpc
      
@@ -109,6 +110,17 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
      
      其余请参考 [RESTFUL 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
 
+
+## 接口文档
+
+我们对外提供的API接口，分为`JSON-RPC`和`Restful`两种风格，用户可根据需要选择不通过的对接方式，接口文档详见以下: 
+
+[JSON-RPC 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_JSONRPC.md)
+
+[RESTFUL 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
+
+_**附：**_ 官方已提供NULS-SDK-4J工具，有使用JAVA做对接的合作伙伴，可使用工具对接`NULS-API`模块，详见：[NULS-SDK-4J使用说明](https://github.com/nuls-io/nuls-v2-sdk4j/blob/master/README.md)
+
 ## 接口调试
 
 我们提供了`Postman`接口调式工具的导入文件(`JSON-RPC`和`RESTFUL`)，导入后，即可调试接口
@@ -120,6 +132,7 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
 
 
 ## 接口列表
+----
 ### 0.1 获取本链相关信息,其中共识资产为本链创建共识节点交易和创建委托共识交易时，需要用到的资产
 #### Cmd: info
 _**详细描述: 获取本链相关信息,其中共识资产为本链创建共识节点交易和创建委托共识交易时，需要用到的资产**_
@@ -135,7 +148,10 @@ _**详细描述: 获取本链相关信息,其中共识资产为本链创建共�
 | inflationAmount | string | 本链默认主资产的初始数量 |
 | agentChainId    | string | 本链共识资产的链ID   |
 | agentAssetId    | string | 本链共识资产的ID    |
+| addressPrefix   | string | 本链地址前缀       |
+| symbol          | string | 本链主资产符号      |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -146,16 +162,20 @@ _**详细描述: 获取本链相关信息,其中共识资产为本链创建共�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
   "id" : "1234",
   "result" : {
     "agentChainId" : 2,
-    "inflationAmount" : 500000000000000,
+    "inflationAmount" : 41095890410959,
     "agentAssetId" : 1,
+    "commissionMin" : 20000000000000,
     "chainId" : 2,
-    "assetId" : 1
+    "assetId" : 1,
+    "addressPrefix" : "tNULS",
+    "symbol" : "NULS"
   }
 }
 ```
@@ -176,6 +196,7 @@ _**详细描述: 创建的账户存在于本地钱包内**_
 | --- |:---------------:| -------- |
 | 返回值 | list&lt;string> | 返回账户地址集合 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -186,6 +207,7 @@ _**详细描述: 创建的账户存在于本地钱包内**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -211,6 +233,7 @@ _**详细描述: 修改账户密码**_
 | ----- |:-------:| ------ |
 | value | boolean | 是否修改成功 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -221,6 +244,7 @@ _**详细描述: 修改账户密码**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -245,6 +269,7 @@ _**详细描述: 只能导出本地钱包已存在账户的私钥**_
 | ----- |:------:| ---- |
 | value | string | 私钥   |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -255,6 +280,7 @@ _**详细描述: 只能导出本地钱包已存在账户的私钥**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -279,6 +305,7 @@ _**详细描述: 导入私钥时，需要输入密码给明文私钥加密**_
 | ----- |:------:| ---- |
 | value | string | 账户地址 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -289,6 +316,7 @@ _**详细描述: 导入私钥时，需要输入密码给明文私钥加密**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -313,6 +341,7 @@ _**详细描述: 根据keystore导入账户**_
 | ----- |:------:| ---- |
 | value | string | 账户地址 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -328,6 +357,7 @@ _**详细描述: 根据keystore导入账户**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -352,6 +382,7 @@ _**详细描述: 账户备份，导出账户keystore信息**_
 | ------ |:------:| -------- |
 | result | string | keystore |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -362,6 +393,7 @@ _**详细描述: 账户备份，导出账户keystore信息**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -393,6 +425,7 @@ _**详细描述: 根据资产链ID和资产ID，查询本链账户对应资产�
 | nonce         | string | 账户资产nonce值                |
 | nonceType     |  int   | 1：已确认的nonce值,0：未确认的nonce值 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -403,6 +436,7 @@ _**详细描述: 根据资产链ID和资产ID，查询本链账户对应资产�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -436,10 +470,25 @@ _**详细描述: 别名格式为1-20位小写字母和数字的组合，设置�
 | ----- |:------:| ----------- |
 | value | string | 设置别名交易的hash |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "setAlias",
+  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", "test", "nuls123456" ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : "b8e53f0b43bbb566bf48ba30a56dc935bba27873fb5e52d793b7dc564b71b81c"
+}
+```
 
 ### 1.9 验证地址是否正确
 #### Cmd: validateAddress
@@ -456,12 +505,66 @@ _**详细描述: 验证地址是否正确**_
 | ----- |:------:| ------- |
 | value | string | boolean |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "validateAddress",
+  "params" : [ 2, "tNULSeBaMhcccH1KeXhMpH5y3pvtRzatAiuMJk" ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 1.10 离线 - 批量创建账户
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "value" : true
+  }
+}
+```
+
+### 1.10 根据账户公钥生成账户地址
+#### Cmd: getAddressByPublicKey
+_**详细描述: 根据账户公钥生成账户地址**_
+
+#### 参数列表
+| 参数名       |  参数类型  | 参数描述 | 是否必填 |
+| --------- |:------:| ---- |:----:|
+| chainId   |  int   | 链ID  |  是   |
+| publicKey | string | 账户公钥 |  是   |
+
+#### 返回值
+| 字段名     |  字段类型  | 参数描述 |
+| ------- |:------:| ---- |
+| address | string | 账户地址 |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "getAddressByPublicKey",
+  "params" : [ 2, "03958b790c331954ed367d37bac901de5c2f06ac8368b37d7bd6cd5ae143c1d7e3" ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG"
+  }
+}
+```
+
+### 1.11 离线 - 批量创建账户
 #### Cmd: createAccountOffline
 _**详细描述: 创建的账户不会保存到钱包中,接口直接返回账户的keystore信息**_
 
@@ -481,6 +584,7 @@ _**详细描述: 创建的账户不会保存到钱包中,接口直接返回账�
 | prikey              | string | 明文私钥   |
 | encryptedPrivateKey | string | 加密后的私钥 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -491,6 +595,7 @@ _**详细描述: 创建的账户不会保存到钱包中,接口直接返回账�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -504,7 +609,7 @@ _**详细描述: 创建的账户不会保存到钱包中,接口直接返回账�
 }
 ```
 
-### 1.11 离线获取账户明文私钥
+### 1.12 离线获取账户明文私钥
 #### Cmd: getPriKeyOffline
 _**详细描述: 离线获取账户明文私钥**_
 
@@ -521,6 +626,7 @@ _**详细描述: 离线获取账户明文私钥**_
 | ----- |:------:| ---- |
 | value | string | 明文私钥 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -531,6 +637,7 @@ _**详细描述: 离线获取账户明文私钥**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -541,7 +648,7 @@ _**详细描述: 离线获取账户明文私钥**_
 }
 ```
 
-### 1.12 离线修改账户密码
+### 1.13 离线修改账户密码
 #### Cmd: resetPasswordOffline
 _**详细描述: 离线修改账户密码**_
 
@@ -559,6 +666,7 @@ _**详细描述: 离线修改账户密码**_
 | ----- |:------:| ---------- |
 | value | string | 重置密码后的加密私钥 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -569,6 +677,7 @@ _**详细描述: 离线修改账户密码**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -579,7 +688,7 @@ _**详细描述: 离线修改账户密码**_
 }
 ```
 
-### 1.13 多账户摘要签名
+### 1.14 多账户摘要签名
 #### Cmd: multiSign
 _**详细描述: 用于签名离线组装的多账户转账交易,调用接口时，参数可以传地址和私钥，或者传地址和加密私钥和加密密码**_
 
@@ -600,6 +709,7 @@ _**详细描述: 用于签名离线组装的多账户转账交易,调用接口�
 | hash  | string | 交易hash        |
 | txHex | string | 签名后的交易16进制字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -617,6 +727,7 @@ _**详细描述: 用于签名离线组装的多账户转账交易,调用接口�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -628,7 +739,7 @@ _**详细描述: 用于签名离线组装的多账户转账交易,调用接口�
 }
 ```
 
-### 1.14 明文私钥摘要签名
+### 1.15 明文私钥摘要签名
 #### Cmd: priKeySign
 _**详细描述: 明文私钥摘要签名**_
 
@@ -646,6 +757,7 @@ _**详细描述: 明文私钥摘要签名**_
 | hash  | string | 交易hash        |
 | txHex | string | 签名后的交易16进制字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -656,6 +768,7 @@ _**详细描述: 明文私钥摘要签名**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -667,7 +780,7 @@ _**详细描述: 明文私钥摘要签名**_
 }
 ```
 
-### 1.15 密文私钥摘要签名
+### 1.16 密文私钥摘要签名
 #### Cmd: encryptedPriKeySign
 _**详细描述: 密文私钥摘要签名**_
 
@@ -686,6 +799,7 @@ _**详细描述: 密文私钥摘要签名**_
 | hash  | string | 交易hash        |
 | txHex | string | 签名后的交易16进制字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -696,6 +810,7 @@ _**详细描述: 密文私钥摘要签名**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -707,28 +822,44 @@ _**详细描述: 密文私钥摘要签名**_
 }
 ```
 
-### 1.16 创建多签账户
+### 1.17 创建多签账户
 #### Cmd: createMultiSignAccount
 _**详细描述: 根据多个账户的公钥创建多签账户，minSigns为多签账户创建交易时需要的最小签名数**_
 
 #### 参数列表
-| 参数名                                                     |      参数类型       | 参数描述   | 是否必填 |
-| ------------------------------------------------------- |:---------------:| ------ |:----:|
-| pubKeys                                                 |      list       | 账户公钥集合 |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pubKeys | list&lt;string> | 账户公钥集合 |  是   |
-| minSigns                                                |       int       | 最小签名数  |  是   |
+| 参数名      |      参数类型       | 参数描述   | 是否必填 |
+| -------- |:---------------:| ------ |:----:|
+| pubKeys  | list&lt;string> | 账户公钥集合 |  是   |
+| minSigns |       int       | 最小签名数  |  是   |
 
 #### 返回值
 | 字段名   |  字段类型  | 参数描述  |
 | ----- |:------:| ----- |
 | value | string | 账户的地址 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "createMultiSignAccount",
+  "params" : [ [ "03d0593e55a11e841e28c4288aa1181fb151f9d260bab0e006ca158095eb78bb35", "02ec141204330f1a028f4e4040582b9568db1f32bc8afc03c7ba6e84b78a72d979" ], 2 ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 1.17 离线创建设置别名交易
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "value" : "tNULSeBaNNVVFWD1LjfT29s9BE4SqbzxonBejA"
+  }
+}
+```
+
+### 1.18 离线创建设置别名交易
 #### Cmd: createAliasTx
 _**详细描述: 离线创建设置别名交易**_
 
@@ -747,12 +878,30 @@ _**详细描述: 离线创建设置别名交易**_
 | hash  | string | 交易hash       |
 | txHex | string | 交易序列化16进制字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "createAliasTx",
+  "params" : [ "tNULSeBaMhcccH1KeXhMpH5y3pvtRzatAiuMJk", "test2", "0000000000000000", "remark" ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 1.18 多签账户离线创建设置别名交易
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "03006621775d001e170200012a9af4ee49f4cb1ee84eafd42aec41bc04b28f7b0574657374328c01170200012a9af4ee49f4cb1ee84eafd42aec41bc04b28f7b020001004023050600000000000000000000000000000000000000000000000000000000080000000000000000000117020001e2f297763765bc154afaac7aec5e7899a729fed20200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
+    "hash" : "170dc03089d5c721ce4f9794bb87ebf6c7553163622d57e7e8a22622ba02db5e"
+  }
+}
+```
+
+### 1.19 多签账户离线创建设置别名交易
 #### Cmd: createMultiSignAliasTx
 _**详细描述: 多签账户离线创建设置别名交易**_
 
@@ -773,13 +922,31 @@ _**详细描述: 多签账户离线创建设置别名交易**_
 | hash  | string | 交易hash       |
 | txHex | string | 交易序列化16进制字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "createMultiSignAliasTx",
+  "params" : [ "tNULSeBaNNVVFWD1LjfT29s9BE4SqbzxonBejA", "test2", "0000000000000000", "remark", [ "03d0593e55a11e841e28c4288aa1181fb151f9d260bab0e006ca158095eb78bb35", "02ec141204330f1a028f4e4040582b9568db1f32bc8afc03c7ba6e84b78a72d979" ], 2 ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 1.19 根据私钥获取账户地址格式
-#### Cmd: createMultiSignAliasTx
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "0300462e775d0672656d61726b1e17020003a2d7273f40c7e2d19ac53fd743bdcea92494a7c00574657374328c0117020003a2d7273f40c7e2d19ac53fd743bdcea92494a7c0020001004023050600000000000000000000000000000000000000000000000000000000080000000000000000000117020001e2f297763765bc154afaac7aec5e7899a729fed20200010000e1f5050000000000000000000000000000000000000000000000000000000000000000000000004602022103d0593e55a11e841e28c4288aa1181fb151f9d260bab0e006ca158095eb78bb352102ec141204330f1a028f4e4040582b9568db1f32bc8afc03c7ba6e84b78a72d979",
+    "hash" : "e05e43886c8f9a95ef4c6dfb10f1964d507ac6b2d98079e4aa8d9d8d0572bdb2"
+  }
+}
+```
+
+### 1.20 根据私钥获取账户地址格式
+#### Cmd: getAddressByPriKey
 _**详细描述: 根据私钥获取账户地址格式**_
 
 #### 参数列表
@@ -793,12 +960,46 @@ _**详细描述: 根据私钥获取账户地址格式**_
 | ----- |:------:| ---- |
 | value | string | 账户地址 |
 #### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "getAddressByPriKey",
+  "params" : [ "9ce21dad67e0f0af2599b41b515a7f7018059418bab892a7b68f283d489abc4b" ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "value" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG"
+  }
+}
+```
+
+### 2.1 获取本节点的网络状态信息
+#### Cmd: getNetworkInfo
+_**详细描述: 获取本节点的网络状态信息**_
+
+#### 参数列表
+无参数
+
+#### 返回值
+| 字段名 |    字段类型     | 参数描述   |
+| --- |:-----------:| ------ |
+| 返回值 | networkinfo | 返回网络状态 |
+#### Example request data: 
 无
 
 #### Example response data: 
 略
 
-### 2.1 根据区块高度查询区块头
+### 2.2 根据区块高度查询区块头
 #### Cmd: getHeaderByHeight
 _**详细描述: 根据区块高度查询区块头**_
 
@@ -829,6 +1030,7 @@ _**详细描述: 根据区块高度查询区块头**_
 | stateRoot            |     string      | 智能合约世界状态根            |
 | txHashList           | list&lt;string> | 区块打包的交易hash集合        |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -839,6 +1041,7 @@ _**详细描述: 根据区块高度查询区块头**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -864,7 +1067,7 @@ _**详细描述: 根据区块高度查询区块头**_
 }
 ```
 
-### 2.2 根据区块hash查询区块头
+### 2.3 根据区块hash查询区块头
 #### Cmd: getHeaderByHash
 _**详细描述: 根据区块hash查询区块头**_
 
@@ -895,6 +1098,7 @@ _**详细描述: 根据区块hash查询区块头**_
 | stateRoot            |     string      | 智能合约世界状态根            |
 | txHashList           | list&lt;string> | 区块打包的交易hash集合        |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -905,6 +1109,7 @@ _**详细描述: 根据区块hash查询区块头**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -930,7 +1135,7 @@ _**详细描述: 根据区块hash查询区块头**_
 }
 ```
 
-### 2.3 查询最新区块头信息
+### 2.4 查询最新区块头信息
 #### Cmd: getBestBlockHeader
 _**详细描述: 查询最新区块头信息**_
 
@@ -960,6 +1165,7 @@ _**详细描述: 查询最新区块头信息**_
 | stateRoot            |     string      | 智能合约世界状态根            |
 | txHashList           | list&lt;string> | 区块打包的交易hash集合        |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -970,6 +1176,7 @@ _**详细描述: 查询最新区块头信息**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -995,7 +1202,7 @@ _**详细描述: 查询最新区块头信息**_
 }
 ```
 
-### 2.4 查询最新区块
+### 2.5 查询最新区块
 #### Cmd: getBestBlock
 _**详细描述: 包含区块打包的所有交易信息，此接口返回数据量较多，谨慎调用**_
 
@@ -1029,7 +1236,9 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash                                                          |     string      | 交易的hash值                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type                                                          |       int       | 交易类型                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                          |     string      | 交易时间                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp                                                     |      long       | 交易时间戳                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight                                                   |      long       | 区块高度                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHash                                                     |     string      | 区块hash                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                        |     string      | 交易备注                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transactionSignature                                          |     string      | 交易签名                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1050,6 +1259,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount        |     string      | 数量                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime      |      long       | 解锁时间，-1为永久锁定                              |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1060,6 +1270,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1109,7 +1320,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 }
 ```
 
-### 2.5 根据区块高度查询区块
+### 2.6 根据区块高度查询区块
 #### Cmd: getBlockByHeight
 _**详细描述: 包含区块打包的所有交易信息，此接口返回数据量较多，谨慎调用**_
 
@@ -1144,7 +1355,9 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash                                                          |     string      | 交易的hash值                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type                                                          |       int       | 交易类型                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                          |     string      | 交易时间                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp                                                     |      long       | 交易时间戳                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight                                                   |      long       | 区块高度                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHash                                                     |     string      | 区块hash                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                        |     string      | 交易备注                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transactionSignature                                          |     string      | 交易签名                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1165,6 +1378,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount        |     string      | 数量                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime      |      long       | 解锁时间，-1为永久锁定                              |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1175,6 +1389,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1224,7 +1439,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 }
 ```
 
-### 2.6 根据区块hash查询区块
+### 2.7 根据区块hash查询区块
 #### Cmd: getBlockByHash
 _**详细描述: 包含区块打包的所有交易信息，此接口返回数据量较多，谨慎调用**_
 
@@ -1259,7 +1474,9 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash                                                          |     string      | 交易的hash值                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type                                                          |       int       | 交易类型                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                          |     string      | 交易时间                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp                                                     |      long       | 交易时间戳                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight                                                   |      long       | 区块高度                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHash                                                     |     string      | 区块hash                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                        |     string      | 交易备注                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transactionSignature                                          |     string      | 交易签名                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1280,6 +1497,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount        |     string      | 数量                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime      |      long       | 解锁时间，-1为永久锁定                              |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1290,6 +1508,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1339,7 +1558,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 }
 ```
 
-### 2.7 根据区块高度查询区块序列化字符串
+### 2.8 根据区块高度查询区块序列化字符串
 #### Cmd: getBlockSerializationByHeight
 _**详细描述: 包含区块打包的所有交易信息，此接口返回数据量较多，谨慎调用**_
 
@@ -1354,6 +1573,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | --- |:------:| --------------- |
 | 返回值 | string | 返回区块序列化后的HEX字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1364,6 +1584,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1372,7 +1593,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 }
 ```
 
-### 2.8 根据区块hash查询区块序列化字符串
+### 2.9 根据区块hash查询区块序列化字符串
 #### Cmd: getBlockSerializationByHash
 _**详细描述: 包含区块打包的所有交易信息，此接口返回数据量较多，谨慎调用**_
 
@@ -1387,6 +1608,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | --- |:------:| --------------- |
 | 返回值 | string | 返回区块序列化后的HEX字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1397,6 +1619,7 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1404,6 +1627,25 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
   "result" : "772f158614cefd4f4e0a7ef1cd442f4de7439c10b5642afe582ed09b585d9b1e37d371e184142ebb1d46f4160a18a1e27d51c23dd66c0ccc607044821ae7fff24ddc4c5d01000000010000005c6e7c5409010043dc4c5d0100010001005064002056e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b42100000000000000000000000000000000000000000000000000000000000000000f2517abe887d67e21037fae74d15153c3b55857ca0abd5c34c865dfa1c0d0232997c545bae5541a0863473045022100c6515c296a80ae8ef48713cae87b693003fb57cc41ce2af4dcc93d32e3cb382502201b84db49946fee5fd57edb350fe0f4c78cac3a503cfb11cbb3a4f6082ffe26cb01004ddc4c5d000002000000"
 }
 ```
+
+### 2.10 获取最新主链高度
+#### Cmd: getLatestHeight
+_**详细描述: 获取最新主链高度**_
+
+#### 参数列表
+| 参数名     | 参数类型 | 参数描述 | 是否必填 |
+| ------- |:----:| ---- |:----:|
+| chainId | int  | 链ID  |  是   |
+
+#### 返回值
+| 字段名 | 字段类型 | 参数描述     |
+| --- |:----:| -------- |
+| 返回值 | long | 获取最新主链高度 |
+#### Example request data: 
+无
+
+#### Example response data: 
+略
 
 ### 3.1 根据hash获取交易
 #### Cmd: getTx
@@ -1421,7 +1663,9 @@ _**详细描述: 根据hash获取交易**_
 | hash                                                          |     string      | 交易的hash值                                  |
 | type                                                          |       int       | 交易类型                                      |
 | time                                                          |     string      | 交易时间                                      |
+| timestamp                                                     |      long       | 交易时间戳                                     |
 | blockHeight                                                   |      long       | 区块高度                                      |
+| blockHash                                                     |     string      | 区块hash                                    |
 | remark                                                        |     string      | 交易备注                                      |
 | transactionSignature                                          |     string      | 交易签名                                      |
 | txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1442,45 +1686,43 @@ _**详细描述: 根据hash获取交易**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount        |     string      | 数量                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime      |      long       | 解锁时间，-1为永久锁定                              |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
   "method" : "getTx",
-  "params" : [ 2, "40acabd7e7b7643aa545f2b74d09f8d65eecf885919d968d263a7a24255f8698" ],
+  "params" : [ 2, "3d05d84f7d537b70fe4bce6ec81904018e482461a831b6a7a69756225876293f" ],
   "id" : 1234
 }
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
   "id" : "1234",
   "result" : {
-    "hash" : "40acabd7e7b7643aa545f2b74d09f8d65eecf885919d968d263a7a24255f8698",
-    "type" : 2,
-    "time" : "2019-07-16 15:24:55.055",
-    "blockHeight" : 1373,
-    "remark" : null,
-    "transactionSignature" : "2103958b790c331954ed367d37bac901de5c2f06ac8368b37d7bd6cd5ae143c1d7e3473045022100c2cdaec043c8e5f26cf2efcd63ce9a27461d0569fc4f5c13ee685c506329da4702204f3e0fc3aed450dbb8ac14b5745c1e694100092bad63a40247a534a82fcdab9d",
+    "hash" : "3d05d84f7d537b70fe4bce6ec81904018e482461a831b6a7a69756225876293f",
+    "type" : 16,
+    "time" : "2019-12-18 14:35:04.004",
+    "blockHeight" : 172,
+    "blockHash" : "d7412d925da4eef1f1d7fdf2e19c24d1d2616e9ae3d75b405ee9e69b51bf0491",
+    "remark" : "call contract test - 空气币转账",
+    "transactionSignature" : "2103958b790c331954ed367d37bac901de5c2f06ac8368b37d7bd6cd5ae143c1d7e3473045022100fa7c1987316b16fbc156173d2419591e4bc0df15835c096eae5d38f24c34ae7802201ca68cf83b13811f5e4cbd09bd03a53394ef0e90d20cd4a1bb43eb13a6fa441e",
+    "txDataHex" : "020001f7ec6473df12e751d64cf20a8baa7edd50810f810200029fef190beb3651234855ec4348471180ae1881b1000000000000000000000000000000000000000000000000000000000000000080841e00000000001900000000000000087472616e7366657200020126744e554c536542614d72624d52694641556565417436737762347856424e79693831594c32340103383030",
     "status" : 1,
-    "size" : 256,
+    "size" : 374,
     "inBlockIndex" : 0,
-    "form" : [ {
+    "from" : [ {
       "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
       "assetsChainId" : 2,
       "assetsId" : 1,
-      "amount" : "10000000100000",
-      "nonce" : "0000000000000000",
+      "amount" : "50100000",
+      "nonce" : "ef3247392e9a8d99",
       "locked" : 0
     } ],
-    "to" : [ {
-      "address" : "tNULSeBaMhcccH1KeXhMpH5y3pvtRzatAiuMJk",
-      "assetsChainId" : 2,
-      "assetsId" : 1,
-      "amount" : "10000000000000",
-      "lockTime" : 0
-    } ]
+    "to" : [ ]
   }
 }
 ```
@@ -1500,6 +1742,7 @@ _**详细描述: 验证离线组装的交易,验证成功返回交易hash值,失
 | ----- |:------:| ------ |
 | value | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1510,6 +1753,7 @@ _**详细描述: 验证离线组装的交易,验证成功返回交易hash值,失
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1536,6 +1780,7 @@ _**详细描述: 广播离线组装的交易,成功返回true,失败返回错误
 | value | boolean | 是否成功   |
 | hash  | string  | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1546,6 +1791,7 @@ _**详细描述: 广播离线组装的交易,成功返回true,失败返回错误
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1557,7 +1803,85 @@ _**详细描述: 广播离线组装的交易,成功返回true,失败返回错误
 }
 ```
 
-### 3.4 单笔转账
+### 3.4 广播交易(不验证合约)
+#### Cmd: broadcastTxWithNoContractValidation
+_**详细描述: 广播离线组装的交易(不验证合约),成功返回true,失败返回错误提示信息**_
+
+#### 参数列表
+| 参数名     |  参数类型  | 参数描述         | 是否必填 |
+| ------- |:------:| ------------ |:----:|
+| chainId |  int   | 链id          |  是   |
+| tx      | string | 交易序列化16进制字符串 |  是   |
+
+#### 返回值
+| 字段名   |  字段类型   | 参数描述   |
+| ----- |:-------:| ------ |
+| value | boolean | 是否成功   |
+| hash  | string  | 交易hash |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "broadcastTxWithNoContractValidation",
+  "params" : [ 2, "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f000000000000000000000000000000000000000000000000000000000000000000000000006921023cee1aa6158ee640c8f48f9a9fa9735c8ed5426f2c353b0ed65e123033d820e646304402203c376fd0121fce6228516c011126a8526c5bc543afb7e4272c0de708a55d834f02204ebcd942e019b77bbec37f7e2b77b591ba4ce0fbc5fe9335ab91ae925ded6bed" ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "value" : true,
+    "hash" : "5a91b75e6a6d1f415638375627933b42ce7179b4c6390ca0dcc5a0c2c74bd34a"
+  }
+}
+```
+
+### 3.5 广播交易(不验证)
+#### Cmd: broadcastTxWithoutAnyValidation
+_**详细描述: 广播离线组装的交易(不验证),成功返回true,失败返回错误提示信息**_
+
+#### 参数列表
+| 参数名     |  参数类型  | 参数描述         | 是否必填 |
+| ------- |:------:| ------------ |:----:|
+| chainId |  int   | 链id          |  是   |
+| tx      | string | 交易序列化16进制字符串 |  是   |
+
+#### 返回值
+| 字段名   |  字段类型   | 参数描述   |
+| ----- |:-------:| ------ |
+| value | boolean | 是否成功   |
+| hash  | string  | 交易hash |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "broadcastTxWithoutAnyValidation",
+  "params" : [ 2, "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f000000000000000000000000000000000000000000000000000000000000000000000000006921023cee1aa6158ee640c8f48f9a9fa9735c8ed5426f2c353b0ed65e123033d820e646304402203c376fd0121fce6228516c011126a8526c5bc543afb7e4272c0de708a55d834f02204ebcd942e019b77bbec37f7e2b77b591ba4ce0fbc5fe9335ab91ae925ded6bed" ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "value" : true,
+    "hash" : "5a91b75e6a6d1f415638375627933b42ce7179b4c6390ca0dcc5a0c2c74bd34a"
+  }
+}
+```
+
+### 3.6 单笔转账
 #### Cmd: transfer
 _**详细描述: 发起单账户单资产的转账交易**_
 
@@ -1577,6 +1901,7 @@ _**详细描述: 发起单账户单资产的转账交易**_
 | ---- |:------:| ------ |
 | hash | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1587,6 +1912,7 @@ _**详细描述: 发起单账户单资产的转账交易**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1597,7 +1923,7 @@ _**详细描述: 发起单账户单资产的转账交易**_
 }
 ```
 
-### 3.5 离线组装转账交易
+### 3.7 离线组装转账交易
 #### Cmd: createTransferTxOffline
 _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账户或多账户的转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和**_
 
@@ -1617,7 +1943,8 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetId      |       int       | 资产id     |  是   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount       |   biginteger    | 资产金额     |  是   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime     |      long       | 锁定时间     |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                       |     string      | 交易备注     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                         |      long       | 创建时间     |  否   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                       |     string      | 交易备注     |  否   |
 
 #### 返回值
 | 字段名   |  字段类型  | 参数描述         |
@@ -1625,6 +1952,7 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 | hash  | string | 交易hash       |
 | txHex | string | 交易序列化16进制字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1647,6 +1975,7 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1658,7 +1987,7 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 }
 ```
 
-### 3.6 计算离线创建转账交易所需手续费
+### 3.8 计算离线创建转账交易所需手续费
 #### Cmd: calcTransferTxFee
 _**详细描述: 计算离线创建转账交易所需手续费**_
 
@@ -1677,6 +2006,7 @@ _**详细描述: 计算离线创建转账交易所需手续费**_
 | ----- |:------:| ----- |
 | value | string | 交易手续费 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1687,6 +2017,7 @@ _**详细描述: 计算离线创建转账交易所需手续费**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1697,7 +2028,7 @@ _**详细描述: 计算离线创建转账交易所需手续费**_
 }
 ```
 
-### 3.7 离线组装转账交易
+### 3.9 离线组装转账交易
 #### Cmd: createMultiSignTransferTxOffline
 _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账户或多账户的转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和**_
 
@@ -1727,12 +2058,42 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 | hash  | string | 交易hash       |
 | txHex | string | 交易序列化16进制字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "createMultiSignTransferTxOffline",
+  "params" : [ [ "0377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db", "03f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1" ], 2, [ {
+    "address" : "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 11000000,
+    "nonce" : "0000000000000000"
+  } ], [ {
+    "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 10000000,
+    "lockTime" : 0
+  } ], "remark" ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 3.8 计算离线创建转账交易所需手续费
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "02008854775d0672656d61726b008c0117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe202000100c0d8a70000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010080969800000000000000000000000000000000000000000000000000000000000000000000000000460202210377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db2103f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1",
+    "hash" : "f72a8240924380d3b2499ed8859f192b3097c0d19dbdbd879093fa2d974352c7"
+  }
+}
+```
+
+### 3.10 计算离线创建转账交易所需手续费
 #### Cmd: calcMultiSignTransferTxFee
 _**详细描述: 计算离线创建转账交易所需手续费**_
 
@@ -1751,10 +2112,27 @@ _**详细描述: 计算离线创建转账交易所需手续费**_
 | ----- |:------:| ----- |
 | value | string | 交易手续费 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "calcMultiSignTransferTxFee",
+  "params" : [ 2, 2, 1, "remark", "1000000" ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "value" : 1000000
+  }
+}
+```
 
 ### 4.1 发布合约
 #### Cmd: contractCreate
@@ -1779,6 +2157,7 @@ _**详细描述: 发布合约**_
 | txHash          | string | 发布合约的交易hash |
 | contractAddress | string | 生成的合约地址     |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1789,6 +2168,7 @@ _**详细描述: 发布合约**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1824,6 +2204,7 @@ _**详细描述: 调用合约**_
 | ------ |:------:| ----------- |
 | txHash | string | 调用合约的交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1834,6 +2215,7 @@ _**详细描述: 调用合约**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1862,6 +2244,7 @@ _**详细描述: 删除合约**_
 | ------ |:------:| ----------- |
 | txHash | string | 删除合约的交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1872,6 +2255,7 @@ _**详细描述: 删除合约**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1902,6 +2286,7 @@ _**详细描述: 合约token转账**_
 | ------ |:------:| ------ |
 | txHash | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1912,6 +2297,7 @@ _**详细描述: 合约token转账**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1941,6 +2327,7 @@ _**详细描述: 从账户地址向合约地址转账(主链资产)的合约交�
 | ------ |:------:| ------ |
 | txHash | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1951,6 +2338,7 @@ _**详细描述: 从账户地址向合约地址转账(主链资产)的合约交�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1983,6 +2371,7 @@ _**详细描述: 获取账户地址的指定合约的token余额**_
 | blockHeight     |  long  | 合约创建时的区块高度              |
 | status          |  int   | 合约状态(0-不存在, 1-正常, 2-终止) |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -1993,6 +2382,7 @@ _**详细描述: 获取账户地址的指定合约的token余额**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2049,6 +2439,7 @@ _**详细描述: 获取智能合约详细信息**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;payable                                                  |     boolean     | 是否是可接受主链资产转账的方法                            |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable                                         |     boolean     | 方法返回值是否JSON序列化                             |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2059,6 +2450,7 @@ _**详细描述: 获取智能合约详细信息**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2221,6 +2613,7 @@ _**详细描述: 获取智能合约执行结果**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value |     string      | 转入金额                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                           |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）         |
 | events                                                                                                | list&lt;string> | 合约事件列表                                      |
+| debugEvents                                                                                           | list&lt;string> | 调式合约事件列表                                    |
 | tokenTransfers                                                                                        | list&lt;object> | 合约token转账列表                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                       |     string      | 合约地址                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 付款方                                         |
@@ -2237,6 +2630,7 @@ _**详细描述: 获取智能合约执行结果**_
 | contractTxList                                                                                        | list&lt;string> | 合约生成交易的序列化字符串列表                             |
 | remark                                                                                                |     string      | 备注                                          |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2247,6 +2641,7 @@ _**详细描述: 获取智能合约执行结果**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2279,6 +2674,7 @@ _**详细描述: 获取智能合约执行结果**_
       "orginTxHash" : "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
     } ],
     "events" : [ "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}" ],
+    "debugEvents" : [ ],
     "tokenTransfers" : [ {
       "contractAddress" : "TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA",
       "from" : "TTasNs8MGGGaFT9hd9DLmkammYYv69vs",
@@ -2315,11 +2711,10 @@ _**详细描述: 获取智能合约执行结果**_
 _**详细描述: 获取智能合约执行结果列表**_
 
 #### 参数列表
-| 参数名                                                      |      参数类型       | 参数描述     | 是否必填 |
-| -------------------------------------------------------- |:---------------:| -------- |:----:|
-| chainId                                                  |       int       | 链ID      |  是   |
-| hashList                                                 |      list       | 交易hash列表 |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hashList | list&lt;string> | 交易hash列表 |  是   |
+| 参数名      |      参数类型       | 参数描述     | 是否必填 |
+| -------- |:---------------:| -------- |:----:|
+| chainId  |       int       | 链ID      |  是   |
+| hashList | list&lt;string> | 交易hash列表 |  是   |
 
 #### 返回值
 | 字段名                                                                                                                                                   |      字段类型       | 参数描述                                        |
@@ -2347,6 +2742,7 @@ _**详细描述: 获取智能合约执行结果列表**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value |     string      | 转入金额                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                           |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;events                                                                                                | list&lt;string> | 合约事件列表                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;debugEvents                                                                                           | list&lt;string> | 调式合约事件列表                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenTransfers                                                                                        | list&lt;object> | 合约token转账列表                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                       |     string      | 合约地址                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 付款方                                         |
@@ -2363,6 +2759,7 @@ _**详细描述: 获取智能合约执行结果列表**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractTxList                                                                                        | list&lt;string> | 合约生成交易的序列化字符串列表                             |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                                                                |     string      | 备注                                          |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2373,6 +2770,7 @@ _**详细描述: 获取智能合约执行结果列表**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2394,6 +2792,7 @@ _**详细描述: 获取智能合约执行结果列表**_
       "stackTrace" : null,
       "transfers" : [ ],
       "events" : [ "{\"contractAddress\":\"tNULSeBaN5Y2gRias1NMNVmsmXqJbu5Bcp3ZPL\",\"blockNumber\":68,\"event\":\"TransferEvent\",\"payload\":{\"from\":null,\"to\":\"tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG\",\"value\":\"800000\"}}" ],
+      "debugEvents" : [ ],
       "tokenTransfers" : [ {
         "contractAddress" : "tNULSeBaN5Y2gRias1NMNVmsmXqJbu5Bcp3ZPL",
         "from" : null,
@@ -2423,6 +2822,7 @@ _**详细描述: 获取智能合约执行结果列表**_
       "stackTrace" : null,
       "transfers" : [ ],
       "events" : [ "{\"contractAddress\":\"tNULSeBaN5Y2gRias1NMNVmsmXqJbu5Bcp3ZPL\",\"blockNumber\":71,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG\",\"to\":\"tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM\",\"value\":\"4000\"}}" ],
+      "debugEvents" : [ ],
       "tokenTransfers" : [ {
         "contractAddress" : "tNULSeBaN5Y2gRias1NMNVmsmXqJbu5Bcp3ZPL",
         "from" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -2452,7 +2852,8 @@ _**详细描述: 获取智能合约执行结果列表**_
       "stackTrace" : null,
       "transfers" : [ ],
       "events" : [ "{\"contractAddress\":\"tNULSeBaN5Y2gRias1NMNVmsmXqJbu5Bcp3ZPL\",\"blockNumber\":72,\"event\":\"ApprovalEvent\",\"payload\":{\"owner\":\"tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG\",\"spender\":\"tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM\",\"value\":\"4000\"}}" ],
-      "tokenTransfers" : [ ],
+      "debugEvents" : [ ],
+      "tokensfers" : [ ],
       "invokeRegisterCmds" : [ ],
       "contractTxList" : [ ],
       "remark" : "call"
@@ -2488,6 +2889,7 @@ _**详细描述: 获取合约代码构造函数**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;jsonSerializable                                         |     boolean     | 方法返回值是否JSON序列化     |
 | isNrc20                                                                                                  |     boolean     | 是否是NRC20合约         |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2498,6 +2900,7 @@ _**详细描述: 获取合约代码构造函数**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2560,6 +2963,7 @@ _**详细描述: 获取合约方法信息**_
 | payable                                                  |     boolean     | 是否是可接受主链资产转账的方法    |
 | jsonSerializable                                         |     boolean     | 方法返回值是否JSON序列化     |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2570,6 +2974,7 @@ _**详细描述: 获取合约方法信息**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2611,6 +3016,7 @@ _**详细描述: 获取合约方法参数类型**_
 | --- |:---------------:| ---- |
 | 返回值 | list&lt;string> |      |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2621,6 +3027,7 @@ _**详细描述: 获取合约方法参数类型**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2650,6 +3057,7 @@ _**详细描述: 验证发布合约**_
 | code    | string  | 验证失败的错误码  |
 | msg     | string  | 验证失败的错误信息 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2660,6 +3068,7 @@ _**详细描述: 验证发布合约**_
 ```
 
 #### Example response data: 
+
 ```json
 [ {
   "jsonrpc" : "2.0",
@@ -2694,6 +3103,7 @@ _**详细描述: 验证调用合约**_
 | code    | string  | 验证失败的错误码  |
 | msg     | string  | 验证失败的错误信息 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2704,6 +3114,7 @@ _**详细描述: 验证调用合约**_
 ```
 
 #### Example response data: 
+
 ```json
 [ {
   "jsonrpc" : "2.0",
@@ -2732,6 +3143,7 @@ _**详细描述: 验证删除合约**_
 | code    | string  | 验证失败的错误码  |
 | msg     | string  | 验证失败的错误信息 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2742,6 +3154,7 @@ _**详细描述: 验证删除合约**_
 ```
 
 #### Example response data: 
+
 ```json
 [ {
   "jsonrpc" : "2.0",
@@ -2777,6 +3190,7 @@ _**详细描述: 估算发布合约交易的GAS**_
 | -------- |:----:| ----------------- |
 | gasLimit | long | 消耗的gas值，执行失败返回数值1 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2787,6 +3201,7 @@ _**详细描述: 估算发布合约交易的GAS**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2817,6 +3232,7 @@ _**详细描述: 估算调用合约交易的GAS**_
 | -------- |:----:| ----------------- |
 | gasLimit | long | 消耗的gas值，执行失败返回数值1 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2827,6 +3243,7 @@ _**详细描述: 估算调用合约交易的GAS**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2855,6 +3272,7 @@ _**详细描述: 调用合约不上链方法**_
 | ------ |:------:| --------- |
 | result | string | 视图方法的调用结果 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2865,6 +3283,7 @@ _**详细描述: 调用合约不上链方法**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2900,6 +3319,7 @@ _**详细描述: 离线 - 发布合约交易**_
 | txHex           | string | 交易序列化字符串 |
 | contractAddress | string | 生成的合约地址  |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2910,6 +3330,7 @@ _**详细描述: 离线 - 发布合约交易**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2948,6 +3369,7 @@ _**详细描述: 离线 - 调用合约**_
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2958,6 +3380,7 @@ _**详细描述: 离线 - 调用合约**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2989,6 +3412,7 @@ _**详细描述: 离线 - 删除合约**_
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -2999,6 +3423,7 @@ _**详细描述: 离线 - 删除合约**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3033,6 +3458,7 @@ _**详细描述: 离线 - 合约token转账**_
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3043,6 +3469,7 @@ _**详细描述: 离线 - 合约token转账**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3076,6 +3503,7 @@ _**详细描述: 离线 - 从账户地址向合约地址转账(主链资产)的�
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3086,6 +3514,7 @@ _**详细描述: 离线 - 从账户地址向合约地址转账(主链资产)的�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3118,6 +3547,7 @@ _**详细描述: 创建共识节点**_
 | ----- |:------:| ------ |
 | value | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3128,6 +3558,7 @@ _**详细描述: 创建共识节点**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3153,6 +3584,7 @@ _**详细描述: 注销共识节点**_
 | ----- |:------:| ------ |
 | value | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3163,6 +3595,7 @@ _**详细描述: 注销共识节点**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3190,6 +3623,7 @@ _**详细描述: 委托参与共识**_
 | ----- |:------:| ------ |
 | value | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3200,6 +3634,7 @@ _**详细描述: 委托参与共识**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3226,6 +3661,7 @@ _**详细描述: 退出共识**_
 | ----- |:------:| ------ |
 | value | string | 交易hash |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3236,6 +3672,7 @@ _**详细描述: 退出共识**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3265,6 +3702,7 @@ _**详细描述: 查询节点的委托共识列表**_
 | blockHeight |  long  | 委托时的区块高度  |
 | delHeight   |  long  | 退出委托的区块高度 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3275,6 +3713,7 @@ _**详细描述: 查询节点的委托共识列表**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3299,7 +3738,165 @@ _**详细描述: 查询节点的委托共识列表**_
 }
 ```
 
-### 5.6 离线组装 - 创建共识节点
+### 5.6 根据最大高度和原始种子个数生成一个随机种子并返回
+#### Cmd: getRandomSeedByCount
+_**详细描述: 包括最大高度往后退1000个区块，在这个区块区间内找到指定个数的原始种子，汇总生成一个随机种子并返回**_
+
+#### 参数列表
+| 参数名       |  参数类型  | 参数描述                      | 是否必填 |
+| --------- |:------:| ------------------------- |:----:|
+| chainId   |  int   | 链ID                       |  是   |
+| height    |  long  | 最大高度                      |  是   |
+| count     |  int   | 原始种子个数                    |  是   |
+| algorithm | string | 算法标识：SHA3, KECCAK, MERKLE |  否   |
+
+#### 返回值
+| 字段名       |  字段类型  | 参数描述    |
+| --------- |:------:| ------- |
+| seed      | string | 生成的随机种子 |
+| algorithm | string | 算法标识    |
+| count     |  int   | 原始种子个数  |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "getRandomSeedByCount",
+  "params" : [ 2, 15, 9, "sha3" ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "seed" : "39348806759173754289552718450552160894738020452243263500745175936916037359443",
+    "algorithm" : "SHA3",
+    "count" : 9
+  }
+}
+```
+
+### 5.7 根据高度区间生成一个随机种子并返回
+#### Cmd: getRandomSeedByHeight
+_**详细描述: 在这个区块区间内找到所有有效的原始种子，汇总生成一个随机种子并返回**_
+
+#### 参数列表
+| 参数名         |  参数类型  | 参数描述                      | 是否必填 |
+| ----------- |:------:| ------------------------- |:----:|
+| chainId     |  int   | 链ID                       |  是   |
+| startHeight |  long  | 起始高度                      |  是   |
+| endHeight   |  long  | 截止高度                      |  是   |
+| algorithm   | string | 算法标识：SHA3, KECCAK, MERKLE |  否   |
+
+#### 返回值
+| 字段名       |  字段类型  | 参数描述    |
+| --------- |:------:| ------- |
+| seed      | string | 生成的随机种子 |
+| algorithm | string | 算法标识    |
+| count     |  int   | 原始种子个数  |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "getRandomSeedByHeight",
+  "params" : [ 2, 7, 15, "sha3" ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "seed" : "32532675763615856265810357233291461242017048552507569663816339711779497299975",
+    "algorithm" : "sha3",
+    "count" : 9
+  }
+}
+```
+
+### 5.8 根据最大高度和原始种子个数查找原始种子列表并返回
+#### Cmd: getRandomRawSeedsByCount
+_**详细描述: 包括最大高度往后退1000个区块，在这个区块区间内找到指定个数的原始种子并返回**_
+
+#### 参数列表
+| 参数名     | 参数类型 | 参数描述   | 是否必填 |
+| ------- |:----:| ------ |:----:|
+| chainId | int  | 链ID    |  是   |
+| height  | long | 最大高度   |  是   |
+| count   | int  | 原始种子个数 |  是   |
+
+#### 返回值
+| 字段名    |      字段类型       | 参数描述 |
+| ------ |:---------------:| ---- |
+| 原始种子列表 | list&lt;string> |      |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "getRandomRawSeedsByCount",
+  "params" : [ 2, 15, 9 ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : [ "-29372401885335809343334881114861862848664228571153431589582614750707853803688", "-12374588462997313588598897726376463898687300536133622323300129617802447843663", "35414850206903943716465298994826456060042987072617525631637631635987014797108", "-57234933950614201812269794723322473738769164815685574368298879134983145932442", "-36943716549467048219120901994813656501647327407366907446161430460954253977405", "30934978871350238591664023000030597630129456116167320700551408944317816121383", "-40719234813631611496719465228844846754749045533296280679027880790124492776813", "-9760170464524872943819135990753457668421091036911187432097064247132004006726", "8470565416062428412592833383521885451190767259837871270725993030997862574316" ]
+}
+```
+
+### 5.9 根据高度区间查找原始种子列表并返回
+#### Cmd: getRandomRawSeedsByHeight
+_**详细描述: 在这个区块区间内找到所有有效的原始种子并返回**_
+
+#### 参数列表
+| 参数名         | 参数类型 | 参数描述 | 是否必填 |
+| ----------- |:----:| ---- |:----:|
+| chainId     | int  | 链ID  |  是   |
+| startHeight | long | 起始高度 |  是   |
+| endHeight   | long | 截止高度 |  是   |
+
+#### 返回值
+| 字段名    |      字段类型       | 参数描述 |
+| ------ |:---------------:| ---- |
+| 原始种子列表 | list&lt;string> |      |
+#### Example request data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "getRandomRawSeedsByHeight",
+  "params" : [ 2, 7, 15 ],
+  "id" : 1234
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : [ "8470565416062428412592833383521885451190767259837871270725993030997862574316", "-9760170464524872943819135990753457668421091036911187432097064247132004006726", "-40719234813631611496719465228844846754749045533296280679027880790124492776813", "30934978871350238591664023000030597630129456116167320700551408944317816121383", "-36943716549467048219120901994813656501647327407366907446161430460954253977405", "-57234933950614201812269794723322473738769164815685574368298879134983145932442", "35414850206903943716465298994826456060042987072617525631637631635987014797108", "-12374588462997313588598897726376463898687300536133622323300129617802447843663", "-29372401885335809343334881114861862848664228571153431589582614750707853803688" ]
+}
+```
+
+### 5.10 离线组装 - 创建共识节点
 #### Cmd: createAgentOffline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 
@@ -3326,6 +3923,7 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3342,6 +3940,7 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3353,7 +3952,7 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 }
 ```
 
-### 5.7 离线组装 - 注销共识节点
+### 5.11 离线组装 - 注销共识节点
 #### Cmd: stopAgentOffline
 _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的委托共识列表获取，input的nonce值可为空**_
 
@@ -3381,6 +3980,7 @@ _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的�
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3409,6 +4009,7 @@ _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的�
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3420,7 +4021,7 @@ _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的�
 }
 ```
 
-### 5.8 离线组装 - 委托参与共识
+### 5.12 离线组装 - 委托参与共识
 #### Cmd: depositToAgentOffline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 
@@ -3445,6 +4046,7 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3461,6 +4063,7 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3472,7 +4075,7 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 }
 ```
 
-### 5.9 离线组装 - 退出共识
+### 5.13 离线组装 - 退出共识
 #### Cmd: withdrawOffline
 _**详细描述: 离线组装 - 退出共识**_
 
@@ -3497,6 +4100,7 @@ _**详细描述: 离线组装 - 退出共识**_
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3513,6 +4117,7 @@ _**详细描述: 离线组装 - 退出共识**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "jsonrpc" : "2.0",
@@ -3524,7 +4129,7 @@ _**详细描述: 离线组装 - 退出共识**_
 }
 ```
 
-### 5.10 离线组装 - 多签账户创建共识节点
+### 5.14 离线组装 - 多签账户创建共识节点
 #### Cmd: multiSignCreateAgentOffline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 
@@ -3553,12 +4158,36 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "multiSignCreateAgentOffline",
+  "params" : [ 2, "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy", "tNULSeBaMowgMLTbRUngAuj2BvGy2RmVLt3okv", "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy", 10, 2000000000000, {
+    "address" : "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 2000001000000,
+    "nonce" : "0000000000000000"
+  }, [ "0377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db", "03f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1" ], 2 ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 5.11 离线组装 - 多签账户注销共识节点
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "04001d5a775d006600204aa9d1010000000000000000000000000000000000000000000000000000020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe202000191866cefc8c9e1181b4e1e068b64fa288405b3e6020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20a8c0117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe202000100406259a9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff460202210377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db2103f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1",
+    "hash" : "4b0aa8c126bf314dbc7d42dc94127064392643b33e194cfa050884a38557392c"
+  }
+}
+```
+
+### 5.15 离线组装 - 多签账户注销共识节点
 #### Cmd: multiSignStopAgentOffline
 _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的委托共识列表获取，input的nonce值可为空**_
 
@@ -3588,12 +4217,38 @@ _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的�
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "multiSignStopAgentOffline",
+  "params" : [ 2, "e67ed0f09cea8bd4e2ad3b4b6d83a39841f9f83dd2a9e5737b73b4d5ad203537", "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy", 2000000000000, 1000000, [ {
+    "depositHash" : "d4a9404a823ea533d1c7fba34470970ac499a974f35172bb8a717b0d6c4d4cbe",
+    "input" : {
+      "address" : "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy",
+      "assetChainId" : 2,
+      "assetId" : 1,
+      "amount" : 200000000000
+    }
+  } ], [ "0377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db", "03f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1" ], 2 ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 5.12 离线组装 - 多签账户委托参与共识
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "0900a55b775d0020e67ed0f09cea8bd4e2ad3b4b6d83a39841f9f83dd2a9e5737b73b4d5ad203537fd16010217020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20200010000204aa9d1010000000000000000000000000000000000000000000000000000087b73b4d5ad203537ff17020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20200010000d0ed902e000000000000000000000000000000000000000000000000000000088a717b0d6c4d4cbeff0217020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe202000100c0dd3aa9d1010000000000000000000000000000000000000000000000000000b569775d0000000017020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20200010000d0ed902e0000000000000000000000000000000000000000000000000000000000000000000000460202210377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db2103f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1",
+    "hash" : "fb7f4d0e078b0eba8e89e22faccab54af18eab73858fb0d1c8bddbf6c771f1e3"
+  }
+}
+```
+
+### 5.16 离线组装 - 多签账户委托参与共识
 #### Cmd: multiSignDepositToAgentOffline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 
@@ -3620,12 +4275,36 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "multiSignDepositToAgentOffline",
+  "params" : [ 2, "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy", 200000000000, "e67ed0f09cea8bd4e2ad3b4b6d83a39841f9f83dd2a9e5737b73b4d5ad203537", {
+    "address" : "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 2000001000000,
+    "nonce" : "0000000000000000"
+  }, [ "0377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db", "03f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1" ], 2 ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
 
-### 5.13 离线组装 - 多签账户退出共识
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "0500595c775d005700d0ed902e000000000000000000000000000000000000000000000000000000020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe2e67ed0f09cea8bd4e2ad3b4b6d83a39841f9f83dd2a9e5737b73b4d5ad2035378c0117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe202000100406259a9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20200010000d0ed902e000000000000000000000000000000000000000000000000000000ffffffffffffffff460202210377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db2103f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1",
+    "hash" : "afa774c23dc75dd61356135407959385728c34f358017842d9da090c1d9d08ec"
+  }
+}
+```
+
+### 5.17 离线组装 - 多签账户退出共识
 #### Cmd: multiSignWithdrawOffline
 _**详细描述: 离线组装 - 多签账户退出共识**_
 
@@ -3652,8 +4331,31 @@ _**详细描述: 离线组装 - 多签账户退出共识**_
 | hash  | string | 交易hash   |
 | txHex | string | 交易序列化字符串 |
 #### Example request data: 
-无
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "method" : "multiSignWithdrawOffline",
+  "params" : [ 2, "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy", "e67ed0f09cea8bd4e2ad3b4b6d83a39841f9f83dd2a9e5737b73b4d5ad203537", 1000000, {
+    "address" : "tNULSeBaNTcZo37gNC5mNjJuB39u8zT3TAy8jy",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 200000000000
+  }, [ "0377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db", "03f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1" ], 2 ],
+  "id" : 1234
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "jsonrpc" : "2.0",
+  "id" : "1234",
+  "result" : {
+    "txHex" : "0600255d775d0020e67ed0f09cea8bd4e2ad3b4b6d83a39841f9f83dd2a9e5737b73b4d5ad2035378c0117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe20200010000d0ed902e000000000000000000000000000000000000000000000000000000087b73b4d5ad203537ff0117020003f6231825aa05e4d25b4772909a15c9ba3c0b6fe202000100c08dde902e0000000000000000000000000000000000000000000000000000000000000000000000460202210377a7e02381a11a1efe3995d1bced0b3e227cb058d7b09f615042123640f5b8db2103f66892ff89daf758a5585aed62a3f43b0a12cbec8955c3b155474071e156a8a1",
+    "hash" : "ac7d378ffcc7d7688e16f5916d177ffae992f62cdd0718594308bde445f31b9c"
+  }
+}
+```
 

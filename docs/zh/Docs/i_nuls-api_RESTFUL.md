@@ -67,6 +67,7 @@ int CONTRACT_DEPOSIT = 21;				// 合约委托参与共识
 int CONTRACT_CANCEL_DEPOSIT = 22;		// 合约取消委托共识
 int CONTRACT_STOP_AGENT = 23;			// 合约注销共识节点
 int VERIFIER_CHANGE = 24;				// 验证人变更
+int VERIFIER_INIT = 25;                 //验证人初始化
 ```
 
 **交易的from和to：**
@@ -88,7 +89,7 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
      
      HttpMethod: POST
      
-     URL: http://{ip}:{port}/jsonrpc 
+     URL: http://${ip}:${port}/jsonrpc 
      
         示例: http://127.0.0.1:18004/jsonrpc
      
@@ -110,6 +111,16 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
      其余请参考 [RESTFUL 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
 
 
+## 接口文档
+
+我们对外提供的API接口，分为`JSON-RPC`和`Restful`两种风格，用户可根据需要选择不通过的对接方式，接口文档详见以下: 
+
+[JSON-RPC 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_JSONRPC.md)
+
+[RESTFUL 接口文档](https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-api/documents/nuls-api_RESTFUL.md)
+
+_**附：**_ 官方已提供NULS-SDK-4J工具，有使用JAVA做对接的合作伙伴，可使用工具对接`NULS-API`模块，详见：[NULS-SDK-4J使用说明](https://github.com/nuls-io/nuls-v2-sdk4j/blob/master/README.md)
+
 ## 接口调试
 
 我们提供了`Postman`接口调式工具的导入文件(`JSON-RPC`和`RESTFUL`)，导入后，即可调试接口
@@ -121,6 +132,7 @@ int VERIFIER_CHANGE = 24;				// 验证人变更
 
 
 ## 接口列表
+----
 ### 0.1 获取本链相关信息
 #### Cmd: /api/info
 _**详细描述: 获取本链相关信息**_
@@ -137,38 +149,44 @@ _**详细描述: 获取本链相关信息**_
 | inflationAmount | string | 本链默认主资产的初始数量 |
 | agentChainId    | string | 本链共识资产的链ID   |
 | agentAssetId    | string | 本链共识资产的ID    |
+| addressPrefix   | string | 本链地址前缀       |
+| symbol          | string | 本链主资产符号      |
 #### Example request data: 
 
 _**request path:**_
-略
+/api/info
 
 _**request form data:**_
 无
 
 #### Example response data: 
-略
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "agentChainId" : 2,
+    "inflationAmount" : 41095890410959,
+    "agentAssetId" : 1,
+    "commissionMin" : 20000000000000,
+    "chainId" : 2,
+    "assetId" : 1,
+    "addressPrefix" : "tNULS",
+    "symbol" : "NULS"
+  }
+}
+```
 
 ### 1.1 批量创建账户
 #### Cmd: /api/account
 _**详细描述: 创建的账户存在于本地钱包内**_
 #### HttpMethod: POST
 
-#### Form json data: 
-```json
-{
-  "count" : 0,
-  "prefix" : null,
-  "password" : null
-}
-```
-
 #### 参数列表
-| 参数名                                                      |       参数类型        | 参数描述     | 是否必填 |
-| -------------------------------------------------------- |:-----------------:| -------- |:----:|
-| form                                                     | accountcreateform | 批量创建账户表单 |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count    |        int        | 新建账户数量   |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prefix   |      string       | 地址前缀     |  否   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password |      string       | 账户密码     |  是   |
+| 参数名      |  参数类型  | 参数描述               | 是否必填 |
+| -------- |:------:| ------------------ |:----:|
+| count    | string | 新建账户数量,取值[1-10000] |  是   |
+| password | string | 账户密码               |  是   |
 
 #### 返回值
 | 字段名  |      字段类型       | 参数描述 |
@@ -177,9 +195,10 @@ _**详细描述: 创建的账户存在于本地钱包内**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account
 
 _**request form data:**_
+
 ```json
 {
   "count" : 1,
@@ -188,6 +207,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -203,6 +223,7 @@ _**详细描述: 修改账户密码**_
 #### HttpMethod: PUT
 
 #### Form json data: 
+
 ```json
 {
   "password" : null,
@@ -225,13 +246,27 @@ _**详细描述: 修改账户密码**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/password/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
 
 _**request form data:**_
-无
+
+```json
+{
+  "password" : "abcd1234",
+  "newPassword" : "abcd1111"
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : true
+  }
+}
+```
 
 ### 1.3 导出账户私钥
 #### Cmd: /api/account/prikey/{address}
@@ -239,6 +274,7 @@ _**详细描述: 只能导出本地钱包已存在账户的私钥**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "password" : null
@@ -259,9 +295,10 @@ _**详细描述: 只能导出本地钱包已存在账户的私钥**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/account/prikey/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
+/api/account/prikey/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
 
 _**request form data:**_
+
 ```json
 {
   "password" : "abcd1111"
@@ -269,6 +306,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -284,6 +322,7 @@ _**详细描述: 导入私钥时，需要输入密码给明文私钥加密**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "priKey" : null,
@@ -307,9 +346,10 @@ _**详细描述: 导入私钥时，需要输入密码给明文私钥加密**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/import/pri
 
 _**request form data:**_
+
 ```json
 {
   "priKey" : "c55c80b0afcbebea36bc2cc1f07a1946935fe578c0c8c35190180f99619d5f48",
@@ -319,6 +359,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -360,21 +401,20 @@ _**详细描述: 根据keystore文件路径导入账户**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "path" : null,
-  "password" : null,
-  "overwrite" : false
+  "password" : null
 }
 ```
 
 #### 参数列表
-| 参数名                                                       |           参数类型            | 参数描述                           | 是否必填 |
-| --------------------------------------------------------- |:-------------------------:| ------------------------------ |:----:|
-| form                                                      | accountkeystoreimportform | 根据keystore文件路径导入账户表单           |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path      |          string           | 本地keystore文件路径                 |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password  |          string           | 密码                             |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overwrite |          boolean          | 是否覆盖账户: false:不覆盖导入, true:覆盖导入 |  是   |
+| 参数名                                                      |           参数类型            | 参数描述                 | 是否必填 |
+| -------------------------------------------------------- |:-------------------------:| -------------------- |:----:|
+| form                                                     | accountkeystoreimportform | 根据keystore文件路径导入账户表单 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;path     |          string           | 本地keystore文件路径       |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password |          string           | 密码                   |  是   |
 
 #### 返回值
 | 字段名   |  字段类型  | 参数描述 |
@@ -383,18 +423,19 @@ _**详细描述: 根据keystore文件路径导入账户**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/import/keystore/path
 
 _**request form data:**_
+
 ```json
 {
   "path" : "e:\\tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG.keystore",
-  "password" : "abcd1234",
-  "overwrite" : true
+  "password" : "abcd1234"
 }
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -410,6 +451,7 @@ _**详细描述: 根据keystore字符串导入账户**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "keystore" : {
@@ -418,22 +460,20 @@ _**详细描述: 根据keystore字符串导入账户**_
     "pubKey" : null,
     "prikey" : null
   },
-  "password" : null,
-  "overwrite" : false
+  "password" : null
 }
 ```
 
 #### 参数列表
-| 参数名                                                                                                                 |             参数类型              | 参数描述                           | 是否必填 |
-| ------------------------------------------------------------------------------------------------------------------- |:-----------------------------:| ------------------------------ |:----:|
-| form                                                                                                                | accountkeystorejsonimportform | 根据keystore字符串导入账户表单            |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keystore                                                            |            object             | keystore字符串                    |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address             |            string             | 账户地址                           |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encryptedPrivateKey |            string             | 加密后的私钥                         |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pubKey              |            string             | 公钥                             |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prikey              |            string             | 私钥                             |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password                                                            |            string             | 密码                             |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;overwrite                                                           |            boolean            | 是否覆盖账户: false:不覆盖导入, true:覆盖导入 |  是   |
+| 参数名                                                                                                                 |             参数类型              | 参数描述                | 是否必填 |
+| ------------------------------------------------------------------------------------------------------------------- |:-----------------------------:| ------------------- |:----:|
+| form                                                                                                                | accountkeystorejsonimportform | 根据keystore字符串导入账户表单 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;keystore                                                            |            object             | keystore字符串         |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address             |            string             | 账户地址                |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;encryptedPrivateKey |            string             | 加密后的私钥              |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;pubKey              |            string             | 公钥                  |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prikey              |            string             | 私钥                  |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;password                                                            |            string             | 密码                  |  是   |
 
 #### 返回值
 | 字段名   |  字段类型  | 参数描述 |
@@ -442,9 +482,10 @@ _**详细描述: 根据keystore字符串导入账户**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/import/keystore/json
 
 _**request form data:**_
+
 ```json
 {
   "keystore" : {
@@ -459,6 +500,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -474,6 +516,7 @@ _**详细描述: 账户备份，导出AccountKeyStore文件到指定目录**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "password" : null,
@@ -496,9 +539,10 @@ _**详细描述: 账户备份，导出AccountKeyStore文件到指定目录**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/account/export/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
+/api/account/export/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
 
 _**request form data:**_
+
 ```json
 {
   "password" : "abcd1234",
@@ -507,6 +551,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -522,6 +567,7 @@ _**详细描述: 别名格式为1-20位小写字母和数字的组合，设置�
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -545,13 +591,28 @@ _**详细描述: 别名格式为1-20位小写字母和数字的组合，设置�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/alias
 
 _**request form data:**_
-无
+
+```json
+{
+  "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
+  "alias" : "aaeell1",
+  "password" : "nuls123456"
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : "1e0accde8b0e886cf96408aae30aa0cf2a61c013361c778dcb30bac8f6c200b0"
+  }
+}
+```
 
 ### 1.10 查询账户余额
 #### Cmd: /api/accountledger/balance/{address}
@@ -559,6 +620,7 @@ _**详细描述: 根据资产链ID和资产ID，查询本链账户对应资产�
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "assetChainId" : 0,
@@ -586,9 +648,10 @@ _**详细描述: 根据资产链ID和资产ID，查询本链账户对应资产�
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/accountledger/balance/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
+/api/accountledger/balance/tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG
 
 _**request form data:**_
+
 ```json
 {
   "assetChainId" : 2,
@@ -597,6 +660,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -617,28 +681,108 @@ _**request form data:**_
 _**详细描述: 验证地址格式是否正确**_
 #### HttpMethod: POST
 
+#### Form json data: 
+
+```json
+{
+  "chainId" : 0,
+  "address" : null
+}
+```
+
 #### 参数列表
-无参数
+| 参数名                                                     |        参数类型         | 参数描述     | 是否必填 |
+| ------------------------------------------------------- |:-------------------:| -------- |:----:|
+| form                                                    | validateaddressform | 账户设置别名表单 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainId |         int         | 链ID      |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address |       string        | 账户地址     |  是   |
 
 #### 返回值
-无返回值
+| 字段名   |  字段类型  | 参数描述 |
+| ----- |:------:| ---- |
+| value | string | true |
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/address/validate
 
 _**request form data:**_
-无
+
+```json
+{
+  "chainId" : 2,
+  "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG"
+}
+```
 
 #### Example response data: 
-略
 
-### 1.12 离线 - 批量创建账户
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : true
+  }
+}
+```
+
+### 1.12 根据账户公钥生成账户地址
+#### Cmd: /api/account/address/publickey
+_**详细描述: 根据账户公钥生成账户地址**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "chainId" : 0,
+  "publicKey" : null
+}
+```
+
+#### 参数列表
+| 参数名                                                       |         参数类型         | 参数描述         | 是否必填 |
+| --------------------------------------------------------- |:--------------------:| ------------ |:----:|
+| form                                                      | accountpublickeyform | 根据账户公钥生成账户地址 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;chainId   |         int          | 链ID          |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;publicKey |        string        | 账户公钥         |  是   |
+
+#### 返回值
+| 字段名     |  字段类型  | 参数描述 |
+| ------- |:------:| ---- |
+| address | string | 账户地址 |
+#### Example request data: 
+
+_**request path:**_
+/api/account/address/publickey
+
+_**request form data:**_
+
+```json
+{
+  "chainId" : 2,
+  "publicKey" : "03958b790c331954ed367d37bac901de5c2f06ac8368b37d7bd6cd5ae143c1d7e3"
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG"
+  }
+}
+```
+
+### 1.13 离线 - 批量创建账户
 #### Cmd: /api/account/offline
 _**详细描述: 创建的账户不会保存到钱包中,接口直接返回账户的keystore信息**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "count" : 0,
@@ -666,9 +810,10 @@ _**详细描述: 创建的账户不会保存到钱包中,接口直接返回账�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/offline
 
 _**request form data:**_
+
 ```json
 {
   "count" : 1,
@@ -678,6 +823,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -690,12 +836,13 @@ _**request form data:**_
 }
 ```
 
-### 1.13 离线获取账户明文私钥
+### 1.14 离线获取账户明文私钥
 #### Cmd: /api/account/priKey/offline
 _**详细描述: 离线获取账户明文私钥**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -719,9 +866,10 @@ _**详细描述: 离线获取账户明文私钥**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/priKey/offline
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -731,6 +879,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -740,12 +889,13 @@ _**request form data:**_
 }
 ```
 
-### 1.14 离线修改账户密码
+### 1.15 离线修改账户密码
 #### Cmd: /api/account/password/offline/
 _**详细描述: 离线修改账户密码**_
 #### HttpMethod: PUT
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -771,20 +921,37 @@ _**详细描述: 离线修改账户密码**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/password/offline
 
 _**request form data:**_
-无
+
+```json
+{
+  "address" : "tNULSeBaMkMNC9mW5oCDXNMRoEVbE1iCsWVtPo",
+  "encryptedPriKey" : "bbf0892918bf969b12c1c5c24848d7e12aa75d0dac06720977275af164edc30fd6832cafea5810c181072282302eaa23",
+  "oldPassword" : "Nuls123546",
+  "newPassword" : "Nuls123456"
+}
+```
 
 #### Example response data: 
-略
 
-### 1.15 多账户摘要签名
+```json
+{
+  "success" : true,
+  "data" : {
+    "newEncryptedPriKey" : "b8250f66078fc5817447e6246b0e2ad98e73c56e33a307ff14efb91c749fee19e1944a31be7f7b2c4f28669d3ee63a20"
+  }
+}
+```
+
+### 1.16 多账户摘要签名
 #### Cmd: /api/account/multi/sign
 _**详细描述: 用于签名离线组装的多账户转账交易，调用接口时，参数可以传地址和私钥，或者传地址和加密私钥和加密密码**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "dtoList" : [ {
@@ -816,9 +983,10 @@ _**详细描述: 用于签名离线组装的多账户转账交易，调用接口
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/multi/sign
 
 _**request form data:**_
+
 ```json
 {
   "dtoList" : [ {
@@ -832,6 +1000,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -842,12 +1011,13 @@ _**request form data:**_
 }
 ```
 
-### 1.16 明文私钥摘要签名
+### 1.17 明文私钥摘要签名
 #### Cmd: /api/account/priKey/sign
 _**详细描述: 明文私钥摘要签名**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "txHex" : null,
@@ -872,9 +1042,10 @@ _**详细描述: 明文私钥摘要签名**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/priKey/sign
 
 _**request form data:**_
+
 ```json
 {
   "txHex" : "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f0000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -884,6 +1055,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -894,12 +1066,13 @@ _**request form data:**_
 }
 ```
 
-### 1.17 密文私钥摘要签名
+### 1.18 密文私钥摘要签名
 #### Cmd: /api/account/encryptedPriKey/sign
 _**详细描述: 密文私钥摘要签名**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "txHex" : null,
@@ -926,9 +1099,10 @@ _**详细描述: 密文私钥摘要签名**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/encryptedPriKey/sign
 
 _**request form data:**_
+
 ```json
 {
   "txHex" : "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f0000000000000000000000000000000000000000000000000000000000000000000000000000",
@@ -939,6 +1113,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -949,12 +1124,13 @@ _**request form data:**_
 }
 ```
 
-### 1.18 创建多签账户
+### 1.19 创建多签账户
 #### Cmd: /api/account/multiSign/create
 _**详细描述: 根据多个账户的公钥创建多签账户，minSigns为多签账户创建交易时需要的最小签名数**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "pubKeys" : [ ],
@@ -976,20 +1152,35 @@ _**详细描述: 根据多个账户的公钥创建多签账户，minSigns为多�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/multiSign/create
 
 _**request form data:**_
-无
+
+```json
+{
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2
+}
+```
 
 #### Example response data: 
-略
 
-### 1.19 离线创建设置别名交易
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M"
+  }
+}
+```
+
+### 1.20 离线创建设置别名交易
 #### Cmd: /api/account/aliasTx/create
 _**详细描述: 根据多个账户的公钥创建多签账户，minSigns为多签账户创建交易时需要的最小签名数**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -1016,20 +1207,38 @@ _**详细描述: 根据多个账户的公钥创建多签账户，minSigns为多�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/aliasTx/create
 
 _**request form data:**_
-无
+
+```json
+{
+  "address" : "tNULSeBaMpFkFySUJVXnYKKxye4RYkwRPqQF71",
+  "alias" : "tksk11",
+  "nonce" : "0000000000000000",
+  "remark" : ""
+}
+```
 
 #### Example response data: 
-略
 
-### 1.20 多签账户离线创建设置别名交易
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "03001177775d001f17020001969747d887b32d2048336799778b7fcd8c19d18706746b736b31318c0117020001969747d887b32d2048336799778b7fcd8c19d187020001004023050600000000000000000000000000000000000000000000000000000000080000000000000000000117020001e2f297763765bc154afaac7aec5e7899a729fed20200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
+    "hash" : "fd728fe2d0d69e07358249b03f35663bc72b6d6ce9bbb5caff439a51fca7b565"
+  }
+}
+```
+
+### 1.21 多签账户离线创建设置别名交易
 #### Cmd: /api/account/multiSign/aliasTx/create
 _**详细描述: 多签账户离线创建设置别名交易**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -1060,20 +1269,40 @@ _**详细描述: 多签账户离线创建设置别名交易**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/multiSign/aliasTx/create
 
 _**request form data:**_
-无
+
+```json
+{
+  "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+  "alias" : "taksk2",
+  "nonce" : "0000000000000000",
+  "remark" : "",
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2
+}
+```
 
 #### Example response data: 
-略
 
-### 1.21 根据私钥获取账户地址格式
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "03009d77775d001f170200038783e2c78cbe6aca9298f83952ea56518ec577300674616b736b328c01170200038783e2c78cbe6aca9298f83952ea56518ec57730020001004023050600000000000000000000000000000000000000000000000000000000080000000000000000000117020001e2f297763765bc154afaac7aec5e7899a729fed20200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000046020221026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f542103245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053",
+    "hash" : "eb23f03966a31538edc648fa68040828ff2b0b18de6d575245118540e3b0a054"
+  }
+}
+```
+
+### 1.22 根据私钥获取账户地址格式
 #### Cmd: /api/account/address/priKey
 _**详细描述: 根据私钥获取账户地址格式**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "priKey" : null
@@ -1093,13 +1322,26 @@ _**详细描述: 根据私钥获取账户地址格式**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/account/address/priKey
 
 _**request form data:**_
-无
+
+```json
+{
+  "priKey" : "d78bbdd20e0166d468d93c6a5bde7950c84427b7e1da307217f7e68583b137b5"
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : "tNULSeBaMvaRhahBAYkZKQFhiSqcC67UiRzoSA"
+  }
+}
+```
 
 ### 2.1 根据区块高度查询区块头
 #### Cmd: /api/block/header/height/{height}
@@ -1134,12 +1376,13 @@ _**详细描述: 根据区块高度查询区块头**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/block/header/height/1
+/api/block/header/height/1
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1197,12 +1440,13 @@ _**详细描述: 根据区块hash查询区块头**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/block/header/hash/0b21cc1e77865f3e414e69ccb63d65c2bdedd98f2aa3d6e414d4791ee897190f
+/api/block/header/hash/0b21cc1e77865f3e414e69ccb63d65c2bdedd98f2aa3d6e414d4791ee897190f
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1258,12 +1502,13 @@ _**详细描述: 查询最新区块头信息**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/block/header/newest
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1321,7 +1566,9 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash                                                          |     string      | 交易的hash值                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type                                                          |       int       | 交易类型                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                          |     string      | 交易时间                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp                                                     |      long       | 交易时间戳                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight                                                   |      long       | 区块高度                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHash                                                     |     string      | 区块hash                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                        |     string      | 交易备注                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transactionSignature                                          |     string      | 交易签名                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1344,12 +1591,13 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 #### Example request data: 
 
 _**request path:**_
-略
+/api/block/newest
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1382,7 +1630,7 @@ _**request form data:**_
       "status" : 0,
       "size" : 80,
       "inBlockIndex" : 0,
-      "form" : [ ],
+      "from" : [ ],
       "to" : [ {
         "address" : "tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp",
         "assetsChainId" : 2,
@@ -1400,7 +1648,7 @@ _**request form data:**_
       "status" : 0,
       "size" : 261,
       "inBlockIndex" : 0,
-      "form" : [ {
+      "from" : [ {
         "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
         "assetsChainId" : 2,
         "assetsId" : 1,
@@ -1455,7 +1703,9 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash                                                          |     string      | 交易的hash值                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type                                                          |       int       | 交易类型                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                          |     string      | 交易时间                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp                                                     |      long       | 交易时间戳                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight                                                   |      long       | 区块高度                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHash                                                     |     string      | 区块hash                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                        |     string      | 交易备注                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transactionSignature                                          |     string      | 交易签名                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1478,12 +1728,13 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/block/height/9
+/api/block/height/9
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1516,7 +1767,7 @@ _**request form data:**_
       "status" : 0,
       "size" : 80,
       "inBlockIndex" : 0,
-      "form" : [ ],
+      "from" : [ ],
       "to" : [ {
         "address" : "tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp",
         "assetsChainId" : 2,
@@ -1534,7 +1785,7 @@ _**request form data:**_
       "status" : 0,
       "size" : 261,
       "inBlockIndex" : 0,
-      "form" : [ {
+      "from" : [ {
         "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
         "assetsChainId" : 2,
         "assetsId" : 1,
@@ -1589,7 +1840,9 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;hash                                                          |     string      | 交易的hash值                                  |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type                                                          |       int       | 交易类型                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                          |     string      | 交易时间                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;timestamp                                                     |      long       | 交易时间戳                                     |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHeight                                                   |      long       | 区块高度                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;blockHash                                                     |     string      | 区块hash                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                        |     string      | 交易备注                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;transactionSignature                                          |     string      | 交易签名                                      |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1612,12 +1865,13 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/block/hash/92285f81a649a7c65b1fe9e52738bb95c4aac6a7f4ab4b0b971c09662a9433ad
+/api/block/hash/92285f81a649a7c65b1fe9e52738bb95c4aac6a7f4ab4b0b971c09662a9433ad
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1650,7 +1904,7 @@ _**request form data:**_
       "status" : 0,
       "size" : 80,
       "inBlockIndex" : 0,
-      "form" : [ ],
+      "from" : [ ],
       "to" : [ {
         "address" : "tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp",
         "assetsChainId" : 2,
@@ -1668,7 +1922,7 @@ _**request form data:**_
       "status" : 0,
       "size" : 261,
       "inBlockIndex" : 0,
-      "form" : [ {
+      "from" : [ {
         "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
         "assetsChainId" : 2,
         "assetsId" : 1,
@@ -1705,12 +1959,13 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/block/serialization/height/1
+/api/block/serialization/height/1
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1735,12 +1990,13 @@ _**详细描述: 包含区块打包的所有交易信息，此接口返回数据
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/block/serialization/hash/5ce81f9a470459276b633465f2572862aa7156a42220d29d724ced9bf9d723f9
+/api/block/serialization/hash/5ce81f9a470459276b633465f2572862aa7156a42220d29d724ced9bf9d723f9
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1764,7 +2020,9 @@ _**详细描述: 根据hash获取交易**_
 | hash                                                          |     string      | 交易的hash值                                  |
 | type                                                          |       int       | 交易类型                                      |
 | time                                                          |     string      | 交易时间                                      |
+| timestamp                                                     |      long       | 交易时间戳                                     |
 | blockHeight                                                   |      long       | 区块高度                                      |
+| blockHash                                                     |     string      | 区块hash                                    |
 | remark                                                        |     string      | 交易备注                                      |
 | transactionSignature                                          |     string      | 交易签名                                      |
 | txDataHex                                                     |     string      | 交易业务数据序列化字符串                              |
@@ -1787,40 +2045,37 @@ _**详细描述: 根据hash获取交易**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/tx/247a026d48f6be0c358423898e38a50ac0c2c1a851419b1ec843a667bab90df9
+/api/tx/3d05d84f7d537b70fe4bce6ec81904018e482461a831b6a7a69756225876293f
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
   "data" : {
-    "hash" : "247a026d48f6be0c358423898e38a50ac0c2c1a851419b1ec843a667bab90df9",
-    "type" : 2,
-    "time" : "2019-07-16 18:30:03.003",
-    "blockHeight" : 9,
-    "remark" : "remark",
-    "transactionSignature" : "2103958b790c331954ed367d37bac901de5c2f06ac8368b37d7bd6cd5ae143c1d7e34630440220084da59fca5edc6ed047c1360bb45d3e7ec297c367b8c2810421b2a43d1eabba02201f9e499fe63ad2dbbd83c1dafcb8437f5aba1c61fd0e5c9075a80b50820ca3ac",
+    "hash" : "3d05d84f7d537b70fe4bce6ec81904018e482461a831b6a7a69756225876293f",
+    "type" : 16,
+    "time" : "2019-12-18 14:35:04.004",
+    "blockHeight" : 172,
+    "blockHash" : "d7412d925da4eef1f1d7fdf2e19c24d1d2616e9ae3d75b405ee9e69b51bf0491",
+    "remark" : "call contract test",
+    "transactionSignature" : "2103958b790c331954ed367d37bac901de5c2f06ac8368b37d7bd6cd5ae143c1d7e3473045022100fa7c1987316b16fbc156173d2419591e4bc0df15835c096eae5d38f24c34ae7802201ca68cf83b13811f5e4cbd09bd03a53394ef0e90d20cd4a1bb43eb13a6fa441e",
+    "txDataHex" : "020001f7ec6473df12e751d64cf20a8baa7edd50810f810200029fef190beb3651234855ec4348471180ae1881b1000000000000000000000000000000000000000000000000000000000000000080841e00000000001900000000000000087472616e7366657200020126744e554c536542614d72624d52694641556565417436737762347856424e79693831594c32340103383030",
     "status" : 1,
-    "size" : 261,
+    "size" : 374,
     "inBlockIndex" : 0,
-    "form" : [ {
+    "from" : [ {
       "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
       "assetsChainId" : 2,
       "assetsId" : 1,
-      "amount" : "100000100000",
-      "nonce" : "0000000000000000",
+      "amount" : "50100000",
+      "nonce" : "ef3247392e9a8d99",
       "locked" : 0
     } ],
-    "to" : [ {
-      "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
-      "assetsChainId" : 2,
-      "assetsId" : 1,
-      "amount" : "100000000000",
-      "lockTime" : 0
-    } ]
+    "to" : [ ]
   }
 }
 ```
@@ -1831,6 +2086,7 @@ _**详细描述: 验证离线组装的交易,验证成功返回交易hash值,失
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "txHex" : null
@@ -1850,9 +2106,10 @@ _**详细描述: 验证离线组装的交易,验证成功返回交易hash值,失
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/transaction/validate
 
 _**request form data:**_
+
 ```json
 {
   "txHex" : "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f000000000000000000000000000000000000000000000000000000000000000000000000006921023cee1aa6158ee640c8f48f9a9fa9735c8ed5426f2c353b0ed65e123033d820e646304402203c376fd0121fce6228516c011126a8526c5bc543afb7e4272c0de708a55d834f02204ebcd942e019b77bbec37f7e2b77b591ba4ce0fbc5fe9335ab91ae925ded6bed"
@@ -1860,6 +2117,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1875,6 +2133,7 @@ _**详细描述: 广播离线组装的交易,成功返回true,失败返回错误
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "txHex" : null
@@ -1895,9 +2154,10 @@ _**详细描述: 广播离线组装的交易,成功返回true,失败返回错误
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/transaction/broadcast
 
 _**request form data:**_
+
 ```json
 {
   "txHex" : "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f000000000000000000000000000000000000000000000000000000000000000000000000006921023cee1aa6158ee640c8f48f9a9fa9735c8ed5426f2c353b0ed65e123033d820e646304402203c376fd0121fce6228516c011126a8526c5bc543afb7e4272c0de708a55d834f02204ebcd942e019b77bbec37f7e2b77b591ba4ce0fbc5fe9335ab91ae925ded6bed"
@@ -1905,6 +2165,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1915,12 +2176,111 @@ _**request form data:**_
 }
 ```
 
-### 3.4 单笔转账
+### 3.4 广播交易(不验证合约)
+#### Cmd: /api/accountledger/transaction/broadcastWithNoContractValidation
+_**详细描述: 广播离线组装的交易(不验证合约),成功返回true,失败返回错误提示信息**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "txHex" : null
+}
+```
+
+#### 参数列表
+| 参数名                                                   |  参数类型  | 参数描述          | 是否必填 |
+| ----------------------------------------------------- |:------:| ------------- |:----:|
+| 广播交易(不验证合约)                                           | txform | 广播交易(不验证合约)表单 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHex | string | 交易序列化16进制字符串  |  是   |
+
+#### 返回值
+| 字段名   |  字段类型   | 参数描述   |
+| ----- |:-------:| ------ |
+| value | boolean | 是否成功   |
+| hash  | string  | 交易hash |
+#### Example request data: 
+
+_**request path:**_
+/api/accountledger/transaction/broadcastWithNoContractValidation
+
+_**request form data:**_
+
+```json
+{
+  "txHex" : "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f000000000000000000000000000000000000000000000000000000000000000000000000006921023cee1aa6158ee640c8f48f9a9fa9735c8ed5426f2c353b0ed65e123033d820e646304402203c376fd0121fce6228516c011126a8526c5bc543afb7e4272c0de708a55d834f02204ebcd942e019b77bbec37f7e2b77b591ba4ce0fbc5fe9335ab91ae925ded6bed"
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : true,
+    "hash" : "5a91b75e6a6d1f415638375627933b42ce7179b4c6390ca0dcc5a0c2c74bd34a"
+  }
+}
+```
+
+### 3.5 广播交易(不验证)
+#### Cmd: /api/accountledger/transaction/broadcastTxWithoutAnyValidation
+_**详细描述: 广播离线组装的交易(不验证),成功返回true,失败返回错误提示信息**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "txHex" : null
+}
+```
+
+#### 参数列表
+| 参数名                                                   |  参数类型  | 参数描述         | 是否必填 |
+| ----------------------------------------------------- |:------:| ------------ |:----:|
+| 广播交易(不验证)                                             | txform | 广播交易(不验证)表单  |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;txHex | string | 交易序列化16进制字符串 |  是   |
+
+#### 返回值
+| 字段名   |  字段类型   | 参数描述   |
+| ----- |:-------:| ------ |
+| value | boolean | 是否成功   |
+| hash  | string  | 交易hash |
+#### Example request data: 
+
+_**request path:**_
+/api/accountledger/transaction/broadcastTxWithoutAnyValidation
+
+_**request form data:**_
+
+```json
+{
+  "txHex" : "02003fac2d5d00008c0117020001efa328e600912da9872390a675486ab9e8ec211402000100e0c8100000000000000000000000000000000000000000000000000000000000080000000000000000000117020001f7ec6473df12e751d64cf20a8baa7edd50810f810200010040420f000000000000000000000000000000000000000000000000000000000000000000000000006921023cee1aa6158ee640c8f48f9a9fa9735c8ed5426f2c353b0ed65e123033d820e646304402203c376fd0121fce6228516c011126a8526c5bc543afb7e4272c0de708a55d834f02204ebcd942e019b77bbec37f7e2b77b591ba4ce0fbc5fe9335ab91ae925ded6bed"
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : true,
+    "hash" : "5a91b75e6a6d1f415638375627933b42ce7179b4c6390ca0dcc5a0c2c74bd34a"
+  }
+}
+```
+
+### 3.6 单笔转账
 #### Cmd: /api/accountledger/transfer
 _**详细描述: 发起单账户单资产的转账交易**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -1948,9 +2308,10 @@ _**详细描述: 发起单账户单资产的转账交易**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/transfer
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -1962,6 +2323,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -1971,12 +2333,13 @@ _**request form data:**_
 }
 ```
 
-### 3.5 离线组装转账交易
+### 3.7 离线组装转账交易
 #### Cmd: /api/accountledger/createTransferTxOffline
 _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账户或多账户的转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "inputs" : [ {
@@ -1993,6 +2356,7 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
     "amount" : null,
     "lockTime" : 0
   } ],
+  "time" : 0,
   "remark" : null
 }
 ```
@@ -2013,7 +2377,8 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetId      |       int       | 资产id     |  是   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount       |   biginteger    | 资产金额     |  是   |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime     |      long       | 锁定时间     |  是   |
-| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                       |     string      | 交易备注     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                         |      long       | 创建时间     |  否   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                       |     string      | 交易备注     |  否   |
 
 #### 返回值
 | 字段名   |  字段类型  | 参数描述         |
@@ -2023,9 +2388,10 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/createTransferTxOffline
 
 _**request form data:**_
+
 ```json
 {
   "inputs" : [ {
@@ -2047,6 +2413,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2057,12 +2424,13 @@ _**request form data:**_
 }
 ```
 
-### 3.6 计算离线创建转账交易所需手续费
+### 3.8 计算离线创建转账交易所需手续费
 #### Cmd: /api/accountledger/calcTransferTxFee
 _**详细描述: 计算离线创建转账交易所需手续费**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "addressCount" : 0,
@@ -2090,9 +2458,10 @@ _**详细描述: 计算离线创建转账交易所需手续费**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/calcTransferTxFee
 
 _**request form data:**_
+
 ```json
 {
   "addressCount" : 6,
@@ -2104,6 +2473,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2113,12 +2483,13 @@ _**request form data:**_
 }
 ```
 
-### 3.7 多签账户离线组装转账交易
+### 3.9 多签账户离线组装转账交易
 #### Cmd: /api/accountledger/createMultiSignTransferTxOffline
 _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账户或多账户的转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "pubKeys" : [ ],
@@ -2169,20 +2540,51 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/createMultiSignTransferTxOffline
 
 _**request form data:**_
-无
+
+```json
+{
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2,
+  "inputs" : [ {
+    "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 11000000,
+    "nonce" : "0000000000000000"
+  } ],
+  "outputs" : [ {
+    "address" : "tNULSeBaMkMNC9mW5oCDXNMRoEVbE1iCsWVtPo",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 10000000,
+    "lockTime" : 0
+  } ],
+  "remark" : null
+}
+```
 
 #### Example response data: 
-略
 
-### 3.8 计算离线创建多签账户转账交易所需手续费
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "02006d96775d00008c01170200038783e2c78cbe6aca9298f83952ea56518ec5773002000100c0d8a70000000000000000000000000000000000000000000000000000000000080000000000000000000117020001571df3f3e1f866a1dcb7fe991f0d7b4b78784ef1020001008096980000000000000000000000000000000000000000000000000000000000000000000000000046020221026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f542103245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053",
+    "hash" : "86c33de06f0db9bb37f7e5e4eb4f687050e4204733b81651f8b3b91ad199f60c"
+  }
+}
+```
+
+### 3.10 计算离线创建多签账户转账交易所需手续费
 #### Cmd: /api/accountledger/calcMultiSignTransferTxFee
 _**详细描述: 计算离线创建多签账户转账交易所需手续费**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "pubKeyCount" : 0,
@@ -2210,13 +2612,30 @@ _**详细描述: 计算离线创建多签账户转账交易所需手续费**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/accountledger/calcMultiSignTransferTxFee
 
 _**request form data:**_
-无
+
+```json
+{
+  "pubKeyCount" : 2,
+  "fromLength" : 1,
+  "toLength" : 1,
+  "remark" : null,
+  "price" : 100000
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "value" : 100000
+  }
+}
+```
 
 ### 4.1 发布合约
 #### Cmd: /api/contract/create
@@ -2224,6 +2643,7 @@ _**详细描述: 发布合约**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -2258,9 +2678,10 @@ _**详细描述: 发布合约**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/create
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -2275,6 +2696,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2291,6 +2713,7 @@ _**详细描述: 调用合约**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -2328,9 +2751,10 @@ _**详细描述: 调用合约**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/call
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -2347,6 +2771,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2362,6 +2787,7 @@ _**详细描述: 删除合约**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -2387,9 +2813,10 @@ _**详细描述: 删除合约**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/delete
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -2400,6 +2827,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2415,6 +2843,7 @@ _**详细描述: 合约token转账**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "fromAddress" : null,
@@ -2444,9 +2873,10 @@ _**详细描述: 合约token转账**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/tokentransfer
 
 _**request form data:**_
+
 ```json
 {
   "fromAddress" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -2459,6 +2889,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2474,6 +2905,7 @@ _**详细描述: 从账户地址向合约地址转账(主链资产)的合约交�
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "fromAddress" : null,
@@ -2504,6 +2936,7 @@ _**request path:**_
 略
 
 _**request form data:**_
+
 ```json
 {
   "fromAddress" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -2515,6 +2948,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2548,12 +2982,13 @@ _**详细描述: 获取账户地址的指定合约的token余额**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/contract/balance/token/tNULSeBaNAKfKnLMR5XG5qtwXt5JS1b3QosZxg/tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
+/api/contract/balance/token/tNULSeBaNAKfKnLMR5XG5qtwXt5JS1b3QosZxg/tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2611,12 +3046,13 @@ _**详细描述: 获取智能合约详细信息**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/contract/info/tNULSeBaMxyMyafiQjq1wCW7cQouyEhRL8njtu
+/api/contract/info/tNULSeBaMxyMyafiQjq1wCW7cQouyEhRL8njtu
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2778,6 +3214,7 @@ _**详细描述: 获取智能合约执行结果**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value |     string      | 转入金额                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                           |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）         |
 | events                                                                                                | list&lt;string> | 合约事件列表                                      |
+| debugEvents                                                                                           | list&lt;string> | 调式合约事件列表                                    |
 | tokenTransfers                                                                                        | list&lt;object> | 合约token转账列表                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                       |     string      | 合约地址                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 付款方                                         |
@@ -2796,12 +3233,13 @@ _**详细描述: 获取智能合约执行结果**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/contract/result/f0a5fc5d20c39355e35f1fe8011b1a28e7c65d8566ae8d76b297a22d1110851d
+/api/contract/result/f0a5fc5d20c39355e35f1fe8011b1a28e7c65d8566ae8d76b297a22d1110851d
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -2835,6 +3273,7 @@ _**request form data:**_
         "orginTxHash" : "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
       } ],
       "events" : [ "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}" ],
+      "debugEvents" : [ ],
       "tokenTransfers" : [ {
         "contractAddress" : "TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA",
         "from" : "TTasNs8MGGGaFT9hd9DLmkammYYv69vs",
@@ -2873,6 +3312,7 @@ _**详细描述: 获取智能合约执行结果列表**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "hashList" : [ ]
@@ -2911,6 +3351,7 @@ _**详细描述: 获取智能合约执行结果列表**_
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;value |     string      | 转入金额                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;orginTxHash                                           |     string      | 调用合约交易hash（源交易hash，合约交易由调用合约交易派生而来）         |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;events                                                                                                | list&lt;string> | 合约事件列表                                      |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;debugEvents                                                                                           | list&lt;string> | 调式合约事件列表                                    |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;tokenTransfers                                                                                        | list&lt;object> | 合约token转账列表                                 |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;contractAddress                                       |     string      | 合约地址                                        |
 | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;from                                                  |     string      | 付款方                                         |
@@ -2929,9 +3370,10 @@ _**详细描述: 获取智能合约执行结果列表**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/result/list
 
 _**request form data:**_
+
 ```json
 {
   "hashList" : [ "c2460b94430074dd98e497ed9d48afb8f44d1323b73ca2086f5abaa0684b760d", "48b2f348f201f9d10848f4031a746919470b679f621327b0e0edf50a339f2e87", "2e99610b7d295790b636fcdb8acf72d70fcae61c873df0984ef248bbbaa6daa2" ]
@@ -2939,6 +3381,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3032,6 +3475,7 @@ _**详细描述: 获取合约代码构造函数**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "contractCode" : null
@@ -3063,9 +3507,10 @@ _**详细描述: 获取合约代码构造函数**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/constructor
 
 _**request form data:**_
+
 ```json
 {
   "contractCode" : "504b03040a0000080000aa7b564e00000000000000000000000003000400696f2ffeca0000504b03040a0000080000aa7b564e00000000000000000000000008000000696f2f6e756c732f504b03040a0000080000aa7b564e00000000000000000000000011000000696f2f6e756c732f636f6e74726163742f504b03040a0000080000aa7b564e00000000000000000000000017000000696f2f6e756c732f636f6e74726163742f746f6b656e2f504b0304140008080800aa7b564e00000000000000000000000028000000696f2f6e756c732f636f6e74726163742f746f6b656e2f53696d706c65546f6b656e2e636c617373b558f97754e5197eeecc90990c972d9090059209a498cc9291a58a8152020d35ca5602b1605bbd99b9492ecc12670922b46ead4babd56aeb5ad1565bd4aa2c020169d59ed353cfe93fd17f84d3d3e7fdee9d3b37612639d5d31ff2ddf77ecbfb3eeff67c77f2afff7cf639804df87b23a23825c323329c96e14c1831fcb411cdf859108f86119497281e93e171997e22cce149197e1ec62ff0d462acc2d3413c13c672fc2a8ce7f0bcccfc3a8817827831cc53bf91e125195e96e5df8af4bb205e09a3430e44f19a0cafcbf086a87d5386df87f096cc9c9597b7457a27843fc8f38f21bc2b7ade0be24f41fc39887341bcaf219033b2a686a6bdc78d692399317213c99152c1ca4d6cd3d0503c951dcb673484d266caca1a99a2066d58c3e252be646446ca535399531a5aeca359a33499dc654d0ce74ae68459e0f1d098417d2993a796d97bca252b93dc674c71b171c49ac819a57281c68766af6edf6be593b972a6984ce573a582912a258be913c9c174ba60168bdb6a9bdb419d412393c99f34d31a4a5f43e337342f0056f5f6d58a6360773e6d4a10ac9cb9bf9c1d330b878db18c8a7a3e6564468d8225efce64a0346931643db7c228e54f98b9e488959de26691a9bbed503957b2b2e6a855b4787c3097636e4a563e47151b6a7b62b87b92a39679924afcbd7d4c6b6b05fdada96cd86ee5acd20e0d3b7a6f75b0decc5c35c37da31a968822cbc80c66f304ae61dd6cfc078d02ebb164166639125dd09143e64365ab60a6a5b2541548e16938dcbb4032e75dad1b8e45f99339b3a0a173fef3acc8e294994bcb565d1d19ac14e8a269235336a5796655c0a9a94a152c192919a9132c47f56eb302b5d048ae386e16f614f2590d47be917bb5bdeb3bc6121c57ea7da53cc3e974f181710d772c60af6ec0828e129242c5030d772e84be2ebea0313555c84f53dd722b972a9846d11c543306c92a6ca4d3667ad48eef7232d79cf565c5f29832e66e0ae53315510ebb49fabf84973d1032ec2d1babe2260f2ed77eb868565f96550e559739b3ab12d7af19cc5109a6bdc583c0d5ba283569a64e90657aeb9f4fd659ab7fa24115ffc68a40df63f3eaf0528b9cf7678b131a06ff27bbb5358547f2e542cadc6349cb2df7306bbf6cd7d18fa48edb65d8884d3a36638b8e217ca0e3436cd1b0a27a6fdc6d1427d9ac3abe8d3b74dc25c35f64f347f858c727381fc4051d177149c7a7b84c42abc3edca76cf61a74586a64da1c82573def5e11ca96477c62816cda2e0213d5cd17115333aaee13a0fccbacf782dd58a888e49983a72c8e83821c367b8a1c382b910ba4a2755d0cd7ad79116adf7e05e1d79301e7fc5df747c8ef31a3a8673c5f2f8b895b2b82fe274703aa254cbe6691d5fe0bc8ea36087270e4f9a11551d916cb9588a8c999109f6312f864869d2c845f2850819dfc8f078e4f67e394e289db32c389413c98fdb36fac5c52f79e32c7cafb216aae57260ecb899a2f6b535fb6bb7f3a261cd7c5153772c0b2e706ce8d001be1c1edacf712a7f527a6bb82e6f86b2e54cc9529f59fdf55ab0ded9d69a78f749eb34149d5b29c22b7f812bcc3f55a6735bbdf7be1d916db7cef4dd3aa5a1bda68123ac4e524ec0cc5a54df5587bd544dd93d3f6172df861a306a1a0d16ec0f025ae83d26e71b53f9ec9451607ee761337e04f9c9868c7b85097943f71eabc51de8e637750c3ec49140039a842af8e3a049d8423d49187cfa8433d493c400d2b492b7f2ef2ecffb003fd699616ca3bc9d3349be697c2e8a5e8676416df90ec70635b9163b38eaf6067c173bf91c745677f1a911422d45beb98ad62fa8682376d750e4ff688ea2be05156dc6f76a280acc45945c50d110f6388afecd1d8bf834a3335476090d571088de40f0e80c4257d05815c3d1d81568d1f815f8a2cd812bf0471397b0b8397015fa552c915397d1780d4b05d0752cf3e3be1b587e54736666b0e21a9a2eba40fbb158fd060c30658bb11a2d6865296cc606a639c6246f645a0799d6434c729a491687b6d8401d8744ea57711049cac5a7a4ef739f5f491b95febb29b705b86d58797eeb4892e50189c51754212692441c8e5dc74a1fbec4aafd89af1064602e24e2ce54f340a02df015429c1449c21f505e75f2f72a887529313611650bc3bd8ec9bf8d798b33e4552f92ae1749ecc53e276dfb29f978ba1b07e8bf9f6797e0204f04f00327a1f6da56ae1de2cc52f86ea22588919b680ee2f0ac248bdf4b7c737c3d825127ef670823c0674f34c6142566d0128d715c1d8d736c95d4c54492ac05aa85daa2c0df8b46825e46b0cd84bc8e80c4b1a8adcf75ac07f7398ef5e087ca31910eaaf408b895fe9ae9e0bde5a4e3491e914cf6c4fe8960e01c02fe6b68932aaba4a6795fdc4ecdbeb8e4c0ef817884d11a453b2174d2f83aea1488115b9f07a21dfb7684713f81f9545417c31fdaa9dd446bad90063517e98ff0632798166d8ae6ae2863199728c6e24e143921f29c3836a9583d80101e64120d92d1980760970bb04b454e53d24105b0665a7fe22279d041d21e750cb7df404705c49ad92096aa9d134ce624bbcff200687701b4ab9ad494340f80075c00136c0151d15d01b0b602404d5c45671d1c59e2c8d1cdbc0747b78ba3dbc5d14d1febe2305c1c978943623c142586ae8aedfdf1c45544ce62859a60e53040e7a057b0b6cc83d5efe9f022a35c22ee32ab6d9a55f4302faf47d8e7a73d8d30e4621f72b10f31cd5b5487df89946a04a9b746e9e21e165ba896533ef914a42c4e3de1907584f545740381685b40bc4bc8108bb705e85d375daaf2acdd0d8fb2d01ea3d5c7b1923abad85955268ab83823187770469846bb61234ec3865821f72826f2c907af83e78c83a7d38327d1b46e06eb2b687a66a1b1cbfe296a7b1a2bf00ccbfe590f924e1749a78ba4d345d2e922697191582e927f7045740cd8b1f0f2b74dd66dce453610508b6dce1dd51688276c49507a59fc39ea7b5efe958836bc40067991fcfc126fa2973d88075cc4032ee20117f1808378156fb5e3e4f32a8bdb335b3923f90f816493248bf3147f42381e9de6aa448ba1bc8a6fed8fc69b36cce0b68a7b8db10423de5d85ee4df72b64ac577975bcc680bf4ee86f78ca72bd0b793d5b6e9ff30563b776031372bf82ec931f340e90a203a4cb01928837f54a862b207ae682b0b3fc16d59d65cdbdcd78bee301e025b7ec1c726b60ac2b00f8b3c701708c6f12cfd5bc075648d3b285dfacde0817dde60cab6def320aef29832df631d7e06a654653415f045fd34e4dd979c8b133e5dc371dd19804597843cabab62ddbc973d4f33eed7e407afcd0435c1daecd0e14944d918aee1543eb2d8ef59263dd74acb7d6f0327e0d7d73ddfc98ee7ce231d9ea9a6c75dc14a9acbe8be6383ced96984f79b1a68ec38959666d8f2f52d12542f894fe5cf6a4758d6b7e8debf11ac7639104887fb6ef2755c53c8c5f2ae53e2c278b3e4b36ece0f35534fe17504b0708ec308779cb09000028180000504b0304140008080800aa7b564e00000000000000000000000022000000696f2f6e756c732f636f6e74726163742f746f6b656e2f546f6b656e2e636c617373a552d14e1341143d03b5cb16aa28a8a0284a08697970131ff481a76a24694282a19507dfa6bb431d989da933b325fc9a0f7e801f65bc534ba5b6a5896eb23b3be79e7bcebd33f7c7cf6fdf01bcc64e84e711b623bc60a8367a3d6bfa5c7de80bed19569a5a0bfb5e71e7848bf092186dcbb53b1376c828699e0b86f55afde89cf779a2b8ee262d6fa5ee1e306c9e14dacb5c9c4a273b4a34b4369e7b69b463d83b9226d18572496ab4b73cf589cb2e123ee224a7525c9248d95de51da318963291ca9c2b4a5eacd59b0ccb9ea8aa55f47aea8a61e3ba869cfb2fc93bd96d6a2fbac29244dce154582a8ecf18ded4a61b37b2cc0ae70e668aec8c37f3915b6add0b3bd6d5fedcae4ec4d7425a9191e2921f1e26c3db39554d2faafe99eee85ae4d09a9ce1d33ca17fb489f86034e8ae63ae94b90cc7c9d0fe2fb799475d6999c2a6e2502af2a8b4cd85d0af0295616b42d0876832e030acfe19c2e3ceb9486942f76fcbd8fd6be06f278fcd7e99816101e1894b749788695fa15d99d66580b0952958157727b07b589dc0eee301a9dfc0b0466f144cd70784877844ff01ac2efc0647a1c7d81886d6166f864684cdd9b94ff0748aef388d085b83ef33dca135141a7c4ad46e488a10ff02504b070868fe421cca0100005e040000504b0304140008080800aa7b564e00000000000000000000000030000000696f2f6e756c732f636f6e74726163742f746f6b656e2f546f6b656e24417070726f76616c4576656e742e636c6173738d565b6f1b4514fec6bbde75b69bbb49d224b46929e05b6a2ee19a4b73218140d2943835b4406163af926d9cdd74771d90a0129540ea033c801020242e2f252f790089b80824c45390f82ffc03049c995dbb89e3243cf8ccd93367e67cdf7c6746fef39f5f7e03f018ae6988e34213148c7333c1cd248f4da998d63083e735bcc0cd0c66b937abe2450d2770218697f838c7cd7c0c176358e0ee256e5e56b1a822c71075deb64d97e1d49ce564ed72c9cb161cdb778d829ff58a6bd98962d1353d6f9841f5364cbbc853a39b46a96c3274cd5d37368decbae1af6627ad9559db37574c97529511cbb6fc3186cb89a3773d66b6e1f6c93c833ce5140940eb9c659b17cbebcba6bb642c9728d231e7148c52de702dfe1d06657fd5f2189a2736365c87b04f6f9ab6cfa0cfdac47caa64789e49d39983607c67cdb4b34bdc9edbb798389e5d2cdbbeb56ee62dcfa22a970cd758377dd39db06dc7377ccbb169cf546382462d27bb68de285bae59a41d632ba6bf10883190481e2747ccab659f39e694f98969b479ae2aa0e6edf9e065f381a03d54f6104979b930eb64e2706114a2639488f97d6152c9b057b20bcbd7cd823f9cbccac01c2ed28129219241a234e77ca3b0366f6c08eda8c1a9f4aae1ad06824b89e42c152156e5122533fa88f94ece772d7b85215e852f760ea2b4b39673ca6ec19cb1782f6842cdf33c4d471f967474a15b470f3727d1abe332f22a5e21e9fe7f37a87855c7237854c5151d4fe16986ee7a189365ab244e3bbe6fe5bbe2f28deab88ad7b8799d006606c28b364ae43203e2ae898c37740c6384a1adfef4187a1bea1ff6391d5a3e9059f43a43e7be7312413aa6fea308379aded362c4ab514b9054c60627c330983828cd41b5c2631aaecbaff6cf11f9fd89a9c3a771869ecc38a82b2121c215a78735c2451723e94ea346f37de8a7effbe9ab44a34c633c75172c95de412495d981941adc81fca358758a6c17a2646f50a68b267868818f4e94719aa2a9603d06f000203c5e97098f578e088fd796708efc4e89261f2467bf7d080f93e590b234f2e5d1d44f88fc50c3a088e03ba2a61e248435191248868bc7289b575404977b0c34117d8fd6dc143b74055935d44a889a2e444320523d90f71b0249370622d503f980d67c7808909e104806830d80c8f5406e3704725e2c3a0044ae07f211adf9f810205c335e98ae7cb8d75f9423d1782b95fe1e51793bbd8b965405d134fdee202a6da77f8732cf75dba58ea22143bf0ad4afd0ba45375ec4298b9f679020514cda9b205513e45db4f381627205b12db472ef0fa8f21664699b404882462f01053e818a4fe9e43e23989f13e52ff026be14b40602c0355ab7e89fc6e3824e1143148be009d1a0badac2fe46bf8a2715d6adb0b836cea9d32b1752ff393cc6e9805d734a306be26046da4ef7ad069c78580ac36f55e37210271a5a10efbb07bf43dc9eafe9367d43cdf32da6f0dd1e35a643d89d04fa193c4b5038d84128ede3ec5fbae511824b30c947e84718cbefffa445f49c862caed1b6bc51867ec5892b77a1773457484141a5b5a32df025eeb7073e616e6dbb594147059df58d77674fe30d8540231815760c67c3a746c173f42c35fd07504b0708ea7bbc798f040000e6090000504b0304140008080800aa7b564e00000000000000000000000030000000696f2f6e756c732f636f6e74726163742f746f6b656e2f546f6b656e245472616e736665724576656e742e636c6173738d56df531b5514fe6e76b31bb60be19740015b5aab8624b06ad156c36f84160da5051a0bd5da25d9c296b08bbb1b5e1c1ffa6ff8aebcf0a033923a3ae3f88433fe2ffe078e7aeedd854212c0879c7bf6dc73eef9cef9cebd933ffff9e53700efe189864e4c3441c12417535c4c73db8c8a590d73b8a3e12e177398e7dabc8a4f345cc244029ff235cfc54202f71258e4ea7d2e1ea85852b1cc203ff3dc6d862b79db359c4ad9378aae1378663130fcd29631552a7996efe7186281cb10df35cb158ba12bffdcdc358d6d33d834a6ed8d7927b0362c8fbc9451dbb183718687a9f30fbc60b7e1f18305823be3960840326f3bd6bdcaf6bae5ad98eb65b2b4e7dda2592e989ecdbf23a31c6cda3e43f38a673afe33cb9bddb59c80419f771ccb9b299bbe6fd176b61e4ce06e598eb1c2e58d53c154e3f5a58a13d8db56c1f66dca72dff4cc6d2bb0bc29c7710333b05d87ce4c372ed03cf63196acaf2ab66795e84475c30ae6040d03a9c18b8850fd23e76b17f498f72b4e47af70e6fc704dd0772124b187729d4163c23ff6ba9c3a9b0c854a30cb54ed6b9153d974368cc5f5e75631c80dae3130971353b72588318988e6e5c02c6e2d983b822f1a674abd69fa9b21c9526a709e92502d95323933fa4804ee72e0d9ce0643e7117c717268a593b565b7e215ad399bf3af090687b99b8e3eace8e842b78e1e2e2ea357c74314547c4674fdff0950f148c73b7857c5aa8e5bb8cdd05d0b63ba62974b96c7d0712af26b7ed5c674ace131179f132bd981c01da3b2b203e26689cd2f74e430cad05adb3786de867c47534ded2a84048bc9a6eca73a248cd4a0fef34a6db47d62a4a8eb8d8681483277762ca7c43094aa27a59ea7a841b91affa3c939c7bf3f3573f636aed1d3d8099a47488871aee9018d71bac54a8cd3aad17e1ffae9fb75fa2ad32ad3da997e0996ce1c2096ce1e404a0f1d40fe51445d21d98538c92c790ea109c36881810e1a82ab644d87f118c01b80d0785e26349e3926349e5bc20dd293120986374fc8b7f036490ec7a09587c6d33f21f6c3717e45186f8a7c7ae810e5634861300a1e276f9e4d1175bc42af09eb2d8ab92d4ee80abd8e112b1162ba060d8148b540720d81641a03916a814c50cce419407a2220596a743d10b916c84c4320c322a80e885c0be40ec5dc3d0308e78b27a68b1e9df517f970ea5ea433df232eef670ed192ae229ea1df77884bfb99dfa12c70de0e699a68c9d2af0af55b24f7a065859dbc783f4307896cd24907e9c8413e441b5fc8265791d843926b7f4095f7204bfb04421265f41250200f150bd4b94582f9804a5ec2975816650d84808fcb7a41ff266e8a724a18215b0cef8be1d4d516f637fa557ca0b06e85756a93bc747adba2d27f8eda381b56d79c1695357130a3ad57fb36c39ab8598acc4f8fec7268a732b4d0def70a7ebbb8398fe826add2f0ac119b8f4fb0311bc1ee20d01fe22382c2c10e41699b64ffd20d8f115c82493a223dc658e1f42705d1531a55f1848ee58332f22b2eadbe84dede5c25064529c9f6d65097b8de16ea8439d9fa4d15ed5574d40eded313833712018d614cc8715c8f9e19051fd393d4f41f504b0708826261e37e040000ca090000504b01020a000a0000080000aa7b564e000000000000000000000000030004000000000000000000000000000000696f2ffeca0000504b01020a000a0000080000aa7b564e000000000000000000000000080000000000000000000000000025000000696f2f6e756c732f504b01020a000a0000080000aa7b564e00000000000000000000000011000000000000000000000000004b000000696f2f6e756c732f636f6e74726163742f504b01020a000a0000080000aa7b564e00000000000000000000000017000000000000000000000000007a000000696f2f6e756c732f636f6e74726163742f746f6b656e2f504b01021400140008080800aa7b564eec308779cb090000281800002800000000000000000000000000af000000696f2f6e756c732f636f6e74726163742f746f6b656e2f53696d706c65546f6b656e2e636c617373504b01021400140008080800aa7b564e68fe421cca0100005e0400002200000000000000000000000000d00a0000696f2f6e756c732f636f6e74726163742f746f6b656e2f546f6b656e2e636c617373504b01021400140008080800aa7b564eea7bbc798f040000e60900003000000000000000000000000000ea0c0000696f2f6e756c732f636f6e74726163742f746f6b656e2f546f6b656e24417070726f76616c4576656e742e636c617373504b01021400140008080800aa7b564e826261e37e040000ca0900003000000000000000000000000000d7110000696f2f6e756c732f636f6e74726163742f746f6b656e2f546f6b656e245472616e736665724576656e742e636c617373504b0506000000000800080051020000b31600000000"
@@ -3073,6 +3518,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3113,6 +3559,7 @@ _**详细描述: 获取已发布合约指定函数的信息**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "contractAddress" : null,
@@ -3146,9 +3593,10 @@ _**详细描述: 获取已发布合约指定函数的信息**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/method
 
 _**request form data:**_
+
 ```json
 {
   "contractAddress" : "tNULSeBaMxyMyafiQjq1wCW7cQouyEhRL8njtu",
@@ -3158,6 +3606,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3203,6 +3652,7 @@ _**详细描述: 获取已发布合约指定函数的参数类型列表**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "contractAddress" : null,
@@ -3226,9 +3676,10 @@ _**详细描述: 获取已发布合约指定函数的参数类型列表**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/method/argstypes
 
 _**request form data:**_
+
 ```json
 {
   "contractAddress" : "tNULSeBaMxyMyafiQjq1wCW7cQouyEhRL8njtu",
@@ -3238,6 +3689,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3251,6 +3703,7 @@ _**详细描述: 验证发布合约**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3280,9 +3733,10 @@ _**详细描述: 验证发布合约**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/validate/create
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3294,6 +3748,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 [ {
   "success" : true,
@@ -3309,6 +3764,7 @@ _**详细描述: 验证调用合约**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3344,9 +3800,10 @@ _**详细描述: 验证调用合约**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/validate/call
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3361,6 +3818,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 [ {
   "success" : true,
@@ -3383,6 +3841,7 @@ _**详细描述: 验证删除合约**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3406,9 +3865,10 @@ _**详细描述: 验证删除合约**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/validate/delete
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3417,6 +3877,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 [ {
   "success" : true,
@@ -3432,6 +3893,7 @@ _**详细描述: 估算发布合约交易的GAS**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3455,9 +3917,10 @@ _**详细描述: 估算发布合约交易的GAS**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/imputedgas/create
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3467,6 +3930,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3482,6 +3946,7 @@ _**详细描述: 估算调用合约交易的GAS**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3511,9 +3976,10 @@ _**详细描述: 估算调用合约交易的GAS**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/imputedgas/call
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3526,6 +3992,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3541,6 +4008,7 @@ _**详细描述: 调用合约不上链方法**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "contractAddress" : null,
@@ -3566,9 +4034,10 @@ _**详细描述: 调用合约不上链方法**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/view
 
 _**request form data:**_
+
 ```json
 {
   "contractAddress" : "tNULSeBaNAKfKnLMR5XG5qtwXt5JS1b3QosZxg",
@@ -3579,6 +4048,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3594,6 +4064,7 @@ _**详细描述: 离线组装 - 发布合约的交易**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3631,9 +4102,10 @@ _**详细描述: 离线组装 - 发布合约的交易**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/create/offline
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3649,6 +4121,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3666,6 +4139,7 @@ _**详细描述: 离线组装 - 调用合约的交易**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3706,9 +4180,10 @@ _**详细描述: 离线组装 - 调用合约的交易**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/call/offline
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3726,6 +4201,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3742,6 +4218,7 @@ _**详细描述: 离线组装 - 删除合约交易**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "sender" : null,
@@ -3770,9 +4247,10 @@ _**详细描述: 离线组装 - 删除合约交易**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/delete/offline
 
 _**request form data:**_
+
 ```json
 {
   "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3784,6 +4262,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3800,6 +4279,7 @@ _**详细描述: 离线组装 - 合约token转账交易**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "fromAddress" : null,
@@ -3834,9 +4314,10 @@ _**详细描述: 离线组装 - 合约token转账交易**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/tokentransfer/offline
 
 _**request form data:**_
+
 ```json
 {
   "fromAddress" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3851,6 +4332,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3867,6 +4349,7 @@ _**详细描述: 离线组装 - 从账户地址向合约地址转账(主链资�
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "fromAddress" : null,
@@ -3899,9 +4382,10 @@ _**详细描述: 离线组装 - 从账户地址向合约地址转账(主链资�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/contract/transfer2contract/offline
 
 _**request form data:**_
+
 ```json
 {
   "fromAddress" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
@@ -3915,6 +4399,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3931,6 +4416,7 @@ _**详细描述: 创建共识节点**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "agentAddress" : null,
@@ -3960,9 +4446,10 @@ _**详细描述: 创建共识节点**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/agent
 
 _**request form data:**_
+
 ```json
 {
   "agentAddress" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -3975,6 +4462,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -3990,6 +4478,7 @@ _**详细描述: 注销共识节点**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4011,9 +4500,10 @@ _**详细描述: 注销共识节点**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/agent/stop
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -4022,6 +4512,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4037,6 +4528,7 @@ _**详细描述: 委托参与共识**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4062,9 +4554,10 @@ _**详细描述: 委托参与共识**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/deposit
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -4075,6 +4568,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4090,6 +4584,7 @@ _**详细描述: 退出共识**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4113,9 +4608,10 @@ _**详细描述: 退出共识**_
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/withdraw
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -4125,6 +4621,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4157,12 +4654,13 @@ _**详细描述: 查询节点的委托共识列表**_
 #### Example request data: 
 
 _**request path:**_
-http://localhost:18004/api/consensus/list/deposit/786402b17649b968e4643cb52fa30225645b0dc7b8761b047a1f080d3dd30dcd
+/api/consensus/list/deposit/786402b17649b968e4643cb52fa30225645b0dc7b8761b047a1f080d3dd30dcd
 
 _**request form data:**_
 无
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4186,12 +4684,223 @@ _**request form data:**_
 }
 ```
 
-### 5.6 离线组装 - 创建共识节点交易
+### 5.6 根据最大高度和原始种子个数生成一个随机种子并返回
+#### Cmd: /api/consensus/random/seed/count
+_**详细描述: 包括最大高度往后退1000个区块，在这个区块区间内找到指定个数的原始种子，汇总生成一个随机种子并返回**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "height" : 0,
+  "count" : 0,
+  "algorithm" : null
+}
+```
+
+#### 参数列表
+| 参数名                                                       |        参数类型         | 参数描述                      | 是否必填 |
+| --------------------------------------------------------- |:-------------------:| ------------------------- |:----:|
+| RandomSeedCountForm                                       | randomseedcountform | 随机种子表单                    |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height    |        long         | 最大高度                      |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count     |         int         | 原始种子个数                    |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;algorithm |       string        | 算法标识：SHA3, KECCAK, MERKLE |  否   |
+
+#### 返回值
+| 字段名       |  字段类型  | 参数描述    |
+| --------- |:------:| ------- |
+| seed      | string | 生成的随机种子 |
+| algorithm | string | 算法标识    |
+| count     |  int   | 原始种子个数  |
+#### Example request data: 
+
+_**request path:**_
+/api/consensus/random/seed/count
+
+_**request form data:**_
+
+```json
+{
+  "height" : 15,
+  "count" : 9,
+  "algorithm" : "sha3"
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "seed" : "39348806759173754289552718450552160894738020452243263500745175936916037359443",
+    "algorithm" : "SHA3",
+    "count" : 9
+  }
+}
+```
+
+### 5.7 根据高度区间生成一个随机种子并返回
+#### Cmd: /api/consensus/random/seed/height
+_**详细描述: 在这个区块区间内找到所有有效的原始种子，汇总生成一个随机种子并返回**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "startHeight" : 0,
+  "endHeight" : 0,
+  "algorithm" : null
+}
+```
+
+#### 参数列表
+| 参数名                                                         |         参数类型         | 参数描述                      | 是否必填 |
+| ----------------------------------------------------------- |:--------------------:| ------------------------- |:----:|
+| RandomSeedHeightForm                                        | randomseedheightform | 随机种子表单                    |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startHeight |         long         | 起始高度                      |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endHeight   |         long         | 截止高度                      |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;algorithm   |        string        | 算法标识：SHA3, KECCAK, MERKLE |  否   |
+
+#### 返回值
+| 字段名       |  字段类型  | 参数描述    |
+| --------- |:------:| ------- |
+| seed      | string | 生成的随机种子 |
+| algorithm | string | 算法标识    |
+| count     |  int   | 原始种子个数  |
+#### Example request data: 
+
+_**request path:**_
+/api/consensus/random/seed/height
+
+_**request form data:**_
+
+```json
+{
+  "startHeight" : 7,
+  "endHeight" : 15,
+  "algorithm" : "sha3"
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "seed" : "32532675763615856265810357233291461242017048552507569663816339711779497299975",
+    "algorithm" : "SHA3",
+    "count" : 9
+  }
+}
+```
+
+### 5.8 根据最大高度和原始种子个数查找原始种子列表并返回
+#### Cmd: /api/consensus/random/rawseed/count
+_**详细描述: 包括最大高度往后退1000个区块，在这个区块区间内找到指定个数的原始种子并返回**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "height" : 0,
+  "count" : 0
+}
+```
+
+#### 参数列表
+| 参数名                                                    |          参数类型          | 参数描述     | 是否必填 |
+| ------------------------------------------------------ |:----------------------:| -------- |:----:|
+| RandomRawSeedCountForm                                 | randomrawseedcountform | 原始随机种子表单 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;height |          long          | 最大高度     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;count  |          int           | 原始种子个数   |  是   |
+
+#### 返回值
+| 字段名    |      字段类型       | 参数描述 |
+| ------ |:---------------:| ---- |
+| 原始种子列表 | list&lt;string> |      |
+#### Example request data: 
+
+_**request path:**_
+/api/consensus/random/rawseed/count
+
+_**request form data:**_
+
+```json
+{
+  "height" : 15,
+  "count" : 9
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : [ "-29372401885335809343334881114861862848664228571153431589582614750707853803688", "-12374588462997313588598897726376463898687300536133622323300129617802447843663", "35414850206903943716465298994826456060042987072617525631637631635987014797108", "-57234933950614201812269794723322473738769164815685574368298879134983145932442", "-36943716549467048219120901994813656501647327407366907446161430460954253977405", "30934978871350238591664023000030597630129456116167320700551408944317816121383", "-40719234813631611496719465228844846754749045533296280679027880790124492776813", "-9760170464524872943819135990753457668421091036911187432097064247132004006726", "8470565416062428412592833383521885451190767259837871270725993030997862574316" ]
+}
+```
+
+### 5.9 根据高度区间查找原始种子列表并返回
+#### Cmd: /api/consensus/random/rawseed/height
+_**详细描述: 在这个区块区间内找到所有有效的原始种子并返回**_
+#### HttpMethod: POST
+
+#### Form json data: 
+
+```json
+{
+  "startHeight" : 0,
+  "endHeight" : 0
+}
+```
+
+#### 参数列表
+| 参数名                                                         |          参数类型           | 参数描述     | 是否必填 |
+| ----------------------------------------------------------- |:-----------------------:| -------- |:----:|
+| RandomRawSeedHeightForm                                     | randomrawseedheightform | 原始随机种子表单 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;startHeight |          long           | 起始高度     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;endHeight   |          long           | 截止高度     |  是   |
+
+#### 返回值
+| 字段名    |      字段类型       | 参数描述 |
+| ------ |:---------------:| ---- |
+| 原始种子列表 | list&lt;string> |      |
+#### Example request data: 
+
+_**request path:**_
+/api/consensus/random/rawseed/height
+
+_**request form data:**_
+
+```json
+{
+  "startHeight" : 7,
+  "endHeight" : 15
+}
+```
+
+#### Example response data: 
+
+```json
+{
+  "success" : true,
+  "data" : [ "8470565416062428412592833383521885451190767259837871270725993030997862574316", "-9760170464524872943819135990753457668421091036911187432097064247132004006726", "-40719234813631611496719465228844846754749045533296280679027880790124492776813", "30934978871350238591664023000030597630129456116167320700551408944317816121383", "-36943716549467048219120901994813656501647327407366907446161430460954253977405", "-57234933950614201812269794723322473738769164815685574368298879134983145932442", "35414850206903943716465298994826456060042987072617525631637631635987014797108", "-12374588462997313588598897726376463898687300536133622323300129617802447843663", "-29372401885335809343334881114861862848664228571153431589582614750707853803688" ]
+}
+```
+
+### 5.10 离线组装 - 创建共识节点交易
 #### Cmd: /api/consensus/agent/offline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "agentAddress" : null,
@@ -4233,9 +4942,10 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/agent/offline
 
 _**request form data:**_
+
 ```json
 {
   "agentAddress" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -4254,6 +4964,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4264,12 +4975,13 @@ _**request form data:**_
 }
 ```
 
-### 5.7 离线组装 - 注销共识节点交易
+### 5.11 离线组装 - 注销共识节点交易
 #### Cmd: /api/consensus/agent/stop/offline
 _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的委托共识列表获取，input的nonce值可为空**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "agentHash" : null,
@@ -4314,9 +5026,10 @@ _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/agent/stop/offline
 
 _**request form data:**_
+
 ```json
 {
   "agentHash" : "786402b17649b968e4643cb52fa30225645b0dc7b8761b047a1f080d3dd30dcd",
@@ -4346,6 +5059,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4356,12 +5070,13 @@ _**request form data:**_
 }
 ```
 
-### 5.8 离线组装 - 委托参与共识交易
+### 5.12 离线组装 - 委托参与共识交易
 #### Cmd: /api/consensus/deposit/offline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4399,9 +5114,10 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/deposit/offline
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -4418,6 +5134,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4428,12 +5145,13 @@ _**request form data:**_
 }
 ```
 
-### 5.9 离线组装 - 退出共识交易
+### 5.13 离线组装 - 退出共识交易
 #### Cmd: /api/consensus/withdraw/offline
 _**详细描述: 接口的input数据，则是委托共识交易的output数据，nonce值可为空**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4471,9 +5189,10 @@ _**详细描述: 接口的input数据，则是委托共识交易的output数据�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/withdraw/offline
 
 _**request form data:**_
+
 ```json
 {
   "address" : "tNULSeBaMujLBcZWfE2wHKnZo7PGvqvNrt6yWG",
@@ -4490,6 +5209,7 @@ _**request form data:**_
 ```
 
 #### Example response data: 
+
 ```json
 {
   "success" : true,
@@ -4500,12 +5220,13 @@ _**request form data:**_
 }
 ```
 
-### 5.10 多签账户离线组装 - 创建共识节点交易
+### 5.14 多签账户离线组装 - 创建共识节点交易
 #### Cmd: /api/consensus/multiSign/agent/offline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "agentAddress" : null,
@@ -4545,20 +5266,48 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/multiSign/agent/offline
 
 _**request form data:**_
-无
+
+```json
+{
+  "agentAddress" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+  "packingAddress" : "tNULSeBaMpFkFySUJVXnYKKxye4RYkwRPqQF71",
+  "rewardAddress" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+  "commissionRate" : 10,
+  "deposit" : 20000000000000,
+  "input" : {
+    "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 20000001000000,
+    "nonce" : "0000000000000000"
+  },
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2
+}
+```
 
 #### Example response data: 
-略
 
-### 5.11 离线组装 - 多签账户委托参与共识交易
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "0400a498775d00660040e59c301200000000000000000000000000000000000000000000000000000200038783e2c78cbe6aca9298f83952ea56518ec57730020001969747d887b32d2048336799778b7fcd8c19d1870200038783e2c78cbe6aca9298f83952ea56518ec577300a8c01170200038783e2c78cbe6aca9298f83952ea56518ec57730020001004082f49c301200000000000000000000000000000000000000000000000000000800000000000000000001170200038783e2c78cbe6aca9298f83952ea56518ec57730020001000040e59c30120000000000000000000000000000000000000000000000000000ffffffffffffffff46020221026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f542103245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053",
+    "hash" : "14e986633643fa1d3119bcf97d9ed8f5fe6d234bd9b193e6b9e76ad064845e71"
+  }
+}
+```
+
+### 5.15 离线组装 - 多签账户委托参与共识交易
 #### Cmd: /api/consensus/multiSign/deposit/offline
 _**详细描述: 参与共识所需资产可通过查询链信息接口获取(agentChainId和agentAssetId)**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4594,20 +5343,46 @@ _**详细描述: 参与共识所需资产可通过查询链信息接口获取(ag
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/multiSign/deposit/offline
 
 _**request form data:**_
-无
+
+```json
+{
+  "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+  "deposit" : 20000000000000,
+  "agentHash" : "52456e830fa389c72c4a71e4224db5aa869d0fbfd0cb2175096e6e5fb6a5c6ee",
+  "input" : {
+    "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 20000001000000,
+    "nonce" : "0000000000000000"
+  },
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2
+}
+```
 
 #### Example response data: 
-略
 
-### 5.12 离线组装 - 多签账户退出共识交易
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "05003f99775d00570040e59c301200000000000000000000000000000000000000000000000000000200038783e2c78cbe6aca9298f83952ea56518ec5773052456e830fa389c72c4a71e4224db5aa869d0fbfd0cb2175096e6e5fb6a5c6ee8c01170200038783e2c78cbe6aca9298f83952ea56518ec57730020001004082f49c301200000000000000000000000000000000000000000000000000000800000000000000000001170200038783e2c78cbe6aca9298f83952ea56518ec57730020001000040e59c30120000000000000000000000000000000000000000000000000000ffffffffffffffff46020221026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f542103245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053",
+    "hash" : "f11cbdf7d7d858fa2e1d50c7d47c51a3abf71c09ca9c570ad358edb71619fd06"
+  }
+}
+```
+
+### 5.16 离线组装 - 多签账户退出共识交易
 #### Cmd: /api/consensus/multiSign/withdraw/offline
 _**详细描述: 接口的input数据，则是委托共识交易的output数据，nonce值可为空**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "address" : null,
@@ -4643,20 +5418,45 @@ _**详细描述: 接口的input数据，则是委托共识交易的output数据�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/multiSign/withdraw/offline
 
 _**request form data:**_
-无
+
+```json
+{
+  "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+  "depositHash" : "52456e830fa389c72c4a71e4224db5aa869d0fbfd0cb2175096e6e5fb6a5c6ee",
+  "price" : 1000000,
+  "input" : {
+    "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+    "assetChainId" : 2,
+    "assetId" : 1,
+    "amount" : 20000001000000
+  },
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2
+}
+```
 
 #### Example response data: 
-略
 
-### 5.13 离线组装 - 多签账户注销共识节点交易
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "0600459a775d002052456e830fa389c72c4a71e4224db5aa869d0fbfd0cb2175096e6e5fb6a5c6ee8c01170200038783e2c78cbe6aca9298f83952ea56518ec57730020001004082f49c3012000000000000000000000000000000000000000000000000000008096e6e5fb6a5c6eeff01170200038783e2c78cbe6aca9298f83952ea56518ec57730020001000040e59c30120000000000000000000000000000000000000000000000000000000000000000000046020221026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f542103245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053",
+    "hash" : "989458839cd908a4e60053f9ef4e6c1b00ad90051c93ee4faab273794c51429a"
+  }
+}
+```
+
+### 5.17 离线组装 - 多签账户注销共识节点交易
 #### Cmd: /api/consensus/multiSign/agent/stop/offline
 _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的委托共识列表获取，input的nonce值可为空**_
 #### HttpMethod: POST
 
 #### Form json data: 
+
 ```json
 {
   "agentHash" : null,
@@ -4696,11 +5496,39 @@ _**详细描述: 组装交易的StopDepositDto信息，可通过查询节点的�
 #### Example request data: 
 
 _**request path:**_
-略
+/api/consensus/multiSign/agent/stop/offline
 
 _**request form data:**_
-无
+
+```json
+{
+  "agentHash" : "52456e830fa389c72c4a71e4224db5aa869d0fbfd0cb2175096e6e5fb6a5c6ee",
+  "agentAddress" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+  "deposit" : 20000000000000,
+  "price" : 100000,
+  "depositList" : [ {
+    "depositHash" : "be5257bc0814cbda61378ff2afa81e98cae0018cd7d78b8d1ca9812c66d27e84",
+    "input" : {
+      "address" : "tNULSeBaNLp2p5hhAapaZz7AYXw6Ysw5t4Ph8M",
+      "assetChainId" : 2,
+      "assetId" : 1,
+      "amount" : 20000001000000
+    }
+  } ],
+  "pubKeys" : [ "026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f54", "03245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053" ],
+  "minSigns" : 2
+}
+```
 
 #### Example response data: 
-略
+
+```json
+{
+  "success" : true,
+  "data" : {
+    "txHex" : "0900119b775d002052456e830fa389c72c4a71e4224db5aa869d0fbfd0cb2175096e6e5fb6a5c6eefd160102170200038783e2c78cbe6aca9298f83952ea56518ec57730020001000040e59c3012000000000000000000000000000000000000000000000000000008096e6e5fb6a5c6eeff170200038783e2c78cbe6aca9298f83952ea56518ec57730020001004082f49c30120000000000000000000000000000000000000000000000000000081ca9812c66d27e84ff02170200038783e2c78cbe6aca9298f83952ea56518ec577300200010060b9e39c3012000000000000000000000000000000000000000000000000000021a9775d00000000170200038783e2c78cbe6aca9298f83952ea56518ec57730020001004082f49c30120000000000000000000000000000000000000000000000000000000000000000000046020221026f5ba56158da0b5ff545c1016ee2a00d9302fbcd6e0e3f3a8cacc8a3a6e19f542103245193eaef6f91de9444ffcc48c9944e140337ba1f855a1d6d2a98e3bf048053",
+    "hash" : "627595f90b7adb9772d1f816e64305f2d3895a9cb0d70cbbbd62c43bf2a7ac1b"
+  }
+}
+```
 
