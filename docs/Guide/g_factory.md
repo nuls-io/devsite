@@ -51,7 +51,7 @@ After submitting the order and paying for nuls, the system will start assembling
 
 2. Store the blockchain tar file(s), the Genesis file and the Seed file(s) in a safe location. If the user selects the Public-service module, you need to follow the steps to start the data service node, wallet and browser.
 
-3. The blockchain  runs on a linux server. The ports 18001-18006 must be open for:  communication with other nodes (18001), cross-chain (18002), public-service (18003), nuls-api(18004), NULS explorer (18005), and NULS web wallet (18006).
+3. The blockchain  runs on a linux server. The ports 8001-8006 must be open for:  communication with other nodes (8001), cross-chain (8002), public-service (8003), nuls-api(8004), NULS explorer (8005), and NULS web wallet (8006).
 
 4. The blockchain will not work as expected until the tokens contained in the address affiliated with the genesis block are unlocked.  THe lock is enabled in the Chain Factory "Configure Genesis Block" section. The file "GenesisAddressList.txt" contains the lock information.
 
