@@ -66,7 +66,7 @@ public static final int INVOKE_EXTERNAL_METHOD = 5000;//调用虚拟机外部方
 
 ### 1. 调试方式
 
-编写合约时，使用`emit(new DebugEvent("name", "desc"))`事件发送出来，合约发布到后，调用此合约方法，若执行成功，则合约执行结果中会展示debugEvent数据，若执行失败，则返回的错误数据中会展示debugEvent数据。
+编写合约时，使用`emit(new DebugEvent("name", "desc"))`事件发送出来，合约发布后，调用此合约方法，若执行成功，则合约执行结果中会展示debugEvent数据，若执行失败，则返回的错误数据中会展示debugEvent数据。
 
 <b style="color:red">注意：每一次调用合约，最多支持展示10个DebugEvent，超过的部分会被智能合约虚拟机忽略。</b>
 
