@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Linux CLI Manual | NULS</title>
+    <meta name="description" content="Make Blockchain Easy">
+    <link rel="icon" href="/favicon.ico">
+    
+    <link rel="preload" href="/assets/css/0.styles.601feec8.css" as="style"><link rel="preload" href="/assets/js/app.f00b83de.js" as="script"><link rel="preload" href="/assets/js/72.b5475832.js" as="script"><link rel="prefetch" href="/assets/js/10.6cafe7f4.js"><link rel="prefetch" href="/assets/js/100.4c9c486c.js"><link rel="prefetch" href="/assets/js/101.8e7e14c8.js"><link rel="prefetch" href="/assets/js/102.f0547c1e.js"><link rel="prefetch" href="/assets/js/103.695c17fe.js"><link rel="prefetch" href="/assets/js/104.a7e1b0bb.js"><link rel="prefetch" href="/assets/js/105.695f305a.js"><link rel="prefetch" href="/assets/js/106.674c16be.js"><link rel="prefetch" href="/assets/js/107.b8dbcd3f.js"><link rel="prefetch" href="/assets/js/108.028476d5.js"><link rel="prefetch" href="/assets/js/109.0d3dec8c.js"><link rel="prefetch" href="/assets/js/11.c9eddff5.js"><link rel="prefetch" href="/assets/js/110.9092ae63.js"><link rel="prefetch" href="/assets/js/111.f1872e9e.js"><link rel="prefetch" href="/assets/js/112.47f99419.js"><link rel="prefetch" href="/assets/js/113.88183084.js"><link rel="prefetch" href="/assets/js/114.f1ff7f83.js"><link rel="prefetch" href="/assets/js/12.f24ec7cb.js"><link rel="prefetch" href="/assets/js/13.50ae0a32.js"><link rel="prefetch" href="/assets/js/14.da6062fc.js"><link rel="prefetch" href="/assets/js/15.0b0b727d.js"><link rel="prefetch" href="/assets/js/16.851bd316.js"><link rel="prefetch" href="/assets/js/17.4defd703.js"><link rel="prefetch" href="/assets/js/18.ade67f0e.js"><link rel="prefetch" href="/assets/js/19.ae25d0b6.js"><link rel="prefetch" href="/assets/js/2.2f40cb47.js"><link rel="prefetch" href="/assets/js/20.de9f6dba.js"><link rel="prefetch" href="/assets/js/21.af5955e2.js"><link rel="prefetch" href="/assets/js/22.27d5f0c0.js"><link rel="prefetch" href="/assets/js/23.fddb4c61.js"><link rel="prefetch" href="/assets/js/24.28997177.js"><link rel="prefetch" href="/assets/js/25.6ea36978.js"><link rel="prefetch" href="/assets/js/26.e4966e3e.js"><link rel="prefetch" href="/assets/js/27.c694ae30.js"><link rel="prefetch" href="/assets/js/28.2f81d02c.js"><link rel="prefetch" href="/assets/js/29.43c2c1fd.js"><link rel="prefetch" href="/assets/js/3.d318997a.js"><link rel="prefetch" href="/assets/js/30.21724678.js"><link rel="prefetch" href="/assets/js/31.e7aaac58.js"><link rel="prefetch" href="/assets/js/32.1c126e41.js"><link rel="prefetch" href="/assets/js/33.bc3657cf.js"><link rel="prefetch" href="/assets/js/34.d3df8e15.js"><link rel="prefetch" href="/assets/js/35.b1d3bb10.js"><link rel="prefetch" href="/assets/js/36.1afb169c.js"><link rel="prefetch" href="/assets/js/37.59a52920.js"><link rel="prefetch" href="/assets/js/38.13b0714d.js"><link rel="prefetch" href="/assets/js/39.73fa9b6d.js"><link rel="prefetch" href="/assets/js/4.4524cad9.js"><link rel="prefetch" href="/assets/js/40.07d90d54.js"><link rel="prefetch" href="/assets/js/41.05a855b2.js"><link rel="prefetch" href="/assets/js/42.6bcbfd37.js"><link rel="prefetch" href="/assets/js/43.94a74a34.js"><link rel="prefetch" href="/assets/js/44.38d54a0c.js"><link rel="prefetch" href="/assets/js/45.b883f19c.js"><link rel="prefetch" href="/assets/js/46.c929929a.js"><link rel="prefetch" href="/assets/js/47.8449477e.js"><link rel="prefetch" href="/assets/js/48.9e6390c3.js"><link rel="prefetch" href="/assets/js/49.48cb6900.js"><link rel="prefetch" href="/assets/js/5.d6614500.js"><link rel="prefetch" href="/assets/js/50.30b371bb.js"><link rel="prefetch" href="/assets/js/51.6bd3bbd9.js"><link rel="prefetch" href="/assets/js/52.639cd656.js"><link rel="prefetch" href="/assets/js/53.a42904b5.js"><link rel="prefetch" href="/assets/js/54.53e83451.js"><link rel="prefetch" href="/assets/js/55.95ad8217.js"><link rel="prefetch" href="/assets/js/56.7e28d450.js"><link rel="prefetch" href="/assets/js/57.f4f0c130.js"><link rel="prefetch" href="/assets/js/58.201e2d2a.js"><link rel="prefetch" href="/assets/js/59.1eef784a.js"><link rel="prefetch" href="/assets/js/6.5f140ffd.js"><link rel="prefetch" href="/assets/js/60.d21d7a19.js"><link rel="prefetch" href="/assets/js/61.899d2b26.js"><link rel="prefetch" href="/assets/js/62.de7dfba3.js"><link rel="prefetch" href="/assets/js/63.17c04c58.js"><link rel="prefetch" href="/assets/js/64.cc40636a.js"><link rel="prefetch" href="/assets/js/65.78db2ce5.js"><link rel="prefetch" href="/assets/js/66.3ff0d397.js"><link rel="prefetch" href="/assets/js/67.f81a7900.js"><link rel="prefetch" href="/assets/js/68.5919b786.js"><link rel="prefetch" href="/assets/js/69.9adea1cb.js"><link rel="prefetch" href="/assets/js/7.ffe7f360.js"><link rel="prefetch" href="/assets/js/70.dfc327bd.js"><link rel="prefetch" href="/assets/js/71.73c9aec5.js"><link rel="prefetch" href="/assets/js/73.788f55ec.js"><link rel="prefetch" href="/assets/js/74.78029e34.js"><link rel="prefetch" href="/assets/js/75.46daf7d0.js"><link rel="prefetch" href="/assets/js/76.31da4965.js"><link rel="prefetch" href="/assets/js/77.04b9e148.js"><link rel="prefetch" href="/assets/js/78.164e407f.js"><link rel="prefetch" href="/assets/js/79.6a0b5462.js"><link rel="prefetch" href="/assets/js/8.1438221f.js"><link rel="prefetch" href="/assets/js/80.7944d8d6.js"><link rel="prefetch" href="/assets/js/81.06f33f90.js"><link rel="prefetch" href="/assets/js/82.04bec432.js"><link rel="prefetch" href="/assets/js/83.728aba62.js"><link rel="prefetch" href="/assets/js/84.49a61d8f.js"><link rel="prefetch" href="/assets/js/85.3af69a6c.js"><link rel="prefetch" href="/assets/js/86.3c6f9978.js"><link rel="prefetch" href="/assets/js/87.6cd00d7b.js"><link rel="prefetch" href="/assets/js/88.771db388.js"><link rel="prefetch" href="/assets/js/89.7c3523d7.js"><link rel="prefetch" href="/assets/js/9.a6746dc1.js"><link rel="prefetch" href="/assets/js/90.e5908cc2.js"><link rel="prefetch" href="/assets/js/91.71038246.js"><link rel="prefetch" href="/assets/js/92.fd34a629.js"><link rel="prefetch" href="/assets/js/93.3b1992b1.js"><link rel="prefetch" href="/assets/js/94.d8b15962.js"><link rel="prefetch" href="/assets/js/95.29b03fc2.js"><link rel="prefetch" href="/assets/js/96.de9415de.js"><link rel="prefetch" href="/assets/js/97.67b007c5.js"><link rel="prefetch" href="/assets/js/98.5560f3ee.js"><link rel="prefetch" href="/assets/js/99.4ab06b06.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.601feec8.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><!----> <span class="site-name">NULS</span></a> <div class="links" style="max-width:nullpx;"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/Guide/" class="nav-link router-link-active">Guide</a></div><div class="nav-item"><a href="/Docs/" class="nav-link">Develop</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Guide/g_linux_tutorial.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">English</a></li><li class="dropdown-item"><!----> <a href="/zh/Guide/g_linux_tutorial.html" class="nav-link">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav></div></header> <div class="sidebar-mask"></div> <div class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/Guide/" class="nav-link router-link-active">Guide</a></div><div class="nav-item"><a href="/Docs/" class="nav-link">Develop</a></div><div class="nav-item"><div class="dropdown-wrapper"><a class="dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></a> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/Guide/g_linux_tutorial.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">English</a></li><li class="dropdown-item"><!----> <a href="/zh/Guide/g_linux_tutorial.html" class="nav-link">简体中文</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></nav>  <ul class="sidebar-links"><li><div class="sidebar-group first"><p class="sidebar-heading open"><span>Guide</span> <!----></p> <ul class="sidebar-group-items"><li><a href="/Guide/" aria-current="page" class="sidebar-link">What is NULS</a></li><li><a href="/Guide/g_quickstart.html" class="sidebar-link">Quick Start</a></li><li><a href="/Guide/g_transaction.html" class="sidebar-link">Trading guide for NULS</a></li><li><a href="/Guide/g_contribute.html" class="sidebar-link">How to contribute</a></li><li><a href="/Guide/g_create_node.html" class="sidebar-link">Create a node</a></li><li><a href="/Guide/g_upgrade_node.html" class="sidebar-link">Node Wallet Upgrade Guide</a></li><li><a href="/Guide/g_deploy_public_service.html" class="sidebar-link">Deploy the mainnet wallet containing public-service</a></li><li><a href="/Guide/g_pocm.html" class="sidebar-link">POCM Tutorial</a></li><li><a href="/Guide/g_governance.html" class="sidebar-link">Community Governance Tutorial</a></li><li><a href="/Guide/g_factory.html" class="sidebar-link">Chain Factory Tutorial</a></li><li><a href="/Guide/g_docker.html" class="sidebar-link">nuls-wallet v2.0.0 docker image</a></li><li><a href="/Guide/g_linux_tutorial.html" aria-current="page" class="active sidebar-link">Linux CLI Manual</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#introduction" class="sidebar-link">Introduction</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#version-history" class="sidebar-link">Version history</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#preparation" class="sidebar-link">Preparation</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#server-hardware-configuration" class="sidebar-link">Server hardware configuration</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#system-and-kernel-version" class="sidebar-link">System and kernel version</a></li></ul></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#get-started" class="sidebar-link">Get started</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#download" class="sidebar-link">Download</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#installation" class="sidebar-link">Installation</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#run" class="sidebar-link">Run</a></li></ul></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#use-wallet" class="sidebar-link">Use wallet</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#quick-start" class="sidebar-link">Quick start</a></li></ul></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#conventions" class="sidebar-link">Conventions</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#wallet-commands" class="sidebar-link">Wallet commands</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#help-command" class="sidebar-link">Help command</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#create-an-account" class="sidebar-link">Create an account</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#back-up-account" class="sidebar-link">Back up account</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#remove-account" class="sidebar-link">Remove account</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#modify-account-password" class="sidebar-link">Modify account password</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#set-alias" class="sidebar-link">Set alias</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#import-account-keystore" class="sidebar-link">Import account keystore</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#import-account-private-key" class="sidebar-link">Import account private key</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-account-information" class="sidebar-link">Query account information</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-account-list" class="sidebar-link">Query account list</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-account-s-private-key" class="sidebar-link">Query account's private key</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-account-balance" class="sidebar-link">Query account balance</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#transfer" class="sidebar-link">Transfer</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-transaction-details" class="sidebar-link">Query transaction details</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#transfer-using-account-alias" class="sidebar-link">Transfer using account alias</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#create-agent-node" class="sidebar-link">Create agent node</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#join-consensus-agent-node" class="sidebar-link">Join consensus (agent node)</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#cancel-consensus-cancel-agent" class="sidebar-link">Cancel consensus (cancel agent)</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#stop-agent" class="sidebar-link">Stop agent</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#get-header-information-of-the-latest-block" class="sidebar-link">Get header information of the latest block</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-block-header-information" class="sidebar-link">Query block header information</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#create-smart-contracts" class="sidebar-link">Create smart contracts</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#get-contract-basic-information" class="sidebar-link">Get contract basic information</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#invoke-smart-contracts" class="sidebar-link">Invoke smart contracts</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#delete-smart-contract" class="sidebar-link">Delete smart contract</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#call-the-contract-view-method" class="sidebar-link">Call the contract view method</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#transfer-money-to-the-contract-address" class="sidebar-link">Transfer money to the contract address</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#token-transfer" class="sidebar-link">token transfer</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#get-contract-transaction" class="sidebar-link">Get contract transaction</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#get-the-contract-execution-result" class="sidebar-link">Get the contract execution result</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#get-the-contract-constructor" class="sidebar-link">Get the contract constructor</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#gets-the-list-of-contracts-created-for-the-specified-account" class="sidebar-link">Gets the list of contracts created for the specified account</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-network-information" class="sidebar-link">Query network information</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-ip-s-of-network-nodes" class="sidebar-link">Query IP's of network nodes</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#register-the-parallel-chain-in-the-main-chain" class="sidebar-link">Register the Parallel Chain in the Main Chain</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-parallel-chain-registration-information" class="sidebar-link">Query Parallel Chain Registration Information</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#send-cross-chain-transaction" class="sidebar-link">Send Cross-chain Transaction</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#query-cross-chain-transaction-confirmation-status" class="sidebar-link">Query Cross-chain Transaction Confirmation Status</a></li><li class="sidebar-sub-header"><a href="/Guide/g_linux_tutorial.html#exit-the-wallet-cli" class="sidebar-link">Exit the wallet CLI</a></li></ul></li></ul></li><li><a href="/Guide/g_multi_sign_account.html" class="sidebar-link">Multi-signature account</a></li></ul></div></li></ul> </div> <div class="page"> <div class="content"><h1 id="linux-cli-manual"><a href="#linux-cli-manual" class="header-anchor">#</a> Linux CLI Manual</h1> <h2 id="introduction"><a href="#introduction" class="header-anchor">#</a> Introduction</h2> <p>This section is a guide for the use of the full node wallet for the Linux version, it will show how to create accounts, import accounts, transfer, and create nodes or stake, etc. It's assumed you have at least basic skills administering Linux operating systems which is the recommended system to create stable NULS nodes.</p> <h2 id="version-history"><a href="#version-history" class="header-anchor">#</a> Version history</h2> <table><thead><tr><th style="text-align:center">Versions</th> <th style="text-align:center">Date</th> <th style="text-align:center">Contents</th></tr></thead> <tbody><tr><td style="text-align:center">V0.9.0</td> <td style="text-align:center">2018-03-18</td> <td style="text-align:center">alpha</td></tr> <tr><td style="text-align:center">V0.9.1</td> <td style="text-align:center">2019-07-08</td> <td style="text-align:center">Beta</td></tr> <tr><td style="text-align:center">V1.0.0</td> <td style="text-align:center">2019-09-08</td> <td style="text-align:center">Mainnet</td></tr></tbody></table> <h2 id="preparation"><a href="#preparation" class="header-anchor">#</a> Preparation</h2> <h3 id="server-hardware-configuration"><a href="#server-hardware-configuration" class="header-anchor">#</a> Server hardware configuration</h3> <p><strong>Minimum requirements:</strong></p> <table><thead><tr><th style="text-align:center">CPU</th> <th style="text-align:center">Memory</th> <th style="text-align:center">Disk space</th> <th style="text-align:center">Bandwidth</th></tr></thead> <tbody><tr><td style="text-align:center">4-Core 3.0 GHz</td> <td style="text-align:center">16GB</td> <td style="text-align:center">128GB</td> <td style="text-align:center">20Mbps uplink</td></tr></tbody></table> <p><strong>Recommended requirements:</strong></p> <table><thead><tr><th style="text-align:center">CPU</th> <th style="text-align:center">Memory</th> <th style="text-align:center">Disk space</th> <th style="text-align:center">Bandwidth</th></tr></thead> <tbody><tr><td style="text-align:center">8-core 3.0 GHz</td> <td style="text-align:center">32GB</td> <td style="text-align:center">256GB</td> <td style="text-align:center">100Mbps uplink</td></tr></tbody></table> <h3 id="system-and-kernel-version"><a href="#system-and-kernel-version" class="header-anchor">#</a> System and kernel version</h3> <p><strong>Linux system</strong></p> <ul><li>CentOS 6, 7</li></ul> <p>The Linux kernel version is recommended to use 2.6.32 and above</p> <h2 id="get-started"><a href="#get-started" class="header-anchor">#</a> Get started</h2> <h3 id="download"><a href="#download" class="header-anchor">#</a> Download</h3> <ul><li>Access NULS official website for the latest version of full node wallet: http://nuls.io/wallet.com; GitHub link: https://github.com/nuls-io/nuls-wallet-release</li> <li>After entering the interface of <a href="http://nuls.io/wallet" target="_blank" rel="noopener noreferrer">NULS official wallet download<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a>, select Linux version. MEGA and Baidu Cloud Disk are available for your choice.</li></ul> <p>To download Beta wallet using a Linux system, you can type the following command:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>  <span class="token variable">$wget</span> http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.0/NULS-Wallet-linux64-beta1-main.tar.gz
+</code></pre></div><p>Note: the download address may be different if there are subsequent versions.</p> <h3 id="installation"><a href="#installation" class="header-anchor">#</a> Installation</h3> <ul><li>Extract the downloaded file in Linux:</li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code>  $ <span class="token function">tar</span> -zxf NULS-Wallet-linux64-beta1-main.tar.gz
+</code></pre></div><h3 id="run"><a href="#run" class="header-anchor">#</a> Run</h3> <ul><li>Enter the extracted directory and run the boot script to start the full node wallet</li></ul> <div class="language-shell extra-class"><pre class="language-shell"><code>  $ <span class="token builtin class-name">cd</span> NULS-Wallet-linux64-beta1
+  $ ./start
+</code></pre></div><h2 id="use-wallet"><a href="#use-wallet" class="header-anchor">#</a> Use wallet</h2> <h3 id="quick-start"><a href="#quick-start" class="header-anchor">#</a> Quick start</h3> <ul><li>After confirming that the wallet has been started, execute the command line program to operate the wallet.</li></ul> <p>Enter the cmdclient/1.0.0 directory and execute the following command:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>  $ <span class="token builtin class-name">cd</span> cmdclient/1.0.0
+  $ ./cmd.sh
+</code></pre></div><p>At this point, you can see the input prompt <code>nuls&gt;&gt;&gt;</code>, now you can directly type NULS commands to operate the wallet.
+For example, to create an account you should type the following command:</p> <div class="language-shell extra-class"><pre class="language-shell"><code>  nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> create
+  Please enter the new password<span class="token punctuation">(</span><span class="token number">8</span>-20 characters, the combination of letters and numbers<span class="token punctuation">)</span>.
+  Enter your password:*********
+  Please confirm new password:*********      
+  <span class="token punctuation">[</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span> <span class="token punctuation">]</span>
+</code></pre></div><p>Command <code>create</code> generates a single account, next enter your password and confirm the new password. If successful, the address of the account will be returned.</p> <h2 id="conventions"><a href="#conventions" class="header-anchor">#</a> Conventions</h2> <ul><li>Password rules: password length varies from 8 to 20 and must contain both letters and digits.</li> <li>Command parameter description:
+&lt; Parameter&gt; required parameter.
+[parameter] optional parameter.
+&quot; |&quot; means 'or' logical operator, namely you can choose either the previous parameter or the latter.</li></ul> <h2 id="wallet-commands"><a href="#wallet-commands" class="header-anchor">#</a> Wallet commands</h2> <h3 id="help-command"><a href="#help-command" class="header-anchor">#</a> Help command</h3> <p>Print all valid commands,</p> <ul><li><strong>command: help [-a]|[group]|[command]</strong></li></ul> <table><thead><tr><th style="text-align:left">Parameter</th> <th style="text-align:left">Description</th></tr></thead> <tbody><tr><td style="text-align:left">-a</td> <td style="text-align:left">format the printed command, optional</td></tr> <tr><td style="text-align:left">command</td> <td style="text-align:left">view instructions for the specific command</td></tr> <tr><td style="text-align:left">group</td> <td style="text-align:left">view all instructions for the commands in the specific command group</td></tr></tbody></table> <p>Return: help</p> <div class="language-json extra-class"><pre class="language-json"><code>getaccount &lt;address&gt; --get account information
+</code></pre></div><p>Return: help -a</p> <div class="language-json extra-class"><pre class="language-json"><code>getaccount &lt;address&gt; --get account information
+    OPTIONS<span class="token operator">:</span>
+    &lt;address&gt; the account address - Required
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span>
+nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span> -a
+nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span> account
+nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span> create
+</code></pre></div><h3 id="create-an-account"><a href="#create-an-account" class="header-anchor">#</a> Create an account</h3> <p>Create an account and return the set of account addresses</p> <ul><li><strong>command: create [number]</strong></li></ul> <table><thead><tr><th style="text-align:left">Parameter</th> <th style="text-align:left">Description</th></tr></thead> <tbody><tr><td style="text-align:left">[number] the number of accounts you want to create, optional</td> <td style="text-align:left"></td></tr></tbody></table> <p>When creating an account, you are required to enter the password for the account. A password must be set to ensure the security of the assets.</p> <p>Return: accounts set</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token string">&quot;tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4&quot;</span> <span class="token punctuation">]</span>
+
+</code></pre></div><p>Example</p> <p>Create a single account</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> create 
+Please enter the new password<span class="token punctuation">(</span><span class="token number">8</span>-20 characters, the combination of letters and numbers<span class="token punctuation">)</span>.
+Enter your new password:**********
+Please confirm new password:**********
+<span class="token punctuation">[</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span> <span class="token punctuation">]</span>
+
+</code></pre></div><p>Create multiple accounts at once</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; create 3
+Please enter the new password(8-20 characters, the combination of letters and numbers).
+Enter your new password:**********
+Please confirm new password:**********
+[ &quot;tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm&quot;, &quot;tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs&quot;, &quot;tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4&quot; ]
+
+</code></pre></div><h3 id="back-up-account"><a href="#back-up-account" class="header-anchor">#</a> Back up account</h3> <p>To back up an account, a file named as the account address with the extension .keystore is generated, which is the backup file for the account</p> <ul><li><strong>command: backup &lt;address&gt; [path]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr> <tr><td>[path]</td> <td>the directory where the generated backup file is included, current directory by default, optional</td></tr></tbody></table> <p>Return</p> <div class="language-shell extra-class"><pre class="language-shell"><code>The path to the backup <span class="token function">file</span> is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
+
+</code></pre></div><p>Example: backup an account with a password</p> <div class="language- extra-class"><pre class="language-text"><code>  shell
+  nuls&gt;&gt;&gt; backup tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm /home/nuls2/nuls-v2/NULS-Wallet-linux64-beta1
+  Please enter the password.
+  Enter your password:********
+  The path to the backup file is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
+
+</code></pre></div><h3 id="remove-account"><a href="#remove-account" class="header-anchor">#</a> Remove account</h3> <p>Enter the password to remove a local account based on the account address</p> <ul><li><strong>command: remove &lt;address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr></tbody></table> <p>Return</p> <div class="language-json extra-class"><pre class="language-json"><code>Success
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> remove tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs
+Please enter the password.
+Enter your password:********
+Success
+
+</code></pre></div><h3 id="modify-account-password"><a href="#modify-account-password" class="header-anchor">#</a> Modify account password</h3> <p>Set a new password according to the account address and password.</p> <ul><li><strong>command：resetpwd &lt;address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr></tbody></table> <p>Return</p> <div class="language-json extra-class"><pre class="language-json"><code>Success
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> resetpwd tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4
+Enter your old password:********
+Enter new password*********
+Please confirm new password:*********
+
+</code></pre></div><h3 id="set-alias"><a href="#set-alias" class="header-anchor">#</a> Set alias</h3> <p>Set an alias to the account. If a node is created with this account, its alias will be displayed as the node source</p> <ul><li><strong>command: setalias &lt;address&gt; &lt;alias&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr> <tr><td>&lt;alias&gt;</td> <td>alias name, required</td></tr></tbody></table> <p>Return: transaction hash</p> <div class="language-json extra-class"><pre class="language-json"><code>txHash<span class="token operator">:</span>0020f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d&quot;
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> setalias tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 nuls
+Enter your account password**********
+txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
+
+</code></pre></div><h3 id="import-account-keystore"><a href="#import-account-keystore" class="header-anchor">#</a> Import account keystore</h3> <p>Import the account keystore file to recover a local account. The operation is not executed if the local account already exists locally.</p> <ul><li><strong>command: importkeystore &lt;path&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;path&gt;</td> <td>path of the keystore file to be imported, required</td></tr></tbody></table> <p>Note: the original password is required to import the keystore file and recover the account</p> <p>Return: address of the imported account</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>importkeystore /home/nuls2/nuls-v2/tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8.keystore
+Please enter the password <span class="token punctuation">(</span>password is between <span class="token number">8</span> and <span class="token number">20</span> inclusive of numbers and letters<span class="token punctuation">)</span>, If you <span class="token keyword">do</span> not want to <span class="token builtin class-name">set</span> a password, <span class="token builtin class-name">return</span> directly.
+Enter your password:**********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+
+</code></pre></div><h3 id="import-account-private-key"><a href="#import-account-private-key" class="header-anchor">#</a> Import account private key</h3> <p>Import the account private key to generate a local account, overwritten if the local account already exists. You are required to set a password for the account when importing. This function can be used to retrieve the account through the private key if you forget the account password.</p> <ul><li><strong>command: import &lt;privatekey&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;privatekey&gt;</td> <td>account's private key, required</td></tr></tbody></table> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;NsdyM1Ls5qw8wutvAQsr93jxgq8qYAZy&quot;</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token function">import</span> 74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
+Please enter the password <span class="token punctuation">(</span>password is between <span class="token number">8</span> and <span class="token number">20</span> inclusive of numbers and letters<span class="token punctuation">)</span>, If you <span class="token keyword">do</span> not want to <span class="token builtin class-name">set</span> a password, <span class="token builtin class-name">return</span> directly.
+Enter your password:********
+Please confirm new password:********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+
+</code></pre></div><h3 id="query-account-information"><a href="#query-account-information" class="header-anchor">#</a> Query account information</h3> <p>Query account information with the account address</p> <ul><li><strong>command: getaccount &lt;address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th style="text-align:left">Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td style="text-align:left">account address, required</td></tr></tbody></table> <p>Return</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;</span><span class="token punctuation">,</span>  <span class="token comment">// the encrypted private key</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;zlj&quot;</span><span class="token punctuation">,</span>  <span class="token comment">// alias</span>
+  <span class="token property">&quot;balance&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>  
+    <span class="token property">&quot;freeze&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>   <span class="token comment">// frozen assets </span>
+    <span class="token property">&quot;total&quot;</span> <span class="token operator">:</span> <span class="token number">997999999800000</span><span class="token punctuation">,</span>     <span class="token comment">// total assets</span>
+    <span class="token property">&quot;available&quot;</span> <span class="token operator">:</span> <span class="token number">997999999800000</span>  <span class="token comment">// usable assets </span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;</span><span class="token punctuation">,</span>  <span class="token comment">// account address</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;</span> <span class="token comment">//public key</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;</span>,  //encrypted private key 
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;zlj&quot;</span>,  //alias
+  <span class="token string">&quot;balance&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">{</span>  
+    <span class="token string">&quot;freeze&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,   // frozen assets
+    <span class="token string">&quot;total&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">997999999800000</span>,     // total assets
+    <span class="token string">&quot;available&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">997999999800000</span>  // usable assets
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;</span>,  // account address
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;</span> // encrypted public key 
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="query-account-list"><a href="#query-account-list" class="header-anchor">#</a> Query account list</h3> <p>Query the account list with the paging parameters and return all accounts in descending order by creation time.</p> <ul><li><strong>command: getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;pageNumber&gt;</td> <td>page number indicating the page to query, required</td></tr> <tr><td>&lt;pageSize&gt;</td> <td>number of rows displayed per page, required</td></tr></tbody></table> <p>Return: accounts set</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//address</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>  <span class="token comment">//alias</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//public key</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;</span>  <span class="token comment">//private key</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0205a70731e7653eca328ba7d71f0a789f8cfb1ced32f5a00d4fc3fb2ad8b9f7c1&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;e38d2dd08154a0eedf8298f5fe50b86723e521522f38aba5c68072bad365c3e8c57d7ac3ae83f8d646a17f845a38bc57&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;zlj&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;03021a46a7e5ea59ae8884340568e9e79511fbd352b4ba28db39f15856918cdbeb&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;bfbfdad874f74215e241ad15152d8648925c497b6a826965f5c06c46fd9b008313e6918ebcfcb56f2cdf8d1b9f088f77&quot;</span>
+<span class="token punctuation">}</span> <span class="token punctuation">]</span>
+
+</code></pre></div><p>Example: get all accounts list</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getaccounts
+<span class="token punctuation">[</span> <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu&quot;</span>,  //address
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,  //alias
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0211c45f28710cd26a2c45fb790895a0ff2e095a290f1825b31d80ebc30913c486&quot;</span>,  //encrypted public key
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;724d68268849f3680d480c9257f33229c0fac88890d5355c0e4d9c457af5c6e8b8f9f7ca9fd52fbd8079fbce1782052d&quot;</span>  //encrypted private key
+<span class="token punctuation">}</span>, <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;5MR_2CetN1KeWAVsaUsqD7JwMBwjGuRGpGW&quot;</span>,
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0205a70731e7653eca328ba7d71f0a789f8cfb1ced32f5a00d4fc3fb2ad8b9f7c1&quot;</span>,
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;e38d2dd08154a0eedf8298f5fe50b86723e521522f38aba5c68072bad365c3e8c57d7ac3ae83f8d646a17f845a38bc57&quot;</span>
+<span class="token punctuation">}</span>, <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9&quot;</span>,
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;zlj&quot;</span>,
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;03021a46a7e5ea59ae8884340568e9e79511fbd352b4ba28db39f15856918cdbeb&quot;</span>,
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;bfbfdad874f74215e241ad15152d8648925c497b6a826965f5c06c46fd9b008313e6918ebcfcb56f2cdf8d1b9f088f77&quot;</span>
+<span class="token punctuation">}</span> <span class="token punctuation">]</span>
+
+</code></pre></div><h3 id="query-account-s-private-key"><a href="#query-account-s-private-key" class="header-anchor">#</a> Query account's private key</h3> <p>Query the account’s private key with the account address and password</p> <ul><li><strong>command: getprikey &lt;address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr></tbody></table> <p>Return: the private key of the imported account (unencrypted)</p> <div class="language-json extra-class"><pre class="language-json"><code>00a166d10c2cc4cd8f76449ff699ab3eee44fe4f82b4bb866f7bba02751a6fd655
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getprikey 5MR_2CXrzwoCoP4vnUxHJ5gdUUXZJhCpjq9
+Enter your account password**********
+7b4d3ec971fc01ea813b52f6c35091d43beac4a68550bae2db63975149244678
+
+</code></pre></div><h3 id="query-account-balance"><a href="#query-account-balance" class="header-anchor">#</a> Query account balance</h3> <p>Query account balance with the account address</p> <ul><li><strong>command: getbalance &lt;address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr></tbody></table> <p>Return: the address of the imported account</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+<span class="token property">&quot;total&quot;</span><span class="token operator">:</span> <span class="token string">&quot;9999998.99&quot;</span><span class="token punctuation">,</span><span class="token comment">// balance</span>
+<span class="token property">&quot;freeze&quot;</span><span class="token operator">:</span> <span class="token string">&quot;0&quot;</span><span class="token punctuation">,</span> <span class="token comment">// locked balance</span>
+<span class="token property">&quot;available&quot;</span><span class="token operator">:</span> <span class="token string">&quot;9999998.99&quot;</span><span class="token comment">// usable balance</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getbalance Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;total&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;9999998.99&quot;</span>,
+  <span class="token string">&quot;freeze&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0&quot;</span>,
+  <span class="token string">&quot;available&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;9999998.99&quot;</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="transfer"><a href="#transfer" class="header-anchor">#</a> Transfer</h3> <p>Transfer NULS to the specific account with the account address</p> <ul><li><strong>command：transfer &lt;formAddress&gt;|&lt;formAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;fromAddress&gt;</td> <td>sender address(Select any item with the fromAlias)</td></tr> <tr><td>&lt;fromAlias&gt;</td> <td>sender address alias(Select any item with the fromAddress)</td></tr> <tr><td>&lt;toAddress&gt;</td> <td>receiver address(Select any item with the toAlias)</td></tr> <tr><td>&lt;toAlias&gt;</td> <td>receiver address(Select any item with the toAddress)</td></tr> <tr><td>&lt;amount&gt;</td> <td>transfer amount, required</td></tr> <tr><td>[remark]</td> <td>remark, optional</td></tr></tbody></table> <p>Return: transfer transaction hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596&quot;</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> transfer Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T <span class="token number">100</span> transfer
+Please enter the password.
+Enter your password: *********
+<span class="token string">&quot;00200bef73ad728c48146c8a5eb0d76fe7325b85803c61d8357c16dba09ea33b3596&quot;</span>
+
+</code></pre></div><h3 id="query-transaction-details"><a href="#query-transaction-details" class="header-anchor">#</a> Query transaction details</h3> <p>Query the transaction details with the transaction hash</p> <ul><li><strong>command: gettx &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>transaction hash, optional</td></tr></tbody></table> <p>Return: transaction details</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>  <span class="token comment">//transaction type (refer to the table below for Enumeration type description [Enumeration type])</span>
+  <span class="token property">&quot;coinData&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;ARc5MAGYBT3XNVp+BIuhGvGcejuTev8DODkwAQCgZ/cFAAAAAAAAAAAAAAAACO/WnDT4pvmsAAEXOTABL/80LO1f8vxvfNXc5l9eeIDTGKM5MAEAAOH1BQAAAAAAAAAAAAAAAAA=&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;txData&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token number">1552979783918</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;transactionSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;IQIRxF8ocQzSaixF+3kIlaD/LglaKQ8YJbMdgOvDCRPEhgBGMEQCICdnNr3HqEg/UZZ6RLBHyGuPChoLdMtcOHXT3Xlb5SC3AiBGAWSPGH3yjtEkaVbLsI5n9UcqDvOfG3Ui1jf672IDCg==&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;remark&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;6L2s6LSm&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;digestAlgType&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;digestBytes&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CivAIHpVyqNr/h87/FWk7vXsXqBekHJ+3kQc5mZp+H8=&quot;</span><span class="token punctuation">,</span> 
+    <span class="token property">&quot;digestHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f&quot;</span> 
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockHeight&quot;</span> <span class="token operator">:</span> <span class="token number">341</span><span class="token punctuation">,</span>   <span class="token comment">//block height</span>
+  <span class="token property">&quot;status&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CONFIRMED&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//confirmation state</span>
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">225</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;inBlockIndex&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;coinDataInstance&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>  
+    <span class="token property">&quot;from&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;OTABmAU91zVafgSLoRrxnHo7k3r/Azg=&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsChainId&quot;</span> <span class="token operator">:</span> <span class="token number">12345</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsId&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;amount&quot;</span> <span class="token operator">:</span> <span class="token number">100100000</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;nonce&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;79acNPim+aw=&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;locked&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;to&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;OTABL/80LO1f8vxvfNXc5l9eeIDTGKM=&quot;</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsChainId&quot;</span> <span class="token operator">:</span> <span class="token number">12345</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;assetsId&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;amount&quot;</span> <span class="token operator">:</span> <span class="token number">100000000</span><span class="token punctuation">,</span>
+      <span class="token property">&quot;lockTime&quot;</span> <span class="token operator">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;fee&quot;</span> <span class="token operator">:</span> <span class="token number">100000</span><span class="token punctuation">,</span>  <span class="token comment">//fee</span>
+  <span class="token property">&quot;multiSignTx&quot;</span> <span class="token operator">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><p>Example: query transfer transaction</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> gettx 00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;type&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">2</span>,  //transaction <span class="token builtin class-name">type</span> <span class="token punctuation">(</span>refer to the table below <span class="token keyword">for</span> Enumeration <span class="token builtin class-name">type</span> description <span class="token punctuation">[</span>Enumeration type<span class="token punctuation">]</span><span class="token punctuation">)</span>
+  <span class="token string">&quot;coinData&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;ARc5MAGYBT3XNVp+BIuhGvGcejuTev8DODkwAQCgZ/cFAAAAAAAAAAAAAAAACO/WnDT4pvmsAAEXOTABL/80LO1f8vxvfNXc5l9eeIDTGKM5MAEAAOH1BQAAAAAAAAAAAAAAAAA=&quot;</span>,
+  <span class="token string">&quot;txData&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;time&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1552979783918</span>,
+  <span class="token string">&quot;transactionSignature&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;IQIRxF8ocQzSaixF+3kIlaD/LglaKQ8YJbMdgOvDCRPEhgBGMEQCICdnNr3HqEg/UZZ6RLBHyGuPChoLdMtcOHXT3Xlb5SC3AiBGAWSPGH3yjtEkaVbLsI5n9UcqDvOfG3Ui1jf672IDCg==&quot;</span>,
+  <span class="token string">&quot;remark&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;6L2s6LSm&quot;</span>,
+  <span class="token string">&quot;hash&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;digestAlgType&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+    <span class="token string">&quot;digestBytes&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;CivAIHpVyqNr/h87/FWk7vXsXqBekHJ+3kQc5mZp+H8=&quot;</span>, 
+    <span class="token string">&quot;digestHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f87f&quot;</span> 
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;blockHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">341</span>,   //block height
+  <span class="token string">&quot;status&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;CONFIRMED&quot;</span>,  //confirmation state
+  <span class="token string">&quot;size&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">225</span>,
+  <span class="token string">&quot;inBlockIndex&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;coinDataInstance&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">{</span>  
+    <span class="token string">&quot;from&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;OTABmAU91zVafgSLoRrxnHo7k3r/Azg=&quot;</span>,
+      <span class="token string">&quot;assetsChainId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">12345</span>,
+      <span class="token string">&quot;assetsId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+      <span class="token string">&quot;amount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100100000</span>,
+      <span class="token string">&quot;nonce&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;79acNPim+aw=&quot;</span>,
+      <span class="token string">&quot;locked&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span>,
+    <span class="token string">&quot;to&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+      <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;OTABL/80LO1f8vxvfNXc5l9eeIDTGKM=&quot;</span>,
+      <span class="token string">&quot;assetsChainId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">12345</span>,
+      <span class="token string">&quot;assetsId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+      <span class="token string">&quot;amount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100000000</span>,
+      <span class="token string">&quot;lockTime&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>
+    <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;fee&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100000</span>,  //fee
+  <span class="token string">&quot;multiSignTx&quot;</span> <span class="token builtin class-name">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h4 id="enumeration-type-description"><a href="#enumeration-type-description" class="header-anchor">#</a> Enumeration type description</h4> <div class="language- extra-class"><pre class="language-text"><code>/** coinbase transaction*/
+    int TX_TYPE_COINBASE = 1;
+    /** transfer */
+    int TX_TYPE_TRANSFER = 2;
+    /** set alias */
+    int TX_TYPE_ALIAS = 3;
+    /** create consensus node */
+    int TX_TYPE_REGISTER_AGENT = 4;
+    /** agent (join consensus) */
+    int TX_TYPE_JOIN_CONSENSUS = 5;
+    /** cancel agent (cancel consensus)*/
+    int TX_TYPE_CANCEL_DEPOSIT = 6;
+    /** yellow punish */
+    int TX_TYPE_YELLOW_PUNISH = 7;
+    /** red punish */
+    int TX_TYPE_RED_PUNISH = 8;
+    /** stop node (stop consensus node)*/
+    int TX_TYPE_STOP_AGENT = 9;
+    /** cross-chain transfer */
+    int TX_TYPE_CROSS_CHAIN_TRANSFER = 10;
+    /** register chain */
+    int TX_TYPE_REGISTER_CHAIN_AND_ASSET = 11;
+    /** destroy chain*/
+    int TX_TYPE_DESTROY_CHAIN_AND_ASSET = 12;
+    /** add asset to chain*/
+    int TX_TYPE_ADD_ASSET_TO_CHAIN = 13;
+    /** remove asset from chain*/
+    int TX_TYPE_REMOVE_ASSET_FROM_CHAIN = 14;
+    /** create contract */
+    int TX_TYPE_CREATE_CONTRACT = 100;
+    /** call contract */
+    int TX_TYPE_CALL_CONTRACT = 101;
+    /** delete contract*/
+    int TX_TYPE_DELETE_CONTRACT = 102;
+
+</code></pre></div><h3 id="transfer-using-account-alias"><a href="#transfer-using-account-alias" class="header-anchor">#</a> Transfer using account alias</h3> <p>Transfer to an external address with an account alias</p> <ul><li><strong>command: transfer &lt;address&gt; &lt;toAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>sender address, required</td></tr> <tr><td>&lt;toAddress&gt;</td> <td>receiver address, required</td></tr> <tr><td>&lt;amount&gt;</td> <td>transfer amount, required</td></tr> <tr><td>[remark]</td> <td>remark, optional</td></tr></tbody></table> <p>Return: transaction hash</p> <div class="language- extra-class"><pre class="language-text"><code>00205315329f62824b3fae1675ef9419ae7dd097d6609d61df4b1345f9481f7c8be3
+
+</code></pre></div><p>Example: transfer 10,000 NULS to external address through alias &quot;zlj&quot;</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; transfer zlj 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu 10000
+Enter your account password**********
+00205315329f62824b3fae1675ef9419ae7dd097d6609d61df4b1345f9481f7c8be3
+
+</code></pre></div><h3 id="create-agent-node"><a href="#create-agent-node" class="header-anchor">#</a> Create agent node</h3> <p>To create an agent node, two addresses are required, the first one is the node address, on which you need to provide the password for the node account, the other is the package address, and no password is required. Meanwhile, you’re required to offer no less than 20,000 NULS as a deposit.</p> <ul><li><strong>command: createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;agentAddress&gt;</td> <td>account address to create a node, required</td></tr> <tr><td>&lt;packingAddress&gt;</td> <td>account address of the packaging node, required (note: the account should be password-less, otherwise the node cannot package to generate blocks)</td></tr> <tr><td>&lt;commissionRate&gt;</td> <td>agent commission ratio with a range from 10 to 100, required</td></tr> <tr><td>&lt;deposit&gt;</td> <td>deposit to create a node, no less than 20000 NULS, required</td></tr></tbody></table> <p>Return: agent hash of the node</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e&quot;</span>
+
+</code></pre></div><p>Example: create a node with a commission rate of 10% and a deposit of 20,000 NULS.</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> createagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT NsdvAnqc8oEiNiGgcp6pEusfiRFZi4vt <span class="token number">10</span> <span class="token number">20000</span>
+Please enter the password.
+Enter your password: **********
+<span class="token string">&quot;002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e&quot;</span>
+
+</code></pre></div><h3 id="join-consensus-agent-node"><a href="#join-consensus-agent-node" class="header-anchor">#</a> Join consensus (agent node)</h3> <p>Join consensus by account address and node agentHash, which requires at least 2,000NULS</p> <ul><li><strong>command: deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr> <tr><td>&lt;agentHash&gt;</td> <td>agentHash of the node, optional</td></tr> <tr><td>&lt;deposit&gt;</td> <td>deposit required to join consensus, no less than 2000NULS, required</td></tr></tbody></table> <p>Return: the hash of the transaction to join consensus, which is needed to cancel the consensus.</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0&quot;</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219b112d4fdb8530db5506ee953b6f65a0fdb55e <span class="token number">5000</span>
+<span class="token string">&quot;0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0&quot;</span>
+
+</code></pre></div><h3 id="cancel-consensus-cancel-agent"><a href="#cancel-consensus-cancel-agent" class="header-anchor">#</a> Cancel consensus (cancel agent)</h3> <p>Cancel consensus (agent) according to the account address and the hash of the transaction generated when joining the consensus. When a single account joins consensus on agent nodes multiple times, each agent transaction is independent, so to cancel consensus, the agent can only be canceled by the corresponding transaction hash of the single agent, rather than cancel all the agents at one time.</p> <ul><li><strong>command: withdraw &lt;address&gt; &lt;txHash&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr> <tr><td>&lt;txHash&gt;</td> <td>hash of the agent transaction, required</td></tr></tbody></table> <p>Return: transaction hash used to cancel consensus</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf&quot;</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d9ac76341afa6e1fb4d3857353a5adc74ba3fd0
+<span class="token string">&quot;00201d70ac37b53d41c0e813ad245fc42e1d3a5d174d9148fbbbaed3c18d4d67bdbf&quot;</span>
+
+</code></pre></div><h3 id="stop-agent"><a href="#stop-agent" class="header-anchor">#</a> Stop agent</h3> <p>Stop the node, all NULS delegated to the node will be refunded, and the deposit of the node creator will be locked for 72 hours.</p> <ul><li><strong>command: stopagent &lt;address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>account address, required</td></tr></tbody></table> <p>Return: transaction hash to stop a node</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f&quot;</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> stopagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
+Please enter the password.
+Enter your password:**********
+<span class="token string">&quot;0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f&quot;</span>
+
+</code></pre></div><h3 id="get-header-information-of-the-latest-block"><a href="#get-header-information-of-the-latest-block" class="header-anchor">#</a> Get header information of the latest block</h3> <p>Get the latest block header’s information</p> <ul><li><strong>command: getbestblockheader</strong></li></ul> <p>Return</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//block hash</span>
+  <span class="token property">&quot;preHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//previous block hash </span>
+  <span class="token property">&quot;merkleHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//merkle hash</span>
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:20.020&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//packing time</span>
+  <span class="token property">&quot;height&quot;</span> <span class="token operator">:</span> <span class="token number">1479</span><span class="token punctuation">,</span> <span class="token comment">//block height </span>
+  <span class="token property">&quot;txCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>   <span class="token comment">// number of transactions included in the block </span>
+  <span class="token property">&quot;blockSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;</span><span class="token punctuation">,</span> <span class="token comment">//block singnature </span>
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">//block size </span>
+  <span class="token property">&quot;packingAddress&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>  <span class="token comment">// packing address</span>
+  <span class="token property">&quot;roundIndex&quot;</span> <span class="token operator">:</span> <span class="token number">155299118</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;consensusMemberCount&quot;</span> <span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;roundStartTime&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:10.010&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;packingIndexOfRound&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;mainVersion&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockVersion&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;stateRoot&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getbestblockheader
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;hash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;</span>,
+  <span class="token string">&quot;preHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;</span>,
+  <span class="token string">&quot;merkleHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;</span>,
+  <span class="token string">&quot;time&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2019-03-19 18:26:20.020&quot;</span>,
+  <span class="token string">&quot;height&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1479</span>,
+  <span class="token string">&quot;txCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;blockSignature&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;</span>,
+  <span class="token string">&quot;size&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;packingAddress&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;roundIndex&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">155299118</span>,
+  <span class="token string">&quot;consensusMemberCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100</span>,
+  <span class="token string">&quot;roundStartTime&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2019-03-19 18:26:10.010&quot;</span>,
+  <span class="token string">&quot;packingIndexOfRound&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;mainVersion&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;blockVersion&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;stateRoot&quot;</span> <span class="token builtin class-name">:</span> null
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="query-block-header-information"><a href="#query-block-header-information" class="header-anchor">#</a> Query block header information</h3> <p>Query block information with either a block height or a block hash.</p> <ul><li><strong>command: getblock &lt;hash&gt; | &lt;height&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>block hash</td></tr> <tr><td>&lt;height&gt;</td> <td>block height</td></tr></tbody></table> <p>Return</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//block hash</span>
+  <span class="token property">&quot;preHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//previous block hash</span>
+  <span class="token property">&quot;merkleHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//merkle hash</span>
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:20.020&quot;</span><span class="token punctuation">,</span>  <span class="token comment">//packing time </span>
+  <span class="token property">&quot;height&quot;</span> <span class="token operator">:</span> <span class="token number">1479</span><span class="token punctuation">,</span> <span class="token comment">//block height </span>
+  <span class="token property">&quot;txCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>   <span class="token comment">// number of transactions included in the block</span>
+  <span class="token property">&quot;blockSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;</span><span class="token punctuation">,</span> <span class="token comment">//block signature </span>
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token comment">//block size </span>
+  <span class="token property">&quot;packingAddress&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>  <span class="token comment">//packing address </span>
+  <span class="token property">&quot;roundIndex&quot;</span> <span class="token operator">:</span> <span class="token number">155299118</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;consensusMemberCount&quot;</span> <span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;roundStartTime&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-03-19 18:26:10.010&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;packingIndexOfRound&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> 
+  <span class="token property">&quot;mainVersion&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockVersion&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;stateRoot&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><p>Example: get block with block height</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getblock <span class="token number">28115</span>
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;hash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020b446a0244e4e46f8736f1ab56c33616facb836bc8344367f2f048b703f0c8f57&quot;</span>,  //block <span class="token builtin class-name">hash</span>
+  <span class="token string">&quot;preHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020c0dcf9209f66ee7e7778c817ba7c04d67b5e6a056b42dec7fbfe44eb5f91bdfc&quot;</span>,  //previous block <span class="token builtin class-name">hash</span>
+  <span class="token string">&quot;merkleHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;00200511ced5779c54aa2170b941a1f9a7ae08dfd009b1dfaacc3679d15da9fb9c3e&quot;</span>,  //merkle <span class="token builtin class-name">hash</span>
+  <span class="token string">&quot;time&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2019-03-19 18:26:20.020&quot;</span>,  //packing <span class="token function">time</span> 
+  <span class="token string">&quot;height&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1479</span>, //block height 
+  <span class="token string">&quot;txCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,   // number of transactions included <span class="token keyword">in</span> the block
+  <span class="token string">&quot;blockSignature&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;00473045022100b1a07f6da3d4ce46cab278967d76875483527e3fc749a460afdf0c375f2ec2ae022053e40e8b4d8bf4e571284e45f18c46c31163ed640a2328f3ba90ac7708808365&quot;</span>, //block signature 
+  <span class="token string">&quot;size&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>, //block size 
+  <span class="token string">&quot;packingAddress&quot;</span> <span class="token builtin class-name">:</span> null,  //packing address 
+  <span class="token string">&quot;roundIndex&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">155299118</span>, 
+  <span class="token string">&quot;consensusMemberCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100</span>,
+  <span class="token string">&quot;roundStartTime&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2019-03-19 18:26:10.010&quot;</span>,
+  <span class="token string">&quot;packingIndexOfRound&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>, 
+  <span class="token string">&quot;mainVersion&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;blockVersion&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;stateRoot&quot;</span> <span class="token builtin class-name">:</span> null
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="create-smart-contracts"><a href="#create-smart-contracts" class="header-anchor">#</a> Create smart contracts</h3> <p>This interface is called to create a smart contract on the chain</p> <ul><li><strong>command：createcontract &lt;sender&gt; &lt;gaslimt&gt; &lt;price&gt; &lt;contractCode&gt; [remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;sender&gt;</td> <td>Create the account address for the smart contract</td></tr> <tr><td>&lt;gaslimt&gt;</td> <td>Consumes of the gas for creating the contract</td></tr> <tr><td>&lt;price&gt;</td> <td>Unit price, how much Na is each Gas value.Na is the minimum unit for NULS, 1 NULS = 100 million Na, and the minimum unit price of the system is 25Na/Gas</td></tr> <tr><td>&lt;contractCode&gt;</td> <td>Hex code of the contract code</td></tr> <tr><td>[remark]</td> <td>remark</td></tr></tbody></table> <p>Returns the transaction hash for which the contract was created and the address of the contract</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;txHash&quot; : &quot;00205fb44fd0924a57857e71d06ec0549366b5d879b2cbd68488ed88a2dbf96c130f&quot;,  //transaction hash
+  &quot;contractAddress&quot; : &quot;tNULSeBaN6ofkEqsPJmWVaeMpENTgmC5ifWtz9&quot; //contract address
+}
+
+</code></pre></div><p>The example creates a contract (contractCode omits the middle)</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; createcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 504b03040a........000000800080051020000b31600000000 remarkdemo
+The arguments structure: 
+[ {
+  &quot;type&quot; : &quot;String&quot;,
+  &quot;name&quot; : &quot;name&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;String&quot;,
+  &quot;name&quot; : &quot;symbol&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;BigInteger&quot;,
+  &quot;name&quot; : &quot;initialAmount&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;int&quot;,
+  &quot;name&quot; : &quot;decimals&quot;,
+  &quot;required&quot; : true
+} ]
+Please enter the arguments you want to fill in according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;).
+Enter the arguments:&quot;KQB&quot;,&quot;KQB&quot;,10000,2
+{
+  &quot;txHash&quot; : &quot;0020ec1d68eaed63e2db8649b0a39f16b7c5af24f86b787233f6ba6d577d7d090587&quot;,
+  &quot;contractAddress&quot; : &quot;tNULSeBaNBYK9MQcWWbfgFTHj2U4j8KQGDzzuK&quot;
+}
+
+</code></pre></div><h3 id="get-contract-basic-information"><a href="#get-contract-basic-information" class="header-anchor">#</a> Get contract basic information</h3> <p>Gets the description of the smart contract and the argument list of the constructor and the calling method</p> <ul><li><strong>command：getcontractinfo &lt;contract address&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;contract address&gt;</td> <td>contract address</td></tr></tbody></table> <p>Return</p> <div class="language- extra-class"><pre class="language-text"><code>Skip
+
+</code></pre></div><p>example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+{
+  &quot;createTxHash&quot; : &quot;00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f&quot;,
+  &quot;address&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;creater&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+  &quot;createTime&quot; : 1553563706022,
+  &quot;blockHeight&quot; : 46,
+  &quot;isNrc20&quot; : true,
+  &quot;nrc20TokenName&quot; : &quot;QKB&quot;,
+  &quot;nrc20TokenSymbol&quot; : &quot;QKB&quot;,
+  &quot;decimals&quot; : 2,
+  &quot;totalSupply&quot; : &quot;200000000&quot;,
+  &quot;status&quot; : &quot;normal&quot;,
+  &quot;method&quot; : [ {
+    &quot;name&quot; : &quot;&lt;init&gt;&quot;,
+    &quot;desc&quot; : &quot;(String name, String symbol, BigInteger initialAmount, int decimals) return void&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;name&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;symbol&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;initialAmount&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;int&quot;,
+      &quot;name&quot; : &quot;decimals&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;void&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  }，{
+    &quot;name&quot; : &quot;transfer&quot;,
+    &quot;desc&quot; : &quot;(Address to, BigInteger value) return boolean&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;Address&quot;,
+      &quot;name&quot; : &quot;to&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;value&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;boolean&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  }]
+}
+
+
+</code></pre></div><h3 id="invoke-smart-contracts"><a href="#invoke-smart-contracts" class="header-anchor">#</a> Invoke smart contracts</h3> <p>Call the functions provided by the smart contract</p> <ul><li><strong>command：callcontract &lt;sender&gt; &lt;gasLimit&gt; &lt;price&gt; &lt;contractAddress&gt; &lt;methodName&gt; &lt;value&gt; [-d methodDesc] [-r remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>The account address invoking the contract</td></tr> <tr><td>&lt;gasLimit&gt;</td> <td>The maximum amount of Gas that the contract is allowed to consume</td></tr> <tr><td>&lt;price&gt;</td> <td>Unit price, how much Na is each Gas value.Na is the minimum unit for NULS, 1 NULS = 100 million Na, and the minimum unit price of the system is 25Na/Gas</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>The contract address of the call</td></tr> <tr><td>&lt;methodName&gt;</td> <td>The method name of the contract</td></tr> <tr><td>&lt;value&gt;</td> <td>If a transfer is to be made to the contract, the amount of the transfer</td></tr> <tr><td>[-d methodDesc]</td> <td>Use this method to describe the parameter list if there is a method with the same name in the contract</td></tr> <tr><td>[-r remark]</td> <td>remark</td></tr></tbody></table> <p>Returns: transaction hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020c9079e0f0454103adceed798d40171c41a8db04586dba966fbe7f2ab722583ad&quot; //transaction hash
+
+</code></pre></div><p>The example calls the nrc20-token transfer function for a specified contract, Example <code>tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L</code> NRC20 contract address, number of input parameters for receiving address and account transfer</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; callcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L transfer 0 -r call
+callcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L transfer 0 -r call
+Please Enter your account passwordzhoujun172
+**********
+Please enter the arguments according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;),
+If this method has no arguments(Refer to the command named &quot;getcontractinfo&quot; for the arguments structure of the method.), return directly.
+Enter the arguments:&quot;tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG&quot;,2
+&quot;0020c9079e0f0454103adceed798d40171c41a8db04586dba966fbe7f2ab722583ad&quot;
+
+</code></pre></div><h3 id="delete-smart-contract"><a href="#delete-smart-contract" class="header-anchor">#</a> Delete smart contract</h3> <p>Stop an available smart contract</p> <ul><li><strong>commmand：deletecontract &lt;senderAddress&gt; &lt;contractAddress&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>The account address invoking the contract</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>The contract address of the call</td></tr></tbody></table> <p>Returns: transaction hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020c55e885dd910dad0b2c49f5b71b62691b57884ca21fd47668f1f5cadc84daad6&quot; //交易hash
+
+</code></pre></div><p>example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; deletecontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+deletecontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+Please enter your account passwordzhoujun172
+**********
+&quot;0020c55e885dd910dad0b2c49f5b71b62691b57884ca21fd47668f1f5cadc84daad6&quot;
+
+</code></pre></div><h3 id="call-the-contract-view-method"><a href="#call-the-contract-view-method" class="header-anchor">#</a> Call the contract view method</h3> <p>Calling the contract view method immediately returns the result, no transaction is generated</p> <ul><li><strong>commmand：viewcontract &lt;contractAddress&gt; &lt;methodName&gt; [-d methodDesc] --view contract</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;contractAddress&gt;</td> <td>The contract address of the call</td></tr> <tr><td>&lt;methodName&gt;</td> <td>Method called</td></tr> <tr><td>[-d methodDesc]</td> <td>Use this method to describe the parameter list if there is a method with the same name in the contract</td></tr></tbody></table> <p>The return value</p> <div class="language- extra-class"><pre class="language-text"><code>The return value varies depending on the function being called
+
+</code></pre></div><p>The example calls the nrc20-token contract's query Token balance function to query the Token balance of the specified address</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; viewcontract tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc balanceOf
+viewcontract tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc balanceOf
+Please enter the arguments according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;),
+If this method has no arguments(Refer to the command named &quot;getcontractinfo&quot; for the arguments structure of the method.), return directly.
+Enter the arguments:&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;
+&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;
+{
+  &quot;result&quot; : &quot;20000000&quot;
+}
+
+</code></pre></div><h3 id="transfer-money-to-the-contract-address"><a href="#transfer-money-to-the-contract-address" class="header-anchor">#</a> Transfer money to the contract address</h3> <p>To the specified contract address into the main network currency</p> <ul><li><strong>command：transfertocontract &lt;senderAddress&gt; &lt;contractAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>Transfer out account address</td></tr> <tr><td>&lt;contractAddress</td> <td>transfer into the contract address</td></tr> <tr><td>&lt;amount&gt;</td> <td>transfer amount</td></tr> <tr><td>[remark]</td> <td>remark</td></tr></tbody></table> <p>Returns: transaction hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020f5d6b87c246595d1b060a3fa8bac6a2992490e38fdfcad40db2a3908297e7979&quot;
+
+</code></pre></div><p>The example transfers two NULS to the specified contract</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; transfertocontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaN1NRtaj1ZPAmEmTqcpkyCLqv64PR7U 2 remark
+Please enter your account password
+**********
+&quot;0020f5d6b87c246595d1b060a3fa8bac6a2992490e38fdfcad40db2a3908297e7979&quot;
+
+</code></pre></div><h3 id="token-transfer"><a href="#token-transfer" class="header-anchor">#</a> token transfer</h3> <p>NRC20 token transfer</p> <ul><li><strong>command：tokentransfer &lt;formAddress&gt; &lt;toAddress&gt; &lt;contractAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;fromAddress&gt;</td> <td>sender address</td></tr> <tr><td>&lt;toAddress</td> <td>receiver address</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>contract address</td></tr> <tr><td>&lt;amount&gt;</td> <td>transfer amount</td></tr> <tr><td>[remark]</td> <td>remark</td></tr></tbody></table> <p>Returns： transaction hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;002022dffd96026b493945d2cf9ad276c4bc9655c735b72e6fcc85a2d19f6cbe25e8&quot;
+
+</code></pre></div><p>Token transfer example :</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; tokentransfer tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD  tNULSeBaNBh9RUsVrVmMy8NHcZJ2BhNVsM1Vta  tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc 200000 25 10000
+Please enter your account password
+**********
+&quot;002022dffd96026b493945d2cf9ad276c4bc9655c735b72e6fcc85a2d19f6cbe25e8&quot;
+
+</code></pre></div><h3 id="get-contract-transaction"><a href="#get-contract-transaction" class="header-anchor">#</a> Get contract transaction</h3> <p>Gets the transaction information of the contract, including the transaction details, the contract invocation parameters, and the contract execution results</p> <ul><li><strong>command：getcontracttx &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>transaction hash</td></tr></tbody></table> <p>return value</p> <div class="language- extra-class"><pre class="language-text"><code>skip 
+
+</code></pre></div><p>example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+{
+  &quot;hash&quot; : &quot;00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f&quot;,
+  &quot;type&quot; : &quot;100&quot;,
+  &quot;time&quot; : &quot;2019-03-26 09:28:26&quot;,
+  &quot;blockHeight&quot; : 46,
+  &quot;fee&quot; : 0.0,
+  &quot;value&quot; : 0.0,
+  &quot;remark&quot; : null,
+  &quot;scriptSig&quot; : &quot;210318f683066b45e7a5225779061512e270044cc40a45c924afcf78bb7587758ca0004630440220112a446b2a684510b4016fa97b92d2f3fead03128f0f658c99a6a8d230d05d4e02201e23a2f6e68aacdff2d117bd5bbe7ce2440babfe4211168eafbae41acad5d505&quot;,
+  &quot;status&quot; : &quot;confirm&quot;,
+  &quot;confirmCount&quot; : 0,
+  &quot;size&quot; : 6686,
+  &quot;inputs&quot; : [ {
+    &quot;address&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+    &quot;assetsChainId&quot; : 2,
+    &quot;assetsId&quot; : 1,
+    &quot;amount&quot; : &quot;5700000&quot;,
+    &quot;nonce&quot; : &quot;ffffffff&quot;,
+    &quot;locked&quot; : 0,
+    &quot;value&quot; : 0.0
+  } ],
+  &quot;outputs&quot; : [ ],
+  &quot;txData&quot; : {
+    &quot;data&quot; : {
+      &quot;sender&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+      &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+      &quot;value&quot; : 0.0,
+      &quot;hexCode&quot; : &quot;504b03040a0000080...........31600000000&quot;,
+      &quot;gasLimit&quot; : 200000,
+      &quot;price&quot; : &quot;0.00000025&quot;,
+      &quot;args&quot; : [ [ &quot;QKB&quot; ], [ &quot;QKB&quot; ], [ &quot;2000000&quot; ], [ &quot;2&quot; ] ]
+    }
+  },
+  &quot;contractResult&quot; : {
+    &quot;success&quot; : true,
+    &quot;errorMessage&quot; : null,
+    &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+    &quot;result&quot; : null,
+    &quot;gasLimit&quot; : 200000,
+    &quot;gasUsed&quot; : 14029,
+    &quot;price&quot; : &quot;0.00000025&quot;,
+    &quot;totalFee&quot; : 0.0,
+    &quot;txSizeFee&quot; : 0.0,
+    &quot;actualContractFee&quot; : 0.0,
+    &quot;refundFee&quot; : 0.0,
+    &quot;stateRoot&quot; : &quot;be76399c41a8cb4be5ecf80e04dab36830b124cb1c43fea6ca69ae62259899ba&quot;,
+    &quot;value&quot; : 0.0,
+    &quot;stackTrace&quot; : null,
+    &quot;balance&quot; : 0.0,
+    &quot;transfers&quot; : [ ],
+    &quot;events&quot; : [ &quot;{\&quot;contractAddress\&quot;:\&quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L\&quot;,\&quot;blockNumber\&quot;:46,\&quot;event\&quot;:\&quot;TransferEvent\&quot;,\&quot;payload\&quot;:{\&quot;from\&quot;:null,\&quot;to\&quot;:\&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\&quot;,\&quot;value\&quot;:\&quot;200000000\&quot;}}&quot; ],
+    &quot;tokenTransfers&quot; : [ {
+      &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+      &quot;from&quot; : null,
+      &quot;to&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+      &quot;value&quot; : &quot;200000000&quot;,
+      &quot;name&quot; : &quot;QKB&quot;,
+      &quot;symbol&quot; : &quot;QKB&quot;,
+      &quot;decimals&quot; : 2
+    } ],
+    &quot;remark&quot; : &quot;create&quot;
+  }
+}
+
+
+
+</code></pre></div><h3 id="get-the-contract-execution-result"><a href="#get-the-contract-execution-result" class="header-anchor">#</a> Get the contract execution result</h3> <p>Gets the execution result of a contract</p> <ul><li><strong>command:getcontractresult &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>transaction hash</td></tr></tbody></table> <p>return value</p> <div class="language- extra-class"><pre class="language-text"><code>skip
+
+</code></pre></div><p>example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractresult 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+{
+  &quot;success&quot; : true,
+  &quot;errorMessage&quot; : null,
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;result&quot; : null,
+  &quot;gasLimit&quot; : 200000,
+  &quot;gasUsed&quot; : 14029,
+  &quot;price&quot; : &quot;0.00000025&quot;,
+  &quot;totalFee&quot; : 0.0,
+  &quot;txSizeFee&quot; : 0.0,
+  &quot;actualContractFee&quot; : 0.0,
+  &quot;refundFee&quot; : 0.0,
+  &quot;stateRoot&quot; : &quot;be76399c41a8cb4be5ecf80e04dab36830b124cb1c43fea6ca69ae62259899ba&quot;,
+  &quot;value&quot; : 0.0,
+  &quot;stackTrace&quot; : null,
+  &quot;balance&quot; : 0.0,
+  &quot;transfers&quot; : [ ],
+  &quot;events&quot; : [ &quot;{\&quot;contractAddress\&quot;:\&quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L\&quot;,\&quot;blockNumber\&quot;:46,\&quot;event\&quot;:\&quot;TransferEvent\&quot;,\&quot;payload\&quot;:{\&quot;from\&quot;:null,\&quot;to\&quot;:\&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\&quot;,\&quot;value\&quot;:\&quot;200000000\&quot;}}&quot; ],
+  &quot;tokenTransfers&quot; : [ {
+    &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+    &quot;from&quot; : null,
+    &quot;to&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+    &quot;value&quot; : &quot;200000000&quot;,
+    &quot;name&quot; : &quot;QKB&quot;,
+    &quot;symbol&quot; : &quot;QKB&quot;,
+    &quot;decimals&quot; : 2
+  } ],
+  &quot;remark&quot; : &quot;create&quot;
+}
+
+
+</code></pre></div><h3 id="get-the-contract-constructor"><a href="#get-the-contract-constructor" class="header-anchor">#</a> Get the contract constructor</h3> <p>Gets the list of parameters that need to be passed in to create the specified contract</p> <ul><li><strong>command：getcontractcontructor &lt;contractCode&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;contractCode&gt;</td> <td>Hex code of the contract code</td></tr></tbody></table> <p>return value</p> <div class="language- extra-class"><pre class="language-text"><code>skip
+
+</code></pre></div><p>example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractcontructor 504b03040a000008000.........20000b31600000000
+{
+  &quot;constructor&quot; : {
+    &quot;name&quot; : &quot;&lt;init&gt;&quot;,
+    &quot;desc&quot; : &quot;(String name, String symbol, BigInteger initialAmount, int decimals) return void&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;name&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;symbol&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;initialAmount&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;int&quot;,
+      &quot;name&quot; : &quot;decimals&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;void&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  },
+  &quot;isNrc20&quot; : true
+}
+
+
+</code></pre></div><h3 id="gets-the-list-of-contracts-created-for-the-specified-account"><a href="#gets-the-list-of-contracts-created-for-the-specified-account" class="header-anchor">#</a> Gets the list of contracts created for the specified account</h3> <p>Gets the list of contracts created by the specified account address</p> <ul><li><strong>command：getaccountcontracts &lt;createAddress&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Description</th></tr></thead> <tbody><tr><td>&lt;createAddress&gt;</td> <td>account address</td></tr></tbody></table> <p>return value</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;createTime&quot; : &quot;2019-03-26 09:28:26.026&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 2,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}
+
+</code></pre></div><p>example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getaccountcontracts tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
+[ {
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;createTime&quot; : &quot;2019-03-26 09:28:26.026&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 2,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}, {
+  &quot;contractAddress&quot; : &quot;tNULSeBaMzsHrbMy2VK23RzwjkXS1qo2ycG5Cg&quot;,
+  &quot;createTime&quot; : &quot;2019-03-25 16:08:25.025&quot;,
+  &quot;height&quot; : 253,
+  &quot;confirmCount&quot; : 195,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 0,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}, {
+  &quot;contractAddress&quot; : &quot;tNULSeBaNBYK9MQcWWbfgFTHj2U4j8KQGDzzuK&quot;,
+  &quot;createTime&quot; : &quot;2019-03-25 15:33:54.054&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 0,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+} ]
+
+</code></pre></div><h3 id="query-network-information"><a href="#query-network-information" class="header-anchor">#</a> Query network information</h3> <p>Query network basic information</p> <ul><li><strong>command: network info</strong></li></ul> <p>Return</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;localBestHeight&quot;</span> <span class="token operator">:</span> <span class="token number">35317</span><span class="token punctuation">,</span><span class="token comment">//latest block height locally </span>
+  <span class="token property">&quot;netBestHeight&quot;</span> <span class="token operator">:</span> <span class="token number">35317</span><span class="token punctuation">,</span><span class="token comment">//latest block height of the network </span>
+  <span class="token property">&quot;timeOffset&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0ms&quot;</span><span class="token punctuation">,</span><span class="token comment">//network time offset </span>
+  <span class="token property">&quot;inCount&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token comment">//number of in-nodes </span>
+  <span class="token property">&quot;outCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token comment">//number of out-nodes </span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> network info
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;localBestHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">35317</span>,
+  <span class="token string">&quot;netBestHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">35317</span>,
+  <span class="token string">&quot;timeOffset&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0ms&quot;</span>,
+  <span class="token string">&quot;inCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;outCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="query-ip-s-of-network-nodes"><a href="#query-ip-s-of-network-nodes" class="header-anchor">#</a> Query IP's of network nodes</h3> <p>Query IP's of network nodes</p> <ul><li><strong>command: network nodes</strong></li></ul> <p>Return information</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span><span class="token string">&quot; 192.168.1.223 &quot;</span><span class="token punctuation">]</span>
+
+</code></pre></div><p>Example: get a block with the block height</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> network nodes
+<span class="token punctuation">[</span> <span class="token string">&quot;192.168.1.223&quot;</span> <span class="token punctuation">]</span>
+
+</code></pre></div><h3 id="register-the-parallel-chain-in-the-main-chain"><a href="#register-the-parallel-chain-in-the-main-chain" class="header-anchor">#</a> Register the Parallel Chain in the Main Chain</h3> <p>Parallel chains need to complete registration in the main chain when sending cross-chain transactions, this command needs to run on the main network node</p> <ul><li><strong>command: registercrosschain &lt;address&gt; &lt;chainId&gt; &lt;chainName&gt; &lt;magicNumber&gt; &lt;assetId&gt; &lt;symbol&gt; &lt;assetName&gt; &lt;initNumber&gt; [decimalPlaces] [minAvailableNodeNum] [txConfirmedBlockNum]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Specification</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>registered cross-chain fee payment account</td></tr> <tr><td>&lt;chainId&gt;</td> <td>registered chain id</td></tr> <tr><td>&lt;chainName&gt;</td> <td>registered chain name</td></tr> <tr><td>&lt;magicNumber&gt;</td> <td>magic number parameter of the registered running chain</td></tr> <tr><td>&lt;assetId&gt;</td> <td>registered asset id</td></tr> <tr><td>&lt;symbol&gt;</td> <td>asset abbreviation e.g. BTC</td></tr> <tr><td>&lt;assetName&gt;</td> <td>asset name</td></tr> <tr><td>&lt;initNumber&gt;</td> <td>initiated asset amount</td></tr> <tr><td>[decimalPlaces]</td> <td>asset decimal places default 8</td></tr> <tr><td>[minAvailableNodeNum]</td> <td>cross-chain transaction available conditions: minimum number of available nodes, default 5</td></tr> <tr><td>[txConfirmedBlockNum]</td> <td>the number of confirmed blocks for the registered transaction, default 30</td></tr></tbody></table> <p>Return</p> <div class="language- extra-class"><pre class="language-text"><code>6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312  #registered transaction hash
+
+</code></pre></div><p>Example</p> <div class="language-nuls>>> registercrosschain tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 3 testchain 123456 10 TB tb 1000 extra-class"><pre class="language-text"><code>Please enter the password.
+Enter your password:**********
+6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312
+
+</code></pre></div><h3 id="query-parallel-chain-registration-information"><a href="#query-parallel-chain-registration-information" class="header-anchor">#</a> Query Parallel Chain Registration Information</h3> <p>Query the registration information of a test on the main network</p> <ul><li><strong>Command: crosschaininfo     &lt;chainId&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Specification</th></tr></thead> <tbody><tr><td>&lt;chainId&gt;</td> <td>registered chain id</td></tr></tbody></table> <p>Return</p> <div class="language-{ extra-class"><pre class="language-text"><code>  &quot;chainId&quot; : 3,
+  &quot;chainName&quot; : &quot;testchain&quot;,
+  &quot;addressType&quot; : &quot;1&quot;,
+  &quot;magicNumber&quot; : 123456,
+  &quot;minAvailableNodeNum&quot; : 5,
+  &quot;txConfirmedBlockNum&quot; : 0,
+  &quot;regAddress&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+  &quot;regTxHash&quot; : &quot;6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312&quot;,
+  &quot;createTime&quot; : 1557739548367,
+  &quot;seeds&quot; : &quot;192.168.1.192:8088&quot;,
+  &quot;selfAssetKeyList&quot; : [ &quot;3-10&quot; ],
+  &quot;totalAssetKeyList&quot; : [ &quot;3-10&quot; ]
+}
+
+</code></pre></div><p>Return chain specification</p> <table><thead><tr><th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>true</td> <td>int</td> <td>chain symbol</td></tr> <tr><td>assetId</td> <td>true</td> <td>int</td> <td>asset id</td></tr> <tr><td>chainName</td> <td>true</td> <td>string</td> <td>chain name</td></tr> <tr><td>addressType</td> <td>true</td> <td>int</td> <td>the address type of the account created on the chain: 1 within the ecological 2 non-ecological</td></tr> <tr><td>magicNumber</td> <td>true</td> <td>string</td> <td>magic number</td></tr> <tr><td>minAvailableNodeNum</td> <td>true</td> <td>int</td> <td>minimum number of available nodes</td></tr> <tr><td>txConfirmBlockNum</td> <td>true</td> <td>int</td> <td>transaction confirmation block number</td></tr> <tr><td>symbol</td> <td>true</td> <td>string</td> <td>asset symbol</td></tr> <tr><td>assetName</td> <td>true</td> <td>string</td> <td>asset name</td></tr> <tr><td>initNumber</td> <td>true</td> <td>string</td> <td>asset initial number</td></tr> <tr><td>decimalPlaces</td> <td>true</td> <td>int</td> <td>minimum asset separable digits</td></tr> <tr><td>address</td> <td>true</td> <td>string</td> <td>the main network address of created chain</td></tr> <tr><td>password</td> <td>true</td> <td>string</td> <td>private key password</td></tr></tbody></table> <p>Example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; crosschaininfo 11
+{
+  &quot;chainId&quot; : 11,
+  &quot;chainName&quot; : &quot;Neth&quot;,
+  &quot;addressType&quot; : &quot;1&quot;,
+  &quot;magicNumber&quot; : 20190303,
+  &quot;minAvailableNodeNum&quot; : 5,
+  &quot;txConfirmedBlockNum&quot; : 0,
+  &quot;regAddress&quot; : &quot;tNULSeBaMgDEcAUhPSdF3D3C6mT54HPUt81cQ4&quot;,
+  &quot;regTxHash&quot; : &quot;7a672b093b274b93bc145dda0e598eddf1f1cf0ccb9aba3e67b3899a5b4ad7a1&quot;,
+  &quot;createTime&quot; : 1557921296460,
+  &quot;seeds&quot; : &quot;192.168.1.192:8088&quot;,
+  &quot;selfAssetKeyList&quot; : [ &quot;11-1&quot; ],
+  &quot;totalAssetKeyList&quot; : [ &quot;11-1&quot;, &quot;2-1&quot; ]
+}
+
+</code></pre></div><h3 id="send-cross-chain-transaction"><a href="#send-cross-chain-transaction" class="header-anchor">#</a> Send Cross-chain Transaction</h3> <ul><li><strong>Command: getecrosstx &lt;chainId&gt; &lt;formAddress&gt; &lt;toAddress&gt; &lt;assetChainId&gt; &lt;assetId&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Specification</th></tr></thead> <tbody><tr><td>&lt;chainId&gt;</td> <td>chain id of running transaction</td></tr> <tr><td>&lt;formAddress&gt;</td> <td>from address</td></tr> <tr><td>&lt;toAddress&gt;</td> <td>to address</td></tr> <tr><td>&lt;assetChainId&gt;</td> <td>chain Id of the transfer asset</td></tr> <tr><td>&lt;assetId&gt;</td> <td>transfer asset id</td></tr> <tr><td>&lt;amount&gt;</td> <td>transfer amount of assets</td></tr> <tr><td>&lt;remark&gt;</td> <td>transfer remark</td></tr></tbody></table> <p>Return :transaction hash</p> <div class="language- extra-class"><pre class="language-text"><code>529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+
+</code></pre></div><p>Example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; createcrosstx 2 tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD M9busmFhQeu1Efn6rDyeQkFjHxv2dSzkuH8 2 1 1
+Please enter the password.
+Enter your password:**********
+529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+
+</code></pre></div><h3 id="query-cross-chain-transaction-confirmation-status"><a href="#query-cross-chain-transaction-confirmation-status" class="header-anchor">#</a> Query Cross-chain Transaction Confirmation Status</h3> <ul><li><strong>Command：getcrosstxstate  &lt;chainId&gt; &lt;txHash&gt;</strong></li></ul> <table><thead><tr><th>Parameter</th> <th>Specification</th></tr></thead> <tbody><tr><td>&lt;chainId&gt;</td> <td>currently running chain id</td></tr> <tr><td>&lt;txHash&gt;</td> <td>transaction hash</td></tr></tbody></table> <p>Return</p> <div class="language- extra-class"><pre class="language-text"><code>Confirmed | Unconfirmed
+
+</code></pre></div><p>Example</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcrosstxstate 2 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+Unconfirmed
+
+</code></pre></div><h3 id="exit-the-wallet-cli"><a href="#exit-the-wallet-cli" class="header-anchor">#</a> Exit the wallet CLI</h3> <p>Exit the command line, it won’t stop the wallet.</p> <ul><li><strong>command: exit</strong></li></ul> <p>Example</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">exit</span>
+
+</code></pre></div></div> <div class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/master/docs/Guide/g_linux_tutorial.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></div> <div class="last-updated"><span class="prefix">Last Updated: </span> <span class="time">9/27/2019, 9:24:26 PM</span></div></div> <div class="page-nav"><p class="inner"><span class="prev">
+        ←
+        <a href="/Guide/g_docker.html" class="prev">
+          nuls-wallet v2.0.0 docker image
+        </a></span> <span class="next"><a href="/Guide/g_multi_sign_account.html">
+          Multi-signature account
+        </a>
+        →
+      </span></p></div> </div> <!----></div></div>
+    <script src="/assets/js/app.f00b83de.js" defer></script><script src="/assets/js/72.b5475832.js" defer></script>
+  </body>
+</html>
