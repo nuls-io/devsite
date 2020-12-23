@@ -1776,7 +1776,7 @@ nuls>>> crosschaininfo 10
 
 在主网查询某条侧链资产的注册信息
 
-- **命令：crosschaininfo &lt;chainId>**
+- **命令：crossassetinfo&lt;chainId>&lt;assetId>**
 
 | 参数         | 说明       |
 | ------------ | ---------- |
