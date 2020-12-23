@@ -1796,7 +1796,7 @@ nuls>>> crosschaininfo 10
   "initNumber" : "30000000000",
   "decimalPlaces" : 2,
   "enable" : false,
-  "createTime" : 1565229429,
+  "createTime" : 1565229428,
   "address" : "tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn",
   "txHash" : "612eda872c6ca16c5a5f63cce70a64ac15852e2b3a403309b0d963d22d6391bc"
 }
