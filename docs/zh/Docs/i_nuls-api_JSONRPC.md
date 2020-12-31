@@ -982,6 +982,21 @@ _**详细描述: 根据私钥获取账户地址格式**_
 }
 ```
 
+### 1.21 查询钱包内创建的账户列表
+#### Cmd: getAddressList
+_**详细描述: 查询钱包内创建的账户列表**_
+
+#### 参数列表
+无参数
+
+#### 返回值
+无返回值
+#### Example request data: 
+无
+
+#### Example response data: 
+略
+
 ### 2.1 获取本节点的网络状态信息
 #### Cmd: getNetworkInfo
 _**详细描述: 获取本节点的网络状态信息**_
@@ -1881,20 +1896,20 @@ _**详细描述: 广播离线组装的交易(不验证),成功返回true,失败�
 }
 ```
 
-### 3.6 单笔转账
+### 3.6 单笔链内转账
 #### Cmd: transfer
 _**详细描述: 发起单账户单资产的转账交易**_
 
 #### 参数列表
-| 参数名       |  参数类型  | 参数描述   | 是否必填 |
-| --------- |:------:| ------ |:----:|
-| chainId   |  int   | 链id    |  是   |
-| assetId   |  int   | 资产id   |  是   |
-| address   | string | 转出账户地址 |  是   |
-| toAddress | string | 转入账户地址 |  是   |
-| password  | string | 转出账户密码 |  是   |
-| amount    | string | 转出金额   |  是   |
-| remark    | string | 备注     |  是   |
+| 参数名          |  参数类型  | 参数描述   | 是否必填 |
+| ------------ |:------:| ------ |:----:|
+| assetChainId |  int   | 资产链id  |  是   |
+| assetId      |  int   | 资产id   |  是   |
+| address      | string | 转出账户地址 |  是   |
+| toAddress    | string | 转入账户地址 |  是   |
+| password     | string | 转出账户密码 |  是   |
+| amount       | string | 转出金额   |  是   |
+| remark       | string | 备注     |  是   |
 
 #### 返回值
 | 字段名  |  字段类型  | 参数描述   |
@@ -1923,7 +1938,58 @@ _**详细描述: 发起单账户单资产的转账交易**_
 }
 ```
 
-### 3.7 离线组装转账交易
+### 3.7 单笔跨链转账
+#### Cmd: crossTransfer
+_**详细描述: 发起单账户单资产的跨链转账交易**_
+
+#### 参数列表
+| 参数名          |  参数类型  | 参数描述   | 是否必填 |
+| ------------ |:------:| ------ |:----:|
+| assetChainId |  int   | 资产链id  |  是   |
+| assetId      |  int   | 资产id   |  是   |
+| address      | string | 转出账户地址 |  是   |
+| toAddress    | string | 转入账户地址 |  是   |
+| password     | string | 转出账户密码 |  是   |
+| amount       | string | 转出金额   |  是   |
+| remark       | string | 备注     |  是   |
+
+#### 返回值
+| 字段名  |  字段类型  | 参数描述   |
+| ---- |:------:| ------ |
+| hash | string | 交易hash |
+#### Example request data: 
+无
+
+#### Example response data: 
+略
+
+### 3.8 单笔转账
+#### Cmd: transferOtherChainAsset
+_**详细描述: 发起单账户单资产的转账交易,转账资产为链内的其他平行链资产**_
+
+#### 参数列表
+| 参数名          |  参数类型  | 参数描述   | 是否必填 |
+| ------------ |:------:| ------ |:----:|
+| chainId      |  int   | 链id    |  是   |
+| assetChainId |  int   | 资产链id  |  是   |
+| assetId      |  int   | 资产id   |  是   |
+| address      | string | 转出账户地址 |  是   |
+| toAddress    | string | 转入账户地址 |  是   |
+| password     | string | 转出账户密码 |  是   |
+| amount       | string | 转出金额   |  是   |
+| remark       | string | 备注     |  是   |
+
+#### 返回值
+| 字段名  |  字段类型  | 参数描述   |
+| ---- |:------:| ------ |
+| hash | string | 交易hash |
+#### Example request data: 
+无
+
+#### Example response data: 
+略
+
+### 3.9 离线组装转账交易
 #### Cmd: createTransferTxOffline
 _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账户或多账户的转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和**_
 
@@ -1987,7 +2053,41 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 }
 ```
 
-### 3.8 计算离线创建转账交易所需手续费
+### 3.10 离线组装转账交易
+#### Cmd: createCrossTxOffline
+_**详细描述: 根据inputs和outputs离线组装跨链转账交易，用于单账户或多账户的跨链转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和，加上跨链转账手续费（NULS）**_
+
+#### 参数列表
+| 参数名                                                                                                          |      参数类型       | 参数描述     | 是否必填 |
+| ------------------------------------------------------------------------------------------------------------ |:---------------:| -------- |:----:|
+| transferDto                                                                                                  |   transferdto   | 转账交易表单   |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;inputs                                                       | list&lt;object> | 转账交易输入列表 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address      |     string      | 账户地址     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetChainId |       int       | 资产的链id   |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetId      |       int       | 资产id     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount       |   biginteger    | 资产金额     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;nonce        |     string      | 资产nonce值 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;outputs                                                      | list&lt;object> | 转账交易输出列表 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;address      |     string      | 账户地址     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetChainId |       int       | 资产的链id   |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;assetId      |       int       | 资产id     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;amount       |   biginteger    | 资产金额     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;lockTime     |      long       | 锁定时间     |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;time                                                         |      long       | 创建时间     |  否   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark                                                       |     string      | 交易备注     |  否   |
+
+#### 返回值
+| 字段名   |  字段类型  | 参数描述         |
+| ----- |:------:| ------------ |
+| hash  | string | 交易hash       |
+| txHex | string | 交易序列化16进制字符串 |
+#### Example request data: 
+无
+
+#### Example response data: 
+略
+
+### 3.11 计算离线创建转账交易所需手续费
 #### Cmd: calcTransferTxFee
 _**详细描述: 计算离线创建转账交易所需手续费**_
 
@@ -2028,7 +2128,31 @@ _**详细描述: 计算离线创建转账交易所需手续费**_
 }
 ```
 
-### 3.9 离线组装转账交易
+### 3.12 计算离线创建跨链转账交易所需手续费
+#### Cmd: calcCrossTxFee
+_**详细描述: 计算离线创建跨链转账交易所需手续费**_
+
+#### 参数列表
+| 参数名                                                          |       参数类型       | 参数描述    | 是否必填 |
+| ------------------------------------------------------------ |:----------------:| ------- |:----:|
+| TransferTxFeeDto                                             | transfertxfeedto | 转账交易手续费 |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;addressCount |       int        | 转账地址数量  |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;fromLength   |       int        | 转账输入长度  |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;toLength     |       int        | 转账输出长度  |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;remark       |      string      | 交易备注    |  是   |
+| &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;price        |    biginteger    | 手续费单价   |  否   |
+
+#### 返回值
+| 字段名   |  字段类型  | 参数描述  |
+| ----- |:------:| ----- |
+| value | string | 交易手续费 |
+#### Example request data: 
+无
+
+#### Example response data: 
+略
+
+### 3.13 离线组装转账交易
 #### Cmd: createMultiSignTransferTxOffline
 _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账户或多账户的转账交易。交易手续费为inputs里本链主资产金额总和，减去outputs里本链主资产总和**_
 
@@ -2093,7 +2217,7 @@ _**详细描述: 根据inputs和outputs离线组装转账交易，用于单账�
 }
 ```
 
-### 3.10 计算离线创建转账交易所需手续费
+### 3.14 计算离线创建转账交易所需手续费
 #### Cmd: calcMultiSignTransferTxFee
 _**详细描述: 计算离线创建转账交易所需手续费**_
 
@@ -2185,19 +2309,20 @@ _**详细描述: 发布合约**_
 _**详细描述: 调用合约**_
 
 #### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
-| --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| password        |   string   | 调用者账户密码                                  |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| gasLimit        |    long    | GAS限制                                    |  是   |
-| price           |    long    | GAS单价                                    |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
-| remark          |   string   | 交易备注                                     |  否   |
+| 参数名                                                              |    参数类型    | 参数描述                                                                      | 是否必填 |
+| ---------------------------------------------------------------- |:----------:| ------------------------------------------------------------------------- |:----:|
+| chainId                                                          |    int     | 链id                                                                       |  是   |
+| sender                                                           |   string   | 交易创建者账户地址                                                                 |  是   |
+| password                                                         |   string   | 调用者账户密码                                                                   |  是   |
+| value                                                            | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO                                  |  是   |
+| gasLimit                                                         |    long    | GAS限制                                                                     |  是   |
+| price                                                            |    long    | GAS单价                                                                     |  是   |
+| contractAddress                                                  |   string   | 合约地址                                                                      |  是   |
+| methodName                                                       |   string   | 合约方法                                                                      |  是   |
+| methodDesc                                                       |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空                                                |  否   |
+| args                                                             |  object[]  | 参数列表                                                                      |  否   |
+| remark                                                           |   string   | 交易备注                                                                      |  否   |
+| multyAssetValues                                                 | string[][] | 调用者向合约地址转入的其他资产金额，没有此业务时填空，规则: [[\<value\>,\<assetChainId\>,\<assetId\>]] |  否   |
 
 #### 返回值
 | 字段名    |  字段类型  | 参数描述        |
@@ -2209,7 +2334,7 @@ _**详细描述: 调用合约**_
 {
   "jsonrpc" : "2.0",
   "method" : "contractCall",
-  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", "nuls123456", 0, 200000, 30, "tNULSeBaMx2zjgThursB6k9XsST7VvZmr2vB3J", "transfer", null, [ "tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "4000" ], "remark-jsonrpc-call" ],
+  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", "nuls123456", 0, 200000, 30, "tNULSeBaMx2zjgThursB6k9XsST7VvZmr2vB3J", "transfer", null, [ "tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "4000" ], "remark-jsonrpc-call", null ],
   "id" : 1234
 }
 ```
@@ -3084,17 +3209,18 @@ _**详细描述: 验证发布合约**_
 _**详细描述: 验证调用合约**_
 
 #### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
-| --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| gasLimit        |    long    | GAS限制                                    |  是   |
-| price           |    long    | GAS单价                                    |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
+| 参数名                                                              |    参数类型    | 参数描述                                                                      | 是否必填 |
+| ---------------------------------------------------------------- |:----------:| ------------------------------------------------------------------------- |:----:|
+| chainId                                                          |    int     | 链id                                                                       |  是   |
+| sender                                                           |   string   | 交易创建者账户地址                                                                 |  是   |
+| value                                                            | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO                                  |  是   |
+| gasLimit                                                         |    long    | GAS限制                                                                     |  是   |
+| price                                                            |    long    | GAS单价                                                                     |  是   |
+| contractAddress                                                  |   string   | 合约地址                                                                      |  是   |
+| methodName                                                       |   string   | 合约方法                                                                      |  是   |
+| methodDesc                                                       |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空                                                |  否   |
+| args                                                             |  object[]  | 参数列表                                                                      |  否   |
+| multyAssetValues                                                 | string[][] | 调用者向合约地址转入的其他资产金额，没有此业务时填空，规则: [[\<value\>,\<assetChainId\>,\<assetId\>]] |  否   |
 
 #### 返回值
 | 字段名     |  字段类型   | 参数描述      |
@@ -3108,7 +3234,7 @@ _**详细描述: 验证调用合约**_
 {
   "jsonrpc" : "2.0",
   "method" : "validateContractCall",
-  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", 80000000000, 200000, 30, "tNULSeBaNA4yaXmfaQVXpX3QWPcUaHRRryoXHa", "multyForAddress", null, [ "tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "400000000", "tNULSeBaMhKaLzhQh1AhhecUqh15ZKw98peg29", "900000000", "tNULSeBaMv8q3pWzS7bHpQWW8yypNGo8auRoPf", "800000000" ] ],
+  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", 80000000000, 200000, 30, "tNULSeBaNA4yaXmfaQVXpX3QWPcUaHRRryoXHa", "multyForAddress", null, [ "tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "400000000", "tNULSeBaMhKaLzhQh1AhhecUqh15ZKw98peg29", "900000000", "tNULSeBaMv8q3pWzS7bHpQWW8yypNGo8auRoPf", "800000000" ], null ],
   "id" : 1234
 }
 ```
@@ -3217,15 +3343,16 @@ _**详细描述: 估算发布合约交易的GAS**_
 _**详细描述: 估算调用合约交易的GAS**_
 
 #### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
-| --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
+| 参数名                                                              |    参数类型    | 参数描述                                                                      | 是否必填 |
+| ---------------------------------------------------------------- |:----------:| ------------------------------------------------------------------------- |:----:|
+| chainId                                                          |    int     | 链id                                                                       |  是   |
+| sender                                                           |   string   | 交易创建者账户地址                                                                 |  是   |
+| value                                                            | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO                                  |  是   |
+| contractAddress                                                  |   string   | 合约地址                                                                      |  是   |
+| methodName                                                       |   string   | 合约方法                                                                      |  是   |
+| methodDesc                                                       |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空                                                |  否   |
+| args                                                             |  object[]  | 参数列表                                                                      |  否   |
+| multyAssetValues                                                 | string[][] | 调用者向合约地址转入的其他资产金额，没有此业务时填空，规则: [[\<value\>,\<assetChainId\>,\<assetId\>]] |  否   |
 
 #### 返回值
 | 字段名      | 字段类型 | 参数描述              |
@@ -3237,7 +3364,7 @@ _**详细描述: 估算调用合约交易的GAS**_
 {
   "jsonrpc" : "2.0",
   "method" : "imputedContractCallGas",
-  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", 80000000000, "tNULSeBaNA4yaXmfaQVXpX3QWPcUaHRRryoXHa", "multyForAddress", null, [ "tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "400000000", "tNULSeBaMhKaLzhQh1AhhecUqh15ZKw98peg29", "900000000", "tNULSeBaMv8q3pWzS7bHpQWW8yypNGo8auRoPf", "8045645645" ] ],
+  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", 80000000000, "tNULSeBaNA4yaXmfaQVXpX3QWPcUaHRRryoXHa", "multyForAddress", null, [ "tNULSeBaMtkzQ1tH8JWBGZDCmRHCmySevE4frM", "400000000", "tNULSeBaMhKaLzhQh1AhhecUqh15ZKw98peg29", "900000000", "tNULSeBaMv8q3pWzS7bHpQWW8yypNGo8auRoPf", "8045645645" ], null ],
   "id" : 1234
 }
 ```
@@ -3348,20 +3475,21 @@ _**详细描述: 离线 - 发布合约交易**_
 _**详细描述: 离线 - 调用合约**_
 
 #### 参数列表
-| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
-| --------------- |:----------:| ---------------------------------------- |:----:|
-| chainId         |    int     | 链id                                      |  是   |
-| sender          |   string   | 交易创建者账户地址                                |  是   |
-| senderBalance   | biginteger | 账户余额                                     |  是   |
-| nonce           |   string   | 账户nonce值                                 |  是   |
-| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
-| contractAddress |   string   | 合约地址                                     |  是   |
-| gasLimit        |    long    | 设置合约执行消耗的gas上限                           |  是   |
-| methodName      |   string   | 合约方法                                     |  是   |
-| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
-| args            |  object[]  | 参数列表                                     |  否   |
-| argsType        |  string[]  | 参数类型列表                                   |  否   |
-| remark          |   string   | 交易备注                                     |  否   |
+| 参数名                                                              |    参数类型    | 参数描述                                                                      | 是否必填 |
+| ---------------------------------------------------------------- |:----------:| ------------------------------------------------------------------------- |:----:|
+| chainId                                                          |    int     | 链id                                                                       |  是   |
+| sender                                                           |   string   | 交易创建者账户地址                                                                 |  是   |
+| senderBalance                                                    | biginteger | 账户余额                                                                      |  是   |
+| nonce                                                            |   string   | 账户nonce值                                                                  |  是   |
+| value                                                            | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO                                  |  是   |
+| contractAddress                                                  |   string   | 合约地址                                                                      |  是   |
+| gasLimit                                                         |    long    | 设置合约执行消耗的gas上限                                                            |  是   |
+| methodName                                                       |   string   | 合约方法                                                                      |  是   |
+| methodDesc                                                       |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空                                                |  否   |
+| args                                                             |  object[]  | 参数列表                                                                      |  否   |
+| argsType                                                         |  string[]  | 参数类型列表                                                                    |  否   |
+| remark                                                           |   string   | 交易备注                                                                      |  否   |
+| multyAssetValues                                                 | string[][] | 调用者向合约地址转入的其他资产金额，没有此业务时填空，规则: [[\<value\>,\<assetChainId\>,\<assetId\>]] |  否   |
 
 #### 返回值
 | 字段名   |  字段类型  | 参数描述     |
@@ -3374,7 +3502,7 @@ _**详细描述: 离线 - 调用合约**_
 {
   "jsonrpc" : "2.0",
   "method" : "contractCallOffline",
-  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", "999999998523475", "9c0aea02bed90ddd", 0, "tNULSeBaMwYiR4p1X9xNJPiyJfrXjr4KgkcFjG", 14166, "transfer", null, [ "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD", 3800 ], [ "Address", "BigInteger" ], "remark_call_test" ],
+  "params" : [ 2, "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG", "999999998523475", "9c0aea02bed90ddd", 0, "tNULSeBaMwYiR4p1X9xNJPiyJfrXjr4KgkcFjG", 14166, "transfer", null, [ "tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD", 3800 ], [ "Address", "BigInteger" ], "remark_call_test", null ],
   "id" : 1234
 }
 ```

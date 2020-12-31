@@ -137,9 +137,12 @@ NULS smart contract can be developed with the following class
 * io.nuls.contract.sdk.Event
 * io.nuls.contract.sdk.Msg
 * io.nuls.contract.sdk.Utils
+* io.nuls.contract.sdk.MultyAssetValue
 * io.nuls.contract.sdk.annotation.View
 * io.nuls.contract.sdk.annotation.Required
 * io.nuls.contract.sdk.annotation.Payable
+* io.nuls.contract.sdk.annotation.JSONSerializable
+* io.nuls.contract.sdk.annotation.PayableMultyAsset
 * java.lang.Boolean
 * java.lang.Byte
 * java.lang.Short
@@ -237,6 +240,8 @@ Explanatory comments
 
 @Payable labels the method of @Payable. Only when it is added, the amount can be transferred in
 
+@PayableMultyAsset 标记@PayableMultyAsset的方法，才能在调用时候传入其他资产金额，支持同时转入多个其他资产
+
 @Required labels the parameter of @Required. When it is added, there must be transfer-in value, _**If you do not want to pass parameters that are not marked with this annotation, you need to fill in 0 or null placeholder.**_
 
 ### Some contract examples on github
@@ -280,11 +285,60 @@ public class Address {
     public native BigInteger totalBalance();
 
     /**
-     * Transfer amount to the address from contract 
+     * 合约向该地址转账(NULS, 可锁定)
      *
-     * @param value transfer amount (in Na)
+     * @param value         转账金额（多少Na）
+     * @param lockedTime    锁定时间（单位秒，若锁定1分钟，则填入60）
      */
-    public native void transfer(BigInteger value);
+    public native void transferLocked(BigInteger value, long lockedTime);
+
+    /**
+     * 合约向该地址转账(NULS)
+     *
+     * @param value
+     */
+    public void transfer(BigInteger value) {
+        this.transferLocked(value, 0);
+    }
+
+    /**
+     * 合约向该地址转账指定的资产(可锁定)
+     *
+     * @param value          转账金额
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     * @param lockedTime     锁定时间（单位秒，若锁定1分钟，则填入60）
+     */
+    public native void transferLocked(BigInteger value, int assetChainId, int assetId, long lockedTime);
+
+    /**
+     * 合约向该地址转账指定的资产
+     *
+     * @param value          转账金额
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     */
+    public void transfer(BigInteger value, int assetChainId, int assetId) {
+        this.transferLocked(value, assetChainId, assetId, 0);
+    }
+
+    /**
+     * 获取该地址指定资产的可用余额
+     *
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     * @return
+     */
+    public native BigInteger balance(int assetChainId, int assetId);
+
+    /**
+     * 获取该地址指定资产的总余额
+     *
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     * @return
+     */
+    public native BigInteger totalBalance(int assetChainId, int assetId);
 
     /**
      * Contract method to call the address
@@ -307,6 +361,18 @@ public class Address {
      */
     public native String callWithReturnValue(String methodName, String methodDesc, String[][] args, BigInteger value);
     
+    /**
+     * 调用该地址的合约方法并带有返回值(String)
+     *
+     * @param methodName        方法名
+     * @param methodDesc        方法签名
+     * @param args              参数
+     * @param value             转入资产数量
+     * @param multyAssetValues  转入的其他资产
+     * @return 调用合约后的返回值
+     */
+    public native String callWithReturnValue(String methodName, String methodDesc, String[][] args, BigInteger value, MultyAssetValue[] multyAssetValues);
+
     /**
      * Verify the address 
      *
@@ -508,6 +574,13 @@ public interface Contract {
      */
     default void _payable() {
     }
+    
+    /**
+     * 直接向合约转账其他资产，会触发这个方法，默认不做任何操作
+     * 前提: 若合约地址支持直接转账其他资产，需重载这个方法，并且标记`@PayableMultyAsset`注解
+     */
+    default void _payableMultyAsset() {
+    }
 
     /**
      * 1. This method is triggered when the consensus node reward address is the contract address, and the parameter is the block reward address detail two-dimensional array data. eg. [[address, amount], [address, amount], ...]
@@ -564,6 +637,12 @@ public class Msg {
     public static native BigInteger value();
 
     /**
+     * 合约发送者转入合约地址的其他资产列表
+     *
+     */
+    public static native MultyAssetValue[] multyAssetValues();
+    
+    /**
      * Gas price
      *
      * @return
@@ -577,6 +656,72 @@ public class Msg {
      */
     public static native Address address();
 
+}
+```
+
+### io.nuls.contract.sdk.MultyAssetValue
+
+```java
+public class MultyAssetValue {
+
+    private BigInteger value;
+    private int assetChainId;
+    private int assetId;
+
+    public MultyAssetValue() {
+    }
+
+    public MultyAssetValue(BigInteger value, int assetChainId, int assetId) {
+        this.value = value;
+        this.assetChainId = assetChainId;
+        this.assetId = assetId;
+    }
+
+    public BigInteger getValue() {
+        return value;
+    }
+
+    public void setValue(BigInteger value) {
+        this.value = value;
+    }
+
+    public int getAssetChainId() {
+        return assetChainId;
+    }
+
+    public void setAssetChainId(int assetChainId) {
+        this.assetChainId = assetChainId;
+    }
+
+    public int getAssetId() {
+        return assetId;
+    }
+
+    public void setAssetId(int assetId) {
+        this.assetId = assetId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        MultyAssetValue that = (MultyAssetValue) o;
+
+        if (assetChainId != that.assetChainId) return false;
+        if (assetId != that.assetId) return false;
+        if (!value.equals(that.value)) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value.hashCode();
+        result = 31 * result + assetChainId;
+        result = 31 * result + assetId;
+        return result;
+    }
 }
 ```
 
@@ -773,6 +918,18 @@ public class Utils {
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Payable {
+}
+```
+
+### io.nuls.contract.sdk.annotation.PayableMultyAsset
+
+`@PayableMultyAsset` 标记`@PayableMultyAsset`的方法，才能在调用时候转入其他资产，支持同时转入多个其他资产
+
+```java
+@Target({ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME)
+@Documented
+public @interface PayableMultyAsset {
 }
 ```
 
