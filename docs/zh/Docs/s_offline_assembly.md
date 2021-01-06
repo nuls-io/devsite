@@ -23,14 +23,14 @@
 <dependency>
     <groupId>io.nuls.v2</groupId>
     <artifactId>sdk4j</artifactId>
-    <version>1.0.7.RELEASE</version>
+    <version>1.1.4.RELEASE</version>
 </dependency>
 
 <!-- JDK8环境下 -->
 <dependency>
     <groupId>io.nuls.v2</groupId>
     <artifactId>sdk4j-jdk8</artifactId>
-    <version>1.0.7.RELEASE</version>
+    <version>1.1.9.RELEASE</version>
 </dependency>
 ```
 
@@ -265,6 +265,12 @@ public void deleteTxOffline() throws JsonProcessingException {
 }
 
 ```
+
+### 1.6 调用合约 - 向合约转入跨链资产
+
+请参考`https://github.com/nuls-io/nuls-v2-sdk4j/blob/master/src/test/java/io/nuls/v2/service/ContractServiceTest.java`
+
+函数名是`callTxWithMultyAssetOffline`和`callTxWithMultyAssetOffline2`
 
 ## 2. Java - 离线组装合约交易代码详解
 
@@ -1069,160 +1075,19 @@ public DeleteContractTransaction newDeleteTx(int chainId, int assetsId, BigInteg
 
 请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCreateTest.js`
 
-_**核心代码片段:**_
-
-```javascript
-async function createContract(pri, pub, createAddress, assetsChainId, assetsId, contractCreate, remark) {
-    //1、通过接口获取合约的参数 args
-    let hex = contractCreate.contractCode;
-    const constructor = await getContractConstructor(hex);
-    console.log(constructor.data.constructor.args);
-    //2、给每个参数复制 获取contractCreateTxData
-    let newArgs = contractCreate.args;
-    const contractCreateTxData = await this.makeCreateData(contractCreate.chainId, createAddress, contractCreate.alias, hex, newArgs);
-    //3、序列化
-
-    const balanceInfo = await getNulsBalance(createAddress);
-    let amount = contractCreateTxData.gasLimit * contractCreateTxData.price;
-    let transferInfo = {
-      fromAddress: createAddress,
-      assetsChainId: assetsChainId,
-      assetsId: assetsId,
-      amount: amount,
-      fee: 100000
-    };
-
-    let inOrOutputs = await inputsOrOutputs(transferInfo, balanceInfo, 15);
-    let tAssemble = await nuls.transactionAssemble(inOrOutputs.data.inputs, inOrOutputs.data.outputs, remark, 15, contractCreateTxData);
-    let txhex;
-    //获取手续费
-    let newFee = countFee(tAssemble, 1);
-    //手续费大于0.001的时候重新组装交易及签名
-    if (transferInfo.fee !== newFee) {
-      transferInfo.fee = newFee;
-      inOrOutputs = await inputsOrOutputs(transferInfo, balanceInfo, 15);
-      tAssemble = await nuls.transactionAssemble(inOrOutputs.data.inputs, inOrOutputs.data.outputs, remark, 15, contractCreateTxData);
-      txhex = await nuls.transactionSerialize(pri, pub, tAssemble);
-    } else {
-      txhex = await nuls.transactionSerialize(pri, pub, tAssemble);
-    }
-    console.log(txhex);
-    //4、验证交易
-    let result = await validateTx(txhex);
-    if (result) {
-      //5、广播交易
-      let results = await broadcastTx(txhex);
-      console.log(results);
-      if (results && results.value) {
-        console.log("交易完成, 合约地址: " + contractCreateTxData.contractAddress)
-      } else {
-        console.log("广播交易失败")
-      }
-    } else {
-      console.log("验证交易失败")
-    }
-}
-```
 
 ### 3.2 调用合约
 
 请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCallTest.js`
 
-_**核心代码片段:**_
-
-```javascript
-async function callContract(pri, pub, fromAddress, assetsChainId, assetsId, contractCall, remark) {
-   const balanceInfo = await getNulsBalance(fromAddress);
-   let contractAddress = contractCall.contractAddress;
-   let value = Number(contractCall.value);
-   let newValue = new BigNumber(contractCall.value);
-   const contractCallTxData = await this.makeCallData(contractCall.chainId, fromAddress, value, contractAddress, contractCall.methodName, contractCall.methodDesc, contractCall.args);
-   let gasLimit = new BigNumber(contractCallTxData.gasLimit);
-   let gasFee = Number(gasLimit.times(contractCallTxData.price));
-   let amount = Number(newValue.plus(gasFee));
-   let transferInfo = {
-     fromAddress: fromAddress,
-     assetsChainId: assetsChainId,
-     assetsId: assetsId,
-     amount: amount,
-     fee: 100000
-   };
-   if (value > 0) {
-     transferInfo.toAddress = contractAddress;
-     transferInfo.value = contractCall.value;
-   }
-
-   let inOrOutputs = await inputsOrOutputs(transferInfo, balanceInfo, 16);
-   let tAssemble = await nuls.transactionAssemble(inOrOutputs.data.inputs, inOrOutputs.data.outputs, remark, 16, contractCallTxData);
-   let txhex;
-   //获取手续费
-   let newFee = countFee(tAssemble, 1);
-   //手续费大于0.001的时候重新组装交易及签名
-   if (transferInfo.fee !== newFee) {
-     transferInfo.fee = newFee;
-     inOrOutputs = await inputsOrOutputs(transferInfo, balanceInfo, 16);
-     tAssemble = await nuls.transactionAssemble(inOrOutputs.data.inputs, inOrOutputs.data.outputs, remark, 16, contractCallTxData);
-     txhex = await nuls.transactionSerialize(pri, pub, tAssemble);
-   } else {
-     txhex = await nuls.transactionSerialize(pri, pub, tAssemble);
-   }
-   console.log(txhex);
-   let result = await validateTx(txhex);
-   console.log(result);
-   if (result.success) {
-     let results = await broadcastTx(txhex);
-     if (results && results.value) {
-       console.log("交易完成")
-     } else {
-       console.log("广播交易失败\n", results)
-     }
-   } else {
-     console.log("验证交易失败")
-   }
-}
-
-```
 
 ### 3.3 删除合约
 
 请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractDeleteTest.js`
 
-_**核心代码片段:**_
+### 3.4 调用合约 - 向合约转入跨链资产
 
-```javascript
-async function deleteContract(pri, pub, fromAddress, assetsChainId, assetsId, contractDelete, remark) {
-    const balanceInfo = await getNulsBalance(fromAddress);
-    let amount = 0;
-    let transferInfo = {
-       fromAddress: fromAddress,
-       assetsChainId: assetsChainId,
-       assetsId: assetsId,
-       amount: amount,
-       fee: 100000
-    };
-    
-    const contractDeleteTxData = await this.makeDeleteData(contractDelete.chainId, contractDelete.sender, contractDelete.contractAddress);
-    
-    let deleteValidateResult = await validateContractDelete(assetsChainId, contractDeleteTxData.sender, contractDeleteTxData.contractAddress);
-    if (!deleteValidateResult) {
-       console.log("验证删除合约失败");
-       return;
-    }
-    let inOrOutputs = await inputsOrOutputs(transferInfo, balanceInfo, 17);
-    let tAssemble = await nuls.transactionAssemble(inOrOutputs.data.inputs, inOrOutputs.data.outputs, remark, 17, contractDeleteTxData);
-    let txhex = await nuls.transactionSerialize(pri, pub, tAssemble);
-    let result = await validateTx(txhex);
-    console.log(result);
-    if (result) {
-       let results = await broadcastTx(txhex);
-       if (results && results.value) {
-           console.log("交易完成")
-       } else {
-           console.log("广播交易失败")
-       }
-    } else {
-       console.log("验证交易失败")
-    }
-}
+请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCallOfMultyAssetsTest1.js`
 
-```
+请参考`https://github.com/nuls-io/nuls-v2-js-sdk/blob/master/src/test/contractCallOfMultyAssetsTest2.js`
+

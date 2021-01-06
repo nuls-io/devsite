@@ -200,6 +200,7 @@ http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636e
             "value": "0",
             "stackTrace": null,
             "transfers": [],
+            "multyAssetTransfers": [],
             "events": [
                 "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"TempEvent\",\"payload\":{\"temp\":\"123\"}}"
             ],
@@ -208,6 +209,7 @@ http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636e
                 "{\"contractAddress\":\"tNULSeBaNA416GsttuWmWJwHrgJ8KfWzVw4LQR\",\"blockNumber\":194018,\"event\":\"DebugEvent\",\"payload\":{\"name\":\"clinitTest log 1\",\"desc\":\"temp is tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\"}}"
             ],
             "tokenTransfers": [],
+            "token721Transfers": [],
             "invokeRegisterCmds": [],
             "contractTxList": [],
             "remark": "call"
@@ -228,6 +230,7 @@ http://beta.api.nuls.io/api/contract/result/1aaab3e9453468dd1a4569d0d6d9887b636e
 | sender          |   string   | 交易创建者账户地址                                |  是   |
 | password        |   string   | 调用者账户密码                                  |  是   |
 | value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
+| multyAssetValues|  string[][]| 调用者向合约地址转入的其他资产金额，没有此业务时填空，规则: [[\<value\>,\<assetChainId\>,\<assetId\>]] |  否   |
 | gasLimit        |    long    | GAS限制                                    |  是   |
 | price           |    long    | GAS单价                                    |  是   |
 | contractAddress |   string   | 合约地址                                     |  是   |
@@ -252,6 +255,7 @@ NULS-API RESTFUL请求方式示例:
   "contractAddress" : "tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K",
   // 这里填入要转入的NULS，单位是Na
   "value" : 3600000000,
+  "multyAssetValues" : null,
   "methodName" : "transferToContractTest",
   "methodDesc" : null,
   "args" : [ "method parameter"]
@@ -276,7 +280,77 @@ public void transferToContractTest(String storedData) {
 
 合约中通过`Msg.value()`获取本次调用者向合约转入的NULS，单位是Na，如上述代码。
 
-## 四、合约NULS资产转出的交易说明
+## 四、向合约转入其他跨链资产的交易说明
+
+普通账户地址，向合约转入跨链资产，都要通过`调用合约`交易来实现
+
+**调用合约参数列表**
+ 
+| 参数名             |    参数类型    | 参数描述                                     | 是否必填 |
+| --------------- |:----------:| ---------------------------------------- |:----:|
+| chainId         |    int     | 链id                                      |  是   |
+| sender          |   string   | 交易创建者账户地址                                |  是   |
+| password        |   string   | 调用者账户密码                                  |  是   |
+| value           | biginteger | 调用者向合约地址转入的主网资产金额，没有此业务时填BigInteger.ZERO |  是   |
+| multyAssetValues|  string[][]| 调用者向合约地址转入的其他资产金额，没有此业务时填空，规则: [[\<value\>,\<assetChainId\>,\<assetId\>]] |  否   |
+| gasLimit        |    long    | GAS限制                                    |  是   |
+| price           |    long    | GAS单价                                    |  是   |
+| contractAddress |   string   | 合约地址                                     |  是   |
+| methodName      |   string   | 合约方法                                     |  是   |
+| methodDesc      |   string   | 合约方法描述，若合约内方法没有重载，则此参数可以为空               |  否   |
+| args            |  object[]  | 参数列表                                     |  否   |
+| remark          |   string   | 交易备注                                     |  否   |
+
+### 1. 转入实现方式
+
+在调用合约参数的`multyAssetValues `中填入相应资产信息，就可以向合约转入跨链资产
+
+NULS-API RESTFUL请求方式示例:
+
+```json
+{
+  "sender" : "tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",
+  "gasLimit" : 200000,
+  "price" : 25,
+  "password" : "nuls123456",
+  "remark" : null,
+  "contractAddress" : "tNULSeBaN31HBrLhXsWDkSz1bjhw5qGBcjafVJ",
+  "value" : 0,
+  // 这里填入要转入的跨链资产，此处举例数据为 5-1(NVT), 5-7(USDT)
+  "multyAssetValues" : [["200000000", 5, 1], ["3000000", 5, 7]],
+  "methodName" : "_payableMultyAsset",
+  "methodDesc" : null,
+  "args" : []
+}
+```
+上述示例中，普通账户`tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG`向合约地址`tNULSeBaMx7J2im9edmmyZofHoTWW6nCTbvy3K`转入了2个NVT和3个USDT
+
+<b style="color:red">注意：调用的合约方法必须标注@PayableMultyAsset注解，否则，系统会直接拒绝这笔交易。</b>
+
+合约代码 - 方法实现如下
+
+```java
+/**
+ * 标记@PayableMultyAsset的方法，才能在调用时候转入跨链资产
+ */
+@PayableMultyAsset
+public void transferToContractTest(String storedData) {
+    // 调用者向合约转入的跨链资产
+    MultyAssetValue[] values = Msg.multyAssetValues();
+    for (MultyAssetValue value : values) {
+        // 转入的金额
+        BigInteger value = assetValue.getValue();
+        // 资产链ID
+        int assetChainId = assetValue.getAssetChainId();
+        // 资产ID
+        int assetId = assetValue.getAssetId();
+    }
+}
+```
+
+合约中通过`Msg.multyAssetValues()`获取本次调用者向合约转入的跨链资产，如上述代码。
+
+## 五、合约NULS资产转出的交易说明
 
 **交易类型 txType = 18**
 
@@ -296,7 +370,7 @@ public native void transfer(BigInteger value);
 
 ```java
 // 根据账户地址实例化一个Address对象
-Address recipient = new Address("NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw");
+Address recipient = new Address("tNULSeBaMoixxbUovqmzPyJ2AwYFAX2evKbuy9");
 // 转移18个NULS到这个账户地址
 recipient.transfer(BigInteger.valueOf(1800000000L));
 
@@ -397,8 +471,11 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
                     "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
                 }
             ],
+            "multyAssetTransfers": [],
             "events": [],
+            "debugEvents": [],
             "tokenTransfers": [],
+            "token721Transfers": [],
             "invokeRegisterCmds": [],
             "contractTxList": [
                 "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000"
@@ -409,7 +486,157 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 }
 ```
 
-## 五、合约执行结果说明
+## 六、合约跨链资产转出的交易说明
+
+**交易类型 txType = 18**
+
+### 1. 转出实现方式
+
+在合约SDK中，Address对象中有一个方法
+
+```java
+/**
+ * 合约向该地址转账指定的资产
+ *
+ * @param value          转账金额
+ * @param assetChainId   资产链ID
+ * @param assetId        资产ID
+ */
+public void transfer(BigInteger value, int assetChainId, int assetId) {
+    this.transferLocked(value, assetChainId, assetId, 0);
+}
+```
+当智能合约的方法内执行了此方法，则合约会转移相应的资产到指定的Address中，示例如下:
+
+```java
+// 根据账户地址实例化一个Address对象
+Address recipient = new Address("tNULSeBaMoixxbUovqmzPyJ2AwYFAX2evKbuy9");
+// 转移18个NVT(NERVE测试网跨链资产)到这个账户地址
+recipient.transfer(BigInteger.valueOf(1800000000L), 5, 1);
+
+```
+
+### 2. 结果查询
+
+如果从合约地址转走跨链资产，那么会在合约的执行结果中体现，结果中的`multyAssetTransfers`数组对象中展示了每一笔合约跨链资产转账，这里展示的数据仅是合约跨链资产转账交易的概要信息。
+
+示例: 截取合约执行结果的`multyAssetTransfers`数组对象，如下
+
+```json
+{
+"multyAssetTransfers": [
+    {
+        // 合约NULS资产转出交易hash
+        "txHash": "21c7af81c5130f43a363152d3b81f96004fbaaeaeab8e50c988c04015f78770b",
+        "from": "tNULSeBaN31HBrLhXsWDkSz1bjhw5qGBcjafVJ",
+        "value": "200000000",
+        "assetChainId": 5,
+        "assetId": 1,
+        "outputs": [
+            {
+                "to": "tNULSeBaMrbMRiFAUeeAt6swb4xVBNyi81YL24",
+                "value": "200000000",
+                "assetChainId": 5,
+                "assetId": 1,
+                "lockTime": 0
+            }
+        ],
+        // 调用合约交易hash
+        "orginTxHash": "755cdeabb704a77038d44c741b6c2b5635a60ffa58f652162559763f63623176"
+    }
+]
+}
+
+```
+
+### 3. 完整交易序列化数据查询
+
+#### 交易背景
+
+<b style="color:red">注意：`block`中不会包含这类交易，因为它不在节点网络上广播。</b> 
+
+每一个得到智能合约交易的节点执行智能合约，把执行结果保存在自己的节点上，当一个区块中所有的合约交易执行完后，会产生一个`stateRoot`，这个`stateRoot`会在`block`里广播出来。
+
+#### 查询方式
+
+完整交易序列化数据也包含在合约执行结果中，结果中的`contractTxList`数组对象会包含本次合约执行后生成的合约跨链资产转出交易
+
+以下是包含合约NULS资产转出交易的执行结果
+
+> 通过`RESTFUL`接口`/api/contract/result/{hash}` 
+> 
+> 或者 
+> 
+> 通过`JSONRPC`接口`getContractTxResult `, 请求数据: 
+
+```json
+{
+"jsonrpc":"2.0",
+"method":"getContractTxResult",
+"params":[chainId, hash],
+"id":1234
+}
+```
+
+
+以下结果中，`contractTxList`会包含本次合约执行后生成的交易
+
+> 注意：这个结构里不限于合约跨链资产转出交易，根据业务的不同会生成不同的合约交易，比如合约共识交易 --> [智能合约共识交易说明](./consensusTransaction.html)
+
+```json
+{
+    "success": true,
+    "data": {
+        "flag": true,
+        "data": {
+            "success": true,
+            "errorMessage": null,
+            "contractAddress": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
+            "result": "multyForAddress: 888634777633",
+            "gasLimit": 200000,
+            "gasUsed": 20038,
+            "price": 25,
+            "totalFee": "5100000",
+            "txSizeFee": "100000",
+            "actualContractFee": "500950",
+            "refundFee": "4499050",
+            "value": "0",
+            "stackTrace": null,
+            "transfers": [],
+            "multyAssetTransfers": [
+                {
+                    "txHash": "21c7af81c5130f43a363152d3b81f96004fbaaeaeab8e50c988c04015f78770b",
+                    "from": "tNULSeBaN31HBrLhXsWDkSz1bjhw5qGBcjafVJ",
+                    "value": "200000000",
+                    "assetChainId": 5,
+                    "assetId": 1,
+                    "outputs": [
+                        {
+                            "to": "tNULSeBaMrbMRiFAUeeAt6swb4xVBNyi81YL24",
+                            "value": "200000000",
+                            "assetChainId": 5,
+                            "assetId": 1,
+                            "lockTime": 0
+                        }
+                    ],
+                    "orginTxHash": "755cdeabb704a77038d44c741b6c2b5635a60ffa58f652162559763f63623176"
+                }
+            ],
+            "events": [],
+            "debugEvents": [],
+            "tokenTransfers": [],
+            "token721Transfers": [],
+            "invokeRegisterCmds": [],
+            "contractTxList": [
+"12009cbbf25f0037755cdeabb704a77038d44c741b6c2b5635a60ffa58f652162559763f6362317602000265f22046ba64eb216854390877d0f52348ded8be8c011702000265f22046ba64eb216854390877d0f52348ded8be0500010000c2eb0b00000000000000000000000000000000000000000000000000000000080000000000000000000117020001bc9cf2a09f0d1dbe7ab0a7dca2ccb87d12da6a990500010000c2eb0b00000000000000000000000000000000000000000000000000000000000000000000000000"
+            ],
+            "remark": "call"
+        }
+    }
+}
+```
+
+## 七、合约执行结果说明
 
 ### 1. 合约执行结果说明
 
@@ -447,13 +674,37 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
             "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
         }
     ],
-    "events": [
-        //合约内发送的事件信息 - 按token合约标准来说，一笔合约token转账会发送相应的一笔名为TransferEvent的事件信息，支持一次合约调用交易内进行多笔token转账
-        //返回的事件内容结构是JSON结构`
-        "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}"
+    "multyAssetTransfers": [
+        //这是是指合约地址转出跨链资产的交易信息，与token无关，与token无关，与token无关，正常情况下，token转账的合约交易不会有此类交易，以下是示例
+        {
+            "txHash": "21c7af81c5130f43a363152d3b81f96004fbaaeaeab8e50c988c04015f78770b",
+            "from": "tNULSeBaN31HBrLhXsWDkSz1bjhw5qGBcjafVJ",
+            "value": "200000000",
+            "assetChainId": 5,
+            "assetId": 1,
+            "outputs": [
+                {
+                    "to": "tNULSeBaMrbMRiFAUeeAt6swb4xVBNyi81YL24",
+                    "value": "200000000",
+                    "assetChainId": 5,
+                    "assetId": 1,
+                    "lockTime": 0
+                }
+            ],
+            "orginTxHash": "755cdeabb704a77038d44c741b6c2b5635a60ffa58f652162559763f63623176"
+        }
     ],
+    "events": [
+        //合约内发送的事件信息 - 按token-NRC20合约标准来说，一笔合约token转账会发送相应的一笔名为TransferEvent的事件信息，支持一次合约调用交易内进行多笔token转账
+        //返回的事件内容结构是JSON结构`
+        "{\"contractAddress\":\"TTb1LZLo6izPGmXa9dGPmb5D2vpLpNqA\",\"blockNumber\":1343847,\"event\":\"TransferEvent\",\"payload\":{\"from\":\"TTasNs8MGGGaFT9hd9DLmkammYYv69vs\",\"to\":\"TTau7kAxyhc4yMomVJ2QkMVECKKZK1uG\",\"value\":\"1000\"}}",
+        //合约内发送的事件信息 - 按token-NRC721合约标准来说，一笔合约token转账会发送相应的一笔名为Transfer的事件信息，支持一次合约调用交易内进行多笔token转账
+        //返回的事件内容结构是JSON结构`
+        "{\"contractAddress\":\"NULSd6Hgrsk44itdzFqjgkgAF6nFM82WdpqrQ\",\"blockNumber\":4065104,\"event\":\"Transfer\",\"payload\":{\"from\":\"NULSd6Hgd3ACi95QvpLBfp3jgJP3YFmEpbgoG\",\"to\":\"NULSd6HgcbwRjN8AxpPK8TvJWtzBzMQ1zDhVd\",\"tokenId\":\"13450\"}}"
+    ],
+    "debugEvents": [],// 合约调式日志事件
     "tokenTransfers": [
-        //针对以上token转账事件(TransferEvent)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol, decimals
+        //针对以上token-NRC20转账事件(TransferEvent)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol, decimals
         //注意1：这里的value是合约token数值转换后的去小数化存储值，同以太坊token方式
         //注意2: 产生的token转账的合约地址不一定是当前调用的合约，所以在这个数据结构里有contractAddress属性，它不是冗余字段
         {
@@ -464,6 +715,18 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
             "name": "a",
             "symbol": "a",
             "decimals": 8
+        }
+    ],
+    "token721Transfers": [
+        //针对以上token-NRC721转账事件(Transfer)进行的数据加工，补充了发生token转账的合约的基本信息 - name, symbol
+        //注意1: 产生的token转账的合约地址不一定是当前调用的合约，所以在这个数据结构里有contractAddress属性，它不是冗余字段
+        {
+            "contractAddress": "NULSd6Hgrsk44itdzFqjgkgAF6nFM82WdpqrQ",
+            "from": "NULSd6Hgd3ACi95QvpLBfp3jgJP3YFmEpbgoG",
+            "to": "NULSd6HgcbwRjN8AxpPK8TvJWtzBzMQ1zDhVd",
+            "tokenId": "13450",
+            "name": "test_nft",
+            "symbol": "TNFT"
         }
     ],
     "invokeRegisterCmds": [
@@ -488,13 +751,14 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
     "contractTxList": [
         //当前执行智能合约后生成的交易
         "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000",
-        "1400bf6b285d006600204aa9d1010000000000000000000000000000000000000000000000000000020002f246b18e8c697f00ed9bd22696998e469d3f824b020001d7424d91c83566eb94233b5416f2aa77709c03e1020002f246b18e8c697f00ed9bd22696998e469d3f824b648c0117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff00"
+"12009cbbf25f0037755cdeabb704a77038d44c741b6c2b5635a60ffa58f652162559763f6362317602000265f22046ba64eb216854390877d0f52348ded8be8c011702000265f22046ba64eb216854390877d0f52348ded8be0500010000c2eb0b00000000000000000000000000000000000000000000000000000000080000000000000000000117020001bc9cf2a09f0d1dbe7ab0a7dca2ccb87d12da6a990500010000c2eb0b00000000000000000000000000000000000000000000000000000000000000000000000000",
+"1400bf6b285d006600204aa9d1010000000000000000000000000000000000000000000000000000020002f246b18e8c697f00ed9bd22696998e469d3f824b020001d7424d91c83566eb94233b5416f2aa77709c03e1020002f246b18e8c697f00ed9bd22696998e469d3f824b648c0117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000080000000000000000000117020002f246b18e8c697f00ed9bd22696998e469d3f824b0200010000204aa9d1010000000000000000000000000000000000000000000000000000ffffffffffffffff00"
     ],
     "remark": "call"
 }
 ```
 
-## 六、触发payable方法的场景
+## 八、触发payable方法的场景
 
 在`vm-sdk`中，对于`Contract#payable`有这样的描述
 
@@ -563,7 +827,7 @@ public interface Contract {
 ### 注意: `_payable(String[][] args)`方法是系统调用方法，用户无法调用
 
 
-## 七、合约调用外部命令说明
+## 九、合约调用外部命令说明
 
 ```java
 public class Utils {
@@ -803,7 +1067,7 @@ public class Utils {
     String statusOfContractAgent = contractAgentInfo[9];     
     ```
     
-## 八、合约共识交易说明
+## 十、合约共识交易说明
 
 共识模块提供了四种与合约相关的共识交易，在模块启动时向合约模块注册创建四种合约共识交易的命令，使合约模块能够调用，使之可以创建与注销共识节点、委托与取消委托共识节点
 
@@ -1072,9 +1336,12 @@ public class Utils {
             "refundFee" : "4655850",
             "value" : "2000000000000",
             "stackTrace" : null,
-            "transfers" : [ ],
-            "events" : [ ],
-            "tokenTransfers" : [ ],
+            "transfers" : [],
+            "multyAssetTransfers": [],
+            "events" : [],
+            "debugEvents": [],
+            "tokenTransfers" : [],
+            "token721Transfers": [],
             "invokeRegisterCmds" : [ {
               "cmdName" : "cs_createContractAgent",
               "args" : {
