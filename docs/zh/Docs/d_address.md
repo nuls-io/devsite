@@ -30,7 +30,7 @@ address = prefix + Base58Encode(chainId+addressType+pkh+xor)
 String prefix = Base58.encode(SerializeUtils.int16ToBytes(chainId)).toUpperCase();
 ```
 在前缀和真实地址之间，用一个小写字母进行分隔，便于从地址中提取chainId和验证地址类型及正确性。
-小写字母的选择方式为，提供一个数组，安装字母表的顺序填充小写字母，根据prefix的长度来选择分隔的字母。
+小写字母的选择方式为，提供一个数组，按照字母表的顺序填充小写字母，根据prefix的长度来选择分隔的字母。
 ```
 //前缀长度是几个字母，就选择第几个元素为分隔字母。
 //如前缀长度为2，则用b分隔，长度为3用c分隔，长度为4用d分隔，……
