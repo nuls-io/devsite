@@ -26,7 +26,7 @@
     
     调用4.22接口，离线组装NRC20转账交易
     
-    调用1.14接口或者1.15接口，签名交易
+    调用1.15接口，签名交易
     
     调用3.3接口，广播交易，记录交易hash
 
@@ -40,7 +40,7 @@
     
     调用4.22接口，离线组装NRC20转账交易
     
-    调用1.16接口或者1.17接口，签名交易
+    调用1.17接口，签名交易
     
     调用3.3接口，广播交易，记录交易hash
 
@@ -84,14 +84,14 @@ txType=16
     <dependency>
         <groupId>io.nuls.v2</groupId>
         <artifactId>sdk4j</artifactId>
-        <version>1.0.8.RELEASE</version>
+        <version>1.1.4.RELEASE</version>
     </dependency>
     
     <!-- JDK8环境下 -->
     <dependency>
         <groupId>io.nuls.v2</groupId>
         <artifactId>sdk4j-jdk8</artifactId>
-        <version>1.0.8.RELEASE</version>
+        <version>1.1.9.RELEASE</version>
     </dependency>
     ```
     

@@ -23,14 +23,14 @@
 <dependency>
     <groupId>io.nuls.v2</groupId>
     <artifactId>sdk4j</artifactId>
-    <version>1.0.7.RELEASE</version>
+    <version>1.1.4.RELEASE</version>
 </dependency>
 
 <!-- JDK8 -->
 <dependency>
     <groupId>io.nuls.v2</groupId>
     <artifactId>sdk4j-jdk8</artifactId>
-    <version>1.0.7.RELEASE</version>
+    <version>1.1.9.RELEASE</version>
 </dependency>
 ```
 
