@@ -17,9 +17,3 @@ The NULS whitepaper is an authoritative report that addresses what NULS’ goal 
 
 [Learn more from whitepaper](https://nuls.io/wp-content/uploads/2019/06/NULS_Whitepaper_2.0.pdf)
 
-## 3. Yellowpaper
-
-The NULS yellowpaper is the technical detailed version of the whitepaper, which drills down into the underlying aspects of NULS.
-
-
-[Learn more from Yellowpaper](https://nuls.io/wp-content/uploads/2019/06/NulsYellowpaper1.1.pdf)
