@@ -7,12 +7,12 @@ module.exports = {
         // 键名是该语言所属的子路径
         // 作为特例，默认语言可以使用 '/' 作为其路径。
         '/': {
-            title:"NULS",
+            title:" ",
             lang: 'en-US',
             description: 'Make Blockchain Easy'
         },   
         '/zh/': {
-            title:"NULS",
+            title:" ",
             lang: 'zh-CN',
             description: '让区块链更简单'
         }

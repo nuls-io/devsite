@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /icon.png
+heroImage: /icon.svg
 actionText: Quick Start →
 actionLink: /Guide/
 features:
