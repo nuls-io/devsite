@@ -9,7 +9,7 @@ module.exports = {
         '/': {
             title:" ",
             lang: 'en-US',
-            description: 'Make Blockchain Easy'
+            description: 'Making It Easier To Innovate'
         },   
         '/zh/': {
             title:" ",
@@ -54,7 +54,8 @@ module.exports = {
                             'g_factory',
                             'g_docker',
                             'g_linux_tutorial',
-                            'g_multi_sign_account'
+                            'g_multi_sign_account',
+                            'g_multiSignature_dapp_Guide'
                             ]
                         }
                     ],
@@ -157,7 +158,8 @@ module.exports = {
                             'g_factory',
                             'g_docker',
                             'g_linux_tutorial',
-                            'g_multi_sign_account'
+                            'g_multi_sign_account',
+                            'g_multiSignature_dapp_Guide'
                             ]
                         }
                     ],

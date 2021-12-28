@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /icon.svg
+heroImage: /icon.png
 actionText: 快速开始 →
 actionLink: /zh/Guide/
 features:
@@ -10,6 +10,6 @@ features:
   details: 支持多语言，让开发者可使用自己擅长的编程语言，降低开发门槛
 - title: 定制化
   details: 根据实际需求开发业务模块，只需遵循约定通信协议即可和底层区块链模块进行集成
-footer: MIT Licensed | Copyright © 2021-present NULS Foundation
+footer: MIT Licensed | Copyright 2021 © All rights Reserved. NULS
 ---
 
