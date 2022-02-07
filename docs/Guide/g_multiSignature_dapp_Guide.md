@@ -71,7 +71,9 @@ After creating the transaction, a multisig HEX will be generated. Copy the HEX a
 
 ### Signatures 
  
-This function allows users to sign over the HEX sent by the transaction starter. After receiving the HEX,  copy HEX in the box, multisig DApp will parse the transaction.
+Signature function The user will sign the received multi-signature transaction HEX, and the user's role at this time is one of the signers. The user pastes the received HEX into the input box, and the tool will automatically parse the data of the multi-signature transaction and display it.
+
+Note: After the first signer completes the signature, a new HEX will be generated, the second signer will copy the new HEX and so on
 
 
 ![](./g_multi/m7.png)
