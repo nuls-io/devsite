@@ -159,7 +159,9 @@ module.exports = {
                             'g_docker',
                             'g_linux_tutorial',
                             'g_multi_sign_account',
-                            'g_multiSignature_dapp_Guide'
+                            'g_multiSignature_dapp_Guide',
+                            'g_API',
+                            'g_integrate'
                             ]
                         }
                     ],
