@@ -20,7 +20,7 @@ This section is a guide for the use of the full node wallet for the Linux versio
 
 |      CPU       | Memory | Disk space |   Bandwidth   |
 | :------------: | :----: | :--------: | :-----------: |
-| 4-Core 3.0 GHz |  16GB  |   128GB    | 20Mbps uplink |
+| 4-Core 3.0 GHz |  16GB  |   256GB    | 20Mbps uplink |
 
 **Recommended requirements:**
 
