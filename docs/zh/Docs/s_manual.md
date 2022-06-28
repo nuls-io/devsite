@@ -906,6 +906,58 @@ public class Utils {
      * @return json字符串
      */
     public static native String obj2Json(Object obj);
+    
+    /**
+     * 内部创建合约
+     * @param salt 参与计算生成新的合约地址的因素
+     * @param codeCopy 指定合约模板
+     * @param args 部署的参数
+     * @return 部署的合约地址
+     */
+    public static String deploy(String[] salt, Address codeCopy, String[] args) {
+        require(codeCopy.isContract(), "not contract address");
+        String finalSalt = encodePacked(salt);
+        int argsLength = 0;
+        if (args != null) {
+            argsLength = args.length;
+        }
+        String[] arr = new String[args.length + 2];
+        arr[0] = codeCopy.toString();
+        arr[1] = finalSalt;
+        for (int i = 0; i < argsLength; i++) {
+            arr[2 + i] = args[i];
+        }
+        return (String) Utils.invokeExternalCmd("createContract", arr);
+    }
+
+    /**
+     * 字符串数组编码
+     */
+    public static String encodePacked(String[] args) {
+        return (String) Utils.invokeExternalCmd("encodePacked", args);
+    }
+
+    /**
+     * 计算合约地址
+     * @param salt 参与计算生成新的合约地址的因素
+     * @param codeHash 合约代码的hash值
+     * @param sender 合约部署者
+     * @return 合约地址
+     */
+    public static String computeAddress(String[] salt, String codeHash, Address sender) {
+        String finalSalt = encodePacked(salt);
+        return (String) Utils.invokeExternalCmd("computeAddress", new String[]{finalSalt, codeHash, sender.toString()});
+    }
+
+    /**
+     * 获取合约代码的hash值
+     * @param codeAddress 合约地址
+     * @return 合约代码的hash值
+     */
+    public static String getCodeHash(Address codeAddress) {
+        require(codeAddress.isContract(), "not contract address");
+        return (String) Utils.invokeExternalCmd("getCodeHash", new String[]{codeAddress.toString()});
+    }
 }
 ```
 

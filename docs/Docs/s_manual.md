@@ -906,6 +906,58 @@ public class Utils {
      * @return Json string
      */
     public static native String obj2Json(Object obj);
+    
+    /**
+      * Create contract internally
+      * @param salt The factors involved in calculating the new contract address
+      * @param codeCopy specifies the contract template
+      * @param args deployment parameters
+      * @return the deployed contract address
+      */
+    public static String deploy(String[] salt, Address codeCopy, String[] args) {
+        require(codeCopy.isContract(), "not contract address");
+        String finalSalt = encodePacked(salt);
+        int argsLength = 0;
+        if (args != null) {
+            argsLength = args.length;
+        }
+        String[] arr = new String[args.length + 2];
+        arr[0] = codeCopy.toString();
+        arr[1] = finalSalt;
+        for (int i = 0; i < argsLength; i++) {
+            arr[2 + i] = args[i];
+        }
+        return (String) Utils.invokeExternalCmd("createContract", arr);
+    }
+
+    /**
+     * String array encoding
+     */
+    public static String encodePacked(String[] args) {
+        return (String) Utils.invokeExternalCmd("encodePacked", args);
+    }
+
+    /**
+      * Calculate the contract address
+      * @param salt The factors involved in calculating the new contract address
+      * @param codeHash the hash value of the contract code
+      * @param sender contract deployer
+      * @return contract address
+      */
+    public static String computeAddress(String[] salt, String codeHash, Address sender) {
+        String finalSalt = encodePacked(salt);
+        return (String) Utils.invokeExternalCmd("computeAddress", new String[]{finalSalt, codeHash, sender.toString()});
+    }
+
+    /**
+      * Get the hash value of the contract code
+      * @param codeAddress contract address
+      * @return the hash value of the contract code
+      */
+    public static String getCodeHash(Address codeAddress) {
+        require(codeAddress.isContract(), "not contract address");
+        return (String) Utils.invokeExternalCmd("getCodeHash", new String[]{codeAddress.toString()});
+    }
 }
 ```
 
