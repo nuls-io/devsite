@@ -41,29 +41,24 @@ You can use [POCM (SCO distribution platform) ](https://pocm.nuls.io/) to attrac
 
 ### Submit basic information
 
-Click the [Select Item] menu on the pocm platform, enter the page, click the [Issue Project] button and fill in the basic information and submit
+Click the [Select Project] menu on the pocm platform, enter the page, click the [Issue Project] button and fill in the basic information and submit
 
 ![image-20190917111842631](./g_pocm/project1.png)
 
-The following step is critical.
-
-```
-After submitting the basic information, the project team must send an email to pen@nuls.io, containing the following information:
-- project name
-- an account address  for subsequent publishing of POCM contracts.  This account is referred to as the POCM account for the project. (Please take care of the private key of the address.)
-  
-The project team cannot move forward with their POCM project until NULS replies to their email confirming that their project has been approved.
-```
 
 ### Issued Token
 
-After receiving confirmation from NULS that their project has been approved, users can import their POCM  account to the POCM platform and enter the [user center] page to issue POCM contracts.
+Click the [Issue Token] menu on the POCM platform and click on the NRC-20 token issued by yourself in the form to fill in the entry information (please pay attention to re-fill the token name and symbol completely and accurately, and need to be the same as the previous step) Token information be consistent)
 
 ![image-20190917112104017](./g_pocm/project2.png)
 
 ### Issue pocm contract
+After the basic information is submitted, the project team needs to send an email to the email address: pen@nuls.io. The content of the email is as follows:
 
-After the basic information is approved, the project team needs to provide an account address (please keep the address private key) to the platform, the account address will be authorized, then import the account into the POCM platform, and then go to the [User Center] page to issue POCM contract
+- project name
+- Provide an account address (please keep the private key of the address by yourself) for subsequent release of POCM contracts
+
+After receiving confirmation from NULS that their project has been approved, users can import their POCM  account to the POCM platform and enter the [user center] page to issue POCM contracts.
 
 ![image-20190917112918386](./g_pocm/project3.png)
 
