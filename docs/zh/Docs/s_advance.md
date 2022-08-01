@@ -378,7 +378,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 
 ### 2. 结果查询
 
-如果从合约地址转走NULS，那么会在合约的执行结果中体现，结果中的`transfers`数组对象中展示了每一笔合约转账，这里展示的数据仅是合约转账交易的概要信息。
+如果从合约地址转走NULS，那么会在合约的执行结果中体现，结果中的`transfers`数组对象中展示了每一笔合约NULS转账，这里展示的数据仅是合约转账交易的概要信息。
 
 示例: 截取合约执行结果的`transfers`数组对象，如下
 
@@ -387,17 +387,18 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 "transfers": [
     {
         // 合约NULS资产转出交易hash
-        "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
-        "from": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
-        "value": "1800000000",
+        "txHash": "4396f990e6a006ae6235b478dc43845ff0a6cc8ed9f8aefeebf22da2c4cc40be",
+        "from": "NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB",
+        "value": "7300000000000",
         "outputs": [
             {
-                "to": "NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw",
-                "value": "1800000000"
+                "to": "NULSd6HgaNEJZBt2ABKA9gt6qvRTeb6aMeToV",
+                "value": "7300000000000",
+                lockTime: 0
             }
         ],
         // 调用合约交易hash
-        "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
+        "orginTxHash": "2b442ab01650c8848a3ad0535a28979a0cd207e84e133edc05fb391523591c57"
     }
 ]
 }
@@ -414,7 +415,7 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 
 #### 查询方式
 
-完整交易序列化数据也包含在合约执行结果中，结果中的`contractTxList`数组对象会包含本次合约执行后生成的合约NULS资产转出交易
+完整交易序列化数据也包含在合约执行结果中，结果中的`transfers`数组对象会包含本次合约执行后生成的合约NULS资产转出数据，另外`contractTxList`中前缀是`1200`的，则是合约NULS转出交易的序列化字符串
 
 以下是包含合约NULS资产转出交易的执行结果
 
@@ -434,54 +435,54 @@ recipient.transfer(BigInteger.valueOf(1800000000L));
 ```
 
 
-以下结果中，`contractTxList`会包含本次合约执行后生成的交易
-
-> 注意：这个结构里不限于合约NULS资产转出交易，根据业务的不同会生成不同的合约交易，比如合约共识交易 --> [智能合约共识交易说明](./consensusTransaction.html)
+示例
 
 ```json
 {
-    "success": true,
-    "data": {
-        "flag": true,
-        "data": {
-            "success": true,
-            "errorMessage": null,
-            "contractAddress": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
-            "result": "multyForAddress: 888634777633",
-            "gasLimit": 200000,
-            "gasUsed": 20038,
-            "price": 25,
-            "totalFee": "5100000",
-            "txSizeFee": "100000",
-            "actualContractFee": "500950",
-            "refundFee": "4499050",
-            "value": "0",
-            "stackTrace": null,
-            "transfers": [
-                {
-                    "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
-                    "from": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
-                    "value": "1800000000",
-                    "outputs": [
-                        {
-                            "to": "NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw",
-                            "value": "1800000000"
-                        }
-                    ],
-                    "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
-                }
-            ],
-            "multyAssetTransfers": [],
-            "events": [],
-            "debugEvents": [],
-            "tokenTransfers": [],
-            "token721Transfers": [],
-            "invokeRegisterCmds": [],
-            "contractTxList": [
-                "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000"
-            ],
-            "remark": "call"
-        }
+    "jsonrpc": "2.0",
+    "id": "1234",
+    "result": {
+        "success": true,
+        "errorMessage": null,
+        "contractAddress": "NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB",
+        "result": null,
+        "gasLimit": 23943,
+        "gasUsed": 15962,
+        "price": 25,
+        "totalFee": "698575",
+        "txSizeFee": "100000",
+        "actualContractFee": "399050",
+        "refundFee": "199525",
+        "value": "0",
+        "stackTrace": null,
+        "transfers": [
+            {
+                "txHash": "4396f990e6a006ae6235b478dc43845ff0a6cc8ed9f8aefeebf22da2c4cc40be",
+                "from": "NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB",
+                "value": "7300000000000",
+                "outputs": [
+                    {
+                        "to": "NULSd6HgaNEJZBt2ABKA9gt6qvRTeb6aMeToV",
+                        "value": "7300000000000",
+                        "lockTime": 0
+                    }
+                ],
+                "orginTxHash": "2b442ab01650c8848a3ad0535a28979a0cd207e84e133edc05fb391523591c57"
+            }
+        ],
+        "multyAssetTransfers": [],
+        "events": [
+            "{\"contractAddress\":\"NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB\",\"blockNumber\":8783354,\"event\":\"TransferFunds\",\"payload\":{\"to\":\"NULSd6HgaNEJZBt2ABKA9gt6qvRTeb6aMeToV\",\"amount\":\"7300000000000\",\"transactionId\":\"2\"}}"
+        ],
+        "debugEvents": [],
+        "tokenTransfers": [],
+        "token721Transfers": [],
+        "invokeRegisterCmds": [],
+        "contractTxList": [
+            "12003af6bc6200372b442ab01650c8848a3ad0535a28979a0cd207e84e133edc05fb391523591c57010002cea54e160723e1ff9650b4b58f066b5fd0403d838c0117010002cea54e160723e1ff9650b4b58f066b5fd0403d83010001000028e8a9a306000000000000000000000000000000000000000000000000000008667f77683a8db0c200011701000169ac629528b8c6c7f1b9f4f11ca90474e4f9220c010001000028e8a9a3060000000000000000000000000000000000000000000000000000000000000000000000"
+        ],
+        "remark": "call",
+        "internalCreates": []
     }
 }
 ```

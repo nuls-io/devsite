@@ -310,22 +310,23 @@ If NULS is transferred from the contract address, it will be reflected in the ex
 Example: The `transfers` array object that intercepts the contract execution result is as follows
 
 ```json
+{
 "transfers": [
     {
-        // Contract NULS assets are transferred out of trading hash
-        "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
-        "from": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
-        "value": "1800000000",
+        "txHash": "4396f990e6a006ae6235b478dc43845ff0a6cc8ed9f8aefeebf22da2c4cc40be",
+        "from": "NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB",
+        "value": "7300000000000",
         "outputs": [
             {
-                "to": "NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw",
-                "value": "1800000000"
+                "to": "NULSd6HgaNEJZBt2ABKA9gt6qvRTeb6aMeToV",
+                "value": "7300000000000",
+                lockTime: 0
             }
         ],
-        / / Call the contract transaction hash
-        "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
+        "orginTxHash": "2b442ab01650c8848a3ad0535a28979a0cd207e84e133edc05fb391523591c57"
     }
 ]
+}
 ```
 
 ### 3.Complete transaction serialization data query
@@ -338,7 +339,7 @@ Each node that receives the smart contract transaction executes the smart contra
 
 #### inquiry mode
 
-The complete transaction serialization data is also included in the contract execution result. The `contractTxList` array object in the result will contain the contract NULS asset transfer transaction generated after the execution of this contract.
+The complete transaction serialization data is also included in the contract execution result. The `transfers` array object in the result will contain the contract NULS asset transfer data generated after the execution of the contract. In addition, the prefix of `1200` in `contractTxList` is the serialized string of the contract NULS transfer transaction.
 
 The following is the result of the execution of the contract nuls asset transfer transaction
 
@@ -357,56 +358,54 @@ The following is the result of the execution of the contract nuls asset transfer
 }
 ```
 
-<<<<<<< HEAD
-
-In the following results, `contractTxList` will contain the transaction generated after the execution of this contract.
-
-> Note: This structure is not limited to contract NULS asset transfer transactions, different contract transactions will be generated according to different business, such as contract consensus transaction --> [Smart Contract Consensus Transaction Description] (./consensusTransaction.html)
-=======
-In the following results, `contractTxList` is the transaction generated after the execution of this contract. Note: This structure is not limited to the contract NULS asset transfer transaction, and different contract NULS asset transfer transactions will be generated according to different business, such as contract consensus. Trading --> [Smart Contract Consensus Transaction Description](./consensusTransaction.html)
->>>>>>> febc3aaf7100522c6518e55bb40c840791032322
+eg.
 
 ```json
 {
-    "success": true,
-    "data": {
-        "flag": true,
-        "data": {
-            "success": true,
-            "errorMessage": null,
-            "contractAddress": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
-            "result": "multyForAddress: 888634777633",
-            "gasLimit": 200000,
-            "gasUsed": 20038,
-            "price": 25,
-            "totalFee": "5100000",
-            "txSizeFee": "100000",
-            "actualContractFee": "500950",
-            "refundFee": "4499050",
-            "value": "0",
-            "stackTrace": null,
-            "transfers": [
-                {
-                    "txHash": "4877f6a865dea5b4ac82a8370d73e62da15bc7acb2145a03822dddfdab329d2b",
-                    "from": "NULSd6Hgdf7bdag8wyRWjUuJgQ9pu46eoiV7d",
-                    "value": "1800000000",
-                    "outputs": [
-                        {
-                            "to": "NULSd6HgkSpgKw3jqgbzNZ4FPodG4LEReq8cw",
-                            "value": "1800000000"
-                        }
-                    ],
-                    "orginTxHash": "b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e6789"
-                }
-            ],
-            "events": [],
-            "tokenTransfers": [],
-            "invokeRegisterCmds": [],
-            "contractTxList": [
-                "12002fbb225d0037b5473eefecd1c70ac4276f70062a92bdbfe8f779cbe48de2d0315686cc7e678902000253472f4702eb83b71871a4c4e0c71526bb86b8afd0011702000253472f4702eb83b71871a4c4e0c71526bb86b8af0200010000c2eb0b0000000000000000000000000000000000000000000000000000000008000000000000000000021702000194f6239c075d184e265eaea97a67eeced51725160200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000017020001ce8ffa95606f0bfd2778cff2eff8fe8999e20c440200010000e1f50500000000000000000000000000000000000000000000000000000000000000000000000000"
-            ],
-            "remark": "call"
-        }
+    "jsonrpc": "2.0",
+    "id": "1234",
+    "result": {
+        "success": true,
+        "errorMessage": null,
+        "contractAddress": "NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB",
+        "result": null,
+        "gasLimit": 23943,
+        "gasUsed": 15962,
+        "price": 25,
+        "totalFee": "698575",
+        "txSizeFee": "100000",
+        "actualContractFee": "399050",
+        "refundFee": "199525",
+        "value": "0",
+        "stackTrace": null,
+        "transfers": [
+            {
+                "txHash": "4396f990e6a006ae6235b478dc43845ff0a6cc8ed9f8aefeebf22da2c4cc40be",
+                "from": "NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB",
+                "value": "7300000000000",
+                "outputs": [
+                    {
+                        "to": "NULSd6HgaNEJZBt2ABKA9gt6qvRTeb6aMeToV",
+                        "value": "7300000000000",
+                        "lockTime": 0
+                    }
+                ],
+                "orginTxHash": "2b442ab01650c8848a3ad0535a28979a0cd207e84e133edc05fb391523591c57"
+            }
+        ],
+        "multyAssetTransfers": [],
+        "events": [
+            "{\"contractAddress\":\"NULSd6HgxKNk8JphHPWwooweisGWWRaYdXwFB\",\"blockNumber\":8783354,\"event\":\"TransferFunds\",\"payload\":{\"to\":\"NULSd6HgaNEJZBt2ABKA9gt6qvRTeb6aMeToV\",\"amount\":\"7300000000000\",\"transactionId\":\"2\"}}"
+        ],
+        "debugEvents": [],
+        "tokenTransfers": [],
+        "token721Transfers": [],
+        "invokeRegisterCmds": [],
+        "contractTxList": [
+            "12003af6bc6200372b442ab01650c8848a3ad0535a28979a0cd207e84e133edc05fb391523591c57010002cea54e160723e1ff9650b4b58f066b5fd0403d838c0117010002cea54e160723e1ff9650b4b58f066b5fd0403d83010001000028e8a9a306000000000000000000000000000000000000000000000000000008667f77683a8db0c200011701000169ac629528b8c6c7f1b9f4f11ca90474e4f9220c010001000028e8a9a3060000000000000000000000000000000000000000000000000000000000000000000000"
+        ],
+        "remark": "call",
+        "internalCreates": []
     }
 }
 ```
