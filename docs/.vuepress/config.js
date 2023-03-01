@@ -34,7 +34,8 @@ module.exports = {
                 editLinkText: 'Edit this page on GitHub',
                 nav:[
                 {text:"Guide",link:"/Guide/"},
-                {text:"Develop",link:"/Docs/"}
+                {text:"Develop",link:"/Docs/"},
+                {text:"ENULS",link:"/ENULS/"}
                 ],
                 sidebar: {
                     "/Guide/":[
@@ -124,6 +125,40 @@ module.exports = {
                         //     children: [
                         //     ]
                         // },
+                    ],
+                    "/ENULS/":[
+                        {
+                            collapsable:false,
+                            children: [
+                            "intro/",
+                            'accounts/',
+                            "blocks/",
+                            "transactions/",
+                            "evm/",
+                            "gas/",
+                            "networks/",
+                            ]
+                        },
+                        {
+                            title: "Nodes-and-clients",
+                            collapsable:false,
+                            children: [
+                             "nodes-and-clients/",
+                             "nodes-and-clients/run-a-node/",
+                             "nodes-and-clients/client-diversity/",
+                             "nodes-and-clients/nodes-as-a-service/"
+                            ]
+                        },
+                        {
+                            title:"POS",
+                            collapsable:false,
+                            children: [
+                             "pos/",
+                             "pos/gasper/",
+                             "pos/weak-subjectivity/"
+                            ]
+                        }
+                
                     ]
                 }
             },
@@ -136,7 +171,8 @@ module.exports = {
                 // Service Worker 的配置
                 nav:[
                 {text:"指南",link:"/zh/Guide/"},
-                {text:"开发",link:"/zh/Docs/"}
+                {text:"开发",link:"/zh/Docs/"},
+                {text:"ENULS",link:"/zh/ENULS/"}
                 ],
                 sidebar: {
                     "/zh/Guide/":[
@@ -165,7 +201,7 @@ module.exports = {
                             ]
                         }
                     ],
-                   "/zh/Docs/":[
+                    "/zh/Docs/":[
                         {   
                             title: '设计文档',
                             collapsable:false,
@@ -231,6 +267,40 @@ module.exports = {
                         //     children: [
                         //     ]
                         // },
+                    ],
+                    "/zh/ENULS/":[
+                          {
+                            collapsable:false,
+                            children: [
+                            "intro/",
+                            'accounts/',
+                            "blocks/",
+                            "transactions/",
+                            "evm/",
+                            "gas/",
+                            "networks/",
+                            ]
+                        },
+                        {
+                            title: "节点和客户端",
+                            collapsable:false,
+                            children: [
+                             "nodes-and-clients/",
+                             "nodes-and-clients/run-a-node/",
+                             "nodes-and-clients/client-diversity/",
+                             "nodes-and-clients/nodes-as-a-service/"
+                            ]
+                        },
+                        {
+                            title:"权益证明",
+                            collapsable:false,
+                            children: [
+                             "pos/",
+                             "pos/gasper/",
+                             "pos/weak-subjectivity/"
+                            ]
+                        }
+
                     ]
                 }
             }
