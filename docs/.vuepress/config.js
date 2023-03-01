@@ -143,6 +143,7 @@ module.exports = {
                             title: "Nodes-and-clients",
                             collapsable:false,
                             children: [
+                             "nodes-and-clients/quickstart/",
                              "nodes-and-clients/",
                              "nodes-and-clients/run-a-node/",
                              "nodes-and-clients/client-diversity/",
@@ -285,6 +286,7 @@ module.exports = {
                             title: "节点和客户端",
                             collapsable:false,
                             children: [
+                             "nodes-and-clients/quickstart/",
                              "nodes-and-clients/",
                              "nodes-and-clients/run-a-node/",
                              "nodes-and-clients/client-diversity/",
