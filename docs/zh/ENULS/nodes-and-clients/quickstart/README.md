@@ -1,7 +1,7 @@
-# 快速开始，启动ENULS节点
+### 快速开始，启动 ENULS 节点
 
-ENULS是基于Go-Ethereum进行开发的
+ENULS 是基于 Go-Ethereum 进行开发的
 
-我们把所有的细节都放在了Github上供开发者浏览
+我们把所有的细节都放在了 Github 上供开发者浏览
 
 [Access Quickstart of running an ENULS node](https://github.com/nuls-io/go-enuls)

@@ -4,7 +4,7 @@ description: A dapp developer's introduction to the core concepts of ENULS.
 lang: en
 ---
 
-## What is a blockchain? 
+## What is a blockchain?
 
 A blockchain is a public database that is updated and shared across many computers in a network.
 
@@ -14,15 +14,7 @@ A blockchain is a public database that is updated and shared across many compute
 
 Every computer in the network must agree upon each new block and the chain as a whole. These computers are known as "nodes". Nodes ensure everyone interacting with the blockchain has the same data. To accomplish this distributed agreement, blockchains need a consensus mechanism.
 
-ENULS uses a [proof-of-stake-based consensus mechanism](/pos/). Anyone who wants to add new blocks to the chain must stake at least 32 NULS into the deposit contract and run validator software. They can then be randomly selected to propose blocks that other validators check and add to the blockchain. In this model, there is usually only one chain, but network latency and dishonest behavior can cause multiple blocks to exist at the same position near the head of the chain. To resolve this, a fork-choice algorithm selects one canonical set of blocks. The blocks selected are the ones that form the heaviest possible chain, where 'heavy' refers to the number of validators that have endorsed the blocks (weighted by the NULS they have staked). There is a system of rewards and penalties that strongly incentivize participants to be honest and available online as much as possible.
-
-If you would like to see how blockchain data is hashed and subsequently appended to the history of block references, be sure to check out [this demo](https://andersbrownworth.com/blockchain/blockchain) by Anders Brownworth and watch the accompanying video below.
-
-Watch Anders explain hashes in blockchains:
-
-<YouTube id="_160oMzblY8" />
-
-## What is ENULS? 
+## What is ENULS?
 
 ENULS is a blockchain with a computer embedded in it. It is the foundation for building apps and organizations in a decentralized, permissionless, censorship-resistant way.
 
@@ -32,7 +24,7 @@ Requests for computation are called transaction requests; the record of all tran
 
 Cryptographic mechanisms ensure that once transactions are verified as valid and added to the blockchain, they can't be tampered with later. The same mechanisms also ensure that all transactions are signed and executed with appropriate "permissions" (no one should be able to send digital assets from Alice's account, except for Alice herself).
 
-## What is ENULS? 
+## What is ENULS?
 
 **ENULS (NULS)** is the native cryptocurrency of ENULS. The purpose of NULS is to allow for a market for computation. Such a market provides an economic incentive for participants to verify and execute transaction requests and provide computational resources to the network.
 
@@ -42,7 +34,7 @@ The amount of NULS paid corresponds to the resources required to do the computat
 
 NULS is also used to provide crypto-economic security to the network in three main ways: 1) it is used as a means to reward validators who propose blocks or call out dishonest behavior by other validators; 2) It is staked by validators, acting as collateral against dishonest behavior—if validators attempt to misbehave their NULS can be destroyed; 3) it is used to weigh 'votes' for newly proposed blocks, feeding into the fork-choice part of the consensus mechanism.
 
-## What are smart contracts? 
+## What are smart contracts?
 
 In practice, participants don't write new code every time they want to request a computation on the EVM. Rather, application developers upload programs (reusable snippets of code) into EVM state, and users make requests to execute these code snippets with varying parameters. We call the programs uploaded to and executed by the network smart contracts.
 
@@ -52,37 +44,37 @@ Any developer can create a smart contract and make it public to the network, usi
 
 Thus, with smart contracts, developers can build and deploy arbitrarily complex user-facing apps and services such as: marketplaces, financial instruments, games, etc.
 
-## Terminology 
+## Terminology
 
-### Blockchain 
+### Blockchain
 
 The sequence of all blocks that have been committed to the ENULS network in the history of the network. So named because each block contains a reference to the previous block, which helps us maintain an ordering over all blocks (and thus over the precise history).
 
-### NULS 
+### NULS
 
 **ENULS (NULS)** is the native cryptocurrency of ENULS. Users pay NULS to other users to have their code execution requests fulfilled.
 
-[More on NULS](/intro/)
+[More on NULS](./intro/)
 
-### EVM 
+### EVM
 
 The ENULS Virtual Machine is the global virtual computer whose state every participant on the ENULS network stores and agrees on. Any participant can request the execution of arbitrary code on the EVM; code execution changes the state of the EVM.
 
-[More on the EVM](/evm/)
+[More on the EVM](./evm/)
 
-### Nodes 
+### Nodes
 
 The real-life machines which are storing the EVM state. Nodes communicate with each other to propagate information about the EVM state and new state changes. Any user can also request the execution of code by broadcasting a code execution request from a node. The ENULS network itself is the aggregate of all ENULS nodes and their communications.
 
-[More on nodes](/nodes-and-clients/)
+[More on nodes](./nodes-and-clients/)
 
-### Accounts 
+### Accounts
 
 Where NULS is stored. Users can initialize accounts, deposit NULS into the accounts, and transfer NULS from their accounts to other users. Accounts and account balances are stored in a big table in the EVM; they are a part of the overall EVM state.
 
-[More on accounts](/accounts/)
+[More on accounts](./accounts/)
 
-### Transactions 
+### Transactions
 
 A "transaction request" is the formal term for a request for code execution on the EVM, and a "transaction" is a fulfilled transaction request and the associated change in the EVM state. Any user can broadcast a transaction request to the network from a node. For the transaction request to affect the agreed-upon EVM state, it must be validated, executed, and "committed to the network" by another node. Execution of any code causes a state change in the EVM; upon commitment, this state change is broadcast to all nodes in the network. Some examples of transactions:
 
@@ -90,14 +82,10 @@ A "transaction request" is the formal term for a request for code execution on t
 - Publish some smart contract code into EVM state.
 - Execute the code of the smart contract at address X in the EVM, with arguments Y.
 
-[More on transactions](/transactions/)
+[More on transactions](./transactions/)
 
-### Blocks 
+### Blocks
 
 The volume of transactions is very high, so transactions are "committed" in batches, or blocks. Blocks generally contain dozens to hundreds of transactions.
 
-[More on blocks](/blocks/)
-
-
-
-
+[More on blocks](./blocks/)
