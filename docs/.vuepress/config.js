@@ -143,11 +143,6 @@ module.exports = {
                 "nodes-and-clients/run-a-node/",
               ],
             },
-            {
-              title: "POS",
-              collapsable: false,
-              children: ["pos/", "pos/gasper/", "pos/weak-subjectivity/"],
-            },
           ],
         },
       },
