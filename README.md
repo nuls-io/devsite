@@ -4,7 +4,7 @@
 
 The website for NULS Normal users and Developers. You can see the generated files at [nuls-io/nuls-io.github.io](https://github.com/nuls-io/nuls-io.github.io) repository.
 
-## Getting started
+## Getting Started
 
 Install dependencies:
 
@@ -26,7 +26,7 @@ Generate:
 $ yarn run build
 ```
 
-## Contribute to This Module
+## Contribute to NULS Docs
 Click Star and Fork to start contributing improvements to this module.
 Hope more contributors can submit improvement suggestions and bug reports here.
 Issues: https://github.com/nuls-io/devsite/issues
