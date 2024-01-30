@@ -5,10 +5,12 @@ NULS提供了全面的工具帮助用户进行资产管理，加入主网共识�
 ## 主网
 ### 轻钱包
 NULS轻钱包支持Windows和Mac的客户端，不包含区块数据，私钥只存储在本地，用户的私钥安全由用户自己负责。轻钱包支持创建节点，加入主网Stake以及NULS区块链上的资产管理。
+
 [下载桌面版轻钱包](https://github.com/nuls-io/nuls-v2/releases)
 
 ### Nabox钱包
 Nabox钱包支持浏览器插件、安卓和iOS手机App，私钥只存储在本地，用户的私钥安全由用户自己负责。支持NULS生态系统DApps连接，轻松探索NULS生态系DApps。
+
 [下载安装Nabox钱包](https://nabox.io)
 
 ### 节点程序
@@ -35,11 +37,12 @@ NULS轻钱包支持Windows和Mac的客户端，不包含区块数据，私钥只
 
 ### Nabox钱包
 Nabox钱包支持浏览器插件、安卓和iOS手机App，私钥只存储在本地，用户的私钥安全由用户自己负责。支持NULS生态系统DApps连接，轻松探索NULS生态系DApps。
+
 [下载安装Nabox钱包](https://nabox.io)
 
 **请注意:** 在钱包中可以将NULS主网切换到NULS测试网络
 
-### 节点程序 - 测试网节点程序
+### 节点程序
 
 NULS节点程序支持Windows和Linux平台，包含所有区块数据，又称为全节点钱包，该钱包可用于资产管理，维护NULS网络并获得获取奖励，提供数据服务。
 
