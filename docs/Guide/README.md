@@ -29,3 +29,19 @@ The NULS WhitePaper is an introductory document for the NULS project. It points 
 NIP stands for NULS Improvement Proposal. A NIP is a design document providing information to the NULS community, and can be used for describing a new feature for NULS or its processes or environment. The NIP author is responsible for building consensus within the community and documenting dissenting opinions.
 [View NIPs](https://github.com/nuls-io/NIPs)
 
+## 4. NULS Brand Assets
+
+NULS Brand Assets: [https://nuls.io/brand-assets](https://nuls.io/brand-assets)
+
+
+## Community
+
+- Website: https://nuls.io
+- Twitter: https://twitter.com/nuls
+- Discord:https://discord.gg/aRCwbj47WN
+- Telegram: https://t.me/Nulsio
+- Medium: https://nuls.medium.com
+- Forum: https://forum.nuls.io
+- GitHub: https://github.com/nuls-io
+
+####  
