@@ -2,8 +2,8 @@
 
 ## 标语
 
-NULS — MAKING IT EASIER TO INNOVATE
-NULS — 让创新更简单
+- NULS — MAKING IT EASIER TO INNOVATE
+- NULS — 让创新更简单
 
 ## NULS是什么
 
@@ -20,6 +20,12 @@ NULS提出模块化思维与多链并行的微服务架构，提供了丰富的�
 
 
 ## 白皮书
-NULS白皮书是一个权威性的报告，它指出了NULS的目标是什么，以及我们打算如何实现它
+NULS白皮书是NULS项目的介绍文档，它指出了NULS的目标是什么，以及项目如何运转：
 
 [查看白皮书了解更多](https://nuls.io/wp-content/uploads/2023/02/NULS_WhitePaper_v2.1_EN.pdf)
+
+## NIPs
+NIP代表NULS改进提案。 NIP是向NULS社区提供信息的设计文档，可用于描述NULS或其流程或环境的新功能。 NIP作者负责在社区内建立共识并记录不同意见。
+
+[查看NIPs](https://github.com/nuls-io/NIPs)
+
