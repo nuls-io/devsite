@@ -29,3 +29,21 @@ NIP代表NULS改进提案。 NIP是向NULS社区提供信息的设计文档，�
 
 [查看NIPs](https://github.com/nuls-io/NIPs)
 
+
+## NULS Brand Assets
+
+NULS Brand Assets: [https://nuls.io/brand-assets](https://nuls.io/brand-assets)
+
+
+## Community
+
+- Website: https://nuls.io
+- Twitter: https://twitter.com/nuls
+- Discord:https://discord.gg/aRCwbj47WN
+- Telegram: https://t.me/Nulsio
+- Medium: https://nuls.medium.com
+- Forum: https://forum.nuls.io
+- GitHub: https://github.com/nuls-io
+
+####  
+
