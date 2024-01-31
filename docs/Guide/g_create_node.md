@@ -1,4 +1,4 @@
-# Create a node
+# Deploy A NULS Node
 
 ## NULS recommends creating your node for the Test Network first.
 
@@ -339,7 +339,7 @@ Note: the English option is available in the upper left.
 
 ## Participation -- example of staking
 
-The user opens the light wallet or [web wallet](wallet.nuls.io), imports  private key or keystore file, enters the consensus page, selects the node to stake.
+The user opens the [Light Wallet](https://github.com/nuls-io/nuls-v2/releases), imports  private key or Keystore file, enters the consensus page, selects the node to stake.
 
 ![20190912110124](./g_create_node/20190912110124.png)
 
