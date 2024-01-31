@@ -2,7 +2,7 @@
 
 ## docker deployment
 
-Compared with ordinary wallets, the advanced wallet has several modules: **public-service**, block browser, and web light wallet.The biggest difference from a regular wallet is that the public-service module will store the chain data redundantly in mongodb (included in the image).The advantage is that it is more convenient to use and does not need to rely on the browser and web light wallet provided by the Nuls Foundation.
+Compared with ordinary wallets, the advanced wallet has several modules: **public-service**, block browser, and web light wallet.The biggest difference from a regular wallet is that the public-service module will store the chain data redundantly in mongodb (included in the image).The advantage is that it is more convenient to use and does not need to rely on the browser and web light wallet provided by the NULS Foundation.
 
 The operation method is as follows:
 
