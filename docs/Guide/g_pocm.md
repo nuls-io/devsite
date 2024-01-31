@@ -1,4 +1,4 @@
-# POCM Tutorial
+# POCM Operation Guide
 
 The SCO platform facilitates the use of smart-contract-based POCM (Proof of Credit Mining) to establish a SCO (Staked Coin Output) node. NULS holders can stake in the projects' SCO nodes and receive the newly-generated project tokens, foregoing their usual NULS staking rewards. The SCO project node continuously earns the NULS staking rewards that would typically go to NULS stakers, allowing projects to bootstrap and fund development. The SCO platform and POCM extend this functionality to any public chain or assets in any blockchain ecosystem.
 
@@ -32,9 +32,9 @@ NULS holders can stake their NULS in the projects they support and receive proje
 
 ![image-20190917143321848](./g_pocm/user3.png)
 
-### Add Rewards
+### Add Stake
 
-Users can continue participating in the POCM of a specific item or add rewards via the **Add** button on the **User Center** page.
+Users can continue participating in the POCM of a specific item or add Stake via the **Add** button on the **User Center** page.
 
 ## Project Team
 
@@ -57,7 +57,7 @@ Project teams can use POCM to attract NULS community members as initial supporte
 
 ### Issue POCM Contract
 
-1. After submitting basic information, send an email to pen@nuls.io with project details and a provided account address for subsequent POCM contract releases.
+1. After submitting basic information, send an email to support@nuls.io with project details and a provided account address for subsequent POCM contract releases.
 2. Once approved, import the POCM account to the POCM platform and issue POCM contracts in the **User Center**.
 
 ![image-20190917112918386](./g_pocm/project3.png)
@@ -68,7 +68,7 @@ Project teams can use POCM to attract NULS community members as initial supporte
 
 ### Transfer Token to the Contract
 
-1. Import the token-holding address into the [wallet](https://wallet.nuls.io/).
+1. Import the token-holding address into the [ Light Wallet](https://github.com/nuls-io/nuls-v2/releases).
 2. Go to the **Contract** page, find the token, and click **Call**.
 
 ![image-20190917114719872](./g_pocm/project5.png)
