@@ -1,49 +1,53 @@
 # Node Wallet Upgrade Guide
 
-Currently, the node wallet does not support automatic upgrade, so manual operation is required. The following are the upgrade methods for Windows and Linux.
+The node wallet requires manual upgrading as it does not support automatic upgrades. Follow the steps below for upgrading on both Windows and Linux platforms.
 
 ## Windows
 
-* Stop the currently running Windows node wallet (close the startup window);
+1. Stop the currently running Windows node wallet by closing the startup window.
 
-  ![Image](./g_upgrade_node/windows1.png)
+   ![Windows 1](./g_upgrade_node/windows1.png)
 
-* Download the latest Windows package on [GitHub](https://github.com/nuls-io/nuls-v2/releases) and extract it to the specified directory (the directory path cannot contain Chinese: Chinese path will cause the command line to fail to open) );
+2. Download the latest Windows package from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and extract it to a specified directory (Note: The directory path should not contain Chinese characters as it may cause issues with the command line).
 
-  ![Image](./g_upgrade_node/windows1.png)
+   ![Windows 2](./g_upgrade_node/windows2.png)
 
-* Replace the data directory of the decompressed new package with the data directory of the node wallet that has stopped running;
-* Double-click the start.bat button to start the node wallet;
-* Double-click the cmd.bat button to enter the command line to view the node wall height (network info);
+3. Replace the data directory in the decompressed new package with the data directory of the stopped node wallet.
 
-  ![Image](./g_upgrade_node/windows1.png)
+4. Double-click the `start.bat` button to start the node wallet.
 
-* When the latest height of the node wallet is consistent with the network height, it proves that the node wallet is running normally;
-* View the version information of the node in the [Mainnet Explorer](https://nulscan.io), the node version is displayed as 2, normal upgrade (the node version number will be updated after the node is upgraded and re-exported) ).
+5. Double-click the `cmd.bat` button to enter the command line and check the node wall height using the command `network info`.
 
-  ![Image](./g_upgrade_node/windows1.png)
+   ![Windows 3](./g_upgrade_node/windows3.png)
+
+6. When the latest height of the node wallet matches the network height, it indicates that the node wallet is running normally.
+
+7. Verify the node version information in the [Mainnet Explorer](https://nulscan.io). The node version should be displayed as 2, indicating a successful upgrade (the node version number will be updated after the upgrade).
+
+   ![Windows 4](./g_upgrade_node/windows4.png)
 
 ## Linux
 
-* Stop the running node wallet (./stop);
+1. Stop the running node wallet using the command `./stop`.
 
-  ![Image](./g_upgrade_node/linux1.png)
+   ![Linux 1](./g_upgrade_node/linux1.png)
 
-* Download the latest Linux package on [GitHub](https://github.com/nuls-io/nuls-v2/releases) and unzip (tar -xvf NULS_Wallet_linux64_v2.1.0.tar.gz) to the specified directory.
+2. Download the latest Linux package from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and unzip it (`tar -xvf NULS_Wallet_linux64_v2.1.0.tar.gz`) to the specified directory.
 
-  ![Image](./g_upgrade_node/linux2.png)
+   ![Linux 2](./g_upgrade_node/linux2.png)
 
-* Move the data in the stopped node wallet to the newly extracted node wallet directory (mv data ../NULS-Wllet);
+3. Move the data from the stopped node wallet to the newly extracted node wallet directory (`mv data ../NULS-Wallet`).
 
-  ![Image](./g_upgrade_node/linux3.png)
+   ![Linux 3](./g_upgrade_node/linux3.png)
 
-* Start the node wallet (./start);
-* Enter the command line (./cmd) to check the node wall height (network info);
+4. Start the node wallet using the command `./start`.
 
-  ![Image](./g_upgrade_node/linux4.png)
+5. Enter the command line (`./cmd`) to check the node wall height using the command `network info`.
 
-* When the latest height of the node wallet is consistent with the network height, it proves that the node wallet is running normally;
-* View the version information of the node in the [MainNet Explorer](https://nulscan.io), the node version is displayed as 2, normal upgrade (the node version number will be updated after the node is upgraded and re-exported) ).
+   ![Linux 4](./g_upgrade_node/linux4.png)
 
-  ![Image](./g_upgrade_node/linux5.png)
+6. When the latest height of the node wallet matches the network height, it indicates that the node wallet is running normally.
 
+7. Verify the node version information in the [Mainnet Explorer](https://nulscan.io). The node version should be displayed as 2, indicating a successful upgrade (the node version number will be updated after the upgrade).
+
+   ![Linux 5](./g_upgrade_node/linux5.png)
