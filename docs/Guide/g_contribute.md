@@ -1,45 +1,75 @@
-# How to contribute
-> The development of NULS is inseparable from the community and requires the participation of community members. We provide different ways for community members to participate, and you can choose what you are good at to contribute to NULS. For each contributor, the name of the contributor is published with its consent (we also attach the node name if the node is owned)
-## Join the Mainnet development
-Although the main network is now in a stable state of operation, in order to cope with changes, the development of the main network is still in progress. We need the help of the community to solve the challenges in the development of the main network and improve the NULS blockchain infrastructure together. We urge developers in the community to join us and contribute, and your efforts will be rewarded.
+# How to Contribute in the NULS Community
 
-- How to join the tech community：[https://nuls.io/developer](https://nuls.io/developer)
-- NULS Github：[https://github.com/nuls-io](https://github.com/nuls-io)
-## Report bugs
-In the software development process, although there are strict tests, we still can't avoid bugs in the program. So if you find bugs in the process of using our application or developing, please timely feedback to us, and we will actively deal with them. There are three ways to feed back bugs:
-- Feedback through [community forum](https://nuls.community/)
-    - Mainnet：https://nuls.community/d/135-collect-the-bugs-of-the-mainnet-bugs
-    - Testnet：https://nuls.community/d/134-collect-the-bugs-of-the-testnet-bugs
+The development of NULS is inseparable from its community, and we encourage community members to actively participate. Various avenues are provided for community members to contribute, allowing individuals to choose their preferred ways to contribute to NULS. The NULS Foundation supports contributors in multiple ways, both professionally and personally.
 
-- Send email to support@nuls.io
-- Direct feedback to the community manager or operations staff
+## Understand NULS Vision and Products
 
-## Write document
-NULS formulated the document writing incentive plan, invited the community to write NULS related documents together, and gave corresponding rewards according to the efforts of community members.
+It is essential for NULS contributors to have a solid understanding of NULS's vision, related products, and familiarity with the functionality and usage of these products. This foundational knowledge is crucial for the development of NULS.
 
-## Translate document
-As a global open source blockchain project, NULS needs a lot of bilingual documents in Chinese and English. If you are a professional in this field, we really need your help.
+## Non-Technical Contributors
 
-## List of contributors
+### Promote the NULS Brand
 
-> The rankings are arranged alphabetically, in no particular order
+Showcase the NULS brand at industry events and activities. NULS is an open community project, allowing the use of NULS brand resources as long as it doesn't harm the reputation of NULS.
 
-Name|Email| Node Alias/ID
-:--|:--|:--
-Angang Tang | tangangang@nuls.io | --
-Albert | albert@nuls.io | --
-Charlie Li       | lichao@nuls.io  | ---
-Cody Lan      | lanjinsheng@nuls.io  | ---
-Davi Yang      | davi@nuls.io  | ---
-Yuanchen Jiang       | jiangyuanchen@nuls.io  | ---
-Yifeng Qin | qinyifeng@nuls.io |--
-Niels        | niels@nuls.io  | niels
-Pierre Luo | luohao@nuls.io  |---
-Pen Luo | pen@nuls.io  |---
-Siwei | 13809668344@139.com  |siwei
-Vivi Zhou | zhouwei@nuls.io  |---
+### Facilitate Community Building and Communication
 
+Establish communities or groups for discussions related to NULS development, helping to spread the ideals and vision of NULS.
 
+### Promote NULS-Related Products
 
+Guide and assist NULS community users in using NULS-related products, always willing to help new users.
 
+### Apply for the Ambassador Program
 
+As a seasoned NULS community member, you can apply to become an ambassador and receive node support from the foundation.
+
+### Propose Community Initiatives for NULS Development
+
+If you have ideas or proposals to contribute to the development of NULS, feel free to discuss them with the community and work together to turn them into reality.
+
+## Technical Contributors
+
+Welcome to contribute to NULS! We sincerely invite developers with rich experience in the blockchain field to join the NULS technical community.
+
+Learn about NULS development at [https://nuls.io/developer](https://nuls.io/developer).
+
+Welcome to contribute to NULS! We sincerely invite developers with rich experience in the blockchain field to join the NULS technical community at [https://nuls.io/community](https://nuls.io/community).
+
+Documentation: [https://docs.nuls.io](https://docs.nuls.io)
+
+NULS Brand Assets: [https://nuls.io/brand-assets](https://nuls.io/brand-assets)
+
+### Report Bugs
+
+Despite rigorous testing during software development, bugs may still occur. If you discover any bugs while using our applications or during development, please provide timely feedback. You can submit issues directly on [GitHub](https://github.com/nuls-io) repositories or report to the relevant individuals in the community.
+
+### Write, Optimize, or Translate Documentation
+
+As a global blockchain open-source community project, maintaining up-to-date documentation in multiple languages is crucial. If you are a professional in this field, we greatly need your assistance. You can view and contribute to our documentation on the [documentation website](https://github.com/nuls-io/devsite/) by forking and pushing changes to our GitHub.
+
+### Develop Public Tools
+
+Develop public tools that assist users in using NULS products based on your experience. These tools contribute to a better ecosystem for new users and developers.
+
+### Join Mainnet Development
+
+While the mainnet is stable, ongoing development is necessary to address changes. We seek community help to tackle challenges in mainnet development and improve the NULS blockchain infrastructure. Developers are encouraged to join and contribute, and proposals for node support can also be made to the foundation.
+
+### Develop DApps Using NULS VM
+
+Develop DApps using NULS VM and open-source them for other developers, enriching the NVM smart contract template repository.
+
+### Assist More Projects Using NULS ChainBox Framework
+
+Use NULS ChainBox to create blockchains for more projects, helping enhance and enrich the application of NULS technology framework in businesses.
+
+### Community
+
+- Website: https://nuls.io
+- Twitter: https://twitter.com/nuls
+- Discord: https://discord.gg/aRCwbj47WN
+- Telegram: https://t.me/Nulsio
+- Medium: https://nuls.medium.com
+- Forum: https://forum.nuls.io
+- GitHub: https://github.com/nuls-io
