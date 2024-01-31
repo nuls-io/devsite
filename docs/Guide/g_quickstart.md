@@ -20,7 +20,7 @@ NULS node program supports Windows and Linux platforms, including all blockchain
 
 [Download Node Wallet](https://github.com/nuls-io/nuls-v2/releases)
 
-[Node Wallet Operation Manual](https://docs.nuls.io/zh/Guide/g_linux_tutorial.html)
+[Node Wallet Operation Manual](https://docs.nuls.io/Guide/g_linux_tutorial.html)
 
 ### Blockchain Explorer
 
@@ -47,7 +47,7 @@ NULS node program supports Windows and Linux platforms, including all blockchain
 
 [Download Testnet Node Wallet](https://github.com/nuls-io/nuls-v2/releases)
 
-[Node Wallet Operation Manual](https://docs.nuls.io/zh/Guide/g_linux_tutorial.html)
+[Node Wallet Operation Manual](https://docs.nuls.io/Guide/g_linux_tutorial.html)
 
 **Please note:** Wallets with "Beta" in their names are for the testnet.
 
