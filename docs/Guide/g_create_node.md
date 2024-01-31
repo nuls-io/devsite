@@ -1,5 +1,15 @@
 # Deploy A NULS Node
 
+
+## Installing with Docker Image
+
+To install using the Docker image, follow the [Docker Image Guide](https://docs.nuls.io/Guide/g_docker.html#premium-wallet).
+
+**Note:** The provided link will take you to the detailed tutorial on using the Docker image for NULS installation. Make sure to refer to the guide for comprehensive instructions.
+
+If you encounter any issues during the installation process or have further questions, feel free to seek assistance from the NULS community or refer to the support resources provided in the documentation.
+
+
 ## NULS recommends creating your node for the Test Network first.
 
 You have the option to install and run your node in the Nuls test network or the Nuls production network, Mainnet.  Nuls strongly recommends that FIRST you run your node in test. After you experience the installation and management of your node in test, you are ready to re-install for the mainnet.
