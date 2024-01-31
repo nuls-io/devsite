@@ -1,8 +1,8 @@
-# 部署包含public-service的主网钱包
+# 部署包含public-service的节点钱包
 
 ## docker部署
 
-​	相比与普通钱包，高级钱包带有**public-service**、区块浏览器、网页轻钱包几个模块。与普通钱包最大的区别是public-service模块会将链数据冗余存储在mongodb中（镜像中已包含）。好处是使用更方便，不需要依赖nuls基金会提供的浏览器和网页轻钱包。
+相比与普通钱包，高级钱包带有**public-service**、区块浏览器、网页轻钱包几个模块。与普通钱包最大的区别是public-service模块会将链数据冗余存储在mongodb中（镜像中已包含）。好处是使用更方便，不需要依赖NULS官方提供的浏览器和网页轻钱包。
 
 ​	运行方法如下：
 
@@ -45,13 +45,13 @@ http://127.0.0.1:8006
 
 ### 启动MongoDB
 
-​	从MongoDB官网下载压缩包，上传至服务器并解压到目录下（/usr/local），启动即可。
+从MongoDB官网下载压缩包，上传至服务器并解压到目录下（/usr/local），启动即可。
 
 ![20191008161020](./g_deploy_public_service/20191008161020.png)
 
 ### 启动钱包
 
-​	从[GitHub](https://github.com/nuls-io/nuls-v2/releases)上面下载包含public-service的压缩包（nuls_wallet_pro.tar.gz），上传到服务器，解压之后启动（在启动前，服务器需要开放端口：8001、8002、8003），待钱包启动之后就可以通过(ip:8003)访问public-service，可在网页钱包和轻钱包的节点服务中添加自己的节点服务
+从[GitHub](https://github.com/nuls-io/nuls-v2/releases)上面下载包含public-service的压缩包（nuls_wallet_pro.tar.gz），上传到服务器，解压之后启动（在启动前，服务器需要开放端口：8001、8002、8003），待钱包启动之后就可以通过(ip:8003)访问public-service，可在网页钱包和轻钱包的节点服务中添加自己的节点服务
 
 ![20191009145014](./g_deploy_public_service/20191009145014.png)
 
