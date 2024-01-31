@@ -1,6 +1,6 @@
-# 部署包含public-service的节点钱包
+# 部署包含Public Service的节点钱包
 
-## docker部署
+## Docker部署
 
 相比与普通钱包，高级钱包带有**public-service**、区块浏览器、网页轻钱包几个模块。与普通钱包最大的区别是public-service模块会将链数据冗余存储在mongodb中（镜像中已包含）。好处是使用更方便，不需要依赖NULS官方提供的浏览器和网页轻钱包。
 
