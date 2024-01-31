@@ -1,6 +1,6 @@
-# NULS Multi-Signature DApp Guide 
+# NULS Multi-Sign DApp Guide 
 
-## What is multisig?
+## What is multi-sign?
 
 Multi-signature, also known as multisigi, which is a digital signature that allows multiple users to sign one transaction. To address in a simpler way, an account that is owned, managed, signed by more than one party.  
 
