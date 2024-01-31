@@ -8,21 +8,28 @@ NULS资产作为NULS网络中的主要资产，所有的链上交易都需要NUL
 
 ### 关注NULS社区活动或者参与贡献领取免费的NULS
 
-Website: https://nuls.io
-Twitter: https://twitter.com/nuls
-Discord:https://discord.gg/aRCwbj47WN
-Telegram: https://t.me/Nulsio)
-Medium: https://nuls.medium.com
-Forum: https://forum.nuls.io
-GitHub: https://github.com/nuls-io
+- Website: https://nuls.io
+- Twitter: https://twitter.com/nuls
+- Discord:https://discord.gg/aRCwbj47WN
+- Telegram: https://t.me/Nulsio)
+- Medium: https://nuls.medium.com
+- Forum: https://forum.nuls.io
+- GitHub: https://github.com/nuls-io
 
 ### 在DEX或CEX中兑换 
 
 ***请核对和确认进入的官方网站：
 
-支持的DEX：[SwapBox](https://swapbox.nabox.io/swap) [NerveSwap](https://nerve.network/swap) [PancakeSwap](https://pancakeswap.finance/)
+支持的DEX：
+- [SwapBox](https://swapbox.nabox.io/swap)
+- [NerveSwap](https://nerve.network/swap)
+- [PancakeSwap](https://pancakeswap.finance/)
 
-支持的CEX：[币安](https://accounts.suitechsui.io/register?ref=KP7XK01G) [OKX](https://www.ouxyi.church/join/1960945248)https://www.ouxyi.church/join/1960945248 [Gate](https://www.gate.io/signup/VFRBAw?ref_type=103)https://www.gate.io/signup/VFRBAw?ref_type=103 Huobi
+支持的CEX：
+- [币安](https://accounts.suitechsui.io/register?ref=KP7XK01G)
+- [OKX](https://www.ouxyi.church/join/1960945248)
+- [Gate](https://www.gate.io/signup/VFRBAw?ref_type=103)
+- [HTX](https://www.htx.com/)
 
 ### 创建节点或者参与共识赚取
 
