@@ -14,7 +14,7 @@ NULS holders can stake their NULS in the projects they support and receive proje
 
 ### Participate POCM
 
-1. Visit the [POCM platform](https://pocm.nuls.io/) and click the **Select Item** menu.
+1. Visit the [POCM Platform](https://pocm.nuls.io/) and click the **Select Item** menu.
 2. Enter the page, select the approved item, and click to view item details.
 
 ![image-20190917134751446](./g_pocm/user1.png)
