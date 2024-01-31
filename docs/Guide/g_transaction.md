@@ -34,4 +34,4 @@ Supported CEX:
 ### Create Nodes or Participate in Consensus for Earnings
 
 - Participate in Consensus: You can stake in the [Light Wallet](http://nuls.io/wallet) or connect to NULS Stake in the [Nabox Wallet](http://nuls.io/wallet).
-- Create Nodes: Refer to the [Node Creation Tutorial](https://docs.nuls.io/zh/Guide/g_create_node.html) for guidance.
+- Create Nodes: Refer to the [NULS Node Creation Guide](https://docs.nuls.io/Guide/g_create_node.html) for guidance.
