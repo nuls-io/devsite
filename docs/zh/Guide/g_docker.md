@@ -1,5 +1,7 @@
-# nuls-wallet v2.0.0 docker镜像
-> 假定用户熟悉docker使用
+# NULS Walelt V2 Docker
+
+> 假设你熟悉docker使用，docker运行相关可以在其他地方学习。
+
 ## 普通钱包
 普通钱包带有主链运行所需的最基础功能，并包括nuls-api（http的开发接口）模块。用户使用此版本只能使用命令行与钱包交互。
 
@@ -28,7 +30,7 @@ docker run \
 nulsio/nuls-wallet:v2.0.0_beta
 
 ## 高级钱包
-相比与普通钱包，高级钱包带有public-service、区块浏览器、网页轻钱包几个模块。与普通钱包最大的区别是public-service模块会将链数据冗余存储在mongodb中（镜像中已包含）。好处是使用更方便，不需要依赖nuls基金会提供的浏览器和网页轻钱包。
+相比与普通钱包，高级钱包带有public-service、区块浏览器、网页轻钱包几个模块。与普通钱包最大的区别是public-service模块会将链数据冗余存储在mongodb中（镜像中已包含）。好处是使用更方便，不需要依赖NULS官方提供的浏览器和网页轻钱包。
 
 运行方法如下：
 
