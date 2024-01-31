@@ -1,4 +1,4 @@
-# Deploy A NULS Node
+# NULS Node Creation Guide
 
 
 ## Installing with Docker Image
@@ -10,25 +10,25 @@ To install using the Docker image, follow the [Docker Image Guide](https://docs.
 If you encounter any issues during the installation process or have further questions, feel free to seek assistance from the NULS community or refer to the support resources provided in the documentation.
 
 
-## NULS recommends creating your node for the Test Network first.
+## Node Wallet Introduction
 
-You have the option to install and run your node in the Nuls test network or the Nuls production network, Mainnet.  Nuls strongly recommends that FIRST you run your node in test. After you experience the installation and management of your node in test, you are ready to re-install for the mainnet.
+You have the option to install and run your node in the NULS test network or the NULS production network, Mainnet.  NULS strongly recommends that FIRST you run your node in test. After you experience the installation and management of your node in test, you are ready to re-install for the mainnet.
 
 For the test network, make sure to open the server ports 18001 and 18002.
 For the Mainnet, make sure to open the server ports  8001 and 8002. 
 If these ports are not open, your node will not successfully communicate with the blockchain.
 
-## Step 1 - Use the Create Node checklist
+## Step 1 - Use the Create Node Checklist
 
 Use the Create Node Checklist in conjunction with this document. The checklist informs you about the requirements for the node creation, and provides a summary of the required steps. 
 
-## Step 2 - Download and Install the Node Wallet
+## Step 2 - Download and Install Node Wallet
 
 1. Download the zipped node wallet package (linux version, windows version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases). Download the Testnet or Mainnet version.
 
 ![20190912110813](./g_create_node/20190912110813.png)
 
-#  Linux Installation
+# Linux Installation 
 
 The installation does not require root. Asd per linux standards, it is recommended not to install as root. 
 
@@ -260,7 +260,7 @@ nuls>>>
 
 ```
 
-## Step 4 - How to confirm your node has sync'd with the test/ mainnet chain
+## Step 4 - Confirm your node has sync'd with the chain
 
 Use the command "network info" to determine if the sync has completed or how close you are to completing the sync.
 ```
@@ -310,19 +310,19 @@ tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
 # You will be asked to enter the password twice
 ```
 
-## Step 6 - After importing the packing address, your node is listed as a consensus node.
+## Step 6 - Your node is listed as a consensus node
 
 Go to the [test wallet](https://beta.wallet.nuls.io) or [mainnet wallet](https://.wallet.nuls.io), select the consensus option.
 
 Your  node is now listed.  It will be listed with a deposit of 20000 NULS and staking of 0 NULS. When you clink on the node you found, it will display  page and list your create (agent), reward, and packing address. Record your Node name.  (Note: you can change your node name by adding an alias to your agent account. Once you add the alias, you cannot change the alias.)
 
-## Download Light Wallet Installation -- Required to define consensus node
+## Step 7 - Download Light Wallet Installation
 
 Users download and open the light wallet (windows version, mac version) from [GitHub](https://github.com/nuls-io/nuls-v2/releases) and connect to the node service.
 
 ![20190912110930](./g_create_node/20190912110930.png)
 
-## Step 7 - Shutting down your node
+## Step 8 - Shutdown your node
 
 To stop your node, enter the cli command "stopagent". Upon successful execution of the command the hash of the transaction is returned.
 
@@ -339,7 +339,7 @@ Your node will no longer be listed as a consensus node by the nulscan.io facilit
 All NULS staked to the node will be refunded. The initial deposit by the node creator is locked for 72 hours, and then refunded to the agent address.
 
 
-## Exampler of creating a consensus node
+## Example of Creating a Consensus Node
 
 The user creates a consensus node on the light wallet (the reward address can be the same as the creation address, or it can be another address, the package address cannot be the creation address and reward address, the deposit is 20000-200000, the commission ratio is an integer value from 10-100 representing the comission percentage.)
 
@@ -347,13 +347,13 @@ Note: the English option is available in the upper left.
 ![20190912105332](./g_create_node/20190912105332.png)
 
 
-## Participation -- example of staking
+## Participation - Example of Stake
 
 The user opens the [Light Wallet](https://github.com/nuls-io/nuls-v2/releases), imports  private key or Keystore file, enters the consensus page, selects the node to stake.
 
 ![20190912110124](./g_create_node/20190912110124.png)
 
-## Familarize yourself with the node cli
+## Familiarize Yourself with the Node CLI
 
 It is recommended that you familarize yourself with the [cli](https://docs.nuls.io/Guide/g_linux_tutorial.html), command line interface. 
 
