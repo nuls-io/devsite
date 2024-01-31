@@ -31,7 +31,7 @@ note
 * The order in which each public key in the pubKeys public key list is passed does not affect the resulting account. 
 * The public key string can be obtained by calling the interface module 'ac_getPubKey`.
 
-**Create a multi-sign transfer transaction** 
+**Create a Multi-Sign Transfer Transaction** 
 
 The multi-signature address transfer transaction in NULS2.0 is consistent with the general address transfer transaction protocol and has the same transaction type (type value).However, multi-sign transfer transactions still have special characteristics. The rules for assembling and verifying transactions are different from ordinary transactions. Some things to note are: 
 
@@ -40,7 +40,7 @@ The multi-signature address transfer transaction in NULS2.0 is consistent with t
 - Broadcast transactions are automatically sent when the minimum number of signatures is reached after signing.
 - There is no need to continue signing transactions that have reached the minimum number of signatures, it will only increase transaction data, and will not bring more convenience to transaction verification and security.
 
-**signature** 
+**Signature** 
 
 After the multi-signal transaction is assembled, it is generally necessary to hand over the transaction data to each multi-sign account controller to sign the transaction separately, so that the minimum signature number of the multi-sign account is satisfied, and finally complete and legal transaction data is obtained.The multi-signing transaction signature interface of NULS2.0 automatically verifies whether the transaction reaches the minimum number of signatures after each execution of the signature, to decide whether to send and broadcast the transaction, without the user separately broadcasting the transaction. 
 - When multiple people sign, the next signer only needs to get the value of tx in the return value. 
