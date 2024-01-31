@@ -1,52 +1,58 @@
 # Quick Start
-Nuls provides comprehensive tools to help users with asset management, participate in consensus, create nodes and query data
+
+NULS provides comprehensive tools to assist users in asset management, participating in mainnet consensus, creating nodes, and querying data.
+
 ## Mainnet
-### Light wallet
-The NULS light wallet supports Windows and Mac clients. It does not contain block data. The private key is only stored locally, ensuring the security of user assets. Light wallet supports asset management and mining functions, and can receive mining rewards without running all the time.
 
-[Visit the web version of the light wallet](https://wallet.nuls.io)
+### Light Wallet
+NULS light wallet supports desktop clients for Windows and Mac. It does not contain blockchain data, and private keys are only stored locally, with the user responsible for their security. The light wallet supports node creation, joining the mainnet stake, and asset management on the NULS blockchain.
 
-[Download the desktop light wallet](https://github.com/nuls-io/nuls-v2/releases)
+[Download Desktop Light Wallet](https://github.com/nuls-io/nuls-v2/releases)
 
-### Node wallet
+### Nabox Wallet
+Nabox Wallet supports browser plugins, Android, and iOS mobile apps. Private keys are stored locally, and users are responsible for their security. It supports connecting to NULS ecosystem DApps, making it easy to explore NULS ecosystem DApps.
 
-NULS node wallet supports Windows and Linux platforms, including all block data. The wallet can be used for asset management and maintenance of the NULS network to get rewards.
+[Download and Install Nabox Wallet](https://nabox.io)
+
+### NULS Node Wallet
+
+NULS node program supports Windows and Linux platforms, including all blockchain data. Also known as a full node wallet, this wallet can be used for asset management, maintaining the NULS network, earning rewards, and providing data services.
 
 [Download Node Wallet](https://github.com/nuls-io/nuls-v2/releases)
 
-[Node Wallet Operation Manual](https://docs.nuls.io/Guide/g_linux_tutorial.html)
+[Node Wallet Operation Manual](https://docs.nuls.io/zh/Guide/g_linux_tutorial.html)
 
-### Blockchain Browser
+### Blockchain Explorer
 
-Users can quickly query, trade, block, address, consensus and contract details through the nuls blockchain browser.
+Users can quickly query detailed information such as transactions, blocks, addresses, consensus, and contracts through the NULS blockchain explorer.
 
-[Access Blockchain Browser](https://nulscan.io)
+[Access Explorer](https://nulscan.io)
 
 ## Testnet
-### Light wallet
-The NULS light wallet supports Windows and Mac clients. It does not contain block data. The private key is only stored locally, ensuring the security of user assets. Light wallet supports asset management and mining functions, and can receive mining rewards without running all the time.
+### Light Wallet
+NULS light wallet supports desktop clients for Windows and Mac. It does not contain blockchain data, and private keys are only stored locally, ensuring the security of user assets. The light wallet supports asset management and mining without the need to run continuously to receive mining rewards.
 
-[Visit Test Network Web Edition Light Wallet](https://beta.wallet.nuls.io)
+[Download Desktop Light Wallet](https://github.com/nuls-io/nuls-v2/releases)
 
-[Download Test Network Desktop Light Wallet](https://github.com/nuls-io/nuls-v2/releases)
+### Nabox Wallet
+Nabox Wallet supports browser plugins, Android, and iOS mobile apps. Private keys are stored locally, and users are responsible for their security. It supports connecting to NULS ecosystem DApps, making it easy to explore NULS ecosystem DApps.
 
-**Please note:** Beta is included in the testnet version
+[Download and Install Nabox Wallet](https://nabox.io)
 
-### Node wallet
+**Please note:** In the wallet, you can switch NULS mainnet to the NULS test network.
 
-NULS node wallet supports Windows and Linux platforms, including all block data. The wallet can be used for asset management and maintenance of the NULS network to get rewards.
+### NULS Node Wallet
 
-[Download Test Network Node Wallet](https://github.com/nuls-io/nuls-v2/releases)
+NULS node program supports Windows and Linux platforms, including all blockchain data. Also known as a full node wallet, this wallet can be used for asset management, maintaining the NULS network, earning rewards, and providing data services.
 
-[Node Wallet Operation Manual](https://docs.nuls.io/Guide/g_linux_tutorial.html)
+[Download Testnet Node Wallet](https://github.com/nuls-io/nuls-v2/releases)
 
-**Please note:** Beta is included in the testnet version
+[Node Wallet Operation Manual](https://docs.nuls.io/zh/Guide/g_linux_tutorial.html)
 
-### Blockchain Browser
+**Please note:** Wallets with "Beta" in their names are for the testnet.
 
-Users can quickly query, trade, block, address, consensus and contract details through the nuls blockchain browser.
+### Blockchain Explorer
 
-[Access Test Network Blockchain Browser](https://beta.nulscan.io)
+Users can quickly query detailed information such as transactions, blocks, addresses, consensus, and contracts through the NULS blockchain explorer.
 
-
-
+[Access Testnet Explorer](https://beta.nulscan.io)
