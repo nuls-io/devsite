@@ -18,7 +18,7 @@ NULS资产作为NULS网络中的主要资产，所有的链上交易都需要NUL
 
 ### 在DEX或CEX中兑换 
 
-***请核对和确认进入的官方网站：
+**请核对和确认进入的官方网站：**
 
 支持的DEX：
 - [SwapBox](https://swapbox.nabox.io/swap)
@@ -33,8 +33,8 @@ NULS资产作为NULS网络中的主要资产，所有的链上交易都需要NUL
 
 ### 创建节点或者参与共识赚取
 
-参与共识：可以在[轻钱包](http://nuls.io/wallet)中加入Stake，也可以在[Nabox钱包](http://nuls.io/wallet)中连接到NULS Stake
-创建节点：参考[节点创建教程](https://docs.nuls.io/zh/Guide/g_create_node.html)https://docs.nuls.io/zh/Guide/g_create_node.html
+- 参与共识：可以在[轻钱包](http://nuls.io/wallet)中加入Stake，也可以在[Nabox钱包](http://nuls.io/wallet)中连接到NULS Stake
+- 创建节点：参考[节点创建教程](https://docs.nuls.io/zh/Guide/g_create_node.html)
 
 
 
