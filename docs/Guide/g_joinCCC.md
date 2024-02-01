@@ -1,69 +1,48 @@
-# Invitation of community developers
+# Join the NULS Technical Community
 
-## 1. Introduction
-NULS is a public blockchain project, dedicated to creating a truly open-source, self-innovative blockchain platform driven by our community. NULS wants to lower the barrier for enterprises/individuals to use the base-level blockchain technology.
+## I. Introduction to NULS
+NULS is a blockchain public chain project that is committed to creating a truly open-source, self-evolving blockchain platform driven by the community. NULS aims to maximize the ease of use of blockchain infrastructure by building flexible and user-friendly foundations, reducing the difficulty for enterprises/individuals to use underlying blockchain technology.
 
-NULS technical community is organized by a group of developers who are passionate and enthusiastic about NULS. The technical community will work closely with the NULS core dev team to design and build the underlying NULS architecture and applications. By implementing the modular design, multi-chain mechanism, cross-chain consensus and other mechanisms, enterprises/individuals can customize their own blockchains with very simple configuration.
+The NULS Technical Community is constructed by a group of passionate and visionary technical developers from the NULS community. The technical community collaborates with the NULS core development team to build the underlying structure of NULS. By implementing mechanisms such as modularity, multi-chain parallelism, and cross-chain support, businesses/individuals can easily customize their own blockchain through simple configurations.
 
-In the community, we adhere to the following vision:
+In the community, we adhere to the following principles:
+- Equality: The technical community and the core team have an equal relationship, collaborating on development.
+- Synergy: The technical community and the core development team work together to build the technical foundation, jointly creating the NULS ecosystem.
+- Sharing:
+    - The community shares NULS technical achievements.
+    - The community shares NULS development dividends.
+    - The community shares the influence and reputation of NULS.
+    - The industry shares the technological innovation brought by NULS.
+    - The industry shares the standard setting for industry development driven by NULS.
+- Fairness: The earnings of each developer are based on their abilities and contributions, ensuring fairness and justice.
+- Innovation: A powerful technical community is the basic guarantee for sparking innovative thinking in the blockchain.
 
-- **Equal**: Members from both the technical community and the core dev team are equal and they shall work together.
-- **Synergetic**: The technical community and the dev team jointly develop the base-level technology to build the NULS ecosystem.
-- **Sharing**: 
-  - Technical achievements of NULS are shared with the community;
-  - Development bonuses of NULS are shared with the community;
-  - The influence and brand of NULS are shared with the community; 
-  - Technical innovation of NULS is shared with the whole industry;
- - All the industrial standards set by NULS are shared with the whole industry.
-- **Fair**: Reward for each developer is based on his/her contribution.
-- **Innovative**: A strong technical community is the guarantee for the innovation in the blockchain field.
+## II. Are You the One We Are Looking For?
+The NULS Technical Community is open to all developers.
+If you:
+- Are excited about the blockchain world and want to create a new world through code.
 
-## 2. Are you the one?
-NULS technical community is open for all developers.
-If you are expecting the revolution driven by the blockchain technology and you’d like to create a brave new world with us:
+Please join our technical community Discord: [https://discord.com/invite/aRCwbj47WN](https://discord.com/invite/aRCwbj47WN)
+Note: We are not seeking outsourcing tasks. Any area you think needs improvement is a space where you can contribute.
 
-Please join the NULS dev Telegram group:
-[https://t.me/joinchat/HK7hw0uqJGC31heVAHKFyQ](https://nuls.community)
+## III. What Can We Offer?
+The NULS team will reward every developer who contributes to the NULS project, and the size of the reward is based on the magnitude of the contribution. Currently, if you demonstrate outstanding performance in the early stages and join the core development team of the technical community (NTC - NULS Technical Community), the NULS Foundation will support NTC members in creating nodes to obtain consensus rewards.
 
-**Notice**: We are not seeking for out-sourcing services. If you see anything here which can be improved, it can just be your playground!
+## IV. Our Plans
+Make chain creation easy!
+Firstly, we hope to establish a module repository covering 80% of the underlying blockchain technology.
+By increasing the number of modules in the repository, we will lower the entry barrier for the blockchain industry. This will result in lower costs for enterprises to launch chains, making it easier for users to use chains. We believe that only in this way can blockchain technology become more integrated into daily life.
+Together with the technical community, we are building a brand new architecture - NULS 2.0. The new architecture will allow NULS modules to run independently, with low coupling between modules utilizing standard-defined interfaces. At that time, any developer (regardless of programming language) only needs to comply with the NULS module standard to develop functional modules in their preferred language, enriching the module repository.
+Secondly, based on the module repository, NULS will launch a blockchain engine called ChainBox. If developers are clear about the parameters of the blockchain they are developing, such as consensus mechanisms, block size, block time, etc., even if they are not familiar with the underlying technology, they only need a few steps to have their own public chain (of course, consortium chains and private chains are also supported) in a few minutes, greatly shortening the current development time for public chains.
+All of the above work will involve the participation of the technical community. If you have any opinions or suggestions about our plans, you can propose them in the technical community, showcasing your unique insights.
+The NULS Technical Community currently has more than 200 developers. We welcome more developers to join us. You will be building the ecosystem together with NULS.
 
-## 3. What are we offering?
-The NULS team will give reward for each developer who contributes to NULS. The amount of reward depends on the contribution.
-Currently, if you prove yourself to be a competent developer and join the core group of technical community - CCC (Code Craft Council), we will create a node in the NULS main-net for you and stake 200,000 NULS tokens to help get consensus reward. 50% of the reward (Currently around 1,500 NULS tokens per month) will be used to support the developers and the remaining 50% will go back into the community fund pool. 
-Note: The parameter of 50% is the initial setting, the subsequent adjustments are decided by the community, and we will announce the changes in the community as well.
+## V. How to Join the Development Team
+1. For easy communication, please join the technical community's Discord (see above) and read relevant messages from the development group.
+2. Have preliminary communication with the developer administrator, briefly introducing your experience, programming languages you are proficient in, etc. The community developers will exchange some technical-related information with you and understand what you want to do, which will determine your next work content.
 
-## 4. Our plan
-Make it easy to build a blockchain!
-
-First, we would like to build a module repository which covers 80% of underlying technology of blockchain. By increasing the number of modules in the module repository, we will lower the barriers to get into the blockchain world. The cost for enterprises to build blockchains will be much lower, and the chains will be user friendly. We believe that in this way blockchain technology can be more integrated into our daily life.
-The NULS team and technical community are currently building a new architecture: NULS 2.0 that will allow NULS modules to run independently, with low-coupling modules interacting with standard defined interfaces. Developers will no longer be limited to the programming language used by the blockchain system itself, and will only need to follow the NULS module standard to develop their own functional modules by using their preferred programming language, which will surely remove the threshold to develop more basic and business modules in the NULS module repository.
-
-Second, based on the module repository, NULS will launch its core product: Chain Factory. For developers who are familiar with the parameters of the blockchain they want to build, such as the consensus mechanism, block size and block generation time, they can build their own blockchains with only 4 steps and just a few minutes. Even if they don’t know the details about the base-level blockchain technology, this will greatly shorten the amount of time spent on blockchain development, estimated between 6 and 12 months.
-For all the works above, we would never get done without the active involvement of the technical community. If you have any suggestions, you can always address them in our technical community. As always, we love to see new perspectives.
-
-Currently, there are more than 200 NULS technical community members across the world. We welcome more developers to join us. You will work directly with core dev team to develop the NULS base-level archicture and more!
-
-## 5. Current situation of the technical community 
-
-A. From the very beginning, we believe that NULS belongs to the whole community, and the long-term development of NULS can't be achieved without the creativity of the community. In the past year, we were glad to witness how community developers volunteered to contribute to the NULS ecosystem. Josh from the United Kingdom developed our official website (nuls.io). Moshe from France developed blockchain browsers (nuls.world/) and web wallet (nuls.world/wallet) for NULS. Berzeck from Bolivia is working on the base-level development of NULS currently.
-B. Despite this, we still have lots of work to be finished. We will continue to update a to-do list under this post, which will include the design, development, and improvement of NULS. All developers can choose accordingly, based on their abilities and interests.
-
-## 6. How to join us
-
-1. For the convenience of communication,  you should join the Telegram group of our technical community (mentioned above), and firstly read through the pinned message in the group.
-2. Talk to our community developer Moshe. Briefly introduce your experience, background, etc.
-    Community developers will discuss about some technical issues with you and get a brief understanding about what you want to do, which will determine what you could work on in the future.
-
-  We also strongly recommend you to learn more about NULS through these links below:
-  - Official website: [https://nuls.io/](https://nuls.io/)
-  - Code: [https://github.com/nuls-io/nuls](https://github.com/nuls-io/nuls)
-  - Dev documents: [https://dev.nuls.io/docs/](https://dev.nuls.io/docs/)
-  - Community forum: [https://nuls.community](https://nuls.community)
-3. You are going to choose an interesting and competent task. At that time, we will ask you to join one of the development group due to your subject and work with other developers. We strongly recommend that you download WeChat as a communication tool:
-
-  [https://play.google.com/store/apps/details?id=com.tencent.mm&hl=zh](https://nuls.community/d/9-invitation-of-community-developers/4)
-
-4. In the group, each group leader will provide necessary documentations to help new developers to get started quickly. At the same time, we hope that developers will maintain effective communication with each other in order to work efficiently. After about a month of work, developers who are stable, efficient and have high quality output may apply to have a consensus node in the NULS main-net. Your application will be evaluated by the technical community and the core team. If the application is approved, we will create a consensus node for you as reward.
-
-## 7.  Refer to task list
-[https://nuls.community/d/9-invitation-of-community-developers/4](https://nuls.community/d/9-invitation-of-community-developers/4) (Continuously updated)
+At the same time, we strongly recommend that you learn more about NULS through the following links:
+- Official Website: [https://nuls.io/](https://nuls.io/)
+- Code Repository: [https://github.com/nuls-io/](https://github.com/nuls-io)
+- Developer Documentation: [https://docs.nuls.io/](https://docs.nuls.io)
+- Community Forum: [https://forum.nuls.io](https://forum.nuls.io)
