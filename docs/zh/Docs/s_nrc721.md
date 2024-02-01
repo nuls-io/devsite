@@ -18,7 +18,7 @@
 
 ## 规格
 
-**每个符合NRC-721标准的合同都必须实施NRC721和NRC165接口**（以下“注意事项”）：
+**每个符合NRC721标准的合同都必须实施NRC721和NRC165接口**（以下“注意事项”）：
 
 ```java
 package io.nuls.token.interfaces;
@@ -253,7 +253,7 @@ package io.nuls.token.interfaces;
 public interface INRC165 {
     /**
      * Query if a contract implements an interface
-     * @param interfaceName The interface name, as specified in the implementation class of NRC-165.
+     * @param interfaceName The interface name, as specified in the implementation class of NRC165.
      *                      eg. interfaceName: ['INRC165', 'INRC721', 'INRC721Enumerable', 'INRC721Metadata']
      * @return `true` if the contract implements `interfaceName`, `false` otherwise
      */
@@ -291,7 +291,7 @@ public interface INRC721TokenReceiver {
 }
 ```
 
-对于NRC-721智能合约，**元数据扩展**是可选的（参见下面的“警告”）。这样可以查询您的智能合约的名称以及您的NFT所代表的资产的详细信息。
+对于NRC721智能合约，**元数据扩展**是可选的（参见下面的“警告”）。这样可以查询您的智能合约的名称以及您的NFT所代表的资产的详细信息。
 
 ```java
 package io.nuls.token.interfaces;
@@ -323,7 +323,7 @@ public interface INRC721Metadata {
 }
 ```
 
-对于NRC-721智能合约，**枚举扩展**是可选的（参见下面的“警告”）。这允许您的合同发布其完整的NFT列表并使其可被发现。
+对于NRC721智能合约，**枚举扩展**是可选的（参见下面的“警告”）。这允许您的合同发布其完整的NFT列表并使其可被发现。
 
 ```java
 package io.nuls.token.interfaces;
@@ -371,12 +371,12 @@ public interface INRC721Enumerable {
 
 **NFT标识符**
 
-每个NFT都由`BigInteger`NRC-721智能合约中的唯一ID标识。该识别号码在合同期限内不得更改。该对`(Address contractAddress, BigInteger tokenId)`然后将用于在链上特定资产的全局唯一和完全合格的标识符。虽然一些NRC-721智能合约可能会发现从ID 0开始并且每个新NFT只增加一个是方便的，但是呼叫者不应该假设ID号具有任何特定模式，并且必须将ID视为“黑匣子” ”。另请注意，NFT可能无效（被销毁）。请参阅支持的枚举接口的枚举函数。
+每个NFT都由`BigInteger`NRC721智能合约中的唯一ID标识。该识别号码在合同期限内不得更改。该对`(Address contractAddress, BigInteger tokenId)`然后将用于在链上特定资产的全局唯一和完全合格的标识符。虽然一些NRC721智能合约可能会发现从ID 0开始并且每个新NFT只增加一个是方便的，但是呼叫者不应该假设ID号具有任何特定模式，并且必须将ID视为“黑匣子” ”。另请注意，NFT可能无效（被销毁）。请参阅支持的枚举接口的枚举函数。
 
 
 **转移机制**
 
-NRC-721标准化了安全传递函数`safeTransferFrom`（带有和不带`String`参数的重载方法）和不安全的功能`transferFrom`。转移可以通过以下方式启动：
+NRC721标准化了安全传递函数`safeTransferFrom`（带有和不带`String`参数的重载方法）和不安全的功能`transferFrom`。转移可以通过以下方式启动：
 
 - NFT的所有者
 - NFT当前经批准的地址
@@ -386,9 +386,9 @@ NRC-721标准化了安全传递函数`safeTransferFrom`（带有和不带`String
 
 创建NFT（“铸造”）和销毁NFT（“燃烧”）不包括在规范中。您的合同可以通过其他方式实现。
 
-**NRC-165接口**
+**NRC165接口**
 
-我们选择标准接口检测（NRC-165）来公开NRC-721智能合约支持的接口。
+我们选择标准接口检测（NRC165）来公开NRC721智能合约支持的接口。
 
 
 **气体和复杂性**（关于枚举扩展）
@@ -404,7 +404,7 @@ NRC-721标准化了安全传递函数`safeTransferFrom`（带有和不带`String
 **元数据选择**（元数据扩展）
 
 我们在元数据扩展中需要`name`和`symbol`功能。
-我们提醒实现作者，空字符串是一个有效的响应`name`，`symbol`，如果你抗议使用这种机制。我们也提醒大家，任何智能合同可以使用相同的名称和符号作为*你的*合同。客户如何确定哪些NRC-721智能合约是众所周知的（规范的）超出了本标准的范围。
+我们提醒实现作者，空字符串是一个有效的响应`name`，`symbol`，如果你抗议使用这种机制。我们也提醒大家，任何智能合同可以使用相同的名称和符号作为*你的*合同。客户如何确定哪些NRC721智能合约是众所周知的（规范的）超出了本标准的范围。
 
 提供了一种将NFT与URI相关联的机制。我们希望许多实现将利用此功能为每个NFT提供元数据，URI可能是可变的（即它会不时变化）。我们考虑了代表房屋所有权的NFT，在这种情况下，关于房屋的元数据（图像，居住者等）可以自然地改变。
 
