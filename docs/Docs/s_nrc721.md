@@ -1,4 +1,4 @@
-# NRC-721
+# NRC721 Contract
 
 ## Simple Summary
 
