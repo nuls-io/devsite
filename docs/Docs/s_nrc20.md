@@ -1,4 +1,4 @@
-# NRC-20
+# NRC20 Contract
 
 
 ## Simple Summary
