@@ -1,7 +1,7 @@
-# NULS ChainBox
+# NULS ChainBox开发者指南
 ## NULS ChainBox是什么
 
-ChainBox是一个快速搭建区块链的工具，封装了账本，账户，交易，区块，共识，网络六个底层模块，屏蔽了分布式数据存储、点对点传输、共识机制、加密算法等复杂区块链技术，开发者可使用它实现分钟级搭建TPS达1000的基础链，或根据标准通信协议开发业务模块，然后通过chainbox驱动组成一条全新的应用链
+ChainBox是一个快速搭建区块链的工具，封装了账本，账户，交易，区块，共识，网络六个底层模块，屏蔽了分布式数据存储、点对点传输、共识机制、加密算法等复杂区块链技术，开发者可使用它实现分钟级搭建TPS达1000的基础链，或根据标准通信协议开发业务模块，然后通过ChainBox驱动组成一条全新的应用链。
 
 ## 为什么需要ChainBox
  NULS ChainBox设计的初衷是帮助企业或应用开发者在区块链上能快速构建应用，并专注自己的业务实现，无需关心晦涩、复杂的区块链底层技术。
@@ -17,11 +17,11 @@ NULS ChainBox本质上是NULS2.0的一个扩展应用，它的定位是一站式
 - 通过约定和脚本降低模板集成的难度，实现一键生成可运行程序
 
 ## 快速体验
-在下面这个case中，你将体验到如何使用NULS ChainBox快速构建一套提供加密邮件服务的区块链应用
+在下面这个Case中，你将体验到如何使用NULS ChainBox快速构建一套提供加密邮件服务的区块链应用。
 
 ### 1 环境准备
 
-- linux内核的操作系统
+- Linux内核的操作系统
 - 安装 Git
 - 安装Maven
 - 安装JDK11
@@ -56,7 +56,7 @@ cd example   #进入示例文件夹
 > PS:如果你想知道该模块是如何设计的，请查看[加密邮件模块设计文档](./example/模块设计文档.md)
 
 ### 4 集成加密邮件模块
-回到chainbox根目录
+回到ChainBox根目录
 
 ```
 cd ..
@@ -73,7 +73,7 @@ cd ..
 ============ PACKAGE FINISH 🍺🍺🍺🎉🎉🎉 ===============
 ```
 
-完成后在chainbox目录下会生成NULS-WALLET文件夹，此文件夹包含了集成了加密邮件模块的NULS2.0运行程序
+完成后在ChainBox目录下会生成NULS-WALLET文件夹，此文件夹包含了集成了加密邮件模块的NULS2.0运行程序
 
 若在不同机器部署了多个节点，建议修改NULS-WALLET/.default-config.ncf配置文件中的以下两个参数
 
@@ -677,22 +677,34 @@ BlockHeader为区块头对象，主要存储前一块的hash值、[merkle tree](
 * [共识模块RPC接口文档](./i_consensus.md)
 * [网络模块RPC接口文档](./i_network.md)
 
-## Contribution
+## Contribute to NULS
+We are committed to making blockchain technology simpler and our slogan is "NULS Making It Easier to Innovate".
 
-Contributions to NULS are welcomed! We sincerely invite developers who experienced in blockchain field to join in NULS technology community. Details: s: https://nuls.communimunity/d/9-recruitment-of-community-developers To be a great community, Nuls needs to welcome developers from all walks of life, with different backgrounds, and with a wide range of experience.
+Get to know NULS developers
+https://nuls.io/developer
+
+You are welcome to contribute to NULS! We sincerely invite developers with rich experience in the blockchain field to join the NULS technology community.
+https://nuls.io/community
+
+Documentation：https://docs.nuls.io
+
+NULS Brand Assets: https://nuls.io/brand-assets
+
+
 
 ## License
 
-Nuls is released under the [MIT](http://opensource.org/licenses/MIT) license.
+NULS is released under the [MIT](http://opensource.org/licenses/MIT) license.
 Modules added in the future may be release under different license, will specified in the module library path.
 
 ## Community
 
-- [nuls.io](https://nuls.io/)
-- [@twitter](https://twitter.com/nulsservice)
-- [facebook](https://www.facebook.com/nulscommunity/)
-- [YouTube channel](https://www.youtube.com/channel/UC8FkLeF4QW6Undm4B3InN1Q?view_as=subscriber)
-- Telegram [NULS Community](https://t.me/Nulsio)
-- Telegram [NULS 中文社区](https://t.me/Nulscn)
+- Website: https://nuls.io
+- Twitter: https://twitter.com/nuls
+- Discord:https://discord.gg/aRCwbj47WN
+- Telegram: https://t.me/Nulsio
+- Medium: https://nuls.medium.com
+- Forum: https://forum.nuls.io
+- GitHub: https://github.com/nuls-io
 
-####  
+  #### 
