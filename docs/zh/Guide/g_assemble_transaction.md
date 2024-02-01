@@ -13,7 +13,7 @@
 
 ## 详细说明通过第2种方式完成转账
 
-- 官方nuls-api地址：https://api.nuls.io/jsonrpc
+- 官方NULS API地址：https://api.nuls.io/jsonrpc
 - 关键接口方法：createTransferTxOffline
 
 具体步骤：
