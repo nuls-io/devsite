@@ -324,135 +324,8 @@ When you see the following, `tools -p` has successfully completed:
 
 To start and complete the configuration of ChainBox, execute steps 5 and 6 of the 'Quick Start' section.
 
-### NULS_WALLET Directory Structure
 
-#### Directory Overview:
-
-- **start-dev**: Initiates the node.
-- **stop-dev**: Halts the node.
-- **check-status**: Inspects the operating status of each module.
-- **cmd**: Command line startup script.
-- **create-address**: Generates a NULS account, providing the account address and private key.
-
-#### Execution Output of `./create-address`:
-
-```
-./create-address
-JAVA_HOME:/Library/Java/JavaVirtualMachines/jdk-11.0.2.jdk/Contents/Home
-java version "11.0.2" 2019-01-15 LTS
-Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
-Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
-
-.../NULS_WALLET/nuls.ncf
-Service Manager URL: ws://127.0.0.1:7771
-chainId:2
-number:1
-====================================================================================================
-address   :tNULSeBaMtrzD4kChZPfEAFLRqX18n7UrrbY1s
-privateKey:f67877e994d6bd0ef23e0aaf0f8c6b62edf5dc636ff5b6981666c4632499bc56
-====================================================================================================
-```
-
-#### **nuls.ncf File:**
-
-- **Path:** .../NULS_WALLET/nuls.ncf
-- **Contents:**
-  ```
-  Service Manager URL: ws://127.0.0.1:7771
-  chainId:2
-  number:1
-  ```
-
-#### Additional Resources:
-
-- **nuls.ncf:** Configuration file generated after the initial run of the `start-dev` script.
-- **More usage reference:** [NULS2.0 Wallet User Manual](https://github.com/nuls-io/nuls-v2/blob/develop/useguide.md)
-
-### Module Development in NULS2.0
-
-#### Overview:
-
-NULS2.0 employs a distributed microservice architecture written in JAVA, with modules communicating through the websocket protocol. The standard [module communication protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md) facilitates cross-language communication.
-
-#### Transaction Process:
-
-1. **Register Transaction Type:** Each business module registers its transaction type at startup.
-2. **Assemble Transaction Data:** Assemble transaction data and create a new transaction.
-3. **Verify Business Data:** Verify the business data within the transaction.
-4. **Save Business Data:** Save business data to the node database.
-
-#### Detailed Transaction Process:
-
-- **Transaction Type Registration:**
-  - Unique values (200 and above) distinguish transaction types.
-  - Registration occurs during the business module's startup.
-
-- **Transaction Structure:**
-  - Includes type, timestamp, CoinData, txData, remarks, and signature.
-  - txData contains business-specific data.
-
-- **Verification Process:**
-  - Verify parameters, account balance, and nonce value.
-  - Invoke callback functions for business data verification.
-
-- **Transaction Addition to Block:**
-  - Upon confirmation of the block, invoke callback functions for business data storage.
-
-#### Inter-Module Communication:
-
-- **Microservices Architecture:**
-  - Modules communicate via [websocket](https://en.wikipedia.org/wiki/WebSocket).
-  - All modules are initiated by the Service Manager.
-
-- **Connection Establishment:**
-  - Modules connect via standard websocket protocol.
-  - Handshake with the Service Manager is crucial.
-
-- **Handshake with Service Manager:**
-  - After connection, a NegotiateConnection object is sent.
-  - Successful handshake leads to registration with the Service Manager.
-
-- **Module Registration:**
-  - Registration with the Service Manager includes connection details, protocol, and dependencies.
-
-- **Calling Other Module Interfaces:**
-  - Establish websocket connection before calling interfaces.
-  - Send a Request to the targeted module.
-
-#### Reference Documents:
-
-- [Websocket-Tool Design Document](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-EN/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md)
-- [Nulstar Module Specification](https://github.com/nuls-io/Nulstar/blob/master/Documents/Nulstar%20-%20Documentation%20-%20Module%20Specification.pdf)
-- [Basic Module Interface Document](#doclist)
-
-### Module Development Templates:
-
-- NULS provides templates for various development languages.
-- Developers insert business logic into templates for efficient module development.
-
-#### Module Debugging:
-
-- Modules are debugged in the NULS2.0 runtime environment.
-- Use the start-mykernel script to initiate the NULS2.0 basic module.
-- Service Manager URL: ws://127.0.0.1:7771.
-- Modules register with the Service Manager and communicate with other modules.
-
-#### Appendix: Tools Script Manual
-
-- **Command: tools -p**
-  - Retrieves the NULS2.0 runtime environment.
-
-- **Command: tools -t <language> [out folder]**
-  - Retrieves a specified language module development template.
-
-- **Command: tools -l**
-  - Lists available templates.
-
-- **Command: tools -p <module folder>**
-  - Integrates modules into the NULS 2.0 runtime environment.
-
-
-#### NULS-WALLET directory structure
+#### NULS-WALLET Directory Structure
 ##### start-dev
 - Start node.
 ##### stop-dev
@@ -484,14 +357,14 @@ privateKey:f67877e994d6bd0ef23e0aaf0f8c6b62edf5dc636ff5b6981666c4632499bc56
 
 ##### nuls.ncf
 - Configuration file (created after running the start-dev script for the first time).
-##### More usage reference ([NULS2.0 Wallet User Manual](https://github.com/nuls-io/nuls-v2/blob/develop/useguide.md))
+##### More Usage Reference ([NULS2.0 Wallet User Manual](https://github.com/nuls-io/nuls-v2/blob/develop/useguide.md))
 
-### How to develop your own module (also called 'Business Module')
+### How to Develop Your Own Module (Also Called 'Business Module')
 NULS2.0 is a distributed microservice architecture  written in the JAVA language. It consists of multiple modules, each of which communicates via the websocket protocol. NULS 2.0 defines a standard [module communication protocol](https://github.com/nuls-io/nuls-v2-docs/blob/master/design-zh-CHS/r.rpc-tool-websocket%E8%AE%BE%E8%AE%A1v1.3.md), which can be implemented in various development languages to communicate with other modules.
 To interact with the blockchain your business module registers it's transaction type(s) at startup.  Your business module  stores its own business data in the transaction's txData, and  passes the assembled transaction  to the transaction module which will manage the verification of the transaction, and, if correct, stores the transaction in a packed queue which is subsequently processed by the block module.
-#### Creating a transaction process
+#### Creating a Transaction Process
 ![node creation transaction](./chainbox/createTX.jpg)
-#### Processing network transaction process
+#### Processing Network Transaction Process
 ![Processing Webcast Transactions](./chainbox/network.jpg)
 
 As you can see from the figure, there are four main things you need to do:
@@ -514,13 +387,13 @@ Finally, when the transaction is added to the block and the block has been confi
 
 The above are the core steps required for  new transaction type. The three interfaces for verifying transactions, saving business data, and rolling back business data are implemented by the business module.
 
-### Communicate with other modules
+### Communicate with Other Modules
 NULS 2.0 uses a microservices architecture, and modules communicate using [websocket](https://en.wikipedia.org/wiki/WebSocket). The links to all modules are governed by Nulstar and the process is as follows:
 
 ![](./chainbox/pic01.jpg)
 
 All modules are started by the ServiceManager. After startup, each module (also referred to as service module)  establishes a connection with the ServiceManager module. This handshake is completed according to protocol. After the handshake is successful, the module is registered with the ServiceManager. The purpose of the registration is to tell the ServiceManager its connection mode, the provided interface protocol, and which modules it relies on.
-#### Establish connection
+#### Establish Connection
 The connection is established using the standard websocket protocol. After the connection is established, the module can send a packet (interface request) to any module and receive the other party's data packet. Note: All requests are asynchronous  non-blocking.
 #### Handshake with ServiceManager
 After establishing a connection with the ServiceManager, the module sends a NegotiateConnection object. The module can process other requests only when the negotiation is successful. Otherwise, the module receives the NegotiateConnectionResponse message with the status set to 0 (failed) and immediately disconnect.
@@ -569,7 +442,7 @@ Example:
 }
 ```
 
-#### registerAPI (registration module)
+#### registerAPI (Registration Module)
 After the handshake with the ServiceManager is successful, the RegisterAPI request is sent by the registering module to the ServiceManager to complete the registration. The ServiceManager will obtain the connection information and interface method of the module through this request. The ServiceManager determines whether the registering module meets the normal working conditions by analyzing whether it's provided list of "dependency" module(s) exist. (See example.)
 
 Example:
@@ -693,7 +566,7 @@ Example:
 ```
 ***After the registering module obtains the link mode of the dependent module, it can establish a connection with  other business module(s) and obtain the connected business module's interface that is available for other business modules. *** is this clear and complete? ***
 
-#### Calling other module interfaces
+#### Calling Other Module Interfaces
 Before calling the interface of other modules, it is also necessary to complete the operation of establishing a websocket connection and shaking hands with the module. After the handshake is completed, the Request  is sent to the module.
 
 Example:
@@ -752,7 +625,7 @@ Example:
 * [Nulstar Module Specification](https://github.com/nuls-io/Nulstar/blob/master/Documents/Nulstar%20-%20Documentation%20-%20Module%20Specification.pdf)
 * [Basic Module Interface Document](#doclist)
 
-### Get module development templates for various development languages
+### Get Module Development Templates for Various Development Languages
 In theory, as long as the connection is established between the business module and another module using the websocket, information can be exchanged between the two modules according to the agreed protocol. In order to reduce the difficulty of module development, NULS provides quick start templates for java, with the intention of providing other language templates in the future.  Developers only need to use a template. The development of the business module can be completed by inserting specific business logic code at  specified locations in the template.
 
 All template can be listed using the tools script.
@@ -772,7 +645,7 @@ A template can be downloaded using:
 tools -t java-module
 ```
 After the execution is completed, the directory 'java-module' is created in the current directory, and the common development tools can be imported to start the development business. There will be corresponding usage documents in each template.
-### Module debugging method
+### Module Debugging Method
 In the module development process, you need to coordinate with the ChainBox. After obtaining the NULS2.0 runtime environment, execute the start-mykernel script (start-dev) to start the NULS2.0 basic module. The Service Manager is accessible via URL: ws://127.0.0.1:7771. The  developing module will register with the Service Manager. After completing the registration, the developing module can get the communication address of each dependent module and call each module's interface. The program is deployed to production when finished; the business module needs to be integrated into the NULS2.0 runtime environment. Then the entire package is deployed to the production environment which may include other external nodes.
 1. The packaged executable program should be placed in the outer directory of the module development directory.
 2. The outer directory must have a configuration file named Module.ncf (note M capitalization). The contents of the file are as follows (using java as an example):
@@ -796,74 +669,73 @@ StopScript=stop # Stop the module script (stop must be in the outer directory)
 > The above convention has been completed in the module development template.
 
 ## Appendix
-### <span id="cmd-doc">tools script manual</span>
-### Getting the NULS2.0 runtime environment
-#### Command: tools -p
-#### parameter list
-no
-#### Example
+### <span id="cmd-doc">Tools Script Manual</span>
 
-```
-tools -p
-```
-### Get the specified language module development template
-#### Command: tools -t &lt;language> [out folder]
-#### parameter list
-| Parameter | Description |
-| --- | --- |
-| &lt;language> | Language Template Name |
-| [out folder] | Output folder name |
-#### Example
+### Getting the NULS2.0 Runtime Environment
+- **Command:** `tools -p`
+- **Parameter List:** None
+- **Example:**
+  ```bash
+  tools -p
+  ```
 
-```
-tools -t java-demo
-```
-### View a list of available templates
-#### Command: tools -l
-#### parameter list
-no
-##### Example
+### Get the Specified Language Module Development Template
+- **Command:** `tools -t <language> [out folder]`
+- **Parameter List:**
+  | Parameter | Description |
+  | --- | --- |
+  | `<language>` | Language Template Name |
+  | `[out folder]` | Output folder name |
+- **Example:**
+  ```bash
+  tools -t java-demo
+  ```
 
-```
-tools -l
-```
-### Integrating modules into the NULS 2.0 runtime environment
-#### Command: tools -p &lt;module folder>
+### View a List of Available Templates
+- **Command:** `tools -l`
+- **Parameter List:** None
+- **Example:**
+  ```bash
+  tools -l
+  ```
 
-
-
-
-#### parameter list
-| Parameter | Description |
-| --- | --- |
-| &lt;out folder> | Module folder name |
-#### Example
-
-```
-tools -p mail-example nuls-helloworld-template
-```
+### Integrating Modules into the NULS 2.0 Runtime Environment
+- **Command:** `tools -p <module folder>`
+- **Parameter List:**
+  | Parameter | Description |
+  | --- | --- |
+  | `<module folder>` | Module folder name |
+- **Example:**
+  ```bash
+  tools -p mail-example nuls-helloworld-template
+  ```
 
 
-### <span id="registerTx">Business Module Related Interface Protocol</span>
-The business module needs to provide three callback functions to the transaction module. The transaction module will call these three functions through the websocket. The parameters of the three functions are the same and the names are different.
-#### Verifying a transaction
-Cmd name: txValidator
+### <span id="registerTx">Business Module Interface Protocol</span>
 
-It is used by the service module to validate the txData data. It can also verify whether the data such as coinData meets the business requirements. If the verification fails, the trading module will discard the transaction.
-#### Save transaction business data
-Cmd name: txCommit
+The business module must implement three callback functions for interaction with the transaction module. These functions are invoked by the transaction module via the WebSocket, sharing identical parameters but with distinct names.
 
-It is used to save the business data in the transaction to the node local database, or to do the corresponding business logic processing. The transactions that arrive at this step are all consensus data.
-#### Rollback transaction business data
-Cmd name: txRollback
+#### Transaction Verification
+- **Command Name:** `txValidator`
 
-When the block is rolled back, the callback function will be triggered. The business module should clear the business data related to the transaction in the function, or perform corresponding reverse processing.
-#### Callback function parameter list
-| Parameter Name | Type | Parameter Description |
+  This function is utilized by the service module to validate `txData` and check if data such as `coinData` adheres to business requirements. If the validation fails, the transaction module will discard the transaction.
+
+#### Saving Transaction Business Data
+- **Command Name:** `txCommit`
+
+  This function is responsible for storing business data from the transaction into the local node database or executing corresponding business logic processing. Transactions reaching this step are exclusively consensus data.
+
+#### Rolling Back Transaction Business Data
+- **Command Name:** `txRollback`
+
+  This callback function is triggered when a block rollback occurs. In this function, the business module should clear business data associated with the transaction or execute corresponding reverse processing.
+
+#### Callback Function Parameter List
+| Parameter Name | Type | Description |
 | --- | --- | --- |
-| chainId | int | chain id (distinguishing data sources when nodes are running multiple chains) |
-| txList | list | Trading List |
-| blockHeader | object | block header |
+| `chainId` | `int` | Chain ID (to differentiate data sources when nodes run multiple chains) |
+| `txList` | `list` | List of transactions |
+| `blockHeader` | `object` | Block header |
 
 #### Deserialization, [Common Agreement]()
 The data of the two parameters txList and blockHeader are transmitted in the form of hexadecimal data. First, the hexadecimal is converted into a byte array, and then deserialized into structured data according to different rules.
