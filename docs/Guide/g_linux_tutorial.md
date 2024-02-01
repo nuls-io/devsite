@@ -1,20 +1,20 @@
-# Linux CLI Manual
+# Linux CLI Usage Guide
 
 ## Introduction
 
 This section is a guide for the use of the full node wallet for the Linux version, it will show how to create accounts, import accounts, transfer, and create nodes or stake, etc. It's assumed you have at least basic skills administering Linux operating systems which is the recommended system to create stable NULS nodes.
 
-## Version history
+## Version History
 
 | Versions |    Date    | Contents |
 | :------: | :--------: | :------: |
-|  V0.9.0  | 2018-03-18 |  alpha   |
+|  V0.9.0  | 2018-03-18 |  Alpha   |
 |  V0.9.1  | 2019-07-08 |   Beta   |
 |  V1.0.0  | 2019-09-08 |  Mainnet |
 
 ## Preparation
 
-### Server hardware configuration
+### Server Hardware Configuration
 
 **Minimum requirements:**
 
@@ -28,7 +28,7 @@ This section is a guide for the use of the full node wallet for the Linux versio
 | :------------: | :----: | :--------: | :------------: |
 | 8-core 3.0 GHz |  32GB  |   256GB    | 100Mbps uplink |
 
-### System and kernel version
+### System and Kernel Version
 
 **Linux system**
 
@@ -36,7 +36,7 @@ This section is a guide for the use of the full node wallet for the Linux versio
 
 The Linux kernel version is recommended to use 2.6.32 and above
 
-## Get started
+## Get Started
 
 ### Download
 
@@ -68,9 +68,9 @@ Note: the download address may be different if there are subsequent versions.
   $ ./start
 ```
 
-## Use wallet
+## Use Wallet
 
-### Quick start
+### Quick Start
 
 - After confirming that the wallet has been started, execute the command line program to operate the wallet.
 
@@ -102,9 +102,9 @@ Command ` create ` generates a single account, next enter your password and conf
   [parameter] optional parameter.
   " |" means 'or' logical operator, namely you can choose either the previous parameter or the latter.
 
-## Wallet commands
+## Wallet Commands
 
-### Help command
+### Help Command
 
 Print all valid commands,
 
@@ -139,7 +139,7 @@ nuls>>> help account
 nuls>>> help create
 ```
 
-### Create an account
+### Create an Account
 
 Create an account and return the set of account addresses
 
@@ -182,7 +182,7 @@ Please confirm new password:**********
 
 ```
 
-### Back up account
+### Back Up Account
 
 To back up an account, a file named as the account address with the extension .keystore is generated, which is the backup file for the account
 
@@ -211,7 +211,7 @@ Example: backup an account with a password
 
 ```
 
-### Remove account
+### Remove Account
 
 Enter the password to remove a local account based on the account address
 
@@ -238,7 +238,7 @@ Success
 
 ```
 
-### Modify account password
+### Modify Account Password
 
 Set a new password according to the account address and password.
 
@@ -265,7 +265,7 @@ Please confirm new password:*********
 
 ```
 
-### Set alias
+### Set Alias
 
 Set an alias to the account. If a node is created with this account, its alias will be displayed as the node source
 
@@ -292,7 +292,7 @@ txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
 
 ```
 
-### Import account keystore
+### Import Account Keystore
 
 Import the account keystore file to recover a local account. The operation is not executed if the local account already exists locally.
 
@@ -321,7 +321,7 @@ tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 
 ```
 
-### Import account private key
+### Import Account Private Key
 
 Import the account private key to generate a local account, overwritten if the local account already exists. You are required to set a password for the account when importing. This function can be used to retrieve the account through the private key if you forget the account password.
 
@@ -347,7 +347,7 @@ tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
 
 ```
 
-### Query account information
+### Query Account Information
 
 Query account information with the account address
 
@@ -392,7 +392,7 @@ nuls>>> getaccount 5MR_2CeG11nRqx7nGNeh8hTXADibqfSYeNu
 
 ```
 
-### Query account list
+### Query Account List
 
 Query the account list with the paging parameters and return all accounts in descending order by creation time.
 
@@ -448,7 +448,7 @@ nuls>>> getaccounts
 
 ```
 
-### Query account's private key
+### Query Account's Private Key
 
 Query the account’s private key with the account address and password
 
@@ -474,7 +474,7 @@ Enter your account password**********
 
 ```
 
-### Query account balance
+### Query Account Balance
 
 Query account balance with the account address
 
@@ -539,7 +539,7 @@ Enter your password: *********
 
 ```
 
-### Query transaction details
+### Query Transaction Details
 
 Query the transaction details with the transaction hash
 
@@ -634,7 +634,7 @@ nuls>>> gettx 00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f8
 
 ```
 
-#### Enumeration type description
+#### Enumeration Type Description
 
 ```
 /** coinbase transaction*/
@@ -674,7 +674,7 @@ nuls>>> gettx 00200a2bc0207a55caa36bfe1f3bfc55a4eef5ec5ea05e90727ede441ce66669f8
 
 ```
 
-### Transfer using account alias
+### Transfer Using Account Alias
 
 Transfer to an external address with an account alias
 
@@ -703,7 +703,7 @@ Enter your account password**********
 
 ```
 
-### Create agent node
+### Create Agent Node
 
 To create an agent node, two addresses are required, the first one is the node address, on which you need to provide the password for the node account, the other is the package address, and no password is required. Meanwhile, you’re required to offer no less than 20,000 NULS as a deposit. 
 
@@ -733,7 +733,7 @@ Enter your password: **********
 
 ```
 
-### Join consensus (agent node)
+### Join Consensus (Agent Node)
 
 Join consensus by account address and node agentHash, which requires at least 2,000NULS
 
@@ -760,7 +760,7 @@ nuls>>> deposit NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 002006a5b7eb1d32ed6d7d54e24e219
 
 ```
 
-### Cancel consensus (cancel agent)
+### Cancel Consensus (Cancel Agent)
 
 Cancel consensus (agent) according to the account address and the hash of the transaction generated when joining the consensus. When a single account joins consensus on agent nodes multiple times, each agent transaction is independent, so to cancel consensus, the agent can only be canceled by the corresponding transaction hash of the single agent, rather than cancel all the agents at one time.
 
@@ -786,7 +786,7 @@ nuls>>> withdraw NsdtmV5XkgSdpBXi65ueTsrv2W5beV2T 0020d349b7ad322ff958e3abfa799d
 
 ```
 
-### Stop agent
+### Stop Agent
 
 Stop the node, all NULS delegated to the node will be refunded, and the deposit of the node creator will be locked for 72 hours.
 
@@ -813,7 +813,7 @@ Enter your password:**********
 
 ```
 
-### Get header information of the latest block
+### Get Header Information of the Latest Block
 
 Get the latest block header’s information
 
@@ -868,7 +868,7 @@ nuls>>> getbestblockheader
 
 ```
 
-### Query block header information
+### Query Block Header Information
 
 Query block information with either a block height or a block hash.
 
@@ -928,7 +928,7 @@ nuls>>> getblock 28115
 
 ```
 
-### Create smart contracts
+### Create Smart Contracts
 
 This interface is called to create a smart contract on the chain
 
@@ -983,7 +983,7 @@ Enter the arguments:"KQB","KQB",10000,2
 
 ```
 
-### Get contract basic information
+### Get Contract Basic Information
 
 Gets the description of the smart contract and the argument list of the constructor and the calling method
 
@@ -1063,7 +1063,7 @@ getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
 
 ```
 
-### Invoke smart contracts
+### Invoke Smart Contracts
 
 Call the functions provided by the smart contract
 
@@ -1101,7 +1101,7 @@ Enter the arguments:"tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG",2
 
 ```
 
-### Delete smart contract
+### Delete Smart Contract
 
 Stop an available smart contract
 
@@ -1130,7 +1130,7 @@ Please enter your account passwordzhoujun172
 
 ```
 
-### Call the contract view method
+### Call the Contract View Method
 
 Calling the contract view method immediately returns the result, no transaction is generated
 
@@ -1164,7 +1164,7 @@ Enter the arguments:"tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD"
 
 ```
 
-### Transfer money to the contract address
+### Transfer Asset to the Contract Address
 
 To the specified contract address into the main network currency
 
@@ -1194,7 +1194,7 @@ Please enter your account password
 
 ```
 
-### token transfer
+### Token Transfer
 
 NRC20 token transfer
 
@@ -1225,7 +1225,7 @@ Please enter your account password
 
 ```
 
-### Get contract transaction
+### Get Contract Transaction
 
 Gets the transaction information of the contract, including the transaction details, the contract invocation parameters, and the contract execution results
 
@@ -1315,7 +1315,7 @@ getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb5
 
 ```
 
-### Get the contract execution result
+### Get the Contract Execution Result
 
 Gets the execution result of a contract
 
@@ -1369,7 +1369,7 @@ nuls>>> getcontractresult 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8
 
 ```
 
-### Get the contract constructor
+### Get the Contract Constructor
 
 Gets the list of parameters that need to be passed in to create the specified contract
 
@@ -1422,7 +1422,7 @@ nuls>>> getcontractcontructor 504b03040a000008000.........20000b31600000000
 
 ```
 
-### Gets the list of contracts created for the specified account
+### Gets the List of Contracts Created for the Specified Account
 
 Gets the list of contracts created by the specified account address
 
@@ -1483,7 +1483,7 @@ nuls>>> getaccountcontracts tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
 
 ```
 
-### Query network information
+### Query Network Information
 
 Query network basic information
 
@@ -1516,7 +1516,7 @@ nuls>>> network info
 
 ```
 
-### Query IP's of network nodes
+### Query IP's of Network Nodes
 
 Query IP's of network nodes
 
@@ -1537,9 +1537,9 @@ nuls>>> network nodes
 
 ```
 
-### Register the Parallel Chain in the Main Chain
+### Register the Parachain in the Main Network
 
-Parallel chains need to complete registration in the main chain when sending cross-chain transactions, this command needs to run on the main network node
+Parachains need to complete registration in the main chain when sending cross-chain transactions, this command needs to run on the main network node
 
 - **command: registercrosschain &lt;address> &lt;chainId> &lt;chainName> &lt;magicNumber> &lt;assetId> &lt;symbol> &lt;assetName> &lt;initNumber> [decimalPlaces] [minAvailableNodeNum] [txConfirmedBlockNum]**
 
@@ -1573,7 +1573,7 @@ Enter your password:**********
 
 ```
 
-### Query Parallel Chain Registration Information
+### Query Parachain Registration Information
 
 Query the registration information of a test on the main network
 
@@ -1641,7 +1641,7 @@ nuls>>> crosschaininfo 11
 
 ```
 
-### Send Cross-chain Transaction
+### Send Cross-Chain Transaction
 
 - **Command: getecrosstx &lt;chainId> &lt;formAddress> &lt;toAddress> &lt;assetChainId> &lt;assetId> &lt;amount> [remark]**
 
@@ -1672,7 +1672,7 @@ Enter your password:**********
 
 ```
 
-### Query Cross-chain Transaction Confirmation Status
+### Query Cross-Chain Transaction Confirmation Status
 
 - **Command：getcrosstxstate  &lt;chainId> &lt;txHash>**
 
@@ -1696,7 +1696,7 @@ Unconfirmed
 
 ```
 
-### Exit the wallet CLI
+### Exit the Wallet CLI
 
 Exit the command line, it won’t stop the wallet.
 
