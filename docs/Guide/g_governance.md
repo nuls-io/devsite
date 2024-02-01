@@ -1,6 +1,6 @@
 # Community Governance Tutorial
 
-1. Click the community management tab and enter the login page. Import your address using the keystore file or private key, or create a new address.
+1. Click the [Community Governance](https://gov.nuls.io/) tab and enter the login page. Connect your [Nabox Wallet](https://nabox.io/).
 
 ![img](./g_governance/1.png) 
 
@@ -22,7 +22,7 @@ If other users set your address as agent, then the user can view them in my agen
 
 ![1572588048180](./g_governance/3.png)
 
-## Council
+## Councilors
 
 Normal users can go to the council to apply to become a councilor (Technical Councilor: The address balance cannot be less than 25000 NULS, Management and Operation Councilor address balance cannot be less than 50000 NULS) The number of Councilors are limited to 11 total;  3 technical councilors, 4 management councilors and 4 operation councilors. The candidates are listed from top to bottom according to the number of votes, in each of three categories that reflect the three types of councilors.
 
@@ -30,7 +30,7 @@ Normal users can go to the council to apply to become a councilor (Technical Cou
 
  
 
-**Council Voting**: Each account can vote for up to 11 councilors and a minimum of 0. After voting, if you want to cancel in batches, uncheck the boxes.
+**Councilor Voting**: Each account can vote for up to 11 councilors and a minimum of 0. After voting, if you want to cancel in batches, uncheck the boxes.
 
 ![img](./g_governance/5.png) 
 
