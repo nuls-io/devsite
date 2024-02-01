@@ -1,10 +1,10 @@
-# NULS2.0——API接口文档
+# NULS2.0 API接口文档
 
 ## 简介
 
-每个 NULS2.0节点都可选的提供了一套 API 接口，用于从节点获取可视化区块链数据，使得开发区块链应用变得十分方便。接口通过 [JSON-RPC](http://wiki.geekdream.com/Specification/json-rpc_2.0.html) 的方式提供，底层使用 HTTP协议进行通讯。
+每个NULS2.0节点都可选的提供了一套API接口，用于从节点获取可视化区块链数据，使得开发区块链应用变得十分方便。接口通过 [JSON-RPC](http://wiki.geekdream.com/Specification/json-rpc_2.0.html) 的方式提供，底层使用HTTP协议进行通讯。
 
-要启动一个提供 RPC 服务的节点，需做到以下几个步骤：
+要启动一个提供RPC服务的节点，需做到以下几个步骤：
 
 - 获取钱包
 
