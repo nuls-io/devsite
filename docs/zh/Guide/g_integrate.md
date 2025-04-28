@@ -2,24 +2,23 @@
 
 ## 简介
 
-本文定义了 NULS 2.0 提供给合作伙伴和交易所的对接指南。
+本文定义了 NULS AI 提供给合作伙伴和交易所的对接指南。
 
 NULS 1.0（以下简称 1.0）公链于 2018-07-11 上线正式运行，先后对接了若干交易所和合作伙伴。为了更好地提升 NULS 公链质量，更好地扩展 NULS 生态，NULS 团队决定升级 NULS 2.0（以下简称 2.0）。
 
 2.0 相较于 1.0 在业务上有了更多的扩展，在底层实现上有了根本的变化。因此 2.0 不能兼容 1.0 的数据，包括启动方式、接口调用等都有调整。
 
+NULS AI 在2.0的基础上，在业务层封装了NULS资产，将NULS资产更名为NAI，并且将NULS资产的decimals=8设置为NAI资产的decimals=4. 即 1 NULS = 10000 NAI。
+ 
+### NULS AI 对接的特殊性
+由于NULS链底层接口没有进行NULS AI化处理，所以要在所有用到NAI资产的地方，进行特殊处理。
+NULS节点接口，依然是基于NULS资产的版本，所以对于NAI资产的一些操作需要进行处理：
+- 显示处理： 将NULS替换为NAI，并设置NAI资产的decimals=4
+- 交易处理： 转账一个NAI时，实际的转账金额是 10000，（代表0.0001 NULS / 1 NAI,底层是整数形式处理的）
+- 所有涉及到NULS展示时，资产为NAI，链命令为NULS AI
+- 调用接口进行查询操作时，所有NAI查询，都以查询NULS为基准，在显示层，进行用户化处理
 
-### NULS1.0与NULS2.0的主要区别
-
-**NULS1.0**
-
-单进程程序，账本底层使用UTXO模式记账，RPC接口只支持Restful风格，不支持跨链。
-
-**NULS2.0**
-
-多进程程序，账本底层使用账户模块记账，且支持一条链有多种资产。RPC接口目前支持Json-RPC和Restful风格，支持跨链（目前支持2.0生态内的平行链之间发送跨链转账交易，后续会支持NULS与其他公链的跨链）
-
-### NULS2.0钱包说明
+### NULS AI 钱包说明
 
 源码地址：https://github.com/nuls-io/nuls-v2
 
@@ -55,7 +54,7 @@ server_port=18004
 
 以Linux系统钱包版本为例
 
-运行start文件启动钱包，再运行check-status文件查看各个模块进程的运行状况，当所有模块都启动完毕，且最后显示NULS WALLET IS RUNNING时，表示钱包已启动成功。启动成功后，会成功data文件夹和logs文件夹。data文件夹存储数据，logs存储钱包运行日志。
+运行start文件启动钱包，再运行check-status文件查看各个模块进程的运行状况，当所有模块都启动完毕，且最后显示NULS AI WALLET IS RUNNING时，表示钱包已启动成功。启动成功后，会成功data文件夹和logs文件夹。data文件夹存储数据，logs存储钱包运行日志。
 
 成功启动后，可运行cmd文件启动钱包命令行，通过network info命令查看节点信息，当本地高度在升高时，说明已经开始同步区块。具体cmd命令详见：https://github.com/nuls-io/nuls-v2/blob/master/module/nuls-cmd-client/document/cli-gude.md
 
