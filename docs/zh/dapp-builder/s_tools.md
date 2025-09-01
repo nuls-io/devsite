@@ -28,9 +28,9 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
 
 1、为了解决Intellij IDEA 通过archetype创建Maven项目缓慢的问题，增加maven运行参数： -DarchetypeCatalog=internal，操作步骤如下图：
 
-![](../../Docs/mavenPackage/jG8M6dR.png)
+![](../../dapp-builder/mavenPackage/jG8M6dR.png)
 
-![](../../Docs/mavenPackage/axexko4.png)
+![](../../dapp-builder/mavenPackage/axexko4.png)
 
 2、在IntelliJ IDEA中选择新建maven项目，然后按下图（图1）的操作顺序将NULS智能合约Maven archetype添加到IDEA中。在添加archetype时参数如下：
 
@@ -38,21 +38,21 @@ NULS智能合约Maven-archetype是为开发者定义的智能合约Maven项目�
      ArtifactId: nuls-smartcontract-archetype
      Version: 1.0.0
 
-![图1](../../Docs/mavenPackage/create_archetype.png)
+![图1](../../dapp-builder/mavenPackage/create_archetype.png)
 
 3、选择“io.nuls.v2:nuls-smartcontract-archetype”，然后点击下一步，如下图所示（图2），创建Maven工程。
 
 > 第一次创建时，可能会等待2~3分钟，请耐心等待
 
-![图2](../../Docs/mavenPackage/roCyIZD.png)
+![图2](../../dapp-builder/mavenPackage/roCyIZD.png)
 
 4、最后生成的maven工程如下图（图3）所示，其中pom.xml文件已经加入NULS智能合约所需的依赖jar，开发者无需修改此文件。
 
-![图3](../../Docs/mavenPackage/dev_contract_pom_setting.png)
+![图3](../../dapp-builder/mavenPackage/dev_contract_pom_setting.png)
 
 其中，pom文件中的配置参数说明如下：
 
-![](../../Docs/mavenPackage/WkoKvbV.png)
+![](../../dapp-builder/mavenPackage/WkoKvbV.png)
 
 ```
 第1个参数表示智能合约客户端默认获取合约JAR包的路径；

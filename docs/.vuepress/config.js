@@ -54,27 +54,27 @@ module.exports = {
                   title: "🚀 Getting Started",
                   collapsable: true,
                   children: [
-                    "quickstart",
-                    "transaction",
+                    "g_quickstart",
+                    "g_transaction",
                   ]
                 },
                 {
                   title: "⚙️ Node Management",
                   collapsable: true,
                   children: [
-                    "node",
-                    "upgrade",
-                    "docker",
-                    "linux-tutorial",
+                    "g_create_node",
+                    "g_upgrade_node",
+                    "g_docker",
+                    "g_linux_tutorial",
                   ]
                 },
                 {
                   title: "🏛️ Governance & Consensus",
                   collapsable: true,
                   children: [
-                    "pocm",
-                    "governance",
-                    "multi-sign",
+                    "g_pocm",
+                    "g_governance",
+                    "g_multi_sign_account",
                   ]
                 },
               ],
@@ -217,27 +217,27 @@ module.exports = {
                   title: "🚀 快速开始",
                   collapsable: true,
                   children: [
-                    "quickstart",
-                    "transaction",
+                    "g_quickstart",
+                    "g_transaction",
                   ]
                 },
                 {
                   title: "⚙️ 节点管理",
                   collapsable: true,
                   children: [
-                    "node",
-                    "upgrade",
-                    "docker",
-                    "linux-tutorial",
+                    "g_create_node",
+                    "g_upgrade_node",
+                    "g_docker",
+                    "g_linux_tutorial",
                   ]
                 },
                 {
                   title: "🏛️ 治理共识",
                   collapsable: true,
                   children: [
-                    "pocm",
-                    "governance",
-                    "multi-sign",
+                    "g_pocm",
+                    "g_governance",
+                    "g_multi_sign_account",
                   ]
                 },
               ],

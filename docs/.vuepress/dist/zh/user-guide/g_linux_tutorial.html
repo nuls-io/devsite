@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Linux全节点钱包的使用指南 | 文档</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="全球AI消费层 - NULS AI 区块链文档">
+    <meta name="theme-color" content="#A8D5FF">
+    
+    <link rel="preload" href="/assets/css/0.styles.c0387eb2.css" as="style"><link rel="preload" href="/assets/js/app.0bafe896.js" as="script"><link rel="preload" href="/assets/js/2.6c3a80b8.js" as="script"><link rel="preload" href="/assets/js/1.22a4e5b0.js" as="script"><link rel="preload" href="/assets/js/159.95e86c15.js" as="script"><link rel="prefetch" href="/assets/js/10.18a9796f.js"><link rel="prefetch" href="/assets/js/100.c6dcc4ee.js"><link rel="prefetch" href="/assets/js/101.7d7ebb68.js"><link rel="prefetch" href="/assets/js/102.58666c13.js"><link rel="prefetch" href="/assets/js/103.b682e489.js"><link rel="prefetch" href="/assets/js/104.24bacb02.js"><link rel="prefetch" href="/assets/js/105.3743813e.js"><link rel="prefetch" href="/assets/js/106.73fa77cb.js"><link rel="prefetch" href="/assets/js/107.f42da1f4.js"><link rel="prefetch" href="/assets/js/108.0282c3bd.js"><link rel="prefetch" href="/assets/js/109.ab04f47a.js"><link rel="prefetch" href="/assets/js/11.cb4cdfd8.js"><link rel="prefetch" href="/assets/js/110.a7414102.js"><link rel="prefetch" href="/assets/js/111.c99ec821.js"><link rel="prefetch" href="/assets/js/112.edf30d53.js"><link rel="prefetch" href="/assets/js/113.437a657d.js"><link rel="prefetch" href="/assets/js/114.ca376ebb.js"><link rel="prefetch" href="/assets/js/115.411f17d8.js"><link rel="prefetch" href="/assets/js/116.0be2757f.js"><link rel="prefetch" href="/assets/js/117.ed69432a.js"><link rel="prefetch" href="/assets/js/118.4f7585a0.js"><link rel="prefetch" href="/assets/js/119.bc60f714.js"><link rel="prefetch" href="/assets/js/12.e402ed1a.js"><link rel="prefetch" href="/assets/js/120.79d9e821.js"><link rel="prefetch" href="/assets/js/121.13efa6ca.js"><link rel="prefetch" href="/assets/js/122.767a3b55.js"><link rel="prefetch" href="/assets/js/123.8fe931f3.js"><link rel="prefetch" href="/assets/js/124.6adbbadd.js"><link rel="prefetch" href="/assets/js/125.626cef62.js"><link rel="prefetch" href="/assets/js/126.3dda9445.js"><link rel="prefetch" href="/assets/js/127.d62c90cb.js"><link rel="prefetch" href="/assets/js/128.c961670a.js"><link rel="prefetch" href="/assets/js/129.04de186a.js"><link rel="prefetch" href="/assets/js/13.847fb38c.js"><link rel="prefetch" href="/assets/js/130.e922ba04.js"><link rel="prefetch" href="/assets/js/131.e463809b.js"><link rel="prefetch" href="/assets/js/132.ddd02961.js"><link rel="prefetch" href="/assets/js/133.c0020aa7.js"><link rel="prefetch" href="/assets/js/134.a3f3bb32.js"><link rel="prefetch" href="/assets/js/135.8e4807f7.js"><link rel="prefetch" href="/assets/js/136.5cc7c540.js"><link rel="prefetch" href="/assets/js/137.9353bd9b.js"><link rel="prefetch" href="/assets/js/138.5e65b123.js"><link rel="prefetch" href="/assets/js/139.bdd7d1bc.js"><link rel="prefetch" href="/assets/js/14.0ebe191f.js"><link rel="prefetch" href="/assets/js/140.baee8264.js"><link rel="prefetch" href="/assets/js/141.cab83fae.js"><link rel="prefetch" href="/assets/js/142.2fccba43.js"><link rel="prefetch" href="/assets/js/143.6523903e.js"><link rel="prefetch" href="/assets/js/144.01c779f4.js"><link rel="prefetch" href="/assets/js/145.2017a624.js"><link rel="prefetch" href="/assets/js/146.d1de5a16.js"><link rel="prefetch" href="/assets/js/147.3b9d5abc.js"><link rel="prefetch" href="/assets/js/148.78a96ee0.js"><link rel="prefetch" href="/assets/js/149.ccd1442e.js"><link rel="prefetch" href="/assets/js/15.5ecc9329.js"><link rel="prefetch" href="/assets/js/150.c65eee6a.js"><link rel="prefetch" href="/assets/js/151.75a1e1d9.js"><link rel="prefetch" href="/assets/js/152.604fb4c8.js"><link rel="prefetch" href="/assets/js/153.93cfc5c0.js"><link rel="prefetch" href="/assets/js/154.d99114ee.js"><link rel="prefetch" href="/assets/js/155.168bfbc5.js"><link rel="prefetch" href="/assets/js/156.8b012700.js"><link rel="prefetch" href="/assets/js/157.3bd2e91d.js"><link rel="prefetch" href="/assets/js/158.041258e2.js"><link rel="prefetch" href="/assets/js/16.8d31e076.js"><link rel="prefetch" href="/assets/js/160.87143748.js"><link rel="prefetch" href="/assets/js/161.8593a3b4.js"><link rel="prefetch" href="/assets/js/162.b395549c.js"><link rel="prefetch" href="/assets/js/163.a2aa4a1d.js"><link rel="prefetch" href="/assets/js/17.4840b3c9.js"><link rel="prefetch" href="/assets/js/18.cefe558e.js"><link rel="prefetch" href="/assets/js/19.8e262afc.js"><link rel="prefetch" href="/assets/js/20.adeac68c.js"><link rel="prefetch" href="/assets/js/21.77d8c04a.js"><link rel="prefetch" href="/assets/js/22.a9f26a79.js"><link rel="prefetch" href="/assets/js/23.18ea5f72.js"><link rel="prefetch" href="/assets/js/24.cd796014.js"><link rel="prefetch" href="/assets/js/25.fb08cb66.js"><link rel="prefetch" href="/assets/js/26.5c949c09.js"><link rel="prefetch" href="/assets/js/27.2a2d4831.js"><link rel="prefetch" href="/assets/js/28.e0e4c4fb.js"><link rel="prefetch" href="/assets/js/29.b7521a49.js"><link rel="prefetch" href="/assets/js/3.e8b17741.js"><link rel="prefetch" href="/assets/js/30.ab6b748a.js"><link rel="prefetch" href="/assets/js/31.60464bb8.js"><link rel="prefetch" href="/assets/js/32.c95faf86.js"><link rel="prefetch" href="/assets/js/33.7d9d7a3b.js"><link rel="prefetch" href="/assets/js/34.26b92d69.js"><link rel="prefetch" href="/assets/js/35.1eeee0af.js"><link rel="prefetch" href="/assets/js/36.1c7f3048.js"><link rel="prefetch" href="/assets/js/37.9471e7bd.js"><link rel="prefetch" href="/assets/js/38.ec9abedd.js"><link rel="prefetch" href="/assets/js/39.f36e5ab8.js"><link rel="prefetch" href="/assets/js/4.8d532655.js"><link rel="prefetch" href="/assets/js/40.1ea1a444.js"><link rel="prefetch" href="/assets/js/41.8b5b74dd.js"><link rel="prefetch" href="/assets/js/42.04a077c1.js"><link rel="prefetch" href="/assets/js/43.0fe4c703.js"><link rel="prefetch" href="/assets/js/44.b935d6b9.js"><link rel="prefetch" href="/assets/js/45.2b7f5a17.js"><link rel="prefetch" href="/assets/js/46.8bc06ce9.js"><link rel="prefetch" href="/assets/js/47.82a83e28.js"><link rel="prefetch" href="/assets/js/48.6c0f32dd.js"><link rel="prefetch" href="/assets/js/49.029c21dc.js"><link rel="prefetch" href="/assets/js/5.99605394.js"><link rel="prefetch" href="/assets/js/50.e16baf5e.js"><link rel="prefetch" href="/assets/js/51.12ad3e3f.js"><link rel="prefetch" href="/assets/js/52.1ec26d8c.js"><link rel="prefetch" href="/assets/js/53.45cddd06.js"><link rel="prefetch" href="/assets/js/54.2108b43b.js"><link rel="prefetch" href="/assets/js/55.c08c272e.js"><link rel="prefetch" href="/assets/js/56.3bad307d.js"><link rel="prefetch" href="/assets/js/57.867e7ecf.js"><link rel="prefetch" href="/assets/js/58.bf774815.js"><link rel="prefetch" href="/assets/js/59.b8abadae.js"><link rel="prefetch" href="/assets/js/6.290b516c.js"><link rel="prefetch" href="/assets/js/60.61acacb6.js"><link rel="prefetch" href="/assets/js/61.81b74b64.js"><link rel="prefetch" href="/assets/js/62.264c985a.js"><link rel="prefetch" href="/assets/js/63.da901bb6.js"><link rel="prefetch" href="/assets/js/64.dbfc6dec.js"><link rel="prefetch" href="/assets/js/65.5a7bd5da.js"><link rel="prefetch" href="/assets/js/66.d7ebc9ac.js"><link rel="prefetch" href="/assets/js/67.08a9c448.js"><link rel="prefetch" href="/assets/js/68.50931544.js"><link rel="prefetch" href="/assets/js/69.e1c822fc.js"><link rel="prefetch" href="/assets/js/7.bfe2d576.js"><link rel="prefetch" href="/assets/js/70.640a1bf0.js"><link rel="prefetch" href="/assets/js/71.b22c16f7.js"><link rel="prefetch" href="/assets/js/72.bcdbc9a2.js"><link rel="prefetch" href="/assets/js/73.232c9381.js"><link rel="prefetch" href="/assets/js/74.8dd848c9.js"><link rel="prefetch" href="/assets/js/75.5b39d848.js"><link rel="prefetch" href="/assets/js/76.339f1901.js"><link rel="prefetch" href="/assets/js/77.fd812ad4.js"><link rel="prefetch" href="/assets/js/78.59c9582b.js"><link rel="prefetch" href="/assets/js/79.b4588cba.js"><link rel="prefetch" href="/assets/js/80.d20b7f7f.js"><link rel="prefetch" href="/assets/js/81.0de2e426.js"><link rel="prefetch" href="/assets/js/82.8fa26f1a.js"><link rel="prefetch" href="/assets/js/83.8cbb912a.js"><link rel="prefetch" href="/assets/js/84.a1b83b1c.js"><link rel="prefetch" href="/assets/js/85.4237db2a.js"><link rel="prefetch" href="/assets/js/86.4b6842e9.js"><link rel="prefetch" href="/assets/js/87.0290cd66.js"><link rel="prefetch" href="/assets/js/88.ad25d269.js"><link rel="prefetch" href="/assets/js/89.e34aa4b2.js"><link rel="prefetch" href="/assets/js/90.b9ad822e.js"><link rel="prefetch" href="/assets/js/91.4d2cd6d0.js"><link rel="prefetch" href="/assets/js/92.321d2cde.js"><link rel="prefetch" href="/assets/js/93.cec650ad.js"><link rel="prefetch" href="/assets/js/94.732e613a.js"><link rel="prefetch" href="/assets/js/95.b93723c8.js"><link rel="prefetch" href="/assets/js/96.c9532164.js"><link rel="prefetch" href="/assets/js/97.23e04641.js"><link rel="prefetch" href="/assets/js/98.c5b31a70.js"><link rel="prefetch" href="/assets/js/99.d3eae370.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.811c81b7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.c0387eb2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><img src="/logo.svg" alt="文档" class="logo"> <span class="site-name can-hide">文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/zh/user-guide/" class="nav-link router-link-active">
+  用户指南
+</a></div><div class="nav-item"><a href="/zh/chain-api/" class="nav-link">
+  API接口
+</a></div><div class="nav-item"><a href="/zh/dapp-builder/" class="nav-link">
+  DApp开发
+</a></div><div class="nav-item"><a href="/zh/chain-builder/" class="nav-link">
+  构建链
+</a></div><div class="nav-item"><a href="/zh/modules/" class="nav-link">
+  模块
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">选择语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/user-guide/g_linux_tutorial.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/user-guide/g_linux_tutorial.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/zh/user-guide/" class="nav-link router-link-active">
+  用户指南
+</a></div><div class="nav-item"><a href="/zh/chain-api/" class="nav-link">
+  API接口
+</a></div><div class="nav-item"><a href="/zh/dapp-builder/" class="nav-link">
+  DApp开发
+</a></div><div class="nav-item"><a href="/zh/chain-builder/" class="nav-link">
+  构建链
+</a></div><div class="nav-item"><a href="/zh/modules/" class="nav-link">
+  模块
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">选择语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/user-guide/g_linux_tutorial.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/user-guide/g_linux_tutorial.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>📚 用户指南</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/zh/user-guide/" aria-current="page" class="sidebar-link">📚 用户指南</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🚀 快速开始</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>⚙️ 节点管理</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/zh/user-guide/g_create_node.html" class="sidebar-link">快速创建节点</a></li><li><a href="/zh/user-guide/g_upgrade_node.html" class="sidebar-link">节点钱包升级指南</a></li><li><a href="/zh/user-guide/g_docker.html" class="sidebar-link">NULS Walelt V2 Docker</a></li><li><a href="/zh/user-guide/g_linux_tutorial.html" aria-current="page" class="active sidebar-link">Linux全节点钱包的使用指南</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#介绍" class="sidebar-link">介绍</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#版本更新记录" class="sidebar-link">版本更新记录</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#准备" class="sidebar-link">准备</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#服务器硬件配置" class="sidebar-link">服务器硬件配置</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#系统及内核版本" class="sidebar-link">系统及内核版本</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#开始" class="sidebar-link">开始</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#下载" class="sidebar-link">下载</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#安装" class="sidebar-link">安装</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#运行" class="sidebar-link">运行</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#使用钱包" class="sidebar-link">使用钱包</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#快速入门" class="sidebar-link">快速入门</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#约定" class="sidebar-link">约定</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#钱包命令" class="sidebar-link">钱包命令</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#帮助命令" class="sidebar-link">帮助命令</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#创建账户" class="sidebar-link">创建账户</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#备份账户" class="sidebar-link">备份账户</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#移除账户" class="sidebar-link">移除账户</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#修改账户密码" class="sidebar-link">修改账户密码</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#设置别名" class="sidebar-link">设置别名</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#导入账户keystore" class="sidebar-link">导入账户keystore</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#导入账户私钥" class="sidebar-link">导入账户私钥</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询账户信息" class="sidebar-link">查询账户信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询账户列表" class="sidebar-link">查询账户列表</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询账户私钥" class="sidebar-link">查询账户私钥</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询账户余额" class="sidebar-link">查询账户余额</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#转账" class="sidebar-link">转账</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询交易详情" class="sidebar-link">查询交易详情</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#创建节点" class="sidebar-link">创建节点</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询共识节点信息" class="sidebar-link">查询共识节点信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询共识节点列表" class="sidebar-link">查询共识节点列表</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#加入共识-委托节点" class="sidebar-link">加入共识（委托节点）</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#退出共识-退出委托" class="sidebar-link">退出共识（退出委托）</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#停止节点" class="sidebar-link">停止节点</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#获取最新的区块头信息" class="sidebar-link">获取最新的区块头信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询区块头信息" class="sidebar-link">查询区块头信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#创建智能合约" class="sidebar-link">创建智能合约</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#获取合约基本信息" class="sidebar-link">获取合约基本信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#调用智能合约" class="sidebar-link">调用智能合约</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#删除智能合约" class="sidebar-link">删除智能合约</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#调用合约视图方法" class="sidebar-link">调用合约视图方法</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#向合约地址转账" class="sidebar-link">向合约地址转账</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#token转账" class="sidebar-link">token转账</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#获取合约交易" class="sidebar-link">获取合约交易</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#获取合约执行结果" class="sidebar-link">获取合约执行结果</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#获取合约构造函数" class="sidebar-link">获取合约构造函数</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#获取指定账户创建的合约列表" class="sidebar-link">获取指定账户创建的合约列表</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询网络信息" class="sidebar-link">查询网络信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询网络节点ip" class="sidebar-link">查询网络节点IP</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#在主链注册侧链" class="sidebar-link">在主链注册侧链</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#在主链添加需要跨链交易的侧链资产" class="sidebar-link">在主链添加需要跨链交易的侧链资产</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#在主链移除跨链交易的侧链资产" class="sidebar-link">在主链移除跨链交易的侧链资产</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#在主链恢复侧链" class="sidebar-link">在主链恢复侧链</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询侧链注册信息" class="sidebar-link">查询侧链注册信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询侧链注册资产信息" class="sidebar-link">查询侧链注册资产信息</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#创建跨链交易" class="sidebar-link">创建跨链交易</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#查询跨链交易确认状态" class="sidebar-link">查询跨链交易确认状态</a></li><li class="sidebar-sub-header"><a href="/zh/user-guide/g_linux_tutorial.html#退出钱包命令程序" class="sidebar-link">退出钱包命令程序</a></li></ul></li></ul></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🏛️ 治理共识</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="linux全节点钱包的使用指南"><a href="#linux全节点钱包的使用指南" class="header-anchor">#</a> Linux全节点钱包的使用指南</h1> <h2 id="介绍"><a href="#介绍" class="header-anchor">#</a> 介绍</h2> <p>本文档为NULS2.0 Beta1版本测试网Linux版全节点钱包的使用指南，阅读本文档前用户需了解Linux系统的基本操作和使用方式，本文介绍了在Linux系统中如何利用NULS钱包创建账户、导入账户、转账、建立节点、委托等操作。我们建议用户利用Linux系统服务器建立稳定的NULS节点。</p> <h2 id="版本更新记录"><a href="#版本更新记录" class="header-anchor">#</a> 版本更新记录</h2> <table><thead><tr><th style="text-align:center;">版本</th> <th style="text-align:center;">更新日期</th> <th style="text-align:center;">内容</th></tr></thead> <tbody><tr><td style="text-align:center;">V0.9.0</td> <td style="text-align:center;">2018-03-18</td> <td style="text-align:center;">Alpha</td></tr> <tr><td style="text-align:center;">V0.9.1</td> <td style="text-align:center;">2019-07-08</td> <td style="text-align:center;">Beta</td></tr> <tr><td style="text-align:center;">V1.0.0</td> <td style="text-align:center;">2019-09-08</td> <td style="text-align:center;">Mainnet</td></tr></tbody></table> <h2 id="准备"><a href="#准备" class="header-anchor">#</a> 准备</h2> <h3 id="服务器硬件配置"><a href="#服务器硬件配置" class="header-anchor">#</a> 服务器硬件配置</h3> <p><strong>建立NULS节点的服务器不低于如下配置：</strong></p> <table><thead><tr><th style="text-align:center;">CPU</th> <th style="text-align:center;">内存</th> <th style="text-align:center;">硬盘</th> <th style="text-align:center;">宽带</th></tr></thead> <tbody><tr><td style="text-align:center;">四核 3.0GHz</td> <td style="text-align:center;">16G</td> <td style="text-align:center;">256G硬盘</td> <td style="text-align:center;">20M上行</td></tr></tbody></table> <p><strong>推荐配置：</strong></p> <table><thead><tr><th style="text-align:center;">CPU</th> <th style="text-align:center;">内存</th> <th style="text-align:center;">硬盘</th> <th style="text-align:center;">宽带</th></tr></thead> <tbody><tr><td style="text-align:center;">八核 3.0GHz</td> <td style="text-align:center;">32G</td> <td style="text-align:center;">256G硬盘</td> <td style="text-align:center;">100M上行</td></tr></tbody></table> <h3 id="系统及内核版本"><a href="#系统及内核版本" class="header-anchor">#</a> 系统及内核版本</h3> <p><strong>Linux系统</strong></p> <ul><li>CentOS 6,7</li> <li>Ubuntu 14 +</li></ul> <p>Linux内核版本推荐使用 2.6.32及以上</p> <h2 id="开始"><a href="#开始" class="header-anchor">#</a> 开始</h2> <h3 id="下载"><a href="#下载" class="header-anchor">#</a> 下载</h3> <ul><li><p>NULS2.0 Beta1版本GitHub地址：<a href="https://github.com/nuls-io/nuls-v2/releases" target="_blank" rel="noopener noreferrer">https://github.com/nuls-io/nuls-v2/releases<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p></li> <li><p>Linux系统中下载beta1版的钱包可以使用如下命令：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">wget</span> http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.0/NULS-Wallet-linux64-beta1-main.tar.gz
+</code></pre></div><p>注：如果后续有其他版本，下载地址可能会不同。</p></li></ul> <h3 id="安装"><a href="#安装" class="header-anchor">#</a> 安装</h3> <ul><li><p>在Linux中解压已下载的文件</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token function">tar</span> <span class="token parameter variable">-zxf</span> NULS-Wallet-linux64-beta1-main.tar.gz
+</code></pre></div></li></ul> <h3 id="运行"><a href="#运行" class="header-anchor">#</a> 运行</h3> <ul><li><p>进入解压后的目录，并运行启动脚本，启动节点钱包</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ <span class="token builtin class-name">cd</span> NULS-Wallet-linux64-beta1
+$ ./start
+</code></pre></div></li></ul> <h2 id="使用钱包"><a href="#使用钱包" class="header-anchor">#</a> 使用钱包</h2> <h3 id="快速入门"><a href="#快速入门" class="header-anchor">#</a> 快速入门</h3> <ul><li><p>在确定钱包已经启动后，启动钱包的命令行程序，可对钱包进行操作。</p> <p>进入钱包根目录，执行如下命令：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>$ ./cmd
+</code></pre></div><p>将会出现NULS命名输入提示符<code>nuls&gt;&gt;&gt;</code> ，然后可直接输入NULS钱包操作命令，来进行操作。</p> <p>例如，创建账户的示例如下：</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> create
+Please enter the new password<span class="token punctuation">(</span><span class="token number">8</span>-20 characters, the combination of letters and numbers<span class="token punctuation">)</span>.
+Enter your new password:********
+Please confirm new password:********
+<span class="token punctuation">[</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span> <span class="token punctuation">]</span>
+</code></pre></div><p>执行<code>create</code>命令表示创建单个账户，然后输入密码，以及再次确认输入的密码，创建成功后将会返回账户的地址。</p></li></ul> <h2 id="约定"><a href="#约定" class="header-anchor">#</a> 约定</h2> <ul><li>设置密码规则：密码长度在8至20位，必须同时包含字母和数字。</li> <li>命令参数说明： &lt;parameter&gt; 表示必填参数；[parameter] 表示选填参数。&quot;|&quot; 在参数中表示或者，表示前后参数只能选其一。</li></ul> <h2 id="钱包命令"><a href="#钱包命令" class="header-anchor">#</a> 钱包命令</h2> <h3 id="帮助命令"><a href="#帮助命令" class="header-anchor">#</a> 帮助命令</h3> <p>输出打印所有的命令，</p> <ul><li><strong>命令： help [-a]|[group]|[command]</strong></li></ul> <table><thead><tr><th style="text-align:left;">参数</th> <th style="text-align:left;">说明</th></tr></thead> <tbody><tr><td style="text-align:left;">-a</td> <td style="text-align:left;">格式化打印命令，选填</td></tr> <tr><td style="text-align:left;">command</td> <td style="text-align:left;">查看指定命令使用说明</td></tr> <tr><td style="text-align:left;">group</td> <td style="text-align:left;">查看指定命令组的所有命令使用说明</td></tr></tbody></table> <p>返回信息 help</p> <div class="language-json extra-class"><pre class="language-json"><code>getaccount &lt;address&gt; --get account information
+</code></pre></div><p>返回信息 help -a</p> <div class="language-json extra-class"><pre class="language-json"><code>getaccount &lt;address&gt; --get account information
+	OPTIONS<span class="token operator">:</span>
+	&lt;address&gt; the account address - Required
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span>
+nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span> <span class="token parameter variable">-a</span>
+nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span> account
+nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">help</span> create
+</code></pre></div><h3 id="创建账户"><a href="#创建账户" class="header-anchor">#</a> 创建账户</h3> <p>创建账户，返回账户地址集合</p> <ul><li><strong>命令： create [number]</strong></li></ul> <table><thead><tr><th style="text-align:left;">参数</th> <th style="text-align:left;">说明</th></tr></thead> <tbody><tr><td style="text-align:left;">[number]</td> <td style="text-align:left;">创建账户的数量，选填</td></tr></tbody></table> <p>创建账户时，将会提示输入密码，为了保证资产安全，必须给账户设置密码；</p> <p>返回账户集合</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token string">&quot;tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4&quot;</span> <span class="token punctuation">]</span>
+</code></pre></div><p>示例</p> <p>创建1个账户</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> create
+Please enter the new password<span class="token punctuation">(</span><span class="token number">8</span>-20 characters, the combination of letters and numbers<span class="token punctuation">)</span>.
+Enter your new password:********
+Please confirm new password:********
+<span class="token punctuation">[</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span> <span class="token punctuation">]</span>
+</code></pre></div><p>一次创建多个账户</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; create 3
+Please enter the new password(8-20 characters, the combination of letters and numbers).
+Enter your new password:********
+Please confirm new password:********
+[ &quot;tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm&quot;, &quot;tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs&quot;, &quot;tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4&quot; ]
+</code></pre></div><h3 id="备份账户"><a href="#备份账户" class="header-anchor">#</a> 备份账户</h3> <p>备份账户，将生成一个名称为账户地址，扩展名为.keystore的文件，该文件为账户的备份文件</p> <ul><li><strong>命令：backup &lt;address&gt; [path]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr> <tr><td>[path]</td> <td>文件生成备份文件的目标文件夹，默认为当前文件夹，选填</td></tr></tbody></table> <p>返回信息</p> <div class="language-shell extra-class"><pre class="language-shell"><code>The path to the backup <span class="token function">file</span> is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
+</code></pre></div><p>示例 备份一个有密码的账户</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> backup tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm /home/nuls2/nuls-v2/NULS-Wallet-linux64-beta1
+Please enter the password.
+Enter your password:********
+The path to the backup <span class="token function">file</span> is /home/nuls2/nuls-v2/tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm.keystore
+</code></pre></div><h3 id="移除账户"><a href="#移除账户" class="header-anchor">#</a> 移除账户</h3> <p>根据账户地址移除本地账户，需要输入密码</p> <ul><li><strong>命令：remove &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code>Success
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> remove tNULSeBaMhUKHmueWB1h87vpWr62vrAjPshwTs
+Please enter the password.
+Enter your password:********
+Success
+</code></pre></div><h3 id="修改账户密码"><a href="#修改账户密码" class="header-anchor">#</a> 修改账户密码</h3> <p>根据账户地址和账户密码重新设置新密码。</p> <ul><li><strong>命令：resetpwd &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code>Success
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> resetpwd tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4
+Enter your old password:********
+Enter new password*********
+Please confirm new password:*********
+Success
+</code></pre></div><h3 id="设置别名"><a href="#设置别名" class="header-anchor">#</a> 设置别名</h3> <p>给账户设置一个别名，如果用此账户建立节点，别名将作为节点来源显示</p> <ul><li><strong>命令：setalias &lt;address&gt; &lt;alias&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr> <tr><td>&lt;alias&gt;</td> <td>别名名称，必填</td></tr></tbody></table> <p>返回信息 交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code>txHash<span class="token operator">:</span>0020f94f36aefd59f9cca9bff3c018fc287dc6c0bcd7fbeb047133cadb5747e7d98d&quot;
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> setalias tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 nuls
+Enter your account password**********
+txHash:0020830971e02527f18f8f9e32f974d8c73ce6bd249de859cae170476b87d0ec9582
+</code></pre></div><h3 id="导入账户keystore"><a href="#导入账户keystore" class="header-anchor">#</a> 导入账户keystore</h3> <p>导入账户keystore文件，生成本地账户，如果本地已有该账户将无法导入。</p> <ul><li><strong>命令：importkeystore &lt;path&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;path&gt;</td> <td>待导入的keystore文件地址，必填</td></tr></tbody></table> <p>注意：导入keystore文件生成账户时，需要原始密码</p> <p>返回信息 导入的账户地址</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> importkeystore /home/nuls2/nuls-v2/tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8.keystore
+Please enter the password <span class="token punctuation">(</span>password is between <span class="token number">8</span> and <span class="token number">20</span> inclusive of numbers and letters<span class="token punctuation">)</span>, If you <span class="token keyword">do</span> not want to <span class="token builtin class-name">set</span> a password, <span class="token builtin class-name">return</span> directly.
+Enter your password:********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+</code></pre></div><h3 id="导入账户私钥"><a href="#导入账户私钥" class="header-anchor">#</a> 导入账户私钥</h3> <p>导入账户私钥，生成本地账户，如果本地已有该账户将覆盖,导入时需要给账户设置密码。此功能可以用于忘记账户密码后，通过私钥重新找回账户。</p> <ul><li><strong>命令：import &lt;privatekey&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;privatekey&gt;</td> <td>账户的私钥，必填</td></tr></tbody></table> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token function">import</span> 74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
+Please enter the password <span class="token punctuation">(</span>password is between <span class="token number">8</span> and <span class="token number">20</span> inclusive of numbers and letters<span class="token punctuation">)</span>, If you <span class="token keyword">do</span> not want to <span class="token builtin class-name">set</span> a password, <span class="token builtin class-name">return</span> directly.
+Enter your password:********
+Please confirm new password:********
+tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+</code></pre></div><h3 id="查询账户信息"><a href="#查询账户信息" class="header-anchor">#</a> 查询账户信息</h3> <p>根据账户地址查询账户信息</p> <ul><li><strong>命令：getaccount &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th style="text-align:left;">说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td style="text-align:left;">账户地址，必填</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c&quot;</span><span class="token punctuation">,</span> <span class="token comment">//加密后私钥</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span><span class="token comment">//别名</span>
+  <span class="token property">&quot;baglance&quot;</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;available&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5000000&quot;</span><span class="token punctuation">,</span><span class="token comment">//可用资产数量</span>
+    <span class="token property">&quot;total&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;5000000&quot;</span><span class="token punctuation">,</span><span class="token comment">//总资产数量</span>
+    <span class="token property">&quot;freeze&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0&quot;</span><span class="token comment">//冻结的资产数量</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span><span class="token punctuation">,</span><span class="token comment">//地址</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de&quot;</span> <span class="token comment">//加密后公钥</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getaccount tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c&quot;</span>, //加密后私钥
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,//别名
+  <span class="token string">&quot;baglance&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;available&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;5000000&quot;</span>,//可用资产数量
+    <span class="token string">&quot;total&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;5000000&quot;</span>,//总资产数量
+    <span class="token string">&quot;freeze&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0&quot;</span>//冻结的资产数量
+  <span class="token punctuation">}</span>,
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span>,//地址
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de&quot;</span> //加密后公钥
+<span class="token punctuation">}</span>
+
+</code></pre></div><h3 id="查询账户列表"><a href="#查询账户列表" class="header-anchor">#</a> 查询账户列表</h3> <p>根据分页参数查询账户列表，所有账户以创建时间倒序输出。</p> <ul><li><strong>命令：getaccounts &lt;pageNumber&gt; &lt;pageSize&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;pageNumber&gt;</td> <td>页数，需要获取第几页的数据，必填</td></tr> <tr><td>&lt;pageSize&gt;</td> <td>每一页显示的数据条数，必填</td></tr></tbody></table> <p>返回信息，将输出账户集合</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">[</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;03ad08ca4f73178c4e3e6d7126cb61e3a4c9b4dec95e4077112f085797eadc808a&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;e97dedb7697a6d37a8dfe9e2aa41543161f63d0740c4b5a72a0e1df2cc85ef99949e6f8ce41667587225df8cff0aae17&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;039abe58d5a20bac72ebb1fd80cac6a1012d17ad04a131a8a2350ea4df9ea4416e&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;fee6f590fc900aee4f3aa84437701d406d00c3045b1d0ce074efa1b42a6db8d5925e3a10272041b5f3c0c2d2572c0f42&quot;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;alias&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;pubkeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;023b8834bceb1228711ed6301322f5617e1b2d2e5197bc9832744af41191096c39&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;encryptedPrikeyHex&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;d9b4704c5b6470b51ca09c8cca888a4c9e7abea32aad17cc91f1c20c74a30632cb38d759129abea1d3c3f8080fc11f01&quot;</span>
+<span class="token punctuation">}</span> <span class="token punctuation">]</span>
+</code></pre></div><p>示例 获取账户列表</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getaccounts
+<span class="token punctuation">[</span> <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span>,
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;02f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de&quot;</span>,
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;4026dc6c3b92fb18b4e87c8aac1efedf1bb6a1cd8f623d163f45209b07911dcf6cbd4141f5294035b8f6739a3dce299c&quot;</span>
+<span class="token punctuation">}</span>, <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMvXiStrcQc4SF3rWGS8fyPqhUQXoS4&quot;</span>,
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;03ad08ca4f73178c4e3e6d7126cb61e3a4c9b4dec95e4077112f085797eadc808a&quot;</span>,
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;e97dedb7697a6d37a8dfe9e2aa41543161f63d0740c4b5a72a0e1df2cc85ef99949e6f8ce41667587225df8cff0aae17&quot;</span>
+<span class="token punctuation">}</span>, <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMmhBVJnJqcB7S7gKsPEoikZo2W89pm&quot;</span>,
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;039abe58d5a20bac72ebb1fd80cac6a1012d17ad04a131a8a2350ea4df9ea4416e&quot;</span>,
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;fee6f590fc900aee4f3aa84437701d406d00c3045b1d0ce074efa1b42a6db8d5925e3a10272041b5f3c0c2d2572c0f42&quot;</span>
+<span class="token punctuation">}</span>, <span class="token punctuation">{</span>
+  <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc&quot;</span>,
+  <span class="token string">&quot;alias&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;pubkeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;023b8834bceb1228711ed6301322f5617e1b2d2e5197bc9832744af41191096c39&quot;</span>,
+  <span class="token string">&quot;encryptedPrikeyHex&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;d9b4704c5b6470b51ca09c8cca888a4c9e7abea32aad17cc91f1c20c74a30632cb38d759129abea1d3c3f8080fc11f01&quot;</span>
+<span class="token punctuation">}</span> <span class="token punctuation">]</span>
+</code></pre></div><h3 id="查询账户私钥"><a href="#查询账户私钥" class="header-anchor">#</a> 查询账户私钥</h3> <p>根据账户地址个密码查询账户私钥</p> <ul><li><strong>命令：getprikey &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息 导入的账户的私钥（未加密）</p> <div class="language-json extra-class"><pre class="language-json"><code>74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getprikey tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+Enter your account password********
+74ca3facb66e5e9f2b78e86507d1f36cf601bc3de1d5f5e5b515c4f995d53873
+</code></pre></div><h3 id="查询账户余额"><a href="#查询账户余额" class="header-anchor">#</a> 查询账户余额</h3> <p>根据账户地址查询账户余额</p> <ul><li><strong>命令：getbalance &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户的地址，必填</td></tr></tbody></table> <p>返回信息 导入的账户地址</p> <div class="language-json extra-class"><pre class="language-json"><code>nuls&gt;&gt;&gt; getbalance tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+<span class="token punctuation">{</span>
+  <span class="token property">&quot;available&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;4999998.999&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;total&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;4999998.999&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;freeze&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getbalance tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;available&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;4999998.999&quot;</span>,
+  <span class="token string">&quot;total&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;4999998.999&quot;</span>,
+  <span class="token string">&quot;freeze&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="转账"><a href="#转账" class="header-anchor">#</a> 转账</h3> <p>根据账户地址或别名将NULS转入另一账户地址或别名中</p> <ul><li>**命令：transfer &lt;formAddress&gt;|&lt;formAlias&gt; &lt;toAddress&gt;|&lt;toAlias&gt; &lt;amount&gt; [remark] **</li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;formAddress&gt;</td> <td>转出地址(与formAlias任选一项）</td></tr> <tr><td>&lt;formAlias&gt;</td> <td>转出地址别名(与formAddress任选一项）</td></tr> <tr><td>&lt;toAddress&gt;</td> <td>接收地址(与toAlias任选一项）</td></tr> <tr><td>&lt;toAlias&gt;</td> <td>接收地址别名(与toAddress任选一项）</td></tr> <tr><td>&lt;amount&gt;</td> <td>转账数量，必填</td></tr> <tr><td>[remark]</td> <td>备注信息，选填</td></tr></tbody></table> <p>返回信息 转账交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;41d8b78214ad9e34beba420248dfc4f282d5d46166fe6d67e3c7006f2990de0e&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> transfer tNULSeBaMoodYW7AqyJrgYdWiJ6nfwfVHHHyXm tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 <span class="token number">5000000</span>
+Enter your account password********
+41d8b78214ad9e34beba420248dfc4f282d5d46166fe6d67e3c7006f2990de0e
+</code></pre></div><h3 id="查询交易详情"><a href="#查询交易详情" class="header-anchor">#</a> 查询交易详情</h3> <p>根据交易hash查询交易详细信息</p> <ul><li><strong>命令：gettx &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>交易hash，必填</td></tr></tbody></table> <p>返回信息 交易详细信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;type&quot;</span> <span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span><span class="token comment">//交易类型（枚举说明见下表【type 枚举类型说明】）</span>
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2019-07-11 11:34:24.024&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;transactionSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;2102f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de4730450221008def105209cf7b32da777686a98a06359f80baf2887e8b1c2d5258feac3a70880220538e9fc2fc2a239d1fdced4de3239b762a1decf67f026fc5a93f59d6e281c5c8&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;remark&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;1a12a2499ec805956ce074e42ce29c64ea1194addc65a68cb186d519d3ed4f43&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockHeight&quot;</span> <span class="token operator">:</span> <span class="token number">3806</span><span class="token punctuation">,</span> <span class="token comment">//交易高度</span>
+  <span class="token property">&quot;status&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;CONFIRMED&quot;</span><span class="token punctuation">,</span> <span class="token comment">//确认状态</span>
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">285</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;inBlockIndex&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;form&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;assetsChainId&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;assetsId&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;amount&quot;</span> <span class="token operator">:</span> <span class="token number">100100000</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;nonce&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0000000000000000&quot;</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;to&quot;</span> <span class="token operator">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token property">&quot;address&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMtx5Dex2BNURMXdA2HkMZy9uXNf5cZ&quot;</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;assetsChainId&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;assetsId&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;amount&quot;</span> <span class="token operator">:</span> <span class="token number">100000000</span><span class="token punctuation">,</span>
+    <span class="token property">&quot;nonce&quot;</span> <span class="token operator">:</span> <span class="token null keyword">null</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例 查询转账交易</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> gettx 1a12a2499ec805956ce074e42ce29c64ea1194addc65a68cb186d519d3ed4f43
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;type&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">3</span>,//交易类型（枚举说明见下表【type 枚举类型说明】）
+  <span class="token string">&quot;time&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2019-07-11 11:34:24.024&quot;</span>,
+  <span class="token string">&quot;transactionSignature&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2102f2df94a1197f7bce4ea78f28fa7be8e8067377fcd13daef9c548e1a0402fb4de4730450221008def105209cf7b32da777686a98a06359f80baf2887e8b1c2d5258feac3a70880220538e9fc2fc2a239d1fdced4de3239b762a1decf67f026fc5a93f59d6e281c5c8&quot;</span>,
+  <span class="token string">&quot;remark&quot;</span> <span class="token builtin class-name">:</span> null,
+  <span class="token string">&quot;hash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;1a12a2499ec805956ce074e42ce29c64ea1194addc65a68cb186d519d3ed4f43&quot;</span>,
+  <span class="token string">&quot;blockHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">3806</span>, //交易高度
+  <span class="token string">&quot;status&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;CONFIRMED&quot;</span>, //确认状态
+  <span class="token string">&quot;size&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">285</span>,
+  <span class="token string">&quot;inBlockIndex&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;form&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;</span>,
+    <span class="token string">&quot;assetsChainId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">2</span>,
+    <span class="token string">&quot;assetsId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+    <span class="token string">&quot;amount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100100000</span>,
+    <span class="token string">&quot;nonce&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0000000000000000&quot;</span>
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span>,
+  <span class="token string">&quot;to&quot;</span> <span class="token builtin class-name">:</span> <span class="token punctuation">[</span> <span class="token punctuation">{</span>
+    <span class="token string">&quot;address&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMtx5Dex2BNURMXdA2HkMZy9uXNf5cZ&quot;</span>,
+    <span class="token string">&quot;assetsChainId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">2</span>,
+    <span class="token string">&quot;assetsId&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+    <span class="token string">&quot;amount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">100000000</span>,
+    <span class="token string">&quot;nonce&quot;</span> <span class="token builtin class-name">:</span> null
+  <span class="token punctuation">}</span> <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h4 id="type-枚举类型说明"><a href="#type-枚举类型说明" class="header-anchor">#</a> type 枚举类型说明</h4> <table><thead><tr><th>交易类型</th> <th>枚举值</th></tr></thead> <tbody><tr><td>全部交易</td> <td>0</td></tr> <tr><td>共识奖励</td> <td>1</td></tr> <tr><td>转账交易</td> <td>2</td></tr> <tr><td>设置别名</td> <td>3</td></tr> <tr><td>创建节点</td> <td>4</td></tr> <tr><td>加入共识</td> <td>5</td></tr> <tr><td>退出共识</td> <td>6</td></tr> <tr><td>黄牌</td> <td>7</td></tr> <tr><td>红牌</td> <td>8</td></tr> <tr><td>注销节点</td> <td>9</td></tr> <tr><td>跨链</td> <td>10</td></tr> <tr><td>注册跨链</td> <td>11</td></tr> <tr><td>注销链</td> <td>12</td></tr> <tr><td>为链新增资产</td> <td>13</td></tr> <tr><td>删除链资产</td> <td>14</td></tr> <tr><td>创建合约</td> <td>15</td></tr> <tr><td>调用合约</td> <td>16</td></tr> <tr><td>删除合约</td> <td>17</td></tr> <tr><td>合约内部转账</td> <td>18</td></tr> <tr><td>合约执行手续费返还</td> <td>19</td></tr> <tr><td>合约创建共识节点</td> <td>20</td></tr> <tr><td>合约加入共识</td> <td>21</td></tr> <tr><td>合约退出共识</td> <td>22</td></tr> <tr><td>合约注销节点</td> <td>23</td></tr></tbody></table> <h3 id="创建节点"><a href="#创建节点" class="header-anchor">#</a> 创建节点</h3> <p>根据账户地址创建节点,创建节点时需要提供两个地址，第一个地址为节点地址，需要输入节点地址账户密码。同时需要至少20000NULS的保证金。</p> <ul><li><strong>命令：createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt;</strong> [RewardAddress]</li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;agentAddress&gt;</td> <td>创建节点的账户地址，必填</td></tr> <tr><td>&lt;packingAddress&gt;</td> <td>节点打包账户地址，必填（注：该账户默认密码：nuls123456，可以通过配置文件设置，否则节点不能打包出块）</td></tr> <tr><td>&lt;commissionRate&gt;</td> <td>代理佣金比例，范围：10~100之间的整数，必填</td></tr> <tr><td>&lt;deposit&gt;</td> <td>创建节点的保证金，不能低于20000NULS，必填</td></tr> <tr><td>[RewardAddress]</td> <td>奖励地址，默认为节点创建地址（选填）</td></tr></tbody></table> <p>返回信息 返回节点的agent hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35&quot;</span>
+</code></pre></div><p>示例 创建一个节点，佣金比例为10%，押金20000NULS。</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> createagent tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 tNULSeBaMotNcjQ8E72uh6XituC8CFV2UBBAHo <span class="token number">10</span> <span class="token number">20000</span>
+Enter agent address password********
+<span class="token string">&quot;33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35&quot;</span>
+</code></pre></div><h3 id="查询共识节点信息"><a href="#查询共识节点信息" class="header-anchor">#</a> 查询共识节点信息</h3> <p>根据agentHash查询指定节点信息</p> <p>-<strong>命令：getagent &lt;agentHash&gt;</strong></p> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;agentHash&gt;</td> <td>节点hash</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getagent 33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35
+{
+  &quot;agentAddress&quot; : &quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;,
+  &quot;agentId&quot; : &quot;D1308A35&quot;,
+  &quot;commissionRate&quot; : 10.0,
+  &quot;delHeight&quot; : -1,
+  &quot;agentHash&quot; : &quot;33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35&quot;,
+  &quot;totalDeposit&quot; : &quot;0&quot;,
+  &quot;memberCount&quot; : 0,
+  &quot;agentName&quot; : null,
+  &quot;packingAddress&quot; : &quot;tNULSeBaMotNcjQ8E72uh6XituC8CFV2UBBAHo&quot;,
+  &quot;version&quot; : null,
+  &quot;blockHeight&quot; : 4262,
+  &quot;rewardAddress&quot; : &quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;,
+  &quot;deposit&quot; : &quot;20000&quot;,
+  &quot;time&quot; : &quot;1970-01-19 10:07:05.005&quot;,
+  &quot;creditVal&quot; : 0.0,
+  &quot;txHash&quot; : &quot;33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35&quot;,
+  &quot;status&quot; : &quot;unconsensus&quot;
+}
+</code></pre></div><h3 id="查询共识节点列表"><a href="#查询共识节点列表" class="header-anchor">#</a> 查询共识节点列表</h3> <p>查询共识节点列表
+-<strong>命令：getagents [pageNumber] [pageSize] [keyWord]</strong></p> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>[pageNumber];</td> <td>列表页号位置</td></tr> <tr><td>[pageSize];</td> <td>每页显示条数</td></tr> <tr><td>[keyWord];</td> <td>匹配节点别名关键字</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例 获取第1页，共10条的节点列表</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getagents 1 10
+[ {
+  &quot;agentAddress&quot; : &quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;,
+  &quot;agentId&quot; : &quot;D1308A35&quot;,
+  &quot;commissionRate&quot; : 10.0,
+  &quot;delHeight&quot; : -1,
+  &quot;agentHash&quot; : &quot;33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35&quot;,
+  &quot;totalDeposit&quot; : &quot;0&quot;,
+  &quot;memberCount&quot; : 0,
+  &quot;agentName&quot; : null,
+  &quot;packingAddress&quot; : &quot;tNULSeBaMotNcjQ8E72uh6XituC8CFV2UBBAHo&quot;,
+  &quot;version&quot; : null,
+  &quot;blockHeight&quot; : 4262,
+  &quot;rewardAddress&quot; : &quot;tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8&quot;,
+  &quot;deposit&quot; : &quot;20000&quot;,
+  &quot;time&quot; : &quot;1970-01-19 10:07:05.005&quot;,
+  &quot;creditVal&quot; : 0.0,
+  &quot;txHash&quot; : &quot;33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35&quot;,
+  &quot;status&quot; : &quot;unconsensus&quot;
+} ]
+</code></pre></div><h3 id="加入共识-委托节点"><a href="#加入共识-委托节点" class="header-anchor">#</a> 加入共识（委托节点）</h3> <p>根据账户地址和节点agentHash，加入共识，至少需要2000NULS</p> <ul><li><strong>命令：deposit &lt;address&gt; &lt;agentHash&gt; &lt;deposit&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr> <tr><td>&lt;agentHash&gt;</td> <td>节点的agentHash，必填</td></tr> <tr><td>&lt;deposit&gt;</td> <td>加入共识保证金，不能低于2000NULS，必填</td></tr></tbody></table> <p>返回信息 加入共识的交易hash，如果要退出这笔共识，则需要该hash。</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;f5b2622a2ca23710a0a1f28bd0cb9c054220ba0719275abca5e4a7750dcf933a&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> deposit tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 33aeffd4e55203d91183939ad35a9f0a2b0dc80cf1d63c93d4237102d1308a35 <span class="token number">200000</span>
+Please enter the password.
+Enter your password:********
+<span class="token string">&quot;f5b2622a2ca23710a0a1f28bd0cb9c054220ba0719275abca5e4a7750dcf933a&quot;</span>
+</code></pre></div><h3 id="退出共识-退出委托"><a href="#退出共识-退出委托" class="header-anchor">#</a> 退出共识（退出委托）</h3> <p>根据账户地址和加入共识时的交易hash来退出共识(委托)，单个账户多次委托节点时，每次委托的交易是独立的，所以退出时也要通过单次委托时的交易hash来退出对应的那一次委托，而不会一次退出所有委托。</p> <ul><li><strong>命令：withdraw &lt;address&gt; &lt;txHash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr> <tr><td>&lt;txHash&gt;</td> <td>委托时的交易hash，必填</td></tr></tbody></table> <p>返回信息 退出共识交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;d8e1784239d73e064e83e448adcf0feec9ba8e56a4b55280d7a0a8149d9da545&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> withdraw tNULSeBaMjxVA6QijNXjEf3RYxwTbTLSqXvpa8 f5b2622a2ca23710a0a1f28bd0cb9c054220ba0719275abca5e4a7750dcf933a 
+Please enter the password.
+Enter your password:********
+<span class="token string">&quot;d8e1784239d73e064e83e448adcf0feec9ba8e56a4b55280d7a0a8149d9da545&quot;</span>
+</code></pre></div><h3 id="停止节点"><a href="#停止节点" class="header-anchor">#</a> 停止节点</h3> <p>停止节点，所有委托给节点的NULS将被退回，节点创建者账户的保证金将会被锁定72小时。</p> <ul><li><strong>命令：stopagent &lt;address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>账户地址，必填</td></tr></tbody></table> <p>返回信息 停止节点交易hash</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token string">&quot;0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f&quot;</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> stopagent Nse2TpVsJd4gLoj79MAY8NHwEsYuXwtT
+Please enter the password.
+Enter your password:**********
+<span class="token string">&quot;0020f15eecd7c85be76521ed6af4d58a3810f7df58e536481cff4a96af6d4fddec5f&quot;</span>
+</code></pre></div><h3 id="获取最新的区块头信息"><a href="#获取最新的区块头信息" class="header-anchor">#</a> 获取最新的区块头信息</h3> <p>获取最新的区块头信息</p> <ul><li><strong>命令：getlatestblockheader</strong></li></ul> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;hash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;c244a7936821a58eff6daf117a6acf398d1c959c1b11edbb2abf01d753f01a45&quot;</span><span class="token punctuation">,</span><span class="token comment">//区块hash</span>
+  <span class="token property">&quot;preHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;3c775846e93468119aa73c9a84b712875d0730f8e9579cc2535be4662d415b46&quot;</span><span class="token punctuation">,</span><span class="token comment">//上一个区块hash</span>
+  <span class="token property">&quot;merkleHash&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;00edec12b2382d47829e3685b04c109aeac651ee7d2dbda40c1ea1245b8bb953&quot;</span><span class="token punctuation">,</span><span class="token comment">//merkle hash</span>
+  <span class="token property">&quot;time&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;1970-01-19 10:07:05.005&quot;</span><span class="token punctuation">,</span> <span class="token comment">//打包时间</span>
+  <span class="token property">&quot;height&quot;</span> <span class="token operator">:</span> <span class="token number">4295</span><span class="token punctuation">,</span><span class="token comment">//区块高度</span>
+  <span class="token property">&quot;txCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token comment">//包含的交易数</span>
+  <span class="token property">&quot;blockSignature&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;463044022027db8f20882d0b37be2981587213f15fdd49110ad9e80c15b90485ad487372c902201e3eae9eca8fb6fde7424ab656300c42185923f0bae10120b58019e3bfb79456&quot;</span><span class="token punctuation">,</span> <span class="token comment">//区块签名</span>
+  <span class="token property">&quot;size&quot;</span> <span class="token operator">:</span> <span class="token number">246</span><span class="token punctuation">,</span> <span class="token comment">//区块大小</span>
+  <span class="token property">&quot;packingAddress&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc&quot;</span><span class="token punctuation">,</span><span class="token comment">//打包地址</span>
+  <span class="token property">&quot;roundIndex&quot;</span> <span class="token operator">:</span> <span class="token number">78141245</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;consensusMemberCount&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;roundStartTime&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;1970-01-19 10:07:05.005&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;packingIndexOfRound&quot;</span> <span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;mainVersion&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;blockVersion&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;stateRoot&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getlatestblockheader
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;hash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;c244a7936821a58eff6daf117a6acf398d1c959c1b11edbb2abf01d753f01a45&quot;</span>,//区块hash
+  <span class="token string">&quot;preHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;3c775846e93468119aa73c9a84b712875d0730f8e9579cc2535be4662d415b46&quot;</span>,//上一个区块hash
+  <span class="token string">&quot;merkleHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;00edec12b2382d47829e3685b04c109aeac651ee7d2dbda40c1ea1245b8bb953&quot;</span>,//merkle <span class="token builtin class-name">hash</span>
+  <span class="token string">&quot;time&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;1970-01-19 10:07:05.005&quot;</span>, //打包时间
+  <span class="token string">&quot;height&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">4295</span>,//区块高度
+  <span class="token string">&quot;txCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>, //包含的交易数
+  <span class="token string">&quot;blockSignature&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;463044022027db8f20882d0b37be2981587213f15fdd49110ad9e80c15b90485ad487372c902201e3eae9eca8fb6fde7424ab656300c42185923f0bae10120b58019e3bfb79456&quot;</span>, //区块签名
+  <span class="token string">&quot;size&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">246</span>, //区块大小
+  <span class="token string">&quot;packingAddress&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;tNULSeBaMt7c7sybfvP7iAC2p9d1ickHZvH9Sc&quot;</span>,//打包地址
+  <span class="token string">&quot;roundIndex&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">78141245</span>,
+  <span class="token string">&quot;consensusMemberCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">2</span>,
+  <span class="token string">&quot;roundStartTime&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;1970-01-19 10:07:05.005&quot;</span>,
+  <span class="token string">&quot;packingIndexOfRound&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">2</span>,
+  <span class="token string">&quot;mainVersion&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;blockVersion&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;stateRoot&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;56e81f171bcc55a6ff8345e692c0f86e5b48e01b996cadc001622fb5e363b421&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="查询区块头信息"><a href="#查询区块头信息" class="header-anchor">#</a> 查询区块头信息</h3> <p>根据区块高度或者区块hash，查询区块头信息，必须并且只能选择一种参数作为查询条件。</p> <ul><li><strong>命令：getblockheader &lt;hash&gt; | &lt;height&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>区块的hash值</td></tr> <tr><td>&lt;height&gt;</td> <td>区块的高度</td></tr></tbody></table> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code>见示例
+</code></pre></div><p>示例 根据高度获取区块头</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> getblockheader <span class="token number">28115</span>
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;hash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020c40f471756c88e7487fcc0d428545232120071b58f35e450891237d7b41eb817&quot;</span>,
+  <span class="token string">&quot;preHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020fb1fd03cda7e2b6585256f4da85bdac7d8fc8bafa0740b8eb0ed577f3020b954&quot;</span>,
+  <span class="token string">&quot;merkleHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0020474c5a353f235e8e8514328e1e98d6b653d4a5445473d160691e39121cd8b158&quot;</span>,
+  <span class="token string">&quot;time&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2018-07-16 16:29:30&quot;</span>,
+  <span class="token string">&quot;height&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">28115</span>,
+  <span class="token string">&quot;txCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">2</span>,
+  <span class="token string">&quot;packingAddress&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;NsdyF8gBxAfxCyiNbLzsENUvbJZ27mWw&quot;</span>,
+  <span class="token string">&quot;roundIndex&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">662578</span>,
+  <span class="token string">&quot;consensusMemberCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;roundStartTime&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;2018-07-16 16:29:20&quot;</span>,
+  <span class="token string">&quot;packingIndexOfRound&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>,
+  <span class="token string">&quot;reward&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0.001&quot;</span>,
+  <span class="token string">&quot;fee&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0.001&quot;</span>,
+  <span class="token string">&quot;confirmCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">6280</span>,
+  <span class="token string">&quot;size&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">204</span>,
+  <span class="token string">&quot;scriptSig&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;210381e44e0c2fffadc94603a41514f3e5b1c5fd53166be73eb8f49ce8c297059e5600473045022100d25b815fa30376247692fad856d3984acf45c9b49edd3d222e3afdab3169520c02200565a486e33358301848bf3d704c187ff8b2d1e859c93b704f713abb984584bf&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="创建智能合约"><a href="#创建智能合约" class="header-anchor">#</a> 创建智能合约</h3> <p>调用此接口在链上创建一个智能合约</p> <ul><li><strong>命令：createcontract &lt;sender&gt; &lt;gaslimt&gt; &lt;price&gt; &lt;contractCode&gt;&lt;alias&gt;  [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;sender&gt;</td> <td>创建智能合约的账户地址</td></tr> <tr><td>&lt;gaslimt&gt;</td> <td>本次创建合约最大消耗的Gas</td></tr> <tr><td>&lt;price&gt;</td> <td>单价，每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na，系统最小单价是25Na/Gas</td></tr> <tr><td>&lt;contractCode&lt;</td> <td>合约代码的hex编码</td></tr> <tr><td>&lt;alias&lt;</td> <td>合约别名</td></tr> <tr><td>[remark]</td> <td>备注</td></tr></tbody></table> <p>返回信息 创建合约的交易hash和合约的地址</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;txHash&quot; : &quot;00205fb44fd0924a57857e71d06ec0549366b5d879b2cbd68488ed88a2dbf96c130f&quot;,  //交易hash
+  &quot;contractAddress&quot; : &quot;tNULSeBaN6ofkEqsPJmWVaeMpENTgmC5ifWtz9&quot; //合约地址
+}
+</code></pre></div><p>示例 创建一个合约（contractCode 省略中间部分）</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; createcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 504b03040a........000000800080051020000b31600000000 remarkdemo
+The arguments structure: 
+[ {
+  &quot;type&quot; : &quot;String&quot;,
+  &quot;name&quot; : &quot;name&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;String&quot;,
+  &quot;name&quot; : &quot;symbol&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;BigInteger&quot;,
+  &quot;name&quot; : &quot;initialAmount&quot;,
+  &quot;required&quot; : true
+}, {
+  &quot;type&quot; : &quot;int&quot;,
+  &quot;name&quot; : &quot;decimals&quot;,
+  &quot;required&quot; : true
+} ]
+Please enter the arguments you want to fill in according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;).
+Enter the arguments:&quot;KQB&quot;,&quot;KQB&quot;,10000,2
+{
+  &quot;txHash&quot; : &quot;0020ec1d68eaed63e2db8649b0a39f16b7c5af24f86b787233f6ba6d577d7d090587&quot;,
+  &quot;contractAddress&quot; : &quot;tNULSeBaNBYK9MQcWWbfgFTHj2U4j8KQGDzzuK&quot;
+}
+</code></pre></div><h3 id="获取合约基本信息"><a href="#获取合约基本信息" class="header-anchor">#</a> 获取合约基本信息</h3> <p>获取智能合约的描述信息以及构造函数、调用方法的参数列表</p> <ul><li><strong>命令：getcontractinfo &lt;contract address&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;contract address&gt;</td> <td>合约地址</td></tr></tbody></table> <p>返回信息</p> <div class="language- extra-class"><pre class="language-text"><code>略 ，见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>
+nuls&gt;&gt;&gt; getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+getcontractinfo tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+{
+  &quot;createTxHash&quot; : &quot;00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f&quot;,
+  &quot;address&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;creater&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+  &quot;createTime&quot; : 1553563706022,
+  &quot;blockHeight&quot; : 46,
+  &quot;isNrc20&quot; : true,
+  &quot;nrc20TokenName&quot; : &quot;QKB&quot;,
+  &quot;nrc20TokenSymbol&quot; : &quot;QKB&quot;,
+  &quot;decimals&quot; : 2,
+  &quot;totalSupply&quot; : &quot;200000000&quot;,
+  &quot;status&quot; : &quot;normal&quot;,
+  &quot;method&quot; : [ {
+    &quot;name&quot; : &quot;&lt;init&gt;&quot;,
+    &quot;desc&quot; : &quot;(String name, String symbol, BigInteger initialAmount, int decimals) return void&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;name&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;symbol&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;initialAmount&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;int&quot;,
+      &quot;name&quot; : &quot;decimals&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;void&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  }，{
+    &quot;name&quot; : &quot;transfer&quot;,
+    &quot;desc&quot; : &quot;(Address to, BigInteger value) return boolean&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;Address&quot;,
+      &quot;name&quot; : &quot;to&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;value&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;boolean&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  }]
+}
+
+</code></pre></div><h3 id="调用智能合约"><a href="#调用智能合约" class="header-anchor">#</a> 调用智能合约</h3> <p>调用智能合约提供的函数</p> <ul><li><strong>命令：callcontract &lt;sender&gt; &lt;gasLimit&gt; &lt;price&gt; &lt;contractAddress&gt; &lt;methodName&gt; &lt;value&gt; [-d methodDesc] [-r remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>调动合约的账户地址</td></tr> <tr><td>&lt;gasLimit&gt;</td> <td>本次合约执行最大消耗的Gas</td></tr> <tr><td>&lt;price&gt;</td> <td>单价，每一个Gas值多少Na，Na是NULS的最小单位，1Nuls=1亿Na，系统最小单价是25Na/Gas</td></tr> <tr><td>&lt;contractAddress</td> <td>调用的合约地址</td></tr> <tr><td>&lt;methodName&gt;</td> <td>合约的方法名</td></tr> <tr><td>&lt;value&gt;</td> <td>如果要向合约转账，转账的数量</td></tr> <tr><td>[-d methodDesc]</td> <td>如果合约中有同名方法时，使用此方法来描述参数列表</td></tr> <tr><td>[-r remark]</td> <td>备注信息</td></tr></tbody></table> <p>返回信息 本次调用的交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020c9079e0f0454103adceed798d40171c41a8db04586dba966fbe7f2ab722583ad&quot; //交易hash
+</code></pre></div><p>示例 调用一个指定合约的NRC20-Token转账函数, 示例中<code>tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L</code>为NRC20合约地址，输入的参数为 接收地址和转账数量</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; callcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L transfer 0 -r call
+callcontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD 200000 25 tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L transfer 0 -r call
+Please Enter your account passwordzhoujun172
+**********
+Please enter the arguments according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;),
+If this method has no arguments(Refer to the command named &quot;getcontractinfo&quot; for the arguments structure of the method.), return directly.
+Enter the arguments:&quot;tNULSeBaMvEtDfvZuukDf2mVyfGo3DdiN8KLRG&quot;,2
+&quot;0020c9079e0f0454103adceed798d40171c41a8db04586dba966fbe7f2ab722583ad&quot;
+</code></pre></div><h3 id="删除智能合约"><a href="#删除智能合约" class="header-anchor">#</a> 删除智能合约</h3> <p>停止一个可用的智能合约</p> <ul><li><strong>命令：deletecontract &lt;senderAddress&gt; &lt;contractAddress&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>调用合约的账户地址</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>调用的合约地址</td></tr></tbody></table> <p>返回值 交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020c55e885dd910dad0b2c49f5b71b62691b57884ca21fd47668f1f5cadc84daad6&quot; //交易hash
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; deletecontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+deletecontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L
+Please enter your account passwordzhoujun172
+**********
+&quot;0020c55e885dd910dad0b2c49f5b71b62691b57884ca21fd47668f1f5cadc84daad6&quot;
+</code></pre></div><h3 id="调用合约视图方法"><a href="#调用合约视图方法" class="header-anchor">#</a> 调用合约视图方法</h3> <p>调用合约的视图方法，会立即返回结果，不会产生交易</p> <ul><li><strong>命令：deletecontractviewcontract &lt;contractAddress&gt; &lt;methodName&gt; [-d methodDesc] --view contract</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;contractAddress&gt;</td> <td>调用的合约地址</td></tr> <tr><td>&lt;methodName&gt;</td> <td>调用的方法</td></tr> <tr><td>[-d methodDesc]</td> <td>如果合约中有同名方法时，使用此方法来描述参数列表</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>根据具体调用函数返回值不同
+</code></pre></div><p>示例 调用NRC20-Token合约的查询Token余额函数查询指定地址的Token余额</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; viewcontract tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc balanceOf
+viewcontract tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc balanceOf
+Please enter the arguments according to the arguments structure(eg. &quot;a&quot;,2,[&quot;c&quot;,4],&quot;&quot;,&quot;e&quot; or &quot;'a',2,['c',4],'','e'&quot;),
+If this method has no arguments(Refer to the command named &quot;getcontractinfo&quot; for the arguments structure of the method.), return directly.
+Enter the arguments:&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;
+&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;
+{
+  &quot;result&quot; : &quot;20000000&quot;
+}
+</code></pre></div><h3 id="向合约地址转账"><a href="#向合约地址转账" class="header-anchor">#</a> 向合约地址转账</h3> <p>向指定的合约地址转入主网币</p> <ul><li><strong>命令：transfertocontract &lt;senderAddress&gt; &lt;contractAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;senderAddress&gt;</td> <td>转出账户地址</td></tr> <tr><td>&lt;contractAddress</td> <td>转入的合约地址</td></tr> <tr><td>&lt;amount&gt;</td> <td>转入数量</td></tr> <tr><td>[remark]</td> <td>备注</td></tr></tbody></table> <p>返回值 交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;0020f5d6b87c246595d1b060a3fa8bac6a2992490e38fdfcad40db2a3908297e7979&quot;
+</code></pre></div><p>示例 向指定合约转入2个NULS</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; transfertocontract tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD tNULSeBaN1NRtaj1ZPAmEmTqcpkyCLqv64PR7U 2 remark
+Please enter your account password
+**********
+&quot;0020f5d6b87c246595d1b060a3fa8bac6a2992490e38fdfcad40db2a3908297e7979&quot;
+</code></pre></div><h3 id="token转账"><a href="#token转账" class="header-anchor">#</a> token转账</h3> <p>NRC20 token转账</p> <ul><li><strong>命令：tokentransfer &lt;formAddress&gt; &lt;toAddress&gt; &lt;contractAddress&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;formAddress&gt;</td> <td>转出账户地址</td></tr> <tr><td>&lt;toAddress</td> <td>转入的账户地址</td></tr> <tr><td>&lt;contractAddress&gt;</td> <td>合约地址</td></tr> <tr><td>&lt;amount&gt;</td> <td>转入数量</td></tr> <tr><td>[remark]</td> <td>备注</td></tr></tbody></table> <p>返回值 交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>&quot;002022dffd96026b493945d2cf9ad276c4bc9655c735b72e6fcc85a2d19f6cbe25e8&quot;
+</code></pre></div><p>示例 token转账:</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; tokentransfer tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD  tNULSeBaNBh9RUsVrVmMy8NHcZJ2BhNVsM1Vta  tNULSeBaN6pwyVwXjfpm5BMH5eiirvthoZDVEc 200000 25 10000
+Please enter your account password
+**********
+&quot;002022dffd96026b493945d2cf9ad276c4bc9655c735b72e6fcc85a2d19f6cbe25e8&quot;
+</code></pre></div><h3 id="获取合约交易"><a href="#获取合约交易" class="header-anchor">#</a> 获取合约交易</h3> <p>获取合约的交易信息, 包含交易详情，合约调用参数，合约执行结果</p> <ul><li><strong>命令：getcontracttx &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>交易hash</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+getcontracttx 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+{
+  &quot;hash&quot; : &quot;00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f&quot;,
+  &quot;type&quot; : &quot;100&quot;,
+  &quot;time&quot; : &quot;2019-03-26 09:28:26&quot;,
+  &quot;blockHeight&quot; : 46,
+  &quot;fee&quot; : 0.0,
+  &quot;value&quot; : 0.0,
+  &quot;remark&quot; : null,
+  &quot;scriptSig&quot; : &quot;210318f683066b45e7a5225779061512e270044cc40a45c924afcf78bb7587758ca0004630440220112a446b2a684510b4016fa97b92d2f3fead03128f0f658c99a6a8d230d05d4e02201e23a2f6e68aacdff2d117bd5bbe7ce2440babfe4211168eafbae41acad5d505&quot;,
+  &quot;status&quot; : &quot;confirm&quot;,
+  &quot;confirmCount&quot; : 0,
+  &quot;size&quot; : 6686,
+  &quot;inputs&quot; : [ {
+    &quot;address&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+    &quot;assetsChainId&quot; : 2,
+    &quot;assetId&quot; : 1,
+    &quot;amount&quot; : &quot;5700000&quot;,
+    &quot;nonce&quot; : &quot;ffffffff&quot;,
+    &quot;locked&quot; : 0,
+    &quot;value&quot; : 0.0
+  } ],
+  &quot;outputs&quot; : [ ],
+  &quot;txData&quot; : {
+    &quot;data&quot; : {
+      &quot;sender&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+      &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+      &quot;value&quot; : 0.0,
+      &quot;hexCode&quot; : &quot;504b03040a0000080...........31600000000&quot;,
+      &quot;gasLimit&quot; : 200000,
+      &quot;price&quot; : &quot;0.00000025&quot;,
+      &quot;args&quot; : [ [ &quot;QKB&quot; ], [ &quot;QKB&quot; ], [ &quot;2000000&quot; ], [ &quot;2&quot; ] ]
+    }
+  },
+  &quot;contractResult&quot; : {
+    &quot;success&quot; : true,
+    &quot;errorMessage&quot; : null,
+    &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+    &quot;result&quot; : null,
+    &quot;gasLimit&quot; : 200000,
+    &quot;gasUsed&quot; : 14029,
+    &quot;price&quot; : &quot;0.00000025&quot;,
+    &quot;totalFee&quot; : 0.0,
+    &quot;txSizeFee&quot; : 0.0,
+    &quot;actualContractFee&quot; : 0.0,
+    &quot;refundFee&quot; : 0.0,
+    &quot;stateRoot&quot; : &quot;be76399c41a8cb4be5ecf80e04dab36830b124cb1c43fea6ca69ae62259899ba&quot;,
+    &quot;value&quot; : 0.0,
+    &quot;stackTrace&quot; : null,
+    &quot;balance&quot; : 0.0,
+    &quot;transfers&quot; : [ ],
+    &quot;events&quot; : [ &quot;{\&quot;contractAddress\&quot;:\&quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L\&quot;,\&quot;blockNumber\&quot;:46,\&quot;event\&quot;:\&quot;TransferEvent\&quot;,\&quot;payload\&quot;:{\&quot;from\&quot;:null,\&quot;to\&quot;:\&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\&quot;,\&quot;value\&quot;:\&quot;200000000\&quot;}}&quot; ],
+    &quot;tokenTransfers&quot; : [ {
+      &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+      &quot;from&quot; : null,
+      &quot;to&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+      &quot;value&quot; : &quot;200000000&quot;,
+      &quot;name&quot; : &quot;QKB&quot;,
+      &quot;symbol&quot; : &quot;QKB&quot;,
+      &quot;decimals&quot; : 2
+    } ],
+    &quot;remark&quot; : &quot;create&quot;
+  }
+}
+
+
+</code></pre></div><h3 id="获取合约执行结果"><a href="#获取合约执行结果" class="header-anchor">#</a> 获取合约执行结果</h3> <p>获取一个合约的执行结果</p> <ul><li><strong>命令:getcontractresult &lt;hash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;hash&gt;</td> <td>交易hash</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractresult 00203a48dcfc26426152805be49830c72005b4648d0182bbf6c2e8980380364eb59f
+{
+  &quot;success&quot; : true,
+  &quot;errorMessage&quot; : null,
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;result&quot; : null,
+  &quot;gasLimit&quot; : 200000,
+  &quot;gasUsed&quot; : 14029,
+  &quot;price&quot; : &quot;0.00000025&quot;,
+  &quot;totalFee&quot; : 0.0,
+  &quot;txSizeFee&quot; : 0.0,
+  &quot;actualContractFee&quot; : 0.0,
+  &quot;refundFee&quot; : 0.0,
+  &quot;stateRoot&quot; : &quot;be76399c41a8cb4be5ecf80e04dab36830b124cb1c43fea6ca69ae62259899ba&quot;,
+  &quot;value&quot; : 0.0,
+  &quot;stackTrace&quot; : null,
+  &quot;balance&quot; : 0.0,
+  &quot;transfers&quot; : [ ],
+  &quot;events&quot; : [ &quot;{\&quot;contractAddress\&quot;:\&quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L\&quot;,\&quot;blockNumber\&quot;:46,\&quot;event\&quot;:\&quot;TransferEvent\&quot;,\&quot;payload\&quot;:{\&quot;from\&quot;:null,\&quot;to\&quot;:\&quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD\&quot;,\&quot;value\&quot;:\&quot;200000000\&quot;}}&quot; ],
+  &quot;tokenTransfers&quot; : [ {
+    &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+    &quot;from&quot; : null,
+    &quot;to&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+    &quot;value&quot; : &quot;200000000&quot;,
+    &quot;name&quot; : &quot;QKB&quot;,
+    &quot;symbol&quot; : &quot;QKB&quot;,
+    &quot;decimals&quot; : 2
+  } ],
+  &quot;remark&quot; : &quot;create&quot;
+}
+
+</code></pre></div><h3 id="获取合约构造函数"><a href="#获取合约构造函数" class="header-anchor">#</a> 获取合约构造函数</h3> <p>获取创建指定合约时需要传入的参数列表</p> <ul><li><strong>命令：getcontractcontructor &lt;contractCode&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;contractCode&gt;</td> <td>合约代码的hex编码</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>略 见示例
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcontractcontructor 504b03040a000008000.........20000b31600000000
+{
+  &quot;constructor&quot; : {
+    &quot;name&quot; : &quot;&lt;init&gt;&quot;,
+    &quot;desc&quot; : &quot;(String name, String symbol, BigInteger initialAmount, int decimals) return void&quot;,
+    &quot;args&quot; : [ {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;name&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;String&quot;,
+      &quot;name&quot; : &quot;symbol&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;BigInteger&quot;,
+      &quot;name&quot; : &quot;initialAmount&quot;,
+      &quot;required&quot; : true
+    }, {
+      &quot;type&quot; : &quot;int&quot;,
+      &quot;name&quot; : &quot;decimals&quot;,
+      &quot;required&quot; : true
+    } ],
+    &quot;returnArg&quot; : &quot;void&quot;,
+    &quot;view&quot; : false,
+    &quot;event&quot; : false,
+    &quot;payable&quot; : false
+  },
+  &quot;isNrc20&quot; : true
+}
+
+</code></pre></div><h3 id="获取指定账户创建的合约列表"><a href="#获取指定账户创建的合约列表" class="header-anchor">#</a> 获取指定账户创建的合约列表</h3> <p>获取指定账户地址所创建的合约列表</p> <ul><li><strong>命令：getaccountcontracts &lt;createAddress&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;createAddress&gt;</td> <td>账户地址</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;createTime&quot; : &quot;2019-03-26 09:28:26.026&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 2,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getaccountcontracts tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD
+[ {
+  &quot;contractAddress&quot; : &quot;tNULSeBaMz7vkyhgqLXVdcT75dC5udULVs1D2L&quot;,
+  &quot;createTime&quot; : &quot;2019-03-26 09:28:26.026&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 2,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}, {
+  &quot;contractAddress&quot; : &quot;tNULSeBaMzsHrbMy2VK23RzwjkXS1qo2ycG5Cg&quot;,
+  &quot;createTime&quot; : &quot;2019-03-25 16:08:25.025&quot;,
+  &quot;height&quot; : 253,
+  &quot;confirmCount&quot; : 195,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 0,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+}, {
+  &quot;contractAddress&quot; : &quot;tNULSeBaNBYK9MQcWWbfgFTHj2U4j8KQGDzzuK&quot;,
+  &quot;createTime&quot; : &quot;2019-03-25 15:33:54.054&quot;,
+  &quot;height&quot; : 46,
+  &quot;confirmCount&quot; : 402,
+  &quot;remarkName&quot; : null,
+  &quot;status&quot; : 0,
+  &quot;msg&quot; : null,
+  &quot;create&quot; : true
+} ]
+</code></pre></div><h3 id="查询网络信息"><a href="#查询网络信息" class="header-anchor">#</a> 查询网络信息</h3> <p>查询网络基本信息</p> <ul><li><strong>命令：network info</strong></li></ul> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;localBestHeight&quot;</span> <span class="token operator">:</span> <span class="token number">35317</span><span class="token punctuation">,</span><span class="token comment">//本地最新区块高度</span>
+  <span class="token property">&quot;netBestHeight&quot;</span> <span class="token operator">:</span> <span class="token number">35317</span><span class="token punctuation">,</span><span class="token comment">//网络最新区块高度</span>
+  <span class="token property">&quot;timeOffset&quot;</span> <span class="token operator">:</span> <span class="token string">&quot;0ms&quot;</span><span class="token punctuation">,</span><span class="token comment">//网络时间偏移值</span>
+  <span class="token property">&quot;inCount&quot;</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span><span class="token comment">//被动连接节点数量</span>
+  <span class="token property">&quot;outCount&quot;</span> <span class="token operator">:</span> <span class="token number">1</span><span class="token comment">//主动连接节点数量</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> network info
+<span class="token punctuation">{</span>
+  <span class="token string">&quot;localBestHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">35317</span>,
+  <span class="token string">&quot;netBestHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">35317</span>,
+  <span class="token string">&quot;timeOffset&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;0ms&quot;</span>,
+  <span class="token string">&quot;inCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">0</span>,
+  <span class="token string">&quot;outCount&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">1</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="查询网络节点ip"><a href="#查询网络节点ip" class="header-anchor">#</a> 查询网络节点IP</h3> <p>查询网络节点IP</p> <ul><li><strong>命令：network nodes</strong></li></ul> <p>返回信息</p> <div class="language-json extra-class"><pre class="language-json"><code>见示例
+</code></pre></div><p>示例 根据高度获取区块</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> network nodes
+<span class="token punctuation">[</span> <span class="token punctuation">{</span>
+  <span class="token string">&quot;blockHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;8c3a57eeda7ed74926eba6e007b11fca9363dc22019da19415e0a7731a9b1bdf&quot;</span>,
+  <span class="token string">&quot;blockHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">4401</span>,
+  <span class="token string">&quot;peer&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;192.168.1.191:18001&quot;</span>
+<span class="token punctuation">}</span>, <span class="token punctuation">{</span>
+  <span class="token string">&quot;blockHash&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;8c3a57eeda7ed74926eba6e007b11fca9363dc22019da19415e0a7731a9b1bdf&quot;</span>,
+  <span class="token string">&quot;blockHeight&quot;</span> <span class="token builtin class-name">:</span> <span class="token number">4401</span>,
+  <span class="token string">&quot;peer&quot;</span> <span class="token builtin class-name">:</span> <span class="token string">&quot;192.168.1.143:18001&quot;</span>
+<span class="token punctuation">}</span> <span class="token punctuation">]</span>
+</code></pre></div><h3 id="在主链注册侧链"><a href="#在主链注册侧链" class="header-anchor">#</a> 在主链注册侧链</h3> <p>侧链需要进行跨链交易，需要先在主链完成注册，此命令需要在主网节点运行</p> <ul><li><strong>命令： registercrosschain &lt;address&gt; &lt;chainId&gt; &lt;chainName&gt; &lt;addressPrefix&gt; &lt;magicNumber&gt; &lt;maxSignatureCount&gt; &lt;signatureBFTRatio&gt;&lt;verifierList&gt;&lt;assetId&gt; &lt;symbol&gt; &lt;assetName&gt; &lt;initNumber&gt; [decimalPlaces] [minAvailableNodeNum] [txConfirmedBlockNum]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>注册跨链费用支付账户</td></tr> <tr><td>&lt;chainId&gt;</td> <td>注册的链id</td></tr> <tr><td>&lt;chainName&gt;</td> <td>注册的链名称</td></tr> <tr><td>&lt;addressPrefix&gt;</td> <td>地址前缀</td></tr> <tr><td>&lt;magicNumber&gt;</td> <td>注册链的运行的网络魔法参数</td></tr> <tr><td>&lt;maxSignatureCount&gt;</td> <td>注册链最大签名数量</td></tr> <tr><td>&lt;signatureBFTRatio&gt;</td> <td>拜占庭比例 [67-100]</td></tr> <tr><td>&lt;verifierList&gt;</td> <td>注册链的初始验证人列表</td></tr> <tr><td>&lt;assetId&gt;</td> <td>注册的资产id</td></tr> <tr><td>&lt;symbol&gt;</td> <td>资产简称 e.g. BTC</td></tr> <tr><td>&lt;assetName&gt;</td> <td>资产名称</td></tr> <tr><td>&lt;initNumber&gt;</td> <td>资产发现总量</td></tr> <tr><td>[decimalPlaces]</td> <td>资产小数位数 默认8</td></tr> <tr><td>[minAvailableNodeNum]</td> <td>跨链交易可用条件：最小可用节点数量，默认5</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;mainNetVerifierSeeds&quot; : &quot;tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp&quot;,#主网验证人列表
+  &quot;txHash&quot; : &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;,#交易hash
+  &quot;mainNetCrossConnectSeeds&quot; : &quot;192.168.1.192:8088&quot;#主网跨链种子连接节点
+}
+
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt;registercrosschain tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn 12 nbtc btc 20197777 12  67 LJScusmPf5EfdEwbA8nRZEYqMbRXKp6y3oCb 1 btc bt 100000000 8 1
+
+Please enter the password.
+Enter your password:**********
+{
+  &quot;mainNetVerifierSeeds&quot; : &quot;tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp&quot;,
+  &quot;txHash&quot; : &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;,
+  &quot;mainNetCrossConnectSeeds&quot; : &quot;192.168.1.192:8088&quot;
+}
+
+</code></pre></div><h3 id="在主链添加需要跨链交易的侧链资产"><a href="#在主链添加需要跨链交易的侧链资产" class="header-anchor">#</a> 在主链添加需要跨链交易的侧链资产</h3> <p>侧链是多资产的，需要在已存在的链上进行跨链资产的添加，此命令需要在主网节点运行</p> <ul><li>**命令： addcrossasset &lt;address&gt; &lt;chainId&gt; &lt;assetId&gt; &lt;symbol&gt; &lt;assetName&gt; &lt;initNumber&gt; [decimalPlaces] **</li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>添加资产指令费用支付账户</td></tr> <tr><td>&lt;chainId&gt;</td> <td>注册的链id</td></tr> <tr><td>&lt;assetId&gt;</td> <td>注册的资产id</td></tr> <tr><td>&lt;symbol&gt;</td> <td>资产简称 e.g. BTC</td></tr> <tr><td>&lt;assetName&gt;</td> <td>资产名称</td></tr> <tr><td>&lt;initNumber&gt;</td> <td>资产发现总量</td></tr> <tr><td>[decimalPlaces]</td> <td>资产小数位数 默认8</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>  &quot;txHash&quot; : &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;,#交易hash
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt;addcrossasset tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn  10 2 yuer CCY 300000000 8
+
+Please enter the password.
+Enter your password:**********
+ &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;
+  
+
+</code></pre></div><h3 id="在主链移除跨链交易的侧链资产"><a href="#在主链移除跨链交易的侧链资产" class="header-anchor">#</a> 在主链移除跨链交易的侧链资产</h3> <p>侧链是多资产的，在主网上要停止该资产的跨链交易时，使用移除指令，如果剩下最后一个资产，则该指令执行后，对应的链也将停止工作。此命令需要在主网节点运行</p> <ul><li><strong>命令： disablecrossasset &lt;address&gt; &lt;chainId&gt; &lt;assetId&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>添加资产时候使用的地址</td></tr> <tr><td>&lt;chainId&gt;</td> <td>移除注册的链id</td></tr> <tr><td>&lt;assetId&gt;</td> <td>移除注册的资产id</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>  &quot;txHash&quot; : &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;,#交易hash
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt;disablecrossasset tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn  10 3
+Please enter the password.
+Enter your password:**********
+ &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;
+  
+
+</code></pre></div><h3 id="在主链恢复侧链"><a href="#在主链恢复侧链" class="header-anchor">#</a> 在主链恢复侧链</h3> <p>侧链在主网注册并且删除后，需要恢复，则可以通过如下命令进行恢复并更新信息，此命令需要在主网节点运行</p> <ul><li>**命令： updatecrosschain &lt;address&gt; &lt;chainId&gt; &lt;chainName&gt; &lt;addressPrefix&gt; &lt;magicNumber&gt; &lt;maxSignatureCount&gt; &lt;signatureBFTRatio&gt;&lt;verifierList&gt;&lt;assetId&gt; &lt;symbol&gt; &lt;assetName&gt; &lt;initNumber&gt; [decimalPlaces] [minAvailableNodeNum] **</li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;address&gt;</td> <td>注册跨链费用支付账户</td></tr> <tr><td>&lt;chainId&gt;</td> <td>注册的链id</td></tr> <tr><td>&lt;chainName&gt;</td> <td>注册的链名称</td></tr> <tr><td>&lt;addressPrefix&gt;</td> <td>地址前缀</td></tr> <tr><td>&lt;magicNumber&gt;</td> <td>注册链的运行的网络魔法参数</td></tr> <tr><td>&lt;maxSignatureCount&gt;</td> <td>注册链最大签名数量</td></tr> <tr><td>&lt;signatureBFTRatio&gt;</td> <td>拜占庭比例 [67-100]</td></tr> <tr><td>&lt;verifierList&gt;</td> <td>注册链的初始验证人列表</td></tr> <tr><td>&lt;assetId&gt;</td> <td>注册的资产id</td></tr> <tr><td>&lt;symbol&gt;</td> <td>资产简称 e.g. BTC</td></tr> <tr><td>&lt;assetName&gt;</td> <td>资产名称</td></tr> <tr><td>&lt;initNumber&gt;</td> <td>资产发现总量</td></tr> <tr><td>[decimalPlaces]</td> <td>资产小数位数 默认8</td></tr> <tr><td>[minAvailableNodeNum]</td> <td>跨链交易可用条件：最小可用节点数量，默认5</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;mainNetVerifierSeeds&quot; : &quot;tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp&quot;,#主网验证人列表
+  &quot;txHash&quot; : &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;,#交易hash
+  &quot;mainNetCrossConnectSeeds&quot; : &quot;192.168.1.192:8088&quot;#主网跨链种子连接节点
+}
+
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt;registercrosschain tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn 12 nbtc btc 20197777 12  67 LJScusmPf5EfdEwbA8nRZEYqMbRXKp6y3oCb 1 btc bt 100000000 8 1
+
+Please enter the password.
+Enter your password:**********
+{
+  &quot;mainNetVerifierSeeds&quot; : &quot;tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp&quot;,
+  &quot;txHash&quot; : &quot;25b3a57507086d5d895895b41ef744a160f3251f4e5db118b7ca833eb6c9fff3&quot;,
+  &quot;mainNetCrossConnectSeeds&quot; : &quot;192.168.1.192:8088&quot;
+}
+
+</code></pre></div><h3 id="查询侧链注册信息"><a href="#查询侧链注册信息" class="header-anchor">#</a> 查询侧链注册信息</h3> <p>在主网查询某条侧链的注册信息</p> <ul><li><strong>命令：crosschaininfo &lt;chainId&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;chainId&gt;</td> <td>注册链的id</td></tr></tbody></table> <p>返回值</p> <div class="language-{ extra-class"><pre class="language-text"><code> {
+  &quot;chainId&quot; : 3,
+  &quot;chainName&quot; : &quot;testchain&quot;,
+  &quot;addressType&quot; : &quot;1&quot;,
+  &quot;addressPrefix&quot; : &quot;TBTC&quot;,
+  &quot;magicNumber&quot; : 123456,
+  &quot;minAvailableNodeNum&quot; : 5,
+  &quot;regAddress&quot; : &quot;tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD&quot;,
+  &quot;regTxHash&quot; : &quot;6c29d99c2b02cfc766ef25bee2ea619610a5fce1d778c3038885111f590ae312&quot;,
+  &quot;createTime&quot; : 1557739548367,
+  &quot;verifierList&quot; : [ &quot;TBTCdusmPf5EfdEwbA8nRZEYqMbRXKp6y3oCb&quot; ],
+  &quot;signatureByzantineRatio&quot; : 67,
+  &quot;maxSignatureCount&quot; : 12,
+  &quot;selfAssetKeyList&quot; : [ &quot;3-10&quot; ],
+  &quot;totalAssetKeyList&quot; : [ &quot;3-10&quot; ]，
+  &quot;mainNetVerifierSeeds&quot; : &quot;tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp&quot;,
+  &quot;mainNetCrossConnectSeeds&quot; : &quot;192.168.1.192:8088&quot;,
+  &quot;enable&quot; : true
+}
+</code></pre></div><p>返回参数说明</p> <table><thead><tr><th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>true</td> <td>int</td> <td>链标识</td></tr> <tr><td>assetId</td> <td>true</td> <td>int</td> <td>资产id</td></tr> <tr><td>chainName</td> <td>true</td> <td>string</td> <td>链名称</td></tr> <tr><td>addressType</td> <td>true</td> <td>int</td> <td>链上创建的账户的地址类型：1生态内2非生态内</td></tr> <tr><td>addressPrefix</td> <td>true</td> <td>string</td> <td>地址前缀 1-5个 大写字母或数字</td></tr> <tr><td>magicNumber</td> <td>true</td> <td>string</td> <td>网络魔法参数</td></tr> <tr><td>minAvailableNodeNum</td> <td>true</td> <td>int</td> <td>最小可用节点数量</td></tr> <tr><td>regAddress</td> <td>true</td> <td>string</td> <td>注册支付地址</td></tr> <tr><td>regTxHash</td> <td>true</td> <td>string</td> <td>交易hash</td></tr> <tr><td>createTime</td> <td>true</td> <td>long</td> <td>交易提交时间 ，1970相差的秒数</td></tr> <tr><td>verifierList</td> <td>true</td> <td>string</td> <td>验证人列表</td></tr> <tr><td>signatureByzantineRatio</td> <td>true</td> <td>int</td> <td>拜占庭比例 [67-100]</td></tr> <tr><td>maxSignatureCount</td> <td>true</td> <td>int</td> <td>最大签名数</td></tr> <tr><td>symbol</td> <td>true</td> <td>string</td> <td>资产符号</td></tr> <tr><td>assetName</td> <td>true</td> <td>string</td> <td>资产名称</td></tr> <tr><td>initNumber</td> <td>true</td> <td>string</td> <td>资产初始值</td></tr> <tr><td>decimalPlaces</td> <td>true</td> <td>int</td> <td>最小资产可分割位数</td></tr> <tr><td>mainNetVerifierSeeds</td> <td>true</td> <td>string</td> <td>主网种子验证人地址</td></tr> <tr><td>mainNetCrossConnectSeeds</td> <td>true</td> <td>string</td> <td>主网种子连接节点地址</td></tr> <tr><td>enable</td> <td>true</td> <td>string</td> <td>是否使用中</td></tr></tbody></table> <p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; crosschaininfo 10
+{
+  &quot;chainId&quot; : 10,
+  &quot;chainName&quot; : &quot;nuls10&quot;,
+  &quot;addressType&quot; : &quot;1&quot;,
+  &quot;addressPrefix&quot; : &quot;LJS2&quot;,
+  &quot;magicNumber&quot; : 2019888,
+  &quot;minAvailableNodeNum&quot; : 1,
+  &quot;regAddress&quot; : &quot;tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn&quot;,
+  &quot;regTxHash&quot; : &quot;14539bbcb00b26e545168aa241c4484cf8aff42f373a2019959681e73f0acea8&quot;,
+  &quot;createTime&quot; : 1565229647,
+  &quot;verifierList&quot; : [ &quot;LJS2dusmPf5EfdEwbA8nRZEYqMbRXKp6y3oCb&quot; ],
+  &quot;signatureByzantineRatio&quot; : 67,
+  &quot;maxSignatureCount&quot; : 12,
+  &quot;selfAssetKeyList&quot; : [ &quot;10-1&quot; ],
+  &quot;totalAssetKeyList&quot; : [ &quot;10-1&quot; ],
+  &quot;mainNetVerifierSeeds&quot; : &quot;tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp&quot;,
+  &quot;mainNetCrossConnectSeeds&quot; : &quot;192.168.1.192:8088&quot;,
+  &quot;enable&quot; : true
+}
+</code></pre></div><h3 id="查询侧链注册资产信息"><a href="#查询侧链注册资产信息" class="header-anchor">#</a> 查询侧链注册资产信息</h3> <p>在主网查询某条侧链资产的注册信息</p> <ul><li><strong>命令：crossassetinfo&lt;chainId&gt;&lt;assetId&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;chainId&gt;</td> <td>注册链的id</td></tr> <tr><td>&lt;assetId&gt;</td> <td>资产id</td></tr></tbody></table> <p>返回值</p> <div class="language-{ extra-class"><pre class="language-text"><code> {
+  &quot;chainId&quot; : 10,
+  &quot;assetId&quot; : 2,
+  &quot;symbol&quot; : &quot;CCY&quot;,
+  &quot;assetName&quot; : &quot;yuer&quot;,
+  &quot;depositNuls&quot; : &quot;100000000000&quot;,
+  &quot;destroyNuls&quot; : &quot;20000000000&quot;,
+  &quot;initNumber&quot; : &quot;30000000000&quot;,
+  &quot;decimalPlaces&quot; : 2,
+  &quot;enable&quot; : false,
+  &quot;createTime&quot; : 1565229428,
+  &quot;address&quot; : &quot;tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn&quot;,
+  &quot;txHash&quot; : &quot;612eda872c6ca16c5a5f63cce70a64ac15852e2b3a403309b0d963d22d6391bc&quot;
+}
+</code></pre></div><p>返回参数说明</p> <table><thead><tr><th>parameter</th> <th>required</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>true</td> <td>int</td> <td>链标识</td></tr> <tr><td>assetId</td> <td>true</td> <td>int</td> <td>资产id</td></tr> <tr><td>&lt;symbol&gt;</td> <td>true</td> <td>string</td> <td>资产简称 e.g. BTC</td></tr> <tr><td>assetName</td> <td>true</td> <td>string</td> <td>资产名称</td></tr> <tr><td>depositNuls</td> <td>true</td> <td>long</td> <td>抵押的主网资产数量</td></tr> <tr><td>destroyNuls</td> <td>true</td> <td>long</td> <td>销毁的主网资产数量</td></tr> <tr><td>initNumber</td> <td>true</td> <td>string</td> <td>资产初始值</td></tr> <tr><td>decimalPlaces</td> <td>true</td> <td>int</td> <td>资产可切割位数</td></tr> <tr><td>enable</td> <td>true</td> <td>boolean</td> <td>是否可用 true可用,false 停用</td></tr> <tr><td>createTime</td> <td>true</td> <td>long</td> <td>交易产生时间</td></tr> <tr><td>address</td> <td>true</td> <td>String</td> <td>交易支付地址</td></tr> <tr><td>txHash</td> <td>true</td> <td>String</td> <td>交易hash</td></tr></tbody></table> <p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; crossassetinfo 10 2
+{
+  &quot;chainId&quot; : 10,
+  &quot;assetId&quot; : 2,
+  &quot;symbol&quot; : &quot;CCY&quot;,
+  &quot;assetName&quot; : &quot;yuer&quot;,
+  &quot;depositNuls&quot; : &quot;100000000000&quot;,
+  &quot;destroyNuls&quot; : &quot;20000000000&quot;,
+  &quot;initNumber&quot; : &quot;30000000000&quot;,
+  &quot;decimalPlaces&quot; : 2,
+  &quot;enable&quot; : false,
+  &quot;createTime&quot; : 1565229429,
+  &quot;address&quot; : &quot;tNULSeBaMqywZjfSrKNQKBfuQtVxAHBQ8rB2Zn&quot;,
+  &quot;txHash&quot; : &quot;612eda872c6ca16c5a5f63cce70a64ac15852e2b3a403309b0d963d22d6391bc&quot;
+}
+
+</code></pre></div><h3 id="创建跨链交易"><a href="#创建跨链交易" class="header-anchor">#</a> 创建跨链交易</h3> <ul><li><strong>命令：createcrosstx &lt;formAddress&gt; &lt;toAddress&gt; &lt;assetChainId&gt; &lt;assetId&gt; &lt;amount&gt; [remark]</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;formAddress&gt;</td> <td>转出地址</td></tr> <tr><td>&lt;toAddress&gt;</td> <td>转入地址</td></tr> <tr><td>&lt;assetChainId&gt;</td> <td>转账资产的chainId</td></tr> <tr><td>&lt;assetId&gt;</td> <td>转账资产id</td></tr> <tr><td>&lt;amount&gt;</td> <td>转账资产数量</td></tr> <tr><td>&lt;remark&gt;</td> <td>转账备注</td></tr></tbody></table> <p>返回值:交易hash</p> <div class="language- extra-class"><pre class="language-text"><code>529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; createcrosstx tNULSeBaMnrs6JKrCy6TQdzYJZkMZJDng7QAsD M9busmFhQeu1Efn6rDyeQkFjHxv2dSzkuH8 2 1 1
+Please enter the password.
+Enter your password:**********
+529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+</code></pre></div><h3 id="查询跨链交易确认状态"><a href="#查询跨链交易确认状态" class="header-anchor">#</a> 查询跨链交易确认状态</h3> <ul><li><strong>命令：getcrosstxstate  &lt;txHash&gt;</strong></li></ul> <table><thead><tr><th>参数</th> <th>说明</th></tr></thead> <tbody><tr><td>&lt;txHash&gt;</td> <td>交易hash</td></tr></tbody></table> <p>返回值</p> <div class="language- extra-class"><pre class="language-text"><code>Confirmed | Unconfirmed
+</code></pre></div><p>示例</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; getcrosstxstate 529bb34c0f4760fa55dd98b92d3e913ed2306b7ac1f93c4491007e266bb04ef5
+Unconfirmed
+</code></pre></div><h3 id="退出钱包命令程序"><a href="#退出钱包命令程序" class="header-anchor">#</a> 退出钱包命令程序</h3> <p>退出操作钱包的命令行程序，不会退出已启动的钱包节点。</p> <ul><li><strong>命令：exit</strong></li></ul> <p>示例</p> <div class="language-shell extra-class"><pre class="language-shell"><code>nuls<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> <span class="token builtin class-name">exit</span>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/master/docs/zh/user-guide/g_linux_tutorial.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">最后更新:</span> <span class="time">2025/9/1 09:45:12</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/zh/user-guide/g_docker.html" class="prev">
+        NULS Walelt V2 Docker
+      </a></span> <span class="next"><a href="/zh/user-guide/g_pocm.html">
+        POCM使用指南
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0bafe896.js" defer></script><script src="/assets/js/2.6c3a80b8.js" defer></script><script src="/assets/js/1.22a4e5b0.js" defer></script><script src="/assets/js/159.95e86c15.js" defer></script>
+  </body>
+</html>

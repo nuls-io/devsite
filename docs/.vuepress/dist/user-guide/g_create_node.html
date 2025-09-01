@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>NULS Node Creation Guide | Documentation</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="The Global AI Consumer Layer - NULS AI Blockchain Documentation">
+    <meta name="theme-color" content="#A8D5FF">
+    
+    <link rel="preload" href="/assets/css/0.styles.c0387eb2.css" as="style"><link rel="preload" href="/assets/js/app.0bafe896.js" as="script"><link rel="preload" href="/assets/js/2.6c3a80b8.js" as="script"><link rel="preload" href="/assets/js/1.22a4e5b0.js" as="script"><link rel="preload" href="/assets/js/29.b7521a49.js" as="script"><link rel="prefetch" href="/assets/js/10.18a9796f.js"><link rel="prefetch" href="/assets/js/100.c6dcc4ee.js"><link rel="prefetch" href="/assets/js/101.7d7ebb68.js"><link rel="prefetch" href="/assets/js/102.58666c13.js"><link rel="prefetch" href="/assets/js/103.b682e489.js"><link rel="prefetch" href="/assets/js/104.24bacb02.js"><link rel="prefetch" href="/assets/js/105.3743813e.js"><link rel="prefetch" href="/assets/js/106.73fa77cb.js"><link rel="prefetch" href="/assets/js/107.f42da1f4.js"><link rel="prefetch" href="/assets/js/108.0282c3bd.js"><link rel="prefetch" href="/assets/js/109.ab04f47a.js"><link rel="prefetch" href="/assets/js/11.cb4cdfd8.js"><link rel="prefetch" href="/assets/js/110.a7414102.js"><link rel="prefetch" href="/assets/js/111.c99ec821.js"><link rel="prefetch" href="/assets/js/112.edf30d53.js"><link rel="prefetch" href="/assets/js/113.437a657d.js"><link rel="prefetch" href="/assets/js/114.ca376ebb.js"><link rel="prefetch" href="/assets/js/115.411f17d8.js"><link rel="prefetch" href="/assets/js/116.0be2757f.js"><link rel="prefetch" href="/assets/js/117.ed69432a.js"><link rel="prefetch" href="/assets/js/118.4f7585a0.js"><link rel="prefetch" href="/assets/js/119.bc60f714.js"><link rel="prefetch" href="/assets/js/12.e402ed1a.js"><link rel="prefetch" href="/assets/js/120.79d9e821.js"><link rel="prefetch" href="/assets/js/121.13efa6ca.js"><link rel="prefetch" href="/assets/js/122.767a3b55.js"><link rel="prefetch" href="/assets/js/123.8fe931f3.js"><link rel="prefetch" href="/assets/js/124.6adbbadd.js"><link rel="prefetch" href="/assets/js/125.626cef62.js"><link rel="prefetch" href="/assets/js/126.3dda9445.js"><link rel="prefetch" href="/assets/js/127.d62c90cb.js"><link rel="prefetch" href="/assets/js/128.c961670a.js"><link rel="prefetch" href="/assets/js/129.04de186a.js"><link rel="prefetch" href="/assets/js/13.847fb38c.js"><link rel="prefetch" href="/assets/js/130.e922ba04.js"><link rel="prefetch" href="/assets/js/131.e463809b.js"><link rel="prefetch" href="/assets/js/132.ddd02961.js"><link rel="prefetch" href="/assets/js/133.c0020aa7.js"><link rel="prefetch" href="/assets/js/134.a3f3bb32.js"><link rel="prefetch" href="/assets/js/135.8e4807f7.js"><link rel="prefetch" href="/assets/js/136.5cc7c540.js"><link rel="prefetch" href="/assets/js/137.9353bd9b.js"><link rel="prefetch" href="/assets/js/138.5e65b123.js"><link rel="prefetch" href="/assets/js/139.bdd7d1bc.js"><link rel="prefetch" href="/assets/js/14.0ebe191f.js"><link rel="prefetch" href="/assets/js/140.baee8264.js"><link rel="prefetch" href="/assets/js/141.cab83fae.js"><link rel="prefetch" href="/assets/js/142.2fccba43.js"><link rel="prefetch" href="/assets/js/143.6523903e.js"><link rel="prefetch" href="/assets/js/144.01c779f4.js"><link rel="prefetch" href="/assets/js/145.2017a624.js"><link rel="prefetch" href="/assets/js/146.d1de5a16.js"><link rel="prefetch" href="/assets/js/147.3b9d5abc.js"><link rel="prefetch" href="/assets/js/148.78a96ee0.js"><link rel="prefetch" href="/assets/js/149.ccd1442e.js"><link rel="prefetch" href="/assets/js/15.5ecc9329.js"><link rel="prefetch" href="/assets/js/150.c65eee6a.js"><link rel="prefetch" href="/assets/js/151.75a1e1d9.js"><link rel="prefetch" href="/assets/js/152.604fb4c8.js"><link rel="prefetch" href="/assets/js/153.93cfc5c0.js"><link rel="prefetch" href="/assets/js/154.d99114ee.js"><link rel="prefetch" href="/assets/js/155.168bfbc5.js"><link rel="prefetch" href="/assets/js/156.8b012700.js"><link rel="prefetch" href="/assets/js/157.3bd2e91d.js"><link rel="prefetch" href="/assets/js/158.041258e2.js"><link rel="prefetch" href="/assets/js/159.95e86c15.js"><link rel="prefetch" href="/assets/js/16.8d31e076.js"><link rel="prefetch" href="/assets/js/160.87143748.js"><link rel="prefetch" href="/assets/js/161.8593a3b4.js"><link rel="prefetch" href="/assets/js/162.b395549c.js"><link rel="prefetch" href="/assets/js/163.a2aa4a1d.js"><link rel="prefetch" href="/assets/js/17.4840b3c9.js"><link rel="prefetch" href="/assets/js/18.cefe558e.js"><link rel="prefetch" href="/assets/js/19.8e262afc.js"><link rel="prefetch" href="/assets/js/20.adeac68c.js"><link rel="prefetch" href="/assets/js/21.77d8c04a.js"><link rel="prefetch" href="/assets/js/22.a9f26a79.js"><link rel="prefetch" href="/assets/js/23.18ea5f72.js"><link rel="prefetch" href="/assets/js/24.cd796014.js"><link rel="prefetch" href="/assets/js/25.fb08cb66.js"><link rel="prefetch" href="/assets/js/26.5c949c09.js"><link rel="prefetch" href="/assets/js/27.2a2d4831.js"><link rel="prefetch" href="/assets/js/28.e0e4c4fb.js"><link rel="prefetch" href="/assets/js/3.e8b17741.js"><link rel="prefetch" href="/assets/js/30.ab6b748a.js"><link rel="prefetch" href="/assets/js/31.60464bb8.js"><link rel="prefetch" href="/assets/js/32.c95faf86.js"><link rel="prefetch" href="/assets/js/33.7d9d7a3b.js"><link rel="prefetch" href="/assets/js/34.26b92d69.js"><link rel="prefetch" href="/assets/js/35.1eeee0af.js"><link rel="prefetch" href="/assets/js/36.1c7f3048.js"><link rel="prefetch" href="/assets/js/37.9471e7bd.js"><link rel="prefetch" href="/assets/js/38.ec9abedd.js"><link rel="prefetch" href="/assets/js/39.f36e5ab8.js"><link rel="prefetch" href="/assets/js/4.8d532655.js"><link rel="prefetch" href="/assets/js/40.1ea1a444.js"><link rel="prefetch" href="/assets/js/41.8b5b74dd.js"><link rel="prefetch" href="/assets/js/42.04a077c1.js"><link rel="prefetch" href="/assets/js/43.0fe4c703.js"><link rel="prefetch" href="/assets/js/44.b935d6b9.js"><link rel="prefetch" href="/assets/js/45.2b7f5a17.js"><link rel="prefetch" href="/assets/js/46.8bc06ce9.js"><link rel="prefetch" href="/assets/js/47.82a83e28.js"><link rel="prefetch" href="/assets/js/48.6c0f32dd.js"><link rel="prefetch" href="/assets/js/49.029c21dc.js"><link rel="prefetch" href="/assets/js/5.99605394.js"><link rel="prefetch" href="/assets/js/50.e16baf5e.js"><link rel="prefetch" href="/assets/js/51.12ad3e3f.js"><link rel="prefetch" href="/assets/js/52.1ec26d8c.js"><link rel="prefetch" href="/assets/js/53.45cddd06.js"><link rel="prefetch" href="/assets/js/54.2108b43b.js"><link rel="prefetch" href="/assets/js/55.c08c272e.js"><link rel="prefetch" href="/assets/js/56.3bad307d.js"><link rel="prefetch" href="/assets/js/57.867e7ecf.js"><link rel="prefetch" href="/assets/js/58.bf774815.js"><link rel="prefetch" href="/assets/js/59.b8abadae.js"><link rel="prefetch" href="/assets/js/6.290b516c.js"><link rel="prefetch" href="/assets/js/60.61acacb6.js"><link rel="prefetch" href="/assets/js/61.81b74b64.js"><link rel="prefetch" href="/assets/js/62.264c985a.js"><link rel="prefetch" href="/assets/js/63.da901bb6.js"><link rel="prefetch" href="/assets/js/64.dbfc6dec.js"><link rel="prefetch" href="/assets/js/65.5a7bd5da.js"><link rel="prefetch" href="/assets/js/66.d7ebc9ac.js"><link rel="prefetch" href="/assets/js/67.08a9c448.js"><link rel="prefetch" href="/assets/js/68.50931544.js"><link rel="prefetch" href="/assets/js/69.e1c822fc.js"><link rel="prefetch" href="/assets/js/7.bfe2d576.js"><link rel="prefetch" href="/assets/js/70.640a1bf0.js"><link rel="prefetch" href="/assets/js/71.b22c16f7.js"><link rel="prefetch" href="/assets/js/72.bcdbc9a2.js"><link rel="prefetch" href="/assets/js/73.232c9381.js"><link rel="prefetch" href="/assets/js/74.8dd848c9.js"><link rel="prefetch" href="/assets/js/75.5b39d848.js"><link rel="prefetch" href="/assets/js/76.339f1901.js"><link rel="prefetch" href="/assets/js/77.fd812ad4.js"><link rel="prefetch" href="/assets/js/78.59c9582b.js"><link rel="prefetch" href="/assets/js/79.b4588cba.js"><link rel="prefetch" href="/assets/js/80.d20b7f7f.js"><link rel="prefetch" href="/assets/js/81.0de2e426.js"><link rel="prefetch" href="/assets/js/82.8fa26f1a.js"><link rel="prefetch" href="/assets/js/83.8cbb912a.js"><link rel="prefetch" href="/assets/js/84.a1b83b1c.js"><link rel="prefetch" href="/assets/js/85.4237db2a.js"><link rel="prefetch" href="/assets/js/86.4b6842e9.js"><link rel="prefetch" href="/assets/js/87.0290cd66.js"><link rel="prefetch" href="/assets/js/88.ad25d269.js"><link rel="prefetch" href="/assets/js/89.e34aa4b2.js"><link rel="prefetch" href="/assets/js/90.b9ad822e.js"><link rel="prefetch" href="/assets/js/91.4d2cd6d0.js"><link rel="prefetch" href="/assets/js/92.321d2cde.js"><link rel="prefetch" href="/assets/js/93.cec650ad.js"><link rel="prefetch" href="/assets/js/94.732e613a.js"><link rel="prefetch" href="/assets/js/95.b93723c8.js"><link rel="prefetch" href="/assets/js/96.c9532164.js"><link rel="prefetch" href="/assets/js/97.23e04641.js"><link rel="prefetch" href="/assets/js/98.c5b31a70.js"><link rel="prefetch" href="/assets/js/99.d3eae370.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.811c81b7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.c0387eb2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.svg" alt="Documentation" class="logo"> <span class="site-name can-hide">Documentation</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/user-guide/" class="nav-link router-link-active">
+  User Guide
+</a></div><div class="nav-item"><a href="/chain-api/" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/dapp-builder/" class="nav-link">
+  DApp Development
+</a></div><div class="nav-item"><a href="/chain-builder/" class="nav-link">
+  Chain Builder
+</a></div><div class="nav-item"><a href="/modules/" class="nav-link">
+  Modules
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/user-guide/g_create_node.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/user-guide/g_create_node.html" class="nav-link">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/user-guide/" class="nav-link router-link-active">
+  User Guide
+</a></div><div class="nav-item"><a href="/chain-api/" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/dapp-builder/" class="nav-link">
+  DApp Development
+</a></div><div class="nav-item"><a href="/chain-builder/" class="nav-link">
+  Chain Builder
+</a></div><div class="nav-item"><a href="/modules/" class="nav-link">
+  Modules
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/user-guide/g_create_node.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/user-guide/g_create_node.html" class="nav-link">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>📚 User Guide</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/user-guide/" aria-current="page" class="sidebar-link">📚 User Guide</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🚀 Getting Started</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>⚙️ Node Management</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/user-guide/g_create_node.html" aria-current="page" class="active sidebar-link">NULS Node Creation Guide</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#installing-with-docker-image" class="sidebar-link">Installing with Docker Image</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#node-wallet-introduction" class="sidebar-link">Node Wallet Introduction</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-1-use-the-create-node-checklist" class="sidebar-link">Step 1 - Use the Create Node Checklist</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-2-download-and-install-node-wallet" class="sidebar-link">Step 2 - Download and Install Node Wallet</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-3-wait-for-your-node-to-sync-with-the-blockchain" class="sidebar-link">Step 3 - Wait for your node to sync with the blockchain</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-4-confirm-your-node-has-sync-d-with-the-chain" class="sidebar-link">Step 4 - Confirm your node has sync'd with the chain</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-5-import-your-packing-account" class="sidebar-link">Step 5 - Import your Packing Account</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-6-your-node-is-listed-as-a-consensus-node" class="sidebar-link">Step 6 - Your node is listed as a consensus node</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-7-download-light-wallet-installation" class="sidebar-link">Step 7 - Download Light Wallet Installation</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#step-8-shutdown-your-node" class="sidebar-link">Step 8 - Shutdown your node</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#example-of-creating-a-consensus-node" class="sidebar-link">Example of Creating a Consensus Node</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#participation-example-of-stake" class="sidebar-link">Participation - Example of Stake</a></li><li class="sidebar-sub-header"><a href="/user-guide/g_create_node.html#familiarize-yourself-with-the-node-cli" class="sidebar-link">Familiarize Yourself with the Node CLI</a></li></ul></li><li><a href="/user-guide/g_upgrade_node.html" class="sidebar-link">Node Wallet Upgrade Guide</a></li><li><a href="/user-guide/g_docker.html" class="sidebar-link">nuls-wallet v2.0.0 docker image</a></li><li><a href="/user-guide/g_linux_tutorial.html" class="sidebar-link">Linux CLI Usage Guide</a></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🏛️ Governance &amp; Consensus</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="nuls-node-creation-guide"><a href="#nuls-node-creation-guide" class="header-anchor">#</a> NULS Node Creation Guide</h1> <h2 id="installing-with-docker-image"><a href="#installing-with-docker-image" class="header-anchor">#</a> Installing with Docker Image</h2> <p>To install using the Docker image, follow the <a href="https://docs.nuls.io/Guide/g_docker.html#premium-wallet" target="_blank" rel="noopener noreferrer">Docker Image Guide<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <p><strong>Note:</strong> The provided link will take you to the detailed tutorial on using the Docker image for NULS installation. Make sure to refer to the guide for comprehensive instructions.</p> <p>If you encounter any issues during the installation process or have further questions, feel free to seek assistance from the NULS community or refer to the support resources provided in the documentation.</p> <h2 id="node-wallet-introduction"><a href="#node-wallet-introduction" class="header-anchor">#</a> Node Wallet Introduction</h2> <p>You have the option to install and run your node in the NULS test network or the NULS production network, Mainnet.  NULS strongly recommends that FIRST you run your node in test. After you experience the installation and management of your node in test, you are ready to re-install for the mainnet.</p> <p>For the test network, make sure to open the server ports 18001 and 18002.
+For the Mainnet, make sure to open the server ports  8001 and 8002.
+If these ports are not open, your node will not successfully communicate with the blockchain.</p> <h2 id="step-1-use-the-create-node-checklist"><a href="#step-1-use-the-create-node-checklist" class="header-anchor">#</a> Step 1 - Use the Create Node Checklist</h2> <p>Use the Create Node Checklist in conjunction with this document. The checklist informs you about the requirements for the node creation, and provides a summary of the required steps.</p> <h2 id="step-2-download-and-install-node-wallet"><a href="#step-2-download-and-install-node-wallet" class="header-anchor">#</a> Step 2 - Download and Install Node Wallet</h2> <ol><li>Download the zipped node wallet package (linux version, windows version) from <a href="https://github.com/nuls-io/nuls-v2/releases" target="_blank" rel="noopener noreferrer">GitHub<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>. Download the Testnet or Mainnet version.</li></ol> <p><img src="/assets/img/20190912110813.966a8c1c.png" alt="20190912110813"></p> <h1 id="linux-installation"><a href="#linux-installation" class="header-anchor">#</a> Linux Installation</h1> <p>The installation does not require root. Asd per linux standards, it is recommended not to install as root.</p> <p>The following example includes the creation of the user nuls, and the installation as the user nuls.</p> <div class="language- extra-class"><pre class="language-text"><code>antares:~ # useradd -m -d /home/nuls nuls
+New password:
+Retype new password:
+passwd: password updated successfully
+antares:~ #
+antares:~ # su - nuls
+nuls@antares:~&gt; pwd
+/home/nuls
+nuls@antares:~&gt;
+</code></pre></div><p>Download the latest version of  'Linux Node Wallet' or 'Windows Node Wallet' from <a href="https://github.com/nuls-io/nuls-v2/releases" target="_blank" rel="noopener noreferrer">GitHub<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.</p> <p>There is more than one way to download, here is a linux example:</p> <div class="language- extra-class"><pre class="language-text"><code>nuls@antares:~&gt; wget -c http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.1/NULS_Wallet_linux64_v2.1.0_beta.tar.gz
+--2019-10-27 22:07:18--  http://nuls-usa-west.oss-us-west-1.aliyuncs.com/2.1/NULS_Wallet_linux64_v2.1.0_beta.tar.gz
+Resolving nuls-usa-west.oss-us-west-1.aliyuncs.com (nuls-usa-west.oss-us-west-1.aliyuncs.com)... 47.88.73.131
+Connecting to nuls-usa-west.oss-us-west-1.aliyuncs.com (nuls-usa-west.oss-us-west-1.aliyuncs.com)|47.88.73.131|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 118128124 (113M) [application/octet-stream]
+Saving to: ‘NULS_Wallet_linux64_v2.1.0_beta.tar.gz’
+
+NULS_Wallet_linux64_v2.1.0_beta.tar.gz   100%[================================================================================&gt;] 112.66M  5.36MB/s    in 21s
+
+2019-10-27 22:07:39 (5.35 MB/s) - ‘NULS_Wallet_linux64_v2.1.0_beta.tar.gz’ saved [118128124/118128124]
+
+nuls@antares:~&gt;
+</code></pre></div><p>Then, untar; cd to newly created directory; and start your wallet/node.
+Note the commands start and stop, start and stop your wallet/node (the base for your node service).</p> <div class="language- extra-class"><pre class="language-text"><code>nuls@antares:~&gt; tar -xzvf NULS_Wallet_linux64_v2.1.0_beta.tar.gz
+NULS_Wallet_linux64_v2.1.0_beta/
+NULS_Wallet_linux64_v2.1.0_beta/Modules/
+NULS_Wallet_linux64_v2.1.0_beta/Modules/Nuls/
+NULS_Wallet_linux64_v2.1.0_beta/Modules/Nuls/libs/
+NULS_Wallet_linux64_v2.1.0_beta/Modules/Nuls/libs/activation-1.1.1.jar
+……..
+NULS_Wallet_linux64_v2.1.0_beta/stop-dev
+NULS_Wallet_linux64_v2.1.0_beta/nuls.ncf
+NULS_Wallet_linux64_v2.1.0_beta/genesis-block.json
+
+nuls@antares:~&gt;cd NULS_Wallet_linux64_v2.1.0_beta
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta&gt; ls
+check-status  cmd  cmd.bat  create-address  data  func  genesis-block.json  Libraries  Logs  Modules  nuls.ncf  start  start-dev  stop  stop-dev  test
+
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta&gt; ./start
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta&gt; qt.network.ssl: QSslSocket: cannot resolve CRYPTO_num_locks
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_id_callback
+qt.network.ssl: QSslSocket: cannot resolve CRYPTO_set_locking_callback
+qt.network.ssl: QSslSocket: cannot resolve ERR_free_strings
+…
+qt.network.ssl: QSslSocket: cannot resolve SSLeay
+qt.network.ssl: Incompatible version of OpenSSL
+
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta&gt;
+</code></pre></div><p>Note, you may have some extraneous messages, such as the ones listed in this example.  Continue with the  creation of the  node, and check with the telegram  channel &quot;nuls node owners&quot; for feedback.  If you are creating a mainnet node and the messages are unfamiliar to you, consult telegram &quot;nuls node owners&quot; before proceeding.</p> <p>Use the command &quot;./check-status&quot; to confirm the node has started.</p> <p>After the node has started, Enter &quot;./cmd&quot; and check to see if the node is working as expected. i.e you can issue cli commands to the node.</p> <div class="language- extra-class"><pre class="language-text"><code>nuls@antares:~/NULS_Wallet_linux64_v2.1.0_beta&gt; ./cmd
+JAVA_HOME:/home/nuls/NULS_Wallet_linux64_v2.1.0_beta/Libraries/JAVA/JRE/11.0.2
+java version &quot;11.0.2&quot; 2019-01-15 LTS
+Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
+
+/home/nuls/NULS_Wallet_linux64_v2.1.0_beta/nuls.ncf
+Service Manager URL: ws://127.0.0.1:7771
+
+ __    __ __    __ __        ______          ______          ______  __       ______
+/  \  /  /  |  /  /  |      /      \        /      \        /      \/  |     /      |
+$$  \ $$ $$ |  $$ $$ |     /$$$$$$  |      /$$$$$$  |      /$$$$$$  $$ |     $$$$$$/
+$$$  \$$ $$ |  $$ $$ |     $$ \__$$/       $$____$$ |      $$ |  $$/$$ |       $$ |
+$$$$  $$ $$ |  $$ $$ |     $$      \        /    $$/       $$ |     $$ |       $$ |
+$$ $$ $$ $$ |  $$ $$ |      $$$$$$  |      /$$$$$$/        $$ |   __$$ |       $$ |
+$$ |$$$$ $$ \__$$ $$ |_____/  \__$$ |      $$ |_____       $$ \__/  $$ |_____ _$$ |_
+$$ | $$$ $$    $$/$$       $$    $$/       $$       |      $$    $$/$$       / $$   |
+$$/   $$/ $$$$$$/ $$$$$$$$/ $$$$$$/        $$$$$$$$/        $$$$$$/ $$$$$$$$/$$$$$$/
+
+Module:cmd-client
+
+waiting nuls-wallet base module ready
+ 2 3nuls-wallet base module ready
+nuls&gt;&gt;&gt;
+
+</code></pre></div><p>Here is another Linux example of installation and start:</p> <p>The linux user starts the wallet with the <strong>./start</strong> command. After each module starts successfully, the command line is entered through the <strong>./cmd</strong> command. After the block is synchronized to the latest height, other operations can be performed.</p> <p><img src="/assets/img/20190912103446.a2ebd29e.png" alt="20190912103446"></p> <p><img src="/assets/img/20190912103641.3e0036b1.png" alt="20190912103641"></p> <h1 id="windows-installation"><a href="#windows-installation" class="header-anchor">#</a> Windows Installation</h1> <p>Windows users double-click <strong>start.bat</strong> in the folder to start the wallet. After the module is successfully started, double-click <strong>cmd.bat</strong> to enter the command line. After the block is synchronized to the latest height, other operations can be performed.</p> <p><img src="/assets/img/20190912103945.0414e831.png" alt="20190912103945"></p> <p><img src="/assets/img/20190912104042.ae50f484.png" alt="20190912104042"></p> <h2 id="step-3-wait-for-your-node-to-sync-with-the-blockchain"><a href="#step-3-wait-for-your-node-to-sync-with-the-blockchain" class="header-anchor">#</a> Step 3 - Wait for your node to sync with the blockchain</h2> <p>Here we deviate between test and mainnet.</p> <p>For test, you wait.  It's going to be at least one or two hours. ***</p> <p>For the mainnet, you can download the &quot;Data Package&quot; from the same link as you used for your node/wallet download: <a href="https://github.com/nuls-io/nuls-v2/releases" target="_blank" rel="noopener noreferrer">GitHub<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>.
+This will significantly speed up the synchronization process.</p> <div class="language- extra-class"><pre class="language-text"><code>antares:/home/kathy # su - nuls
+nuls@antares:~&gt; ls
+]  bin  NULS_Wallet_linux64_v2.1.0_beta  NULS_Wallet_linux64_v2.1.0_beta.tar.gz  pwd  wget
+
+nuls@antares:~&gt; wget -c http://nuls-cn.oss-cn-hangzhou.aliyuncs.com/data/data-281818.zip
+--2019-11-04 01:16:08--  http://nuls-cn.oss-cn-hangzhou.aliyuncs.com/data/data-281818.zip
+Resolving nuls-cn.oss-cn-hangzhou.aliyuncs.com (nuls-cn.oss-cn-hangzhou.aliyuncs.com)... 118.31.219.209
+Connecting to nuls-cn.oss-cn-hangzhou.aliyuncs.com (nuls-cn.oss-cn-hangzhou.aliyuncs.com)|118.31.219.209|:80... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 341679794 (326M) [application/octet-stream]
+Saving to: ‘data-281818.zip’
+
+data-281818.zip           100%[==================================&gt;] 325.85M  1.11MB/s    in 4m 43s
+
+2019-11-04 01:20:51 (1.15 MB/s) - ‘data-281818.zip’ saved [341679794/341679794]
+
+nuls@antares:~&gt; ls
+data-281818.zip   NULS_Wallet_linux64_v2.1.0_beta.tar.gz  NULS_Wallet_linux64_v2.1.0_beta  
+nuls@antares:~&gt;
+                
+
+
+</code></pre></div><ol><li>Copy the zipped data file to the wallet directory.</li> <li>Notice the size of the directory call 'data'.  (It will be 0 or 4 bytes.)</li> <li>Unzip the data.zip file.</li> <li>The 'data' directory is now large and contains the unzipped data.</li></ol> <div class="language- extra-class"><pre class="language-text"><code>nuls@antares:~&gt; cp data-281818.zip  NULS_Wallet_linux64_v2.1.0
+nuls@antares:~&gt; cd NULS_Wallet_linux64_v2.1.0
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; ls
+check-status  create-address   func                Logs      start      stop-dev
+cmd           data             genesis-block.json  Modules   start-dev  test
+cmd.bat       data-281818.zip  Libraries           nuls.ncf  stop
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; unzip data-281818.zip
+Archive:  data-281818.zip
+   creating: data/smart-contract/
+   creating: data/transaction/
+   creating: data/consensus/
+   .....
+   
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; ls
+check-status  create-address   func                Logs      start      stop-dev
+cmd           data             genesis-block.json  Modules   start-dev  test
+cmd.bat       data-281818.zip  Libraries           nuls.ncf  stop
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; du -s data
+701764	data
+   
+
+</code></pre></div><p>Start your node:</p> <div class="language- extra-class"><pre class="language-text"><code>nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; ./start
+
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; ./check-status
+==================MODULE PROCESS====================
+account PROCESS IS START
+...
+transaction STATE IS RUNNING
+==================NULS WALLET STATE=================
+==========================
+NULS WALLET IS RUNNING
+==========================
+nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt;
+
+</code></pre></div><p>Start the cli interface.</p> <div class="language- extra-class"><pre class="language-text"><code>nuls@antares:~/NULS_Wallet_linux64_v2.1.0&gt; ./cmd
+JAVA_HOME:/home/nuls/NULS_Wallet_linux64_v2.1.0/Libraries/JAVA/JRE/11.0.2
+java version &quot;11.0.2&quot; 2019-01-15 LTS
+Java(TM) SE Runtime Environment 18.9 (build 11.0.2+9-LTS)
+Java HotSpot(TM) 64-Bit Server VM 18.9 (build 11.0.2+9-LTS, mixed mode)
+
+/home/nuls/NULS_Wallet_linux64_v2.1.0/nuls.ncf
+Service Manager URL: ws://127.0.0.1:7771
+
+ __    __ __    __ __        ______          ______          ______  __       ______
+/  \  /  /  |  /  /  |      /      \        /      \        /      \/  |     /      |
+$$  \ $$ $$ |  $$ $$ |     /$$$$$$  |      /$$$$$$  |      /$$$$$$  $$ |     $$$$$$/
+$$$  \$$ $$ |  $$ $$ |     $$ \__$$/       $$____$$ |      $$ |  $$/$$ |       $$ |
+$$$$  $$ $$ |  $$ $$ |     $$      \        /    $$/       $$ |     $$ |       $$ |
+$$ $$ $$ $$ |  $$ $$ |      $$$$$$  |      /$$$$$$/        $$ |   __$$ |       $$ |
+$$ |$$$$ $$ \__$$ $$ |_____/  \__$$ |      $$ |_____       $$ \__/  $$ |_____ _$$ |_
+$$ | $$$ $$    $$/$$       $$    $$/       $$       |      $$    $$/$$       / $$   |
+$$/   $$/ $$$$$$/ $$$$$$$$/ $$$$$$/        $$$$$$$$/        $$$$$$/ $$$$$$$$/$$$$$$/
+
+Module:cmd-client
+
+waiting nuls-wallet base module ready
+ 2 3nuls-wallet base module ready
+nuls&gt;&gt;&gt;
+
+</code></pre></div><h2 id="step-4-confirm-your-node-has-sync-d-with-the-chain"><a href="#step-4-confirm-your-node-has-sync-d-with-the-chain" class="header-anchor">#</a> Step 4 - Confirm your node has sync'd with the chain</h2> <p>Use the command &quot;network info&quot; to determine if the sync has completed or how close you are to completing the sync.</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; network info
+{
+  &quot;localBestHeight&quot; : 337342,
+  &quot;netBestHeight&quot; : 463046,
+  &quot;timeOffset&quot; : 18,
+  &quot;inCount&quot; : 0,
+  &quot;outCount&quot; : 20
+}
+nuls&gt;&gt;&gt;
+
+</code></pre></div><p>The sync is complete when the localBestHeight is equal to the netBestHeight.
+Here is an example.</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; network info
+{
+  &quot;localBestHeight&quot; : 463191,
+  &quot;netBestHeight&quot; : 463191,
+  &quot;timeOffset&quot; : 2,
+  &quot;inCount&quot; : 0,
+  &quot;outCount&quot; : 20
+}
+nuls&gt;&gt;&gt;
+</code></pre></div><h2 id="step-5-import-your-packing-account"><a href="#step-5-import-your-packing-account" class="header-anchor">#</a> Step 5 - Import your Packing Account</h2> <p>Once your node has sync'd with the blockchain, import the packing account.  Your package account must have the password &quot;nuls123456&quot;. That password indicates to the node that this account is the &quot;package account&quot;.</p> <p>Import the packing address using the import command, and provide the private key.
+A successful import will display your packing address, after the import is complete.</p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; import b54db432bba7e13a6c4a28f65b925b18e63bcb79143f7b894fa735d5d3d09db5
+Please enter the password (password is between 8 and 20 inclusive of numbers and letters), If you do not want to set a password, return directly.
+Enter your password:**********
+Please confirm new password:**********
+tNULSeBaMkrt4z9FYEkkR9D6choPVvQr94oYZp
+
+# The password for the imported address must be nuls123456
+# You will be asked to enter the password twice
+</code></pre></div><h2 id="step-6-your-node-is-listed-as-a-consensus-node"><a href="#step-6-your-node-is-listed-as-a-consensus-node" class="header-anchor">#</a> Step 6 - Your node is listed as a consensus node</h2> <p>Go to the <a href="https://beta.wallet.nuls.io" target="_blank" rel="noopener noreferrer">test wallet<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> or <a href="https://.wallet.nuls.io" target="_blank" rel="noopener noreferrer">mainnet wallet<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, select the consensus option.</p> <p>Your  node is now listed.  It will be listed with a deposit of 20000 NULS and staking of 0 NULS. When you clink on the node you found, it will display  page and list your create (agent), reward, and packing address. Record your Node name.  (Note: you can change your node name by adding an alias to your agent account. Once you add the alias, you cannot change the alias.)</p> <h2 id="step-7-download-light-wallet-installation"><a href="#step-7-download-light-wallet-installation" class="header-anchor">#</a> Step 7 - Download Light Wallet Installation</h2> <p>Users download and open the light wallet (windows version, mac version) from <a href="https://github.com/nuls-io/nuls-v2/releases" target="_blank" rel="noopener noreferrer">GitHub<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a> and connect to the node service.</p> <p><img src="/assets/img/20190912110930.7d0752ab.png" alt="20190912110930"></p> <h2 id="step-8-shutdown-your-node"><a href="#step-8-shutdown-your-node" class="header-anchor">#</a> Step 8 - Shutdown your node</h2> <p>To stop your node, enter the cli command &quot;stopagent&quot;. Upon successful execution of the command the hash of the transaction is returned.</p> <div class="language- extra-class"><pre class="language-text"><code>
+nuls&gt;&gt;&gt; stopagent tNULSeBaMnNZHHLwae8UAouJiro6URjwMkkMHv
+Enter your account password********
+&quot;4adc8971bd9930e3b335a3a9aa1f4b35503f8ae05568a4548fb0822e6e070846&quot;
+nuls&gt;&gt;&gt;
+
+</code></pre></div><p>Your node will no longer be listed as a consensus node by the nulscan.io facility.
+All NULS staked to the node will be refunded. The initial deposit by the node creator is locked for 72 hours, and then refunded to the agent address.</p> <h2 id="example-of-creating-a-consensus-node"><a href="#example-of-creating-a-consensus-node" class="header-anchor">#</a> Example of Creating a Consensus Node</h2> <p>The user creates a consensus node on the light wallet (the reward address can be the same as the creation address, or it can be another address, the package address cannot be the creation address and reward address, the deposit is 20000-200000, the commission ratio is an integer value from 10-100 representing the comission percentage.)</p> <p>Note: the English option is available in the upper left.
+<img src="/assets/img/20190912105332.d0341f98.png" alt="20190912105332"></p> <h2 id="participation-example-of-stake"><a href="#participation-example-of-stake" class="header-anchor">#</a> Participation - Example of Stake</h2> <p>The user opens the <a href="https://github.com/nuls-io/nuls-v2/releases" target="_blank" rel="noopener noreferrer">Light Wallet<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, imports  private key or Keystore file, enters the consensus page, selects the node to stake.</p> <p><img src="/assets/img/20190912110124.3aa8b6da.png" alt="20190912110124"></p> <h2 id="familiarize-yourself-with-the-node-cli"><a href="#familiarize-yourself-with-the-node-cli" class="header-anchor">#</a> Familiarize Yourself with the Node CLI</h2> <p>It is recommended that you familarize yourself with the <a href="https://docs.nuls.io/Guide/g_linux_tutorial.html" target="_blank" rel="noopener noreferrer">cli<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>, command line interface.</p> <p>All/most functions can be done by a GUI wallet or nulsscan.io.  However the cli provides information in a compact manner that is easy to copy and save.  Also, actions can be performed faster since you are not waiting for a GUI interface to refresh.</p> <p>To list all command catagories, enter &quot;help&quot;.</p> <div class="language- extra-class"><pre class="language-text"><code>
+nuls&gt;&gt;&gt; help
+parameter error
+args incorrect:
+help [-a | group | command]
+	OPTIONS:
+	[-a] show all commands and options of command - optional
+	[group] show commands and options of this group. group list: [account, consensus, ledger, transaction, block, smart_contract, cross_chain, system]
+	[command] shwo this command info
+
+</code></pre></div><p>To obtain a summary of commands for a specific group, enter &quot;help <command group="">&quot;.</command></p> <div class="language- extra-class"><pre class="language-text"><code>nuls&gt;&gt;&gt; help consensus
+
+
+--------------------------------------------------
+group : consensus
+--------------------------------------------------
+
+createagent &lt;agentAddress&gt; &lt;packingAddress&gt; &lt;commissionRate&gt; &lt;deposit&gt; [rewardAddress] --create a agent
+	OPTIONS:
+	&lt;agentAddress&gt;   agent owner address   -required
+	&lt;packingAddress&gt;    packing address    -required
+	&lt;commissionRate&gt;    commission rate (10~100), you can have up to 2 valid digits after the decimal point  -required
+	&lt;deposit&gt;   amount you want to deposit, you can have up to 8 valid digits after the decimal point -required
+	[rewardAddress]  Billing address    -not required
+...
+stopagent &lt;address&gt; -- stop the agent
+	OPTIONS:
+	&lt;address&gt; account address of the agent -required
+...
+withdrawformultisign &lt;address&gt; &lt;txHash&gt; [sign address]-- withdraw the agent
+	OPTIONS:
+	&lt;address&gt;   address -required
+	&lt;txHash&gt;    your deposit transaction hash  -required
+	[sign address] first sign address -- not required
+nuls&gt;&gt;&gt;
+
+
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/master/docs/user-guide/g_create_node.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">9/1/2025, 9:45:12 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/user-guide/g_transaction.html" class="prev">
+        NULS Asset Trading Guide
+      </a></span> <span class="next"><a href="/user-guide/g_upgrade_node.html">
+        Node Wallet Upgrade Guide
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0bafe896.js" defer></script><script src="/assets/js/2.6c3a80b8.js" defer></script><script src="/assets/js/1.22a4e5b0.js" defer></script><script src="/assets/js/29.b7521a49.js" defer></script>
+  </body>
+</html>

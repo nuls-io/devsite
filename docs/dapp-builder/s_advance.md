@@ -108,7 +108,7 @@ As in the above contract, we use `revert("revert")` in the `clinitTestRevert` me
 
 #### 3.1 Error data returned by page call failure
 
-![](../zh/Docs/debugcontract/debugcontract.png)
+![](../zh/dapp-builder/debugcontract/debugcontract.png)
 
 #### 3.2 `NULS-API RESTFUL` mode call failed error data returned
 

@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>区块管理模块设计文档 | 文档</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="全球AI消费层 - NULS AI 区块链文档">
+    <meta name="theme-color" content="#A8D5FF">
+    
+    <link rel="preload" href="/assets/css/0.styles.c0387eb2.css" as="style"><link rel="preload" href="/assets/js/app.0bafe896.js" as="script"><link rel="preload" href="/assets/js/2.6c3a80b8.js" as="script"><link rel="preload" href="/assets/js/1.22a4e5b0.js" as="script"><link rel="preload" href="/assets/js/23.18ea5f72.js" as="script"><link rel="prefetch" href="/assets/js/10.18a9796f.js"><link rel="prefetch" href="/assets/js/100.c6dcc4ee.js"><link rel="prefetch" href="/assets/js/101.7d7ebb68.js"><link rel="prefetch" href="/assets/js/102.58666c13.js"><link rel="prefetch" href="/assets/js/103.b682e489.js"><link rel="prefetch" href="/assets/js/104.24bacb02.js"><link rel="prefetch" href="/assets/js/105.3743813e.js"><link rel="prefetch" href="/assets/js/106.73fa77cb.js"><link rel="prefetch" href="/assets/js/107.f42da1f4.js"><link rel="prefetch" href="/assets/js/108.0282c3bd.js"><link rel="prefetch" href="/assets/js/109.ab04f47a.js"><link rel="prefetch" href="/assets/js/11.cb4cdfd8.js"><link rel="prefetch" href="/assets/js/110.a7414102.js"><link rel="prefetch" href="/assets/js/111.c99ec821.js"><link rel="prefetch" href="/assets/js/112.edf30d53.js"><link rel="prefetch" href="/assets/js/113.437a657d.js"><link rel="prefetch" href="/assets/js/114.ca376ebb.js"><link rel="prefetch" href="/assets/js/115.411f17d8.js"><link rel="prefetch" href="/assets/js/116.0be2757f.js"><link rel="prefetch" href="/assets/js/117.ed69432a.js"><link rel="prefetch" href="/assets/js/118.4f7585a0.js"><link rel="prefetch" href="/assets/js/119.bc60f714.js"><link rel="prefetch" href="/assets/js/12.e402ed1a.js"><link rel="prefetch" href="/assets/js/120.79d9e821.js"><link rel="prefetch" href="/assets/js/121.13efa6ca.js"><link rel="prefetch" href="/assets/js/122.767a3b55.js"><link rel="prefetch" href="/assets/js/123.8fe931f3.js"><link rel="prefetch" href="/assets/js/124.6adbbadd.js"><link rel="prefetch" href="/assets/js/125.626cef62.js"><link rel="prefetch" href="/assets/js/126.3dda9445.js"><link rel="prefetch" href="/assets/js/127.d62c90cb.js"><link rel="prefetch" href="/assets/js/128.c961670a.js"><link rel="prefetch" href="/assets/js/129.04de186a.js"><link rel="prefetch" href="/assets/js/13.847fb38c.js"><link rel="prefetch" href="/assets/js/130.e922ba04.js"><link rel="prefetch" href="/assets/js/131.e463809b.js"><link rel="prefetch" href="/assets/js/132.ddd02961.js"><link rel="prefetch" href="/assets/js/133.c0020aa7.js"><link rel="prefetch" href="/assets/js/134.a3f3bb32.js"><link rel="prefetch" href="/assets/js/135.8e4807f7.js"><link rel="prefetch" href="/assets/js/136.5cc7c540.js"><link rel="prefetch" href="/assets/js/137.9353bd9b.js"><link rel="prefetch" href="/assets/js/138.5e65b123.js"><link rel="prefetch" href="/assets/js/139.bdd7d1bc.js"><link rel="prefetch" href="/assets/js/14.0ebe191f.js"><link rel="prefetch" href="/assets/js/140.baee8264.js"><link rel="prefetch" href="/assets/js/141.cab83fae.js"><link rel="prefetch" href="/assets/js/142.2fccba43.js"><link rel="prefetch" href="/assets/js/143.6523903e.js"><link rel="prefetch" href="/assets/js/144.01c779f4.js"><link rel="prefetch" href="/assets/js/145.2017a624.js"><link rel="prefetch" href="/assets/js/146.d1de5a16.js"><link rel="prefetch" href="/assets/js/147.3b9d5abc.js"><link rel="prefetch" href="/assets/js/148.78a96ee0.js"><link rel="prefetch" href="/assets/js/149.ccd1442e.js"><link rel="prefetch" href="/assets/js/15.5ecc9329.js"><link rel="prefetch" href="/assets/js/150.c65eee6a.js"><link rel="prefetch" href="/assets/js/151.75a1e1d9.js"><link rel="prefetch" href="/assets/js/152.604fb4c8.js"><link rel="prefetch" href="/assets/js/153.93cfc5c0.js"><link rel="prefetch" href="/assets/js/154.d99114ee.js"><link rel="prefetch" href="/assets/js/155.168bfbc5.js"><link rel="prefetch" href="/assets/js/156.8b012700.js"><link rel="prefetch" href="/assets/js/157.3bd2e91d.js"><link rel="prefetch" href="/assets/js/158.041258e2.js"><link rel="prefetch" href="/assets/js/159.95e86c15.js"><link rel="prefetch" href="/assets/js/16.8d31e076.js"><link rel="prefetch" href="/assets/js/160.87143748.js"><link rel="prefetch" href="/assets/js/161.8593a3b4.js"><link rel="prefetch" href="/assets/js/162.b395549c.js"><link rel="prefetch" href="/assets/js/163.a2aa4a1d.js"><link rel="prefetch" href="/assets/js/17.4840b3c9.js"><link rel="prefetch" href="/assets/js/18.cefe558e.js"><link rel="prefetch" href="/assets/js/19.8e262afc.js"><link rel="prefetch" href="/assets/js/20.adeac68c.js"><link rel="prefetch" href="/assets/js/21.77d8c04a.js"><link rel="prefetch" href="/assets/js/22.a9f26a79.js"><link rel="prefetch" href="/assets/js/24.cd796014.js"><link rel="prefetch" href="/assets/js/25.fb08cb66.js"><link rel="prefetch" href="/assets/js/26.5c949c09.js"><link rel="prefetch" href="/assets/js/27.2a2d4831.js"><link rel="prefetch" href="/assets/js/28.e0e4c4fb.js"><link rel="prefetch" href="/assets/js/29.b7521a49.js"><link rel="prefetch" href="/assets/js/3.e8b17741.js"><link rel="prefetch" href="/assets/js/30.ab6b748a.js"><link rel="prefetch" href="/assets/js/31.60464bb8.js"><link rel="prefetch" href="/assets/js/32.c95faf86.js"><link rel="prefetch" href="/assets/js/33.7d9d7a3b.js"><link rel="prefetch" href="/assets/js/34.26b92d69.js"><link rel="prefetch" href="/assets/js/35.1eeee0af.js"><link rel="prefetch" href="/assets/js/36.1c7f3048.js"><link rel="prefetch" href="/assets/js/37.9471e7bd.js"><link rel="prefetch" href="/assets/js/38.ec9abedd.js"><link rel="prefetch" href="/assets/js/39.f36e5ab8.js"><link rel="prefetch" href="/assets/js/4.8d532655.js"><link rel="prefetch" href="/assets/js/40.1ea1a444.js"><link rel="prefetch" href="/assets/js/41.8b5b74dd.js"><link rel="prefetch" href="/assets/js/42.04a077c1.js"><link rel="prefetch" href="/assets/js/43.0fe4c703.js"><link rel="prefetch" href="/assets/js/44.b935d6b9.js"><link rel="prefetch" href="/assets/js/45.2b7f5a17.js"><link rel="prefetch" href="/assets/js/46.8bc06ce9.js"><link rel="prefetch" href="/assets/js/47.82a83e28.js"><link rel="prefetch" href="/assets/js/48.6c0f32dd.js"><link rel="prefetch" href="/assets/js/49.029c21dc.js"><link rel="prefetch" href="/assets/js/5.99605394.js"><link rel="prefetch" href="/assets/js/50.e16baf5e.js"><link rel="prefetch" href="/assets/js/51.12ad3e3f.js"><link rel="prefetch" href="/assets/js/52.1ec26d8c.js"><link rel="prefetch" href="/assets/js/53.45cddd06.js"><link rel="prefetch" href="/assets/js/54.2108b43b.js"><link rel="prefetch" href="/assets/js/55.c08c272e.js"><link rel="prefetch" href="/assets/js/56.3bad307d.js"><link rel="prefetch" href="/assets/js/57.867e7ecf.js"><link rel="prefetch" href="/assets/js/58.bf774815.js"><link rel="prefetch" href="/assets/js/59.b8abadae.js"><link rel="prefetch" href="/assets/js/6.290b516c.js"><link rel="prefetch" href="/assets/js/60.61acacb6.js"><link rel="prefetch" href="/assets/js/61.81b74b64.js"><link rel="prefetch" href="/assets/js/62.264c985a.js"><link rel="prefetch" href="/assets/js/63.da901bb6.js"><link rel="prefetch" href="/assets/js/64.dbfc6dec.js"><link rel="prefetch" href="/assets/js/65.5a7bd5da.js"><link rel="prefetch" href="/assets/js/66.d7ebc9ac.js"><link rel="prefetch" href="/assets/js/67.08a9c448.js"><link rel="prefetch" href="/assets/js/68.50931544.js"><link rel="prefetch" href="/assets/js/69.e1c822fc.js"><link rel="prefetch" href="/assets/js/7.bfe2d576.js"><link rel="prefetch" href="/assets/js/70.640a1bf0.js"><link rel="prefetch" href="/assets/js/71.b22c16f7.js"><link rel="prefetch" href="/assets/js/72.bcdbc9a2.js"><link rel="prefetch" href="/assets/js/73.232c9381.js"><link rel="prefetch" href="/assets/js/74.8dd848c9.js"><link rel="prefetch" href="/assets/js/75.5b39d848.js"><link rel="prefetch" href="/assets/js/76.339f1901.js"><link rel="prefetch" href="/assets/js/77.fd812ad4.js"><link rel="prefetch" href="/assets/js/78.59c9582b.js"><link rel="prefetch" href="/assets/js/79.b4588cba.js"><link rel="prefetch" href="/assets/js/80.d20b7f7f.js"><link rel="prefetch" href="/assets/js/81.0de2e426.js"><link rel="prefetch" href="/assets/js/82.8fa26f1a.js"><link rel="prefetch" href="/assets/js/83.8cbb912a.js"><link rel="prefetch" href="/assets/js/84.a1b83b1c.js"><link rel="prefetch" href="/assets/js/85.4237db2a.js"><link rel="prefetch" href="/assets/js/86.4b6842e9.js"><link rel="prefetch" href="/assets/js/87.0290cd66.js"><link rel="prefetch" href="/assets/js/88.ad25d269.js"><link rel="prefetch" href="/assets/js/89.e34aa4b2.js"><link rel="prefetch" href="/assets/js/90.b9ad822e.js"><link rel="prefetch" href="/assets/js/91.4d2cd6d0.js"><link rel="prefetch" href="/assets/js/92.321d2cde.js"><link rel="prefetch" href="/assets/js/93.cec650ad.js"><link rel="prefetch" href="/assets/js/94.732e613a.js"><link rel="prefetch" href="/assets/js/95.b93723c8.js"><link rel="prefetch" href="/assets/js/96.c9532164.js"><link rel="prefetch" href="/assets/js/97.23e04641.js"><link rel="prefetch" href="/assets/js/98.c5b31a70.js"><link rel="prefetch" href="/assets/js/99.d3eae370.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.811c81b7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.c0387eb2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><img src="/logo.svg" alt="文档" class="logo"> <span class="site-name can-hide">文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/zh/user-guide/" class="nav-link">
+  用户指南
+</a></div><div class="nav-item"><a href="/zh/chain-api/" class="nav-link">
+  API接口
+</a></div><div class="nav-item"><a href="/zh/dapp-builder/" class="nav-link">
+  DApp开发
+</a></div><div class="nav-item"><a href="/zh/chain-builder/" class="nav-link">
+  构建链
+</a></div><div class="nav-item"><a href="/zh/modules/" class="nav-link router-link-active">
+  模块
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">选择语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/modules/d_block.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/modules/d_block.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/zh/user-guide/" class="nav-link">
+  用户指南
+</a></div><div class="nav-item"><a href="/zh/chain-api/" class="nav-link">
+  API接口
+</a></div><div class="nav-item"><a href="/zh/dapp-builder/" class="nav-link">
+  DApp开发
+</a></div><div class="nav-item"><a href="/zh/chain-builder/" class="nav-link">
+  构建链
+</a></div><div class="nav-item"><a href="/zh/modules/" class="nav-link router-link-active">
+  模块
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">选择语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/modules/d_block.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/modules/d_block.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>⚙️ 核心模块</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/zh/modules/" aria-current="page" class="sidebar-link">⚙️ 核心模块</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>🏗️ 设计文档</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/zh/modules/d_account.html" class="sidebar-link">账户模块设计文档</a></li><li><a href="/zh/modules/d_address.html" class="sidebar-link">NULS Protocol Address</a></li><li><a href="/zh/modules/d_block.html" aria-current="page" class="active sidebar-link">区块管理模块设计文档</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#一、总体描述" class="sidebar-link">一、总体描述</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_1-1-模块概述" class="sidebar-link">1.1 模块概述</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_1-2-架构图" class="sidebar-link">1.2 架构图</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#二、功能设计" class="sidebar-link">二、功能设计</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_2-1-功能架构图" class="sidebar-link">2.1 功能架构图</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_2-2-模块服务" class="sidebar-link">2.2 模块服务</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_2-3-模块内部功能" class="sidebar-link">2.3 模块内部功能</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#三、事件说明" class="sidebar-link">三、事件说明</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_3-1-发布的事件" class="sidebar-link">3.1 发布的事件</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_3-2-订阅的事件" class="sidebar-link">3.2 订阅的事件</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#四、协议" class="sidebar-link">四、协议</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_4-1-网络通讯协议" class="sidebar-link">4.1 网络通讯协议</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#_4-2-消息协议" class="sidebar-link">4.2 消息协议</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#五、模块配置" class="sidebar-link">五、模块配置</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#六、java特有的设计" class="sidebar-link">六、Java特有的设计</a></li><li class="sidebar-sub-header"><a href="/zh/modules/d_block.html#七、补充内容" class="sidebar-link">七、补充内容</a></li></ul></li><li><a href="/zh/modules/d_chain_manager.html" class="sidebar-link">链管理模块设计文档</a></li><li><a href="/zh/modules/d_consensus.html" class="sidebar-link">共识模块设计文档</a></li><li><a href="/zh/modules/d_cross_chain.html" class="sidebar-link">跨链模块设计文档</a></li><li><a href="/zh/modules/d_ledger.html" class="sidebar-link">账本模块设计文档</a></li><li><a href="/zh/modules/d_network.html" class="sidebar-link">网络模块设计文档</a></li><li><a href="/zh/modules/d_protocol_update.html" class="sidebar-link">协议升级模块设计文档</a></li><li><a href="/zh/modules/d_public_service.html" class="sidebar-link">public-service模块设计文档</a></li><li><a href="/zh/modules/d_smart_contract.html" class="sidebar-link">智能合约模块设计</a></li><li><a href="/zh/modules/d_transaction.html" class="sidebar-link">交易管理模块设计文档</a></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>📋 实现指南</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🔧 系统工具</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="区块管理模块设计文档"><a href="#区块管理模块设计文档" class="header-anchor">#</a> 区块管理模块设计文档</h1> <h2 id="一、总体描述"><a href="#一、总体描述" class="header-anchor">#</a> 一、总体描述</h2> <h3 id="_1-1-模块概述"><a href="#_1-1-模块概述" class="header-anchor">#</a> 1.1 模块概述</h3> <h4 id="_1-1-1-为什么要有《区块管理》模块"><a href="#_1-1-1-为什么要有《区块管理》模块" class="header-anchor">#</a> 1.1.1 为什么要有《区块管理》模块</h4> <p>​	区块链上所有交易数据都保存在区块中，所以要有一个模块负责区块的存储与管理，以便其他模块对区块中数据进行验证、业务处理时可以获取到区块。</p> <p>​	区块链程序初次启动时，需要同步网络上的最新区块到本地，这个过程一般耗时较长，且同步未完成时不能发起交易，所以适合由单独模块来完成该工作。</p> <p>​	综上所述，为其他模块提供统一的区块数据服务是必要的，也能更好地把区块的管理与区块的具体业务进行分离，用到区块的模块不必关心区块的获取细节。</p> <h4 id="_1-1-2-《区块管理》要做什么"><a href="#_1-1-2-《区块管理》要做什么" class="header-anchor">#</a> 1.1.2 《区块管理》要做什么</h4> <ul><li>提供api，进行区块存储、查询、回滚的操作</li> <li>从网络上同步最新区块，验证通过后保存</li> <li>区块同步、广播、转发消息的处理</li> <li>分叉区块的判断、存储</li> <li>孤儿区块的判断、存储</li> <li>分叉链维护、切换</li> <li>孤儿链维护、切换</li></ul> <h4 id="_1-1-3-《区块管理》在系统中的定位"><a href="#_1-1-3-《区块管理》在系统中的定位" class="header-anchor">#</a> 1.1.3 《区块管理》在系统中的定位</h4> <p>区块管理是底层模块之一，以下分功能讨论模块依赖情况</p> <p>依赖</p> <ul><li>区块同步-依赖网络模块的通讯接口，依赖工具模块的序列化工具</li> <li>区块存储、回滚-依赖工具模块的数据库存储工具、共识模块、交易管理模块</li> <li>区块转发-依赖网络模块的广播消息接口</li></ul> <p>被依赖</p> <ul><li>整个系统可以发起交易-区块同步</li> <li>共识模块:区块详细验证、打包-区块查询、区块保存、区块广播、区块回滚</li></ul> <h3 id="_1-2-架构图"><a href="#_1-2-架构图" class="header-anchor">#</a> 1.2 架构图</h3> <p><img src="/assets/img/block-module.ffc57f74.png" alt=""></p> <h2 id="二、功能设计"><a href="#二、功能设计" class="header-anchor">#</a> 二、功能设计</h2> <h3 id="_2-1-功能架构图"><a href="#_2-1-功能架构图" class="header-anchor">#</a> 2.1 功能架构图</h3> <p><img src="/assets/img/block-functions.844c1285.png" alt=""></p> <h3 id="_2-2-模块服务"><a href="#_2-2-模块服务" class="header-anchor">#</a> 2.2 模块服务</h3> <h4 id="_2-2-1-获取最新区块高度"><a href="#_2-2-1-获取最新区块高度" class="header-anchor">#</a> 2.2.1 获取最新区块高度</h4> <h4 id="_2-2-2-获取最新区块头"><a href="#_2-2-2-获取最新区块头" class="header-anchor">#</a> 2.2.2 获取最新区块头</h4> <ul><li>接口说明</li></ul> <ol><li>根据链ID、缓存的最新区块高度查询DB得到最新区块头HASH</li> <li>根据HASH查询DB得到区块头byte数组</li> <li>反序列化为区块头对象</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bestBlockHeader&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;chainId&quot;: &quot;888&quot;,
+        &quot;hash&quot;: &quot;xxxxxxx&quot;,
+        &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+        &quot;merkleHash&quot;: &quot;1&quot;,
+        &quot;height&quot;: 1,
+        &quot;size&quot;: 1,
+        &quot;time&quot;: 1,
+        &quot;txCount&quot;: 1,
+        &quot;packingAddress&quot;: &quot;1&quot;,
+        &quot;reward&quot;: 0,
+        &quot;fee&quot;: 0,
+        &quot;extend&quot;: xxxxxxx,HEX
+        &quot;scriptSig&quot;: &quot;1&quot;
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>链ID</td></tr> <tr><td>hash</td> <td>String</td> <td>区块HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>上一区块HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>区块MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>区块高度</td></tr> <tr><td>size</td> <td>Integer</td> <td>区块大小</td></tr> <tr><td>time</td> <td>Long</td> <td>区块打包时间</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>交易数</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>打包地址</td></tr> <tr><td>reward</td> <td>Long</td> <td>共识奖励</td></tr> <tr><td>fee</td> <td>Long</td> <td>手续费</td></tr> <tr><td>extend</td> <td>String</td> <td>扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>区块签名</td></tr></tbody></table> <h4 id="_2-2-3-获取最新区块"><a href="#_2-2-3-获取最新区块" class="header-anchor">#</a> 2.2.3 获取最新区块</h4> <ul><li>接口说明:</li></ul> <ol><li>根据链ID获取本地最新区块头</li> <li>根据区块头高度查询DB得到交易HASH列表</li> <li>根据HASH列表从交易管理模块获取交易数据</li> <li>组装成block对象</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bestBlock&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre><code>```
+{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;:1,
+    &quot;msg&quot; :&quot;xxxxxxxxxxxxxxxxxx&quot;,
+    &quot;result&quot;:{}
+}
+```
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+    	&quot;blockHeader&quot;: {
+            &quot;chainId&quot;: &quot;888&quot;,
+            &quot;hash&quot;: &quot;xxxxxxx&quot;,
+            &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+            &quot;merkleHash&quot;: &quot;1&quot;,
+            &quot;height&quot;: 1,
+            &quot;size&quot;: 1,
+            &quot;time&quot;: 1,
+            &quot;txCount&quot;: 1,
+            &quot;packingAddress&quot;: &quot;1&quot;,
+            &quot;reward&quot;: 0,
+            &quot;fee&quot;: 0,
+            &quot;extend&quot;: xxxxxxx,HEX
+            &quot;scriptSig&quot;: &quot;1&quot;
+    	}, //区块头
+    	&quot;transactions&quot;: [
+    	    {
+                &quot;chainId&quot;: &quot;888&quot;, //链Id
+                &quot;height&quot;: &quot;1&quot;, //区块高度
+                &quot;hash&quot;: &quot;1&quot;, //交易HASH
+                &quot;remark&quot;: &quot;1&quot;, //交易备注
+                &quot;size&quot;: &quot;1&quot;, //交易大小
+                &quot;time&quot;: &quot;1&quot;, //交易时间
+                &quot;type&quot;: &quot;1&quot;, //交易类型
+                &quot;transactionSignature&quot;: &quot;1&quot;, //交易签名
+                &quot;coinData&quot;: {
+                    &quot;from&quot; : [
+                        {
+                            &quot;fromAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                            &quot;fromAssetsId&quot;:&quot;&quot;//资产id
+                            &quot;fromAddress&quot;:&quot;&quot;//转出账户地址
+                            &quot;amount&quot;:&quot;&quot;//转出金额
+                            &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                        },{...}
+                    ]
+                    &quot;to&quot; : [
+                        {
+                            &quot;toAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                            &quot;toAssetsId&quot;:&quot;&quot;//资产id
+                            &quot;toAddress&quot;:&quot;&quot;//转出账户地址
+                            &quot;amount&quot;:&quot;&quot;//转出金额
+                            &quot;locktime&quot;:&quot;&quot;
+                        },{...}
+                    ]
+                }
+                &quot;txData&quot;: XXXX, //交易数据 HEX
+    	    },
+    	    {...}
+    	] //交易列表
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p> <p>略</p></li></ul> <h4 id="_2-2-4-根据高度获取区块头"><a href="#_2-2-4-根据高度获取区块头" class="header-anchor">#</a> 2.2.4 根据高度获取区块头</h4> <ul><li>接口说明</li></ul> <ol><li>根据链ID、高度查询DB得到最新区块头HASH</li> <li>根据HASH查询DB得到区块头byte数组</li> <li>反序列化为区块头对象</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;getBlockHeaderByHeight&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;111&quot;,&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr> <tr><td>1</td> <td>height</td> <td>true</td> <td>Long</td> <td style="text-align:center;">区块高度</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;chainId&quot;: &quot;888&quot;,
+        &quot;hash&quot;: &quot;xxxxxxx&quot;,
+        &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+        &quot;merkleHash&quot;: &quot;1&quot;,
+        &quot;height&quot;: 1,
+        &quot;size&quot;: 1,
+        &quot;time&quot;: 1,
+        &quot;txCount&quot;: 1,
+        &quot;packingAddress&quot;: &quot;1&quot;,
+        &quot;reward&quot;: 0,
+        &quot;fee&quot;: 0,
+        &quot;extend&quot;: xxxxxxx,HEX
+        &quot;scriptSig&quot;: &quot;1&quot;
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>链Id</td></tr> <tr><td>hash</td> <td>String</td> <td>区块HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>上一区块HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>区块MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>区块高度</td></tr> <tr><td>size</td> <td>Integer</td> <td>区块大小</td></tr> <tr><td>time</td> <td>Long</td> <td>区块打包时间</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>交易数</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>打包地址</td></tr> <tr><td>reward</td> <td>Long</td> <td>共识奖励</td></tr> <tr><td>fee</td> <td>Long</td> <td>手续费</td></tr> <tr><td>extend</td> <td>String</td> <td>扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>区块签名</td></tr></tbody></table> <h4 id="_2-2-4-根据高度获取区块"><a href="#_2-2-4-根据高度获取区块" class="header-anchor">#</a> 2.2.4 根据高度获取区块</h4> <ul><li>接口说明:</li></ul> <ol><li>根据链ID、高度获取区块头</li> <li>根据区块头高度查询DB得到交易HASH列表</li> <li>根据HASH列表从交易管理模块获取交易数据</li> <li>组装成block对象</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockByHeight&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;111&quot;,&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr> <tr><td>1</td> <td>height</td> <td>true</td> <td>Long</td> <td style="text-align:center;">区块高度</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre><code>```
+{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;:1,
+    &quot;msg&quot; :&quot;xxxxxxxxxxxxxxxxxx&quot;,
+    &quot;result&quot;:{}
+}
+```
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+    	&quot;blockHeader&quot;: {
+            &quot;chainId&quot;: &quot;888&quot;,
+            &quot;hash&quot;: &quot;xxxxxxx&quot;,
+            &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+            &quot;merkleHash&quot;: &quot;1&quot;,
+            &quot;height&quot;: 1,
+            &quot;size&quot;: 1,
+            &quot;time&quot;: 1,
+            &quot;txCount&quot;: 1,
+            &quot;packingAddress&quot;: &quot;1&quot;,
+            &quot;reward&quot;: 0,
+            &quot;fee&quot;: 0,
+            &quot;extend&quot;: xxxxxxx,HEX
+            &quot;scriptSig&quot;: &quot;1&quot;
+    	}, //区块头
+    	&quot;transactions&quot;: [
+    	    {
+                &quot;chainId&quot;: &quot;888&quot;,//链ID
+                &quot;height&quot;: &quot;1&quot;, //区块高度
+                &quot;hash&quot;: &quot;1&quot;, //交易HASH
+                &quot;remark&quot;: &quot;1&quot;, //交易备注
+                &quot;size&quot;: &quot;1&quot;, //交易大小
+                &quot;time&quot;: &quot;1&quot;, //交易时间
+                &quot;type&quot;: &quot;1&quot;, //交易类型
+                &quot;transactionSignature&quot;: &quot;1&quot;, //交易签名
+                &quot;coinData&quot;: {
+                    &quot;from&quot; : [
+                        {
+                            &quot;fromAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                            &quot;fromAssetsId&quot;:&quot;&quot;//资产id
+                            &quot;fromAddress&quot;:&quot;&quot;//转出账户地址
+                            &quot;amount&quot;:&quot;&quot;//转出金额
+                            &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                        },{...}
+                    ]
+                    &quot;to&quot; : [
+                        {
+                            &quot;toAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                            &quot;toAssetsId&quot;:&quot;&quot;//资产id
+                            &quot;toAddress&quot;:&quot;&quot;//转出账户地址
+                            &quot;amount&quot;:&quot;&quot;//转出金额
+                            &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                        },{...}
+                    ]
+                }
+                &quot;txData&quot;: XXXX, //交易数据 HEX
+    	    },
+    	    {...}
+    	], //交易列表
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p> <p>略</p></li></ul> <h4 id="_2-2-5-根据hash获取区块头"><a href="#_2-2-5-根据hash获取区块头" class="header-anchor">#</a> 2.2.5 根据HASH获取区块头</h4> <ul><li>接口说明</li></ul> <ol><li>根据链ID、HASH查询DB得到区块头byte数组</li> <li>反序列化为区块头对象</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockHeaderByHash&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,&quot;aaa&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr> <tr><td>1</td> <td>hash</td> <td>true</td> <td>String</td> <td style="text-align:center;">区块hash</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;chainId&quot;: &quot;888&quot;,
+        &quot;hash&quot;: &quot;xxxxxxx&quot;,
+        &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+        &quot;merkleHash&quot;: &quot;1&quot;,
+        &quot;height&quot;: 1,
+        &quot;size&quot;: 1,
+        &quot;time&quot;: 1,
+        &quot;txCount&quot;: 1,
+        &quot;packingAddress&quot;: &quot;1&quot;,
+        &quot;reward&quot;: 0,
+        &quot;fee&quot;: 0,
+        &quot;extend&quot;: xxxxxxx,HEX
+        &quot;scriptSig&quot;: &quot;1&quot;
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>链ID</td></tr> <tr><td>hash</td> <td>String</td> <td>区块HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>上一区块HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>区块MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>区块高度</td></tr> <tr><td>size</td> <td>Integer</td> <td>区块大小</td></tr> <tr><td>time</td> <td>Long</td> <td>区块打包时间</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>交易数</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>打包地址</td></tr> <tr><td>reward</td> <td>Long</td> <td>共识奖励</td></tr> <tr><td>fee</td> <td>Long</td> <td>手续费</td></tr> <tr><td>extend</td> <td>String</td> <td>扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>区块签名</td></tr></tbody></table> <h4 id="_2-2-6-根据hash获取区块"><a href="#_2-2-6-根据hash获取区块" class="header-anchor">#</a> 2.2.6 根据HASH获取区块</h4> <ul><li>接口说明:</li></ul> <ol><li>根据链ID、hash获取区块头</li> <li>根据区块头高度查询DB得到交易HASH列表</li> <li>根据HASH列表从交易管理模块获取交易数据</li> <li>组装成block对象</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockByHash&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,&quot;aaa&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr> <tr><td>1</td> <td>hash</td> <td>true</td> <td>String</td> <td style="text-align:center;">区块hash</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre><code>```
+{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;:1,
+    &quot;msg&quot; :&quot;xxxxxxxxxxxxxxxxxx&quot;,
+    &quot;result&quot;:{}
+}
+```
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+    	&quot;blockHeader&quot;: {
+    	    &quot;chainId&quot;: &quot;888&quot;,
+            &quot;hash&quot;: &quot;xxxxxxx&quot;,
+            &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+            &quot;merkleHash&quot;: &quot;1&quot;,
+            &quot;height&quot;: 1,
+            &quot;size&quot;: 1,
+            &quot;time&quot;: 1,
+            &quot;txCount&quot;: 1,
+            &quot;packingAddress&quot;: &quot;1&quot;,
+            &quot;reward&quot;: 0,
+            &quot;fee&quot;: 0,
+            &quot;extend&quot;: xxxxxxx,HEX
+            &quot;scriptSig&quot;: &quot;1&quot;
+    	}, //区块头
+    	&quot;transactions&quot;: [
+    	    {
+    	        &quot;chainId&quot;: &quot;888&quot;,
+                &quot;height&quot;: &quot;1&quot;, //区块高度
+                &quot;hash&quot;: &quot;1&quot;, //交易HASH
+                &quot;remark&quot;: &quot;1&quot;, //交易备注
+                &quot;size&quot;: &quot;1&quot;, //交易大小
+                &quot;time&quot;: &quot;1&quot;, //交易时间
+                &quot;type&quot;: &quot;1&quot;, //交易类型
+                &quot;transactionSignature&quot;: &quot;1&quot;, //交易签名
+                &quot;coinData&quot;: {
+                    &quot;from&quot; : [
+                        {
+                            &quot;fromAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                            &quot;fromAssetsId&quot;:&quot;&quot;//资产id
+                            &quot;fromAddress&quot;:&quot;&quot;//转出账户地址
+                            &quot;amount&quot;:&quot;&quot;//转出金额
+                            &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                        },{...}
+                    ]
+                    &quot;to&quot; : [
+                        {
+                            &quot;toAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                            &quot;toAssetsId&quot;:&quot;&quot;//资产id
+                            &quot;toAddress&quot;:&quot;&quot;//转出账户地址
+                            &quot;amount&quot;:&quot;&quot;//转出金额
+                            &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                        },{...}
+                    ]
+                }
+                &quot;txData&quot;: XXXX, //交易数据 HEX
+    	    },
+    	    {...}
+    	], //交易列表
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p> <p>略</p></li></ul> <h4 id="_2-2-7-获取某高度区间内区块头"><a href="#_2-2-7-获取某高度区间内区块头" class="header-anchor">#</a> 2.2.7 获取某高度区间内区块头</h4> <ul><li>接口说明</li></ul> <ol><li>令queryHash=endHash</li> <li>根据链ID、queryHash查询DB得到区块头byte数组</li> <li>反序列化为区块头对象blockHeader，添加到List中作为返回值</li> <li>如果blockHeader.hash!=startHash，令queryHash=blockHeader.preHash，重复第2步</li> <li>返回List</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockHeaderBetweenHeights&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,111&quot;,&quot;111&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr> <tr><td>1</td> <td>startHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">起始高度</td></tr> <tr><td>2</td> <td>endHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">结束高度</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;list&quot; : [
+            {
+           &quot;chainId&quot;: &quot;888&quot;,
+           &quot;hash&quot;: &quot;xxxxxxx&quot;,
+           &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+           &quot;merkleHash&quot;: &quot;1&quot;,
+           &quot;height&quot;: 1,
+           &quot;size&quot;: 1,
+           &quot;time&quot;: 1,
+           &quot;txCount&quot;: 1,
+           &quot;packingAddress&quot;: &quot;1&quot;,
+           &quot;reward&quot;: 0,
+           &quot;fee&quot;: 0,
+           &quot;extend&quot;: xxxxxxx,HEX
+           &quot;scriptSig&quot;: &quot;1&quot;
+           }
+        ]
+
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>链ID</td></tr> <tr><td>hash</td> <td>String</td> <td>区块HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>上一区块HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>区块MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>区块高度</td></tr> <tr><td>size</td> <td>Integer</td> <td>区块大小</td></tr> <tr><td>time</td> <td>Long</td> <td>区块打包时间</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>交易数</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>打包地址</td></tr> <tr><td>reward</td> <td>Long</td> <td>共识奖励</td></tr> <tr><td>fee</td> <td>Long</td> <td>手续费</td></tr> <tr><td>extend</td> <td>String</td> <td>扩展字段,HEX,包含roundIndex、roundStartTime、consensusMemberCount、packingIndexOfRound、stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>区块签名</td></tr></tbody></table> <h4 id="_2-2-8-获取某高度区间内区块"><a href="#_2-2-8-获取某高度区间内区块" class="header-anchor">#</a> 2.2.8 获取某高度区间内区块</h4> <ul><li>接口说明</li></ul> <ol><li>令queryHash=endHash</li> <li>根据链ID、queryHash查询DB得到区块byte数组</li> <li>反序列化为区块对象block，添加到List中作为返回值</li> <li>如果block.hash!=startHash，令queryHash=block.preHash，startHash，重复第2步</li> <li>返回List</li></ol> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockBetweenHeights&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,111&quot;,&quot;111&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">链ID</td></tr> <tr><td>1</td> <td>startHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">起始高度</td></tr> <tr><td>2</td> <td>endHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">结束高度</td></tr></tbody></table> <ul><li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;list&quot; : [
+            {
+                &quot;blockHeader&quot;: {
+                    &quot;chainId&quot;: &quot;888&quot;,
+                    &quot;hash&quot;: &quot;xxxxxxx&quot;,
+                    &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+                    &quot;merkleHash&quot;: &quot;1&quot;,
+                    &quot;height&quot;: 1,
+                    &quot;size&quot;: 1,
+                    &quot;time&quot;: 1,
+                    &quot;txCount&quot;: 1,
+                    &quot;packingAddress&quot;: &quot;1&quot;,
+                    &quot;reward&quot;: 0,
+                    &quot;fee&quot;: 0,
+                    &quot;extend&quot;: xxxxxxx,HEX
+                    &quot;scriptSig&quot;: &quot;1&quot;
+                }, //区块头
+                &quot;transactions&quot;: [
+                    {
+                        &quot;chainId&quot;: &quot;888&quot;,
+                        &quot;height&quot;: &quot;1&quot;, //区块高度
+                        &quot;hash&quot;: &quot;1&quot;, //交易HASH
+                        &quot;remark&quot;: &quot;1&quot;, //交易备注
+                        &quot;size&quot;: &quot;1&quot;, //交易大小
+                        &quot;time&quot;: &quot;1&quot;, //交易时间
+                        &quot;type&quot;: &quot;1&quot;, //交易类型
+                        &quot;transactionSignature&quot;: &quot;1&quot;, //交易签名
+                        &quot;coinData&quot;: {
+                            &quot;from&quot; : [
+                                {
+                                    &quot;fromAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                                    &quot;fromAssetsId&quot;:&quot;&quot;//资产id
+                                    &quot;fromAddress&quot;:&quot;&quot;//转出账户地址
+                                    &quot;amount&quot;:&quot;&quot;//转出金额
+                                    &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                                },{...}
+                            ]
+                            &quot;to&quot; : [
+                                {
+                                    &quot;toAssetsChainId&quot;:&quot;&quot;//资产发行链的id  
+                                    &quot;toAssetsId&quot;:&quot;&quot;//资产id
+                                    &quot;toAddress&quot;:&quot;&quot;//转出账户地址
+                                    &quot;amount&quot;:&quot;&quot;//转出金额
+                                    &quot;nonce&quot;:&quot;&quot;//交易顺序号，递增
+                                },{...}
+                            ]
+                        }
+                        &quot;txData&quot;: XXXX, //交易数据 HEX
+                    },
+                    {...}
+                ], //交易列表
+           }
+        ]
+
+    }
+}
+</code></pre></div></li> <li><p>返回字段说明</p> <p>略</p></li></ul> <h4 id="_2-2-9-接收最新打包区块"><a href="#_2-2-9-接收最新打包区块" class="header-anchor">#</a> 2.2.9 接收最新打包区块</h4> <ul><li>接口说明</li></ul> <p>本地节点共识模块打包后，调用此接口保存区块数据</p> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;receivePackingBlock&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [
+  	blockhex//能用hex就用hex
+  ]
+}
+</code></pre></div></li> <li><p>请求参数说明</p> <p>略</p></li> <li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {&quot;sync&quot;: &quot;true&quot;}
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>sync</td> <td>String</td> <td>区块是否保存成功</td></tr></tbody></table> <h4 id="_2-2-10-运行一条链"><a href="#_2-2-10-运行一条链" class="header-anchor">#</a> 2.2.10 运行一条链</h4> <ul><li>接口说明</li></ul> <p>在链工厂发布一条链后，核心模块会调用区块管理模块的该接口，根据chainID初始化区块、分叉链数据库，开启chainID对应的一系列工作线程，并为运行新链做准备。</p> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_startChain&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p> <p>略</p></li> <li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {&quot;result&quot;: &quot;true&quot;}
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>result</td> <td>String</td> <td>新链是否启动成功</td></tr></tbody></table> <h4 id="_2-2-11-停止一条链"><a href="#_2-2-11-停止一条链" class="header-anchor">#</a> 2.2.11 停止一条链</h4> <ul><li>接口说明</li></ul> <p>在链工厂停止一条链后，核心模块会调用区块管理模块的该接口，删除该链的缓存区块、分叉链数据，停止chainID对应的一系列工作线程。</p> <ul><li><p>请求示例</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_stopChain&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>请求参数说明</p> <p>略</p></li> <li><p>返回示例</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {&quot;result&quot;: &quot;true&quot;}
+}
+</code></pre></div></li> <li><p>返回字段说明</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>result</td> <td>String</td> <td>新链是否停止成功</td></tr></tbody></table> <h3 id="_2-3-模块内部功能"><a href="#_2-3-模块内部功能" class="header-anchor">#</a> 2.3 模块内部功能</h3> <h4 id="_2-3-1-模块启动"><a href="#_2-3-1-模块启动" class="header-anchor">#</a> 2.3.1 模块启动</h4> <ul><li><p>功能说明:</p> <p>启动区块管理模块</p></li> <li><p>流程描述</p></li></ul> <p><img src="/assets/img/block-module-boot.4686b7bf.png" alt=""></p> <ul><li><p>1.RPC服务初始化</p></li> <li><p>2.初始化通用数据库</p></li> <li><p>3.加载配置信息</p></li> <li><p>4.初始化各链数据库</p></li> <li><p>5.等待依赖模块就绪</p></li> <li><p>6.向网络模块注册消息处理类</p></li> <li><p>7.启动同步区块线程、数据库大小监控线程、分叉链处理线程、孤儿链处理线程、孤儿链维护线程</p></li> <li><p>依赖服务</p> <p>工具模块、内核模块、网络模块、交易管理模块</p></li></ul> <h4 id="_2-3-2-区块存储"><a href="#_2-3-2-区块存储" class="header-anchor">#</a> 2.3.2 区块存储</h4> <ul><li><p>功能说明:</p> <p>存储主链上区块头数据以及分叉链、孤儿链的完整区块数据</p> <ul><li><p>主链存储</p> <p>不同的链存到不同的表，表名加chainID后缀
+一个完整的区块由区块头和交易组成，区块头与交易分别进行存储。
+区块头:(放在区块管理模块)
+key(区块高度)-value(区块头hash)              		block-header-index
+key(区块头hash)-value(完整的区块头)           	block-header
+交易:(放在交易管理模块)</p></li> <li><p>分叉链、孤儿链存储</p> <p>内存中缓存所有分叉链与孤儿链对象(只记录起始高度、起始hash、结束高度、结束hash等关键信息)，在硬盘中缓存全量区块数据，如果需要分叉链切换、清理分叉链等操作，只需读取一次数据库即可
+不同链的分叉链集合存在不同的表，表名加chainID后缀，每一个分叉链对象如下:
+key(区块hash)-value(完整的区块数据)          	CachedBlock</p></li></ul></li> <li><p>流程描述</p> <p>略</p></li> <li><p>依赖服务</p> <p>工具模块的数据库工具</p></li></ul> <h4 id="_2-3-3-区块清理"><a href="#_2-3-3-区块清理" class="header-anchor">#</a> 2.3.3 区块清理</h4> <ul><li><p>功能说明:</p> <p>为了避免过多垃圾数据占用硬盘空间，对分叉链和孤儿链进行定时清理</p></li> <li><p>流程描述</p> <ol><li>按照配置的最大缓存区块数量进行清理，当分叉链+孤儿链缓存的区块数量大于阈值时，进行清理</li> <li>按照分叉链或孤儿链的起始高度与主链的最新高度差进行清理</li> <li>按照孤儿链的年龄进行清理，孤儿链的年龄初始值为0，每经过一次孤儿链维护，但该孤儿链的链首并没有新增合法区块时，该孤儿链年龄加一，当孤儿链年龄大于阈值时，进行清理</li></ol></li> <li><p>依赖服务</p> <p>工具模块的数据库工具</p></li></ul> <h4 id="_2-3-4-区块同步"><a href="#_2-3-4-区块同步" class="header-anchor">#</a> 2.3.4 区块同步</h4> <ul><li><p>功能说明:</p> <p>系统启动后，维护本地区块数据与网络上大部分节点保持一致。</p> <p>BlockSynchronizer:统计网络上最新一致高度、检查本地区块是否需要回滚、初始化各种区块同步期间的参数</p> <p>​BlockDownloader:从起始高度开始，根据各下载节点的信用值分配下载任务，组装HeightRangeMessage，发送给目标节点</p> <p>​BlockConsumer:根据高度依次取出缓存Map中的区块，验证并保存，如果某个高度一直取不到，就组装一条HeightMessage，发送给连接到的节点单独获取该高度的区块</p></li> <li><p>流程描述</p> <ul><li>区块同步主流程</li></ul> <p><img src="/assets/img/block-synchronization.3b5f0ded.png" alt=""></p> <ul><li>获取网络上可用节点列表</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    1. 遍历节点，统计两个MAP，假定每个节点的(最新HASH+最新高度)是key
+    2. 一个以key为主键统计次数
+    3. 一个以key为主键记录持有该key的节点列表
+    4. 最终统计出出现频率最大的key，就获取到当前可信的最新高度与最新hash，以及可信的节点列表
+    
+    举个栗子:
+    现在同时连接到10个节点。其中4个节点(A,B,C,D)的最新区块高度是100，最新区块hash是aaa，其中6个节点(E,F,G,H,I,J)的最新区块高度是101，最新区块hash是bbb。
+    最终返回(101，bbb,[E,F,G,H,I,J])。
+</code></pre></div><ul><li>下载区块逻辑</li></ul> <p><img src="/assets/img/block-synchronization2.1bde323a.png" alt=""></p> <div class="language- extra-class"><pre class="language-text"><code>    在正式下载区块前，要判断本地与网络是否发生分叉，是否需要回滚。以便找到准确的区块下载高度。
+    以下分情况讨论:
+    取上一步的结果(101，bbb,[E,F,G,H,I,J])，同时LH(N)代表本地第N块的hash，RH(N)代表网络上第N块的hash。
+    1.本地高度100&amp;lt;网络高度101，LH(100)==RH(100)，正常，比远程节点落后，下载区块
+    2.本地高度100&amp;lt;网络高度101，LH(100)!=RH(100)，认为本地分叉，回滚本地区块，如果LH(99)==RH(99)
+    回滚结束，从99块开始下载，如果LH(99)!=RH(99)，继续回滚，重复上述逻辑。但最多回滚10个块就停止，等待下次同步，这样可以避免被恶意节点攻击，大量回滚正常区块。
+    3.本地高度102&gt;网络高度101，LH(101)==RH(101)，正常，比远程节点领先，无需下载区块
+    4.本地高度102&gt;网络高度101，LH(101)!=RH(101)，认为本地分叉，先一次性回滚到高度与远程一致，重复场景2
+    5.本地高度101=网络高度101，LH(101)==RH(101)，正常，与远程节点一致，无需下载区块
+    6.本地高度101=网络高度101，LH(101)!=RH(101)，认为本地分叉，重复场景2
+    
+    场景1、2需要额外从节点下载与本地高度一致的区块，进行hash判断
+    上述需要回滚的场景，要满足可用节点数(10个)&gt;配置，一致可用节点数(6个)占比超80%两个条件，避免节点太少导致频繁回滚。以上两个条件都不满足，清空已连接节点，重新获取可用节点。
+ 
+    真正下载区块时，举个例子:
+    当前高度100，网络高度500，可用节点12个，一致可用节点10个，每个节点初始下载区块2个，下载时缓存队列最多允许缓存100个区块
+    伪代码表示
+    	空闲的下载节点队列：nodes(每个下载节点会有初始下载信用值，每下载成功一次信用值增加，信用最大值为初始值的2倍)
+    	下载到的区块缓存队列：queue
+        下载起始高度：startHeight = 101;
+        下载结束高度：netLatestHeight = 500;
+        while (startHeight &amp;lt;= netLatestHeight) {
+                while (queue.size() &gt; 100) {
+                    BlockDownloader wait！ cached queue size beyond config
+                }
+                获取一个可用节点
+                根据节点下载信用值计算本次下载区块数量为size
+                提交异步下载任务
+                startHeight += size;
+        }
+如果某节点下载失败，则由其他节点代为下载
+考虑下载过程中，网络上其他节点还会继续生成新区块。下载结束后，需要判断本地最新区块高度与网上最新一致高度是否相同，如果相同，标志区块同步结束，如果不相同，则需要继续下载
+</code></pre></div><ul><li>从节点下载某高度区间内的区块</li></ul> <p><img src="/assets/img/block-synchronization3.99496017.png" alt=""></p></li> <li><p>依赖服务</p> <p>工具模块的数据库存储工具、RPC工具</p></li></ul> <h4 id="_2-3-5-区块基础验证"><a href="#_2-3-5-区块基础验证" class="header-anchor">#</a> 2.3.5 区块基础验证</h4> <ul><li><p>功能说明:</p> <p>验证区块自身数据正确性,下载过程中验证，验证通过说明区块数据本身没有问题，验证失败则丢弃该区块</p></li> <li><p>流程描述</p> <ul><li>区块基本验证</li></ul> <p><img src="/assets/img/block-basic-validation.07557d70.png" alt=""></p> <ul><li>区块头验证</li></ul> <p><img src="/assets/img/block-basic-validation1.cf392d66.png" alt=""></p></li> <li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h4 id="_2-3-6-分叉区块、孤儿区块验证"><a href="#_2-3-6-分叉区块、孤儿区块验证" class="header-anchor">#</a> 2.3.6 分叉区块、孤儿区块验证</h4> <ul><li><p>功能说明:</p> <p>验证区块上下文正确性，下载完成后验证，验证通过说明该区块与主链相连，验证失败说明该区块分叉，进入分叉链处理逻辑</p></li> <li><p>流程描述</p> <ul><li>分叉区块、孤儿区块验证</li> <li>区块B与链A的关系有四种：</li> <li>1.B是A上重复的区块</li> <li>2.B是A上分叉的区块</li> <li>3.B能直接连到A</li> <li>4.B与A没有任何关联关系</li> <li>以上四种关系适用于主链、分叉链、孤儿链</li></ul> <p>高度差1000以内缓存到磁盘，磁盘空间做大小限制，超出高度则丢弃，缓存空间满则按加入缓存时间顺序清理分叉链。
+如果是正常运行时，收到其他节点转发的区块，发现分叉了要通知共识模块给生成这个区块的节点红牌惩罚，系统启动后的同步过程中不做这个判断</p> <p><img src="/assets/img/block-fork.a3b65fd6.png" alt=""></p></li> <li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h4 id="_2-3-7-分叉链管理"><a href="#_2-3-7-分叉链管理" class="header-anchor">#</a> 2.3.7 分叉链管理</h4> <ul><li><p>功能说明:</p> <p>判断分叉链与主链是否需要进行切换</p></li> <li><p>流程描述</p> <ul><li>找出最大高度差，与链切换阈值对比，大于阈值则进行链切换
+<ul><li>找到主链与最长分叉链的分叉点，同时找出链切换路径</li> <li>回滚主链区块，回滚掉的区块组成新的分叉链链接到原主链</li> <li>依次添加切换路径上的分叉链的区块</li> <li>切换完成</li></ul></li></ul></li></ul> <p><img src="/assets/img/block-fork-chain.ceeb7bdd.png" alt=""></p> <ul><li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h4 id="_2-3-8-孤儿链管理"><a href="#_2-3-8-孤儿链管理" class="header-anchor">#</a> 2.3.8 孤儿链管理</h4> <ul><li><p>功能说明:</p> <p>用来进行孤儿链与分叉链、主链的相连、分叉操作</p></li> <li><p>流程描述</p> <p>链与链之间的关系就三种，相连、分叉、重复。</p></li></ul> <ol><li><p>标记(变更链属性阶段)
+主链、分叉链、孤儿链分别对应MASTER，FORK，ORPHAN三种最终类别</p> <ul><li>如果孤儿链与主链相连，暂时标记孤儿链为MASTER_APPEND，标记孤儿链的子链为MASTER_FORK</li> <li>如果孤儿链与主链重复，暂时标记孤儿链为MASTER_DUPLICATE，标记孤儿链的子链为MASTER_FORK</li> <li>如果孤儿链与主链分叉，暂时标记孤儿链为MASTER_FORK，标记孤儿链的子链为FORK_FORK</li> <li>如果孤儿链与分叉链相连，暂时标记孤儿链为FORK_APPEND，标记孤儿链的子链为FORK_FORK</li> <li>如果孤儿链与分叉链重复，暂时标记孤儿链为FORK_DUPLICATE，标记孤儿链的子链为FORK_FORK</li> <li>如果孤儿链与分叉链分叉，暂时标记孤儿链为FORK_FORK，标记孤儿链的子链为FORK_FORK</li> <li>如果孤儿链与孤儿链相连，暂时标记孤儿链为ORPHAN_APPEND，标记孤儿链的子链为ORPHAN_FORK</li> <li>如果孤儿链与孤儿链重复，暂时标记孤儿链为ORPHAN_DUPLICATE，标记孤儿链的子链为ORPHAN_FORK</li> <li>如果孤儿链与孤儿链分叉，暂时标记孤儿链为ORPHAN_FORK，标记孤儿链的子链为ORPHAN_FORK</li> <li>如果孤儿链经过上述流程标志未变，说明它与其他链没有关联，标志依然为ORPHAN</li></ul></li> <li><p>复制、清除</p> <ul><li>如果标记为与主链重复,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.MASTER_FORK</li> <li>如果标记为与主链相连,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.MASTER_FORK</li> <li>如果标记为从主链分叉,orphanChain不会复制到新的孤儿链集合,但是会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK</li> <li>如果标记为与分叉链重复,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK</li> <li>如果标记为与分叉链相连,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK</li> <li>如果标记为从分叉链分叉,orphanChain不会复制到新的孤儿链集合,但是会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.FORK_FORK</li> <li>如果标记为与孤儿链重复,orphanChain不会复制到新的孤儿链集合,也不会进入分叉链集合,orphanChain的直接子链标记为ChainTypeEnum.ORPHAN_FORK</li> <li>如果标记为与孤儿链相连,不会复制到新的孤儿链集合,所有orphanChain的直接子链会复制到新的孤儿链集合,类型不变</li> <li>如果标记为与孤儿链分叉,会复制到新的孤儿链集合,所有orphanChain的直接子链会复制到新的孤儿链集合,类型不变</li> <li>如果标记为孤儿链(未变化),或者从孤儿链分叉,复制到新的孤儿链集合</li></ul></li></ol> <ul><li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h4 id="_2-3-9-孤儿链维护"><a href="#_2-3-9-孤儿链维护" class="header-anchor">#</a> 2.3.9 孤儿链维护</h4> <ul><li><p>功能说明:</p> <p>定时尝试在孤儿链的链首请求增加区块，维护失败孤儿链年龄加一。</p></li> <li><p>流程描述</p> <p>遍历所有孤儿链，取链上起始区块的preHash，组装成HashMessage发往当前可用节点中的任意一个，等待异步返回结果。</p></li> <li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h4 id="_2-3-10-转发区块"><a href="#_2-3-10-转发区块" class="header-anchor">#</a> 2.3.10 转发区块</h4> <ul><li><p>功能说明:</p> <p>非出块节点验证完区块后执行转发流程</p></li> <li><p>流程描述</p></li></ul> <ol><li>使用blockHash组装HashMessage，发送给目标节点</li> <li>目标节点收到HashMessage后，取出hash判断是否重复，如果不重复，使用hash组装HashMessage发给源节点</li> <li>源节点收到GetSmallBlockMessage后，取出hash，查询SmallBlock并组装SmallBlockMessage，发给目标节点</li> <li>后续交互流程参考广播区块</li></ol> <ul><li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h4 id="_2-3-11-广播区块"><a href="#_2-3-11-广播区块" class="header-anchor">#</a> 2.3.11 广播区块</h4> <ul><li><p>功能说明:</p> <p>出块的节点执行广播流程</p></li> <li><p>流程描述</p> <ul><li>接收共识模块的打包区块，验证成功后，根据Block组装SmallBlockMessage并广播给连接到的节点</li> <li>目标节点收到消息后根据txHashList判断哪些交易本地没有,再组装HashListMessage发给源节点</li> <li>源节点收到信息后按照hashlist组装TxGroupMessage,返回给目标节点</li> <li>至此完整区块数据已经发送给目标节点。</li></ul></li> <li><p>依赖服务</p> <p>工具模块的数据库存储工具</p></li></ul> <h2 id="三、事件说明"><a href="#三、事件说明" class="header-anchor">#</a> 三、事件说明</h2> <h3 id="_3-1-发布的事件"><a href="#_3-1-发布的事件" class="header-anchor">#</a> 3.1 发布的事件</h3> <h4 id="_3-1-1-同步完成"><a href="#_3-1-1-同步完成" class="header-anchor">#</a> 3.1.1 同步完成</h4> <p>说明:同步完成，本地区块高度与网络高度一致时，发布该事件</p> <p>event_topic : &quot;bl_blockSyncComplete&quot;,</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    chainId
+    height
+    hash
+}
+</code></pre></div><h4 id="_3-1-2-保存区块"><a href="#_3-1-2-保存区块" class="header-anchor">#</a> 3.1.2 保存区块</h4> <p>说明:每保存一个区块，发布该事件，初次同步时不发该事件</p> <p>event_topic : &quot;bl_saveBlock&quot;,</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    chainId
+    height
+    hash
+}
+</code></pre></div><h4 id="_3-1-3-回滚区块"><a href="#_3-1-3-回滚区块" class="header-anchor">#</a> 3.1.3 回滚区块</h4> <p>说明:每回滚一个区块，发布该事件</p> <p>event_topic : &quot;bl_rollbackBlock&quot;,</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    chainId
+    height
+    hash
+}
+</code></pre></div><h3 id="_3-2-订阅的事件"><a href="#_3-2-订阅的事件" class="header-anchor">#</a> 3.2 订阅的事件</h3> <p>​	略</p> <h2 id="四、协议"><a href="#四、协议" class="header-anchor">#</a> 四、协议</h2> <h3 id="_4-1-网络通讯协议"><a href="#_4-1-网络通讯协议" class="header-anchor">#</a> 4.1 网络通讯协议</h3> <p>​	参见网络模块</p> <h3 id="_4-2-消息协议"><a href="#_4-2-消息协议" class="header-anchor">#</a> 4.2 消息协议</h3> <h4 id="_4-2-1-区块高度信息heightmessage"><a href="#_4-2-1-区块高度信息heightmessage" class="header-anchor">#</a> 4.2.1 区块高度信息HeightMessage</h4> <ul><li><p>消息说明:用于&quot;区块同步&quot;过程中重试下载</p></li> <li><p>消息类型（cmd）</p> <p>getBlockH</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>64</td> <td>heighrt</td> <td>int64</td> <td>区块高度</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p> <ul><li>根据区块高度查询完整区块并发送给目标节点</li> <li>如果没有该高度的区块，返回空消息</li></ul></li></ul> <h4 id="_4-2-2-单个摘要消息hashmessage"><a href="#_4-2-2-单个摘要消息hashmessage" class="header-anchor">#</a> 4.2.2 单个摘要消息HashMessage</h4> <ul><li><p>消息说明:用于&quot;转发区块&quot;,&quot;孤儿链维护&quot;功能</p></li> <li><p>消息类型（cmd）</p> <p>forward,getBlock,getsBlock</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>hash</td> <td>byte[]</td> <td>交易hash</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p> <ul><li>转发SmallBlock的hash</li> <li>根据hash获取SmallBlock</li> <li>根据hash获取完整区块</li></ul></li></ul> <h4 id="_4-2-3-摘要列表消息hashlistmessage"><a href="#_4-2-3-摘要列表消息hashlistmessage" class="header-anchor">#</a> 4.2.3 摘要列表消息HashListMessage</h4> <ul><li><p>消息说明:用于&quot;转发区块&quot;功能</p></li> <li><p>消息类型（cmd）</p> <p>getTxs</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>blockHash</td> <td>byte[]</td> <td>区块hash</td></tr> <tr><td>?</td> <td>hashLength</td> <td>VarInt</td> <td>数组长度</td></tr> <tr><td>32</td> <td>hash</td> <td>byte[]</td> <td>交易hash</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p></li></ul> <ol><li>根据chainID、hash获取Transaction列表</li> <li>组装TxGroupMessage，并发送给源节点</li></ol> <h4 id="_4-2-4-区块广播消息smallblockmessage"><a href="#_4-2-4-区块广播消息smallblockmessage" class="header-anchor">#</a> 4.2.4 区块广播消息SmallBlockMessage</h4> <ul><li><p>消息说明:用于&quot;转发区块&quot;、&quot;广播区块&quot;功能</p></li> <li><p>消息类型（short）</p> <p>sBlock</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>?</td> <td>preHash</td> <td>byte[]</td> <td>preHash</td></tr> <tr><td>?</td> <td>merkleHash</td> <td>byte[]</td> <td>merkleHash</td></tr> <tr><td>32</td> <td>time</td> <td>Uint32</td> <td>时间</td></tr> <tr><td>32</td> <td>height</td> <td>Uint32</td> <td>区块高度</td></tr> <tr><td>32</td> <td>txCount</td> <td>Uint32</td> <td>交易数</td></tr> <tr><td>?</td> <td>extendLength</td> <td>VarInt</td> <td>extend数组长度</td></tr> <tr><td>?</td> <td>extend</td> <td>byte[]</td> <td>extend</td></tr> <tr><td>32</td> <td>publicKeyLength</td> <td>Uint32</td> <td>公钥数组长度</td></tr> <tr><td>?</td> <td>publicKey</td> <td>byte[]</td> <td>公钥</td></tr> <tr><td>?</td> <td>signBytesLength</td> <td>VarInt</td> <td>签名数组长度</td></tr> <tr><td>?</td> <td>signBytes</td> <td>byte[]</td> <td>签名</td></tr> <tr><td>?</td> <td>txHashListLength</td> <td>VarInt</td> <td>交易hash列表数组长度</td></tr> <tr><td>?</td> <td>txHashLength</td> <td>VarInt</td> <td>交易hash数组长度</td></tr> <tr><td>?</td> <td>txHash</td> <td>byte[]</td> <td>交易hash</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p> <ul><li>判断区块时间戳是否大于(当前时间+10s)，如果大于这个时间，则判定为恶意提前出块，忽略该消息</li> <li>根据chainID、区块hash判断消息是否重复，如果重复，则忽略该消息(这里要求维护一个集合,按照chainID分类储存收到的区块hash)</li> <li>根据chainID、区块hash在DB中查询本地是否已经有该区块，如果已经有了，则忽略该消息</li> <li>验证区块头，验证失败，则忽略该消息</li> <li>取txHashList，判断那些tx本地没有，组装HashListMessage，发给源节点，获取没有的那些交易信息</li> <li>如果交易都有，组放入缓存队列，等待验证线程验证后存储</li></ul></li></ul> <h4 id="_4-2-5-高度区间消息heightrangemessage"><a href="#_4-2-5-高度区间消息heightrangemessage" class="header-anchor">#</a> 4.2.5 高度区间消息HeightRangeMessage</h4> <ul><li><p>消息说明:用于&quot;同步区块&quot;功能</p></li> <li><p>消息类型（cmd）</p> <p>getBlocks</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>64</td> <td>startHeight</td> <td>int64</td> <td>起始高度</td></tr> <tr><td>64</td> <td>endHeight</td> <td>int64</td> <td>结束高度</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p> <ul><li>chainID、高度参数验证</li> <li>从startHeight开始查找Block,组装BlockMessage，发给目标节点</li> <li>查找到endHeight为止，组装CompleteMessage(true)，发给目标节点</li> <li>中途查找失败，组装CompleteMessage(false)，发给目标节点</li></ul></li></ul> <h4 id="_4-2-6-完整的区块消息blockmessage"><a href="#_4-2-6-完整的区块消息blockmessage" class="header-anchor">#</a> 4.2.6 完整的区块消息BlockMessage</h4> <ul><li><p>消息说明:用于&quot;区块同步&quot;</p></li> <li><p>消息类型（cmd）</p> <p>block</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>requestHash</td> <td>byte[]</td> <td>requestHash</td></tr> <tr><td>32</td> <td>preHash</td> <td>byte[]</td> <td>上一个区块的hash</td></tr> <tr><td>32</td> <td>merkleHash</td> <td>byte[]</td> <td>merkleHash</td></tr> <tr><td>32</td> <td>time</td> <td>Uint32</td> <td>时间</td></tr> <tr><td>32</td> <td>height</td> <td>Uint32</td> <td>区块高度</td></tr> <tr><td>32</td> <td>txCount</td> <td>Uint32</td> <td>交易数</td></tr> <tr><td>?</td> <td>extendLength</td> <td>VarInt</td> <td>extend数组长度</td></tr> <tr><td>?</td> <td>extend</td> <td>byte[]</td> <td>extend</td></tr> <tr><td>32</td> <td>publicKeyLength</td> <td>Uint32</td> <td>公钥数组长度</td></tr> <tr><td>?</td> <td>publicKey</td> <td>byte[]</td> <td>公钥</td></tr> <tr><td>?</td> <td>signBytesLength</td> <td>VarInt</td> <td>签名数组长度</td></tr> <tr><td>?</td> <td>signBytes</td> <td>byte[]</td> <td>区块签名</td></tr> <tr><td>16</td> <td>type</td> <td>uint16</td> <td>交易类型</td></tr> <tr><td>32</td> <td>time</td> <td>uint32</td> <td>交易时间</td></tr> <tr><td>?</td> <td>remarkLength</td> <td>VarInt</td> <td>备注数组长度</td></tr> <tr><td>?</td> <td>remark</td> <td>byte[]</td> <td>备注</td></tr> <tr><td>?</td> <td>txDataLength</td> <td>VarInt</td> <td>交易数据数组长度</td></tr> <tr><td>?</td> <td>txData</td> <td>byte[]</td> <td>交易数据</td></tr> <tr><td>?</td> <td>coinDataLength</td> <td>VarInt</td> <td>CoinData数组长度</td></tr> <tr><td>?</td> <td>coinData</td> <td>byte[]</td> <td>CoinData</td></tr> <tr><td>?</td> <td>txSignLength</td> <td>VarInt</td> <td>交易签名数组长度</td></tr> <tr><td>?</td> <td>txSign</td> <td>byte[]</td> <td>交易签名</td></tr> <tr><td>1</td> <td>syn</td> <td>byte</td> <td>是否是为区块同步请求的区块</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p> <ul><li>如果syn==true,把区块放入同步的缓存map中,并增加同步区块字节数</li> <li>如果syn==false,放入单个区块缓存中</li></ul></li></ul> <h4 id="_4-2-7-请求完成消息completemessage"><a href="#_4-2-7-请求完成消息completemessage" class="header-anchor">#</a> 4.2.7 请求完成消息CompleteMessage</h4> <ul><li><p>消息说明:通用消息，用于异步请求，标志异步请求处理结束。</p></li> <li><p>消息类型（cmd）</p> <p>complete</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>Hash</td> <td>byte[]</td> <td>Hash</td></tr> <tr><td>1</td> <td>success</td> <td>byte</td> <td>成功标志</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p></li></ul> <ol><li>根据chainID、nodeId把对应节点的工作标志设置为空闲。</li></ol> <h4 id="_4-2-8-交易列表的消息txgroupmessage"><a href="#_4-2-8-交易列表的消息txgroupmessage" class="header-anchor">#</a> 4.2.8 交易列表的消息TxGroupMessage</h4> <ul><li><p>消息说明:用于&quot;转发区块&quot;</p></li> <li><p>消息类型（cmd）</p> <p>txs</p></li> <li><p>消息的格式（messageBody）</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>blockHash</td> <td>byte[]</td> <td>blockHash</td></tr> <tr><td>?</td> <td>txCount</td> <td>VarInt</td> <td>交易数</td></tr> <tr><td>16</td> <td>type</td> <td>uint16</td> <td>交易类型</td></tr> <tr><td>32</td> <td>time</td> <td>uint32</td> <td>交易时间</td></tr> <tr><td>?</td> <td>remarkLength</td> <td>VarInt</td> <td>备注数组长度</td></tr> <tr><td>?</td> <td>remark</td> <td>byte[]</td> <td>备注</td></tr> <tr><td>?</td> <td>txDataLength</td> <td>VarInt</td> <td>交易数据数组长度</td></tr> <tr><td>?</td> <td>txData</td> <td>byte[]</td> <td>交易数据</td></tr> <tr><td>?</td> <td>coinDataLength</td> <td>VarInt</td> <td>CoinData数组长度</td></tr> <tr><td>?</td> <td>coinData</td> <td>byte[]</td> <td>CoinData</td></tr> <tr><td>?</td> <td>txSignLength</td> <td>VarInt</td> <td>交易签名数组长度</td></tr> <tr><td>?</td> <td>txSign</td> <td>byte[]</td> <td>交易签名</td></tr></tbody></table> <ul><li><p>消息的验证</p> <p>略</p></li> <li><p>消息的处理逻辑</p> <ul><li>如果已经收到完整的区块，忽略该消息</li> <li>如果收到部分区块，还缺失交易，则组装完整区块并保存</li></ul></li></ul> <h2 id="五、模块配置"><a href="#五、模块配置" class="header-anchor">#</a> 五、模块配置</h2> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;forkChainsMonitorInterval&quot;: 10000,
+  &quot;orphanChainsMonitorInterval&quot;: 10000,
+  &quot;orphanChainsMaintainerInterval&quot;: 5000,
+  &quot;storageSizeMonitorInterval&quot;: 300000,
+  &quot;networkResetMonitorInterval&quot;: 300000,
+  &quot;nodesMonitorInterval&quot;: 5000,
+  &quot;txGroupRequestorInterval&quot;: 1000,
+  &quot;txGroupTaskDelay&quot;: 3000,
+  &quot;testAutoRollbackAmount&quot;: 0,
+  &quot;blockMaxSize&quot;: 5242880,
+  &quot;resetTime&quot;: 180000,
+  &quot;chainSwtichThreshold&quot;: 3,
+  &quot;cacheSize&quot;: 1000,
+  &quot;heightRange&quot;: 1000,
+  &quot;maxRollback&quot;: 1000,
+  &quot;consistencyNodePercent&quot;: 60,
+  &quot;minNodeAmount&quot;: 1,
+  &quot;downloadNumber&quot;: 10,
+  &quot;extendMaxSize&quot;: 1024,
+  &quot;validBlockInterval&quot;: 60000,
+  &quot;smallBlockCache&quot;: 6,
+  &quot;orphanChainMaxAge&quot;: 10,
+  &quot;singleDownloadTimeout&quot;: 10000,
+  &quot;waitNetworkInterval&quot;: 5000,
+  &quot;cachedBlockSizeLimit&quot;: 20971520,
+  &quot;genesisBlockPath&quot;: &quot;&quot;
+}
+</code></pre></div><h2 id="六、java特有的设计"><a href="#六、java特有的设计" class="header-anchor">#</a> 六、Java特有的设计</h2> <ul><li>Block对象设计</li></ul> <blockquote><table><thead><tr><th><code>字段名称</code></th> <th><code>字段类型</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>blockHeader</td> <td>BlockHeader</td> <td>区块头</td></tr> <tr><td>transactions</td> <td>List&lt;Transaction&gt;</td> <td>交易列表</td></tr></tbody></table></blockquote> <ul><li>SmallBlock对象设计</li></ul> <blockquote><table><thead><tr><th><code>字段名称</code></th> <th><code>字段类型</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>blockHeader</td> <td>BlockHeader</td> <td>区块头</td></tr> <tr><td>transactions</td> <td>List&lt;String&gt;</td> <td>所有交易HASH列表</td></tr> <tr><td>subTxList</td> <td>List&lt;Transaction&gt;</td> <td>其他节点一定没有的交易(如共识奖励交易、红黄牌交易等)</td></tr></tbody></table></blockquote> <ul><li>BlockHeader对象设计</li></ul> <blockquote><table><thead><tr><th><code>字段名称</code></th> <th><code>字段类型</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>hash</td> <td>String</td> <td>区块HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>上一区块HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>区块MerkleHash</td></tr> <tr><td>height</td> <td>int</td> <td>区块高度</td></tr> <tr><td>time</td> <td>long</td> <td>区块打包时间</td></tr> <tr><td>txCount</td> <td>short</td> <td>交易数</td></tr> <tr><td>extend</td> <td>byte[]</td> <td>扩展字段</td></tr> <tr><td>blockSignature</td> <td>BlockSignature</td> <td>区块签名</td></tr></tbody></table></blockquote> <ul><li>BlockSignature对象设计</li></ul> <blockquote><table><thead><tr><th><code>字段名称</code></th> <th><code>字段类型</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>signData</td> <td>String</td> <td>区块签名</td></tr> <tr><td>publicKey</td> <td>byte[]</td> <td>公钥</td></tr></tbody></table></blockquote> <ul><li>Chain对象设计</li></ul> <blockquote><table><thead><tr><th><code>字段名称</code></th> <th><code>字段类型</code></th> <th><code>说明</code></th></tr></thead> <tbody><tr><td>parent</td> <td>Chain</td> <td>父链</td></tr> <tr><td>sons</td> <td>SortedSet&lt;Chain&gt;</td> <td>子链集合</td></tr> <tr><td>chainId</td> <td>int</td> <td>链ID</td></tr> <tr><td>previousHash</td> <td>NulsDigestData</td> <td>链上起始区块的previousHash</td></tr> <tr><td>startHeight</td> <td>long</td> <td>链起始高度</td></tr> <tr><td>startHashCode</td> <td>int</td> <td>链起始hash转换int(排序用)</td></tr> <tr><td>endHeight</td> <td>long</td> <td>链结束高度</td></tr> <tr><td>hashList</td> <td>LinkedList</td> <td>链上区块hash列表</td></tr> <tr><td>type</td> <td>ChainTypeEnum</td> <td>链类型</td></tr> <tr><td>age</td> <td>AtomicInteger</td> <td>链年龄(孤儿链清理使用)</td></tr></tbody></table></blockquote> <h2 id="七、补充内容"><a href="#七、补充内容" class="header-anchor">#</a> 七、补充内容</h2></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/master/docs/zh/modules/d_block.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">最后更新:</span> <span class="time">2025/9/1 09:45:12</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/zh/modules/d_address.html" class="prev">
+        NULS Protocol Address
+      </a></span> <span class="next"><a href="/zh/modules/d_chain_manager.html">
+        链管理模块设计文档
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0bafe896.js" defer></script><script src="/assets/js/2.6c3a80b8.js" defer></script><script src="/assets/js/1.22a4e5b0.js" defer></script><script src="/assets/js/23.18ea5f72.js" defer></script>
+  </body>
+</html>

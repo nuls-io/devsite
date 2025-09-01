@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Block Management Module Design Document | Documentation</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="The Global AI Consumer Layer - NULS AI Blockchain Documentation">
+    <meta name="theme-color" content="#A8D5FF">
+    
+    <link rel="preload" href="/assets/css/0.styles.c0387eb2.css" as="style"><link rel="preload" href="/assets/js/app.0bafe896.js" as="script"><link rel="preload" href="/assets/js/2.6c3a80b8.js" as="script"><link rel="preload" href="/assets/js/1.22a4e5b0.js" as="script"><link rel="preload" href="/assets/js/22.a9f26a79.js" as="script"><link rel="prefetch" href="/assets/js/10.18a9796f.js"><link rel="prefetch" href="/assets/js/100.c6dcc4ee.js"><link rel="prefetch" href="/assets/js/101.7d7ebb68.js"><link rel="prefetch" href="/assets/js/102.58666c13.js"><link rel="prefetch" href="/assets/js/103.b682e489.js"><link rel="prefetch" href="/assets/js/104.24bacb02.js"><link rel="prefetch" href="/assets/js/105.3743813e.js"><link rel="prefetch" href="/assets/js/106.73fa77cb.js"><link rel="prefetch" href="/assets/js/107.f42da1f4.js"><link rel="prefetch" href="/assets/js/108.0282c3bd.js"><link rel="prefetch" href="/assets/js/109.ab04f47a.js"><link rel="prefetch" href="/assets/js/11.cb4cdfd8.js"><link rel="prefetch" href="/assets/js/110.a7414102.js"><link rel="prefetch" href="/assets/js/111.c99ec821.js"><link rel="prefetch" href="/assets/js/112.edf30d53.js"><link rel="prefetch" href="/assets/js/113.437a657d.js"><link rel="prefetch" href="/assets/js/114.ca376ebb.js"><link rel="prefetch" href="/assets/js/115.411f17d8.js"><link rel="prefetch" href="/assets/js/116.0be2757f.js"><link rel="prefetch" href="/assets/js/117.ed69432a.js"><link rel="prefetch" href="/assets/js/118.4f7585a0.js"><link rel="prefetch" href="/assets/js/119.bc60f714.js"><link rel="prefetch" href="/assets/js/12.e402ed1a.js"><link rel="prefetch" href="/assets/js/120.79d9e821.js"><link rel="prefetch" href="/assets/js/121.13efa6ca.js"><link rel="prefetch" href="/assets/js/122.767a3b55.js"><link rel="prefetch" href="/assets/js/123.8fe931f3.js"><link rel="prefetch" href="/assets/js/124.6adbbadd.js"><link rel="prefetch" href="/assets/js/125.626cef62.js"><link rel="prefetch" href="/assets/js/126.3dda9445.js"><link rel="prefetch" href="/assets/js/127.d62c90cb.js"><link rel="prefetch" href="/assets/js/128.c961670a.js"><link rel="prefetch" href="/assets/js/129.04de186a.js"><link rel="prefetch" href="/assets/js/13.847fb38c.js"><link rel="prefetch" href="/assets/js/130.e922ba04.js"><link rel="prefetch" href="/assets/js/131.e463809b.js"><link rel="prefetch" href="/assets/js/132.ddd02961.js"><link rel="prefetch" href="/assets/js/133.c0020aa7.js"><link rel="prefetch" href="/assets/js/134.a3f3bb32.js"><link rel="prefetch" href="/assets/js/135.8e4807f7.js"><link rel="prefetch" href="/assets/js/136.5cc7c540.js"><link rel="prefetch" href="/assets/js/137.9353bd9b.js"><link rel="prefetch" href="/assets/js/138.5e65b123.js"><link rel="prefetch" href="/assets/js/139.bdd7d1bc.js"><link rel="prefetch" href="/assets/js/14.0ebe191f.js"><link rel="prefetch" href="/assets/js/140.baee8264.js"><link rel="prefetch" href="/assets/js/141.cab83fae.js"><link rel="prefetch" href="/assets/js/142.2fccba43.js"><link rel="prefetch" href="/assets/js/143.6523903e.js"><link rel="prefetch" href="/assets/js/144.01c779f4.js"><link rel="prefetch" href="/assets/js/145.2017a624.js"><link rel="prefetch" href="/assets/js/146.d1de5a16.js"><link rel="prefetch" href="/assets/js/147.3b9d5abc.js"><link rel="prefetch" href="/assets/js/148.78a96ee0.js"><link rel="prefetch" href="/assets/js/149.ccd1442e.js"><link rel="prefetch" href="/assets/js/15.5ecc9329.js"><link rel="prefetch" href="/assets/js/150.c65eee6a.js"><link rel="prefetch" href="/assets/js/151.75a1e1d9.js"><link rel="prefetch" href="/assets/js/152.604fb4c8.js"><link rel="prefetch" href="/assets/js/153.93cfc5c0.js"><link rel="prefetch" href="/assets/js/154.d99114ee.js"><link rel="prefetch" href="/assets/js/155.168bfbc5.js"><link rel="prefetch" href="/assets/js/156.8b012700.js"><link rel="prefetch" href="/assets/js/157.3bd2e91d.js"><link rel="prefetch" href="/assets/js/158.041258e2.js"><link rel="prefetch" href="/assets/js/159.95e86c15.js"><link rel="prefetch" href="/assets/js/16.8d31e076.js"><link rel="prefetch" href="/assets/js/160.87143748.js"><link rel="prefetch" href="/assets/js/161.8593a3b4.js"><link rel="prefetch" href="/assets/js/162.b395549c.js"><link rel="prefetch" href="/assets/js/163.a2aa4a1d.js"><link rel="prefetch" href="/assets/js/17.4840b3c9.js"><link rel="prefetch" href="/assets/js/18.cefe558e.js"><link rel="prefetch" href="/assets/js/19.8e262afc.js"><link rel="prefetch" href="/assets/js/20.adeac68c.js"><link rel="prefetch" href="/assets/js/21.77d8c04a.js"><link rel="prefetch" href="/assets/js/23.18ea5f72.js"><link rel="prefetch" href="/assets/js/24.cd796014.js"><link rel="prefetch" href="/assets/js/25.fb08cb66.js"><link rel="prefetch" href="/assets/js/26.5c949c09.js"><link rel="prefetch" href="/assets/js/27.2a2d4831.js"><link rel="prefetch" href="/assets/js/28.e0e4c4fb.js"><link rel="prefetch" href="/assets/js/29.b7521a49.js"><link rel="prefetch" href="/assets/js/3.e8b17741.js"><link rel="prefetch" href="/assets/js/30.ab6b748a.js"><link rel="prefetch" href="/assets/js/31.60464bb8.js"><link rel="prefetch" href="/assets/js/32.c95faf86.js"><link rel="prefetch" href="/assets/js/33.7d9d7a3b.js"><link rel="prefetch" href="/assets/js/34.26b92d69.js"><link rel="prefetch" href="/assets/js/35.1eeee0af.js"><link rel="prefetch" href="/assets/js/36.1c7f3048.js"><link rel="prefetch" href="/assets/js/37.9471e7bd.js"><link rel="prefetch" href="/assets/js/38.ec9abedd.js"><link rel="prefetch" href="/assets/js/39.f36e5ab8.js"><link rel="prefetch" href="/assets/js/4.8d532655.js"><link rel="prefetch" href="/assets/js/40.1ea1a444.js"><link rel="prefetch" href="/assets/js/41.8b5b74dd.js"><link rel="prefetch" href="/assets/js/42.04a077c1.js"><link rel="prefetch" href="/assets/js/43.0fe4c703.js"><link rel="prefetch" href="/assets/js/44.b935d6b9.js"><link rel="prefetch" href="/assets/js/45.2b7f5a17.js"><link rel="prefetch" href="/assets/js/46.8bc06ce9.js"><link rel="prefetch" href="/assets/js/47.82a83e28.js"><link rel="prefetch" href="/assets/js/48.6c0f32dd.js"><link rel="prefetch" href="/assets/js/49.029c21dc.js"><link rel="prefetch" href="/assets/js/5.99605394.js"><link rel="prefetch" href="/assets/js/50.e16baf5e.js"><link rel="prefetch" href="/assets/js/51.12ad3e3f.js"><link rel="prefetch" href="/assets/js/52.1ec26d8c.js"><link rel="prefetch" href="/assets/js/53.45cddd06.js"><link rel="prefetch" href="/assets/js/54.2108b43b.js"><link rel="prefetch" href="/assets/js/55.c08c272e.js"><link rel="prefetch" href="/assets/js/56.3bad307d.js"><link rel="prefetch" href="/assets/js/57.867e7ecf.js"><link rel="prefetch" href="/assets/js/58.bf774815.js"><link rel="prefetch" href="/assets/js/59.b8abadae.js"><link rel="prefetch" href="/assets/js/6.290b516c.js"><link rel="prefetch" href="/assets/js/60.61acacb6.js"><link rel="prefetch" href="/assets/js/61.81b74b64.js"><link rel="prefetch" href="/assets/js/62.264c985a.js"><link rel="prefetch" href="/assets/js/63.da901bb6.js"><link rel="prefetch" href="/assets/js/64.dbfc6dec.js"><link rel="prefetch" href="/assets/js/65.5a7bd5da.js"><link rel="prefetch" href="/assets/js/66.d7ebc9ac.js"><link rel="prefetch" href="/assets/js/67.08a9c448.js"><link rel="prefetch" href="/assets/js/68.50931544.js"><link rel="prefetch" href="/assets/js/69.e1c822fc.js"><link rel="prefetch" href="/assets/js/7.bfe2d576.js"><link rel="prefetch" href="/assets/js/70.640a1bf0.js"><link rel="prefetch" href="/assets/js/71.b22c16f7.js"><link rel="prefetch" href="/assets/js/72.bcdbc9a2.js"><link rel="prefetch" href="/assets/js/73.232c9381.js"><link rel="prefetch" href="/assets/js/74.8dd848c9.js"><link rel="prefetch" href="/assets/js/75.5b39d848.js"><link rel="prefetch" href="/assets/js/76.339f1901.js"><link rel="prefetch" href="/assets/js/77.fd812ad4.js"><link rel="prefetch" href="/assets/js/78.59c9582b.js"><link rel="prefetch" href="/assets/js/79.b4588cba.js"><link rel="prefetch" href="/assets/js/80.d20b7f7f.js"><link rel="prefetch" href="/assets/js/81.0de2e426.js"><link rel="prefetch" href="/assets/js/82.8fa26f1a.js"><link rel="prefetch" href="/assets/js/83.8cbb912a.js"><link rel="prefetch" href="/assets/js/84.a1b83b1c.js"><link rel="prefetch" href="/assets/js/85.4237db2a.js"><link rel="prefetch" href="/assets/js/86.4b6842e9.js"><link rel="prefetch" href="/assets/js/87.0290cd66.js"><link rel="prefetch" href="/assets/js/88.ad25d269.js"><link rel="prefetch" href="/assets/js/89.e34aa4b2.js"><link rel="prefetch" href="/assets/js/90.b9ad822e.js"><link rel="prefetch" href="/assets/js/91.4d2cd6d0.js"><link rel="prefetch" href="/assets/js/92.321d2cde.js"><link rel="prefetch" href="/assets/js/93.cec650ad.js"><link rel="prefetch" href="/assets/js/94.732e613a.js"><link rel="prefetch" href="/assets/js/95.b93723c8.js"><link rel="prefetch" href="/assets/js/96.c9532164.js"><link rel="prefetch" href="/assets/js/97.23e04641.js"><link rel="prefetch" href="/assets/js/98.c5b31a70.js"><link rel="prefetch" href="/assets/js/99.d3eae370.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.811c81b7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.c0387eb2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/" class="home-link router-link-active"><img src="/logo.svg" alt="Documentation" class="logo"> <span class="site-name can-hide">Documentation</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/user-guide/" class="nav-link">
+  User Guide
+</a></div><div class="nav-item"><a href="/chain-api/" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/dapp-builder/" class="nav-link">
+  DApp Development
+</a></div><div class="nav-item"><a href="/chain-builder/" class="nav-link">
+  Chain Builder
+</a></div><div class="nav-item"><a href="/modules/" class="nav-link router-link-active">
+  Modules
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/modules/d_block.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/modules/d_block.html" class="nav-link">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/user-guide/" class="nav-link">
+  User Guide
+</a></div><div class="nav-item"><a href="/chain-api/" class="nav-link">
+  API
+</a></div><div class="nav-item"><a href="/dapp-builder/" class="nav-link">
+  DApp Development
+</a></div><div class="nav-item"><a href="/chain-builder/" class="nav-link">
+  Chain Builder
+</a></div><div class="nav-item"><a href="/modules/" class="nav-link router-link-active">
+  Modules
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">Languages</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">Languages</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/modules/d_block.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/modules/d_block.html" class="nav-link">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>⚙️ Core Modules</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/modules/" aria-current="page" class="sidebar-link">⚙️ Core Modules</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>🏗️ Design Documents</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/modules/d_account.html" class="sidebar-link">Account Module Design Document</a></li><li><a href="/modules/d_address.html" class="sidebar-link">NULS Protocol Address</a></li><li><a href="/modules/d_block.html" aria-current="page" class="active sidebar-link">Block Management Module Design Document</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/modules/d_block.html#overall-description" class="sidebar-link">Overall description</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/modules/d_block.html#_1-1-module-overview" class="sidebar-link">1.1 Module Overview</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#_1-2-architecture" class="sidebar-link">1.2 Architecture</a></li></ul></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#functional-design" class="sidebar-link">functional design</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/modules/d_block.html#_2-1-functional-architecture" class="sidebar-link">2.1 Functional Architecture</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#_2-2-module-service" class="sidebar-link">2.2 Module Service</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#_2-3-module-internal-function" class="sidebar-link">2.3 Module internal function</a></li></ul></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#description-of-the-event" class="sidebar-link">Description of the event</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/modules/d_block.html#_3-1-published-events" class="sidebar-link">3.1 Published events</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#_3-2-subscribe-to-events" class="sidebar-link">3.2 Subscribe to events</a></li></ul></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#agreement" class="sidebar-link">Agreement</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/modules/d_block.html#_4-1-network-communication-protocol" class="sidebar-link">4.1 Network Communication Protocol</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#_4-2-message-protocol" class="sidebar-link">4.2 Message Protocol</a></li></ul></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#module-configuration" class="sidebar-link">Module configuration</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#java-specific-design" class="sidebar-link">Java-specific design</a></li><li class="sidebar-sub-header"><a href="/modules/d_block.html#supplementary-content" class="sidebar-link">Supplementary content</a></li></ul></li><li><a href="/modules/d_chain_manager.html" class="sidebar-link">Chain Management Module Design Document</a></li><li><a href="/modules/d_consensus.html" class="sidebar-link">Consensus Module Design Document</a></li><li><a href="/modules/d_cross_chain.html" class="sidebar-link">/modules/d_cross_chain.html</a></li><li><a href="/modules/d_ledger.html" class="sidebar-link">Design document of ledger module</a></li><li><a href="/modules/d_network.html" class="sidebar-link">Network module design document</a></li><li><a href="/modules/d_protocol_update.html" class="sidebar-link">Upgrade module design document</a></li><li><a href="/modules/d_public_service.html" class="sidebar-link">Public-Service Module Design Document</a></li><li><a href="/modules/d_smart_contract.html" class="sidebar-link">Smart contract module design</a></li><li><a href="/modules/d_transaction.html" class="sidebar-link">Transaction management module Design document</a></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>📋 Implementation Guides</span> <span class="arrow right"></span></p> <!----></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🔧 System Tools</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="block-management-module-design-document"><a href="#block-management-module-design-document" class="header-anchor">#</a> Block Management Module Design Document</h1> <h2 id="overall-description"><a href="#overall-description" class="header-anchor">#</a> Overall description</h2> <h3 id="_1-1-module-overview"><a href="#_1-1-module-overview" class="header-anchor">#</a> 1.1 Module Overview</h3> <h4 id="_1-1-1-why-should-i-have-the-block-management-module"><a href="#_1-1-1-why-should-i-have-the-block-management-module" class="header-anchor">#</a> 1.1.1 Why should I have the &quot;block management&quot; module?</h4> <div class="language- extra-class"><pre><code>All transaction data in the blockchain is stored in the block, so there is a module responsible for the storage and management of the block, so that other modules can obtain the block when verifying the data in the block and processing the business.
+
+When the blockchain program is started for the first time, it is necessary to synchronize the latest block on the network to the local. This process is generally time consuming, and the transaction cannot be initiated when the synchronization is not completed, so it is suitable for the work to be performed by a separate module.
+
+In summary, it is necessary to provide a unified block data service for other modules, and it is also better to separate the management of the block from the specific service of the block. The module used in the block does not have to care about the block acquisition. detail.
+</code></pre></div><h4 id="_1-1-2-what-to-do-in-block-management"><a href="#_1-1-2-what-to-do-in-block-management" class="header-anchor">#</a> 1.1.2 What to do in Block Management</h4> <ul><li>Provide api for block storage, query, rollback operations</li> <li>Synchronize the latest block from the network, save it after saving</li> <li>Block synchronization, broadcast, and forwarding of message processing</li> <li>Judgment and storage of bifurcation blocks</li> <li>Judgment and storage of orphan blocks</li> <li>Forked chain maintenance, switching</li> <li>Orphan chain maintenance, switching</li></ul> <h4 id="_1-1-3-positioning-of-block-management-in-the-system"><a href="#_1-1-3-positioning-of-block-management-in-the-system" class="header-anchor">#</a> 1.1.3 Positioning of &quot;Block Management&quot; in the system</h4> <p>Block management is one of the underlying modules. The following sub-functions discuss module dependencies.</p> <p>rely</p> <ul><li>Block synchronization - dependent on the communication interface of the network module, relying on the serialization tool of the tool module</li> <li>Block storage, rollback-dependency tool library storage tool, consensus module, transaction management module</li> <li>Block forwarding - Dependent network module broadcast message interface</li></ul> <p>Be dependent</p> <ul><li>The entire system can initiate transactions - block synchronization</li> <li>Consensus module: block detailed verification, packing - block query, block saving, block broadcasting, block rollback</li></ul> <h3 id="_1-2-architecture"><a href="#_1-2-architecture" class="header-anchor">#</a> 1.2 Architecture</h3> <p><img src="/assets/img/block-module.ffc57f74.png" alt=""></p> <h2 id="functional-design"><a href="#functional-design" class="header-anchor">#</a> functional design</h2> <h3 id="_2-1-functional-architecture"><a href="#_2-1-functional-architecture" class="header-anchor">#</a> 2.1 Functional Architecture</h3> <p><img src="/assets/img/block-functions.844c1285.png" alt=""></p> <h3 id="_2-2-module-service"><a href="#_2-2-module-service" class="header-anchor">#</a> 2.2 Module Service</h3> <h4 id="_2-2-1-get-the-latest-block-height"><a href="#_2-2-1-get-the-latest-block-height" class="header-anchor">#</a> 2.2.1 Get the latest block height</h4> <h4 id="_2-2-2-get-the-latest-block-header"><a href="#_2-2-2-get-the-latest-block-header" class="header-anchor">#</a> 2.2.2 Get the latest block header</h4> <ul><li>Interface Description</li></ul> <ol><li>According to the chain id, the latest block height of the cache, query db to get the latest block header hash</li> <li>According to the HASH query DB to get the block header byte array</li> <li>Deserialize to block header object</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bestBlockHeader&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;chainId&quot;: &quot;888&quot;,
+        &quot;hash&quot;: &quot;xxxxxxx&quot;,
+        &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+        &quot;merkleHash&quot;: &quot;1&quot;,
+        &quot;height&quot;: 1,
+        &quot;size&quot;: 1,
+        &quot;time&quot;: 1,
+        &quot;txCount&quot;: 1,
+        &quot;packingAddress&quot;: &quot;1&quot;,
+        &quot;reward&quot;: 0,
+        &quot;fee&quot;: 0,
+        &quot;extend&quot;: xxxxxxx,HEX
+        &quot;scriptSig&quot;: &quot;1&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>Chain ID</td></tr> <tr><td>hash</td> <td>String</td> <td>Block HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>Previous Block HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>Block MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>Block Height</td></tr> <tr><td>size</td> <td>Integer</td> <td>Block Size</td></tr> <tr><td>time</td> <td>Long</td> <td>Block Packing Time</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>Number of transactions</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>Packed Address</td></tr> <tr><td>reward</td> <td>Long</td> <td>Consensus Awards</td></tr> <tr><td>fee</td> <td>Long</td> <td>Fees</td></tr> <tr><td>Extend</td> <td>String</td> <td>Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>Block Signature</td></tr></tbody></table> <h4 id="_2-2-3-get-the-latest-block"><a href="#_2-2-3-get-the-latest-block" class="header-anchor">#</a> 2.2.3 Get the latest block</h4> <ul><li>Interface Description:</li></ul> <ol><li>Get the latest local block header according to the chain id</li> <li>Query the db according to the block head height to get the transaction hash list.</li> <li>Get transaction data from the transaction management module according to the hash list</li> <li>Assembled into block objects</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bestBlock&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre><code>```
+{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;:1,
+    &quot;msg&quot; :&quot;xxxxxxxxxxxxxxxxxx&quot;,
+    &quot;result&quot;:{}
+}
+```
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+    	&quot;blockHeader&quot;: {
+            &quot;chainId&quot;: &quot;888&quot;,
+            &quot;hash&quot;: &quot;xxxxxxx&quot;,
+            &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+            &quot;merkleHash&quot;: &quot;1&quot;,
+            &quot;height&quot;: 1,
+            &quot;size&quot;: 1,
+            &quot;time&quot;: 1,
+            &quot;txCount&quot;: 1,
+            &quot;packingAddress&quot;: &quot;1&quot;,
+            &quot;reward&quot;: 0,
+            &quot;fee&quot;: 0,
+            &quot;extend&quot;: xxxxxxx,HEX
+            &quot;scriptSig&quot;: &quot;1&quot;
+    	}, //block header
+    	&quot;transactions&quot;: [
+    	    {
+                &quot;chainId&quot;: &quot;888&quot;, //chainId
+                &quot;height&quot;: &quot;1&quot;, //block height
+                &quot;hash&quot;: &quot;1&quot;, //transaction HASH
+                &quot;remark&quot;: &quot;1&quot;, //transaction notes
+                &quot;size&quot;: &quot;1&quot;, //transaction size
+                &quot;time&quot;: &quot;1&quot;, //transaction time
+                &quot;type&quot;: &quot;1&quot;, //transaction type
+                &quot;transactionSignature&quot;: &quot;1&quot;, //transaction signature
+                &quot;coinData&quot;: {
+                    &quot;from&quot; : [
+                        {
+                            &quot;fromAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                            &quot;fromAssetsId&quot;:&quot;&quot;//asset id
+                            &quot;fromAddress&quot;:&quot;&quot;//Transfer account address
+                            &quot;amount&quot;: &quot;&quot;//transfer amount
+                            &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                        },{...}
+                    ]
+                    &quot;to&quot; : [
+                        {
+                            &quot;toAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                            &quot;toAssetsId&quot;:&quot;&quot;//asset id
+                            &quot;toAddress&quot;: &quot;&quot;//Transfer account address
+                            &quot;amount&quot;: &quot;&quot;//transfer amount
+                            &quot;locktime&quot;:&quot;&quot;
+                        },{...}
+                    ]
+                }
+                &quot;txData&quot;: XXXX, //transaction data HEX
+    	    },
+    	    {...}
+    	] //Transaction list
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <p>slightly</p></li></ul> <h4 id="_2-2-4-get-the-block-header-according-to-the-height"><a href="#_2-2-4-get-the-block-header-according-to-the-height" class="header-anchor">#</a> 2.2.4 Get the block header according to the height</h4> <ul><li>Interface Description</li></ul> <ol><li>According to the chain id, height query db to get the latest block header hash</li> <li>According to the HASH query DB to get the block header byte array</li> <li>Deserialize to block header object</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;getBlockHeaderByHeight&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;111&quot;,&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr> <tr><td>1</td> <td>height</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Block Height</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;chainId&quot;: &quot;888&quot;,
+        &quot;hash&quot;: &quot;xxxxxxx&quot;,
+        &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+        &quot;merkleHash&quot;: &quot;1&quot;,
+        &quot;height&quot;: 1,
+        &quot;size&quot;: 1,
+        &quot;time&quot;: 1,
+        &quot;txCount&quot;: 1,
+        &quot;packingAddress&quot;: &quot;1&quot;,
+        &quot;reward&quot;: 0,
+        &quot;fee&quot;: 0,
+        &quot;extend&quot;: xxxxxxx,HEX
+        &quot;scriptSig&quot;: &quot;1&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>Chain Id</td></tr> <tr><td>hash</td> <td>String</td> <td>Block HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>Previous Block HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>Block MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>Block Height</td></tr> <tr><td>size</td> <td>Integer</td> <td>Block Size</td></tr> <tr><td>time</td> <td>Long</td> <td>Block Packing Time</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>Number of transactions</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>Packed Address</td></tr> <tr><td>reward</td> <td>Long</td> <td>Consensus Awards</td></tr> <tr><td>fee</td> <td>Long</td> <td>Fees</td></tr> <tr><td>Extend</td> <td>String</td> <td>Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>Block Signature</td></tr></tbody></table> <h4 id="_2-2-4-get-the-block-according-to-the-height"><a href="#_2-2-4-get-the-block-according-to-the-height" class="header-anchor">#</a> 2.2.4 Get the block according to the height</h4> <ul><li>Interface Description:</li></ul> <ol><li>Get the block header according to the chain id and height</li> <li>Query the db according to the block head height to get the transaction hash list.</li> <li>Get transaction data from the transaction management module according to the hash list</li> <li>Assembled into block objects</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockByHeight&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;111&quot;,&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr> <tr><td>1</td> <td>height</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Block Height</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre><code>```
+{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;:1,
+    &quot;msg&quot; :&quot;xxxxxxxxxxxxxxxxxx&quot;,
+    &quot;result&quot;:{}
+}
+```
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+    	&quot;blockHeader&quot;: {
+            &quot;chainId&quot;: &quot;888&quot;,
+            &quot;hash&quot;: &quot;xxxxxxx&quot;,
+            &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+            &quot;merkleHash&quot;: &quot;1&quot;,
+            &quot;height&quot;: 1,
+            &quot;size&quot;: 1,
+            &quot;time&quot;: 1,
+            &quot;txCount&quot;: 1,
+            &quot;packingAddress&quot;: &quot;1&quot;,
+            &quot;reward&quot;: 0,
+            &quot;fee&quot;: 0,
+            &quot;extend&quot;: xxxxxxx,HEX
+            &quot;scriptSig&quot;: &quot;1&quot;
+    	}, //block header
+    	&quot;transactions&quot;: [
+    	    {
+                &quot;chainId&quot;: &quot;888&quot;, // chain ID
+                &quot;height&quot;: &quot;1&quot;, //block height
+                &quot;hash&quot;: &quot;1&quot;, //transaction HASH
+                &quot;remark&quot;: &quot;1&quot;, //transaction notes
+                &quot;size&quot;: &quot;1&quot;, //transaction size
+                &quot;time&quot;: &quot;1&quot;, //transaction time
+                &quot;type&quot;: &quot;1&quot;, //transaction type
+                &quot;transactionSignature&quot;: &quot;1&quot;, //transaction signature
+                &quot;coinData&quot;: {
+                    &quot;from&quot; : [
+                        {
+                            &quot;fromAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                            &quot;fromAssetsId&quot;:&quot;&quot;//asset id
+                            &quot;fromAddress&quot;:&quot;&quot;//Transfer account address
+                            &quot;amount&quot;: &quot;&quot;//transfer amount
+                            &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                        },{...}
+                    ]
+                    &quot;to&quot; : [
+                        {
+                            &quot;toAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                            &quot;toAssetsId&quot;:&quot;&quot;//asset id
+                            &quot;toAddress&quot;: &quot;&quot;//Transfer account address
+                            &quot;amount&quot;: &quot;&quot;//transfer amount
+                            &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                        },{...}
+                    ]
+                }
+                &quot;txData&quot;: XXXX, //transaction data HEX
+    	    },
+    	    {...}
+    	], //transaction list
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <p>slightly</p></li></ul> <h4 id="_2-2-5-get-the-block-header-according-to-hash"><a href="#_2-2-5-get-the-block-header-according-to-hash" class="header-anchor">#</a> 2.2.5 Get the block header according to hash</h4> <ul><li>Interface Description</li></ul> <ol><li>According to the chain ID, HASH query DB to get the block header byte array</li> <li>Deserialize to block header object</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockHeaderByHash&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,&quot;aaa&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr> <tr><td>1</td> <td>hash</td> <td>true</td> <td>String</td> <td style="text-align:center;">Block hash</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;chainId&quot;: &quot;888&quot;,
+        &quot;hash&quot;: &quot;xxxxxxx&quot;,
+        &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+        &quot;merkleHash&quot;: &quot;1&quot;,
+        &quot;height&quot;: 1,
+        &quot;size&quot;: 1,
+        &quot;time&quot;: 1,
+        &quot;txCount&quot;: 1,
+        &quot;packingAddress&quot;: &quot;1&quot;,
+        &quot;reward&quot;: 0,
+        &quot;fee&quot;: 0,
+        &quot;extend&quot;: xxxxxxx,HEX
+        &quot;scriptSig&quot;: &quot;1&quot;
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>Chain ID</td></tr> <tr><td>hash</td> <td>String</td> <td>Block HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>Previous Block HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>Block MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>Block Height</td></tr> <tr><td>size</td> <td>Integer</td> <td>Block Size</td></tr> <tr><td>time</td> <td>Long</td> <td>Block Packing Time</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>Number of transactions</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>Packed Address</td></tr> <tr><td>reward</td> <td>Long</td> <td>Consensus Awards</td></tr> <tr><td>fee</td> <td>Long</td> <td>Fees</td></tr> <tr><td>Extend</td> <td>String</td> <td>Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>Block Signature</td></tr></tbody></table> <h4 id="_2-2-6-get-the-block-according-to-the-hash"><a href="#_2-2-6-get-the-block-according-to-the-hash" class="header-anchor">#</a> 2.2.6 Get the block according to the hash</h4> <ul><li>Interface Description:</li></ul> <ol><li>Get the block header according to the chain ID and hash</li> <li>Query the db according to the block head height to get the transaction hash list.</li> <li>Get transaction data from the transaction management module according to the hash list</li> <li>Assembled into block objects</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockByHash&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,&quot;aaa&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr> <tr><td>1</td> <td>hash</td> <td>true</td> <td>String</td> <td style="text-align:center;">Block hash</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre><code>```
+{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;:1,
+    &quot;msg&quot; :&quot;xxxxxxxxxxxxxxxxxx&quot;,
+    &quot;result&quot;:{}
+}
+```
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+    	&quot;blockHeader&quot;: {
+    	    &quot;chainId&quot;: &quot;888&quot;,
+            &quot;hash&quot;: &quot;xxxxxxx&quot;,
+            &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+            &quot;merkleHash&quot;: &quot;1&quot;,
+            &quot;height&quot;: 1,
+            &quot;size&quot;: 1,
+            &quot;time&quot;: 1,
+            &quot;txCount&quot;: 1,
+            &quot;packingAddress&quot;: &quot;1&quot;,
+            &quot;reward&quot;: 0,
+            &quot;fee&quot;: 0,
+            &quot;extend&quot;: xxxxxxx,HEX
+            &quot;scriptSig&quot;: &quot;1&quot;
+    	}, //block header
+    	&quot;transactions&quot;: [
+    	    {
+    	        &quot;chainId&quot;: &quot;888&quot;,
+                &quot;height&quot;: &quot;1&quot;, //block height
+                &quot;hash&quot;: &quot;1&quot;, //transaction HASH
+                &quot;remark&quot;: &quot;1&quot;, //transaction notes
+                &quot;size&quot;: &quot;1&quot;, //transaction size
+                &quot;time&quot;: &quot;1&quot;, //transaction time
+                &quot;type&quot;: &quot;1&quot;, //transaction type
+                &quot;transactionSignature&quot;: &quot;1&quot;, //transaction signature
+                &quot;coinData&quot;: {
+                    &quot;from&quot; : [
+                        {
+                            &quot;fromAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                            &quot;fromAssetsId&quot;:&quot;&quot;//asset id
+                            &quot;fromAddress&quot;:&quot;&quot;//Transfer account address
+                            &quot;amount&quot;: &quot;&quot;//transfer amount
+                            &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                        },{...}
+                    ]
+                    &quot;to&quot; : [
+                        {
+                            &quot;toAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                            &quot;toAssetsId&quot;:&quot;&quot;//asset id
+                            &quot;toAddress&quot;: &quot;&quot;//Transfer account address
+                            &quot;amount&quot;: &quot;&quot;//transfer amount
+                            &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                        },{...}
+                    ]
+                }
+                &quot;txData&quot;: XXXX, //transaction data HEX
+    	    },
+    	    {...}
+    	], //transaction list
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <p>slightly</p></li></ul> <h4 id="_2-2-7-getting-the-block-header-in-a-certain-height-interval"><a href="#_2-2-7-getting-the-block-header-in-a-certain-height-interval" class="header-anchor">#</a> 2.2.7 Getting the block header in a certain height interval</h4> <ul><li>Interface Description</li></ul> <ol><li>make queryHash=endHash</li> <li>According to the chain ID, queryHash query DB to get the block header byte array</li> <li>Deserialize to block header object blockHeader, add to List as return value</li> <li>If blockHeader.hash!=startHash, make queryHash=blockHeader.preHash, repeat step 2</li> <li>Return to List</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockHeaderBetweenHeights&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,111&quot;,&quot;111&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr> <tr><td>1</td> <td>startHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Starting height</td></tr> <tr><td>2</td> <td>endHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">End Height</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;list&quot; : [
+            {
+           &quot;chainId&quot;: &quot;888&quot;,
+           &quot;hash&quot;: &quot;xxxxxxx&quot;,
+           &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+           &quot;merkleHash&quot;: &quot;1&quot;,
+           &quot;height&quot;: 1,
+           &quot;size&quot;: 1,
+           &quot;time&quot;: 1,
+           &quot;txCount&quot;: 1,
+           &quot;packingAddress&quot;: &quot;1&quot;,
+           &quot;reward&quot;: 0,
+           &quot;fee&quot;: 0,
+           &quot;extend&quot;: xxxxxxx,HEX
+           &quot;scriptSig&quot;: &quot;1&quot;
+           }
+        ]
+
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>chainId</td> <td>Long</td> <td>Chain ID</td></tr> <tr><td>hash</td> <td>String</td> <td>Block HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>Previous Block HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>Block MerkleHash</td></tr> <tr><td>height</td> <td>Long</td> <td>Block Height</td></tr> <tr><td>size</td> <td>Integer</td> <td>Block Size</td></tr> <tr><td>time</td> <td>Long</td> <td>Block Packing Time</td></tr> <tr><td>txCount</td> <td>Integer</td> <td>Number of transactions</td></tr> <tr><td>packingAddress</td> <td>String</td> <td>Packed Address</td></tr> <tr><td>reward</td> <td>Long</td> <td>Consensus Awards</td></tr> <tr><td>fee</td> <td>Long</td> <td>Fees</td></tr> <tr><td>Extend</td> <td>String</td> <td>Extended field, HEX, containing roundIndex, roundStartTime, consensusMemberCount, packingIndexOfRound, stateRoot</td></tr> <tr><td>scriptSig</td> <td>String</td> <td>Block Signature</td></tr></tbody></table> <h4 id="_2-2-8-get-the-block-in-a-certain-height-interval"><a href="#_2-2-8-get-the-block-in-a-certain-height-interval" class="header-anchor">#</a> 2.2.8 Get the block in a certain height interval</h4> <ul><li>Interface Description</li></ul> <ol><li>make queryHash=endHash</li> <li>According to the chain ID, queryHash query DB to get the block byte array</li> <li>Deserialize to a block object block, add it to the List as the return value</li> <li>If block.hash!=startHash, make queryHash=block.preHash, startHash, repeat step 2</li> <li>Return to List</li></ol> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_getBlockBetweenHeights&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;,111&quot;,&quot;111&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p></li></ul> <table><thead><tr><th>index</th> <th>parameter</th> <th>required</th> <th>type</th> <th style="text-align:center;">description</th></tr></thead> <tbody><tr><td>0</td> <td>chainId</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Chain ID</td></tr> <tr><td>1</td> <td>startHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">Starting height</td></tr> <tr><td>2</td> <td>endHeight</td> <td>true</td> <td>Long</td> <td style="text-align:center;">End Height</td></tr></tbody></table> <ul><li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {
+        &quot;list&quot; : [
+            {
+                &quot;blockHeader&quot;: {
+                    &quot;chainId&quot;: &quot;888&quot;,
+                    &quot;hash&quot;: &quot;xxxxxxx&quot;,
+                    &quot;preHash&quot;: &quot;xxxxxxx&quot;,
+                    &quot;merkleHash&quot;: &quot;1&quot;,
+                    &quot;height&quot;: 1,
+                    &quot;size&quot;: 1,
+                    &quot;time&quot;: 1,
+                    &quot;txCount&quot;: 1,
+                    &quot;packingAddress&quot;: &quot;1&quot;,
+                    &quot;reward&quot;: 0,
+                    &quot;fee&quot;: 0,
+                    &quot;extend&quot;: xxxxxxx,HEX
+                    &quot;scriptSig&quot;: &quot;1&quot;
+                }, //block header
+                &quot;transactions&quot;: [
+                    {
+                        &quot;chainId&quot;: &quot;888&quot;,
+                        &quot;height&quot;: &quot;1&quot;, //block height
+                        &quot;hash&quot;: &quot;1&quot;, //transaction HASH
+                        &quot;remark&quot;: &quot;1&quot;, //transaction notes
+                        &quot;size&quot;: &quot;1&quot;, //transaction size
+                        &quot;time&quot;: &quot;1&quot;, //transaction time
+                        &quot;type&quot;: &quot;1&quot;, //transaction type
+                        &quot;transactionSignature&quot;: &quot;1&quot;, //transaction signature
+                        &quot;coinData&quot;: {
+                            &quot;from&quot; : [
+                                {
+                                    &quot;fromAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                                    &quot;fromAssetsId&quot;:&quot;&quot;//asset id
+                                    &quot;fromAddress&quot;:&quot;&quot;//Transfer account address
+                                    &quot;amount&quot;: &quot;&quot;//transfer amount
+                                    &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                                },{...}
+                            ]
+                            &quot;to&quot; : [
+                                {
+                                    &quot;toAssetsChainId&quot;:&quot;&quot;//id of asset distribution chain 
+                                    &quot;toAssetsId&quot;:&quot;&quot;//asset id
+                                    &quot;toAddress&quot;: &quot;&quot;//Transfer account address
+                                    &quot;amount&quot;: &quot;&quot;//transfer amount
+                                    &quot;nonce&quot;: &quot;&quot;//transaction sequence number, increment
+                                },{...}
+                            ]
+                        }
+                        &quot;txData&quot;: XXXX, //transaction data HEX
+                    },
+                    {...}
+                ], //transaction list
+           }
+        ]
+
+    }
+}
+</code></pre></div></li> <li><p>Return field description</p> <p>slightly</p></li></ul> <h4 id="_2-2-9-receiving-the-latest-packaging-block"><a href="#_2-2-9-receiving-the-latest-packaging-block" class="header-anchor">#</a> 2.2.9 Receiving the latest packaging block</h4> <ul><li>Interface Description</li></ul> <p>After the local node consensus module is packaged, call this interface to save the block data.</p> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;receivePackingBlock&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [
+  	Blockhex// can use hex with hex
+  ]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <p>slightly</p></li> <li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {&quot;sync&quot;: &quot;true&quot;}
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>sync</td> <td>String</td> <td>Whether the block was saved successfully</td></tr></tbody></table> <h4 id="_2-2-10-running-a-chain"><a href="#_2-2-10-running-a-chain" class="header-anchor">#</a> 2.2.10 Running a chain</h4> <ul><li>Interface Description</li></ul> <p>After the chain factory releases a chain, the core module calls the interface of the block management module, initializes the block and the forked chain database according to the chainID, starts a series of work threads corresponding to the chainID, and prepares for running the new chain.</p> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_startChain&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <p>slightly</p></li> <li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {&quot;result&quot;: &quot;true&quot;}
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>result</td> <td>String</td> <td>Whether the new chain starts successfully</td></tr></tbody></table> <h4 id="_2-2-11-stop-a-chain"><a href="#_2-2-11-stop-a-chain" class="header-anchor">#</a> 2.2.11 Stop a chain</h4> <ul><li>Interface Description</li></ul> <p>After stopping a chain in the chain factory, the core module will call the interface of the block management module, delete the cache block and the fork chain data of the chain, and stop a series of work threads corresponding to the chainID.</p> <ul><li><p>Request example</p> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;cmd&quot;: &quot;bl_stopChain&quot;,
+  &quot;minVersion&quot;:&quot;1.1&quot;,
+  &quot;params&quot;: [&quot;888&quot;]
+}
+</code></pre></div></li> <li><p>Request parameter description</p> <p>slightly</p></li> <li><p>Return to example</p> <p>Failed</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 1,
+    &quot;msg&quot;: &quot;error message&quot;,
+    &quot;result&quot;: {}
+}
+</code></pre></div><p>Success</p> <div class="language- extra-class"><pre class="language-text"><code>{
+    &quot;version&quot;: 1.2,
+    &quot;code&quot;: 0,
+    &quot;result&quot;: {&quot;result&quot;: &quot;true&quot;}
+}
+</code></pre></div></li> <li><p>Return field description</p></li></ul> <table><thead><tr><th>parameter</th> <th>type</th> <th>description</th></tr></thead> <tbody><tr><td>result</td> <td>String</td> <td>Whether the new chain stops successfully</td></tr></tbody></table> <h3 id="_2-3-module-internal-function"><a href="#_2-3-module-internal-function" class="header-anchor">#</a> 2.3 Module internal function</h3> <h4 id="_2-3-1-module-startup"><a href="#_2-3-1-module-startup" class="header-anchor">#</a> 2.3.1 Module startup</h4> <ul><li><p>Function Description:</p> <p>Boot block management module</p></li> <li><p>Process description</p></li></ul> <p><img src="/assets/img/block-module-boot.4686b7bf.png" alt=""></p> <ul><li><p>1.rpc service initialization</p></li> <li><ol start="2"><li>Initialize the general database</li></ol></li> <li><ol start="3"><li>Load configuration information</li></ol></li> <li><ol start="4"><li>Initialize each chain database</li></ol></li> <li><ol start="5"><li>Wait for the dependent module to be ready</li></ol></li> <li><ol start="6"><li>Register the message processing class with the network module.</li></ol></li> <li><ol start="7"><li>Start sync block thread, database size monitor thread, fork chain processing thread, orphan chain processing thread, orphan chain maintenance thread</li></ol></li> <li><p>Dependent service</p> <p>Tool module, kernel module, network module, transaction management module</p></li></ul> <h4 id="_2-3-2-block-storage"><a href="#_2-3-2-block-storage" class="header-anchor">#</a> 2.3.2 Block Storage</h4> <ul><li><p>Function Description:</p> <p>Store block header data on the main chain and complete block data of the forked chain or orphan chain</p> <ul><li><p>Main chain storage</p> <p>Different chains are stored in different tables, table name plus chainID suffix
+A complete block consists of a block header and a transaction, and the block header is stored separately from the transaction.
+Block header: (put in the block management module)
+Key (block height) - value (block header hash) 		block-header-index
+Key (block header hash)-value (complete block header) 	block-header
+Trading: (put in the transaction management module)</p></li> <li><p>Forked chain, orphan chain storage</p> <p>All the forked chains and orphaned chain objects are cached in memory (only the starting height, starting hash, ending height, ending hash, etc.) are recorded, and the full block data is cached in the hard disk. If forked chain switching or cleaning is required For operations such as forks, you only need to read the database once.
+Different branches of the bifurcation chain have different tables, the table name plus the chainID suffix, and each bifurcation chain object is as follows:
+Key (block hash)-value (complete block data) 	CachedBlock</p></li></ul></li> <li><p>Process description</p> <p>slightly</p></li> <li><p>Dependent service</p> <p>Database tool for tool modules</p></li></ul> <h4 id="_2-3-3-block-cleaning"><a href="#_2-3-3-block-cleaning" class="header-anchor">#</a> 2.3.3 Block Cleaning</h4> <ul><li><p>Function Description:</p> <p>In order to avoid excessive garbage data occupying hard disk space, timing cleaning of the forked chain and orphan chain</p></li> <li><p>Process description</p> <ol><li>Clean up according to the configured maximum number of cache blocks. When the number of blocks in the forked chain + orphan chain cache is greater than the threshold, clean up.</li> <li>Clean up according to the starting height of the bifurcation chain or orphan chain and the latest height difference of the main chain</li> <li>According to the age of the orphan chain, the initial age of the orphan chain is 0. After each orphan chain maintenance, but the chain of the orphan chain does not add legal blocks, the orphan chain age is increased by one. Clean up when the orphan chain age is greater than the threshold</li></ol></li> <li><p>Dependent service</p> <p>Database tool for tool modules</p></li></ul> <h4 id="_2-3-4-block-synchronization"><a href="#_2-3-4-block-synchronization" class="header-anchor">#</a> 2.3.4 Block Synchronization</h4> <ul><li><p>Function Description:</p> <p>After the system is started, the maintenance of the local block data is consistent with most nodes on the network.</p> <p>BlockSynchronizer: statistics the latest consistent height on the network, check whether the local block needs to be rolled back, and initialize the parameters during the synchronization of various blocks.</p> <p>BlockDownloader: From the starting height, assign the download task according to the credit value of each download node, assemble the HeightRangeMessage, and send it to the target node.</p> <p>BlockConsumer: Extracts the blocks in the cached map according to the height, verifies and saves them. If a certain height is not available, assembles a HeightMessage and sends it to the connected node to obtain the block of the height.</p></li> <li><p>Process description</p> <ul><li>Block synchronization main process</li></ul> <p><img src="/assets/img/block-synchronization.3b5f0ded.png" alt=""></p> <ul><li>Get a list of available nodes on the network</li></ul> <div class="language- extra-class"><pre class="language-text"><code>    1. Traverse the node and count the two MAPs, assuming that each node (the latest HASH+ latest height) is the key
+    2. A key with the key as the number of statistics
+    3. A key is used to record the list of nodes holding the key.
+    4. Finally, the most frequently occurring key is counted, and the current trusted latest height and latest hash, as well as the list of trusted nodes are obtained.
+    
+    Give a chestnut:
+    Now connect to 10 nodes at the same time.The latest block height of 4 nodes (A, B, C, D) is 100, the latest block hash is aaa, and the latest block height of 6 nodes (E, F, G, H, I, J) Is 101, the latest block hash is bbb.
+    Finally return (101, bbb, [E, F, G, H, I, J]).
+</code></pre></div><ul><li>Download block logic</li></ul> <p><img src="/assets/img/block-synchronization2.1bde323a.png" alt=""></p> <div class="language- extra-class"><pre class="language-text"><code>    Before the block is officially downloaded, it is necessary to determine whether there is a fork between the local and the network, and whether it needs to be rolled back.In order to find the exact block download height.
+    The following discussion is divided into:
+    Take the result of the previous step (101, bbb, [E, F, G, H, I, J]), while LH(N) represents the hash of the local Nth block, and RH(N) represents the hash of the Nth block on the network. .
+    1. Local height 100 &amp;lt; network height 101, LH (100) == RH (100), normal, behind the remote node, download block
+    2. Local height 100 &amp;lt; network height 101, LH (100)! = RH (100), think local fork, roll back the local block, if LH (99) == RH (99)
+    At the end of the rollback, download from 99 blocks. If lh(99)!=rh(99), continue to roll back and repeat the above logic.However, if you roll back 10 blocks at most, it will stop and wait for the next synchronization. This will avoid being attacked by malicious nodes and roll back normal blocks in large quantities.
+    3. Local height 102&gt; network height 101, lh (101) == rh (101), normal, leading than the remote node, no need to download the block
+    4. Local height 102&gt; network height 101, lh(101)!=rh(101), think local fork, first roll back to height and remotely, repeat scene 2
+    5. Local height 101 = network height 101, lh (101) == rh (101), normal, consistent with the remote node, no need to download the block
+    6. Local height 101 = network height 101, lh (101)! = rh (101), think local fork, repeat scene 2
+    
+    Scenes 1, 2 need to download additional blocks from the node that are consistent with the local height, and perform hash judgment.
+    In the scenario that needs to be rolled back, the number of available nodes (10) &gt; configuration, the number of consistent available nodes (6) accounted for more than 80%, and avoiding too few nodes leads to frequent rollback.The above two conditions are not met, empty the connected nodes, and re-acquire the available nodes.
+ 
+    When actually downloading a block, give an example:
+    The current height is 100, the network height is 500, 12 nodes are available, 10 nodes are consistently available, and each node initially downloads 2 blocks. When downloading, the cache queue allows up to 100 blocks to be cached.
+    Pseudo code representation
+    	Idle download node queue: nodes (each download node will have an initial download credit value, the credit value increases every time the download is successful, and the credit maximum is twice the initial value)
+    	Block cache queue downloaded to: queue
+        Download starting height: startHeight = 101;
+        Download end height: netLatestHeight = 500;
+        while (startHeight &amp;lt;= netLatestHeight) {
+                while (queue.size() &gt; 100) {
+                    BlockDownloader wait！ cached queue size beyond config
+                }
+                Get an available node
+                Calculate the number of download blocks according to the node download credit value as size
+                Submit an asynchronous download task
+                startHeight += size;
+        }
+If a node fails to download, it is downloaded by other nodes.
+Considering that during the download process, other nodes on the network will continue to generate new blocks.After the download is completed, it is necessary to judge whether the latest block height in the local area is the same as the latest matching height on the network. If they are the same, the flag block synchronization ends. If they are not the same, you need to continue downloading.
+</code></pre></div><ul><li>Download blocks from a height interval from the node</li></ul> <p><img src="/assets/img/block-synchronization3.99496017.png" alt=""></p></li> <li><p>Dependent service</p> <p>Database module tool for tool module, rpc tool</p></li></ul> <h4 id="_2-3-5-block-basic-verification"><a href="#_2-3-5-block-basic-verification" class="header-anchor">#</a> 2.3.5 Block Basic Verification</h4> <ul><li><p>Function Description:</p> <p>Verify the correctness of the block's own data, verify during the download process, verify that there is no problem with the block data itself, and discard the block if the verification fails.</p></li> <li><p>Process description</p> <ul><li>Block basic verification</li></ul> <p><img src="/assets/img/block-basic-validation.07557d70.png" alt=""></p> <ul><li>Block header verification</li></ul> <p><img src="/assets/img/block-basic-validation1.cf392d66.png" alt=""></p></li> <li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h4 id="_2-3-6-bifurcation-block-orphan-block-verification"><a href="#_2-3-6-bifurcation-block-orphan-block-verification" class="header-anchor">#</a> 2.3.6 Bifurcation block, orphan block verification</h4> <ul><li><p>Function Description:</p> <p>Verify the correctness of the block context. After the download is completed, the verification is verified. The verification indicates that the block is connected to the main chain. The verification failure indicates that the block is bifurcated and enters the forked chain processing logic.</p></li> <li><p>Process description</p> <ul><li>Forked block, orphan block verification</li> <li>There are four relationships between block b and chain a:</li> <li>1.b is a duplicate block on a</li> <li>2.b is a forked block on a</li> <li>3.b can connect directly to a</li> <li>4.b has no association with a</li> <li>The above four relationships apply to the main chain, the bifurcation chain, the orphan chain</li></ul> <p>The height difference is cached to disk within 1000. The disk space is limited in size. If the height exceeds the height, it is discarded. When the cache space is full, the fork chain is cleared in the order of adding cache time.
+If it is in normal operation, it receives the block forwarded by other nodes, and finds that the fork module has to notify the consensus module to give the red card penalty for the node that generated the block. This judgment is not made during the synchronization process after the system is started.</p> <p><img src="/assets/img/block-fork.a3b65fd6.png" alt=""></p></li> <li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h4 id="_2-3-7-fork-chain-management"><a href="#_2-3-7-fork-chain-management" class="header-anchor">#</a> 2.3.7 Fork Chain Management</h4> <ul><li><p>Function Description:</p> <p>Determine if the fork chain and the main chain need to be switched</p></li> <li><p>Process description</p> <ul><li>Find the maximum height difference, compared to the chain switching threshold, and chain switching if it is greater than the threshold
+<ul><li>Find the bifurcation point of the main chain and the longest bifurcation chain, and find the chain switching path</li> <li>Roll back the main chain block, roll back the block to form a new fork chain link to the original main chain</li> <li>Add blocks of the forked chain on the switching path in turn</li> <li>Switch completed</li></ul></li></ul></li></ul> <p><img src="/assets/img/block-fork-chain.ceeb7bdd.png" alt=""></p> <ul><li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h4 id="_2-3-8-orphan-chain-management"><a href="#_2-3-8-orphan-chain-management" class="header-anchor">#</a> 2.3.8 Orphan Chain Management</h4> <ul><li><p>Function Description:</p> <p>Used to connect orphan chains to bifurcation chains, main chains, and fork operations</p></li> <li><p>Process description</p> <p>There are three kinds of relationships between chains and chains, which are connected, bifurcated and repeated.</p></li></ul> <ol><li><p>Mark (change chain attribute stage)
+The main chain, the bifurcation chain, and the orphan chain correspond to the three final categories of master, fork, orphan.</p> <ul><li>If the orphan chain is connected to the main chain, temporarily mark the orphan chain as master_append, and mark the subchain of the orphan chain as master_fork</li> <li>If the orphan chain is duplicated with the main chain, temporarily mark the orphan chain as master_duplicate, and mark the subchain of the orphan chain as master_fork</li> <li>If the orphan chain is bifurcated with the main chain, temporarily mark the orphan chain as master_fork, and mark the sub-chain of the orphan chain as fork_fork</li> <li>If the orphan chain is connected to the forked chain, temporarily mark the orphan chain as fork_append, and mark the child chain of the orphan chain as fork_fork</li> <li>If the orphan chain and the bifurcation chain are repeated, temporarily mark the orphan chain as fork_duplicate, and mark the sub-chain of the orphan chain as fork_fork</li> <li>If the orphan chain and the bifurcation chain are forked, temporarily mark the orphan chain as fork_fork, and mark the child chain of the orphan chain as fork_fork</li> <li>If the orphan chain is connected to the orphan chain, temporarily mark the orphan chain as orphan_append, and mark the child chain of the orphan chain as orphan_fork</li> <li>If the orphan chain is repeated with the orphan chain, temporarily mark the orphan chain as orphan_duplicate, and mark the child chain of the orphan chain as orphan_fork</li> <li>If the orphan chain and the orphan chain are forked, temporarily mark the orphan chain as orphan_fork, and mark the child chain of the orphan chain as orphan_fork</li> <li>If the orphan chain has not changed through the above process, it is not associated with other chains, the flag is still orphan</li></ul></li> <li><p>Copy, clear</p> <ul><li>If marked as duplicated with the main chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the bifurcation chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.MASTER_FORK</li> <li>If marked as connected to the main chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the bifurcation chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.MASTER_FORK</li> <li>If marked as bifurcated from the main chain, orphanChain will not be copied to the new orphan chain collection, but will enter the bifurcation chain collection, and the direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK</li> <li>If marked as duplicated with a forked chain, orphanChain will not be copied to the new orphaned chain set, nor will it enter the forked chain set. The direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK</li> <li>If marked as connected to a forked chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the forked chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK</li> <li>If marked as bifurcated from the forked chain, orphanChain will not be copied to the new orphaned chain set, but will enter the forked chain set, and the direct subchain of orphanChain is marked as ChainTypeEnum.FORK_FORK</li> <li>If marked as repeating with an orphan chain, orphanChain will not be copied to the new orphan chain collection, nor will it enter the forked chain collection. The direct subchain of orphanChain is marked as ChainTypeEnum.ORPHAN_FORK</li> <li>If marked as connected to an orphan chain, will not be copied to the new orphan chain collection, all orphanChain's direct sub-chain will be copied to the new orphan chain collection, the type is unchanged</li> <li>If marked as bifurcated with an orphan chain, it will be copied to the new orphan chain collection, and all orphanChain's direct sub-chains will be copied to the new orphan chain collection with the same type</li> <li>If marked as an orphan chain (not changed), or forked from an orphan chain, copy to a new orphan chain set</li></ul></li></ol> <ul><li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h4 id="_2-3-9-orphan-chain-maintenance"><a href="#_2-3-9-orphan-chain-maintenance" class="header-anchor">#</a> 2.3.9 Orphan chain maintenance</h4> <ul><li><p>Function Description:</p> <p>Timing attempts to increase the block at the beginning of the chain of the orphan chain, maintaining the age of the failed orphan chain plus one.</p></li> <li><p>Process description</p> <p>Iterate through all the orphan chains, take the preHash of the starting block on the chain, assemble it into a HashMessage and send it to any of the currently available nodes, waiting for the result to be returned asynchronously.</p></li> <li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h4 id="_2-3-10-forwarding-block"><a href="#_2-3-10-forwarding-block" class="header-anchor">#</a> 2.3.10 Forwarding block</h4> <ul><li><p>Function Description:</p> <p>The non-exit node performs the forwarding process after verifying the block</p></li> <li><p>Process description</p></li></ul> <ol><li>Assemble the HashMessage using blockHash and send it to the target node.</li> <li>After receiving the HashMessage, the target node fetches the hash to determine whether it is duplicated. If it is not repeated, use hash to assemble the HashMessage and send it to the source node.</li> <li>After receiving the GetSmallBlockMessage, the source node takes the hash, queries the SmallBlock, and assembles the SmallBlockMessage, and sends it to the target node.</li> <li>Subsequent interaction process reference broadcast block</li></ol> <ul><li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h4 id="_2-3-11-broadcast-block"><a href="#_2-3-11-broadcast-block" class="header-anchor">#</a> 2.3.11 Broadcast Block</h4> <ul><li><p>Function Description:</p> <p>Outgoing node performs broadcast process</p></li> <li><p>Process description</p> <ul><li>Receive the packaging block of the consensus module. After the verification is successful, assemble the SmallBlockMessage according to the Block and broadcast it to the connected node.</li> <li>After receiving the message, the target node determines which transactions are not locally based on txHashList, and then assembles the HashListMessage to the source node.</li> <li>After receiving the information, the source node assembles the TxGroupMessage according to the hashlist and returns it to the target node.</li> <li>At this point the complete block data has been sent to the target node.</li></ul></li> <li><p>Dependent service</p> <p>Database storage tool for tool modules</p></li></ul> <h2 id="description-of-the-event"><a href="#description-of-the-event" class="header-anchor">#</a> Description of the event</h2> <h3 id="_3-1-published-events"><a href="#_3-1-published-events" class="header-anchor">#</a> 3.1 Published events</h3> <h4 id="_3-1-1-synchronization-completed"><a href="#_3-1-1-synchronization-completed" class="header-anchor">#</a> 3.1.1 Synchronization completed</h4> <p>Description: The synchronization is completed. When the height of the area is the same as the height of the network, the event is released.</p> <p>event_topic : &quot;bl_blockSyncComplete&quot;,</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    chainId
+    height
+    hash
+}
+</code></pre></div><h4 id="_3-1-2-saving-blocks"><a href="#_3-1-2-saving-blocks" class="header-anchor">#</a> 3.1.2 Saving Blocks</h4> <p>Description: This event is posted every time a block is saved, and is not sent during the initial synchronization.</p> <p>event_topic : &quot;bl_saveBlock&quot;,</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    chainId
+    height
+    hash
+}
+</code></pre></div><h4 id="_3-1-3-rollback-block"><a href="#_3-1-3-rollback-block" class="header-anchor">#</a> 3.1.3 Rollback block</h4> <p>Description: Publish this event each time you roll back a block</p> <p>event_topic : &quot;bl_rollbackBlock&quot;,</p> <div class="language- extra-class"><pre class="language-text"><code>data:{
+    chainId
+    height
+    hash
+}
+</code></pre></div><h3 id="_3-2-subscribe-to-events"><a href="#_3-2-subscribe-to-events" class="header-anchor">#</a> 3.2 Subscribe to events</h3> <div class="language- extra-class"><pre><code>slightly
+</code></pre></div><h2 id="agreement"><a href="#agreement" class="header-anchor">#</a> Agreement</h2> <h3 id="_4-1-network-communication-protocol"><a href="#_4-1-network-communication-protocol" class="header-anchor">#</a> 4.1 Network Communication Protocol</h3> <div class="language- extra-class"><pre><code>See network module
+</code></pre></div><h3 id="_4-2-message-protocol"><a href="#_4-2-message-protocol" class="header-anchor">#</a> 4.2 Message Protocol</h3> <h4 id="_4-2-1-block-height-information-heightmessage"><a href="#_4-2-1-block-height-information-heightmessage" class="header-anchor">#</a> 4.2.1 Block Height Information HeightMessage</h4> <ul><li><p>Message description: Retry download during &quot;block synchronization&quot;</p></li> <li><p>Message type (cmd)</p> <p>getBlockH</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>64</td> <td>heighrt</td> <td>int64</td> <td>Block Height</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p> <ul><li>Query the complete block according to the block height and send it to the target node</li> <li>If there is no block of this height, an empty message is returned</li></ul></li></ul> <h4 id="_4-2-2-single-summary-message-hashmessage"><a href="#_4-2-2-single-summary-message-hashmessage" class="header-anchor">#</a> 4.2.2 Single Summary Message HashMessage</h4> <ul><li><p>Message description: for &quot;forward block&quot;, &quot;orphan chain maintenance&quot; function</p></li> <li><p>Message type (cmd)</p> <p>forward,getBlock,getsBlock</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>hash</td> <td>byte[]</td> <td>Trading hash</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p> <ul><li>Forward the hash of SmallBlock</li> <li>Get SmallBlock based on hash</li> <li>Get the full block based on hash</li></ul></li></ul> <h4 id="_4-2-3-summary-list-message-hashlistmessage"><a href="#_4-2-3-summary-list-message-hashlistmessage" class="header-anchor">#</a> 4.2.3 Summary List Message HashListMessage</h4> <ul><li><p>Message description: for &quot;forward block&quot; function</p></li> <li><p>Message type (cmd)</p> <p>getTxs</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>blockHash</td> <td>byte[]</td> <td>Block hash</td></tr> <tr><td>?</td> <td>hashLength</td> <td>VarInt</td> <td>Array Length</td></tr> <tr><td>32</td> <td>hash</td> <td>byte[]</td> <td>Trading hash</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p></li></ul> <ol><li>Obtain the Transaction List based on chainID and hash</li> <li>Assemble the TxGroupMessage and send it to the source node</li></ol> <h4 id="_4-2-4-block-broadcast-message-smallblockmessage"><a href="#_4-2-4-block-broadcast-message-smallblockmessage" class="header-anchor">#</a> 4.2.4 Block Broadcast Message SmallBlockMessage</h4> <ul><li><p>Message description: for &quot;forwarding block&quot;, &quot;broadcast block&quot; function</p></li> <li><p>Message type (short)</p> <p>sBlock</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>?</td> <td>preHash</td> <td>byte[]</td> <td>preHash</td></tr> <tr><td>?</td> <td>merkleHash</td> <td>byte[]</td> <td>merkleHash</td></tr> <tr><td>32</td> <td>time</td> <td>Uint32</td> <td>Time</td></tr> <tr><td>32</td> <td>height</td> <td>Uint32</td> <td>Block Height</td></tr> <tr><td>32</td> <td>txCount</td> <td>Uint32</td> <td>Number of Transactions</td></tr> <tr><td>?</td> <td>extendLength</td> <td>VarInt</td> <td>extend array length</td></tr> <tr><td>?</td> <td>extend</td> <td>byte[]</td> <td>extend</td></tr> <tr><td>32</td> <td>publicKeyLength</td> <td>Uint32</td> <td>Public Key Array Length</td></tr> <tr><td>?</td> <td>publicKey</td> <td>byte[]</td> <td>Public Key</td></tr> <tr><td>?</td> <td>signBytesLength</td> <td>VarInt</td> <td>Signature Array Length</td></tr> <tr><td>?</td> <td>signBytes</td> <td>byte[]</td> <td>Signature</td></tr> <tr><td>?</td> <td>txHashListLength</td> <td>VarInt</td> <td>Transaction hash list array length</td></tr> <tr><td>?</td> <td>txHashLength</td> <td>VarInt</td> <td>Trading hash array length</td></tr> <tr><td>?</td> <td>txHash</td> <td>byte[]</td> <td>Trading hash</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p> <ul><li>Determine whether the block timestamp is greater than (current time +10s). If it is greater than this time, it is determined to be maliciously prematurely out of the block, ignoring the message.</li> <li>According to the chainID and the block hash, it is judged whether the message is repeated. If it is repeated, the message is ignored (it is required to maintain a set and store the received block hash according to the chainID).</li> <li>Query the DB according to the chainID and the block hash to see if the block already exists in the local area. If it already exists, ignore the message.</li> <li>Verify the block header, if the verification fails, ignore the message</li> <li>Take txHashList, determine that tx is not local, assemble HashListMessage, send it to the source node, and get those transaction information that is not available.</li> <li>If the transaction is available, the group is placed in the cache queue, waiting for the verification thread to verify and store</li></ul></li></ul> <h4 id="_4-2-5-height-interval-message-heightrangemessage"><a href="#_4-2-5-height-interval-message-heightrangemessage" class="header-anchor">#</a> 4.2.5 Height interval message HeightRangeMessage</h4> <ul><li><p>Message description: for &quot;sync block&quot; function</p></li> <li><p>Message type (cmd)</p> <p>getBlocks</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>64</td> <td>startHeight</td> <td>int64</td> <td>Starting height</td></tr> <tr><td>64</td> <td>endHeight</td> <td>int64</td> <td>End Height</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p> <ul><li>chainID, height parameter verification</li> <li>Find the Block from startHeight, assemble the BlockMessage, and send it to the target node.</li> <li>As soon as the endHeight is found, assemble CompleteMessage(true) and send it to the target node.</li> <li>Midway lookup failed, assemble CompleteMessage(false), and send it to the target node</li></ul></li></ul> <h4 id="_4-2-6-complete-block-message-blockmessage"><a href="#_4-2-6-complete-block-message-blockmessage" class="header-anchor">#</a> 4.2.6 Complete block message BlockMessage</h4> <ul><li><p>Message description: for &quot;block synchronization&quot;</p></li> <li><p>Message type (cmd)</p> <p>block</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>requestHash</td> <td>byte[]</td> <td>requestHash</td></tr> <tr><td>32</td> <td>preHash</td> <td>byte[]</td> <td>hash of the previous block</td></tr> <tr><td>32</td> <td>merkleHash</td> <td>byte[]</td> <td>merkleHash</td></tr> <tr><td>32</td> <td>time</td> <td>Uint32</td> <td>Time</td></tr> <tr><td>32</td> <td>height</td> <td>Uint32</td> <td>Block Height</td></tr> <tr><td>32</td> <td>txCount</td> <td>Uint32</td> <td>Number of Transactions</td></tr> <tr><td>?</td> <td>extendLength</td> <td>VarInt</td> <td>extend array length</td></tr> <tr><td>?</td> <td>extend</td> <td>byte[]</td> <td>extend</td></tr> <tr><td>32</td> <td>publicKeyLength</td> <td>Uint32</td> <td>Public Key Array Length</td></tr> <tr><td>?</td> <td>publicKey</td> <td>byte[]</td> <td>Public Key</td></tr> <tr><td>?</td> <td>signBytesLength</td> <td>VarInt</td> <td>Signature Array Length</td></tr> <tr><td>?</td> <td>signBytes</td> <td>byte[]</td> <td>Block Signature</td></tr> <tr><td>16</td> <td>type</td> <td>uint16</td> <td>Transaction Type</td></tr> <tr><td>32</td> <td>time</td> <td>uint32</td> <td>Trading Hours</td></tr> <tr><td>?</td> <td>remarkLength</td> <td>VarInt</td> <td>Remarks Array Length</td></tr> <tr><td>?</td> <td>remark</td> <td>byte[]</td> <td>Notes</td></tr> <tr><td>?</td> <td>txDataLength</td> <td>VarInt</td> <td>Transaction Data Array Length</td></tr> <tr><td>?</td> <td>txData</td> <td>byte[]</td> <td>Trading Data</td></tr> <tr><td>?</td> <td>coinDataLength</td> <td>VarInt</td> <td>CoinData array length</td></tr> <tr><td>?</td> <td>coinData</td> <td>byte[]</td> <td>CoinData</td></tr> <tr><td>?</td> <td>txSignLength</td> <td>VarInt</td> <td>Transaction Signature Array Length</td></tr> <tr><td>?</td> <td>txSign</td> <td>byte[]</td> <td>Transaction Signature</td></tr> <tr><td>1</td> <td>syn</td> <td>byte</td> <td>Whether it is a block for block synchronization request</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p> <ul><li>If syn==true, put the block into the synchronized cache map and increase the number of sync block bytes</li> <li>Put in a single block cache if syn==false</li></ul></li></ul> <h4 id="_4-2-7-request-completion-message-completemessage"><a href="#_4-2-7-request-completion-message-completemessage" class="header-anchor">#</a> 4.2.7 Request completion message CompleteMessage</h4> <ul><li><p>Message Description: A generic message for asynchronous requests that marks the end of asynchronous request processing.</p></li> <li><p>Message type (cmd)</p> <p>complete</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>Hash</td> <td>byte[]</td> <td>Hash</td></tr> <tr><td>1</td> <td>success</td> <td>byte</td> <td>success logo</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p></li></ul> <ol><li>Set the working flag of the corresponding node to idle according to the chainID and nodeId.</li></ol> <h4 id="_4-2-8-transaction-list-message-txgroupmessage"><a href="#_4-2-8-transaction-list-message-txgroupmessage" class="header-anchor">#</a> 4.2.8 Transaction List Message TxGroupMessage</h4> <ul><li><p>Message description: for &quot;forwarding blocks&quot;</p></li> <li><p>Message type (cmd)</p> <p>txs</p></li> <li><p>The format of the message (messageBody)</p></li></ul> <table><thead><tr><th>Length</th> <th>Fields</th> <th>Type</th> <th>Remark</th></tr></thead> <tbody><tr><td>32</td> <td>blockHash</td> <td>byte[]</td> <td>blockHash</td></tr> <tr><td>?</td> <td>txCount</td> <td>VarInt</td> <td>Number of transactions</td></tr> <tr><td>16</td> <td>type</td> <td>uint16</td> <td>Transaction Type</td></tr> <tr><td>32</td> <td>time</td> <td>uint32</td> <td>Trading Hours</td></tr> <tr><td>?</td> <td>remarkLength</td> <td>VarInt</td> <td>Remarks Array Length</td></tr> <tr><td>?</td> <td>remark</td> <td>byte[]</td> <td>Notes</td></tr> <tr><td>?</td> <td>txDataLength</td> <td>VarInt</td> <td>Transaction Data Array Length</td></tr> <tr><td>?</td> <td>txData</td> <td>byte[]</td> <td>Trading Data</td></tr> <tr><td>?</td> <td>coinDataLength</td> <td>VarInt</td> <td>CoinData array length</td></tr> <tr><td>?</td> <td>coinData</td> <td>byte[]</td> <td>CoinData</td></tr> <tr><td>?</td> <td>txSignLength</td> <td>VarInt</td> <td>Transaction Signature Array Length</td></tr> <tr><td>?</td> <td>txSign</td> <td>byte[]</td> <td>Transaction Signature</td></tr></tbody></table> <ul><li><p>Verification of the message</p> <p>slightly</p></li> <li><p>Message processing logic</p> <ul><li>Ignore the message if I have received the full block</li> <li>If a partial block is received and the transaction is missing, the complete block is assembled and saved</li></ul></li></ul> <h2 id="module-configuration"><a href="#module-configuration" class="header-anchor">#</a> Module configuration</h2> <div class="language- extra-class"><pre class="language-text"><code>{
+  &quot;forkChainsMonitorInterval&quot;: 10000,
+  &quot;orphanChainsMonitorInterval&quot;: 10000,
+  &quot;orphanChainsMaintainerInterval&quot;: 5000,
+  &quot;storageSizeMonitorInterval&quot;: 300000,
+  &quot;networkResetMonitorInterval&quot;: 300000,
+  &quot;nodesMonitorInterval&quot;: 5000,
+  &quot;txGroupRequestorInterval&quot;: 1000,
+  &quot;txGroupTaskDelay&quot;: 3000,
+  &quot;testAutoRollbackAmount&quot;: 0,
+  &quot;blockMaxSize&quot;: 5242880,
+  &quot;resetTime&quot;: 180000,
+  &quot;chainSwtichThreshold&quot;: 3,
+  &quot;cacheSize&quot;: 1000,
+  &quot;heightRange&quot;: 1000,
+  &quot;maxRollback&quot;: 1000,
+  &quot;consistencyNodePercent&quot;: 60,
+  &quot;minNodeAmount&quot;: 1,
+  &quot;downloadNumber&quot;: 10,
+  &quot;extendMaxSize&quot;: 1024,
+  &quot;validBlockInterval&quot;: 60000,
+  &quot;smallBlockCache&quot;: 6,
+  &quot;orphanChainMaxAge&quot;: 10,
+  &quot;singleDownloadTimeout&quot;: 10000,
+  &quot;waitNetworkInterval&quot;: 5000,
+  &quot;cachedBlockSizeLimit&quot;: 20971520,
+  &quot;genesisBlockPath&quot;: &quot;&quot;
+}
+</code></pre></div><h2 id="java-specific-design"><a href="#java-specific-design" class="header-anchor">#</a> Java-specific design</h2> <ul><li>Block object design</li></ul> <blockquote><table><thead><tr><th><code>field name</code></th> <th><code>field type</code></th> <th><code>description</code></th></tr></thead> <tbody><tr><td>blockHeader</td> <td>BlockHeader</td> <td>Block Head</td></tr> <tr><td>transactions</td> <td>List&lt;Transaction&gt;</td> <td>Trading List</td></tr></tbody></table></blockquote> <ul><li>SmallBlock object design</li></ul> <blockquote><table><thead><tr><th><code>field name</code></th> <th><code>field type</code></th> <th><code>description</code></th></tr></thead> <tbody><tr><td>blockHeader</td> <td>BlockHeader</td> <td>Block Head</td></tr> <tr><td>transactions</td> <td>List&lt;String&gt;</td> <td>All Trading HASH List</td></tr> <tr><td>subTxList</td> <td>List&lt;Transaction&gt;</td> <td>Transactions that other nodes must not have (such as consensus reward transactions, red and yellow cards, etc.)</td></tr></tbody></table></blockquote> <ul><li>BlockHeader object design</li></ul> <blockquote><table><thead><tr><th><code>field name</code></th> <th><code>field type</code></th> <th><code>description</code></th></tr></thead> <tbody><tr><td>hash</td> <td>String</td> <td>Block HASH</td></tr> <tr><td>preHash</td> <td>String</td> <td>Previous Block HASH</td></tr> <tr><td>merkleHash</td> <td>String</td> <td>Block MerkleHash</td></tr> <tr><td>height</td> <td>int</td> <td>Block Height</td></tr> <tr><td>time</td> <td>long</td> <td>Block packing time</td></tr> <tr><td>txCount</td> <td>short</td> <td>Number of transactions</td></tr> <tr><td>extend</td> <td>byte[]</td> <td>extended field</td></tr> <tr><td>blockSignature</td> <td>BlockSignature</td> <td>Block Signature</td></tr></tbody></table></blockquote> <ul><li>BlockSignature object design</li></ul> <blockquote><table><thead><tr><th><code>field name</code></th> <th><code>field type</code></th> <th><code>description</code></th></tr></thead> <tbody><tr><td>signData</td> <td>String</td> <td>Block Signature</td></tr> <tr><td>publicKey</td> <td>byte[]</td> <td>Public Key</td></tr></tbody></table></blockquote> <ul><li>Chain object design</li></ul> <blockquote><table><thead><tr><th><code>field name</code></th> <th><code>field type</code></th> <th><code>description</code></th></tr></thead> <tbody><tr><td>parent</td> <td>Chain</td> <td>parent chain</td></tr> <tr><td>sons</td> <td>SortedSet&lt;Chain&gt;</td> <td>Sub-chain Collection</td></tr> <tr><td>chainId</td> <td>int</td> <td>Chain ID</td></tr> <tr><td>previousHash</td> <td>NulsDigestData</td> <td>previousHash of the starting block on the chain</td></tr> <tr><td>startHeight</td> <td>long</td> <td>chain start height</td></tr> <tr><td>startHashCode</td> <td>int</td> <td>chain start hash conversion int (sort)</td></tr> <tr><td>endHeight</td> <td>long</td> <td>chain end height</td></tr> <tr><td>hashList</td> <td>LinkedList</td> <td>Chain block hash list</td></tr> <tr><td>type</td> <td>ChainTypeEnum</td> <td>Chain Type</td></tr> <tr><td>age</td> <td>AtomicInteger</td> <td>Chain age (orphan chain cleanup use)</td></tr></tbody></table></blockquote> <h2 id="supplementary-content"><a href="#supplementary-content" class="header-anchor">#</a> Supplementary content</h2></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/master/docs/modules/d_block.md" target="_blank" rel="noopener noreferrer">Edit this page on GitHub</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">Last Updated:</span> <span class="time">9/1/2025, 9:45:12 AM</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/modules/d_address.html" class="prev">
+        NULS Protocol Address
+      </a></span> <span class="next"><a href="/modules/d_chain_manager.html">
+        Chain Management Module Design Document
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0bafe896.js" defer></script><script src="/assets/js/2.6c3a80b8.js" defer></script><script src="/assets/js/1.22a4e5b0.js" defer></script><script src="/assets/js/22.a9f26a79.js" defer></script>
+  </body>
+</html>

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>开发手册 | 文档</title>
+    <meta name="generator" content="VuePress 1.9.10">
+    <link rel="icon" href="/favicon.ico">
+    <meta name="description" content="全球AI消费层 - NULS AI 区块链文档">
+    <meta name="theme-color" content="#A8D5FF">
+    
+    <link rel="preload" href="/assets/css/0.styles.c0387eb2.css" as="style"><link rel="preload" href="/assets/js/app.0bafe896.js" as="script"><link rel="preload" href="/assets/js/2.6c3a80b8.js" as="script"><link rel="preload" href="/assets/js/1.22a4e5b0.js" as="script"><link rel="preload" href="/assets/js/121.13efa6ca.js" as="script"><link rel="prefetch" href="/assets/js/10.18a9796f.js"><link rel="prefetch" href="/assets/js/100.c6dcc4ee.js"><link rel="prefetch" href="/assets/js/101.7d7ebb68.js"><link rel="prefetch" href="/assets/js/102.58666c13.js"><link rel="prefetch" href="/assets/js/103.b682e489.js"><link rel="prefetch" href="/assets/js/104.24bacb02.js"><link rel="prefetch" href="/assets/js/105.3743813e.js"><link rel="prefetch" href="/assets/js/106.73fa77cb.js"><link rel="prefetch" href="/assets/js/107.f42da1f4.js"><link rel="prefetch" href="/assets/js/108.0282c3bd.js"><link rel="prefetch" href="/assets/js/109.ab04f47a.js"><link rel="prefetch" href="/assets/js/11.cb4cdfd8.js"><link rel="prefetch" href="/assets/js/110.a7414102.js"><link rel="prefetch" href="/assets/js/111.c99ec821.js"><link rel="prefetch" href="/assets/js/112.edf30d53.js"><link rel="prefetch" href="/assets/js/113.437a657d.js"><link rel="prefetch" href="/assets/js/114.ca376ebb.js"><link rel="prefetch" href="/assets/js/115.411f17d8.js"><link rel="prefetch" href="/assets/js/116.0be2757f.js"><link rel="prefetch" href="/assets/js/117.ed69432a.js"><link rel="prefetch" href="/assets/js/118.4f7585a0.js"><link rel="prefetch" href="/assets/js/119.bc60f714.js"><link rel="prefetch" href="/assets/js/12.e402ed1a.js"><link rel="prefetch" href="/assets/js/120.79d9e821.js"><link rel="prefetch" href="/assets/js/122.767a3b55.js"><link rel="prefetch" href="/assets/js/123.8fe931f3.js"><link rel="prefetch" href="/assets/js/124.6adbbadd.js"><link rel="prefetch" href="/assets/js/125.626cef62.js"><link rel="prefetch" href="/assets/js/126.3dda9445.js"><link rel="prefetch" href="/assets/js/127.d62c90cb.js"><link rel="prefetch" href="/assets/js/128.c961670a.js"><link rel="prefetch" href="/assets/js/129.04de186a.js"><link rel="prefetch" href="/assets/js/13.847fb38c.js"><link rel="prefetch" href="/assets/js/130.e922ba04.js"><link rel="prefetch" href="/assets/js/131.e463809b.js"><link rel="prefetch" href="/assets/js/132.ddd02961.js"><link rel="prefetch" href="/assets/js/133.c0020aa7.js"><link rel="prefetch" href="/assets/js/134.a3f3bb32.js"><link rel="prefetch" href="/assets/js/135.8e4807f7.js"><link rel="prefetch" href="/assets/js/136.5cc7c540.js"><link rel="prefetch" href="/assets/js/137.9353bd9b.js"><link rel="prefetch" href="/assets/js/138.5e65b123.js"><link rel="prefetch" href="/assets/js/139.bdd7d1bc.js"><link rel="prefetch" href="/assets/js/14.0ebe191f.js"><link rel="prefetch" href="/assets/js/140.baee8264.js"><link rel="prefetch" href="/assets/js/141.cab83fae.js"><link rel="prefetch" href="/assets/js/142.2fccba43.js"><link rel="prefetch" href="/assets/js/143.6523903e.js"><link rel="prefetch" href="/assets/js/144.01c779f4.js"><link rel="prefetch" href="/assets/js/145.2017a624.js"><link rel="prefetch" href="/assets/js/146.d1de5a16.js"><link rel="prefetch" href="/assets/js/147.3b9d5abc.js"><link rel="prefetch" href="/assets/js/148.78a96ee0.js"><link rel="prefetch" href="/assets/js/149.ccd1442e.js"><link rel="prefetch" href="/assets/js/15.5ecc9329.js"><link rel="prefetch" href="/assets/js/150.c65eee6a.js"><link rel="prefetch" href="/assets/js/151.75a1e1d9.js"><link rel="prefetch" href="/assets/js/152.604fb4c8.js"><link rel="prefetch" href="/assets/js/153.93cfc5c0.js"><link rel="prefetch" href="/assets/js/154.d99114ee.js"><link rel="prefetch" href="/assets/js/155.168bfbc5.js"><link rel="prefetch" href="/assets/js/156.8b012700.js"><link rel="prefetch" href="/assets/js/157.3bd2e91d.js"><link rel="prefetch" href="/assets/js/158.041258e2.js"><link rel="prefetch" href="/assets/js/159.95e86c15.js"><link rel="prefetch" href="/assets/js/16.8d31e076.js"><link rel="prefetch" href="/assets/js/160.87143748.js"><link rel="prefetch" href="/assets/js/161.8593a3b4.js"><link rel="prefetch" href="/assets/js/162.b395549c.js"><link rel="prefetch" href="/assets/js/163.a2aa4a1d.js"><link rel="prefetch" href="/assets/js/17.4840b3c9.js"><link rel="prefetch" href="/assets/js/18.cefe558e.js"><link rel="prefetch" href="/assets/js/19.8e262afc.js"><link rel="prefetch" href="/assets/js/20.adeac68c.js"><link rel="prefetch" href="/assets/js/21.77d8c04a.js"><link rel="prefetch" href="/assets/js/22.a9f26a79.js"><link rel="prefetch" href="/assets/js/23.18ea5f72.js"><link rel="prefetch" href="/assets/js/24.cd796014.js"><link rel="prefetch" href="/assets/js/25.fb08cb66.js"><link rel="prefetch" href="/assets/js/26.5c949c09.js"><link rel="prefetch" href="/assets/js/27.2a2d4831.js"><link rel="prefetch" href="/assets/js/28.e0e4c4fb.js"><link rel="prefetch" href="/assets/js/29.b7521a49.js"><link rel="prefetch" href="/assets/js/3.e8b17741.js"><link rel="prefetch" href="/assets/js/30.ab6b748a.js"><link rel="prefetch" href="/assets/js/31.60464bb8.js"><link rel="prefetch" href="/assets/js/32.c95faf86.js"><link rel="prefetch" href="/assets/js/33.7d9d7a3b.js"><link rel="prefetch" href="/assets/js/34.26b92d69.js"><link rel="prefetch" href="/assets/js/35.1eeee0af.js"><link rel="prefetch" href="/assets/js/36.1c7f3048.js"><link rel="prefetch" href="/assets/js/37.9471e7bd.js"><link rel="prefetch" href="/assets/js/38.ec9abedd.js"><link rel="prefetch" href="/assets/js/39.f36e5ab8.js"><link rel="prefetch" href="/assets/js/4.8d532655.js"><link rel="prefetch" href="/assets/js/40.1ea1a444.js"><link rel="prefetch" href="/assets/js/41.8b5b74dd.js"><link rel="prefetch" href="/assets/js/42.04a077c1.js"><link rel="prefetch" href="/assets/js/43.0fe4c703.js"><link rel="prefetch" href="/assets/js/44.b935d6b9.js"><link rel="prefetch" href="/assets/js/45.2b7f5a17.js"><link rel="prefetch" href="/assets/js/46.8bc06ce9.js"><link rel="prefetch" href="/assets/js/47.82a83e28.js"><link rel="prefetch" href="/assets/js/48.6c0f32dd.js"><link rel="prefetch" href="/assets/js/49.029c21dc.js"><link rel="prefetch" href="/assets/js/5.99605394.js"><link rel="prefetch" href="/assets/js/50.e16baf5e.js"><link rel="prefetch" href="/assets/js/51.12ad3e3f.js"><link rel="prefetch" href="/assets/js/52.1ec26d8c.js"><link rel="prefetch" href="/assets/js/53.45cddd06.js"><link rel="prefetch" href="/assets/js/54.2108b43b.js"><link rel="prefetch" href="/assets/js/55.c08c272e.js"><link rel="prefetch" href="/assets/js/56.3bad307d.js"><link rel="prefetch" href="/assets/js/57.867e7ecf.js"><link rel="prefetch" href="/assets/js/58.bf774815.js"><link rel="prefetch" href="/assets/js/59.b8abadae.js"><link rel="prefetch" href="/assets/js/6.290b516c.js"><link rel="prefetch" href="/assets/js/60.61acacb6.js"><link rel="prefetch" href="/assets/js/61.81b74b64.js"><link rel="prefetch" href="/assets/js/62.264c985a.js"><link rel="prefetch" href="/assets/js/63.da901bb6.js"><link rel="prefetch" href="/assets/js/64.dbfc6dec.js"><link rel="prefetch" href="/assets/js/65.5a7bd5da.js"><link rel="prefetch" href="/assets/js/66.d7ebc9ac.js"><link rel="prefetch" href="/assets/js/67.08a9c448.js"><link rel="prefetch" href="/assets/js/68.50931544.js"><link rel="prefetch" href="/assets/js/69.e1c822fc.js"><link rel="prefetch" href="/assets/js/7.bfe2d576.js"><link rel="prefetch" href="/assets/js/70.640a1bf0.js"><link rel="prefetch" href="/assets/js/71.b22c16f7.js"><link rel="prefetch" href="/assets/js/72.bcdbc9a2.js"><link rel="prefetch" href="/assets/js/73.232c9381.js"><link rel="prefetch" href="/assets/js/74.8dd848c9.js"><link rel="prefetch" href="/assets/js/75.5b39d848.js"><link rel="prefetch" href="/assets/js/76.339f1901.js"><link rel="prefetch" href="/assets/js/77.fd812ad4.js"><link rel="prefetch" href="/assets/js/78.59c9582b.js"><link rel="prefetch" href="/assets/js/79.b4588cba.js"><link rel="prefetch" href="/assets/js/80.d20b7f7f.js"><link rel="prefetch" href="/assets/js/81.0de2e426.js"><link rel="prefetch" href="/assets/js/82.8fa26f1a.js"><link rel="prefetch" href="/assets/js/83.8cbb912a.js"><link rel="prefetch" href="/assets/js/84.a1b83b1c.js"><link rel="prefetch" href="/assets/js/85.4237db2a.js"><link rel="prefetch" href="/assets/js/86.4b6842e9.js"><link rel="prefetch" href="/assets/js/87.0290cd66.js"><link rel="prefetch" href="/assets/js/88.ad25d269.js"><link rel="prefetch" href="/assets/js/89.e34aa4b2.js"><link rel="prefetch" href="/assets/js/90.b9ad822e.js"><link rel="prefetch" href="/assets/js/91.4d2cd6d0.js"><link rel="prefetch" href="/assets/js/92.321d2cde.js"><link rel="prefetch" href="/assets/js/93.cec650ad.js"><link rel="prefetch" href="/assets/js/94.732e613a.js"><link rel="prefetch" href="/assets/js/95.b93723c8.js"><link rel="prefetch" href="/assets/js/96.c9532164.js"><link rel="prefetch" href="/assets/js/97.23e04641.js"><link rel="prefetch" href="/assets/js/98.c5b31a70.js"><link rel="prefetch" href="/assets/js/99.d3eae370.js"><link rel="prefetch" href="/assets/js/vendors~docsearch.811c81b7.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.c0387eb2.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/zh/" class="home-link router-link-active"><img src="/logo.svg" alt="文档" class="logo"> <span class="site-name can-hide">文档</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/zh/user-guide/" class="nav-link">
+  用户指南
+</a></div><div class="nav-item"><a href="/zh/chain-api/" class="nav-link">
+  API接口
+</a></div><div class="nav-item"><a href="/zh/dapp-builder/" class="nav-link router-link-active">
+  DApp开发
+</a></div><div class="nav-item"><a href="/zh/chain-builder/" class="nav-link">
+  构建链
+</a></div><div class="nav-item"><a href="/zh/modules/" class="nav-link">
+  模块
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">选择语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/dapp-builder/s_manual.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dapp-builder/s_manual.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/zh/user-guide/" class="nav-link">
+  用户指南
+</a></div><div class="nav-item"><a href="/zh/chain-api/" class="nav-link">
+  API接口
+</a></div><div class="nav-item"><a href="/zh/dapp-builder/" class="nav-link router-link-active">
+  DApp开发
+</a></div><div class="nav-item"><a href="/zh/chain-builder/" class="nav-link">
+  构建链
+</a></div><div class="nav-item"><a href="/zh/modules/" class="nav-link">
+  模块
+</a></div><div class="nav-item"><div class="dropdown-wrapper"><button type="button" aria-label="Select language" class="dropdown-title"><span class="title">选择语言</span> <span class="arrow down"></span></button> <button type="button" aria-label="Select language" class="mobile-dropdown-title"><span class="title">选择语言</span> <span class="arrow right"></span></button> <ul class="nav-dropdown" style="display:none;"><li class="dropdown-item"><!----> <a href="/dapp-builder/s_manual.html" class="nav-link">
+  English
+</a></li><li class="dropdown-item"><!----> <a href="/zh/dapp-builder/s_manual.html" aria-current="page" class="nav-link router-link-exact-active router-link-active">
+  中文
+</a></li></ul></div></div> <a href="https://github.com/nuls-io/devsite/" target="_blank" rel="noopener noreferrer" class="repo-link">
+    GitHub
+    <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></nav>  <ul class="sidebar-links"><li><section class="sidebar-group depth-0"><p class="sidebar-heading open"><span>🚀 DApp 开发</span> <!----></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/zh/dapp-builder/" aria-current="page" class="sidebar-link">🚀 DApp 开发</a></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading open"><span>📖 智能合约</span> <span class="arrow down"></span></p> <ul class="sidebar-links sidebar-group-items"><li><a href="/zh/dapp-builder/s_manual.html" aria-current="page" class="active sidebar-link">开发手册</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_1-简介" class="sidebar-link">1. 简介</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_2-开发环境" class="sidebar-link">2. 开发环境</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_2-1-安装jdk-8" class="sidebar-link">2.1 安装JDK 8</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_2-2-安装intellij-idea" class="sidebar-link">2.2 安装IntelliJ IDEA</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_2-3-nuls智能合约开发工具" class="sidebar-link">2.3 NULS智能合约开发工具</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_3-nuls智能合约规范与语法" class="sidebar-link">3. NULS智能合约规范与语法</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_3-1-nuls智能合约规范" class="sidebar-link">3.1 NULS智能合约规范</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_3-2-关键字" class="sidebar-link">3.2 关键字</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_3-3-基本语法" class="sidebar-link">3.3 基本语法</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_3-4-支持的类" class="sidebar-link">3.4 支持的类</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_3-5-其他限制" class="sidebar-link">3.5 其他限制</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_4-nuls智能合约简单示例" class="sidebar-link">4. NULS智能合约简单示例</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#github上里面有一些合约示例。" class="sidebar-link">Github上里面有一些合约示例。</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_5-nuls-contract-sdk" class="sidebar-link">5. NULS Contract SDK</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-address" class="sidebar-link">io.nuls.contract.sdk.Address</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-block" class="sidebar-link">io.nuls.contract.sdk.Block</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-blockheader" class="sidebar-link">io.nuls.contract.sdk.BlockHeader</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-contract" class="sidebar-link">io.nuls.contract.sdk.Contract</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-event" class="sidebar-link">io.nuls.contract.sdk.Event</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-msg" class="sidebar-link">io.nuls.contract.sdk.Msg</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-multyassetvalue" class="sidebar-link">io.nuls.contract.sdk.MultyAssetValue</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-utils" class="sidebar-link">io.nuls.contract.sdk.Utils</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-annotation-payable" class="sidebar-link">io.nuls.contract.sdk.annotation.Payable</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-annotation-payablemultyasset" class="sidebar-link">io.nuls.contract.sdk.annotation.PayableMultyAsset</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-annotation-required" class="sidebar-link">io.nuls.contract.sdk.annotation.Required</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-annotation-view" class="sidebar-link">io.nuls.contract.sdk.annotation.View</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#io-nuls-contract-sdk-annotation-jsonserializable" class="sidebar-link">io.nuls.contract.sdk.annotation.JSONSerializable</a></li></ul></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_6-智能合约主要的api" class="sidebar-link">6. 智能合约主要的API</a></li><li class="sidebar-sub-header"><a href="/zh/dapp-builder/s_manual.html#_7-智能合约方法参数传递的一些说明" class="sidebar-link">7. 智能合约方法参数传递的一些说明</a></li></ul></li><li><a href="/zh/dapp-builder/s_advance.html" class="sidebar-link">高级说明</a></li><li><a href="/zh/dapp-builder/s_tools.html" class="sidebar-link">开发工具</a></li></ul></section></li><li><section class="sidebar-group collapsable is-sub-group depth-1"><p class="sidebar-heading"><span>🪙 代币标准</span> <span class="arrow right"></span></p> <!----></section></li></ul></section></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="开发手册"><a href="#开发手册" class="header-anchor">#</a> 开发手册</h1> <h2 id="_1-简介"><a href="#_1-简介" class="header-anchor">#</a> 1. 简介</h2> <p>NULS智能合约使用Java进行开发，合约运行在NULS虚拟机中。合约开发不能使用所有的Java特性，在第3节列出具体限制。</p> <h2 id="_2-开发环境"><a href="#_2-开发环境" class="header-anchor">#</a> 2. 开发环境</h2> <h3 id="_2-1-安装jdk-8"><a href="#_2-1-安装jdk-8" class="header-anchor">#</a> 2.1 安装JDK 8</h3> <h3 id="_2-2-安装intellij-idea"><a href="#_2-2-安装intellij-idea" class="header-anchor">#</a> 2.2 安装IntelliJ IDEA</h3> <p>Nuls智能合约使用的开发工具为IntelliJ IDEA。</p> <h3 id="_2-3-nuls智能合约开发工具"><a href="#_2-3-nuls智能合约开发工具" class="header-anchor">#</a> 2.3 NULS智能合约开发工具</h3> <p>NULS智能合约开发工具提供的主要功能：</p> <ul><li>新建NULS智能合约Maven工程</li> <li>提供可视化页面来编译、打包、部署合约、调用合约、查询合约相关数据</li></ul> <blockquote><p><a href="/zh/dapp-builder/s_tools.html">构建NULS智能合约开发工具的说明文档</a></p></blockquote> <h2 id="_3-nuls智能合约规范与语法"><a href="#_3-nuls智能合约规范与语法" class="header-anchor">#</a> 3. NULS智能合约规范与语法</h2> <p>Nuls智能合约语法是Java语法的一个子集，在Java语法上做了一些限制。</p> <h3 id="_3-1-nuls智能合约规范"><a href="#_3-1-nuls智能合约规范" class="header-anchor">#</a> 3.1 NULS智能合约规范</h3> <blockquote><p><strong><em>合约主类必须实现Contract接口，一个智能合约只能有一个类实现Contract接口，其他类和接口都是为这个合约提供功能的。</em></strong></p></blockquote> <h3 id="_3-2-关键字"><a href="#_3-2-关键字" class="header-anchor">#</a> 3.2 关键字</h3> <p>下面列出Java关键字，其中将标注NULS智能合约不支持的关键字</p> <p>访问控制</p> <ul><li>public</li> <li>protected</li> <li>private</li></ul> <p>定义类、接口、抽象类和实现接口、继承类的关键字、实例化对象</p> <ul><li>class</li> <li>interface</li> <li>abstract</li> <li>implements</li> <li>extends</li> <li>new</li></ul> <p>包的关键字</p> <ul><li>import</li> <li>package</li></ul> <p>数据类型的关键字</p> <ul><li>byte</li> <li>char</li> <li>boolean</li> <li>short</li> <li>int</li> <li>float</li> <li>long</li> <li>double</li> <li>void</li> <li>null</li> <li>true</li> <li>false</li></ul> <p>条件循环（流程控制）</p> <ul><li>if</li> <li>else</li> <li>while</li> <li>for</li> <li>switch</li> <li>case</li> <li>default</li> <li>do</li> <li>break</li> <li>continue</li> <li>return</li> <li>instanceof</li></ul> <p>错误处理</p> <ul><li>catch</li> <li>try</li> <li>finally</li> <li>throw</li> <li>throws</li></ul> <p>修饰方法、类、属性和变量</p> <ul><li>static</li> <li>final</li> <li>super</li> <li>this</li> <li>native（不支持）</li> <li>strictfp（不支持）</li> <li>synchronized（不支持）</li> <li>transient（不支持）</li> <li>volatile（不支持）</li></ul> <p>其他</p> <ul><li>enum（不支持）</li> <li>assert（不支持）</li></ul> <h3 id="_3-3-基本语法"><a href="#_3-3-基本语法" class="header-anchor">#</a> 3.3 基本语法</h3> <p>下面的语法与Java相同，只是简单列出，具体可参考Java相关文档</p> <ul><li>标识符：由字符、下划线、美元符或数字组成，以字符、下划线、美元符开头</li> <li>基本数据类型：byte short int long float double char boolean</li> <li>引用数据类型：类、接口、数组</li> <li>算术运算符：+        -        *        /        %        ++        --</li> <li>关系运算符：&gt;        &lt;        &gt;=        &lt;=        ==        !=</li> <li>逻辑运算符：!        &amp;        |        ^        &amp;&amp;        ||</li> <li>位运算符：&amp;        |        ^        ~        &gt;&gt;        &lt;&lt;        &gt;&gt;&gt;</li> <li>赋值运算符：=</li> <li>拓展赋值运算符：+        =        -=        *=        /=</li> <li>字符串链接运算符：+</li> <li>三目条件运算符          ?        :</li> <li>流程控制语句（if,switch,for,while,do...while）</li></ul> <h3 id="_3-4-支持的类"><a href="#_3-4-支持的类" class="header-anchor">#</a> 3.4 支持的类</h3> <p>Nuls智能合约只能使用下面的类进行开发</p> <ul><li>io.nuls.contract.sdk.Address</li> <li>io.nuls.contract.sdk.Block</li> <li>io.nuls.contract.sdk.BlockHeader</li> <li>io.nuls.contract.sdk.Contract</li> <li>io.nuls.contract.sdk.Event</li> <li>io.nuls.contract.sdk.Msg</li> <li>io.nuls.contract.sdk.Utils</li> <li>io.nuls.contract.sdk.MultyAssetValue</li> <li>io.nuls.contract.sdk.annotation.View</li> <li>io.nuls.contract.sdk.annotation.Required</li> <li>io.nuls.contract.sdk.annotation.Payable</li> <li>io.nuls.contract.sdk.annotation.JSONSerializable</li> <li>io.nuls.contract.sdk.annotation.PayableMultyAsset</li> <li>java.lang.Boolean</li> <li>java.lang.Byte</li> <li>java.lang.Short</li> <li>java.lang.Character</li> <li>java.lang.Integer</li> <li>java.lang.Long</li> <li>java.lang.Float</li> <li>java.lang.Double</li> <li>java.lang.String</li> <li>java.lang.StringBuilder</li> <li>java.math.BigInteger</li> <li>java.math.BigDecimal</li> <li>java.util.Collection</li> <li>java.util.List</li> <li>java.util.ArrayList</li> <li>java.util.LinkedList</li> <li>java.util.Map</li> <li>java.util.HashMap</li> <li>java.util.LinkedHashMap</li> <li>java.util.Set</li> <li>java.util.HashSet</li></ul> <h3 id="_3-5-其他限制"><a href="#_3-5-其他限制" class="header-anchor">#</a> 3.5 其他限制</h3> <ul><li>合约类只能有一个构造方法，其他类不限制</li> <li>执行一次合约方法最大的Gas消耗是1000万，请保证尽可能的优化合约代码</li> <li>执行一次<code>@View</code>类型的方法调用，最大的Gas消耗是1亿，请保证尽可能的优化合约代码</li></ul> <h2 id="_4-nuls智能合约简单示例"><a href="#_4-nuls智能合约简单示例" class="header-anchor">#</a> 4. NULS智能合约简单示例</h2> <p>一个简单的合约</p> <blockquote><p><strong><em>合约主类必须实现Contract接口，其他类和接口都是为这个合约提供功能的。</em></strong></p></blockquote> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">package</span> <span class="token namespace">contracts<span class="token punctuation">.</span>examples</span><span class="token punctuation">;</span>
+
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span></span><span class="token class-name">Contract</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Payable</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Required</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">io<span class="token punctuation">.</span>nuls<span class="token punctuation">.</span>contract<span class="token punctuation">.</span>sdk<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">View</span></span><span class="token punctuation">;</span>
+
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">SimpleStorage</span> <span class="token keyword">implements</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> storedData<span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 调用后合约状态不会改变，可以通过这种方法查询合约状态
+     */</span>
+    <span class="token annotation punctuation">@View</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getStoredData</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> storedData<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 标记@Payable的方法，才能在调用时候传入NULS金额
+     */</span>
+    <span class="token annotation punctuation">@Payable</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setStoredData</span><span class="token punctuation">(</span><span class="token annotation punctuation">@Required</span> <span class="token class-name">String</span> storedData<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>storedData <span class="token operator">=</span> storedData<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token comment">/**
+     * 返回值会被VM自动JSON序列化，以JSON字符串的形式返回
+     * 注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化
+     */</span>
+    <span class="token annotation punctuation">@JSONSerializable</span>
+    <span class="token keyword">public</span> <span class="token class-name">Map</span> <span class="token function">vJsonSerializableMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">Map</span> map <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;name&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;nuls&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        map<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">&quot;url&quot;</span><span class="token punctuation">,</span> <span class="token string">&quot;https://nuls.io&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> map<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><p>合约写好后，编译打包，部署到NULS链上时候，虚拟机会执行合约的构造方法初始化这个合约，并把这个合约状态保存在链上，合约状态是合约类的所有成员变量。
+合约部署好以后，<em><strong>合约类的所有public方法都是能调用的</strong></em>，通过调用这些方法读取或修改合约状态。</p> <p>注解说明</p> <p>@JSONSerializable 标记@JSONSerializable的方法，返回值会被VM自动JSON序列化，以JSON字符串的形式返回。</p> <p><b style="color:red;">注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化。</b></p> <p>@View 标记@View的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态。</p> <p>@Payable 标记@Payable的方法，才能在调用时候传入NULS金额</p> <p>@PayableMultyAsset 标记@PayableMultyAsset的方法，才能在调用时候传入其他资产金额，支持同时转入多个其他资产</p> <p>@Required 标记@Required的参数，调用时候必须传入值，<em><strong>若不想传递未标记此注解的参数，需要填入0或者null占位</strong></em></p> <h3 id="github上里面有一些合约示例。"><a href="#github上里面有一些合约示例。" class="header-anchor">#</a> Github上里面有一些合约示例。</h3> <p><a href="https://github.com/nuls-io/nuls-contracts" target="_blank" rel="noopener noreferrer">NULS合约示例收集<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p><a href="https://github.com/CCC-NULS/NRC20-Token" target="_blank" rel="noopener noreferrer">NULS合约示例 - NRC20<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p><a href="https://github.com/MIMIEYES/NULS-NRC721-baselib" target="_blank" rel="noopener noreferrer">NULS合约示例 - NRC721<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <p><a href="https://github.com/CCC-NULS/pocm-contract" target="_blank" rel="noopener noreferrer">NULS合约示例 - POCM<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a></p> <h2 id="_5-nuls-contract-sdk"><a href="#_5-nuls-contract-sdk" class="header-anchor">#</a> 5. NULS Contract SDK</h2> <p>合约SDK提供了几个类，方便合约开发：</p> <h3 id="io-nuls-contract-sdk-address"><a href="#io-nuls-contract-sdk-address" class="header-anchor">#</a> io.nuls.contract.sdk.Address</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Address</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token keyword">final</span> <span class="token class-name">String</span> address<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Address</span><span class="token punctuation">(</span><span class="token class-name">String</span> address<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">valid</span><span class="token punctuation">(</span>address<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>address <span class="token operator">=</span> address<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 获取该地址的可用余额
+     *
+     * @return BigInteger
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">balance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 获取该地址的总余额
+     *
+     * @return BigInteger
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">totalBalance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约向该地址转账(NULS, 可锁定)
+     *
+     * @param value         转账金额（多少Na）
+     * @param lockedTime    锁定时间（单位秒，若锁定1分钟，则填入60）
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">transferLocked</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span> value<span class="token punctuation">,</span> <span class="token keyword">long</span> lockedTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约向该地址转账(NULS)
+     *
+     * @param value
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">transferLocked</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+
+    <span class="token comment">/**
+     * 合约向该地址转账指定的资产(可锁定)
+     *
+     * @param value          转账金额
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     * @param lockedTime     锁定时间（单位秒，若锁定1分钟，则填入60）
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">transferLocked</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span> value<span class="token punctuation">,</span> <span class="token keyword">int</span> assetChainId<span class="token punctuation">,</span> <span class="token keyword">int</span> assetId<span class="token punctuation">,</span> <span class="token keyword">long</span> lockedTime<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约向该地址转账指定的资产
+     *
+     * @param value          转账金额
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">transfer</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span> value<span class="token punctuation">,</span> <span class="token keyword">int</span> assetChainId<span class="token punctuation">,</span> <span class="token keyword">int</span> assetId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">transferLocked</span><span class="token punctuation">(</span>value<span class="token punctuation">,</span> assetChainId<span class="token punctuation">,</span> assetId<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 获取该地址指定资产的可用余额
+     *
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">balance</span><span class="token punctuation">(</span><span class="token keyword">int</span> assetChainId<span class="token punctuation">,</span> <span class="token keyword">int</span> assetId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 获取该地址指定资产的总余额
+     *
+     * @param assetChainId   资产链ID
+     * @param assetId        资产ID
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">totalBalance</span><span class="token punctuation">(</span><span class="token keyword">int</span> assetChainId<span class="token punctuation">,</span> <span class="token keyword">int</span> assetId<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 调用该地址的合约方法
+     *
+     * @param methodName 方法名
+     * @param methodDesc 方法签名
+     * @param args       参数
+     * @param value      附带的货币量（多少Na）
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">call</span><span class="token punctuation">(</span><span class="token class-name">String</span> methodName<span class="token punctuation">,</span> <span class="token class-name">String</span> methodDesc<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> <span class="token class-name">BigInteger</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 调用该地址的合约方法并带有返回值(String)
+     *
+     * @param methodName 方法名
+     * @param methodDesc 方法签名
+     * @param args       参数
+     * @param value      附带的货币量（多少Na）
+     * @return 调用合约后的返回值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token class-name">String</span> <span class="token function">callWithReturnValue</span><span class="token punctuation">(</span><span class="token class-name">String</span> methodName<span class="token punctuation">,</span> <span class="token class-name">String</span> methodDesc<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> <span class="token class-name">BigInteger</span> value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 调用该地址的合约方法并带有返回值(String)
+     *
+     * @param methodName        方法名
+     * @param methodDesc        方法签名
+     * @param args              参数
+     * @param value             转入资产数量
+     * @param multyAssetValues  转入的其他资产
+     * @return 调用合约后的返回值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token class-name">String</span> <span class="token function">callWithReturnValue</span><span class="token punctuation">(</span><span class="token class-name">String</span> methodName<span class="token punctuation">,</span> <span class="token class-name">String</span> methodDesc<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">,</span> <span class="token class-name">BigInteger</span> value<span class="token punctuation">,</span> <span class="token class-name">MultyAssetValue</span><span class="token punctuation">[</span><span class="token punctuation">]</span> multyAssetValues<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 验证地址
+     *
+     * @param address 地址
+     */</span>
+    <span class="token keyword">private</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">valid</span><span class="token punctuation">(</span><span class="token class-name">String</span> address<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 验证地址是否是合约地址
+     *
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">isContract</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> o<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">Address</span> address1 <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">Address</span><span class="token punctuation">)</span> o<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> address <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> address<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>address1<span class="token punctuation">.</span>address<span class="token punctuation">)</span> <span class="token operator">:</span> address1<span class="token punctuation">.</span>address <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> address <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> address<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> address<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-block"><a href="#io-nuls-contract-sdk-block" class="header-anchor">#</a> io.nuls.contract.sdk.Block</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Block</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 给定块的区块头
+     *
+     * @param blockNumber 区块高度
+     * @return 给定块的区块头
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">BlockHeader</span> <span class="token function">getBlockHeader</span><span class="token punctuation">(</span><span class="token keyword">long</span> blockNumber<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 当前块的区块头
+     *
+     * @return 当前块的区块头
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">BlockHeader</span> <span class="token function">currentBlockHeader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 最新块的区块头
+     *
+     * @return 最新块的区块头
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">BlockHeader</span> <span class="token function">newestBlockHeader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 给定块的哈希值
+     * hash of the given block
+     *
+     * @param blockNumber
+     * @return 给定块的哈希值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">blockhash</span><span class="token punctuation">(</span><span class="token keyword">long</span> blockNumber<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">getBlockHeader</span><span class="token punctuation">(</span>blockNumber<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getHash</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 当前块矿工地址
+     * current block miner’s address
+     *
+     * @return 地址
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">Address</span> <span class="token function">coinbase</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">currentBlockHeader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPackingAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 当前块编号
+     * current block number
+     *
+     * @return number
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">number</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">currentBlockHeader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 当前块时间戳
+     * current block timestamp
+     *
+     * @return timestamp
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">long</span> <span class="token function">timestamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">currentBlockHeader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-blockheader"><a href="#io-nuls-contract-sdk-blockheader" class="header-anchor">#</a> io.nuls.contract.sdk.BlockHeader</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">BlockHeader</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">String</span> hash<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> time<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> height<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">long</span> txCount<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">Address</span> packingAddress<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> stateRoot<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getHash</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> hash<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">getTime</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> time<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">getHeight</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> height<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">long</span> <span class="token function">getTxCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> txCount<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">Address</span> <span class="token function">getPackingAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> packingAddress<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">getStateRoot</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> stateRoot<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> o<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> o<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">BlockHeader</span> that <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">BlockHeader</span><span class="token punctuation">)</span> o<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>time <span class="token operator">!=</span> that<span class="token punctuation">.</span>time<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>height <span class="token operator">!=</span> that<span class="token punctuation">.</span>height<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>txCount <span class="token operator">!=</span> that<span class="token punctuation">.</span>txCount<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>hash <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token operator">!</span>hash<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>hash<span class="token punctuation">)</span> <span class="token operator">:</span> that<span class="token punctuation">.</span>hash <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>packingAddress <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token operator">!</span>packingAddress<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>packingAddress<span class="token punctuation">)</span> <span class="token operator">:</span> that<span class="token punctuation">.</span>packingAddress <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span>
+            <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> stateRoot <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> stateRoot<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>stateRoot<span class="token punctuation">)</span> <span class="token operator">:</span> that<span class="token punctuation">.</span>stateRoot <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> result <span class="token operator">=</span> hash <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> hash<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>time <span class="token operator">^</span> <span class="token punctuation">(</span>time <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>height <span class="token operator">^</span> <span class="token punctuation">(</span>height <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>txCount <span class="token operator">^</span> <span class="token punctuation">(</span>txCount <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">32</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> <span class="token punctuation">(</span>packingAddress <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> packingAddress<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> <span class="token punctuation">(</span>stateRoot <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> stateRoot<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">&quot;BlockHeader{&quot;</span> <span class="token operator">+</span>
+                <span class="token string">&quot;hash='&quot;</span> <span class="token operator">+</span> hash <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token string">&quot;, time=&quot;</span> <span class="token operator">+</span> time <span class="token operator">+</span>
+                <span class="token string">&quot;, height=&quot;</span> <span class="token operator">+</span> height <span class="token operator">+</span>
+                <span class="token string">&quot;, txCount=&quot;</span> <span class="token operator">+</span> txCount <span class="token operator">+</span>
+                <span class="token string">&quot;, packingAddress=&quot;</span> <span class="token operator">+</span> packingAddress <span class="token operator">+</span>
+                <span class="token string">&quot;, stateRoot='&quot;</span> <span class="token operator">+</span> stateRoot <span class="token operator">+</span> <span class="token char">'\''</span> <span class="token operator">+</span>
+                <span class="token char">'}'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-contract"><a href="#io-nuls-contract-sdk-contract" class="header-anchor">#</a> io.nuls.contract.sdk.Contract</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+ * 合约接口，合约类实现这个接口
+ */</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Contract</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 直接向合约转账，会触发这个方法，默认不做任何操作，可以重载这个方法。
+     * 前提: 需重载这个方法，并且标记`@Payable`注解
+     */</span>
+    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">_payable</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 直接向合约转账其他资产，会触发这个方法，默认不做任何操作
+     * 前提: 若合约地址支持直接转账其他资产，需重载这个方法，并且标记`@PayableMultyAsset`注解
+     */</span>
+    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">_payableMultyAsset</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+    
+    <span class="token comment">/**
+     * 1. 当共识节点奖励地址是合约地址时，会触发这个方法，参数是区块奖励地址明细二维数组数据 eg. [[address, amount], [address, amount], ...]
+     * 2. 当委托节点地址是合约地址时，会触发这个方法，参数是合约地址和奖励金额二维数组数据 eg. [[address, amount]]
+     * 前提: 需重载这个方法，并且标记`@Payable`注解
+     */</span>
+    <span class="token keyword">default</span> <span class="token keyword">void</span> <span class="token function">_payable</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-event"><a href="#io-nuls-contract-sdk-event" class="header-anchor">#</a> io.nuls.contract.sdk.Event</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token comment">/**
+* 事件接口，事件类实现这个接口
+*/</span>
+<span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">Event</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-msg"><a href="#io-nuls-contract-sdk-msg" class="header-anchor">#</a> io.nuls.contract.sdk.Msg</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Msg</span> <span class="token punctuation">{</span>
+
+    <span class="token comment">/**
+     * 剩余Gas
+     * remaining gas
+     *
+     * @return 剩余gas
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token keyword">long</span> <span class="token function">gasleft</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约发送者地址
+     * sender of the contract
+     *
+     * @return 消息发送者地址
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">Address</span> <span class="token function">sender</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约发送者地址公钥
+     * sender public key of the contract
+     *
+     * @return 消息发送者地址公钥
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">String</span> <span class="token function">senderPublicKey</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约发送者转入合约地址的Nuls数量，单位是Na，1Nuls=1亿Na
+     * The number of Nuls transferred by the contract sender to the contract address, the unit is Na, 1Nuls = 1 billion Na
+     *
+     * @return
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">/**
+     * 合约发送者转入合约地址的其他资产列表
+     *
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">MultyAssetValue</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token function">multyAssetValues</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * Gas价格
+     * gas price
+     *
+     * @return Gas价格
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token keyword">long</span> <span class="token function">gasprice</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 合约地址
+     * contract address
+     *
+     * @return 合约地址
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">Address</span> <span class="token function">address</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-multyassetvalue"><a href="#io-nuls-contract-sdk-multyassetvalue" class="header-anchor">#</a> io.nuls.contract.sdk.MultyAssetValue</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">MultyAssetValue</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">BigInteger</span> value<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> assetChainId<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> assetId<span class="token punctuation">;</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">MultyAssetValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">MultyAssetValue</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span> value<span class="token punctuation">,</span> <span class="token keyword">int</span> assetChainId<span class="token punctuation">,</span> <span class="token keyword">int</span> assetId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>assetChainId <span class="token operator">=</span> assetChainId<span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>assetId <span class="token operator">=</span> assetId<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token class-name">BigInteger</span> <span class="token function">getValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setValue</span><span class="token punctuation">(</span><span class="token class-name">BigInteger</span> value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAssetChainId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> assetChainId<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAssetChainId</span><span class="token punctuation">(</span><span class="token keyword">int</span> assetChainId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>assetChainId <span class="token operator">=</span> assetChainId<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">getAssetId</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> assetId<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token keyword">void</span> <span class="token function">setAssetId</span><span class="token punctuation">(</span><span class="token keyword">int</span> assetId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>assetId <span class="token operator">=</span> assetId<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">boolean</span> <span class="token function">equals</span><span class="token punctuation">(</span><span class="token class-name">Object</span> o<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span> <span class="token operator">==</span> o<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>o <span class="token operator">==</span> <span class="token keyword">null</span> <span class="token operator">||</span> <span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> o<span class="token punctuation">.</span><span class="token function">getClass</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">MultyAssetValue</span> that <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token class-name">MultyAssetValue</span><span class="token punctuation">)</span> o<span class="token punctuation">;</span>
+
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>assetChainId <span class="token operator">!=</span> that<span class="token punctuation">.</span>assetChainId<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>assetId <span class="token operator">!=</span> that<span class="token punctuation">.</span>assetId<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>value<span class="token punctuation">.</span><span class="token function">equals</span><span class="token punctuation">(</span>that<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token keyword">int</span> <span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> result <span class="token operator">=</span> value<span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> assetChainId<span class="token punctuation">;</span>
+        result <span class="token operator">=</span> <span class="token number">31</span> <span class="token operator">*</span> result <span class="token operator">+</span> assetId<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-utils"><a href="#io-nuls-contract-sdk-utils" class="header-anchor">#</a> io.nuls.contract.sdk.Utils</h3> <div class="language-java extra-class"><pre class="language-java"><code><span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Utils</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">private</span> <span class="token class-name">Utils</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 检查条件，如果条件不满足则回滚
+     *
+     * @param expression
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> expression<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>expression<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">revert</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 检查条件，如果条件不满足则回滚
+     *
+     * @param expression
+     * @param errorMessage
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token keyword">boolean</span> expression<span class="token punctuation">,</span> <span class="token class-name">String</span> errorMessage<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>expression<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token function">revert</span><span class="token punctuation">(</span>errorMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 终止执行并还原改变的状态
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">revert</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">revert</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 终止执行并还原改变的状态
+     *
+     * @param errorMessage
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">revert</span><span class="token punctuation">(</span><span class="token class-name">String</span> errorMessage<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * 发送事件
+     *
+     * @param event
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token keyword">void</span> <span class="token function">emit</span><span class="token punctuation">(</span><span class="token class-name">Event</span> event<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+	<span class="token comment">/**
+     * @param seed a private seed
+     * @return pseudo random number (0 ~ 1)
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">float</span> <span class="token function">pseudoRandom</span><span class="token punctuation">(</span><span class="token keyword">long</span> seed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">int</span> hash1 <span class="token operator">=</span> <span class="token class-name">Block</span><span class="token punctuation">.</span><span class="token function">currentBlockHeader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">getPackingAddress</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> hash2 <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">.</span><span class="token function">address</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> hash3 <span class="token operator">=</span> <span class="token class-name">Msg</span><span class="token punctuation">.</span><span class="token function">sender</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!=</span> <span class="token keyword">null</span> <span class="token operator">?</span> <span class="token class-name">Msg</span><span class="token punctuation">.</span><span class="token function">sender</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">substring</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> hash4 <span class="token operator">=</span> <span class="token class-name">Long</span><span class="token punctuation">.</span><span class="token function">valueOf</span><span class="token punctuation">(</span><span class="token class-name">Block</span><span class="token punctuation">.</span><span class="token function">timestamp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">hashCode</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token keyword">long</span> hash <span class="token operator">=</span> seed <span class="token operator">^</span> hash1 <span class="token operator">^</span> hash2 <span class="token operator">^</span> hash3 <span class="token operator">^</span> hash4<span class="token punctuation">;</span>
+
+        seed <span class="token operator">=</span> <span class="token punctuation">(</span>hash <span class="token operator">*</span> <span class="token number">0</span>x5DEECE66DL <span class="token operator">+</span> <span class="token number">0</span>xBL<span class="token punctuation">)</span> <span class="token operator">&amp;</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token number">1L</span> <span class="token operator">&lt;&lt;</span> <span class="token number">48</span><span class="token punctuation">)</span> <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span> <span class="token punctuation">(</span>seed <span class="token operator">&gt;&gt;&gt;</span> <span class="token number">24</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token punctuation">(</span><span class="token keyword">float</span><span class="token punctuation">)</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">&lt;&lt;</span> <span class="token number">24</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * @return pseudo random number (0 ~ 1)
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">float</span> <span class="token function">pseudoRandom</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">pseudoRandom</span><span class="token punctuation">(</span><span class="token number">0</span>x5DEECE66DL<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     *
+     * Please note that this is the SHA-3 FIPS 202 standard, not Keccak-256.
+     *
+     * @param src source string (hex encoding string)
+     * @return sha3-256 hash (hex encoding string)
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">String</span> <span class="token function">sha3</span><span class="token punctuation">(</span><span class="token class-name">String</span> hexString<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     *
+     * Please note that this is the SHA-3 FIPS 202 standard, not Keccak-256.
+     *
+     * @param bytes source byte array
+     * @return sha3-256 hash (hex encoding string)
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">String</span> <span class="token function">sha3</span><span class="token punctuation">(</span><span class="token keyword">byte</span><span class="token punctuation">[</span><span class="token punctuation">]</span> bytes<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">/**
+     * [Testnet]verify signature data(ECDSA)
+     *
+     * @param data(hex encoding string)
+     * @param signature(hex encoding string)
+     * @param pubkey(hex encoding string)
+     * @return verify result
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token keyword">boolean</span> <span class="token function">verifySignatureData</span><span class="token punctuation">(</span><span class="token class-name">String</span> data<span class="token punctuation">,</span> <span class="token class-name">String</span> signature<span class="token punctuation">,</span> <span class="token class-name">String</span> pubkey<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * [Testnet]根据截止高度和原始种子数量，用特定的算法生成一个随机种子
+     *
+     * @param endHeight 截止高度
+     * @param seedCount 原始种子数量
+     * @param algorithm hash算法标识
+     * @return 原始种子字节数组合并后, 使用hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">getRandomSeed</span><span class="token punctuation">(</span><span class="token keyword">long</span> endHeight<span class="token punctuation">,</span> <span class="token keyword">int</span> seedCount<span class="token punctuation">,</span> <span class="token class-name">String</span> algorithm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * [Testnet]根据截止高度和原始种子数量，用`SHA3-256`hash算法生成一个随机种子
+     *
+     * @param endHeight 截止高度
+     * @param seedCount 原始种子数量
+     * @return 原始种子字节数组合并后, 使用`SHA3-256`hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">BigInteger</span> <span class="token function">getRandomSeed</span><span class="token punctuation">(</span><span class="token keyword">long</span> endHeight<span class="token punctuation">,</span> <span class="token keyword">int</span> seedCount<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">getRandomSeed</span><span class="token punctuation">(</span>endHeight<span class="token punctuation">,</span> seedCount<span class="token punctuation">,</span> <span class="token string">&quot;SHA3&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * [Testnet]根据高度范围，用特定的算法生成一个随机种子
+     *
+     * @param startHeight 起始高度
+     * @param endHeight   截止高度
+     * @param algorithm   hash算法标识
+     * @return 原始种子字节数组合并后, 使用hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">BigInteger</span> <span class="token function">getRandomSeed</span><span class="token punctuation">(</span><span class="token keyword">long</span> startHeight<span class="token punctuation">,</span> <span class="token keyword">long</span> endHeight<span class="token punctuation">,</span> <span class="token class-name">String</span> algorithm<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * [Testnet]根据高度范围，用`SHA3-256`hash算法生成一个随机种子
+     *
+     * @param startHeight 起始高度
+     * @param endHeight   截止高度
+     * @return 原始种子字节数组合并后, 使用`SHA3-256`hash算法得到32位hash字节数组, 再转化为BigInteger(new BigInteger(byte[] bytes))
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">BigInteger</span> <span class="token function">getRandomSeed</span><span class="token punctuation">(</span><span class="token keyword">long</span> startHeight<span class="token punctuation">,</span> <span class="token keyword">long</span> endHeight<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">getRandomSeed</span><span class="token punctuation">(</span>startHeight<span class="token punctuation">,</span> endHeight<span class="token punctuation">,</span> <span class="token string">&quot;SHA3&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * [Testnet]根据截止高度和原始种子数量，获取原始种子的集合
+     *
+     * @param endHeight 截止高度
+     * @param seedCount 原始种子数量
+     * @return 返回原始种子的集合，元素是字节数组转化的BigInteger(new BigInteger(byte[] bytes))
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">BigInteger</span><span class="token punctuation">&gt;</span></span> <span class="token function">getRandomSeedList</span><span class="token punctuation">(</span><span class="token keyword">long</span> endHeight<span class="token punctuation">,</span> <span class="token keyword">int</span> seedCount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">/**
+     * [Testnet]根据高度范围，获取原始种子的集合
+     *
+     * @param startHeight 起始高度
+     * @param endHeight   截止高度
+     * @return 返回原始种子的集合，元素是字节数组转化的BigInteger(new BigInteger(byte[] bytes))
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">List</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">BigInteger</span><span class="token punctuation">&gt;</span></span> <span class="token function">getRandomSeedList</span><span class="token punctuation">(</span><span class="token keyword">long</span> startHeight<span class="token punctuation">,</span> <span class="token keyword">long</span> endHeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">/**
+     * 调用链上其他模块的命令
+     *
+     * @see &lt;a href=&quot;https://docs.nuls.io/zh/NULS2.0/vm-sdk.html&quot;&gt;调用命令详细说明&lt;/a&gt;
+     * @param cmdName 命令名称
+     * @param args 命令参数
+     * @return 命令返回值(根据注册命令的返回类型可返回字符串,字符串数组,字符串二维数组)
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">Object</span> <span class="token function">invokeExternalCmd</span><span class="token punctuation">(</span><span class="token class-name">String</span> cmdName<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">/**
+     * 把对象转换成json字符串
+     * 注意：对象内如果包含复杂对象，序列化深度不得超过3级
+     *
+     * @param obj
+     * @return json字符串
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">native</span> <span class="token class-name">String</span> <span class="token function">obj2Json</span><span class="token punctuation">(</span><span class="token class-name">Object</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    
+    <span class="token comment">/**
+     * 内部创建合约
+     * @param salt 参与计算生成新的合约地址的因素
+     * @param codeCopy 指定合约模板
+     * @param args 部署的参数
+     * @return 部署的合约地址
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">deploy</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> salt<span class="token punctuation">,</span> <span class="token class-name">Address</span> codeCopy<span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">require</span><span class="token punctuation">(</span>codeCopy<span class="token punctuation">.</span><span class="token function">isContract</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;not contract address&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token class-name">String</span> finalSalt <span class="token operator">=</span> <span class="token function">encodePacked</span><span class="token punctuation">(</span>salt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">int</span> argsLength <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>args <span class="token operator">!=</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            argsLength <span class="token operator">=</span> args<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span>args<span class="token punctuation">.</span>length <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+        arr<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> codeCopy<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        arr<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> finalSalt<span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> argsLength<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            arr<span class="token punctuation">[</span><span class="token number">2</span> <span class="token operator">+</span> i<span class="token punctuation">]</span> <span class="token operator">=</span> args<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token class-name">Utils</span><span class="token punctuation">.</span><span class="token function">invokeExternalCmd</span><span class="token punctuation">(</span><span class="token string">&quot;createContract&quot;</span><span class="token punctuation">,</span> arr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 字符串数组编码
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">encodePacked</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token class-name">Utils</span><span class="token punctuation">.</span><span class="token function">invokeExternalCmd</span><span class="token punctuation">(</span><span class="token string">&quot;encodePacked&quot;</span><span class="token punctuation">,</span> args<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 计算合约地址
+     * @param salt 参与计算生成新的合约地址的因素
+     * @param codeHash 合约代码的hash值
+     * @param sender 合约部署者
+     * @return 合约地址
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">computeAddress</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span> salt<span class="token punctuation">,</span> <span class="token class-name">String</span> codeHash<span class="token punctuation">,</span> <span class="token class-name">Address</span> sender<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token class-name">String</span> finalSalt <span class="token operator">=</span> <span class="token function">encodePacked</span><span class="token punctuation">(</span>salt<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token class-name">Utils</span><span class="token punctuation">.</span><span class="token function">invokeExternalCmd</span><span class="token punctuation">(</span><span class="token string">&quot;computeAddress&quot;</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>finalSalt<span class="token punctuation">,</span> codeHash<span class="token punctuation">,</span> sender<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment">/**
+     * 获取合约代码的hash值
+     * @param codeAddress 合约地址
+     * @return 合约代码的hash值
+     */</span>
+    <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token class-name">String</span> <span class="token function">getCodeHash</span><span class="token punctuation">(</span><span class="token class-name">Address</span> codeAddress<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">require</span><span class="token punctuation">(</span>codeAddress<span class="token punctuation">.</span><span class="token function">isContract</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">&quot;not contract address&quot;</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token class-name">String</span><span class="token punctuation">)</span> <span class="token class-name">Utils</span><span class="token punctuation">.</span><span class="token function">invokeExternalCmd</span><span class="token punctuation">(</span><span class="token string">&quot;getCodeHash&quot;</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">String</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">{</span>codeAddress<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-annotation-payable"><a href="#io-nuls-contract-sdk-annotation-payable" class="header-anchor">#</a> io.nuls.contract.sdk.annotation.Payable</h3> <p><code>@Payable</code> 标记<code>@Payable</code>的方法，才能在调用时候转入NULS金额</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Payable</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-annotation-payablemultyasset"><a href="#io-nuls-contract-sdk-annotation-payablemultyasset" class="header-anchor">#</a> io.nuls.contract.sdk.annotation.PayableMultyAsset</h3> <p><code>@PayableMultyAsset</code> 标记<code>@PayableMultyAsset</code>的方法，才能在调用时候转入其他资产，支持同时转入多个其他资产</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">PayableMultyAsset</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-annotation-required"><a href="#io-nuls-contract-sdk-annotation-required" class="header-anchor">#</a> io.nuls.contract.sdk.annotation.Required</h3> <p><code>@Required</code> 标记<code>@Required</code>的参数，调用时候必须传入值, <em><strong>未标记此注解的参数，若不想传递参数，需要填入0或者null占位</strong></em></p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">PARAMETER</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">Required</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-annotation-view"><a href="#io-nuls-contract-sdk-annotation-view" class="header-anchor">#</a> io.nuls.contract.sdk.annotation.View</h3> <p><code>@View</code> 标记<code>@View</code>的方法，调用后合约状态不会改变，可以通过这种方法查询合约状态</p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">View</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h3 id="io-nuls-contract-sdk-annotation-jsonserializable"><a href="#io-nuls-contract-sdk-annotation-jsonserializable" class="header-anchor">#</a> io.nuls.contract.sdk.annotation.JSONSerializable</h3> <p><code>@JSONSerializable</code> 标记@JSONSerializable的方法，返回值会被VM自动JSON序列化，以JSON字符串的形式返回。</p> <p><b style="color:red;">注意：对象层级不得超过3层，超过3层的部分会调用对象的toString方法，不会再继续序列化。</b></p> <div class="language-java extra-class"><pre class="language-java"><code><span class="token annotation punctuation">@Target</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token class-name">ElementType</span><span class="token punctuation">.</span><span class="token constant">METHOD</span><span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Retention</span><span class="token punctuation">(</span><span class="token class-name">RetentionPolicy</span><span class="token punctuation">.</span><span class="token constant">RUNTIME</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Documented</span>
+<span class="token keyword">public</span> <span class="token annotation punctuation">@interface</span> <span class="token class-name">JSONSerializable</span> <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="_6-智能合约主要的api"><a href="#_6-智能合约主要的api" class="header-anchor">#</a> 6. 智能合约主要的API</h2> <p>在NULS2.0模块<code>NULS-API</code>中，我们提供了大部分常用的API，请参考该文档中智能合约部分。</p> <p><a href="/zh/dapp-builder/i_nuls-api_JSONRPC.html">NULS-API_JSONRPC</a></p> <p><a href="/zh/dapp-builder/i_nuls-api_RESTFUL.html">NULS-API_RESTFUL</a></p> <h2 id="_7-智能合约方法参数传递的一些说明"><a href="#_7-智能合约方法参数传递的一些说明" class="header-anchor">#</a> 7. 智能合约方法参数传递的一些说明</h2> <p>智能合约的方法中如果有<code>数组类型</code>的参数，请使用如下方式传递参数</p> <blockquote><p>参考<a href="https://github.com/nuls-io/nuls-contracts/blob/master/vote/io/nuls/vote/contract/VoteContract.java#L26" target="_blank" rel="noopener noreferrer">投票合约<span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></a>代码中的<code>create</code>方法</p></blockquote> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;sender&quot;</span><span class="token operator">:</span> <span class="token string">&quot;NsdtydTVWskMc7GkZzbsq2FoChqKFwMf&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;password&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;contractAddress&quot;</span><span class="token operator">:</span> <span class="token string">&quot;NseLt14NacjTDhXaTXUdrk6VF7aEwtW4&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;gasLimit&quot;</span><span class="token operator">:</span> <span class="token number">200000</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;price&quot;</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;value&quot;</span><span class="token operator">:</span> <span class="token number">10000000000</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;methodName&quot;</span><span class="token operator">:</span> <span class="token string">&quot;create&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;methodDesc&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;remark&quot;</span><span class="token operator">:</span> <span class="token string">&quot;&quot;</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;args&quot;</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token string">&quot;测试投票1&quot;</span><span class="token punctuation">,</span>
+    <span class="token string">&quot;第一个投票合约&quot;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">[</span>
+      <span class="token string">&quot;第一个选项&quot;</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;第二个选项&quot;</span><span class="token punctuation">,</span>
+      <span class="token string">&quot;第三个选项&quot;</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token number">1536044066056</span><span class="token punctuation">,</span> <span class="token number">1536184066056</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token number">300</span><span class="token punctuation">,</span> <span class="token boolean">false</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre></div></div> <footer class="page-edit"><div class="edit-link"><a href="https://github.com/nuls-io/devsite/edit/master/docs/zh/dapp-builder/s_manual.md" target="_blank" rel="noopener noreferrer">在 GitHub 上编辑此页</a> <span><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg> <span class="sr-only">(opens new window)</span></span></div> <div class="last-updated"><span class="prefix">最后更新:</span> <span class="time">2025/9/1 09:45:12</span></div></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/zh/dapp-builder/" class="prev router-link-active">
+        🚀 DApp 开发
+      </a></span> <span class="next"><a href="/zh/dapp-builder/s_advance.html">
+        高级说明
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/assets/js/app.0bafe896.js" defer></script><script src="/assets/js/2.6c3a80b8.js" defer></script><script src="/assets/js/1.22a4e5b0.js" defer></script><script src="/assets/js/121.13efa6ca.js" defer></script>
+  </body>
+</html>
