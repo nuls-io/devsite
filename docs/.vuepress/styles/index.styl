@@ -1,0 +1,439 @@
+// 现代化文档网站样式 - NULS AI
+
+// 颜色变量 - 现代化配色
+$primary-color = #3B82F6
+$primary-dark = #1D4ED8
+$primary-light = #DBEAFE
+$secondary-color = #64748B
+$accent-color = #10B981
+$text-primary = #1E293B
+$text-secondary = #64748B
+$text-light = #94A3B8
+$bg-primary = #FFFFFF
+$bg-secondary = #F8FAFC
+$bg-tertiary = #F1F5F9
+$border-color = #E2E8F0
+$border-light = #F1F5F9
+
+// 全局样式
+body
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif
+  color: $text-primary
+  background-color: $bg-primary
+  line-height: 1.6
+  -webkit-font-smoothing: antialiased
+  -moz-osx-font-smoothing: grayscale
+
+// 现代化导航栏
+.navbar
+  background: $bg-primary
+  border-bottom: 1px solid $border-color
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  backdrop-filter: blur(10px)
+  position: sticky
+  top: 0
+  z-index: 100
+  
+  .site-name
+    color: $text-primary !important
+    font-weight: 700
+    font-size: 1.25rem
+    letter-spacing: -0.025em
+    
+  .nav-links
+    .nav-item
+      .nav-link
+        color: $text-secondary !important
+        font-weight: 500
+        font-size: 0.875rem
+        padding: 0.5rem 1rem
+        border-radius: 0.5rem
+        transition: all 0.2s ease
+        position: relative
+        
+        &:hover
+          color: $primary-color !important
+          background-color: $primary-light
+          
+        &.router-link-active
+          color: $primary-color !important
+          background-color: $primary-light
+          font-weight: 600
+
+// 现代化语言切换器
+.dropdown-wrapper
+  .dropdown-title
+    color: $text-secondary !important
+    font-weight: 500
+    font-size: 0.875rem
+    padding: 0.5rem 1rem
+    border-radius: 0.5rem
+    transition: all 0.2s ease
+    
+    &:hover
+      color: $primary-color !important
+      background-color: $primary-light
+      
+  .dropdown-menu
+    background: $bg-primary
+    border: 1px solid $border-color
+    border-radius: 0.75rem
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
+    
+    .dropdown-item
+      color: $text-secondary
+      font-weight: 500
+      padding: 0.75rem 1rem
+      transition: all 0.2s ease
+      
+      &:hover
+        background-color: $bg-secondary
+        color: $primary-color
+        
+      &.router-link-active
+        background-color: $primary-light
+        color: $primary-color
+        font-weight: 600
+
+// 现代化侧边栏
+.sidebar
+  background-color: $bg-secondary
+  border-right: 1px solid $border-color
+  
+  .sidebar-links
+    .sidebar-link
+      color: $text-secondary
+      font-weight: 500
+      font-size: 0.875rem
+      padding: 0.5rem 1rem
+      border-radius: 0.5rem
+      margin: 0.125rem 0.5rem
+      transition: all 0.2s ease
+      
+      &:hover
+        color: $primary-color
+        background-color: $primary-light
+        
+      &.active
+        color: $primary-color
+        background-color: $primary-light
+        font-weight: 600
+        
+    .sidebar-group
+      .sidebar-heading
+        color: $text-primary
+        font-weight: 600
+        font-size: 0.875rem
+        text-transform: uppercase
+        letter-spacing: 0.05em
+        padding: 1rem 1rem 0.5rem
+        margin-bottom: 0.5rem
+        border-bottom: 1px solid $border-light
+
+// 现代化主页
+.home
+  .hero
+    background: linear-gradient(135deg, $bg-secondary 0%, $bg-primary 100%)
+    padding: 4rem 2rem
+    text-align: center
+    
+    .hero-title
+      font-size: 3.5rem
+      font-weight: 800
+      color: $text-primary
+      margin-bottom: 1rem
+      letter-spacing: -0.025em
+      line-height: 1.1
+      
+    .hero-subtitle
+      font-size: 1.25rem
+      color: $text-secondary
+      margin-bottom: 2rem
+      font-weight: 400
+      
+    .action-button
+      background: $primary-color
+      color: white
+      border: none
+      padding: 0.875rem 2rem
+      border-radius: 0.75rem
+      font-weight: 600
+      font-size: 1rem
+      transition: all 0.2s ease
+      box-shadow: 0 4px 6px -1px rgba(59, 130, 246, 0.1), 0 2px 4px -1px rgba(59, 130, 246, 0.06)
+      
+      &:hover
+        background: $primary-dark
+        transform: translateY(-1px)
+        box-shadow: 0 10px 15px -3px rgba(59, 130, 246, 0.1), 0 4px 6px -2px rgba(59, 130, 246, 0.05)
+        
+  .features
+    padding: 4rem 2rem
+    background: $bg-primary
+    
+    .feature
+      background: $bg-primary
+      border: 1px solid $border-color
+      border-radius: 1rem
+      padding: 2rem
+      transition: all 0.2s ease
+      
+      &:hover
+        transform: translateY(-2px)
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)
+        
+      .feature-title
+        color: $text-primary
+        font-weight: 600
+        font-size: 1.125rem
+        margin-bottom: 0.75rem
+        
+      .feature-details
+        color: $text-secondary
+        line-height: 1.6
+
+// 现代化内容区域
+.content
+  .page
+    .page-title
+      color: $text-primary
+      font-weight: 700
+      font-size: 2.25rem
+      margin-bottom: 2rem
+      letter-spacing: -0.025em
+      
+    .page-content
+      line-height: 1.7
+      
+      h1, h2, h3, h4, h5, h6
+        color: $text-primary
+        font-weight: 600
+        margin-top: 2.5rem
+        margin-bottom: 1rem
+        letter-spacing: -0.025em
+        
+      h1
+        font-size: 2rem
+        color: $text-primary
+        
+      h2
+        font-size: 1.5rem
+        color: $text-primary
+        border-bottom: 2px solid $border-color
+        padding-bottom: 0.5rem
+        
+      h3
+        font-size: 1.25rem
+        color: $text-primary
+        
+      p
+        margin-bottom: 1.25rem
+        color: $text-secondary
+        
+      code
+        background-color: $bg-tertiary
+        color: $primary-color
+        padding: 0.125rem 0.375rem
+        border-radius: 0.375rem
+        font-size: 0.875em
+        font-weight: 500
+        
+      pre
+        background-color: $bg-tertiary
+        border: 1px solid $border-color
+        border-radius: 0.75rem
+        padding: 1.5rem
+        overflow-x: auto
+        
+        code
+          background: none
+          padding: 0
+          color: $text-primary
+          
+      blockquote
+        border-left: 4px solid $primary-color
+        background-color: $primary-light
+        padding: 1rem 1.5rem
+        margin: 1.5rem 0
+        border-radius: 0 0.5rem 0.5rem 0
+        
+        p
+          margin: 0
+          color: $text-primary
+          
+      table
+        border-collapse: collapse
+        width: 100%
+        margin: 1.5rem 0
+        border-radius: 0.5rem
+        overflow: hidden
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+        
+        th, td
+          border: 1px solid $border-color
+          padding: 0.75rem 1rem
+          text-align: left
+          
+        th
+          background-color: $bg-secondary
+          color: $text-primary
+          font-weight: 600
+          font-size: 0.875rem
+          
+        tr:nth-child(even)
+          background-color: $bg-secondary
+
+// 现代化搜索框
+.search-box
+  .search-input
+    background-color: $bg-secondary
+    border: 1px solid $border-color
+    border-radius: 0.75rem
+    color: $text-primary
+    font-weight: 500
+    padding: 0.5rem 1rem
+    transition: all 0.2s ease
+    
+    &:focus
+      background-color: $bg-primary
+      border-color: $primary-color
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1)
+
+// 现代化按钮
+.btn
+  display: inline-flex
+  align-items: center
+  background: $primary-color
+  color: white
+  padding: 0.75rem 1.5rem
+  border-radius: 0.75rem
+  text-decoration: none
+  transition: all 0.2s ease
+  font-weight: 600
+  font-size: 0.875rem
+  border: none
+  cursor: pointer
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  
+  &:hover
+    background: $primary-dark
+    color: white
+    text-decoration: none
+    transform: translateY(-1px)
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)
+
+// 现代化卡片
+.card
+  background: $bg-primary
+  border: 1px solid $border-color
+  border-radius: 1rem
+  padding: 1.5rem
+  transition: all 0.2s ease
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  
+  &:hover
+    transform: translateY(-2px)
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)
+
+// 移动端适配
+@media (max-width: 719px)
+  .navbar
+    .nav-links
+      .nav-item
+        .nav-link
+          color: $text-primary !important
+          background-color: $bg-primary
+          margin: 0.25rem 0
+          border-radius: 0.5rem
+          
+          &:hover
+            background-color: $primary-light
+            color: $primary-color !important
+            
+  .dropdown-wrapper
+    .dropdown-title
+      color: $text-primary !important
+      background-color: $bg-primary
+      
+      &:hover
+        background-color: $primary-light
+        color: $primary-color !important
+        
+  .sidebar
+    background-color: $bg-primary
+    border-right: none
+    border-bottom: 1px solid $border-color
+
+// 自定义滚动条
+::-webkit-scrollbar
+  width: 6px
+  
+::-webkit-scrollbar-track
+  background: $bg-secondary
+  
+::-webkit-scrollbar-thumb
+  background: $border-color
+  border-radius: 3px
+  
+::-webkit-scrollbar-thumb:hover
+  background: $text-light
+
+// 现代化网格布局
+.quick-start-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr))
+  gap: 1.5rem
+  margin: 2rem 0
+
+.quick-start-card
+  background: $bg-primary
+  border: 1px solid $border-color
+  border-radius: 1rem
+  padding: 2rem
+  text-align: center
+  transition: all 0.2s ease
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)
+  
+  &:hover
+    transform: translateY(-4px)
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)
+    
+  h3
+    color: $text-primary
+    font-weight: 600
+    font-size: 1.125rem
+    margin-bottom: 0.75rem
+    
+  p
+    color: $text-secondary
+    margin-bottom: 1.5rem
+    line-height: 1.6
+
+.tools-grid
+  display: grid
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr))
+  gap: 1rem
+  margin: 2rem 0
+
+.tool-card
+  background: $bg-secondary
+  border: 1px solid $border-color
+  border-radius: 0.75rem
+  padding: 1.5rem
+  text-align: center
+  transition: all 0.2s ease
+  
+  &:hover
+    background: $primary-light
+    transform: translateY(-2px)
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)
+    
+  h4
+    color: $text-primary
+    font-weight: 600
+    margin-bottom: 0.5rem
+    
+  p
+    color: $text-secondary
+    font-size: 0.875rem
+    line-height: 1.5

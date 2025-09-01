@@ -1,146 +1,194 @@
 module.exports = {
+  title: "NULS AI Documentation",
+  description: "The Global AI Consumer Layer - NULS AI Blockchain Documentation",
   base: "/",
   markdown: {
-    lineNumbers: false, // 代码块显示行号
+    lineNumbers: false,
   },
   locales: {
-    // 键名是该语言所属的子路径
-    // 作为特例，默认语言可以使用 '/' 作为其路径。
     "/": {
-      title: " ",
       lang: "en-US",
-      description: "Making It Easier To Innovate",
+      title: "Documentation",
+      description: "The Global AI Consumer Layer - NULS AI Blockchain Documentation",
     },
     "/zh/": {
-      title: " ",
       lang: "zh-CN",
-      description: "让区块链更简单",
+      title: "文档",
+      description: "全球AI消费层 - NULS AI 区块链文档",
     },
   },
-  head: [["link", { rel: "icon", href: "/favicon.ico" }]],
+  head: [
+    ["link", { rel: "icon", href: "/favicon.ico" }],
+    ["meta", { name: "theme-color", content: "#A8D5FF" }],
+  ],
   themeConfig: {
     repo: "nuls-io/devsite/",
     editLinks: true,
     docsDir: "docs",
     docsBranch: "master",
-    sidebarDepth: 2,
+    sidebarDepth: 3,
     lastUpdated: "Last Updated",
+    smoothScroll: true,
+    logo: '/logo.svg',
     locales: {
       "/": {
         selectText: "Languages",
         label: "English",
         editLinkText: "Edit this page on GitHub",
+        lastUpdated: "Last Updated",
         nav: [
-          { text: "Guide", link: "/Guide/" },
-          { text: "Develop", link: "/Docs/" },
-          { text: "ENULS", link: "/ENULS/" },
+          { text: "User Guide", link: "/user-guide/" },
+          { text: "API", link: "/chain-api/" },
+          { text: "DApp Development", link: "/dapp-builder/" },
+          { text: "Chain Builder", link: "/chain-builder/" },
+          { text: "Modules", link: "/modules/" },
         ],
         sidebar: {
-          "/Guide/": [
+          "/user-guide/": [
             {
-              title: "Guide",
+              title: "📚 User Guide",
               collapsable: false,
               children: [
                 "",
-                "g_quickstart",
-                "g_transaction",
-                "g_contribute",
-                "g_create_node",
-                "g_upgrade_node",
-                "g_deploy_public_service",
-                "g_pocm",
-                "g_governance",
-                "g_factory",
-                "g_docker",
-                "g_linux_tutorial",
-                "g_multi_sign_account",
-                "g_multiSignature_dapp_Guide",
+                {
+                  title: "🚀 Getting Started",
+                  collapsable: true,
+                  children: [
+                    "quickstart",
+                    "transaction",
+                  ]
+                },
+                {
+                  title: "⚙️ Node Management",
+                  collapsable: true,
+                  children: [
+                    "node",
+                    "upgrade",
+                    "docker",
+                    "linux-tutorial",
+                  ]
+                },
+                {
+                  title: "🏛️ Governance & Consensus",
+                  collapsable: true,
+                  children: [
+                    "pocm",
+                    "governance",
+                    "multi-sign",
+                  ]
+                },
               ],
             },
           ],
-          "/Docs/": [
+          "/chain-api/": [
             {
-              title: "Module Design",
+              title: "🔧 API Reference",
               collapsable: false,
               children: [
-                "d_network",
-                "d_ledger",
-                "d_chain_manager",
-                "d_account",
-                "d_smart_contract",
-                "d_transaction",
-                "d_cross_chain",
-                "d_consensus",
-                "d_public_service",
-                "d_block",
-                "d_protocol_update",
-                "d_address",
+                "",
+                {
+                  title: "📡 API Interfaces",
+                  collapsable: true,
+                  children: [
+                    "i_nuls-api_JSONRPC",
+                    "i_nuls-api_RESTFUL",
+                    "i_rpc_protocol",
+                  ]
+                },
               ],
             },
-            {
-              title: "Interface",
-              collapsable: false,
-              children: [
-                "i_rpc_protocol",
-                "i_public_service",
-                "i_nuls-api_JSONRPC",
-                "i_nuls-api_RESTFUL",
-                "i_account",
-                "i_chain-manager",
-                "i_cross-chain",
-                "i_network",
-                "i_block",
-                "i_transaction",
-                "i_consensus",
-                "i_smart-contract",
-                "i_ledger",
-              ],
-            },
-            {
-              title: "ChainBox",
-              collapsable: false,
-              children: ["c_chain_box", "c_module", "c_message_module"],
-            },
-            {
-              title: "Smart Contract",
-              collapsable: false,
-              children: [
-                "s_manual",
-                "s_tools",
-                "s_nrc20",
-                "s_nrc721",
-                "s_offline_assembly",
-                "s_advance",
-              ],
-            },
-            // {
-            //     title: 'SDK',
-            //     collapsable:false,
-            //     children: [
-            //     ]
-            // },
           ],
-          "/ENULS/": [
+          "/dapp-builder/": [
             {
-              title: "Introduce",
+              title: "🚀 DApp Development",
               collapsable: false,
               children: [
-                "intro/",
-                "accounts/",
-                "blocks/",
-                "transactions/",
-                "evm/",
-                "gas/",
-                "networks/",
+                "",
+                {
+                  title: "📖 Smart Contracts",
+                  collapsable: true,
+                  children: [
+                    "s_manual",
+                    "s_advance",
+                    "s_tools",
+                  ]
+                },
+                {
+                  title: "🪙 Token Standards",
+                  collapsable: true,
+                  children: [
+                    "s_nrc20",
+                    "s_nrc721",
+                  ]
+                },
               ],
             },
+          ],
+          "/chain-builder/": [
             {
-              title: "Nodes-and-clients",
+              title: "🏗️ Chain Builder",
               collapsable: false,
               children: [
-                "nodes-and-clients/quickstart/",
-                "nodes-and-clients/",
-                "nodes-and-clients/run-a-node/",
+                "",
+                {
+                  title: "🔧 ChainBox Tools",
+                  collapsable: true,
+                  children: [
+                    "c_chain_box",
+                    "c_message_module",
+                    "c_module",
+                  ]
+                },
+              ],
+            },
+          ],
+          "/modules/": [
+            {
+              title: "⚙️ Core Modules",
+              collapsable: false,
+              children: [
+                "",
+                {
+                  title: "🏗️ Design Documents",
+                  collapsable: true,
+                  children: [
+                    "d_account",
+                    "d_address",
+                    "d_block",
+                    "d_chain_manager",
+                    "d_consensus",
+                    "d_cross_chain",
+                    "d_ledger",
+                    "d_network",
+                    "d_protocol_update",
+                    "d_public_service",
+                    "d_smart_contract",
+                    "d_transaction",
+                  ]
+                },
+                {
+                  title: "📋 Implementation Guides",
+                  collapsable: true,
+                  children: [
+                    "i_account",
+                    "i_block",
+                    "i_chain-manager",
+                    "i_consensus",
+                    "i_cross-chain",
+                    "i_ledger",
+                    "i_network",
+                    "i_public_service",
+                    "i_smart-contract",
+                    "i_transaction",
+                  ]
+                },
+                {
+                  title: "🔧 System Tools",
+                  collapsable: true,
+                  children: [
+                    "s_offline_assembly",
+                  ]
+                },
               ],
             },
           ],
@@ -148,127 +196,162 @@ module.exports = {
       },
       "/zh/": {
         selectText: "选择语言",
-        // 该语言在下拉菜单中的标签
-        label: "简体中文",
-        // 编辑链接文字
+        label: "中文",
         editLinkText: "在 GitHub 上编辑此页",
-        // Service Worker 的配置
+        lastUpdated: "最后更新",
         nav: [
-          { text: "指南", link: "/zh/Guide/" },
-          { text: "开发", link: "/zh/Docs/" },
-          { text: "ENULS", link: "/zh/ENULS/" },
+          { text: "用户指南", link: "/zh/user-guide/" },
+          { text: "API接口", link: "/zh/chain-api/" },
+          { text: "DApp开发", link: "/zh/dapp-builder/" },
+          { text: "构建链", link: "/zh/chain-builder/" },
+          { text: "模块", link: "/zh/modules/" },
         ],
         sidebar: {
-          "/zh/Guide/": [
+          "/zh/user-guide/": [
             {
-              title: "指南",
+              title: "📚 用户指南",
               collapsable: false,
               children: [
                 "",
-                "g_quickstart",
-                "g_transaction",
-                "g_contribute",
-                "g_create_node",
-                "g_upgrade_node",
-                "g_deploy_public_service",
-                "g_integrate_nabox",
-                "g_assemble_transaction",
-                "g_pocm",
-                "g_governance",
-                "g_factory",
-                "g_docker",
-                "g_linux_tutorial",
-                "g_multi_sign_account",
-                "g_multiSignature_dapp_Guide",
-                "g_API",
-                "g_integrate",
+                {
+                  title: "🚀 快速开始",
+                  collapsable: true,
+                  children: [
+                    "quickstart",
+                    "transaction",
+                  ]
+                },
+                {
+                  title: "⚙️ 节点管理",
+                  collapsable: true,
+                  children: [
+                    "node",
+                    "upgrade",
+                    "docker",
+                    "linux-tutorial",
+                  ]
+                },
+                {
+                  title: "🏛️ 治理共识",
+                  collapsable: true,
+                  children: [
+                    "pocm",
+                    "governance",
+                    "multi-sign",
+                  ]
+                },
               ],
             },
           ],
-          "/zh/Docs/": [
+          "/zh/chain-api/": [
             {
-              title: "设计文档",
+              title: "🔧 API 参考",
               collapsable: false,
               children: [
-                "d_network",
-                "d_ledger",
-                "d_chain_manager",
-                "d_account",
-                "d_smart_contract",
-                "d_transaction",
-                "d_cross_chain",
-                "d_consensus",
-                "d_public_service",
-                "d_block",
-                "d_protocol_update",
-                "d_address",
+                "",
+                {
+                  title: "📡 API 接口",
+                  collapsable: true,
+                  children: [
+                    "i_nuls-api_JSONRPC",
+                    "i_nuls-api_RESTFUL",
+                    "i_rpc_protocol",
+                  ]
+                },
               ],
             },
-            {
-              title: "接口文档",
-              collapsable: false,
-              children: [
-                "i_rpc_protocol",
-                "i_public_service",
-                "i_nuls-api_JSONRPC",
-                "i_nuls-api_RESTFUL",
-                "i_account",
-                "i_chain-manager",
-                "i_cross-chain",
-                "i_network",
-                "i_block",
-                "i_transaction",
-                "i_consensus",
-                "i_smart-contract",
-                "i_ledger",
-              ],
-            },
-            {
-              title: "ChainBox",
-              collapsable: false,
-              children: ["c_chain_box", "c_module", "c_message_module"],
-            },
-            {
-              title: "智能合约",
-              collapsable: false,
-              children: [
-                "s_manual",
-                "s_tools",
-                "s_nrc20",
-                "s_nrc20_integrate",
-                "s_nrc721",
-                "s_offline_assembly",
-                "s_advance",
-              ],
-            },
-            // {
-            //     title: 'SDK',
-            //     collapsable:false,
-            //     children: [
-            //     ]
-            // },
           ],
-          "/zh/ENULS/": [
+          "/zh/dapp-builder/": [
             {
-              title: "介绍",
+              title: "🚀 DApp 开发",
               collapsable: false,
               children: [
-                "intro/",
-                "accounts/",
-                "blocks/",
-                "transactions/",
-                "evm/",
-                "gas/",
-                "networks/",
+                "",
+                {
+                  title: "📖 智能合约",
+                  collapsable: true,
+                  children: [
+                    "s_manual",
+                    "s_advance",
+                    "s_tools",
+                  ]
+                },
+                {
+                  title: "🪙 代币标准",
+                  collapsable: true,
+                  children: [
+                    "s_nrc20",
+                    "s_nrc721",
+                  ]
+                },
               ],
             },
+          ],
+          "/zh/chain-builder/": [
             {
-              title: "节点和客户端",
+              title: "🏗️ 构建链",
               collapsable: false,
               children: [
-                "nodes-and-clients/quickstart/",
-                "nodes-and-clients/",
-                "nodes-and-clients/run-a-node/",
+                "",
+                {
+                  title: "🔧 ChainBox 工具",
+                  collapsable: true,
+                  children: [
+                    "c_chain_box",
+                    "c_message_module",
+                    "c_module",
+                  ]
+                },
+              ],
+            },
+          ],
+          "/zh/modules/": [
+            {
+              title: "⚙️ 核心模块",
+              collapsable: false,
+              children: [
+                "",
+                {
+                  title: "🏗️ 设计文档",
+                  collapsable: true,
+                  children: [
+                    "d_account",
+                    "d_address",
+                    "d_block",
+                    "d_chain_manager",
+                    "d_consensus",
+                    "d_cross_chain",
+                    "d_ledger",
+                    "d_network",
+                    "d_protocol_update",
+                    "d_public_service",
+                    "d_smart_contract",
+                    "d_transaction",
+                  ]
+                },
+                {
+                  title: "📋 实现指南",
+                  collapsable: true,
+                  children: [
+                    "i_account",
+                    "i_block",
+                    "i_chain-manager",
+                    "i_consensus",
+                    "i_cross-chain",
+                    "i_ledger",
+                    "i_network",
+                    "i_public_service",
+                    "i_smart-contract",
+                    "i_transaction",
+                  ]
+                },
+                {
+                  title: "🔧 系统工具",
+                  collapsable: true,
+                  children: [
+                    "s_offline_assembly",
+                  ]
+                },
               ],
             },
           ],
@@ -276,4 +359,19 @@ module.exports = {
       },
     },
   },
+  plugins: [
+    [
+      '@vuepress/plugin-search',
+      {
+        locales: {
+          '/': {
+            placeholder: 'Search Documentation'
+          },
+          '/zh/': {
+            placeholder: '搜索文档'
+          }
+        }
+      }
+    ]
+  ]
 };
